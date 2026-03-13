@@ -243,7 +243,6 @@ let selectedAccentIdx = 0;
 
 // ================================================
 // Import string builder
-// Matches the real Codex theme v1 export format
 // ================================================
 
 function buildImportString(theme, variant, accentIdx) {
@@ -270,62 +269,54 @@ function buildImportString(theme, variant, accentIdx) {
 }
 
 // ================================================
-// Preview rendering
+// Preview rendering — Claude-style chat
 // ================================================
 
 function applyPreview(theme, variant) {
   const v = theme[variant];
   const acc = theme.accents[selectedAccentIdx] || v.accent;
-  const win = document.getElementById('codex-window');
-  const editor = document.getElementById('preview-editor');
-  const input = document.getElementById('preview-input');
-  const inputRow = document.getElementById('preview-input-row');
-  const tabBar = win.querySelector('.codex-tab-bar');
-  const titlebar = win.querySelector('.codex-titlebar');
-  const codexSidebar = win.querySelector('.codex-sidebar');
-  const activeTab = win.querySelector('.codex-tab.active');
+  const dark = isDark(v.surface);
+  const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
 
+  const win = document.getElementById('preview-window');
+  const titlebar = document.getElementById('preview-titlebar');
+  const chat = document.getElementById('preview-chat');
+  const inputBar = document.getElementById('preview-input-bar');
+  const inputInner = document.getElementById('preview-input-inner');
+  const inputText = document.getElementById('preview-input-text');
+  const sendBtn = document.getElementById('preview-send-btn');
+  const winTitle = win.querySelector('.preview-window-title');
+
+  // Window
   win.style.background = v.surface;
-  win.style.borderColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  win.style.borderColor = borderColor;
 
+  // Titlebar
   titlebar.style.background = v.sidebar;
-  titlebar.style.borderBottomColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  titlebar.style.borderBottomColor = borderColor;
+  winTitle.style.color = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
 
-  tabBar.style.background = adjustBrightness(v.sidebar, -5);
-  tabBar.style.borderBottomColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
-  if (activeTab) {
-    activeTab.style.background = v.surface;
-    activeTab.style.color = v.ink;
-  }
-  win.querySelectorAll('.codex-tab:not(.active)').forEach(t => {
-    t.style.color = isDark(v.surface) ? '#555' : '#aaa';
+  // Dots
+  win.querySelectorAll('.preview-dot').forEach(d => {
+    d.style.background = dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
   });
 
-  codexSidebar.style.background = v.sidebar;
-  codexSidebar.style.borderRightColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  // Chat area
+  chat.style.background = v.surface;
 
-  const activeSidebarItem = codexSidebar.querySelector('.codex-sidebar-item.active');
-  if (activeSidebarItem) {
-    activeSidebarItem.style.color = acc;
-    activeSidebarItem.style.background = acc + '18';
-  }
-  codexSidebar.querySelectorAll('.codex-sidebar-item:not(.active)').forEach(el => {
-    el.style.color = isDark(v.surface) ? '#555' : '#aaa';
-  });
+  // Input bar
+  inputBar.style.background = v.sidebar;
+  inputBar.style.borderTopColor = borderColor;
+  inputInner.style.background = v.codeBg;
+  inputInner.style.border = `1px solid ${borderColor}`;
+  inputText.style.color = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
+  sendBtn.style.background = acc;
+  sendBtn.querySelector('svg').style.color = '#fff';
 
-  editor.style.background = v.surface;
-  editor.style.color = v.ink;
-
-  input.style.background = v.codeBg;
-  input.style.color = isDark(v.surface) ? '#444' : '#bbb';
-  input.style.border = `1px solid ${isDark(v.surface) ? '#2a2a2a' : '#d0d0d0'}`;
-
-  inputRow.style.background = v.sidebar;
-  inputRow.style.borderTopColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
-  inputRow.querySelector('svg').style.color = isDark(v.surface) ? '#444' : '#bbb';
-
+  // Label
   document.getElementById('preview-label').textContent = theme.name;
 
+  // Chat content
   renderPreviewContent(v, acc);
 }
 
@@ -336,35 +327,26 @@ function isDark(hex) {
   return (r * 299 + g * 587 + b * 114) / 1000 < 128;
 }
 
-function adjustBrightness(hex, amount) {
-  const r = Math.min(255, Math.max(0, parseInt(hex.slice(1, 3), 16) + amount));
-  const g = Math.min(255, Math.max(0, parseInt(hex.slice(3, 5), 16) + amount));
-  const b = Math.min(255, Math.max(0, parseInt(hex.slice(5, 7), 16) + amount));
-  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
-}
-
 function renderPreviewContent(v, acc) {
-  const borderColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
-  const c = document.getElementById('preview-content');
+  const dark = isDark(v.surface);
+  const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
+  const c = document.getElementById('preview-chat');
 
   c.innerHTML = `
-    <div class="user-bubble" style="
-      background:${acc}20;
-      border:1px solid ${acc}38;
-      color:${v.ink};
+    <div class="user-msg" style="
+      background: ${acc}22;
+      color: ${v.ink};
     ">Add authentication middleware to the Express router</div>
 
-    <div class="assistant-bubble" style="
-      background:${v.sidebar};
-      border:1px solid ${borderColor};
-      color:${v.ink};
-    ">
-      Sure — here's a JWT middleware you can mount before your routes:
+    <div class="assistant-msg" style="color: ${v.ink};">
+      <p>Sure — here's a JWT middleware you can mount before your routes:</p>
       <div class="code-block" style="
-        background:${v.codeBg};
-        border:1px solid ${borderColor};
+        background: ${v.codeBg};
+        border: 1px solid ${borderColor};
+        color: ${v.ink};
       ">
-        <span style="color:${isDark(v.surface) ? '#555' : '#bbb'}">// middleware/auth.ts</span><br>
+        <span style="color:${mutedColor}">// middleware/auth.ts</span><br>
         <span style="color:${acc}">import</span> jwt <span style="color:${acc}">from</span> <span style="color:${v.diffAdded}">'jsonwebtoken'</span>;<br>
         <br>
         <span style="color:${acc}">export const</span> <span style="color:${v.skill}">requireAuth</span> = (<br>
@@ -381,10 +363,9 @@ function renderPreviewContent(v, acc) {
       </div>
     </div>
 
-    <div class="user-bubble" style="
-      background:${acc}20;
-      border:1px solid ${acc}38;
-      color:${v.ink};
+    <div class="user-msg" style="
+      background: ${acc}22;
+      color: ${v.ink};
     ">Now write a test for it using Vitest</div>
   `;
 }
@@ -395,8 +376,8 @@ function renderPreviewContent(v, acc) {
 
 function renderThreadList() {
   const el = document.getElementById('thread-list');
-  el.innerHTML = THEMES.slice(0, 6).map((t, i) => `
-    <div class="thread-item${i === 0 ? ' active' : ''}" data-theme-id="${t.id}" onclick="selectThemeById('${t.id}')">
+  el.innerHTML = THEMES.map((t, i) => `
+    <div class="thread-item${t.id === selectedTheme.id ? ' active' : ''}" data-theme-id="${t.id}" onclick="selectThemeById('${t.id}')">
       <div class="thread-title">${t.name}</div>
       <div class="thread-subtitle">${t.type === 'builtin' ? 'Built-in' : 'Community'}</div>
     </div>
@@ -422,29 +403,13 @@ function renderThemeList() {
     return matchesTab && matchesSearch;
   });
 
-  const builtins = filtered.filter(t => t.type === 'builtin');
-  const community = filtered.filter(t => t.type !== 'builtin');
-
-  let html = '';
-
-  if (builtins.length && (activeFilter === 'all' || activeFilter === 'builtin')) {
-    html += `<div class="section-divider">Built-in</div>`;
-    html += builtins.map(t => themeItemHTML(t)).join('');
-  }
-
-  if (community.length) {
-    if (activeFilter === 'all') {
-      html += `<div class="section-divider">Community</div>`;
-    }
-    html += community.map(t => themeItemHTML(t)).join('');
-  }
+  let html = filtered.map(t => themeItemHTML(t)).join('');
 
   if (!filtered.length) {
-    html = `<div style="padding:20px 12px;font-size:11px;color:var(--text-muted);text-align:center">No themes match</div>`;
+    html = `<div style="padding:24px 16px;font-size:13px;color:var(--text-muted);text-align:center">No themes match</div>`;
   }
 
   el.innerHTML = html;
-
   document.getElementById('theme-count').textContent = `${filtered.length} theme${filtered.length !== 1 ? 's' : ''}`;
 
   el.querySelectorAll('.theme-item').forEach(item => {
@@ -507,13 +472,6 @@ function selectThemeById(id) {
   renderAccentDots();
   renderThemeList();
   renderThreadList();
-  updateThreadActive();
-}
-
-function updateThreadActive() {
-  document.querySelectorAll('.thread-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.themeId === selectedTheme.id);
-  });
 }
 
 function selectAccent(idx) {
@@ -555,7 +513,7 @@ function copyTheme() {
 
   const reset = () => {
     btn.innerHTML = `
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="9" y="9" width="13" height="13" rx="2"/>
         <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
       </svg>

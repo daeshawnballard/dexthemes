@@ -9,88 +9,74 @@
 <body>
 <div class="shell" id="app">
 
-  <!-- Titlebar -->
-  <div class="titlebar">
-    <div class="titlebar-dots">
-      <div class="dot dot-r"></div>
-      <div class="dot dot-y"></div>
-      <div class="dot dot-g"></div>
-    </div>
-    <div class="titlebar-title">dexthemes — themes for Codex</div>
-    <a href="https://github.com/daeshawnballard/dexthemes" target="_blank" class="titlebar-link">GitHub</a>
-  </div>
+  <!-- GitHub link -->
+  <a href="https://github.com/daeshawnballard/dexthemes" target="_blank" class="github-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    GitHub
+  </a>
 
   <!-- Left Sidebar -->
   <div class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-label">Workspace</div>
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">D</div>
+        <div>
+          <div class="sidebar-brand-name">DexThemes</div>
+          <div class="sidebar-brand-sub">themes for Codex</div>
+        </div>
+      </div>
+      <button class="new-chat-btn" onclick="window.open('https://github.com/daeshawnballard/dexthemes/issues/new','_blank')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Submit a theme
+      </button>
+    </div>
+
+    <div class="sidebar-nav">
       <div class="sidebar-item active">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Theme Browser
       </div>
       <div class="sidebar-item">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="8" r="3"/></svg>
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         Appearance
       </div>
     </div>
-    <div class="sidebar-label" style="padding-top:12px">Recent</div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Recent</div>
     <div class="thread-list" id="thread-list"></div>
+
     <div class="sidebar-footer">
-      <div class="sidebar-label">About</div>
-      <div class="sidebar-meta">Community-built themes for Codex. Not affiliated with OpenAI.</div>
+      <div class="sidebar-meta">Community-built themes for Codex.<br>Not affiliated with OpenAI.</div>
       <a href="https://github.com/daeshawnballard/dexthemes/issues/new" target="_blank" class="submit-link">+ Submit a theme</a>
     </div>
   </div>
 
   <!-- Main Preview -->
   <div class="main">
-    <div class="main-toolbar">
-      <span class="toolbar-label">Preview — <span id="preview-label">Codex Default</span></span>
-      <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
-        <span class="toolbar-hint">Import as:</span>
+    <div class="main-header">
+      <div class="main-title">Preview <span>— <span id="preview-label">Codex Default</span></span></div>
+      <div class="variant-toggle">
         <div id="variant-dark-btn" class="variant-btn active" onclick="setVariant('dark')">Dark</div>
         <div id="variant-light-btn" class="variant-btn" onclick="setVariant('light')">Light</div>
       </div>
     </div>
     <div class="preview-area">
-      <div class="codex-window" id="codex-window">
-        <div class="codex-titlebar">
-          <div class="codex-dots">
-            <div class="codex-dot"></div>
-            <div class="codex-dot"></div>
-            <div class="codex-dot"></div>
+      <div class="preview-window" id="preview-window">
+        <div class="preview-titlebar" id="preview-titlebar">
+          <div class="preview-dots">
+            <div class="preview-dot"></div>
+            <div class="preview-dot"></div>
+            <div class="preview-dot"></div>
           </div>
-          <span class="codex-window-title">Codex</span>
+          <span class="preview-window-title">Codex</span>
         </div>
-        <div class="codex-tab-bar">
-          <div class="codex-tab active">main.ts</div>
-          <div class="codex-tab">utils.ts</div>
-          <div class="codex-tab">README.md</div>
-        </div>
-        <div class="codex-body">
-          <div class="codex-sidebar">
-            <div class="codex-sidebar-section-label">EXPLORER</div>
-            <div class="codex-sidebar-item">
-              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 3h-5L7 1.5H2.5A1.5 1.5 0 001 3v10A1.5 1.5 0 002.5 14.5h11A1.5 1.5 0 0015 13V4.5A1.5 1.5 0 0013.5 3z"/></svg>
-              src
-            </div>
-            <div class="codex-sidebar-item active" style="padding-left:20px">main.ts</div>
-            <div class="codex-sidebar-item" style="padding-left:20px">utils.ts</div>
-            <div class="codex-sidebar-item" style="padding-left:20px">types.ts</div>
-            <div class="codex-sidebar-item">
-              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 3h-5L7 1.5H2.5A1.5 1.5 0 001 3v10A1.5 1.5 0 002.5 14.5h11A1.5 1.5 0 0015 13V4.5A1.5 1.5 0 0013.5 3z"/></svg>
-              tests
-            </div>
-            <div class="codex-sidebar-item">package.json</div>
-            <div class="codex-sidebar-item">tsconfig.json</div>
-          </div>
-          <div class="codex-editor-col">
-            <div class="codex-editor" id="preview-editor">
-              <div class="codex-prompt" id="preview-content"></div>
-            </div>
-            <div class="codex-input-row" id="preview-input-row">
-              <div class="codex-input-fake" id="preview-input">Ask anything...</div>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        <div class="preview-chat" id="preview-chat"></div>
+        <div class="preview-input-bar" id="preview-input-bar">
+          <div class="preview-input-inner" id="preview-input-inner">
+            <div class="preview-input-text" id="preview-input-text">Ask anything...</div>
+            <div class="preview-send-btn" id="preview-send-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
             </div>
           </div>
         </div>
@@ -101,8 +87,8 @@
   <!-- Right Panel -->
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">Themes</span>
-      <span class="panel-count" id="theme-count">8 themes</span>
+      <div class="panel-title">Themes</div>
+      <div class="panel-count" id="theme-count">8 themes</div>
     </div>
     <div class="panel-tabs">
       <div class="panel-tab active" data-filter="all" onclick="filterTab('all',this)">All</div>
@@ -118,12 +104,12 @@
         <span class="detail-label">Accent color</span>
       </div>
       <div class="accent-dots" id="accent-dots"></div>
-      <div class="detail-row" style="margin-top:10px">
+      <div class="detail-row" style="margin-top:4px">
         <span class="detail-label">Import string</span>
         <span class="detail-hint" id="variant-hint">dark variant</span>
       </div>
       <button class="copy-btn" id="copy-btn" onclick="copyTheme()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         Copy import string
       </button>
       <div class="import-hint">Open Codex → Settings → Appearance → Import theme</div>
