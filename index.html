@@ -31,35 +31,20 @@
       </button>
     </div>
 
-    <div class="sidebar-nav">
-      <div class="sidebar-item active">
-        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Theme Browser
-      </div>
-      <div class="sidebar-item">
-        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        Appearance
-      </div>
-    </div>
-
     <div class="sidebar-divider"></div>
-    <div class="sidebar-label">Recent</div>
-    <div class="thread-list" id="thread-list"></div>
+
+    <!-- Category / Thread list -->
+    <div class="category-list" id="category-list"></div>
 
     <div class="sidebar-footer">
       <div class="sidebar-meta">Community-built themes for Codex.<br>Not affiliated with OpenAI.</div>
-      <a href="https://github.com/daeshawnballard/dexthemes/issues/new" target="_blank" class="submit-link">+ Submit a theme</a>
     </div>
   </div>
 
   <!-- Main Preview -->
   <div class="main">
     <div class="main-header">
-      <div class="main-title">Preview <span>— <span id="preview-label">Codex Default</span></span></div>
-      <div class="variant-toggle">
-        <div id="variant-dark-btn" class="variant-btn active" onclick="setVariant('dark')">Dark</div>
-        <div id="variant-light-btn" class="variant-btn" onclick="setVariant('light')">Light</div>
-      </div>
+      <div class="main-title" id="preview-theme-name">Codex Default</div>
     </div>
     <div class="preview-area">
       <div class="preview-window" id="preview-window">
@@ -84,27 +69,37 @@
     </div>
   </div>
 
-  <!-- Right Panel -->
+  <!-- Right Panel — Light/Dark Previews + Copy -->
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">Themes</div>
-      <div class="panel-count" id="theme-count">8 themes</div>
+      <div class="panel-title">Variants</div>
     </div>
-    <div class="panel-tabs">
-      <div class="panel-tab active" data-filter="all" onclick="filterTab('all',this)">All</div>
-      <div class="panel-tab" data-filter="builtin" onclick="filterTab('builtin',this)">Built-in</div>
-      <div class="panel-tab" data-filter="community" onclick="filterTab('community',this)">Community</div>
+
+    <!-- Dark preview card -->
+    <div class="variant-card selected" id="card-dark" onclick="selectVariant('dark')">
+      <div class="variant-card-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        Dark
+      </div>
+      <div class="mini-preview" id="mini-dark"></div>
     </div>
-    <div class="panel-search">
-      <input type="text" placeholder="Search themes..." id="search-input" oninput="filterThemes()">
+
+    <!-- Light preview card -->
+    <div class="variant-card" id="card-light" onclick="selectVariant('light')">
+      <div class="variant-card-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        Light
+      </div>
+      <div class="mini-preview" id="mini-light"></div>
     </div>
-    <div class="theme-list" id="theme-list"></div>
-    <div class="theme-detail">
+
+    <!-- Accent + Copy -->
+    <div class="panel-actions">
       <div class="detail-row">
         <span class="detail-label">Accent color</span>
       </div>
       <div class="accent-dots" id="accent-dots"></div>
-      <div class="detail-row" style="margin-top:4px">
+      <div class="detail-row">
         <span class="detail-label">Import string</span>
         <span class="detail-hint" id="variant-hint">dark variant</span>
       </div>
