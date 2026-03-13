@@ -1,672 +1,597 @@
-const baseTheme = {
-  fonts: { code: null, ui: null },
-  opaqueWindows: true,
-};
+// ================================================
+// DexThemes — app.js
+// Theme data, preview rendering, and UI logic
+// ================================================
 
-const themes = [
+const THEMES = [
   {
-    id: "codex-default",
-    name: "Codex / Default",
-    category: "Built-ins",
-    source: "Codex",
-    tags: ["Built-in", "Default"],
-    summary:
-      "Matches the shipped Codex baseline closely, with the dark variant taken from a real export and the light side aligned to the current appearance panel values.",
-    light: {
-      accent: "#0285FF",
-      contrast: 45,
-      ink: "#0D0D0D",
-      semanticColors: {
-        diffAdded: "#00A240",
-        diffRemoved: "#E02E2A",
-        skill: "#B06DFF",
-      },
-      surface: "#FFFFFF",
-    },
+    id: 'codex-default',
+    name: 'Codex Default',
+    type: 'builtin',
     dark: {
-      accent: "#0169CC",
+      surface: '#111111',
+      ink: '#fcfcfc',
+      accent: '#0169cc',
       contrast: 60,
-      ink: "#FCFCFC",
-      semanticColors: {
-        diffAdded: "#00A240",
-        diffRemoved: "#E02E2A",
-        skill: "#B06DFF",
-      },
-      surface: "#111111",
+      diffAdded: '#00a240',
+      diffRemoved: '#e02e2a',
+      skill: '#b06dff',
+      sidebar: '#151515',
+      codeBg: '#0a0a0a'
     },
+    light: {
+      surface: '#f8f8f8',
+      ink: '#1a1a1a',
+      accent: '#0169cc',
+      contrast: 60,
+      diffAdded: '#008c38',
+      diffRemoved: '#c0241f',
+      skill: '#9550e8',
+      sidebar: '#f0f0f0',
+      codeBg: '#eaeaea'
+    },
+    accents: ['#0169cc', '#0a84ff', '#30b0c7']
   },
   {
-    id: "ichigo-bankai",
-    name: "Ichigo / Bankai",
-    category: "Anime",
-    source: "DexThemes",
-    tags: ["Inspired", "Anime"],
-    summary:
-      "High-contrast orange, ash-black surfaces, and a stripped-down silhouette pulled from Bankai energy.",
-    light: {
-      accent: "#F97316",
-      contrast: 46,
-      ink: "#121212",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#F59E0B",
-      },
-      surface: "#FFF7F2",
-    },
+    id: 'midnight-purple',
+    name: 'Midnight Purple',
+    type: 'community',
     dark: {
-      accent: "#FF7A1A",
-      contrast: 64,
-      ink: "#FFF4EC",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#EF4444",
-        skill: "#F59E0B",
-      },
-      surface: "#121111",
-    },
-  },
-  {
-    id: "naruto-hidden-leaf",
-    name: "Naruto / Hidden Leaf Ember",
-    category: "Anime",
-    source: "DexThemes",
-    tags: ["Inspired", "Anime"],
-    summary:
-      "Warm amber and charcoal with a ramen-shop glow instead of a generic neon-orange anime palette.",
-    light: {
-      accent: "#F59E0B",
-      contrast: 48,
-      ink: "#1A1A1A",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#EA580C",
-      },
-      surface: "#FFF8ED",
-    },
-    dark: {
-      accent: "#FF9F1C",
-      contrast: 66,
-      ink: "#F7F3EA",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#F97316",
-        skill: "#F59E0B",
-      },
-      surface: "#101418",
-    },
-  },
-  {
-    id: "luffy-grand-line",
-    name: "Luffy / Grand Line",
-    category: "Anime",
-    source: "DexThemes",
-    tags: ["Inspired", "Anime"],
-    summary:
-      "Straw-hat tan, sea-night navy, and a bright red accent tuned to stay playful rather than aggressive.",
-    light: {
-      accent: "#DC2626",
-      contrast: 44,
-      ink: "#152033",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#2563EB",
-      },
-      surface: "#FFF8E7",
-    },
-    dark: {
-      accent: "#F87171",
-      contrast: 62,
-      ink: "#F8F1DC",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#EF4444",
-        skill: "#60A5FA",
-      },
-      surface: "#0F172A",
-    },
-  },
-  {
-    id: "apple-precision",
-    name: "Apple / Precision Glass",
-    category: "Brands",
-    source: "DexThemes",
-    tags: ["Inspired", "Brand"],
-    summary:
-      "Clean aluminum neutrals, reserved blue accents, and a softer foreground contrast for a premium utility feel.",
-    light: {
-      accent: "#2563EB",
-      contrast: 38,
-      ink: "#111827",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#3B82F6",
-      },
-      surface: "#F5F7FA",
-    },
-    dark: {
-      accent: "#5AA3FF",
-      contrast: 58,
-      ink: "#F9FAFB",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#EF4444",
-        skill: "#60A5FA",
-      },
-      surface: "#14171C",
-    },
-  },
-  {
-    id: "nintendo-switch",
-    name: "Nintendo / Switch Split",
-    category: "Games",
-    source: "DexThemes",
-    tags: ["Inspired", "Game"],
-    summary:
-      "A split red-and-cyan look that stays sharp without making the interface feel like toy plastic.",
-    light: {
-      accent: "#E11D48",
-      contrast: 50,
-      ink: "#141414",
-      semanticColors: {
-        diffAdded: "#14B8A6",
-        diffRemoved: "#E11D48",
-        skill: "#06B6D4",
-      },
-      surface: "#FFF4F5",
-    },
-    dark: {
-      accent: "#22D3EE",
-      contrast: 68,
-      ink: "#F8FAFC",
-      semanticColors: {
-        diffAdded: "#14B8A6",
-        diffRemoved: "#FB7185",
-        skill: "#22D3EE",
-      },
-      surface: "#11131A",
-    },
-  },
-  {
-    id: "github-midnight",
-    name: "GitHub / Midnight Merge",
-    category: "Editors",
-    source: "DexThemes",
-    tags: ["Inspired", "Editor"],
-    summary:
-      "A merge-heavy dark scheme with punchier diff colors and less washed-out chrome than standard dev themes.",
-    light: {
-      accent: "#0969DA",
-      contrast: 42,
-      ink: "#0F172A",
-      semanticColors: {
-        diffAdded: "#1A7F37",
-        diffRemoved: "#CF222E",
-        skill: "#8250DF",
-      },
-      surface: "#F8FAFC",
-    },
-    dark: {
-      accent: "#2F81F7",
-      contrast: 63,
-      ink: "#F0F6FC",
-      semanticColors: {
-        diffAdded: "#3FB950",
-        diffRemoved: "#F85149",
-        skill: "#A371F7",
-      },
-      surface: "#0D1117",
-    },
-  },
-  {
-    id: "spotify-wave",
-    name: "Spotify / Night Wave",
-    category: "Brands",
-    source: "DexThemes",
-    tags: ["Inspired", "Brand"],
-    summary:
-      "A music-first palette with acid green highlights and a darker graphite floor that keeps code readable.",
-    light: {
-      accent: "#1DB954",
-      contrast: 45,
-      ink: "#122117",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#10B981",
-      },
-      surface: "#F2FFF7",
-    },
-    dark: {
-      accent: "#1ED760",
+      surface: '#0e0e14',
+      ink: '#e8e6ff',
+      accent: '#7c3aed',
       contrast: 65,
-      ink: "#F7FDF9",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#F87171",
-        skill: "#34D399",
-      },
-      surface: "#121614",
+      diffAdded: '#10b981',
+      diffRemoved: '#ef4444',
+      skill: '#f59e0b',
+      sidebar: '#13131a',
+      codeBg: '#08080e'
     },
+    light: {
+      surface: '#faf9ff',
+      ink: '#1e1a3c',
+      accent: '#7c3aed',
+      contrast: 65,
+      diffAdded: '#059669',
+      diffRemoved: '#dc2626',
+      skill: '#d97706',
+      sidebar: '#f3f0ff',
+      codeBg: '#ede8ff'
+    },
+    accents: ['#7c3aed', '#8b5cf6', '#a78bfa']
   },
   {
-    id: "shonen-sunset",
-    name: "Shonen Sunset",
-    category: "Originals",
-    source: "DexThemes",
-    tags: ["Original", "Anime"],
-    summary:
-      "A blended orange-red original tuned for Codex specifically, sitting between anime heat and terminal polish.",
-    light: {
-      accent: "#EA580C",
-      contrast: 47,
-      ink: "#161616",
-      semanticColors: {
-        diffAdded: "#16A34A",
-        diffRemoved: "#DC2626",
-        skill: "#7C3AED",
-      },
-      surface: "#FFF7E8",
-    },
+    id: 'forest',
+    name: 'Forest',
+    type: 'community',
+    inspired: 'Nature',
     dark: {
-      accent: "#FB923C",
-      contrast: 67,
-      ink: "#FFF7ED",
-      semanticColors: {
-        diffAdded: "#22C55E",
-        diffRemoved: "#EF4444",
-        skill: "#A855F7",
-      },
-      surface: "#111827",
+      surface: '#0d1210',
+      ink: '#d4ead6',
+      accent: '#22c55e',
+      contrast: 58,
+      diffAdded: '#4ade80',
+      diffRemoved: '#f87171',
+      skill: '#fbbf24',
+      sidebar: '#111a13',
+      codeBg: '#080d09'
     },
+    light: {
+      surface: '#f7fdf8',
+      ink: '#1a2e1c',
+      accent: '#16a34a',
+      contrast: 58,
+      diffAdded: '#15803d',
+      diffRemoved: '#dc2626',
+      skill: '#d97706',
+      sidebar: '#ecfdf5',
+      codeBg: '#dcfce7'
+    },
+    accents: ['#22c55e', '#16a34a', '#84cc16']
   },
+  {
+    id: 'rose-dawn',
+    name: 'Rose Dawn',
+    type: 'community',
+    dark: {
+      surface: '#110d0e',
+      ink: '#fde8ec',
+      accent: '#e11d48',
+      contrast: 62,
+      diffAdded: '#10b981',
+      diffRemoved: '#f43f5e',
+      skill: '#f59e0b',
+      sidebar: '#180e11',
+      codeBg: '#0a0608'
+    },
+    light: {
+      surface: '#fff1f3',
+      ink: '#1f0c10',
+      accent: '#e11d48',
+      contrast: 62,
+      diffAdded: '#059669',
+      diffRemoved: '#e11d48',
+      skill: '#d97706',
+      sidebar: '#ffe4e8',
+      codeBg: '#fecdd3'
+    },
+    accents: ['#e11d48', '#f43f5e', '#fb7185']
+  },
+  {
+    id: 'ocean',
+    name: 'Ocean',
+    type: 'community',
+    dark: {
+      surface: '#0b0f14',
+      ink: '#d6eeff',
+      accent: '#0ea5e9',
+      contrast: 60,
+      diffAdded: '#34d399',
+      diffRemoved: '#f87171',
+      skill: '#818cf8',
+      sidebar: '#0e1520',
+      codeBg: '#07090f'
+    },
+    light: {
+      surface: '#f0f9ff',
+      ink: '#0c1a2e',
+      accent: '#0369a1',
+      contrast: 60,
+      diffAdded: '#059669',
+      diffRemoved: '#dc2626',
+      skill: '#4f46e5',
+      sidebar: '#e0f2fe',
+      codeBg: '#bae6fd'
+    },
+    accents: ['#0ea5e9', '#0369a1', '#38bdf8']
+  },
+  {
+    id: 'amber-night',
+    name: 'Amber Night',
+    type: 'community',
+    dark: {
+      surface: '#100e08',
+      ink: '#fef3c7',
+      accent: '#f59e0b',
+      contrast: 63,
+      diffAdded: '#34d399',
+      diffRemoved: '#f87171',
+      skill: '#a78bfa',
+      sidebar: '#16120a',
+      codeBg: '#0a0905'
+    },
+    light: {
+      surface: '#fffbeb',
+      ink: '#1c1507',
+      accent: '#d97706',
+      contrast: 63,
+      diffAdded: '#059669',
+      diffRemoved: '#dc2626',
+      skill: '#7c3aed',
+      sidebar: '#fef9c3',
+      codeBg: '#fde68a'
+    },
+    accents: ['#f59e0b', '#d97706', '#fbbf24']
+  },
+  {
+    id: 'nord',
+    name: 'Nord',
+    type: 'community',
+    inspired: 'Nord palette',
+    dark: {
+      surface: '#2e3440',
+      ink: '#eceff4',
+      accent: '#88c0d0',
+      contrast: 55,
+      diffAdded: '#a3be8c',
+      diffRemoved: '#bf616a',
+      skill: '#b48ead',
+      sidebar: '#272e3b',
+      codeBg: '#242933'
+    },
+    light: {
+      surface: '#eceff4',
+      ink: '#2e3440',
+      accent: '#5e81ac',
+      contrast: 55,
+      diffAdded: '#a3be8c',
+      diffRemoved: '#bf616a',
+      skill: '#b48ead',
+      sidebar: '#e5e9f0',
+      codeBg: '#d8dee9'
+    },
+    accents: ['#88c0d0', '#5e81ac', '#81a1c1']
+  },
+  {
+    id: 'monochrome',
+    name: 'Monochrome',
+    type: 'community',
+    dark: {
+      surface: '#111111',
+      ink: '#d4d4d4',
+      accent: '#888888',
+      contrast: 50,
+      diffAdded: '#a3a3a3',
+      diffRemoved: '#666666',
+      skill: '#c0c0c0',
+      sidebar: '#161616',
+      codeBg: '#0a0a0a'
+    },
+    light: {
+      surface: '#fafafa',
+      ink: '#1a1a1a',
+      accent: '#444444',
+      contrast: 50,
+      diffAdded: '#555555',
+      diffRemoved: '#999999',
+      skill: '#777777',
+      sidebar: '#f0f0f0',
+      codeBg: '#e0e0e0'
+    },
+    accents: ['#888888', '#aaaaaa', '#555555']
+  }
 ];
 
-const state = {
-  activeCategory: "All",
-  activeSource: "All",
-  query: "",
-  selectedId: themes[0].id,
-};
+// ================================================
+// State
+// ================================================
 
-const categoryFilter = document.querySelector("#category-filter");
-const sourceFilter = document.querySelector("#source-filter");
-const themeGrid = document.querySelector("#theme-grid");
-const searchInput = document.querySelector("#search-input");
-const copyLightButton = document.querySelector("#copy-light");
-const copyDarkButton = document.querySelector("#copy-dark");
+let selectedTheme = THEMES[0];
+let selectedVariant = 'dark';
+let activeFilter = 'all';
+let selectedAccentIdx = 0;
 
-const selectedName = document.querySelector("#selected-name");
-const selectedCategory = document.querySelector("#selected-category");
-const selectedSource = document.querySelector("#selected-source");
-const selectedSummary = document.querySelector("#selected-summary");
-const lightPreview = document.querySelector("#light-preview");
-const darkPreview = document.querySelector("#dark-preview");
-const lightString = document.querySelector("#light-string");
-const darkString = document.querySelector("#dark-string");
+// ================================================
+// Import string builder
+// Matches the real Codex theme v1 export format
+// ================================================
 
-function themeVariantToShareString(theme, variant) {
-  return `codex-theme-v1:${JSON.stringify({
-    codeThemeId: "codex",
+function buildImportString(theme, variant, accentIdx) {
+  const v = theme[variant];
+  const acc = theme.accents[accentIdx] || v.accent;
+  const payload = {
+    codeThemeId: 'codex',
     theme: {
-      ...baseTheme,
-      ...theme,
+      accent: acc,
+      contrast: v.contrast,
+      fonts: { code: null, ui: null },
+      ink: v.ink,
+      opaqueWindows: true,
+      semanticColors: {
+        diffAdded: v.diffAdded,
+        diffRemoved: v.diffRemoved,
+        skill: v.skill
+      },
+      surface: v.surface
     },
-    variant,
-  })}`;
+    variant: variant
+  };
+  return `codex-theme-v1:${JSON.stringify(payload)}`;
 }
 
-function getCategories() {
-  return ["All", ...new Set(themes.map((theme) => theme.category))];
-}
+// ================================================
+// Preview rendering
+// ================================================
 
-function getSources() {
-  return ["All", ...new Set(themes.map((theme) => theme.source))];
-}
+function applyPreview(theme, variant) {
+  const v = theme[variant];
+  const acc = theme.accents[selectedAccentIdx] || v.accent;
+  const win = document.getElementById('codex-window');
+  const editor = document.getElementById('preview-editor');
+  const input = document.getElementById('preview-input');
+  const inputRow = document.getElementById('preview-input-row');
+  const tabBar = win.querySelector('.codex-tab-bar');
+  const titlebar = win.querySelector('.codex-titlebar');
+  const codexSidebar = win.querySelector('.codex-sidebar');
+  const activeTab = win.querySelector('.codex-tab.active');
 
-function getVisibleThemes() {
-  const query = state.query.trim().toLowerCase();
+  win.style.background = v.surface;
+  win.style.borderColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
 
-  return themes.filter((theme) => {
-    const matchesCategory =
-      state.activeCategory === "All" || theme.category === state.activeCategory;
+  titlebar.style.background = v.sidebar;
+  titlebar.style.borderBottomColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
 
-    const matchesSource =
-      state.activeSource === "All" || theme.source === state.activeSource;
-
-    const matchesQuery =
-      !query ||
-      theme.name.toLowerCase().includes(query) ||
-      theme.category.toLowerCase().includes(query) ||
-      theme.source.toLowerCase().includes(query) ||
-      theme.summary.toLowerCase().includes(query) ||
-      theme.tags.some((tag) => tag.toLowerCase().includes(query));
-
-    return matchesCategory && matchesSource && matchesQuery;
-  });
-}
-
-function renderFilterRow(container, values, activeValue, onSelect) {
-  container.replaceChildren();
-
-  for (const value of values) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `chip${value === activeValue ? " is-active" : ""}`;
-    button.textContent = value;
-    button.addEventListener("click", () => onSelect(value));
-    container.append(button);
+  tabBar.style.background = adjustBrightness(v.sidebar, -5);
+  tabBar.style.borderBottomColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  if (activeTab) {
+    activeTab.style.background = v.surface;
+    activeTab.style.color = v.ink;
   }
-}
-
-function renderCategoryFilter() {
-  renderFilterRow(categoryFilter, getCategories(), state.activeCategory, (value) => {
-    state.activeCategory = value;
-    render();
-  });
-}
-
-function renderSourceFilter() {
-  renderFilterRow(sourceFilter, getSources(), state.activeSource, (value) => {
-    state.activeSource = value;
-    render();
-  });
-}
-
-function createSwatch(color) {
-  const swatch = document.createElement("span");
-  swatch.className = "swatch";
-  swatch.style.background = color;
-  return swatch;
-}
-
-function createTag(tagText) {
-  const tag = document.createElement("span");
-  tag.className = "tag";
-  tag.textContent = tagText;
-  return tag;
-}
-
-function buildCodexWindow(theme, variantLabel, compact = false) {
-  const windowEl = document.createElement("div");
-  windowEl.className = "codex-window";
-  windowEl.style.background = theme.surface;
-  windowEl.style.color = theme.ink;
-
-  const topbar = document.createElement("div");
-  topbar.className = "codex-window-topbar";
-  topbar.style.background = `${theme.ink}08`;
-
-  const traffic = document.createElement("div");
-  traffic.className = "codex-traffic";
-
-  for (let index = 0; index < 3; index += 1) {
-    const dot = document.createElement("span");
-    traffic.append(dot);
-  }
-
-  const titlebar = document.createElement("div");
-  titlebar.className = "codex-titlebar";
-  titlebar.textContent = "Codex";
-
-  const badge = document.createElement("span");
-  badge.className = "codex-titlebar-badge";
-  badge.textContent = variantLabel;
-  badge.style.color = theme.accent;
-  titlebar.append(badge);
-
-  topbar.append(traffic, titlebar);
-
-  const body = document.createElement("div");
-  body.className = "codex-window-body";
-
-  const sidebar = document.createElement("aside");
-  sidebar.className = "codex-sidebar";
-  sidebar.style.background = `${theme.ink}08`;
-
-  const sidebarLabel = document.createElement("div");
-  sidebarLabel.className = "codex-sidebar-label";
-  sidebarLabel.textContent = "Threads";
-  sidebar.append(sidebarLabel);
-
-  ["Theme gallery", "Import test", "Prompt pack"].forEach((label, index) => {
-    const row = document.createElement("div");
-    row.className = `codex-nav-item${index === 0 ? " is-active" : ""}`;
-    row.style.background = index === 0 ? `${theme.accent}22` : "transparent";
-    row.style.color = index === 0 ? theme.accent : theme.ink;
-
-    const dot = document.createElement("span");
-    dot.className = "codex-nav-item-dot";
-    const text = document.createElement("span");
-    text.textContent = compact ? label.split(" ")[0] : label;
-
-    row.append(dot, text);
-    sidebar.append(row);
+  win.querySelectorAll('.codex-tab:not(.active)').forEach(t => {
+    t.style.color = isDark(v.surface) ? '#555' : '#aaa';
   });
 
-  const main = document.createElement("section");
-  main.className = "codex-main";
+  codexSidebar.style.background = v.sidebar;
+  codexSidebar.style.borderRightColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
 
-  const threadHeader = document.createElement("div");
-  threadHeader.className = "codex-thread-header";
-  threadHeader.style.background = `${theme.ink}04`;
-
-  const title = document.createElement("span");
-  title.className = "codex-thread-title";
-  title.textContent = compact ? "Preview" : "Theme preview";
-
-  const meta = document.createElement("span");
-  meta.className = "codex-thread-meta";
-  meta.textContent = compact ? "Codex" : `${theme.accent} accent`;
-
-  threadHeader.append(title, meta);
-
-  const chat = document.createElement("div");
-  chat.className = "codex-chat";
-
-  const userMessage = document.createElement("div");
-  userMessage.className = "codex-message is-user";
-  userMessage.style.background = `${theme.accent}18`;
-  userMessage.style.borderColor = `${theme.accent}2F`;
-  userMessage.textContent = compact
-    ? "Try this theme"
-    : "Show me what this theme looks like in Codex.";
-
-  const assistantMessage = document.createElement("div");
-  assistantMessage.className = "codex-message";
-  assistantMessage.style.background = `${theme.ink}08`;
-  assistantMessage.textContent = compact
-    ? "Preview ready"
-    : "Compact app preview with sidebar, thread chrome, diff colors, and input state.";
-
-  const codeCard = document.createElement("div");
-  codeCard.className = "codex-code";
-  codeCard.style.background = `${theme.ink}07`;
-
-  ["is-mid", "is-short", ""].forEach((lineType, index) => {
-    const line = document.createElement("div");
-    line.className = `codex-code-line${lineType ? ` ${lineType}` : ""}`;
-    line.style.background = index === 0 ? `${theme.accent}44` : `${theme.ink}20`;
-    codeCard.append(line);
+  const activeSidebarItem = codexSidebar.querySelector('.codex-sidebar-item.active');
+  if (activeSidebarItem) {
+    activeSidebarItem.style.color = acc;
+    activeSidebarItem.style.background = acc + '18';
+  }
+  codexSidebar.querySelectorAll('.codex-sidebar-item:not(.active)').forEach(el => {
+    el.style.color = isDark(v.surface) ? '#555' : '#aaa';
   });
 
-  const diffRow = document.createElement("div");
-  diffRow.className = "codex-code-diff";
+  editor.style.background = v.surface;
+  editor.style.color = v.ink;
 
-  const diffAdded = document.createElement("span");
-  diffAdded.style.background = `${theme.semanticColors.diffAdded}88`;
-  const diffRemoved = document.createElement("span");
-  diffRemoved.style.background = `${theme.semanticColors.diffRemoved}88`;
-  const diffSkill = document.createElement("span");
-  diffSkill.style.background = `${theme.semanticColors.skill}88`;
-  diffRow.append(diffAdded, diffRemoved, diffSkill);
-  codeCard.append(diffRow);
+  input.style.background = v.codeBg;
+  input.style.color = isDark(v.surface) ? '#444' : '#bbb';
+  input.style.border = `1px solid ${isDark(v.surface) ? '#2a2a2a' : '#d0d0d0'}`;
 
-  chat.append(userMessage, assistantMessage, codeCard);
+  inputRow.style.background = v.sidebar;
+  inputRow.style.borderTopColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  inputRow.querySelector('svg').style.color = isDark(v.surface) ? '#444' : '#bbb';
 
-  const inputRow = document.createElement("div");
-  inputRow.className = "codex-input-row";
+  document.getElementById('preview-label').textContent = theme.name;
 
-  const input = document.createElement("div");
-  input.className = "codex-input";
-  input.style.background = `${theme.ink}07`;
-  input.style.borderColor = `${theme.ink}14`;
-
-  const inputText = document.createElement("span");
-  inputText.textContent = compact ? "Theme input" : "Paste import string or ask for a new palette";
-
-  const send = document.createElement("span");
-  send.textContent = "Send";
-  send.style.background = `${theme.accent}20`;
-  send.style.color = theme.accent;
-
-  input.append(inputText, send);
-  inputRow.append(input);
-
-  main.append(threadHeader, chat, inputRow);
-  body.append(sidebar, main);
-  windowEl.append(topbar, body);
-
-  return windowEl;
+  renderPreviewContent(v, acc);
 }
 
-function renderThemeCard(theme) {
-  const template = document.querySelector("#theme-card-template");
-  const fragment = template.content.cloneNode(true);
-  const card = fragment.querySelector(".theme-card");
+function isDark(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 < 128;
+}
 
-  fragment.querySelector(".theme-card-category").textContent = theme.category;
-  fragment.querySelector(".theme-card-source").textContent = theme.source;
-  fragment.querySelector(".theme-card-title").textContent = theme.name;
-  fragment.querySelector(".theme-card-summary").textContent = theme.summary;
+function adjustBrightness(hex, amount) {
+  const r = Math.min(255, Math.max(0, parseInt(hex.slice(1, 3), 16) + amount));
+  const g = Math.min(255, Math.max(0, parseInt(hex.slice(3, 5), 16) + amount));
+  const b = Math.min(255, Math.max(0, parseInt(hex.slice(5, 7), 16) + amount));
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
 
-  const preview = fragment.querySelector(".theme-card-preview");
-  preview.append(buildCodexWindow(theme.dark, "dark", true));
+function renderPreviewContent(v, acc) {
+  const borderColor = isDark(v.surface) ? '#2a2a2a' : '#d0d0d0';
+  const c = document.getElementById('preview-content');
 
-  const swatchRow = fragment.querySelector(".swatch-row");
-  [
-    theme.dark.accent,
-    theme.dark.surface,
-    theme.dark.ink,
-    theme.light.accent,
-    theme.light.surface,
-  ].forEach((color) => swatchRow.append(createSwatch(color)));
+  c.innerHTML = `
+    <div class="user-bubble" style="
+      background:${acc}20;
+      border:1px solid ${acc}38;
+      color:${v.ink};
+    ">Add authentication middleware to the Express router</div>
 
-  const tagRow = fragment.querySelector(".theme-card-tags");
-  theme.tags.forEach((tagText) => tagRow.append(createTag(tagText)));
+    <div class="assistant-bubble" style="
+      background:${v.sidebar};
+      border:1px solid ${borderColor};
+      color:${v.ink};
+    ">
+      Sure — here's a JWT middleware you can mount before your routes:
+      <div class="code-block" style="
+        background:${v.codeBg};
+        border:1px solid ${borderColor};
+      ">
+        <span style="color:${isDark(v.surface) ? '#555' : '#bbb'}">// middleware/auth.ts</span><br>
+        <span style="color:${acc}">import</span> jwt <span style="color:${acc}">from</span> <span style="color:${v.diffAdded}">'jsonwebtoken'</span>;<br>
+        <br>
+        <span style="color:${acc}">export const</span> <span style="color:${v.skill}">requireAuth</span> = (<br>
+        &nbsp;&nbsp;req: Request, res: Response, next: NextFunction<br>
+        ) <span style="color:${acc}">=&gt;</span> {<br>
+        &nbsp;&nbsp;<span style="color:${acc}">const</span> token = req.headers.<span style="color:${v.skill}">authorization</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;?.<span style="color:${v.skill}">split</span>(<span style="color:${v.diffAdded}">' '</span>)[1];<br>
+        &nbsp;&nbsp;<span style="color:${acc}">if</span> (!token) <span style="color:${acc}">return</span> res.<span style="color:${v.skill}">sendStatus</span>(401);<br>
+        &nbsp;&nbsp;<span style="color:${acc}">try</span> {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;req.user = jwt.<span style="color:${v.skill}">verify</span>(token, process.env.JWT_SECRET!);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:${v.skill}">next</span>();<br>
+        &nbsp;&nbsp;} <span style="color:${acc}">catch</span> { res.<span style="color:${v.skill}">sendStatus</span>(403); }<br>
+        };
+      </div>
+    </div>
 
-  fragment.querySelector(".button-card").addEventListener("click", () => {
-    state.selectedId = theme.id;
-    renderSelectedTheme();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    <div class="user-bubble" style="
+      background:${acc}20;
+      border:1px solid ${acc}38;
+      color:${v.ink};
+    ">Now write a test for it using Vitest</div>
+  `;
+}
+
+// ================================================
+// Thread list (sidebar recent)
+// ================================================
+
+function renderThreadList() {
+  const el = document.getElementById('thread-list');
+  el.innerHTML = THEMES.slice(0, 6).map((t, i) => `
+    <div class="thread-item${i === 0 ? ' active' : ''}" data-theme-id="${t.id}" onclick="selectThemeById('${t.id}')">
+      <div class="thread-title">${t.name}</div>
+      <div class="thread-subtitle">${t.type === 'builtin' ? 'Built-in' : 'Community'}</div>
+    </div>
+  `).join('');
+}
+
+// ================================================
+// Theme list (right panel)
+// ================================================
+
+function renderThemeList() {
+  const el = document.getElementById('theme-list');
+  const q = document.getElementById('search-input').value.toLowerCase().trim();
+
+  const filtered = THEMES.filter(t => {
+    const matchesTab =
+      activeFilter === 'all' ||
+      (activeFilter === 'builtin' && t.type === 'builtin') ||
+      (activeFilter === 'community' && t.type !== 'builtin');
+    const matchesSearch =
+      t.name.toLowerCase().includes(q) ||
+      (t.inspired || '').toLowerCase().includes(q);
+    return matchesTab && matchesSearch;
   });
 
-  if (theme.id === state.selectedId) {
-    card.style.borderColor = "rgba(255, 122, 26, 0.38)";
-    card.style.background = "rgba(27, 18, 14, 0.86)";
+  const builtins = filtered.filter(t => t.type === 'builtin');
+  const community = filtered.filter(t => t.type !== 'builtin');
+
+  let html = '';
+
+  if (builtins.length && (activeFilter === 'all' || activeFilter === 'builtin')) {
+    html += `<div class="section-divider">Built-in</div>`;
+    html += builtins.map(t => themeItemHTML(t)).join('');
   }
 
-  return fragment;
-}
-
-function renderThemeGrid() {
-  const visibleThemes = getVisibleThemes();
-  themeGrid.replaceChildren();
-
-  if (!visibleThemes.some((theme) => theme.id === state.selectedId)) {
-    state.selectedId = visibleThemes[0]?.id ?? themes[0].id;
-  }
-
-  if (visibleThemes.length === 0) {
-    const emptyState = document.createElement("div");
-    emptyState.className = "empty-state";
-    emptyState.textContent =
-      "No themes matched that filter. Try another category, source, or search term.";
-    themeGrid.append(emptyState);
-    return;
-  }
-
-  visibleThemes.forEach((theme) => themeGrid.append(renderThemeCard(theme)));
-}
-
-function fallbackCopyText(text) {
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "absolute";
-  textarea.style.left = "-9999px";
-  document.body.append(textarea);
-  textarea.select();
-
-  let copied = false;
-
-  try {
-    copied = document.execCommand("copy");
-  } catch {
-    copied = false;
-  }
-
-  textarea.remove();
-  return copied;
-}
-
-async function copyText(button, text) {
-  const label = button.textContent;
-
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-    } else if (!fallbackCopyText(text)) {
-      throw new Error("Clipboard unavailable");
+  if (community.length) {
+    if (activeFilter === 'all') {
+      html += `<div class="section-divider">Community</div>`;
     }
+    html += community.map(t => themeItemHTML(t)).join('');
+  }
 
-    button.textContent = "Copied";
-    button.classList.add("is-copied");
-    window.setTimeout(() => {
-      button.textContent = label;
-      button.classList.remove("is-copied");
-    }, 1400);
-  } catch {
-    button.textContent = "Copy failed";
-    window.setTimeout(() => {
-      button.textContent = label;
-    }, 1600);
+  if (!filtered.length) {
+    html = `<div style="padding:20px 12px;font-size:11px;color:var(--text-muted);text-align:center">No themes match</div>`;
+  }
+
+  el.innerHTML = html;
+
+  document.getElementById('theme-count').textContent = `${filtered.length} theme${filtered.length !== 1 ? 's' : ''}`;
+
+  el.querySelectorAll('.theme-item').forEach(item => {
+    item.addEventListener('click', () => selectThemeById(item.dataset.themeId));
+    if (item.dataset.themeId === selectedTheme.id) {
+      item.classList.add('selected');
+    }
+  });
+}
+
+function themeItemHTML(t) {
+  const d = t.dark;
+  const l = t.light;
+  const tags = [];
+  if (t.type === 'builtin') tags.push('<span class="tag tag-builtin">Built-in</span>');
+  else tags.push('<span class="tag tag-community">Community</span>');
+  if (t.inspired) tags.push(`<span class="tag tag-inspired">Inspired by ${t.inspired}</span>`);
+
+  return `
+    <div class="theme-item${t.id === selectedTheme.id ? ' selected' : ''}" data-theme-id="${t.id}">
+      <div class="theme-swatch">
+        <div class="swatch-half swatch-dark" style="background:${d.surface}"></div>
+        <div class="swatch-half swatch-light" style="background:${l.surface}"></div>
+        <div class="swatch-accent-bar" style="background:${d.accent}"></div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">${t.name}</div>
+        <div class="theme-tags">${tags.join('')}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ================================================
+// Accent dots
+// ================================================
+
+function renderAccentDots() {
+  const el = document.getElementById('accent-dots');
+  el.innerHTML = selectedTheme.accents.map((a, i) => `
+    <div
+      class="accent-dot${i === selectedAccentIdx ? ' selected' : ''}"
+      style="background:${a}"
+      title="${a}"
+      onclick="selectAccent(${i})"
+    ></div>
+  `).join('');
+}
+
+// ================================================
+// Selection handlers
+// ================================================
+
+function selectThemeById(id) {
+  const t = THEMES.find(x => x.id === id);
+  if (!t) return;
+  selectedTheme = t;
+  selectedAccentIdx = 0;
+  applyPreview(selectedTheme, selectedVariant);
+  renderAccentDots();
+  renderThemeList();
+  renderThreadList();
+  updateThreadActive();
+}
+
+function updateThreadActive() {
+  document.querySelectorAll('.thread-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.themeId === selectedTheme.id);
+  });
+}
+
+function selectAccent(idx) {
+  selectedAccentIdx = idx;
+  applyPreview(selectedTheme, selectedVariant);
+  renderAccentDots();
+}
+
+function setVariant(v) {
+  selectedVariant = v;
+  document.getElementById('variant-dark-btn').classList.toggle('active', v === 'dark');
+  document.getElementById('variant-light-btn').classList.toggle('active', v === 'light');
+  document.getElementById('variant-hint').textContent = `${v} variant`;
+  applyPreview(selectedTheme, selectedVariant);
+}
+
+// ================================================
+// Filter / search
+// ================================================
+
+function filterThemes() {
+  renderThemeList();
+}
+
+function filterTab(type, el) {
+  activeFilter = type;
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderThemeList();
+}
+
+// ================================================
+// Copy to clipboard
+// ================================================
+
+function copyTheme() {
+  const str = buildImportString(selectedTheme, selectedVariant, selectedAccentIdx);
+  const btn = document.getElementById('copy-btn');
+
+  const reset = () => {
+    btn.innerHTML = `
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Copy import string
+    `;
+    btn.classList.remove('copied');
+  };
+
+  const confirm = () => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(reset, 1600);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(str).then(confirm).catch(() => fallbackCopy(str, confirm));
+  } else {
+    fallbackCopy(str, confirm);
   }
 }
 
-function renderSelectedTheme() {
-  const theme = themes.find((entry) => entry.id === state.selectedId) ?? themes[0];
-  const lightShareString = themeVariantToShareString(theme.light, "light");
-  const darkShareString = themeVariantToShareString(theme.dark, "dark");
-
-  selectedName.textContent = theme.name;
-  selectedCategory.textContent = theme.category;
-  selectedSource.textContent = theme.source;
-  selectedSummary.textContent = theme.summary;
-
-  lightPreview.replaceChildren(buildCodexWindow(theme.light, "light"));
-  darkPreview.replaceChildren(buildCodexWindow(theme.dark, "dark"));
-
-  lightString.textContent = lightShareString;
-  darkString.textContent = darkShareString;
-
-  copyLightButton.onclick = () => copyText(copyLightButton, lightShareString);
-  copyDarkButton.onclick = () => copyText(copyDarkButton, darkShareString);
+function fallbackCopy(str, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = str;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); cb(); } catch (e) {}
+  document.body.removeChild(ta);
 }
 
-function render() {
-  renderCategoryFilter();
-  renderSourceFilter();
-  renderThemeGrid();
-  renderSelectedTheme();
-}
+// ================================================
+// Init
+// ================================================
 
-searchInput.addEventListener("input", (event) => {
-  state.query = event.currentTarget.value;
-  render();
-});
-
-render();
+renderThreadList();
+renderThemeList();
+renderAccentDots();
+applyPreview(selectedTheme, selectedVariant);

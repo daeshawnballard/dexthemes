@@ -1,196 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DexThemes</title>
-    <meta
-      name="description"
-      content="DexThemes lets you browse, preview, and copy Codex-compatible theme import strings."
-    />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="hero">
-        <section class="hero-copy">
-          <p class="eyebrow">DexThemes</p>
-          <h1>Preview a theme like it is already inside Codex.</h1>
-          <p class="hero-text">
-            The gallery is intentionally compact. Browse community packs and
-            built-in Codex looks, then compare light and dark variants in a
-            Codex-style app preview before you copy anything.
-          </p>
-          <div class="hero-points">
-            <span>Real import schema</span>
-            <span>Client-side filtering</span>
-            <span>Compact Codex mockups</span>
-          </div>
-        </section>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DexThemes — themes for Codex</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell" id="app">
 
-        <section class="hero-preview" aria-label="Selected theme preview">
-          <div class="hero-preview-top">
-            <div>
-              <p class="hero-preview-label">Selected Theme</p>
-              <div class="selected-heading">
-                <h2 id="selected-name"></h2>
-                <div class="selected-badges">
-                  <span id="selected-category" class="meta-pill"></span>
-                  <span id="selected-source" class="meta-pill meta-pill-source"></span>
-                </div>
-              </div>
-              <p id="selected-summary" class="hero-preview-summary"></p>
-            </div>
-            <div class="hero-actions">
-              <button id="copy-light" class="button button-primary" type="button">
-                Copy light
-              </button>
-              <button id="copy-dark" class="button button-secondary" type="button">
-                Copy dark
-              </button>
-            </div>
-          </div>
-
-          <div class="preview-panels">
-            <article class="preview-panel">
-              <div class="panel-header">
-                <span>Light preview</span>
-                <span class="panel-caption">App look</span>
-              </div>
-              <div id="light-preview" class="codex-window-shell"></div>
-            </article>
-
-            <article class="preview-panel">
-              <div class="panel-header">
-                <span>Dark preview</span>
-                <span class="panel-caption">App look</span>
-              </div>
-              <div id="dark-preview" class="codex-window-shell"></div>
-            </article>
-          </div>
-
-          <details class="share-details">
-            <summary>Inspect raw import strings</summary>
-            <div class="share-grid">
-              <article>
-                <h3>Light share string</h3>
-                <pre id="light-string" class="code-block"></pre>
-              </article>
-              <article>
-                <h3>Dark share string</h3>
-                <pre id="dark-string" class="code-block"></pre>
-              </article>
-            </div>
-          </details>
-        </section>
-      </header>
-
-      <main>
-        <section class="toolbar" id="gallery">
-          <label class="search-field">
-            <span class="search-label">Search themes</span>
-            <input
-              id="search-input"
-              type="search"
-              placeholder="Ichigo, built-in, editor, anime, default..."
-            />
-          </label>
-
-          <div class="filter-section">
-            <span class="filter-label">Categories</span>
-            <div id="category-filter" class="chip-row" aria-label="Theme categories"></div>
-          </div>
-
-          <div class="filter-section">
-            <span class="filter-label">Source</span>
-            <div id="source-filter" class="chip-row" aria-label="Theme sources"></div>
-          </div>
-        </section>
-
-        <section class="content-grid">
-          <section>
-            <div class="section-header">
-              <div>
-                <p class="section-eyebrow">Theme Catalog</p>
-                <h2>Compact cards, visual previews, exact imports</h2>
-              </div>
-              <p class="section-note">
-                Community packs and Codex defaults can live side by side without
-                pretending they are the same thing.
-              </p>
-            </div>
-            <div id="theme-grid" class="theme-grid"></div>
-          </section>
-
-          <aside class="sidebar">
-            <section class="sidebar-card" id="import-guide">
-              <p class="section-eyebrow">Import Guide</p>
-              <h3>Use the strings exactly as-is.</h3>
-              <ol class="instruction-list">
-                <li>Open Codex Appearance settings.</li>
-                <li>Use Light or Dark import for the matching variant.</li>
-                <li>Paste the string starting with <code>codex-theme-v1:</code>.</li>
-                <li>Codex may apply imports without showing them as a named preset.</li>
-              </ol>
-            </section>
-
-            <section class="sidebar-card">
-              <p class="section-eyebrow">Catalog Rules</p>
-              <ul class="note-list">
-                <li>`Codex` source marks built-in or default-looking entries.</li>
-                <li>`DexThemes` source marks community and inspired-by packs.</li>
-                <li>The preview is a Codex-style mockup, not a screenshot of the real app.</li>
-              </ul>
-            </section>
-
-            <section class="sidebar-card">
-              <p class="section-eyebrow">Defaults</p>
-              <div class="settings-grid">
-                <div>
-                  <span class="settings-label">UI size target</span>
-                  <span class="settings-value">13 px</span>
-                </div>
-                <div>
-                  <span class="settings-label">Code size target</span>
-                  <span class="settings-value">12 px</span>
-                </div>
-                <div>
-                  <span class="settings-label">Preview bias</span>
-                  <span class="settings-value">Compact desktop layout</span>
-                </div>
-              </div>
-            </section>
-          </aside>
-        </section>
-      </main>
+  <!-- Titlebar -->
+  <div class="titlebar">
+    <div class="titlebar-dots">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
     </div>
+    <div class="titlebar-title">dexthemes — themes for Codex</div>
+    <a href="https://github.com/daeshawnballard/dexthemes" target="_blank" class="titlebar-link">GitHub</a>
+  </div>
 
-    <template id="theme-card-template">
-      <article class="theme-card">
-        <div class="theme-card-topline">
-          <span class="theme-card-category"></span>
-          <span class="theme-card-source"></span>
-        </div>
-        <div class="theme-card-preview"></div>
-        <div class="theme-card-body">
-          <h3 class="theme-card-title"></h3>
-          <p class="theme-card-summary"></p>
-          <div class="swatch-row"></div>
-        </div>
-        <div class="theme-card-footer">
-          <div class="theme-card-tags"></div>
-          <button class="button button-card" type="button">Preview</button>
-        </div>
-      </article>
-    </template>
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Workspace</div>
+      <div class="sidebar-item active">
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        Theme Browser
+      </div>
+      <div class="sidebar-item">
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="8" r="3"/></svg>
+        Appearance
+      </div>
+    </div>
+    <div class="sidebar-label" style="padding-top:12px">Recent</div>
+    <div class="thread-list" id="thread-list"></div>
+    <div class="sidebar-footer">
+      <div class="sidebar-label">About</div>
+      <div class="sidebar-meta">Community-built themes for Codex. Not affiliated with OpenAI.</div>
+      <a href="https://github.com/daeshawnballard/dexthemes/issues/new" target="_blank" class="submit-link">+ Submit a theme</a>
+    </div>
+  </div>
 
-    <script type="module" src="./app.js"></script>
-  </body>
+  <!-- Main Preview -->
+  <div class="main">
+    <div class="main-toolbar">
+      <span class="toolbar-label">Preview — <span id="preview-label">Codex Default</span></span>
+      <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+        <span class="toolbar-hint">Import as:</span>
+        <div id="variant-dark-btn" class="variant-btn active" onclick="setVariant('dark')">Dark</div>
+        <div id="variant-light-btn" class="variant-btn" onclick="setVariant('light')">Light</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="codex-window" id="codex-window">
+        <div class="codex-titlebar">
+          <div class="codex-dots">
+            <div class="codex-dot"></div>
+            <div class="codex-dot"></div>
+            <div class="codex-dot"></div>
+          </div>
+          <span class="codex-window-title">Codex</span>
+        </div>
+        <div class="codex-tab-bar">
+          <div class="codex-tab active">main.ts</div>
+          <div class="codex-tab">utils.ts</div>
+          <div class="codex-tab">README.md</div>
+        </div>
+        <div class="codex-body">
+          <div class="codex-sidebar">
+            <div class="codex-sidebar-section-label">EXPLORER</div>
+            <div class="codex-sidebar-item">
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 3h-5L7 1.5H2.5A1.5 1.5 0 001 3v10A1.5 1.5 0 002.5 14.5h11A1.5 1.5 0 0015 13V4.5A1.5 1.5 0 0013.5 3z"/></svg>
+              src
+            </div>
+            <div class="codex-sidebar-item active" style="padding-left:20px">main.ts</div>
+            <div class="codex-sidebar-item" style="padding-left:20px">utils.ts</div>
+            <div class="codex-sidebar-item" style="padding-left:20px">types.ts</div>
+            <div class="codex-sidebar-item">
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 3h-5L7 1.5H2.5A1.5 1.5 0 001 3v10A1.5 1.5 0 002.5 14.5h11A1.5 1.5 0 0015 13V4.5A1.5 1.5 0 0013.5 3z"/></svg>
+              tests
+            </div>
+            <div class="codex-sidebar-item">package.json</div>
+            <div class="codex-sidebar-item">tsconfig.json</div>
+          </div>
+          <div class="codex-editor-col">
+            <div class="codex-editor" id="preview-editor">
+              <div class="codex-prompt" id="preview-content"></div>
+            </div>
+            <div class="codex-input-row" id="preview-input-row">
+              <div class="codex-input-fake" id="preview-input">Ask anything...</div>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Themes</span>
+      <span class="panel-count" id="theme-count">8 themes</span>
+    </div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" data-filter="all" onclick="filterTab('all',this)">All</div>
+      <div class="panel-tab" data-filter="builtin" onclick="filterTab('builtin',this)">Built-in</div>
+      <div class="panel-tab" data-filter="community" onclick="filterTab('community',this)">Community</div>
+    </div>
+    <div class="panel-search">
+      <input type="text" placeholder="Search themes..." id="search-input" oninput="filterThemes()">
+    </div>
+    <div class="theme-list" id="theme-list"></div>
+    <div class="theme-detail">
+      <div class="detail-row">
+        <span class="detail-label">Accent color</span>
+      </div>
+      <div class="accent-dots" id="accent-dots"></div>
+      <div class="detail-row" style="margin-top:10px">
+        <span class="detail-label">Import string</span>
+        <span class="detail-hint" id="variant-hint">dark variant</span>
+      </div>
+      <button class="copy-btn" id="copy-btn" onclick="copyTheme()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy import string
+      </button>
+      <div class="import-hint">Open Codex → Settings → Appearance → Import theme</div>
+    </div>
+  </div>
+
+</div>
+<script src="app.js"></script>
+</body>
 </html>
