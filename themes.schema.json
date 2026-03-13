@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex Theme Submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "category", "summary", "light", "dark"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "light": {
+      "$ref": "#/$defs/themeVariant"
+    },
+    "dark": {
+      "$ref": "#/$defs/themeVariant"
+    }
+  },
+  "$defs": {
+    "themeVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accent", "contrast", "ink", "semanticColors", "surface"],
+      "properties": {
+        "accent": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "contrast": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "ink": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "surface": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "semanticColors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["diffAdded", "diffRemoved", "skill"],
+          "properties": {
+            "diffAdded": {
+              "$ref": "#/$defs/hexColor"
+            },
+            "diffRemoved": {
+              "$ref": "#/$defs/hexColor"
+            },
+            "skill": {
+              "$ref": "#/$defs/hexColor"
+            }
+          }
+        }
+      }
+    },
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#[A-Fa-f0-9]{6}$"
+    }
+  }
+}

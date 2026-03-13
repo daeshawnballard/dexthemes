@@ -1,0 +1,28 @@
+{
+  "id": "sunset-terminal",
+  "name": "Sunset Terminal",
+  "category": "Originals",
+  "summary": "Warm orange highlights over a low-glare dark surface tuned for Codex imports.",
+  "light": {
+    "accent": "#F97316",
+    "contrast": 45,
+    "ink": "#171717",
+    "surface": "#FFF7ED",
+    "semanticColors": {
+      "diffAdded": "#16A34A",
+      "diffRemoved": "#DC2626",
+      "skill": "#7C3AED"
+    }
+  },
+  "dark": {
+    "accent": "#FB923C",
+    "contrast": 65,
+    "ink": "#FFF7ED",
+    "surface": "#111827",
+    "semanticColors": {
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#EF4444",
+      "skill": "#A855F7"
+    }
+  }
+}

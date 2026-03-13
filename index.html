@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DexThemes</title>
+    <meta
+      name="description"
+      content="DexThemes lets you browse, preview, and copy Codex-compatible theme import strings."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">DexThemes</p>
+          <h1>Codex themes you can preview, copy, and actually import.</h1>
+          <p class="hero-text">
+            DexThemes is a lightweight gallery of Codex-ready themes with real
+            import strings, fast previews, and zero fake preset screenshots.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#gallery">Browse Themes</a>
+            <a class="button button-secondary" href="#import-guide">How Import Works</a>
+          </div>
+        </div>
+        <section class="hero-preview" aria-label="Selected theme preview">
+          <div class="hero-preview-header">
+            <span class="hero-preview-label">Selected Theme</span>
+            <span id="selected-collection" class="hero-preview-collection"></span>
+          </div>
+          <h2 id="selected-name"></h2>
+          <p id="selected-summary" class="hero-preview-summary"></p>
+          <div class="preview-panels">
+            <article class="preview-panel preview-panel-light">
+              <div class="panel-header">
+                <span>Light</span>
+                <button id="copy-light" class="button button-copy" type="button">
+                  Copy light
+                </button>
+              </div>
+              <div id="light-preview" class="theme-frame theme-frame-light"></div>
+              <pre id="light-string" class="code-block"></pre>
+            </article>
+            <article class="preview-panel preview-panel-dark">
+              <div class="panel-header">
+                <span>Dark</span>
+                <button id="copy-dark" class="button button-copy" type="button">
+                  Copy dark
+                </button>
+              </div>
+              <div id="dark-preview" class="theme-frame theme-frame-dark"></div>
+              <pre id="dark-string" class="code-block"></pre>
+            </article>
+          </div>
+        </section>
+      </header>
+
+      <main>
+        <section class="toolbar" id="gallery">
+          <label class="search-field">
+            <span class="search-label">Search themes</span>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Ichigo, Apple, editor, anime, terminal..."
+            />
+          </label>
+          <div id="category-filter" class="chip-row" aria-label="Theme categories"></div>
+        </section>
+
+        <section class="content-grid">
+          <section>
+            <div class="section-header">
+              <p class="section-eyebrow">Curated Packs</p>
+              <h2>Theme packs for fast copy and import</h2>
+            </div>
+            <div id="theme-grid" class="theme-grid"></div>
+          </section>
+
+          <aside class="sidebar">
+            <section class="sidebar-card" id="import-guide">
+              <p class="section-eyebrow">Import Guide</p>
+              <h3>Use the strings exactly as-is.</h3>
+              <ol class="instruction-list">
+                <li>Open Codex Appearance settings.</li>
+                <li>Choose the Light or Dark import field.</li>
+                <li>Paste the copied string beginning with <code>codex-theme-v1:</code>.</li>
+                <li>Click Import theme. Codex applies it immediately even if it does not appear as a named preset.</li>
+                <li>Set fonts, cursor style, and font sizes separately in Appearance.</li>
+              </ol>
+            </section>
+
+            <section class="sidebar-card">
+              <p class="section-eyebrow">Notes</p>
+              <ul class="note-list">
+                <li>These themes are inspired by public aesthetics, not official brand packs.</li>
+                <li>Light and dark variants are generated from the real Codex share-string schema.</li>
+                <li>The dropdown in Codex may not show imported themes as named presets.</li>
+                <li>Every card exposes raw import strings rather than screenshots pretending to be themes.</li>
+              </ul>
+            </section>
+
+            <section class="sidebar-card">
+              <p class="section-eyebrow">Global Settings</p>
+              <div class="settings-grid">
+                <div>
+                  <span class="settings-label">UI font</span>
+                  <span class="settings-value">Space Grotesk or Avenir Next</span>
+                </div>
+                <div>
+                  <span class="settings-label">Code font</span>
+                  <span class="settings-value">IBM Plex Mono or JetBrains Mono</span>
+                </div>
+                <div>
+                  <span class="settings-label">UI size</span>
+                  <span class="settings-value">13 px</span>
+                </div>
+                <div>
+                  <span class="settings-label">Code size</span>
+                  <span class="settings-value">12 px</span>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <template id="theme-card-template">
+      <article class="theme-card">
+        <div class="theme-card-topline">
+          <span class="theme-card-category"></span>
+          <span class="theme-card-chip">Inspired by</span>
+        </div>
+        <h3 class="theme-card-title"></h3>
+        <p class="theme-card-summary"></p>
+        <div class="swatch-row"></div>
+        <div class="theme-card-footer">
+          <button class="button button-card" type="button">Preview</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
