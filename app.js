@@ -5,9 +5,42 @@ const baseTheme = {
 
 const themes = [
   {
+    id: "codex-default",
+    name: "Codex / Default",
+    category: "Built-ins",
+    source: "Codex",
+    tags: ["Built-in", "Default"],
+    summary:
+      "Matches the shipped Codex baseline closely, with the dark variant taken from a real export and the light side aligned to the current appearance panel values.",
+    light: {
+      accent: "#0285FF",
+      contrast: 45,
+      ink: "#0D0D0D",
+      semanticColors: {
+        diffAdded: "#00A240",
+        diffRemoved: "#E02E2A",
+        skill: "#B06DFF",
+      },
+      surface: "#FFFFFF",
+    },
+    dark: {
+      accent: "#0169CC",
+      contrast: 60,
+      ink: "#FCFCFC",
+      semanticColors: {
+        diffAdded: "#00A240",
+        diffRemoved: "#E02E2A",
+        skill: "#B06DFF",
+      },
+      surface: "#111111",
+    },
+  },
+  {
     id: "ichigo-bankai",
     name: "Ichigo / Bankai",
     category: "Anime",
+    source: "DexThemes",
+    tags: ["Inspired", "Anime"],
     summary:
       "High-contrast orange, ash-black surfaces, and a stripped-down silhouette pulled from Bankai energy.",
     light: {
@@ -37,8 +70,10 @@ const themes = [
     id: "naruto-hidden-leaf",
     name: "Naruto / Hidden Leaf Ember",
     category: "Anime",
+    source: "DexThemes",
+    tags: ["Inspired", "Anime"],
     summary:
-      "Warm amber and charcoal with a ramen-shop glow instead of a generic neon orange anime palette.",
+      "Warm amber and charcoal with a ramen-shop glow instead of a generic neon-orange anime palette.",
     light: {
       accent: "#F59E0B",
       contrast: 48,
@@ -66,8 +101,10 @@ const themes = [
     id: "luffy-grand-line",
     name: "Luffy / Grand Line",
     category: "Anime",
+    source: "DexThemes",
+    tags: ["Inspired", "Anime"],
     summary:
-      "Straw-hat tan, sea-night navy, and the kind of bright red accent that still feels playful rather than aggressive.",
+      "Straw-hat tan, sea-night navy, and a bright red accent tuned to stay playful rather than aggressive.",
     light: {
       accent: "#DC2626",
       contrast: 44,
@@ -95,8 +132,10 @@ const themes = [
     id: "apple-precision",
     name: "Apple / Precision Glass",
     category: "Brands",
+    source: "DexThemes",
+    tags: ["Inspired", "Brand"],
     summary:
-      "Clean aluminum neutrals, reserved blue accents, and a softer foreground contrast tuned for a premium utility feel.",
+      "Clean aluminum neutrals, reserved blue accents, and a softer foreground contrast for a premium utility feel.",
     light: {
       accent: "#2563EB",
       contrast: 38,
@@ -124,8 +163,10 @@ const themes = [
     id: "nintendo-switch",
     name: "Nintendo / Switch Split",
     category: "Games",
+    source: "DexThemes",
+    tags: ["Inspired", "Game"],
     summary:
-      "A split red-and-cyan look that stays sharp without turning the whole interface into toy plastic.",
+      "A split red-and-cyan look that stays sharp without making the interface feel like toy plastic.",
     light: {
       accent: "#E11D48",
       contrast: 50,
@@ -153,8 +194,10 @@ const themes = [
     id: "github-midnight",
     name: "GitHub / Midnight Merge",
     category: "Editors",
+    source: "DexThemes",
+    tags: ["Inspired", "Editor"],
     summary:
-      "A merge-heavy dark scheme with punchier diff colors and less washed-out chrome than standard developer dark themes.",
+      "A merge-heavy dark scheme with punchier diff colors and less washed-out chrome than standard dev themes.",
     light: {
       accent: "#0969DA",
       contrast: 42,
@@ -182,6 +225,8 @@ const themes = [
     id: "spotify-wave",
     name: "Spotify / Night Wave",
     category: "Brands",
+    source: "DexThemes",
+    tags: ["Inspired", "Brand"],
     summary:
       "A music-first palette with acid green highlights and a darker graphite floor that keeps code readable.",
     light: {
@@ -211,6 +256,8 @@ const themes = [
     id: "shonen-sunset",
     name: "Shonen Sunset",
     category: "Originals",
+    source: "DexThemes",
+    tags: ["Original", "Anime"],
     summary:
       "A blended orange-red original tuned for Codex specifically, sitting between anime heat and terminal polish.",
     light: {
@@ -240,18 +287,21 @@ const themes = [
 
 const state = {
   activeCategory: "All",
+  activeSource: "All",
   query: "",
   selectedId: themes[0].id,
 };
 
 const categoryFilter = document.querySelector("#category-filter");
+const sourceFilter = document.querySelector("#source-filter");
 const themeGrid = document.querySelector("#theme-grid");
 const searchInput = document.querySelector("#search-input");
 const copyLightButton = document.querySelector("#copy-light");
 const copyDarkButton = document.querySelector("#copy-dark");
 
 const selectedName = document.querySelector("#selected-name");
-const selectedCollection = document.querySelector("#selected-collection");
+const selectedCategory = document.querySelector("#selected-category");
+const selectedSource = document.querySelector("#selected-source");
 const selectedSummary = document.querySelector("#selected-summary");
 const lightPreview = document.querySelector("#light-preview");
 const darkPreview = document.querySelector("#dark-preview");
@@ -273,6 +323,10 @@ function getCategories() {
   return ["All", ...new Set(themes.map((theme) => theme.category))];
 }
 
+function getSources() {
+  return ["All", ...new Set(themes.map((theme) => theme.source))];
+}
+
 function getVisibleThemes() {
   const query = state.query.trim().toLowerCase();
 
@@ -280,30 +334,46 @@ function getVisibleThemes() {
     const matchesCategory =
       state.activeCategory === "All" || theme.category === state.activeCategory;
 
+    const matchesSource =
+      state.activeSource === "All" || theme.source === state.activeSource;
+
     const matchesQuery =
       !query ||
       theme.name.toLowerCase().includes(query) ||
       theme.category.toLowerCase().includes(query) ||
-      theme.summary.toLowerCase().includes(query);
+      theme.source.toLowerCase().includes(query) ||
+      theme.summary.toLowerCase().includes(query) ||
+      theme.tags.some((tag) => tag.toLowerCase().includes(query));
 
-    return matchesCategory && matchesQuery;
+    return matchesCategory && matchesSource && matchesQuery;
   });
 }
 
-function renderCategoryFilter() {
-  categoryFilter.replaceChildren();
+function renderFilterRow(container, values, activeValue, onSelect) {
+  container.replaceChildren();
 
-  for (const category of getCategories()) {
+  for (const value of values) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `chip${category === state.activeCategory ? " is-active" : ""}`;
-    button.textContent = category;
-    button.addEventListener("click", () => {
-      state.activeCategory = category;
-      render();
-    });
-    categoryFilter.append(button);
+    button.className = `chip${value === activeValue ? " is-active" : ""}`;
+    button.textContent = value;
+    button.addEventListener("click", () => onSelect(value));
+    container.append(button);
   }
+}
+
+function renderCategoryFilter() {
+  renderFilterRow(categoryFilter, getCategories(), state.activeCategory, (value) => {
+    state.activeCategory = value;
+    render();
+  });
+}
+
+function renderSourceFilter() {
+  renderFilterRow(sourceFilter, getSources(), state.activeSource, (value) => {
+    state.activeSource = value;
+    render();
+  });
 }
 
 function createSwatch(color) {
@@ -313,14 +383,168 @@ function createSwatch(color) {
   return swatch;
 }
 
+function createTag(tagText) {
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = tagText;
+  return tag;
+}
+
+function buildCodexWindow(theme, variantLabel, compact = false) {
+  const windowEl = document.createElement("div");
+  windowEl.className = "codex-window";
+  windowEl.style.background = theme.surface;
+  windowEl.style.color = theme.ink;
+
+  const topbar = document.createElement("div");
+  topbar.className = "codex-window-topbar";
+  topbar.style.background = `${theme.ink}08`;
+
+  const traffic = document.createElement("div");
+  traffic.className = "codex-traffic";
+
+  for (let index = 0; index < 3; index += 1) {
+    const dot = document.createElement("span");
+    traffic.append(dot);
+  }
+
+  const titlebar = document.createElement("div");
+  titlebar.className = "codex-titlebar";
+  titlebar.textContent = "Codex";
+
+  const badge = document.createElement("span");
+  badge.className = "codex-titlebar-badge";
+  badge.textContent = variantLabel;
+  badge.style.color = theme.accent;
+  titlebar.append(badge);
+
+  topbar.append(traffic, titlebar);
+
+  const body = document.createElement("div");
+  body.className = "codex-window-body";
+
+  const sidebar = document.createElement("aside");
+  sidebar.className = "codex-sidebar";
+  sidebar.style.background = `${theme.ink}08`;
+
+  const sidebarLabel = document.createElement("div");
+  sidebarLabel.className = "codex-sidebar-label";
+  sidebarLabel.textContent = "Threads";
+  sidebar.append(sidebarLabel);
+
+  ["Theme gallery", "Import test", "Prompt pack"].forEach((label, index) => {
+    const row = document.createElement("div");
+    row.className = `codex-nav-item${index === 0 ? " is-active" : ""}`;
+    row.style.background = index === 0 ? `${theme.accent}22` : "transparent";
+    row.style.color = index === 0 ? theme.accent : theme.ink;
+
+    const dot = document.createElement("span");
+    dot.className = "codex-nav-item-dot";
+    const text = document.createElement("span");
+    text.textContent = compact ? label.split(" ")[0] : label;
+
+    row.append(dot, text);
+    sidebar.append(row);
+  });
+
+  const main = document.createElement("section");
+  main.className = "codex-main";
+
+  const threadHeader = document.createElement("div");
+  threadHeader.className = "codex-thread-header";
+  threadHeader.style.background = `${theme.ink}04`;
+
+  const title = document.createElement("span");
+  title.className = "codex-thread-title";
+  title.textContent = compact ? "Preview" : "Theme preview";
+
+  const meta = document.createElement("span");
+  meta.className = "codex-thread-meta";
+  meta.textContent = compact ? "Codex" : `${theme.accent} accent`;
+
+  threadHeader.append(title, meta);
+
+  const chat = document.createElement("div");
+  chat.className = "codex-chat";
+
+  const userMessage = document.createElement("div");
+  userMessage.className = "codex-message is-user";
+  userMessage.style.background = `${theme.accent}18`;
+  userMessage.style.borderColor = `${theme.accent}2F`;
+  userMessage.textContent = compact
+    ? "Try this theme"
+    : "Show me what this theme looks like in Codex.";
+
+  const assistantMessage = document.createElement("div");
+  assistantMessage.className = "codex-message";
+  assistantMessage.style.background = `${theme.ink}08`;
+  assistantMessage.textContent = compact
+    ? "Preview ready"
+    : "Compact app preview with sidebar, thread chrome, diff colors, and input state.";
+
+  const codeCard = document.createElement("div");
+  codeCard.className = "codex-code";
+  codeCard.style.background = `${theme.ink}07`;
+
+  ["is-mid", "is-short", ""].forEach((lineType, index) => {
+    const line = document.createElement("div");
+    line.className = `codex-code-line${lineType ? ` ${lineType}` : ""}`;
+    line.style.background = index === 0 ? `${theme.accent}44` : `${theme.ink}20`;
+    codeCard.append(line);
+  });
+
+  const diffRow = document.createElement("div");
+  diffRow.className = "codex-code-diff";
+
+  const diffAdded = document.createElement("span");
+  diffAdded.style.background = `${theme.semanticColors.diffAdded}88`;
+  const diffRemoved = document.createElement("span");
+  diffRemoved.style.background = `${theme.semanticColors.diffRemoved}88`;
+  const diffSkill = document.createElement("span");
+  diffSkill.style.background = `${theme.semanticColors.skill}88`;
+  diffRow.append(diffAdded, diffRemoved, diffSkill);
+  codeCard.append(diffRow);
+
+  chat.append(userMessage, assistantMessage, codeCard);
+
+  const inputRow = document.createElement("div");
+  inputRow.className = "codex-input-row";
+
+  const input = document.createElement("div");
+  input.className = "codex-input";
+  input.style.background = `${theme.ink}07`;
+  input.style.borderColor = `${theme.ink}14`;
+
+  const inputText = document.createElement("span");
+  inputText.textContent = compact ? "Theme input" : "Paste import string or ask for a new palette";
+
+  const send = document.createElement("span");
+  send.textContent = "Send";
+  send.style.background = `${theme.accent}20`;
+  send.style.color = theme.accent;
+
+  input.append(inputText, send);
+  inputRow.append(input);
+
+  main.append(threadHeader, chat, inputRow);
+  body.append(sidebar, main);
+  windowEl.append(topbar, body);
+
+  return windowEl;
+}
+
 function renderThemeCard(theme) {
   const template = document.querySelector("#theme-card-template");
   const fragment = template.content.cloneNode(true);
   const card = fragment.querySelector(".theme-card");
 
   fragment.querySelector(".theme-card-category").textContent = theme.category;
+  fragment.querySelector(".theme-card-source").textContent = theme.source;
   fragment.querySelector(".theme-card-title").textContent = theme.name;
   fragment.querySelector(".theme-card-summary").textContent = theme.summary;
+
+  const preview = fragment.querySelector(".theme-card-preview");
+  preview.append(buildCodexWindow(theme.dark, "dark", true));
 
   const swatchRow = fragment.querySelector(".swatch-row");
   [
@@ -331,6 +555,9 @@ function renderThemeCard(theme) {
     theme.light.surface,
   ].forEach((color) => swatchRow.append(createSwatch(color)));
 
+  const tagRow = fragment.querySelector(".theme-card-tags");
+  theme.tags.forEach((tagText) => tagRow.append(createTag(tagText)));
+
   fragment.querySelector(".button-card").addEventListener("click", () => {
     state.selectedId = theme.id;
     renderSelectedTheme();
@@ -338,8 +565,8 @@ function renderThemeCard(theme) {
   });
 
   if (theme.id === state.selectedId) {
-    card.style.borderColor = "rgba(255, 122, 26, 0.45)";
-    card.style.background = "rgba(30, 20, 16, 0.82)";
+    card.style.borderColor = "rgba(255, 122, 26, 0.38)";
+    card.style.background = "rgba(27, 18, 14, 0.86)";
   }
 
   return fragment;
@@ -356,44 +583,13 @@ function renderThemeGrid() {
   if (visibleThemes.length === 0) {
     const emptyState = document.createElement("div");
     emptyState.className = "empty-state";
-    emptyState.textContent = "No themes matched that search. Try a broader term or another category.";
+    emptyState.textContent =
+      "No themes matched that filter. Try another category, source, or search term.";
     themeGrid.append(emptyState);
     return;
   }
 
   visibleThemes.forEach((theme) => themeGrid.append(renderThemeCard(theme)));
-}
-
-function renderThemeFrame(container, theme, variantLabel) {
-  container.replaceChildren();
-  container.style.background = theme.surface;
-  container.style.color = theme.ink;
-
-  const header = document.createElement("div");
-  header.className = "theme-frame-header";
-
-  const brand = document.createElement("span");
-  brand.className = "theme-frame-brand";
-  brand.textContent = "Codex";
-
-  const badge = document.createElement("span");
-  badge.className = "theme-frame-badge";
-  badge.textContent = variantLabel;
-  badge.style.color = theme.accent;
-
-  header.append(brand, badge);
-
-  const sidebar = document.createElement("div");
-  sidebar.className = "theme-frame-sidebar";
-  sidebar.style.outline = `1px solid ${theme.accent}33`;
-
-  for (let index = 0; index < 3; index += 1) {
-    const line = document.createElement("span");
-    line.style.background = index === 0 ? `${theme.accent}55` : `${theme.ink}22`;
-    sidebar.append(line);
-  }
-
-  container.append(header, sidebar);
 }
 
 function fallbackCopyText(text) {
@@ -447,11 +643,12 @@ function renderSelectedTheme() {
   const darkShareString = themeVariantToShareString(theme.dark, "dark");
 
   selectedName.textContent = theme.name;
-  selectedCollection.textContent = theme.category;
+  selectedCategory.textContent = theme.category;
+  selectedSource.textContent = theme.source;
   selectedSummary.textContent = theme.summary;
 
-  renderThemeFrame(lightPreview, theme.light, "light");
-  renderThemeFrame(darkPreview, theme.dark, "dark");
+  lightPreview.replaceChildren(buildCodexWindow(theme.light, "light"));
+  darkPreview.replaceChildren(buildCodexWindow(theme.dark, "dark"));
 
   lightString.textContent = lightShareString;
   darkString.textContent = darkShareString;
@@ -462,6 +659,7 @@ function renderSelectedTheme() {
 
 function render() {
   renderCategoryFilter();
+  renderSourceFilter();
   renderThemeGrid();
   renderSelectedTheme();
 }
