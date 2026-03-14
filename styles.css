@@ -1021,87 +1021,61 @@ html, body {
   padding: 16px 20px;
 }
 
-.apply-modal-body p {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0 0 14px 0;
-}
-
-.apply-modal-steps {
+.apply-modal-visual {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 0;
 }
 
-.apply-step {
+.apply-visual-step {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--text-primary);
+  gap: 14px;
+  padding: 10px 0;
 }
 
-.apply-step-num {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 700;
+.apply-visual-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-}
-
-.apply-modal-terminal {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  position: relative;
-}
-
-.apply-terminal-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
   color: var(--text-muted);
-  margin-bottom: 6px;
-  font-weight: 600;
+  transition: all 0.3s;
 }
 
-.apply-terminal-cmd {
-  font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
-  font-size: 10px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  word-break: break-all;
-  max-height: 60px;
-  overflow-y: auto;
-  padding-right: 24px;
-}
-
-.apply-terminal-copy {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: all 0.15s;
-}
-
-.apply-terminal-copy:hover {
-  color: var(--accent);
+.apply-visual-icon.done {
   background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.apply-visual-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.apply-visual-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.apply-visual-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.apply-visual-connector {
+  width: 1px;
+  height: 8px;
+  background: var(--border);
+  margin-left: 18px;
 }
 
 .apply-modal-actions {
