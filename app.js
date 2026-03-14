@@ -196,7 +196,7 @@ let pinnedSubgroups = {
   dexthemes: {},
   community: {},
 };
-let currentExampleIdx = Math.floor(Math.random() * 3);
+let currentExampleIdx = Math.floor(Math.random() * 4);
 let windowState = 'normal'; // 'normal', 'fullscreen', 'closed'
 let activeFilter = 'all'; // 'all', 'dark-only', 'light-only', 'both'
 let activeSort = 'default'; // 'default', 'trending', 'recent', 'az', 'za'
@@ -217,72 +217,87 @@ let flaggedThemes = new Set(); // track themes this user has flagged
 
 const EXAMPLES = [
   {
-    user: 'Add authentication middleware to the Express router',
-    intro: 'Sure \u2014 here\u2019s a JWT middleware you can mount before your routes:',
-    comment: '// middleware/auth.ts',
+    user: 'Set up FauxDex with local sandbox mode',
+    intro: 'Here\u2019s the config to run FauxDex locally with sandboxing enabled:',
+    comment: '// fauxdex.config.ts',
     code: [
-      { type: 'kw', text: 'import' }, ' jwt ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'jsonwebtoken'" }, ';\n',
+      { type: 'kw', text: 'import' }, ' { ', { type: 'fn', text: 'defineConfig' }, ' } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'fauxdex'" }, ';\n',
       '\n',
-      { type: 'kw', text: 'export const' }, ' ', { type: 'fn', text: 'requireAuth' }, ' = (\n',
-      '  req: Request, res: Response, next: NextFunction\n',
-      ') ', { type: 'kw', text: '=>' }, ' {\n',
-      '  ', { type: 'kw', text: 'const' }, ' token = req.headers.', { type: 'fn', text: 'authorization' }, '\n',
-      '    ?.', { type: 'fn', text: 'split' }, '(', { type: 'str', text: "' '" }, ')[1];\n',
-      '  ', { type: 'kw', text: 'if' }, ' (!token) ', { type: 'kw', text: 'return' }, ' res.', { type: 'fn', text: 'sendStatus' }, '(401);\n',
-      '  ', { type: 'kw', text: 'try' }, ' {\n',
-      '    req.user = jwt.', { type: 'fn', text: 'verify' }, '(token, process.env.JWT_SECRET!);\n',
-      '    ', { type: 'fn', text: 'next' }, '();\n',
-      '  } ', { type: 'kw', text: 'catch' }, ' { res.', { type: 'fn', text: 'sendStatus' }, '(403); }\n',
+      { type: 'kw', text: 'export default' }, ' ', { type: 'fn', text: 'defineConfig' }, '({\n',
+      '  sandbox: ', { type: 'str', text: "'local'" }, ',\n',
+      '  model: ', { type: 'str', text: "'gpt-4o'" }, ',\n',
+      '  allowNet: ', { type: 'kw', text: 'false' }, ',\n',
+      '  workDir: ', { type: 'str', text: "'./workspace'" }, ',\n',
+      '  hooks: {\n',
+      '    ', { type: 'fn', text: 'onTaskStart' }, ': (task) => ', { type: 'fn', text: 'console.log' }, '(', { type: 'str', text: "'Starting:'" }, ', task.id),\n',
+      '    ', { type: 'fn', text: 'onTaskEnd' }, ': (task) => ', { type: 'fn', text: 'console.log' }, '(', { type: 'str', text: "'Done:'" }, ', task.id),\n',
+      '  }\n',
+      '});'
+    ],
+    followUp: 'Now add a custom MCP server for database access'
+  },
+  {
+    user: 'Build a Codex Monitor dashboard plugin',
+    intro: 'Here\u2019s a plugin that tracks token usage per task:',
+    comment: '// plugins/tokenTracker.ts',
+    code: [
+      { type: 'kw', text: 'import' }, ' { ', { type: 'fn', text: 'Plugin' }, ', ', { type: 'fn', text: 'TaskEvent' }, ' } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'codex-monitor'" }, ';\n',
+      '\n',
+      { type: 'kw', text: 'export const' }, ' ', { type: 'fn', text: 'tokenTracker' }, ': Plugin = {\n',
+      '  name: ', { type: 'str', text: "'token-tracker'" }, ',\n',
+      '  ', { type: 'fn', text: 'onEvent' }, '(event: TaskEvent) {\n',
+      '    ', { type: 'kw', text: 'const' }, ' { taskId, tokens } = event;\n',
+      '    ', { type: 'fn', text: 'db.insert' }, '(', { type: 'str', text: "'usage'" }, ', {\n',
+      '      taskId, tokens,\n',
+      '      timestamp: Date.', { type: 'fn', text: 'now' }, '(),\n',
+      '      cost: tokens * 0.00003\n',
+      '    });\n',
+      '  }\n',
       '};'
     ],
-    followUp: 'Now write a test for it using Vitest'
+    followUp: 'Add a weekly usage summary email notification'
   },
   {
-    user: 'Create a React hook for dark mode toggle',
-    intro: 'Here\u2019s a clean custom hook with localStorage persistence:',
-    comment: '// hooks/useDarkMode.ts',
+    user: 'Connect Remote Codex to my team\'s dev server',
+    intro: 'Here\u2019s the SSH tunnel config for remote task execution:',
+    comment: '// remote-codex.config.ts',
     code: [
-      { type: 'kw', text: 'import' }, ' { useState, useEffect } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'react'" }, ';\n',
+      { type: 'kw', text: 'import' }, ' { ', { type: 'fn', text: 'RemoteConfig' }, ' } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'remote-codex'" }, ';\n',
       '\n',
-      { type: 'kw', text: 'export function' }, ' ', { type: 'fn', text: 'useDarkMode' }, '() {\n',
-      '  ', { type: 'kw', text: 'const' }, ' [dark, setDark] = ', { type: 'fn', text: 'useState' }, '(() =>\n',
-      '    localStorage.', { type: 'fn', text: 'getItem' }, '(', { type: 'str', text: "'theme'" }, ') === ', { type: 'str', text: "'dark'" }, '\n',
-      '  );\n',
-      '\n',
-      '  ', { type: 'fn', text: 'useEffect' }, '(() => {\n',
-      '    document.documentElement.classList.', { type: 'fn', text: 'toggle' }, '(', { type: 'str', text: "'dark'" }, ', dark);\n',
-      '    localStorage.', { type: 'fn', text: 'setItem' }, '(', { type: 'str', text: "'theme'" }, ', dark ? ', { type: 'str', text: "'dark'" }, ' : ', { type: 'str', text: "'light'" }, ');\n',
-      '  }, [dark]);\n',
-      '\n',
-      '  ', { type: 'kw', text: 'return' }, ' { dark, toggle: () => ', { type: 'fn', text: 'setDark' }, '(d => !d) };\n',
-      '}'
+      { type: 'kw', text: 'export const' }, ' config: RemoteConfig = {\n',
+      '  host: ', { type: 'str', text: "'dev.myteam.io'" }, ',\n',
+      '  port: 2222,\n',
+      '  auth: { type: ', { type: 'str', text: "'ssh-key'" }, ', path: ', { type: 'str', text: "'~/.ssh/codex_rsa'" }, ' },\n',
+      '  sandbox: {\n',
+      '    cpus: 4, memory: ', { type: 'str', text: "'8gb'" }, ',\n',
+      '    timeout: 300_000,\n',
+      '    persist: ', { type: 'kw', text: 'true' }, '\n',
+      '  },\n',
+      '  ', { type: 'fn', text: 'onConnect' }, ': () => ', { type: 'fn', text: 'console.log' }, '(', { type: 'str', text: "'🔗 Connected to remote sandbox'" }, ')\n',
+      '};'
     ],
-    followUp: 'Can you add system preference detection?'
+    followUp: 'Set up auto-scaling for multiple concurrent tasks'
   },
   {
-    user: 'Write a rate limiter for my API endpoints',
-    intro: 'Here\u2019s a simple sliding-window rate limiter:',
-    comment: '// middleware/rateLimit.ts',
+    user: 'Create a custom Codex theme with the API',
+    intro: 'Here\u2019s how to generate and apply a theme programmatically:',
+    comment: '// scripts/applyTheme.ts',
     code: [
-      { type: 'kw', text: 'const' }, ' hits = ', { type: 'kw', text: 'new' }, ' ', { type: 'fn', text: 'Map' }, '<string, number[]>();\n',
+      { type: 'kw', text: 'import' }, ' { readFileSync, writeFileSync } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'fs'" }, ';\n',
       '\n',
-      { type: 'kw', text: 'export function' }, ' ', { type: 'fn', text: 'rateLimit' }, '(max = 100, windowMs = 60000) {\n',
-      '  ', { type: 'kw', text: 'return' }, ' (req, res, next) => {\n',
-      '    ', { type: 'kw', text: 'const' }, ' key = req.ip;\n',
-      '    ', { type: 'kw', text: 'const' }, ' now = Date.', { type: 'fn', text: 'now' }, '();\n',
-      '    ', { type: 'kw', text: 'const' }, ' timestamps = hits.', { type: 'fn', text: 'get' }, '(key) || [];\n',
-      '    ', { type: 'kw', text: 'const' }, ' valid = timestamps.', { type: 'fn', text: 'filter' }, '(t => now - t < windowMs);\n',
+      { type: 'kw', text: 'const' }, ' configPath = ', { type: 'str', text: "'~/.codex/.codex-global-state.json'" }, ';\n',
+      { type: 'kw', text: 'const' }, ' config = JSON.', { type: 'fn', text: 'parse' }, '(\n',
+      '  ', { type: 'fn', text: 'readFileSync' }, '(configPath, ', { type: 'str', text: "'utf-8'" }, ')\n',
+      ');\n',
       '\n',
-      '    ', { type: 'kw', text: 'if' }, ' (valid.length >= max)\n',
-      '      ', { type: 'kw', text: 'return' }, ' res.', { type: 'fn', text: 'status' }, '(429).', { type: 'fn', text: 'json' }, '({ error: ', { type: 'str', text: "'Too many requests'" }, ' });\n',
+      'config.appearanceDarkChromeTheme = {\n',
+      '  accent: ', { type: 'str', text: "'#44e45c'" }, ', surface: ', { type: 'str', text: "'#111712'" }, ',\n',
+      '  ink: ', { type: 'str', text: "'#e3e8e4'" }, ', contrast: 60\n',
+      '};\n',
       '\n',
-      '    valid.', { type: 'fn', text: 'push' }, '(now);\n',
-      '    hits.', { type: 'fn', text: 'set' }, '(key, valid);\n',
-      '    ', { type: 'fn', text: 'next' }, '();\n',
-      '  };\n',
-      '}'
+      { type: 'fn', text: 'writeFileSync' }, '(configPath, JSON.', { type: 'fn', text: 'stringify' }, '(config, ', { type: 'kw', text: 'null' }, ', 2));'
     ],
-    followUp: 'Add Redis support for distributed rate limiting'
+    followUp: 'Make it read theme from DexThemes API instead'
   }
 ];
 
@@ -466,12 +481,12 @@ function renderMiniPreview(containerId, theme, variant) {
   el.style.background = v.surface;
 
   el.innerHTML = `
-    <div class="mini-user" style="background:${acc}22;color:${v.ink};">Add auth middleware</div>
+    <div class="mini-user" style="background:${acc}22;color:${v.ink};">Set up FauxDex config</div>
     <div class="mini-assistant" style="color:${v.ink};">
-      Sure — here's a JWT middleware:
+      Here's a local sandbox config:
       <div class="mini-code" style="background:${v.codeBg};border:1px solid ${borderColor};">
-        <span style="color:${acc}">import</span> <span style="color:${v.ink}">jwt</span> <span style="color:${acc}">from</span> <span style="color:${v.diffAdded}">'jsonwebtoken'</span>;<br>
-        <span style="color:${acc}">export const</span> <span style="color:${v.skill}">requireAuth</span> = ...
+        <span style="color:${acc}">import</span> <span style="color:${v.ink}">{ defineConfig }</span> <span style="color:${acc}">from</span> <span style="color:${v.diffAdded}">'fauxdex'</span>;<br>
+        <span style="color:${acc}">export default</span> <span style="color:${v.skill}">defineConfig</span>({ ... })
       </div>
     </div>
   `;
@@ -984,46 +999,45 @@ function fallbackCopy(str, cb) {
 // ================================================
 
 const EASTER_EGGS = [
-  // AI & OpenAI
+  // Codex App
+  { emoji: '⚡', text: 'Codex is OpenAI\'s first desktop coding agent — it reads your repo, writes code, and runs commands autonomously.' },
+  { emoji: '🖥️', text: 'Codex runs in a sandboxed cloud environment so it can safely execute code without touching your local machine.' },
+  { emoji: '🎨', text: 'Codex supports fully customizable themes via import strings — which is exactly what DexThemes generates for you.' },
+  { emoji: '🔗', text: 'Codex uses codex:// deep links. That\'s how DexThemes opens your Appearance settings with one click.' },
+  { emoji: '📂', text: 'Codex can read your entire codebase context to understand your project before writing a single line of code.' },
+  { emoji: '🛡️', text: 'Codex runs each task in an isolated sandbox with no network access by default — security by design.' },
+  { emoji: '🧵', text: 'Codex supports multiple concurrent tasks. You can have it refactor one file while writing tests for another.' },
+  { emoji: '💻', text: 'Codex is available on macOS and Windows, with the same theme system on both platforms.' },
+  { emoji: '🔄', text: 'Codex stores your theme in ~/.codex/.codex-global-state.json — DexThemes knows exactly where to look.' },
+  { emoji: '🌗', text: 'Codex supports independent light and dark themes. You can mix Dracula dark with Catppuccin light.' },
+  // OpenAI & GPT
   { emoji: '🤖', text: 'GPT-1 had 117 million parameters. GPT-4 is estimated to have over a trillion.' },
-  { emoji: '🎨', text: 'DALL-E was named as a portmanteau of Salvador Dalí and Pixar\'s WALL-E.' },
-  { emoji: '🎮', text: 'OpenAI Five defeated the world champion Dota 2 team OG at Dota 2 in 2019.' },
   { emoji: '📝', text: 'ChatGPT reached 100 million users in just two months — the fastest-growing app in history at launch.' },
-  { emoji: '🔬', text: 'Codex, OpenAI\'s code model, powered GitHub Copilot before evolving into the desktop agent you\'re theming right now.' },
+  { emoji: '🔬', text: 'Codex, OpenAI\'s code model, powered GitHub Copilot before evolving into the desktop agent you\'re theming.' },
   { emoji: '🌍', text: 'OpenAI\'s mission: "Ensure artificial general intelligence benefits all of humanity."' },
-  { emoji: '💬', text: 'The "T" in GPT stands for "Transformer" — the neural network architecture introduced by Google in 2017.' },
-  { emoji: '🧠', text: 'The original Transformer paper was titled "Attention Is All You Need" and changed the entire field of AI.' },
-  { emoji: '📊', text: 'GPT-2 was initially considered "too dangerous to release" — OpenAI staged its rollout over several months.' },
-  { emoji: '🎯', text: 'RLHF (Reinforcement Learning from Human Feedback) is the technique that made ChatGPT so conversational.' },
-  { emoji: '🔢', text: 'The word "token" in AI roughly equals ¾ of a word. "DexThemes" is two tokens.' },
-  { emoji: '🖥️', text: 'OpenAI trained GPT-4 on a cluster of tens of thousands of NVIDIA GPUs.' },
-  // Coding & Dev Culture
-  { emoji: '☕', text: 'The first computer bug was a literal moth found in a Harvard Mark II computer in 1947.' },
-  { emoji: '🐍', text: 'Python was named after Monty Python\'s Flying Circus, not the snake.' },
-  { emoji: '💾', text: 'The floppy disk save icon is still used everywhere, but most developers have never used an actual floppy disk.' },
-  { emoji: '🌙', text: 'Dark mode was first popularized by code editors. Now it\'s everywhere — including here.' },
-  { emoji: '⌨️', text: 'The average developer writes about 100 lines of production code per day.' },
-  { emoji: '🔤', text: 'JavaScript was created in just 10 days by Brendan Eich in 1995.' },
-  { emoji: '🐙', text: 'GitHub\'s mascot Octocat was originally designed by Simon Oxley, who also designed Twitter\'s original bird.' },
-  { emoji: '📦', text: 'The npm registry has over 2 million packages — and about 1.9 million of them are left-pad alternatives.' },
-  { emoji: '🎸', text: 'The first website ever created is still online: info.cern.ch — built by Tim Berners-Lee in 1991.' },
-  // Themes & Design
-  { emoji: '🎨', text: 'Dracula theme was created by Zeno Rocha in 2013 and has been ported to over 300 apps.' },
-  { emoji: '🌿', text: 'Solarized was designed with precise CIELAB color values for optimal contrast in both light and dark modes.' },
-  { emoji: '🗼', text: 'Tokyo Night was inspired by the illuminated streets of downtown Tokyo at night.' },
-  { emoji: '🌸', text: 'Catppuccin is one of the most popular modern themes, with warm pastel colors inspired by coffee drinks.' },
-  { emoji: '🌲', text: 'Everforest was designed to be easy on the eyes during long coding sessions, inspired by natural green tones.' },
-  { emoji: '🦊', text: 'Monokai was one of the first themes to gain massive popularity thanks to Sublime Text.' },
-  { emoji: '🌊', text: 'Nord theme uses an Arctic-inspired color palette based on the aurora borealis.' },
-  // Fun & Misc
-  { emoji: '🚀', text: 'You\'re customizing your AI coding agent. The future is wild.' },
-  { emoji: '✨', text: 'DexThemes is community-built and open source. Your theme could be next.' },
-  { emoji: '🎲', text: 'There are over 16 million possible hex colors. You\'ve got plenty to choose from in the builder.' },
-  { emoji: '👀', text: 'The human eye can distinguish about 10 million different colors. Dark mode uses maybe 12.' },
-  { emoji: '🧩', text: 'The best code themes balance aesthetics with readability — which is harder than it sounds.' },
-  { emoji: '💡', text: 'Fun fact: blue light from screens doesn\'t actually cause eye strain. Staring without blinking does.' },
-  { emoji: '🔮', text: 'The first color monitors displayed only 8 colors. Now you can theme your AI agent with millions.' },
-  { emoji: '🎵', text: 'Many developers say they code better with music. Lo-fi hip hop streams exist because of this.' },
+  { emoji: '💬', text: 'The "T" in GPT stands for "Transformer" — the architecture that changed the entire field of AI.' },
+  { emoji: '📊', text: 'GPT-2 was initially considered "too dangerous to release" — OpenAI staged its rollout over months.' },
+  { emoji: '🎯', text: 'RLHF (Reinforcement Learning from Human Feedback) is the technique that made ChatGPT conversational.' },
+  { emoji: '🔢', text: 'A "token" in AI roughly equals ¾ of a word. The average Codex task uses thousands of them.' },
+  { emoji: '🎮', text: 'OpenAI Five defeated the world champion Dota 2 team OG in 2019 — a landmark moment for AI agents.' },
+  { emoji: '🎨', text: 'DALL-E was named as a portmanteau of Salvador Dali and Pixar\'s WALL-E.' },
+  // Codex Ecosystem / Community Projects
+  { emoji: '🦊', text: 'FauxDex is a community-built open-source alternative that brings Codex-style workflows to more developers.' },
+  { emoji: '🌐', text: 'Remote Codex lets you run Codex tasks on remote machines — perfect for teams with shared infrastructure.' },
+  { emoji: '📊', text: 'Codex Monitor is a community tool that tracks your Codex usage, task history, and token consumption.' },
+  { emoji: '🧩', text: 'The Codex ecosystem is growing fast — community tools, themes, and extensions are popping up every week.' },
+  { emoji: '🔌', text: 'Codex supports MCP (Model Context Protocol) servers — letting it connect to external tools and services.' },
+  // DexThemes
+  { emoji: '✨', text: 'DexThemes is community-built and open source. Your theme could be the next one featured here.' },
+  { emoji: '🎲', text: 'There are over 16 million possible hex colors. The theme builder lets you pick from all of them.' },
+  { emoji: '🚀', text: 'You\'re customizing your AI coding agent\'s appearance. We live in the future.' },
+  { emoji: '🏆', text: 'Submit your theme to the DexThemes gallery and get credit every time someone shares it.' },
+  { emoji: '📤', text: 'Every DexThemes share on X automatically credits you as the theme author. Build your rep.' },
+  { emoji: '🎭', text: 'DexThemes has over 100 themes across Official, DexThemes, and Community categories.' },
+  { emoji: '👁️', text: 'The preview window you just closed? It renders your theme with real code — not a static mockup.' },
+  { emoji: '⚙️', text: 'DexThemes generates codex-theme-v1 import strings — the same format Codex uses natively.' },
+  { emoji: '🌈', text: 'Every theme in DexThemes supports custom accent colors. One theme, infinite vibes.' },
+  { emoji: '🔥', text: 'The most popular Codex themes? Dracula, Catppuccin, and Tokyo Night — in that order.' },
 ];
 
 let lastEasterEggIndex = -1;
@@ -1065,25 +1079,26 @@ function closePreviewWindow() {
   const area = document.querySelector('.preview-area');
   windowState = 'closed';
 
-  // Smooth scale-down close
-  win.style.transform = 'scale(0.92)';
+  // Prepare the easter egg overlay behind the window
+  const egg = getRandomEasterEgg();
+  const overlay = document.createElement('div');
+  overlay.className = 'preview-closed-overlay';
+  overlay.id = 'closed-overlay';
+  overlay.innerHTML = `
+    <div class="easter-egg-emoji">${egg.emoji}</div>
+    <div class="easter-egg-text">${egg.text}</div>
+    <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
+  `;
+  area.appendChild(overlay);
+
+  // Quick scale-down, window fades to reveal overlay underneath
+  win.style.transform = 'scale(0.95)';
   win.style.opacity = '0';
   setTimeout(() => {
     win.style.display = 'none';
     win.style.transform = '';
     win.style.opacity = '';
-
-    const egg = getRandomEasterEgg();
-    const overlay = document.createElement('div');
-    overlay.className = 'preview-closed-overlay';
-    overlay.id = 'closed-overlay';
-    overlay.innerHTML = `
-      <div class="easter-egg-emoji">${egg.emoji}</div>
-      <div class="easter-egg-text">${egg.text}</div>
-      <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
-    `;
-    area.appendChild(overlay);
-  }, 350);
+  }, 150);
 }
 
 function reopenPreviewWindow() {
@@ -1130,6 +1145,77 @@ function minimizePreviewWindow() {
     toggleFullscreen();
   }
   // If already normal, it's a no-op (already minimized/default state)
+}
+
+// ================================================
+// Preview chat — "out of credits" easter egg
+// ================================================
+
+const LIMIT_MESSAGES = [
+  "You've exceeded your rate limit. Please wait before sending another message.",
+  "Usage cap reached. Your limit resets in ∞ minutes.",
+  "You're out of tokens for this session. Try again... eventually.",
+  "Rate limit hit. Codex needs a coffee break too. ☕",
+  "Whoa, slow down! You've hit your message limit. (Just kidding, this is a theme preview.)",
+  "⚠️ Usage limit reached. Upgrade to DexThemes Pro™ for unlimited messages. (Not a real thing.)",
+  "Message limit exceeded. But hey, your theme looks amazing.",
+  "You've sent too many requests. Please wait 42 years before trying again.",
+  "Rate limited. In the meantime, have you tried submitting your theme to the gallery?",
+  "⏳ Please wait for your rate limit to reset. Or just keep browsing themes — that's free.",
+];
+
+let lastLimitIdx = -1;
+
+function initPreviewChat() {
+  const input = document.getElementById('preview-input-text');
+  const sendBtn = document.getElementById('preview-send-btn');
+  if (!input || !sendBtn) return;
+
+  const sendMessage = () => {
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    const chat = document.getElementById('preview-chat');
+    const v = selectedTheme[selectedVariant];
+    if (!v) return;
+    const acc = selectedTheme.accents[selectedAccentIdx] || v.accent;
+    const dark = isDark(v.surface);
+
+    // Add the user's message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'user-msg';
+    userMsg.style.background = acc + '22';
+    userMsg.style.color = v.ink;
+    userMsg.textContent = text;
+    chat.appendChild(userMsg);
+
+    // Pick a non-repeating limit message
+    let idx;
+    do {
+      idx = Math.floor(Math.random() * LIMIT_MESSAGES.length);
+    } while (idx === lastLimitIdx && LIMIT_MESSAGES.length > 1);
+    lastLimitIdx = idx;
+
+    // Show "typing" then the limit message
+    const limitMsg = document.createElement('div');
+    limitMsg.className = 'assistant-msg limit-msg';
+    limitMsg.style.color = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)';
+    limitMsg.innerHTML = '<span class="typing-dots">•••</span>';
+    chat.appendChild(limitMsg);
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+      limitMsg.style.color = v.ink;
+      limitMsg.innerHTML = `<p style="margin:0;font-size:13px;">⚠️ ${LIMIT_MESSAGES[idx]}</p>`;
+      chat.scrollTop = chat.scrollHeight;
+    }, 800);
+  };
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
 }
 
 // ================================================
@@ -1941,6 +2027,7 @@ renderRightPanel();
 applyShellTheme(selectedTheme, selectedVariant);
 applyPreview(selectedTheme, selectedVariant);
 initWindowDots();
+initPreviewChat();
 checkOnboarding();
 initAuth();
 loadCommunityThemes();

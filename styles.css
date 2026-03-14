@@ -808,6 +808,22 @@ html, body {
 
 .reopen-btn:hover { opacity: 0.88; }
 
+/* Limit message + typing dots */
+.limit-msg {
+  animation: fadeIn 0.3s ease;
+}
+
+.typing-dots {
+  animation: pulse 1s infinite;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
 /* ================================================
    RIGHT PANEL
    ================================================ */
