@@ -3,3 +3,4 @@
 .playwright-cli/
 node_modules/
 .env.local
+convex/_generated/
