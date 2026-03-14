@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff9a4d" />
-      <stop offset="100%" stop-color="#ff5a36" />
+    <linearGradient id="panel" x1="9" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#1c1730"/>
     </linearGradient>
+    <clipPath id="d-mask">
+      <path d="M18 13h13.5c9.7 0 17.5 8.1 17.5 18s-7.8 18-17.5 18H18V13Z"/>
+    </clipPath>
   </defs>
-  <rect width="64" height="64" rx="18" fill="#101115" />
-  <path
-    d="M18 18h17c10.493 0 19 8.507 19 19s-8.507 19-19 19H18z"
-    fill="url(#bg)"
-  />
-  <path
-    d="M18 18h15c10.493 0 19 8.507 19 19S43.493 56 33 56H18z"
-    fill="none"
-    stroke="#fff4ec"
-    stroke-width="5"
-    stroke-linejoin="round"
-  />
+  <rect width="64" height="64" rx="16" fill="url(#panel)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="#ffffff" stroke-opacity="0.045"/>
+  <path d="M18 13h13.5c9.7 0 17.5 8.1 17.5 18s-7.8 18-17.5 18H18V13Z" fill="#ffffff"/>
+  <g clip-path="url(#d-mask)">
+    <rect x="19.5" y="18.75" width="15.75" height="6.25" rx="3.125" fill="#47adff"/>
+    <rect x="21.75" y="28.75" width="18.75" height="6.25" rx="3.125" fill="#8b5cf6"/>
+    <rect x="19.75" y="38.75" width="16.75" height="6.25" rx="3.125" fill="#f15bb5"/>
+  </g>
+  <path d="M29 22h2.5c4.8 0 8.5 3.9 8.5 9s-3.7 9-8.5 9H29V22Z" fill="url(#panel)"/>
 </svg>
