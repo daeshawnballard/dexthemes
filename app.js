@@ -1481,21 +1481,17 @@ async function initAuth() {
 }
 
 function renderAuthUI() {
-  // Footer auth area — keep empty (sign in triggered from builder)
-  const footerArea = document.getElementById('auth-area');
-  if (footerArea) footerArea.innerHTML = '';
-
-  // Header avatar — show small profile pic when logged in
-  const headerArea = document.getElementById('header-auth-area');
-  if (!headerArea) return;
+  const authArea = document.getElementById('auth-area');
+  if (!authArea) return;
 
   if (currentUser) {
-    headerArea.innerHTML = `
-      <div class="header-avatar-wrap" title="${currentUser.displayName || currentUser.username}">
-        <img class="header-avatar" src="${currentUser.avatarUrl}" alt="" onerror="this.style.display='none'" onclick="toggleUserMenu(event)">
-        <div class="header-user-menu" id="header-user-menu" style="display:none;">
-          <div class="header-user-menu-name">${currentUser.displayName || currentUser.username}</div>
-          <button class="header-user-menu-btn" onclick="logout()">
+    authArea.innerHTML = `
+      <div class="sidebar-user" onclick="toggleUserMenu(event)">
+        <img class="sidebar-user-avatar" src="${currentUser.avatarUrl}" alt="" onerror="this.style.display='none'">
+        <span class="sidebar-user-name">${currentUser.displayName || currentUser.username}</span>
+        <svg class="sidebar-user-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="sidebar-user-menu" id="header-user-menu" style="display:none;">
+          <button class="sidebar-user-menu-btn" onclick="event.stopPropagation(); logout()">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             Sign out
           </button>
@@ -1503,7 +1499,7 @@ function renderAuthUI() {
       </div>
     `;
   } else {
-    headerArea.innerHTML = '';
+    authArea.innerHTML = '';
   }
 }
 
