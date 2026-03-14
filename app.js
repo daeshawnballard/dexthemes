@@ -178,7 +178,7 @@ const THEMES = [
 ];
 
 const CATEGORIES = [
-  { id: 'official', name: 'Official Codex', icon: 'shield' },
+  { id: 'official', name: 'Codex', icon: 'shield' },
   { id: 'dexthemes', name: 'DexThemes', icon: 'palette' },
   { id: 'community', name: 'Community', icon: 'users' }
 ];
@@ -191,6 +191,84 @@ let selectedTheme = THEMES[0];
 let selectedVariant = 'dark';
 let selectedAccentIdx = 0;
 let expandedCategories = { official: true, dexthemes: true, community: true };
+let typingTimer = null;
+let cycleTimer = null;
+let currentExampleIdx = 0;
+
+// ================================================
+// Conversation examples that cycle through
+// ================================================
+
+const EXAMPLES = [
+  {
+    user: 'Add authentication middleware to the Express router',
+    intro: 'Sure \u2014 here\u2019s a JWT middleware you can mount before your routes:',
+    comment: '// middleware/auth.ts',
+    code: [
+      { type: 'kw', text: 'import' }, ' jwt ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'jsonwebtoken'" }, ';\n',
+      '\n',
+      { type: 'kw', text: 'export const' }, ' ', { type: 'fn', text: 'requireAuth' }, ' = (\n',
+      '  req: Request, res: Response, next: NextFunction\n',
+      ') ', { type: 'kw', text: '=>' }, ' {\n',
+      '  ', { type: 'kw', text: 'const' }, ' token = req.headers.', { type: 'fn', text: 'authorization' }, '\n',
+      '    ?.', { type: 'fn', text: 'split' }, '(', { type: 'str', text: "' '" }, ')[1];\n',
+      '  ', { type: 'kw', text: 'if' }, ' (!token) ', { type: 'kw', text: 'return' }, ' res.', { type: 'fn', text: 'sendStatus' }, '(401);\n',
+      '  ', { type: 'kw', text: 'try' }, ' {\n',
+      '    req.user = jwt.', { type: 'fn', text: 'verify' }, '(token, process.env.JWT_SECRET!);\n',
+      '    ', { type: 'fn', text: 'next' }, '();\n',
+      '  } ', { type: 'kw', text: 'catch' }, ' { res.', { type: 'fn', text: 'sendStatus' }, '(403); }\n',
+      '};'
+    ],
+    followUp: 'Now write a test for it using Vitest'
+  },
+  {
+    user: 'Create a React hook for dark mode toggle',
+    intro: 'Here\u2019s a clean custom hook with localStorage persistence:',
+    comment: '// hooks/useDarkMode.ts',
+    code: [
+      { type: 'kw', text: 'import' }, ' { useState, useEffect } ', { type: 'kw', text: 'from' }, ' ', { type: 'str', text: "'react'" }, ';\n',
+      '\n',
+      { type: 'kw', text: 'export function' }, ' ', { type: 'fn', text: 'useDarkMode' }, '() {\n',
+      '  ', { type: 'kw', text: 'const' }, ' [dark, setDark] = ', { type: 'fn', text: 'useState' }, '(() =>\n',
+      '    localStorage.', { type: 'fn', text: 'getItem' }, '(', { type: 'str', text: "'theme'" }, ') === ', { type: 'str', text: "'dark'" }, '\n',
+      '  );\n',
+      '\n',
+      '  ', { type: 'fn', text: 'useEffect' }, '(() => {\n',
+      '    document.documentElement.classList.', { type: 'fn', text: 'toggle' }, '(', { type: 'str', text: "'dark'" }, ', dark);\n',
+      '    localStorage.', { type: 'fn', text: 'setItem' }, '(', { type: 'str', text: "'theme'" }, ', dark ? ', { type: 'str', text: "'dark'" }, ' : ', { type: 'str', text: "'light'" }, ');\n',
+      '  }, [dark]);\n',
+      '\n',
+      '  ', { type: 'kw', text: 'return' }, ' { dark, toggle: () => ', { type: 'fn', text: 'setDark' }, '(d => !d) };\n',
+      '}'
+    ],
+    followUp: 'Can you add system preference detection?'
+  },
+  {
+    user: 'Write a rate limiter for my API endpoints',
+    intro: 'Here\u2019s a simple sliding-window rate limiter:',
+    comment: '// middleware/rateLimit.ts',
+    code: [
+      { type: 'kw', text: 'const' }, ' hits = ', { type: 'kw', text: 'new' }, ' ', { type: 'fn', text: 'Map' }, '<string, number[]>();\n',
+      '\n',
+      { type: 'kw', text: 'export function' }, ' ', { type: 'fn', text: 'rateLimit' }, '(max = 100, windowMs = 60000) {\n',
+      '  ', { type: 'kw', text: 'return' }, ' (req, res, next) => {\n',
+      '    ', { type: 'kw', text: 'const' }, ' key = req.ip;\n',
+      '    ', { type: 'kw', text: 'const' }, ' now = Date.', { type: 'fn', text: 'now' }, '();\n',
+      '    ', { type: 'kw', text: 'const' }, ' timestamps = hits.', { type: 'fn', text: 'get' }, '(key) || [];\n',
+      '    ', { type: 'kw', text: 'const' }, ' valid = timestamps.', { type: 'fn', text: 'filter' }, '(t => now - t < windowMs);\n',
+      '\n',
+      '    ', { type: 'kw', text: 'if' }, ' (valid.length >= max)\n',
+      '      ', { type: 'kw', text: 'return' }, ' res.', { type: 'fn', text: 'status' }, '(429).', { type: 'fn', text: 'json' }, '({ error: ', { type: 'str', text: "'Too many requests'" }, ' });\n',
+      '\n',
+      '    valid.', { type: 'fn', text: 'push' }, '(now);\n',
+      '    hits.', { type: 'fn', text: 'set' }, '(key, valid);\n',
+      '    ', { type: 'fn', text: 'next' }, '();\n',
+      '  };\n',
+      '}'
+    ],
+    followUp: 'Add Redis support for distributed rate limiting'
+  }
+];
 
 // ================================================
 // Get available variants for a theme
@@ -326,33 +404,125 @@ function renderChatContent(v, acc, containerId) {
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
   const c = document.getElementById(containerId);
+  const ex = EXAMPLES[currentExampleIdx];
+
+  // Build colored code HTML
+  const codeHtml = ex.code.map(part => {
+    if (typeof part === 'string') return escapeHtml(part).replace(/\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;');
+    const color = part.type === 'kw' ? acc : part.type === 'str' ? v.diffAdded : part.type === 'fn' ? v.skill : v.ink;
+    return `<span style="color:${color}">${escapeHtml(part.text)}</span>`;
+  }).join('');
 
   c.innerHTML = `
     <div class="user-msg" style="background:${acc}22;color:${v.ink};">
-      Add authentication middleware to the Express router
+      ${escapeHtml(ex.user)}
     </div>
-    <div class="assistant-msg" style="color:${v.ink};">
-      <p>Sure — here's a JWT middleware you can mount before your routes:</p>
-      <div class="code-block" style="background:${v.codeBg};border:1px solid ${borderColor};color:${v.ink};">
-        <span style="color:${mutedColor}">// middleware/auth.ts</span><br>
-        <span style="color:${acc}">import</span> jwt <span style="color:${acc}">from</span> <span style="color:${v.diffAdded}">'jsonwebtoken'</span>;<br><br>
-        <span style="color:${acc}">export const</span> <span style="color:${v.skill}">requireAuth</span> = (<br>
-        &nbsp;&nbsp;req: Request, res: Response, next: NextFunction<br>
-        ) <span style="color:${acc}">=&gt;</span> {<br>
-        &nbsp;&nbsp;<span style="color:${acc}">const</span> token = req.headers.<span style="color:${v.skill}">authorization</span><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;?.<span style="color:${v.skill}">split</span>(<span style="color:${v.diffAdded}">' '</span>)[1];<br>
-        &nbsp;&nbsp;<span style="color:${acc}">if</span> (!token) <span style="color:${acc}">return</span> res.<span style="color:${v.skill}">sendStatus</span>(401);<br>
-        &nbsp;&nbsp;<span style="color:${acc}">try</span> {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;req.user = jwt.<span style="color:${v.skill}">verify</span>(token, process.env.JWT_SECRET!);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:${v.skill}">next</span>();<br>
-        &nbsp;&nbsp;} <span style="color:${acc}">catch</span> { res.<span style="color:${v.skill}">sendStatus</span>(403); }<br>
-        };
+    <div class="assistant-msg" id="assistant-typing" style="color:${v.ink};">
+      <p><span id="intro-text"></span><span class="typing-cursor" id="intro-cursor"></span></p>
+      <div class="code-block" style="background:${v.codeBg};border:1px solid ${borderColor};color:${v.ink};display:none;" id="code-block-anim">
+        <span style="color:${mutedColor}">${escapeHtml(ex.comment)}</span><br>
+        <span id="code-text"></span><span class="typing-cursor" id="code-cursor" style="display:none"></span>
       </div>
     </div>
-    <div class="user-msg" style="background:${acc}22;color:${v.ink};">
-      Now write a test for it using Vitest
+    <div class="user-msg" style="background:${acc}22;color:${v.ink};opacity:0;" id="followup-msg">
+      ${escapeHtml(ex.followUp)}
     </div>
   `;
+
+  startTypingAnimation(ex, v, acc);
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ================================================
+// Typing animation
+// ================================================
+
+function startTypingAnimation(ex, v, acc) {
+  if (typingTimer) clearTimeout(typingTimer);
+  if (cycleTimer) clearTimeout(cycleTimer);
+
+  const introEl = document.getElementById('intro-text');
+  const introCursor = document.getElementById('intro-cursor');
+  const codeBlock = document.getElementById('code-block-anim');
+  const codeEl = document.getElementById('code-text');
+  const codeCursor = document.getElementById('code-cursor');
+  const followUp = document.getElementById('followup-msg');
+
+  if (!introEl) return;
+
+  let i = 0;
+  const introText = ex.intro;
+
+  // Phase 1: Type intro text
+  function typeIntro() {
+    if (i < introText.length) {
+      introEl.textContent = introText.slice(0, i + 1);
+      i++;
+      typingTimer = setTimeout(typeIntro, 18 + Math.random() * 12);
+    } else {
+      // Done with intro, show code block
+      if (introCursor) introCursor.style.display = 'none';
+      if (codeBlock) codeBlock.style.display = '';
+      if (codeCursor) codeCursor.style.display = '';
+      typeCode();
+    }
+  }
+
+  // Phase 2: Reveal code (faster, chunk by chunk)
+  const dark = isDark(v.surface);
+  const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
+
+  const codeHtml = ex.code.map(part => {
+    if (typeof part === 'string') return escapeHtml(part).replace(/\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;');
+    const color = part.type === 'kw' ? acc : part.type === 'str' ? v.diffAdded : part.type === 'fn' ? v.skill : v.ink;
+    return `<span style="color:${color}">${escapeHtml(part.text)}</span>`;
+  }).join('');
+
+  // Split into chunks (each token is a chunk)
+  const codeChunks = ex.code;
+  let ci = 0;
+  let builtCode = '';
+
+  function typeCode() {
+    if (ci < codeChunks.length) {
+      const part = codeChunks[ci];
+      if (typeof part === 'string') {
+        builtCode += escapeHtml(part).replace(/\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;');
+      } else {
+        const color = part.type === 'kw' ? acc : part.type === 'str' ? v.diffAdded : part.type === 'fn' ? v.skill : v.ink;
+        builtCode += `<span style="color:${color}">${escapeHtml(part.text)}</span>`;
+      }
+      if (codeEl) codeEl.innerHTML = builtCode;
+      ci++;
+      typingTimer = setTimeout(typeCode, 30 + Math.random() * 20);
+    } else {
+      // Done with code
+      if (codeCursor) codeCursor.style.display = 'none';
+      // Phase 3: Fade in follow-up
+      setTimeout(() => {
+        if (followUp) {
+          followUp.style.transition = 'opacity 0.4s';
+          followUp.style.opacity = '1';
+        }
+        // Schedule next example
+        cycleTimer = setTimeout(cycleExample, 6000);
+      }, 400);
+    }
+  }
+
+  typeIntro();
+}
+
+function cycleExample() {
+  currentExampleIdx = (currentExampleIdx + 1) % EXAMPLES.length;
+  const v = selectedTheme[selectedVariant];
+  if (!v) return;
+  const acc = selectedTheme.accents[selectedAccentIdx] || v.accent;
+  renderChatContent(v, acc, 'preview-chat');
 }
 
 // ================================================
@@ -418,10 +588,14 @@ function updateVariantCards() {
 
 function renderSidebar() {
   const el = document.getElementById('category-list');
+  const searchInput = document.getElementById('sidebar-search');
+  const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
   el.innerHTML = CATEGORIES.map(cat => {
-    const themes = THEMES.filter(t => t.category === cat.id);
-    if (themes.length === 0 && cat.id === 'community') {
-      // Show empty state for community
+    let themes = THEMES.filter(t => t.category === cat.id);
+    if (q) themes = themes.filter(t => t.name.toLowerCase().includes(q));
+    if (themes.length === 0 && !q) {
+      // Show empty state (no themes in this category)
       const expanded = expandedCategories[cat.id];
       return `
         <div class="category">
@@ -438,7 +612,10 @@ function renderSidebar() {
       `;
     }
 
-    const expanded = expandedCategories[cat.id];
+    // Hide category if searching and no matches
+    if (themes.length === 0 && q) return '';
+
+    const expanded = expandedCategories[cat.id] || !!q; // auto-expand when searching
     return `
       <div class="category">
         <div class="category-header" onclick="toggleCategory('${cat.id}')">

@@ -90,11 +90,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
   flex-shrink: 0;
   transition: background var(--transition);
+  color: var(--accent);
 }
 
 .sidebar-brand-name {
@@ -139,6 +137,47 @@ html, body {
   background: var(--border);
   margin: 0 14px 4px;
   transition: background var(--transition);
+}
+
+/* ================================================
+   SIDEBAR SEARCH
+   ================================================ */
+
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 14px 8px;
+  padding: 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), border-color 0.15s;
+  -webkit-app-region: no-drag;
+}
+
+.sidebar-search:focus-within {
+  border-color: var(--accent);
+}
+
+.sidebar-search svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.sidebar-search input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font);
+}
+
+.sidebar-search input::placeholder {
+  color: var(--text-muted);
 }
 
 /* ================================================
@@ -214,7 +253,7 @@ html, body {
 }
 
 .category-threads.expanded {
-  max-height: 500px;
+  max-height: 1200px;
 }
 
 .thread-item {
@@ -270,11 +309,29 @@ html, body {
   transition: border-color var(--transition);
 }
 
+.sidebar-footer-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .sidebar-meta {
   font-size: 10px;
   color: var(--text-muted);
   line-height: 1.5;
   transition: color var(--transition);
+}
+
+.github-footer-link {
+  color: var(--text-muted);
+  transition: color 0.15s;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.github-footer-link:hover {
+  color: var(--text-secondary);
 }
 
 /* ================================================
@@ -448,6 +505,22 @@ html, body {
   transition: background 0.3s;
 }
 
+/* Typing cursor animation */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* ================================================
    RIGHT PANEL
    ================================================ */
@@ -457,14 +530,9 @@ html, body {
   border-left: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   transition: background var(--transition), border-color var(--transition);
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.06) transparent;
 }
-
-.panel::-webkit-scrollbar { width: 4px; }
-.panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 2px; }
 
 .panel-header {
   padding: 16px 16px 12px;
@@ -479,8 +547,19 @@ html, body {
 }
 
 /* ================================================
-   VARIANT CARDS (Light / Dark mini previews)
+   VARIANT CARDS container — scrollable, flexible
    ================================================ */
+
+.variant-cards {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 0 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.06) transparent;
+}
+
+.variant-cards::-webkit-scrollbar { width: 4px; }
+.variant-cards::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 2px; }
 
 .variant-card {
   margin: 0 12px 10px;
@@ -553,7 +632,7 @@ html, body {
 }
 
 /* ================================================
-   PANEL ACTIONS (accent dots + copy)
+   PANEL ACTIONS — pinned to bottom
    ================================================ */
 
 .panel-actions {
@@ -643,28 +722,6 @@ html, body {
   line-height: 1.5;
   text-align: center;
   transition: color var(--transition);
-}
-
-/* ================================================
-   GITHUB LINK
-   ================================================ */
-
-.github-link {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  z-index: 100;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: color 0.15s;
-}
-
-.github-link:hover {
-  color: var(--text-secondary);
 }
 
 /* ================================================
