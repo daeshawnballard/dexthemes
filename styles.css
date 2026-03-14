@@ -892,7 +892,7 @@ html, body {
   border-color: var(--text-primary);
 }
 
-.copy-btn {
+.copy-btn, .builder-share-btn {
   width: 100%;
   padding: 9px 14px;
   background: var(--accent);
@@ -928,169 +928,53 @@ html, body {
 }
 
 /* Apply to Codex button */
+.apply-codex-btn, .share-x-btn {
+  --btn-icon-size: 16px;
+}
+
+.apply-codex-btn svg, .share-x-btn svg {
+  width: var(--btn-icon-size);
+  height: var(--btn-icon-size);
+  flex-shrink: 0;
+}
+
 .apply-codex-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  color: var(--text-primary);
+  border: none;
+  background: var(--accent);
+  color: #fff;
   transition: all 0.15s;
-  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
 .apply-codex-btn:hover {
-  background: var(--accent-dim);
-  border-color: var(--accent-border);
-  color: var(--accent);
+  filter: brightness(1.1);
 }
 
-.experimental-badge {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  line-height: 1.4;
+.apply-codex-btn.copied {
+  background: var(--green, #22c55e);
 }
 
-/* Apply overlay / modal */
-.apply-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+/* Share on X button */
+.share-x-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  animation: overlayIn 0.15s ease;
-}
-
-.apply-overlay.closing {
-  animation: overlayOut 0.15s ease forwards;
-}
-
-@keyframes overlayIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes overlayOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-.apply-modal {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 14px;
-  width: 420px;
-  max-width: 90vw;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  animation: modalIn 0.2s ease;
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: scale(0.95) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.apply-modal-header {
-  display: flex;
-  align-items: center;
   gap: 8px;
-  padding: 16px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border);
-}
-
-.apply-modal-body {
-  padding: 16px 20px;
-}
-
-.apply-modal-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.apply-visual-step {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 0;
-}
-
-.apply-visual-icon {
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  padding: 10px 16px;
   border-radius: 10px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--text-muted);
-  transition: all 0.3s;
-}
-
-.apply-visual-icon.done {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.apply-visual-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.apply-visual-title {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
-  color: var(--text-primary);
-}
-
-.apply-visual-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.apply-visual-connector {
-  width: 1px;
-  height: 8px;
-  background: var(--border);
-  margin-left: 18px;
-}
-
-.apply-modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 12px 20px;
-  border-top: 1px solid var(--border);
-}
-
-.apply-cancel-btn {
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 500;
   cursor: pointer;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -1098,28 +982,13 @@ html, body {
   transition: all 0.15s;
 }
 
-.apply-cancel-btn:hover {
+.share-x-btn:hover {
   background: var(--surface-raised);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
-.apply-confirm-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  transition: all 0.15s;
-}
-
-.apply-confirm-btn:hover {
-  background: var(--accent-hover);
-}
+/* svg sizing handled by shared .apply-codex-btn, .share-x-btn rule above */
 
 /* ================================================
    THEME BUILDER PANEL

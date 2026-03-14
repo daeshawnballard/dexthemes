@@ -498,20 +498,15 @@ function renderRightPanel() {
         <span class="detail-label">Accent color</span>
       </div>
       <div class="accent-dots" id="accent-dots"></div>
-      <div class="detail-row">
-        <span class="detail-label">Import string</span>
-        <span class="detail-hint" id="variant-hint">dark variant</span>
-      </div>
-      <button class="copy-btn" id="copy-btn" onclick="copyTheme()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copy import string
-      </button>
       <button class="apply-codex-btn" id="apply-codex-btn" onclick="applyToCodex()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Apply to Codex
-        <span class="experimental-badge">Beta</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span id="apply-btn-text">Apply in Codex</span>
       </button>
-      <div class="import-hint">Or copy and paste manually in Codex → Settings → Appearance → Import theme</div>
+      <button class="share-x-btn" id="share-x-btn" onclick="shareOnX()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on X
+      </button>
+      <div class="import-hint" id="import-hint">Copies theme + opens Codex Appearance. Just paste &amp; import!</div>
     </div>
   `;
 
@@ -533,7 +528,8 @@ function renderRightPanel() {
 
   darkCard.classList.toggle('selected', selectedVariant === 'dark');
   lightCard.classList.toggle('selected', selectedVariant === 'light');
-  document.getElementById('variant-hint').textContent = `${selectedVariant} variant`;
+  const varHint = document.getElementById('variant-hint');
+  if (varHint) varHint.textContent = `${selectedVariant} variant`;
   renderAccentDots();
 }
 
@@ -794,53 +790,35 @@ function selectVariant(v) {
 // Copy to clipboard
 // ================================================
 
-function copyTheme() {
+// Apply to Codex — one click: copy import string + open Codex Appearance
+function applyToCodex() {
   const str = buildImportString(selectedTheme, selectedVariant, selectedAccentIdx);
   if (!str) return;
-  const btn = document.getElementById('copy-btn');
+  const btn = document.getElementById('apply-codex-btn');
+  const textEl = document.getElementById('apply-btn-text');
+  const hint = document.getElementById('import-hint');
 
-  const reset = () => {
-    btn.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="9" y="9" width="13" height="13" rx="2"/>
-        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-      </svg>
-      Copy import string
-    `;
-    btn.classList.remove('copied');
-  };
-
-  const confirm = () => {
-    btn.textContent = 'Copied!';
+  const afterCopy = () => {
+    textEl.textContent = 'Copied! Opening Codex...';
     btn.classList.add('copied');
-    setTimeout(reset, 1600);
+    if (hint) hint.textContent = 'Paste in Codex → Import theme → ⌘V → Import!';
+    // Open Codex Appearance settings
+    setTimeout(() => {
+      window.open('codex://settings/appearance', '_blank');
+    }, 300);
+    // Reset button after a few seconds
+    setTimeout(() => {
+      textEl.textContent = 'Apply in Codex';
+      btn.classList.remove('copied');
+      if (hint) hint.textContent = 'Copies theme + opens Codex Appearance. Just paste & import!';
+    }, 3000);
   };
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(str).then(confirm).catch(() => fallbackCopy(str, confirm));
+    navigator.clipboard.writeText(str).then(afterCopy).catch(() => fallbackCopy(str, afterCopy));
   } else {
-    fallbackCopy(str, confirm);
+    fallbackCopy(str, afterCopy);
   }
-}
-
-function fallbackCopy(str, cb) {
-  const ta = document.createElement('textarea');
-  ta.value = str;
-  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); cb(); } catch (e) {}
-  document.body.removeChild(ta);
-}
-
-// ================================================
-// Apply to Codex — deep link + clipboard
-// ================================================
-
-function applyToCodex() {
-  const importStr = buildImportString(selectedTheme, selectedVariant, selectedAccentIdx);
-  if (!importStr) return;
-  showApplyConfirm(importStr, selectedVariant);
 }
 
 function applyBuilderToCodex() {
@@ -853,7 +831,7 @@ function applyBuilderToCodex() {
     input.focus();
     return;
   }
-  const importStr = `codex-theme-v1:${JSON.stringify({
+  const str = `codex-theme-v1:${JSON.stringify({
     codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
     theme: {
       accent: b.accent, contrast: b.contrast,
@@ -864,97 +842,12 @@ function applyBuilderToCodex() {
     },
     variant: b.variant
   })}`;
-  showApplyConfirm(importStr, b.variant);
-}
-
-function showApplyConfirm(importStr, variant) {
-  const existing = document.getElementById('apply-overlay');
-  if (existing) existing.remove();
-
-  const variantLabel = variant === 'dark' ? 'Dark' : 'Light';
-
-  const overlay = document.createElement('div');
-  overlay.id = 'apply-overlay';
-  overlay.className = 'apply-overlay';
-  overlay.innerHTML = `
-    <div class="apply-modal">
-      <div class="apply-modal-header">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Apply to Codex
-      </div>
-      <div class="apply-modal-body">
-        <div class="apply-modal-visual">
-          <div class="apply-visual-step">
-            <div class="apply-visual-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            </div>
-            <div class="apply-visual-text">
-              <span class="apply-visual-title">Copy ${variantLabel} import string</span>
-              <span class="apply-visual-sub">Copied to your clipboard automatically</span>
-            </div>
-          </div>
-          <div class="apply-visual-connector"></div>
-          <div class="apply-visual-step">
-            <div class="apply-visual-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </div>
-            <div class="apply-visual-text">
-              <span class="apply-visual-title">Open Codex Appearance</span>
-              <span class="apply-visual-sub">Jumps to Settings → Appearance</span>
-            </div>
-          </div>
-          <div class="apply-visual-connector"></div>
-          <div class="apply-visual-step">
-            <div class="apply-visual-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
-            </div>
-            <div class="apply-visual-text">
-              <span class="apply-visual-title">Paste & import</span>
-              <span class="apply-visual-sub">Click "${variantLabel} → Import", then ⌘V and import</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="apply-modal-actions">
-        <button class="apply-cancel-btn" onclick="closeApplyOverlay()">Cancel</button>
-        <button class="apply-confirm-btn" id="apply-main-btn" onclick="executeApply()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy & open Codex
-        </button>
-      </div>
-    </div>
-  `;
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeApplyOverlay();
-  });
-  document.body.appendChild(overlay);
-  overlay._importStr = importStr;
-}
-
-function executeApply() {
-  const overlay = document.getElementById('apply-overlay');
-  const str = overlay._importStr;
-  const btn = document.getElementById('apply-main-btn');
-
+  const btn = document.querySelector('.builder-apply-btn');
   const afterCopy = () => {
-    // Mark step 1 as done visually
-    const icons = overlay.querySelectorAll('.apply-visual-icon');
-    if (icons[0]) icons[0].classList.add('done');
-
-    // Update button
-    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied! Opening Codex...';
-    btn.style.background = 'var(--green, #22c55e)';
-    btn.disabled = true;
-
-    // Open Codex Appearance settings
-    setTimeout(() => {
-      window.open('codex://settings/appearance', '_blank');
-    }, 400);
-
-    // Close overlay after a moment
-    setTimeout(() => closeApplyOverlay(), 2500);
+    if (btn) { btn.textContent = 'Copied! Opening Codex...'; btn.classList.add('copied'); }
+    setTimeout(() => window.open('codex://settings/appearance', '_blank'), 300);
+    setTimeout(() => { if (btn) { btn.textContent = 'Apply in Codex'; btn.classList.remove('copied'); } }, 3000);
   };
-
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(str).then(afterCopy).catch(() => fallbackCopy(str, afterCopy));
   } else {
@@ -962,12 +855,30 @@ function executeApply() {
   }
 }
 
-function closeApplyOverlay() {
-  const overlay = document.getElementById('apply-overlay');
-  if (overlay) {
-    overlay.classList.add('closing');
-    setTimeout(() => overlay.remove(), 150);
-  }
+// Share on X — compose a tweet with the theme name + link
+function shareOnX() {
+  const name = selectedTheme.name || 'a theme';
+  const variant = selectedVariant === 'dark' ? 'dark' : 'light';
+  const text = `Check out the "${name}" ${variant} theme for Codex on @DexThemes! 🎨\n\nhttps://dexthemes.com`;
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank', 'width=550,height=420');
+}
+
+function shareBuilderOnX() {
+  const name = builderColors.name || 'my custom';
+  const text = `I just created a "${name}" theme for Codex with @DexThemes! 🎨\n\nBuild yours at https://dexthemes.com`;
+  const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank', 'width=550,height=420');
+}
+
+function fallbackCopy(str, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = str;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); cb(); } catch (e) {}
+  document.body.removeChild(ta);
 }
 
 // ================================================
@@ -1211,14 +1122,13 @@ function renderBuilderPanel() {
     </div>
 
     <div class="builder-actions">
-      <button class="builder-share-btn" onclick="shareBuilderTheme()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copy import string
-      </button>
       <button class="apply-codex-btn builder-apply-btn" onclick="applyBuilderToCodex()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Apply to Codex
-        <span class="experimental-badge">Beta</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Apply in Codex
+      </button>
+      <button class="share-x-btn" onclick="shareBuilderOnX()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on X
       </button>
       <div class="builder-submit-hint">Create freely — no account needed.<br>To submit to the community gallery, connect GitHub or X (coming soon).</div>
     </div>
