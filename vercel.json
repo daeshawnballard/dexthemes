@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "https://avid-squid-427.convex.site/auth/:path*"
+    }
+  ]
+}

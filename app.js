@@ -6,6 +6,15 @@
 // Default semantic colors used when a Codex theme doesn't define them
 const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
 const LIGHT_DEFAULTS = { diffAdded: '#00a240', diffRemoved: '#ba2623', skill: '#924ff7' };
+const DEXTHEMES_GROUP_LABELS = window.DEXTHEMES_GROUP_LABELS || {
+  anime: 'Anime',
+  games: 'Video Games',
+  movies: 'Movies',
+  comics: 'Comics',
+  zodiacs: 'Zodiacs',
+  lunar: 'Lunar Animals',
+  originals: 'Originals'
+};
 
 const THEMES = [
   // ==============================
@@ -145,41 +154,19 @@ const THEMES = [
   },
 
   // ==============================
-  // DEXTHEMES (Anime / Originals)
+  // DEXTHEMES (loaded from theme-data/dexthemes/*)
   // ==============================
-  {
-    id: 'ichigo-bankai', name: 'Ichigo / Bankai', category: 'dexthemes', copies: 87, dateAdded: '2025-12-01',
-    dark: { surface: '#121111', ink: '#FFF4EC', accent: '#FF7A1A', contrast: 64, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#F59E0B', sidebar: '#0d0c0c', codeBg: '#0a0909' },
-    light: { surface: '#FFF7F2', ink: '#121212', accent: '#F97316', contrast: 46, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#F59E0B', sidebar: '#f7efe9', codeBg: '#f0e8e2' },
-    accents: ['#FF7A1A', '#F97316']
-  },
-  {
-    id: 'naruto-hidden-leaf', name: 'Naruto / Hidden Leaf', category: 'dexthemes', copies: 112, dateAdded: '2025-12-01',
-    dark: { surface: '#101418', ink: '#F7F3EA', accent: '#FF9F1C', contrast: 66, diffAdded: '#22C55E', diffRemoved: '#F97316', skill: '#F59E0B', sidebar: '#0b0f12', codeBg: '#080c0f' },
-    light: { surface: '#FFF8ED', ink: '#1A1A1A', accent: '#F59E0B', contrast: 48, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#EA580C', sidebar: '#f7f0e4', codeBg: '#f0e9dd' },
-    accents: ['#FF9F1C', '#F59E0B']
-  },
-  {
-    id: 'luffy-grand-line', name: 'Luffy / Grand Line', category: 'dexthemes', copies: 98, dateAdded: '2025-12-15',
-    dark: { surface: '#0F172A', ink: '#F8F1DC', accent: '#F87171', contrast: 62, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#60A5FA', sidebar: '#0a1122', codeBg: '#070d1c' },
-    light: { surface: '#FFF8E7', ink: '#152033', accent: '#DC2626', contrast: 44, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#2563EB', sidebar: '#f7f0de', codeBg: '#f0e9d7' },
-    accents: ['#F87171', '#DC2626']
-  },
-  {
-    id: 'shonen-sunset', name: 'Shonen Sunset', category: 'dexthemes', copies: 76, dateAdded: '2026-01-10',
-    dark: { surface: '#111827', ink: '#FFF7ED', accent: '#FB923C', contrast: 67, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#A855F7', sidebar: '#0c1220', codeBg: '#090e1a' },
-    light: { surface: '#FFF7E8', ink: '#161616', accent: '#EA580C', contrast: 47, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#7C3AED', sidebar: '#f7efdf', codeBg: '#f0e8d8' },
-    accents: ['#FB923C', '#EA580C']
-  },
-
-  // ==============================
-  // COMMUNITY (placeholder)
-  // ==============================
+  ...Object.values((window.DEXTHEMES_PACKS && window.DEXTHEMES_PACKS.dexthemes) || {}).flat(),
 ];
 
 const CATEGORIES = [
   { id: 'official', name: 'Codex', icon: 'shield' },
-  { id: 'dexthemes', name: 'DexThemes', icon: 'palette' },
+  {
+    id: 'dexthemes',
+    name: 'DexThemes',
+    icon: 'palette',
+    groups: ['anime', 'games', 'movies', 'comics', 'zodiacs', 'lunar', 'originals']
+  },
   { id: 'community', name: 'Community', icon: 'users' }
 ];
 
@@ -190,7 +177,25 @@ const CATEGORIES = [
 let selectedTheme = THEMES[0];
 let selectedVariant = 'dark';
 let selectedAccentIdx = 0;
-let expandedCategories = { official: true, dexthemes: true, community: true };
+let expandedCategories = { official: false, dexthemes: false, community: false };
+let expandedSubgroups = {
+  official: {},
+  dexthemes: {
+    anime: false,
+    games: false,
+    movies: false,
+    comics: false,
+    zodiacs: false,
+    lunar: false,
+    originals: false,
+  },
+  community: {},
+};
+let pinnedSubgroups = {
+  official: {},
+  dexthemes: {},
+  community: {},
+};
 let currentExampleIdx = Math.floor(Math.random() * 3);
 let windowState = 'normal'; // 'normal', 'fullscreen', 'closed'
 let activeFilter = 'all'; // 'all', 'dark-only', 'light-only', 'both'
@@ -198,6 +203,13 @@ let activeSort = 'default'; // 'default', 'trending', 'recent', 'az', 'za'
 let panelMode = 'preview'; // 'preview' or 'builder'
 let builderColors = null; // custom theme being built
 let openDropdown = null; // 'filter', 'sort', or null
+
+// ================================================
+// Auth & Backend
+// ================================================
+const CONVEX_SITE_URL = 'https://avid-squid-427.convex.site';
+let currentUser = null; // { _id, provider, username, displayName, avatarUrl }
+let flaggedThemes = new Set(); // track themes this user has flagged
 
 // ================================================
 // Conversation examples that cycle through
@@ -503,10 +515,19 @@ function renderRightPanel() {
         <span id="apply-btn-text">Apply in Codex</span>
       </button>
       <button class="share-x-btn" id="share-x-btn" onclick="shareOnX()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Share on X
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on social
       </button>
-      <div class="import-hint" id="import-hint">Copies theme + opens Codex Appearance. Just paste &amp; import!</div>
+      <div class="import-hint" id="import-hint">Copies theme + opens Codex Settings. Go to Appearance, paste &amp; import!</div>
+      ${selectedTheme.category === 'community' && selectedTheme._convexId ? `
+        <button class="flag-btn${flaggedThemes.has(selectedTheme._convexId) ? ' flagged' : ''}"
+                onclick="flagTheme('${selectedTheme._convexId}')"
+                ${flaggedThemes.has(selectedTheme._convexId) ? 'disabled' : ''}>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          ${flaggedThemes.has(selectedTheme._convexId) ? 'Reported' : 'Report theme'}
+        </button>
+        ${selectedTheme._authorName ? `<div class="theme-author-hint">by ${selectedTheme._authorName}</div>` : ''}
+      ` : ''}
     </div>
   `;
 
@@ -568,7 +589,7 @@ function renderSortDropdown() {
   const sorts = [
     { id: 'default', label: 'Default' },
     { id: 'trending', label: 'Trending' },
-    { id: 'recent', label: 'Recently added' },
+    { id: 'recent', label: 'Newest' },
     { id: 'az', label: 'A → Z' },
     { id: 'za', label: 'Z → A' }
   ];
@@ -683,6 +704,54 @@ function renderSidebar() {
     if (themes.length === 0 && q) return '';
 
     const expanded = expandedCategories[cat.id] || !!q; // auto-expand when searching
+    const renderThreads = () => {
+      if (!cat.groups) {
+        return themes.map(t => `
+          <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
+               data-theme-id="${t.id}"
+               onclick="selectThemeById('${t.id}')">
+            <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+            <span class="thread-title">${t.name}</span>
+          </div>
+        `).join('');
+      }
+
+      return cat.groups.map(groupId => {
+        const groupThemes = themes.filter(t => (t.subgroup || 'originals') === groupId);
+        if (groupThemes.length === 0) return '';
+        const subgroupExpanded = (expandedSubgroups[cat.id] && expandedSubgroups[cat.id][groupId]) || !!q;
+        const subgroupPinned = !!(pinnedSubgroups[cat.id] && pinnedSubgroups[cat.id][groupId]);
+
+        return `
+          <div class="thread-group">
+            <button
+              class="thread-group-toggle${subgroupPinned ? ' is-pinned' : ''}"
+              type="button"
+              ondblclick="pinSubgroup('${cat.id}', '${groupId}')"
+              onclick="toggleSubgroup('${cat.id}', '${groupId}')"
+              title="${subgroupPinned ? 'Pinned open' : 'Click to open. Double-click to pin open.'}">
+              <svg class="thread-group-chevron ${subgroupExpanded ? 'expanded' : ''}" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              <span class="thread-group-label">${DEXTHEMES_GROUP_LABELS[groupId] || groupId}</span>
+              <span class="thread-group-count">${groupThemes.length}</span>
+              <span class="thread-group-pin${subgroupPinned ? ' visible' : ''}"></span>
+            </button>
+            <div class="thread-group-items ${subgroupExpanded ? 'expanded' : ''}">
+              ${groupThemes.map(t => `
+                <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
+                     data-theme-id="${t.id}"
+                     onclick="selectThemeById('${t.id}')">
+                  <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+                  <span class="thread-title">${t.name}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
     return `
       <div class="category">
         <div class="category-header" onclick="toggleCategory('${cat.id}')">
@@ -692,14 +761,7 @@ function renderSidebar() {
           <span class="category-count">${themes.length}</span>
         </div>
         <div class="category-threads ${expanded ? 'expanded' : ''}">
-          ${themes.map(t => `
-            <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
-                 data-theme-id="${t.id}"
-                 onclick="selectThemeById('${t.id}')">
-              <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
-              <span class="thread-title">${t.name}</span>
-            </div>
-          `).join('')}
+          ${renderThreads()}
         </div>
       </div>
     `;
@@ -721,6 +783,39 @@ function getCategoryIcon(icon) {
 
 function toggleCategory(catId) {
   expandedCategories[catId] = !expandedCategories[catId];
+  renderSidebar();
+}
+
+function toggleSubgroup(categoryId, groupId) {
+  if (!expandedSubgroups[categoryId]) expandedSubgroups[categoryId] = {};
+  if (!pinnedSubgroups[categoryId]) pinnedSubgroups[categoryId] = {};
+
+  const isExpanded = !!expandedSubgroups[categoryId][groupId];
+  const isPinned = !!pinnedSubgroups[categoryId][groupId];
+
+  if (isExpanded && !isPinned) {
+    expandedSubgroups[categoryId][groupId] = false;
+    renderSidebar();
+    return;
+  }
+
+  Object.keys(expandedSubgroups[categoryId]).forEach((key) => {
+    if (key !== groupId && !pinnedSubgroups[categoryId][key]) {
+      expandedSubgroups[categoryId][key] = false;
+    }
+  });
+
+  expandedSubgroups[categoryId][groupId] = true;
+  renderSidebar();
+}
+
+function pinSubgroup(categoryId, groupId) {
+  if (!expandedSubgroups[categoryId]) expandedSubgroups[categoryId] = {};
+  if (!pinnedSubgroups[categoryId]) pinnedSubgroups[categoryId] = {};
+
+  const nextPinned = !pinnedSubgroups[categoryId][groupId];
+  pinnedSubgroups[categoryId][groupId] = nextPinned;
+  expandedSubgroups[categoryId][groupId] = true;
   renderSidebar();
 }
 
@@ -753,7 +848,10 @@ function selectThemeById(id) {
   // Exit builder mode if active
   if (panelMode === 'builder') {
     panelMode = 'preview';
+    const submitBtn = document.getElementById('submit-btn');
     document.getElementById('submit-btn-text').textContent = 'Create a theme';
+    const iconEl = submitBtn.querySelector('svg');
+    if (iconEl) iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
   }
 
   // Cycle to next example on theme change
@@ -801,16 +899,16 @@ function applyToCodex() {
   const afterCopy = () => {
     textEl.textContent = 'Copied! Opening Codex...';
     btn.classList.add('copied');
-    if (hint) hint.textContent = 'Paste in Codex → Import theme → ⌘V → Import!';
+    if (hint) hint.textContent = 'Go to Appearance → Import theme → ⌘V → Import!';
     // Open Codex Appearance settings
     setTimeout(() => {
-      window.open('codex://settings/appearance', '_blank');
+      window.open('codex://settings', '_blank');
     }, 300);
     // Reset button after a few seconds
     setTimeout(() => {
       textEl.textContent = 'Apply in Codex';
       btn.classList.remove('copied');
-      if (hint) hint.textContent = 'Copies theme + opens Codex Appearance. Just paste & import!';
+      if (hint) hint.textContent = 'Copies theme + opens Codex Settings. Go to Appearance, paste & import!';
     }, 3000);
   };
 
@@ -832,7 +930,7 @@ function applyBuilderToCodex() {
     return;
   }
   const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
+    codeThemeId: 'codex',
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
@@ -845,7 +943,7 @@ function applyBuilderToCodex() {
   const btn = document.querySelector('.builder-apply-btn');
   const afterCopy = () => {
     if (btn) { btn.textContent = 'Copied! Opening Codex...'; btn.classList.add('copied'); }
-    setTimeout(() => window.open('codex://settings/appearance', '_blank'), 300);
+    setTimeout(() => window.open('codex://settings', '_blank'), 300);
     setTimeout(() => { if (btn) { btn.textContent = 'Apply in Codex'; btn.classList.remove('copied'); } }, 3000);
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1059,9 +1157,13 @@ function colorMeLucky() {
 }
 
 function toggleBuilderMode() {
+  const btn = document.getElementById('submit-btn');
+  const textEl = document.getElementById('submit-btn-text');
+  const iconEl = btn.querySelector('svg');
   if (panelMode === 'builder') {
     panelMode = 'preview';
-    document.getElementById('submit-btn-text').textContent = 'Create a theme';
+    textEl.textContent = 'Create a theme';
+    iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
     // Restore selected theme preview
     applyShellTheme(selectedTheme, selectedVariant);
     applyPreview(selectedTheme, selectedVariant);
@@ -1070,7 +1172,8 @@ function toggleBuilderMode() {
     panelMode = 'builder';
     // Load saved state or start fresh
     builderColors = loadBuilderState() || getDefaultBuilderColors();
-    document.getElementById('submit-btn-text').textContent = 'Back to browsing';
+    textEl.textContent = 'Back to browsing';
+    iconEl.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
     renderBuilderPanel();
     applyBuilderPreview();
   }
@@ -1127,10 +1230,24 @@ function renderBuilderPanel() {
         Apply in Codex
       </button>
       <button class="share-x-btn" onclick="shareBuilderOnX()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Share on X
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on social
       </button>
-      <div class="builder-submit-hint">Create freely — no account needed.<br>To submit to the community gallery, connect GitHub or X (coming soon).</div>
+      ${currentUser ? `
+        <button class="builder-submit-btn" onclick="submitFromBuilder()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Submit to gallery
+        </button>
+        <button class="builder-json-btn" onclick="showSubmitJsonModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          or paste JSON
+        </button>
+      ` : `
+        <button class="builder-submit-btn builder-github-signin" onclick="signInWith('github')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Sign in with GitHub to submit
+        </button>
+      `}
     </div>
   `;
 }
@@ -1224,7 +1341,7 @@ function shareBuilderTheme() {
   }
 
   const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
+    codeThemeId: 'codex',
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
@@ -1326,8 +1443,429 @@ function dismissOnboarding() {
 }
 
 // ================================================
+// Auth & User Account
+// ================================================
+
+async function initAuth() {
+  // Check URL hash for auth token (from OAuth redirect)
+  const hash = window.location.hash;
+  if (hash.startsWith('#auth=')) {
+    const token = hash.slice(6);
+    localStorage.setItem('dexthemes-session', token);
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  // Check for existing session
+  const token = localStorage.getItem('dexthemes-session');
+  if (!token) {
+    renderAuthUI();
+    return;
+  }
+
+  try {
+    const res = await fetch(CONVEX_SITE_URL + '/auth/me', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      currentUser = data.user;
+    } else {
+      // Invalid/expired session
+      localStorage.removeItem('dexthemes-session');
+      currentUser = null;
+    }
+  } catch (e) {
+    console.warn('Auth check failed:', e);
+  }
+  renderAuthUI();
+}
+
+function renderAuthUI() {
+  const area = document.getElementById('auth-area');
+  if (!area) return;
+
+  if (currentUser) {
+    area.innerHTML = `
+      <div class="auth-user-row">
+        <img class="auth-avatar" src="${currentUser.avatarUrl}" alt="" onerror="this.style.display='none'">
+        <span class="auth-username">${currentUser.displayName || currentUser.username}</span>
+        <button class="auth-signout-btn" onclick="logout()" title="Sign out">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    `;
+  } else {
+    // No sign-in button in sidebar — sign in is triggered from builder submit flow
+    area.innerHTML = '';
+  }
+}
+
+function toggleAuthDropdown(e) {
+  e.stopPropagation();
+  const dd = document.getElementById('auth-dropdown');
+  if (!dd) return;
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+  // Close on outside click
+  const close = () => { dd.style.display = 'none'; document.removeEventListener('click', close); };
+  if (dd.style.display === 'block') {
+    setTimeout(() => document.addEventListener('click', close), 0);
+  }
+}
+
+function signInWith(provider) {
+  const origin = encodeURIComponent(window.location.origin);
+  // On production, use relative path (Vercel rewrites /auth/* to Convex)
+  // On localhost, go direct to Convex
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const base = isLocal ? CONVEX_SITE_URL : '';
+  window.location.href = base + '/auth/' + provider + '?origin=' + origin;
+}
+
+async function logout() {
+  const token = localStorage.getItem('dexthemes-session');
+  if (token) {
+    try {
+      await fetch(CONVEX_SITE_URL + '/auth/logout', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+    } catch (e) { /* ignore */ }
+  }
+  localStorage.removeItem('dexthemes-session');
+  currentUser = null;
+  renderAuthUI();
+  // Re-render panels that depend on auth state
+  if (panelMode === 'builder') renderBuilderPanel();
+}
+
+// ================================================
+// Community Themes (load from Convex)
+// ================================================
+
+async function loadCommunityThemes() {
+  const isLocalPreview =
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === 'localhost';
+
+  if (isLocalPreview) {
+    return;
+  }
+
+  try {
+    const res = await fetch(CONVEX_SITE_URL + '/themes');
+    if (!res.ok) return;
+    const themes = await res.json();
+
+    // Get existing IDs to avoid collisions
+    const existingIds = new Set(THEMES.map(t => t.id));
+
+    const communityThemes = themes
+      .filter(t => !existingIds.has(t.themeId))
+      .map(t => ({
+        id: t.themeId,
+        name: t.name,
+        category: 'community',
+        codeThemeId: t.codeThemeId || { dark: 'codex', light: 'codex' },
+        copies: t.copies || 0,
+        dateAdded: new Date(t.createdAt).toISOString().split('T')[0],
+        dark: t.dark ? {
+          surface: t.dark.surface,
+          ink: t.dark.ink,
+          accent: t.dark.accent,
+          contrast: t.dark.contrast,
+          diffAdded: t.dark.diffAdded,
+          diffRemoved: t.dark.diffRemoved,
+          skill: t.dark.skill,
+          sidebar: t.dark.sidebar,
+          codeBg: t.dark.codeBg,
+        } : undefined,
+        light: t.light ? {
+          surface: t.light.surface,
+          ink: t.light.ink,
+          accent: t.light.accent,
+          contrast: t.light.contrast,
+          diffAdded: t.light.diffAdded,
+          diffRemoved: t.light.diffRemoved,
+          skill: t.light.skill,
+          sidebar: t.light.sidebar,
+          codeBg: t.light.codeBg,
+        } : undefined,
+        accents: t.accents || [t.dark?.accent || t.light?.accent].filter(Boolean),
+        subgroup: 'community',
+        _convexId: t._id,
+        _authorName: t.authorName,
+        _summary: t.summary,
+      }));
+
+    if (communityThemes.length > 0) {
+      THEMES.push(...communityThemes);
+      renderSidebar();
+    }
+  } catch (e) {
+    console.warn('Failed to load community themes:', e);
+  }
+}
+
+// ================================================
+// Toast notifications
+// ================================================
+
+function showToast(message, type = 'success') {
+  // Remove any existing toast
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(() => toast.classList.add('visible'));
+
+  // Auto-dismiss
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// ================================================
+// Theme Submission
+// ================================================
+
+function slugify(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+async function submitFromBuilder() {
+  if (!currentUser) {
+    showToast('Sign in to submit themes', 'error');
+    return;
+  }
+
+  const b = builderColors;
+  if (!b.name || !b.name.trim()) {
+    const input = document.getElementById('builder-name');
+    const warning = document.getElementById('builder-name-warning');
+    if (input) input.classList.add('name-required');
+    if (warning) warning.classList.add('visible');
+    if (input) input.focus();
+    return;
+  }
+
+  const summary = prompt('Describe your theme in a sentence (max 240 chars):', b.name + ' theme for Codex');
+  if (summary === null) return; // cancelled
+
+  const themeId = slugify(b.name);
+  const variant = b.variant || 'dark';
+  const variantData = {
+    surface: b.surface,
+    ink: b.ink,
+    accent: b.accent,
+    contrast: b.contrast || (variant === 'dark' ? 60 : 45),
+    diffAdded: b.diffAdded,
+    diffRemoved: b.diffRemoved,
+    skill: b.skill,
+    sidebar: b.sidebar,
+    codeBg: b.codeBg,
+  };
+
+  const payload = {
+    themeId,
+    name: b.name.trim(),
+    summary: (summary || b.name).slice(0, 240),
+    [variant]: variantData,
+    accents: [b.accent],
+    codeThemeId: { dark: 'codex', light: 'codex' },
+  };
+
+  try {
+    const token = localStorage.getItem('dexthemes-session');
+    const res = await fetch(CONVEX_SITE_URL + '/themes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showToast(data.error || 'Submission failed', 'error');
+      return;
+    }
+
+    showToast('Theme submitted to the community gallery!');
+
+    // Add to local THEMES array and re-render
+    THEMES.push({
+      id: themeId,
+      name: b.name.trim(),
+      category: 'community',
+      subgroup: 'community',
+      codeThemeId: { dark: 'codex', light: 'codex' },
+      copies: 0,
+      dateAdded: new Date().toISOString().split('T')[0],
+      [variant]: variantData,
+      accents: [b.accent],
+      _authorName: currentUser.displayName || currentUser.username,
+      _summary: summary,
+    });
+    renderSidebar();
+  } catch (e) {
+    showToast('Network error — try again', 'error');
+  }
+}
+
+function showSubmitJsonModal() {
+  if (!currentUser) {
+    showToast('Sign in to submit themes', 'error');
+    return;
+  }
+
+  // Remove existing modal
+  const existing = document.querySelector('.submit-modal-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'submit-modal-overlay';
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+  overlay.innerHTML = `
+    <div class="submit-modal">
+      <div class="submit-modal-header">
+        <span>Submit Theme JSON</span>
+        <button class="submit-modal-close" onclick="this.closest('.submit-modal-overlay').remove()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p class="submit-modal-hint">Paste your theme JSON below. Must include <code>id</code>, <code>name</code>, and at least one variant (<code>dark</code> or <code>light</code>).</p>
+      <textarea class="submit-json-textarea" id="submit-json-input" placeholder='{\n  "id": "my-theme",\n  "name": "My Theme",\n  "summary": "A cool custom theme",\n  "dark": { ... }\n}' rows="12"></textarea>
+      <div class="submit-modal-error" id="submit-json-error"></div>
+      <button class="submit-modal-btn" onclick="submitJsonFromModal()">Submit theme</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+async function submitJsonFromModal() {
+  const textarea = document.getElementById('submit-json-input');
+  const errorEl = document.getElementById('submit-json-error');
+  if (!textarea || !errorEl) return;
+
+  let parsed;
+  try {
+    parsed = JSON.parse(textarea.value);
+  } catch (e) {
+    errorEl.textContent = 'Invalid JSON: ' + e.message;
+    return;
+  }
+
+  // Client-side validation
+  if (!parsed.id && !parsed.name) {
+    errorEl.textContent = 'Missing required fields: id, name';
+    return;
+  }
+  if (!parsed.dark && !parsed.light) {
+    errorEl.textContent = 'At least one variant (dark or light) is required';
+    return;
+  }
+
+  const payload = {
+    themeId: parsed.id || slugify(parsed.name),
+    name: parsed.name,
+    summary: parsed.summary || parsed.name,
+    dark: parsed.dark,
+    light: parsed.light,
+    accents: parsed.accents || [parsed.dark?.accent || parsed.light?.accent].filter(Boolean),
+    codeThemeId: parsed.codeThemeId || { dark: 'codex', light: 'codex' },
+  };
+
+  try {
+    const token = localStorage.getItem('dexthemes-session');
+    const res = await fetch(CONVEX_SITE_URL + '/themes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errorEl.textContent = data.error || 'Submission failed';
+      return;
+    }
+
+    // Close modal, show toast, add to local
+    document.querySelector('.submit-modal-overlay')?.remove();
+    showToast('Theme submitted to the community gallery!');
+
+    THEMES.push({
+      id: payload.themeId,
+      name: payload.name,
+      category: 'community',
+      subgroup: 'community',
+      codeThemeId: payload.codeThemeId,
+      copies: 0,
+      dateAdded: new Date().toISOString().split('T')[0],
+      dark: parsed.dark,
+      light: parsed.light,
+      accents: payload.accents,
+      _authorName: currentUser.displayName || currentUser.username,
+      _summary: payload.summary,
+    });
+    renderSidebar();
+  } catch (e) {
+    errorEl.textContent = 'Network error — try again';
+  }
+}
+
+// ================================================
+// Theme Flagging
+// ================================================
+
+async function flagTheme(convexId) {
+  if (!currentUser) {
+    showToast('Sign in to report themes', 'error');
+    return;
+  }
+  if (!confirm('Flag this theme as inappropriate?')) return;
+
+  try {
+    const token = localStorage.getItem('dexthemes-session');
+    const res = await fetch(CONVEX_SITE_URL + '/themes/flag', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      },
+      body: JSON.stringify({ themeId: convexId }),
+    });
+    const data = await res.json();
+    if (res.status === 409) {
+      showToast('Already reported', 'error');
+      return;
+    }
+    if (!res.ok) {
+      showToast(data.error || 'Flag failed', 'error');
+      return;
+    }
+    flaggedThemes.add(convexId);
+    showToast('Theme reported — thanks for keeping the gallery clean');
+    renderRightPanel();
+  } catch (e) {
+    showToast('Network error — try again', 'error');
+  }
+}
+
+// ================================================
 // Init
 // ================================================
+
+// Expand the category of the initially selected theme
+const initCat = selectedTheme.category || 'official';
+expandedCategories[initCat] = true;
 
 renderSidebar();
 renderFilterDropdown();
@@ -1337,3 +1875,5 @@ applyShellTheme(selectedTheme, selectedVariant);
 applyPreview(selectedTheme, selectedVariant);
 initWindowDots();
 checkOnboarding();
+initAuth();
+loadCommunityThemes();
