@@ -29,6 +29,36 @@ python3 -m http.server 4173
 
 Then open [http://127.0.0.1:4173/dexthemes/](http://127.0.0.1:4173/dexthemes/).
 
+## Sync Namecheap DNS for Vercel
+
+The repo includes a small script that reads the current Namecheap host list, merges in the Vercel records for `dexthemes.com`, and writes the full set back with `setHosts`.
+
+1. Create `.env.namecheap.local` with:
+
+```sh
+NAMECHEAP_API_USER=...
+NAMECHEAP_API_KEY=...
+NAMECHEAP_USERNAME=...
+NAMECHEAP_CLIENT_IP=...
+```
+
+2. Run:
+
+```sh
+npm run dns:namecheap:vercel
+```
+
+Optional overrides:
+
+```sh
+TARGET_DOMAIN=dexthemes.com
+VERCEL_APEX_IP=216.198.79.1
+VERCEL_WWW_CNAME=52cfd5896b2df691.vercel-dns-017.com
+NAMECHEAP_API_BASE=https://api.namecheap.com/xml.response
+```
+
+The script preserves unrelated DNS records. It replaces the apex `A` record and the `www` record with the Vercel values Vercel currently requests.
+
 ## Theme format
 
 The app generates strings in the same shape that current Codex appearance import accepts:

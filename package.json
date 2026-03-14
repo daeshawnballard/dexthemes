@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npx convex dev",
-    "deploy": "npx convex deploy"
+    "deploy": "npx convex deploy",
+    "dns:namecheap:vercel": "node scripts/update-namecheap-vercel-dns.mjs"
   },
   "dependencies": {
     "convex": "^1.21.0"

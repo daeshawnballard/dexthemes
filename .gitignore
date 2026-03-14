@@ -3,4 +3,5 @@
 .playwright-cli/
 node_modules/
 .env.local
+.env.namecheap.local
 convex/_generated/
