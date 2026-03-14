@@ -255,6 +255,13 @@ html, body {
   color: var(--accent);
 }
 
+.thread-empty {
+  padding: 8px 14px 8px 36px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 .sidebar-footer {
   padding: 10px 14px;
   border-top: 1px solid var(--border);

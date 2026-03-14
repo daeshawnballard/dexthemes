@@ -1,137 +1,180 @@
 // ================================================
 // DexThemes — app.js
-// Theme data, preview rendering, and UI logic
+// Complete theme data, preview rendering, and UI logic
 // ================================================
 
+// Default semantic colors used when a Codex theme doesn't define them
+const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
+const LIGHT_DEFAULTS = { diffAdded: '#00a240', diffRemoved: '#ba2623', skill: '#924ff7' };
+
 const THEMES = [
+  // ==============================
+  // OFFICIAL CODEX THEMES
+  // ==============================
   {
-    id: 'codex-default',
-    name: 'Codex Default',
-    category: 'official',
-    dark: {
-      surface: '#111111', ink: '#fcfcfc', accent: '#0169cc', contrast: 60,
-      diffAdded: '#00a240', diffRemoved: '#e02e2a', skill: '#b06dff',
-      sidebar: '#151515', codeBg: '#0a0a0a'
-    },
-    light: {
-      surface: '#f8f8f8', ink: '#1a1a1a', accent: '#0169cc', contrast: 60,
-      diffAdded: '#008c38', diffRemoved: '#c0241f', skill: '#9550e8',
-      sidebar: '#f0f0f0', codeBg: '#eaeaea'
-    },
-    accents: ['#0169cc', '#0a84ff', '#30b0c7']
+    id: 'codex', name: 'Codex', category: 'official', codeThemeId: { dark: 'codex-dark', light: 'codex-light' },
+    dark: { surface: '#111111', ink: '#fcfcfc', accent: '#0169cc', contrast: 60, diffAdded: '#00a240', diffRemoved: '#e02e2a', skill: '#B06DFF', sidebar: '#0a0a0a', codeBg: '#080808' },
+    light: { surface: '#ffffff', ink: '#0d0d0d', accent: '#0169cc', contrast: 45, diffAdded: '#00a240', diffRemoved: '#e02e2a', skill: '#751ED9', sidebar: '#f5f5f5', codeBg: '#f0f0f0' },
+    accents: ['#0169cc']
   },
   {
-    id: 'midnight-purple',
-    name: 'Midnight Purple',
-    category: 'dexthemes',
-    dark: {
-      surface: '#0e0e14', ink: '#e8e6ff', accent: '#7c3aed', contrast: 65,
-      diffAdded: '#10b981', diffRemoved: '#ef4444', skill: '#f59e0b',
-      sidebar: '#13131a', codeBg: '#08080e'
-    },
-    light: {
-      surface: '#faf9ff', ink: '#1e1a3c', accent: '#7c3aed', contrast: 65,
-      diffAdded: '#059669', diffRemoved: '#dc2626', skill: '#d97706',
-      sidebar: '#f3f0ff', codeBg: '#ede8ff'
-    },
-    accents: ['#7c3aed', '#8b5cf6', '#a78bfa']
+    id: 'absolutely', name: 'Absolutely', category: 'official', codeThemeId: { dark: 'absolutely-dark', light: 'absolutely-light' },
+    dark: { surface: '#2d2d2b', ink: '#f9f9f7', accent: '#cc7d5e', contrast: 60, ...DARK_DEFAULTS, sidebar: '#242422', codeBg: '#222220' },
+    light: { surface: '#f9f9f7', ink: '#2d2d2b', accent: '#cc7d5e', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f0f0ee', codeBg: '#ededed' },
+    accents: ['#cc7d5e']
   },
   {
-    id: 'forest',
-    name: 'Forest',
-    category: 'dexthemes',
-    dark: {
-      surface: '#0d1210', ink: '#d4ead6', accent: '#22c55e', contrast: 58,
-      diffAdded: '#4ade80', diffRemoved: '#f87171', skill: '#fbbf24',
-      sidebar: '#111a13', codeBg: '#080d09'
-    },
-    light: {
-      surface: '#f7fdf8', ink: '#1a2e1c', accent: '#16a34a', contrast: 58,
-      diffAdded: '#15803d', diffRemoved: '#dc2626', skill: '#d97706',
-      sidebar: '#ecfdf5', codeBg: '#dcfce7'
-    },
-    accents: ['#22c55e', '#16a34a', '#84cc16']
+    id: 'ayu', name: 'Ayu', category: 'official', codeThemeId: { dark: 'ayu-dark' }, variants: ['dark'],
+    dark: { surface: '#0b0e14', ink: '#bfbdb6', accent: '#e6b450', contrast: 60, diffAdded: '#7fd962', diffRemoved: '#ea6c73', skill: '#cda1fa', sidebar: '#070a0f', codeBg: '#060810' },
+    accents: ['#e6b450']
   },
   {
-    id: 'rose-dawn',
-    name: 'Rose Dawn',
-    category: 'dexthemes',
-    dark: {
-      surface: '#110d0e', ink: '#fde8ec', accent: '#e11d48', contrast: 62,
-      diffAdded: '#10b981', diffRemoved: '#f43f5e', skill: '#f59e0b',
-      sidebar: '#180e11', codeBg: '#0a0608'
-    },
-    light: {
-      surface: '#fff1f3', ink: '#1f0c10', accent: '#e11d48', contrast: 62,
-      diffAdded: '#059669', diffRemoved: '#e11d48', skill: '#d97706',
-      sidebar: '#ffe4e8', codeBg: '#fecdd3'
-    },
-    accents: ['#e11d48', '#f43f5e', '#fb7185']
+    id: 'catppuccin', name: 'Catppuccin', category: 'official', codeThemeId: { dark: 'catppuccin-mocha', light: 'catppuccin-latte' },
+    dark: { surface: '#1e1e2e', ink: '#cdd6f4', accent: '#cba6f7', contrast: 60, diffAdded: '#a6e3a1', diffRemoved: '#f38ba8', skill: '#cba6f7', sidebar: '#181825', codeBg: '#14141f' },
+    light: { surface: '#eff1f5', ink: '#4c4f69', accent: '#8839ef', contrast: 45, diffAdded: '#40a02b', diffRemoved: '#d20f39', skill: '#8839ef', sidebar: '#e6e9ef', codeBg: '#dce0e8' },
+    accents: ['#cba6f7', '#8839ef']
   },
   {
-    id: 'ocean',
-    name: 'Ocean',
-    category: 'dexthemes',
-    dark: {
-      surface: '#0b0f14', ink: '#d6eeff', accent: '#0ea5e9', contrast: 60,
-      diffAdded: '#34d399', diffRemoved: '#f87171', skill: '#818cf8',
-      sidebar: '#0e1520', codeBg: '#07090f'
-    },
-    light: {
-      surface: '#f0f9ff', ink: '#0c1a2e', accent: '#0369a1', contrast: 60,
-      diffAdded: '#059669', diffRemoved: '#dc2626', skill: '#4f46e5',
-      sidebar: '#e0f2fe', codeBg: '#bae6fd'
-    },
-    accents: ['#0ea5e9', '#0369a1', '#38bdf8']
+    id: 'dracula', name: 'Dracula', category: 'official', codeThemeId: { dark: 'dracula' }, variants: ['dark'],
+    dark: { surface: '#282A36', ink: '#F8F8F2', accent: '#FF79C6', contrast: 60, diffAdded: '#50FA7B', diffRemoved: '#FF5555', skill: '#FF79C6', sidebar: '#21222C', codeBg: '#1d1e28' },
+    accents: ['#FF79C6']
   },
   {
-    id: 'amber-night',
-    name: 'Amber Night',
-    category: 'dexthemes',
-    dark: {
-      surface: '#100e08', ink: '#fef3c7', accent: '#f59e0b', contrast: 63,
-      diffAdded: '#34d399', diffRemoved: '#f87171', skill: '#a78bfa',
-      sidebar: '#16120a', codeBg: '#0a0905'
-    },
-    light: {
-      surface: '#fffbeb', ink: '#1c1507', accent: '#d97706', contrast: 63,
-      diffAdded: '#059669', diffRemoved: '#dc2626', skill: '#7c3aed',
-      sidebar: '#fef9c3', codeBg: '#fde68a'
-    },
-    accents: ['#f59e0b', '#d97706', '#fbbf24']
+    id: 'everforest', name: 'Everforest', category: 'official', codeThemeId: { dark: 'everforest-dark', light: 'everforest-light' },
+    dark: { surface: '#2d353b', ink: '#d3c6aa', accent: '#a7c080', contrast: 60, diffAdded: '#a7c080', diffRemoved: '#e67e80', skill: '#d699b6', sidebar: '#262e33', codeBg: '#222a2f' },
+    light: { surface: '#fdf6e3', ink: '#5c6a72', accent: '#93b259', contrast: 45, diffAdded: '#8da101', diffRemoved: '#f85552', skill: '#df69ba', sidebar: '#f4eddb', codeBg: '#efe8d6' },
+    accents: ['#a7c080', '#93b259']
   },
   {
-    id: 'nord',
-    name: 'Nord',
-    category: 'community',
-    dark: {
-      surface: '#2e3440', ink: '#eceff4', accent: '#88c0d0', contrast: 55,
-      diffAdded: '#a3be8c', diffRemoved: '#bf616a', skill: '#b48ead',
-      sidebar: '#272e3b', codeBg: '#242933'
-    },
-    light: {
-      surface: '#eceff4', ink: '#2e3440', accent: '#5e81ac', contrast: 55,
-      diffAdded: '#a3be8c', diffRemoved: '#bf616a', skill: '#b48ead',
-      sidebar: '#e5e9f0', codeBg: '#d8dee9'
-    },
-    accents: ['#88c0d0', '#5e81ac', '#81a1c1']
+    id: 'github', name: 'GitHub', category: 'official', codeThemeId: { dark: 'github-dark-default', light: 'github-light-default' },
+    dark: { surface: '#0d1117', ink: '#e6edf3', accent: '#1f6feb', contrast: 60, diffAdded: '#3fb950', diffRemoved: '#f85149', skill: '#bc8cff', sidebar: '#080c12', codeBg: '#060a0f' },
+    light: { surface: '#ffffff', ink: '#1f2328', accent: '#0969da', contrast: 45, diffAdded: '#1a7f37', diffRemoved: '#cf222e', skill: '#8250df', sidebar: '#f6f8fa', codeBg: '#f0f2f5' },
+    accents: ['#1f6feb', '#0969da']
   },
   {
-    id: 'monochrome',
-    name: 'Monochrome',
-    category: 'community',
-    dark: {
-      surface: '#111111', ink: '#d4d4d4', accent: '#888888', contrast: 50,
-      diffAdded: '#a3a3a3', diffRemoved: '#666666', skill: '#c0c0c0',
-      sidebar: '#161616', codeBg: '#0a0a0a'
-    },
-    light: {
-      surface: '#fafafa', ink: '#1a1a1a', accent: '#444444', contrast: 50,
-      diffAdded: '#555555', diffRemoved: '#999999', skill: '#777777',
-      sidebar: '#f0f0f0', codeBg: '#e0e0e0'
-    },
-    accents: ['#888888', '#aaaaaa', '#555555']
-  }
+    id: 'gruvbox', name: 'Gruvbox', category: 'official', codeThemeId: { dark: 'gruvbox-dark-medium', light: 'gruvbox-light-medium' },
+    dark: { surface: '#282828', ink: '#ebdbb2', accent: '#458588', contrast: 60, diffAdded: '#ebdbb2', diffRemoved: '#cc241d', skill: '#b16286', sidebar: '#1d2021', codeBg: '#1a1c1a' },
+    light: { surface: '#fbf1c7', ink: '#3c3836', accent: '#458588', contrast: 45, diffAdded: '#3c3836', diffRemoved: '#cc241d', skill: '#b16286', sidebar: '#f2e8b8', codeBg: '#ebdfb0' },
+    accents: ['#458588']
+  },
+  {
+    id: 'linear', name: 'Linear', category: 'official', codeThemeId: { dark: 'linear-dark', light: 'linear-light' },
+    dark: { surface: '#17181d', ink: '#e6e9ef', accent: '#5e6ad2', contrast: 60, ...DARK_DEFAULTS, sidebar: '#111218', codeBg: '#0e0f14' },
+    light: { surface: '#f7f8fa', ink: '#2a3140', accent: '#5e6ad2', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#eef0f3', codeBg: '#e8eaed' },
+    accents: ['#5e6ad2']
+  },
+  {
+    id: 'lobster', name: 'Lobster', category: 'official', codeThemeId: { dark: 'lobster-dark' }, variants: ['dark'],
+    dark: { surface: '#111827', ink: '#e4e4e7', accent: '#ff5c5c', contrast: 60, ...DARK_DEFAULTS, sidebar: '#0b1120', codeBg: '#090e1a' },
+    accents: ['#ff5c5c']
+  },
+  {
+    id: 'material', name: 'Material', category: 'official', codeThemeId: { dark: 'material-theme-darker' }, variants: ['dark'],
+    dark: { surface: '#212121', ink: '#EEFFFF', accent: '#80CBC4', contrast: 60, diffAdded: '#C3E88D', diffRemoved: '#f07178', skill: '#C792EA', sidebar: '#1a1a1a', codeBg: '#171717' },
+    accents: ['#80CBC4']
+  },
+  {
+    id: 'matrix', name: 'Matrix', category: 'official', codeThemeId: { dark: 'matrix-dark' }, variants: ['dark'],
+    dark: { surface: '#040805', ink: '#b8ffca', accent: '#1eff5a', contrast: 60, ...DARK_DEFAULTS, sidebar: '#020603', codeBg: '#010401' },
+    accents: ['#1eff5a']
+  },
+  {
+    id: 'monokai', name: 'Monokai', category: 'official', codeThemeId: { dark: 'monokai' }, variants: ['dark'],
+    dark: { surface: '#272822', ink: '#f8f8f2', accent: '#f8f8f0', contrast: 60, diffAdded: '#86B42B', diffRemoved: '#C4265E', skill: '#8C6BC8', sidebar: '#201f1b', codeBg: '#1c1c17' },
+    accents: ['#f8f8f0']
+  },
+  {
+    id: 'night-owl', name: 'Night Owl', category: 'official', codeThemeId: { dark: 'night-owl' }, variants: ['dark'],
+    dark: { surface: '#011627', ink: '#d6deeb', accent: '#44596b', contrast: 60, diffAdded: '#22da6e', diffRemoved: '#EF5350', skill: '#C792EA', sidebar: '#010f1c', codeBg: '#000c17' },
+    accents: ['#44596b']
+  },
+  {
+    id: 'nord', name: 'Nord', category: 'official', codeThemeId: { dark: 'nord' }, variants: ['dark'],
+    dark: { surface: '#2e3440', ink: '#d8dee9', accent: '#88c0d0', contrast: 60, diffAdded: '#a3be8c', diffRemoved: '#bf616a', skill: '#b48ead', sidebar: '#272d38', codeBg: '#232830' },
+    accents: ['#88c0d0']
+  },
+  {
+    id: 'notion', name: 'Notion', category: 'official', codeThemeId: { dark: 'notion-dark', light: 'notion-light' },
+    dark: { surface: '#191919', ink: '#d9d9d8', accent: '#3183d8', contrast: 60, ...DARK_DEFAULTS, sidebar: '#121212', codeBg: '#0f0f0f' },
+    light: { surface: '#ffffff', ink: '#37352f', accent: '#3183d8', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f7f6f3', codeBg: '#f0eeeb' },
+    accents: ['#3183d8']
+  },
+  {
+    id: 'one', name: 'One', category: 'official', codeThemeId: { dark: 'one-dark-pro', light: 'one-light' },
+    dark: { surface: '#282c34', ink: '#abb2bf', accent: '#4d78cc', contrast: 60, diffAdded: '#8cc265', diffRemoved: '#e05561', skill: '#c162de', sidebar: '#21252b', codeBg: '#1d2026' },
+    light: { surface: '#FAFAFA', ink: '#383A42', accent: '#526FFF', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f0f0f0', codeBg: '#eaeaeb' },
+    accents: ['#4d78cc', '#526FFF']
+  },
+  {
+    id: 'proof', name: 'Proof', category: 'official', codeThemeId: { light: 'proof-light' }, variants: ['light'],
+    light: { surface: '#f5f3ed', ink: '#2f312d', accent: '#3d755d', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#ebe9e3', codeBg: '#e4e2dc' },
+    accents: ['#3d755d']
+  },
+  {
+    id: 'rose-pine', name: 'Rose Pine', category: 'official', codeThemeId: { dark: 'rose-pine-moon', light: 'rose-pine-dawn' },
+    dark: { surface: '#232136', ink: '#e0def4', accent: '#ea9a97', contrast: 60, diffAdded: '#9ccfd8', diffRemoved: '#908caa', skill: '#c4a7e7', sidebar: '#1c1a2e', codeBg: '#191726' },
+    light: { surface: '#faf4ed', ink: '#575279', accent: '#d7827e', contrast: 45, diffAdded: '#56949f', diffRemoved: '#797593', skill: '#907aa9', sidebar: '#f2ece5', codeBg: '#ece6df' },
+    accents: ['#ea9a97', '#d7827e']
+  },
+  {
+    id: 'sentry', name: 'Sentry', category: 'official', codeThemeId: { dark: 'sentry-dark' }, variants: ['dark'],
+    dark: { surface: '#2d2935', ink: '#e6dff9', accent: '#7055f6', contrast: 60, ...DARK_DEFAULTS, sidebar: '#26222d', codeBg: '#211d28' },
+    accents: ['#7055f6']
+  },
+  {
+    id: 'solarized', name: 'Solarized', category: 'official', codeThemeId: { dark: 'solarized-dark', light: 'solarized-light' },
+    dark: { surface: '#002B36', ink: '#839496', accent: '#D30102', contrast: 60, diffAdded: '#859900', diffRemoved: '#dc322f', skill: '#d33682', sidebar: '#00222c', codeBg: '#001d26' },
+    light: { surface: '#FDF6E3', ink: '#657B83', accent: '#B58900', contrast: 45, diffAdded: '#859900', diffRemoved: '#dc322f', skill: '#d33682', sidebar: '#f4edda', codeBg: '#efe8d5' },
+    accents: ['#D30102', '#B58900']
+  },
+  {
+    id: 'temple', name: 'Temple', category: 'official', codeThemeId: { dark: 'temple-dark' }, variants: ['dark'],
+    dark: { surface: '#02120c', ink: '#c7e6da', accent: '#e4f222', contrast: 60, ...DARK_DEFAULTS, sidebar: '#010d08', codeBg: '#000a06' },
+    accents: ['#e4f222']
+  },
+  {
+    id: 'tokyo-night', name: 'Tokyo Night', category: 'official', codeThemeId: { dark: 'tokyo-night' }, variants: ['dark'],
+    dark: { surface: '#1a1b26', ink: '#a9b1d6', accent: '#3d59a1', contrast: 60, diffAdded: '#449dab', diffRemoved: '#914c54', skill: '#9d7cd8', sidebar: '#14151f', codeBg: '#10111a' },
+    accents: ['#3d59a1']
+  },
+  {
+    id: 'vscode-plus', name: 'VS Code+', category: 'official', codeThemeId: { dark: 'dark-plus', light: 'light-plus' },
+    dark: { surface: '#1E1E1E', ink: '#D4D4D4', accent: '#007ACC', contrast: 60, ...DARK_DEFAULTS, sidebar: '#171717', codeBg: '#131313' },
+    light: { surface: '#FFFFFF', ink: '#000000', accent: '#007ACC', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f3f3f3', codeBg: '#ececec' },
+    accents: ['#007ACC']
+  },
+
+  // ==============================
+  // DEXTHEMES (Anime / Originals)
+  // ==============================
+  {
+    id: 'ichigo-bankai', name: 'Ichigo / Bankai', category: 'dexthemes',
+    dark: { surface: '#121111', ink: '#FFF4EC', accent: '#FF7A1A', contrast: 64, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#F59E0B', sidebar: '#0d0c0c', codeBg: '#0a0909' },
+    light: { surface: '#FFF7F2', ink: '#121212', accent: '#F97316', contrast: 46, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#F59E0B', sidebar: '#f7efe9', codeBg: '#f0e8e2' },
+    accents: ['#FF7A1A', '#F97316']
+  },
+  {
+    id: 'naruto-hidden-leaf', name: 'Naruto / Hidden Leaf', category: 'dexthemes',
+    dark: { surface: '#101418', ink: '#F7F3EA', accent: '#FF9F1C', contrast: 66, diffAdded: '#22C55E', diffRemoved: '#F97316', skill: '#F59E0B', sidebar: '#0b0f12', codeBg: '#080c0f' },
+    light: { surface: '#FFF8ED', ink: '#1A1A1A', accent: '#F59E0B', contrast: 48, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#EA580C', sidebar: '#f7f0e4', codeBg: '#f0e9dd' },
+    accents: ['#FF9F1C', '#F59E0B']
+  },
+  {
+    id: 'luffy-grand-line', name: 'Luffy / Grand Line', category: 'dexthemes',
+    dark: { surface: '#0F172A', ink: '#F8F1DC', accent: '#F87171', contrast: 62, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#60A5FA', sidebar: '#0a1122', codeBg: '#070d1c' },
+    light: { surface: '#FFF8E7', ink: '#152033', accent: '#DC2626', contrast: 44, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#2563EB', sidebar: '#f7f0de', codeBg: '#f0e9d7' },
+    accents: ['#F87171', '#DC2626']
+  },
+  {
+    id: 'shonen-sunset', name: 'Shonen Sunset', category: 'dexthemes',
+    dark: { surface: '#111827', ink: '#FFF7ED', accent: '#FB923C', contrast: 67, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#A855F7', sidebar: '#0c1220', codeBg: '#090e1a' },
+    light: { surface: '#FFF7E8', ink: '#161616', accent: '#EA580C', contrast: 47, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#7C3AED', sidebar: '#f7efdf', codeBg: '#f0e8d8' },
+    accents: ['#FB923C', '#EA580C']
+  },
+
+  // ==============================
+  // COMMUNITY (placeholder)
+  // ==============================
 ];
 
 const CATEGORIES = [
@@ -150,14 +193,34 @@ let selectedAccentIdx = 0;
 let expandedCategories = { official: true, dexthemes: true, community: true };
 
 // ================================================
+// Get available variants for a theme
+// ================================================
+
+function getVariants(theme) {
+  if (theme.variants) return theme.variants;
+  const v = [];
+  if (theme.dark) v.push('dark');
+  if (theme.light) v.push('light');
+  return v;
+}
+
+function hasVariant(theme, variant) {
+  return getVariants(theme).includes(variant);
+}
+
+// ================================================
 // Import string builder
 // ================================================
 
 function buildImportString(theme, variant, accentIdx) {
   const v = theme[variant];
+  if (!v) return '';
   const acc = theme.accents[accentIdx] || v.accent;
+  const codeId = theme.codeThemeId
+    ? (typeof theme.codeThemeId === 'string' ? theme.codeThemeId : theme.codeThemeId[variant] || 'codex')
+    : 'codex';
   return `codex-theme-v1:${JSON.stringify({
-    codeThemeId: 'codex',
+    codeThemeId: codeId,
     theme: {
       accent: acc, contrast: v.contrast,
       fonts: { code: null, ui: null },
@@ -197,6 +260,7 @@ function blendColor(hex, amount) {
 
 function applyShellTheme(theme, variant) {
   const v = theme[variant];
+  if (!v) return;
   const acc = theme.accents[selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const root = document.documentElement.style;
@@ -222,6 +286,7 @@ function applyShellTheme(theme, variant) {
 
 function applyPreview(theme, variant) {
   const v = theme[variant];
+  if (!v) return;
   const acc = theme.accents[selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
@@ -255,10 +320,6 @@ function applyPreview(theme, variant) {
   document.getElementById('preview-theme-name').textContent = theme.name;
   renderChatContent(v, acc, 'preview-chat');
 }
-
-// ================================================
-// Render chat content (reused for main + mini previews)
-// ================================================
 
 function renderChatContent(v, acc, containerId) {
   const dark = isDark(v.surface);
@@ -300,10 +361,10 @@ function renderChatContent(v, acc, containerId) {
 
 function renderMiniPreview(containerId, theme, variant) {
   const v = theme[variant];
+  if (!v) return;
   const acc = theme.accents[selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
-  const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
 
   const el = document.getElementById(containerId);
   el.style.background = v.surface;
@@ -321,15 +382,33 @@ function renderMiniPreview(containerId, theme, variant) {
 }
 
 function renderRightPanel() {
-  renderMiniPreview('mini-dark', selectedTheme, 'dark');
-  renderMiniPreview('mini-light', selectedTheme, 'light');
+  const variants = getVariants(selectedTheme);
+  const darkCard = document.getElementById('card-dark');
+  const lightCard = document.getElementById('card-light');
+
+  // Show/hide cards based on available variants
+  darkCard.style.display = hasVariant(selectedTheme, 'dark') ? '' : 'none';
+  lightCard.style.display = hasVariant(selectedTheme, 'light') ? '' : 'none';
+
+  // If current variant isn't available, switch
+  if (!hasVariant(selectedTheme, selectedVariant)) {
+    selectedVariant = variants[0];
+    applyShellTheme(selectedTheme, selectedVariant);
+    applyPreview(selectedTheme, selectedVariant);
+  }
+
+  if (hasVariant(selectedTheme, 'dark')) renderMiniPreview('mini-dark', selectedTheme, 'dark');
+  if (hasVariant(selectedTheme, 'light')) renderMiniPreview('mini-light', selectedTheme, 'light');
+
   updateVariantCards();
   renderAccentDots();
 }
 
 function updateVariantCards() {
-  document.getElementById('card-dark').classList.toggle('selected', selectedVariant === 'dark');
-  document.getElementById('card-light').classList.toggle('selected', selectedVariant === 'light');
+  const darkCard = document.getElementById('card-dark');
+  const lightCard = document.getElementById('card-light');
+  darkCard.classList.toggle('selected', selectedVariant === 'dark');
+  lightCard.classList.toggle('selected', selectedVariant === 'light');
   document.getElementById('variant-hint').textContent = `${selectedVariant} variant`;
 }
 
@@ -341,16 +420,30 @@ function renderSidebar() {
   const el = document.getElementById('category-list');
   el.innerHTML = CATEGORIES.map(cat => {
     const themes = THEMES.filter(t => t.category === cat.id);
-    const expanded = expandedCategories[cat.id];
-    const iconSvg = getCategoryIcon(cat.icon);
+    if (themes.length === 0 && cat.id === 'community') {
+      // Show empty state for community
+      const expanded = expandedCategories[cat.id];
+      return `
+        <div class="category">
+          <div class="category-header" onclick="toggleCategory('${cat.id}')">
+            <svg class="category-chevron ${expanded ? 'expanded' : ''}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            ${getCategoryIcon(cat.icon)}
+            <span class="category-name">${cat.name}</span>
+            <span class="category-count">0</span>
+          </div>
+          <div class="category-threads ${expanded ? 'expanded' : ''}">
+            <div class="thread-empty">No community themes yet</div>
+          </div>
+        </div>
+      `;
+    }
 
+    const expanded = expandedCategories[cat.id];
     return `
       <div class="category">
         <div class="category-header" onclick="toggleCategory('${cat.id}')">
-          <svg class="category-chevron ${expanded ? 'expanded' : ''}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-          ${iconSvg}
+          <svg class="category-chevron ${expanded ? 'expanded' : ''}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          ${getCategoryIcon(cat.icon)}
           <span class="category-name">${cat.name}</span>
           <span class="category-count">${themes.length}</span>
         </div>
@@ -359,7 +452,7 @@ function renderSidebar() {
             <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
                  data-theme-id="${t.id}"
                  onclick="selectThemeById('${t.id}')">
-              <div class="thread-swatch" style="background:${t.dark.accent}"></div>
+              <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
               <span class="thread-title">${t.name}</span>
             </div>
           `).join('')}
@@ -412,6 +505,13 @@ function selectThemeById(id) {
   if (!t) return;
   selectedTheme = t;
   selectedAccentIdx = 0;
+
+  // Auto-select first available variant
+  const variants = getVariants(t);
+  if (!hasVariant(t, selectedVariant)) {
+    selectedVariant = variants[0];
+  }
+
   applyShellTheme(selectedTheme, selectedVariant);
   applyPreview(selectedTheme, selectedVariant);
   renderRightPanel();
@@ -426,6 +526,7 @@ function selectAccent(idx) {
 }
 
 function selectVariant(v) {
+  if (!hasVariant(selectedTheme, v)) return;
   selectedVariant = v;
   applyShellTheme(selectedTheme, selectedVariant);
   applyPreview(selectedTheme, selectedVariant);
@@ -438,6 +539,7 @@ function selectVariant(v) {
 
 function copyTheme() {
   const str = buildImportString(selectedTheme, selectedVariant, selectedAccentIdx);
+  if (!str) return;
   const btn = document.getElementById('copy-btn');
 
   const reset = () => {
