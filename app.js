@@ -1481,33 +1481,39 @@ async function initAuth() {
 }
 
 function renderAuthUI() {
-  const area = document.getElementById('auth-area');
-  if (!area) return;
+  // Footer auth area — keep empty (sign in triggered from builder)
+  const footerArea = document.getElementById('auth-area');
+  if (footerArea) footerArea.innerHTML = '';
+
+  // Header avatar — show small profile pic when logged in
+  const headerArea = document.getElementById('header-auth-area');
+  if (!headerArea) return;
 
   if (currentUser) {
-    area.innerHTML = `
-      <div class="auth-user-row">
-        <img class="auth-avatar" src="${currentUser.avatarUrl}" alt="" onerror="this.style.display='none'">
-        <span class="auth-username">${currentUser.displayName || currentUser.username}</span>
-        <button class="auth-signout-btn" onclick="logout()" title="Sign out">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        </button>
+    headerArea.innerHTML = `
+      <div class="header-avatar-wrap" title="${currentUser.displayName || currentUser.username}">
+        <img class="header-avatar" src="${currentUser.avatarUrl}" alt="" onerror="this.style.display='none'" onclick="toggleUserMenu(event)">
+        <div class="header-user-menu" id="header-user-menu" style="display:none;">
+          <div class="header-user-menu-name">${currentUser.displayName || currentUser.username}</div>
+          <button class="header-user-menu-btn" onclick="logout()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign out
+          </button>
+        </div>
       </div>
     `;
   } else {
-    // No sign-in button in sidebar — sign in is triggered from builder submit flow
-    area.innerHTML = '';
+    headerArea.innerHTML = '';
   }
 }
 
-function toggleAuthDropdown(e) {
+function toggleUserMenu(e) {
   e.stopPropagation();
-  const dd = document.getElementById('auth-dropdown');
-  if (!dd) return;
-  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
-  // Close on outside click
-  const close = () => { dd.style.display = 'none'; document.removeEventListener('click', close); };
-  if (dd.style.display === 'block') {
+  const menu = document.getElementById('header-user-menu');
+  if (!menu) return;
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  const close = () => { menu.style.display = 'none'; document.removeEventListener('click', close); };
+  if (menu.style.display === 'block') {
     setTimeout(() => document.addEventListener('click', close), 0);
   }
 }
