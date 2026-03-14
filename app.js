@@ -984,18 +984,57 @@ function fallbackCopy(str, cb) {
 // ================================================
 
 const EASTER_EGGS = [
-  { emoji: '🧪', text: 'OpenAI started as a non-profit research lab in 2015, co-founded by Sam Altman and Elon Musk.' },
-  { emoji: '🤖', text: 'GPT-1 had 117 million parameters. GPT-4 is rumored to be a mixture-of-experts model with over a trillion.' },
+  // AI & OpenAI
+  { emoji: '🤖', text: 'GPT-1 had 117 million parameters. GPT-4 is estimated to have over a trillion.' },
   { emoji: '🎨', text: 'DALL-E was named as a portmanteau of Salvador Dalí and Pixar\'s WALL-E.' },
-  { emoji: '🏠', text: 'OpenAI\'s first office was in San Francisco\'s Mission District.' },
-  { emoji: '🎮', text: 'OpenAI Five defeated the world champion Dota 2 team OG in 2019.' },
-  { emoji: '📝', text: 'ChatGPT reached 100 million users in just two months after launch — the fastest-growing app in history.' },
+  { emoji: '🎮', text: 'OpenAI Five defeated the world champion Dota 2 team OG at Dota 2 in 2019.' },
+  { emoji: '📝', text: 'ChatGPT reached 100 million users in just two months — the fastest-growing app in history at launch.' },
   { emoji: '🔬', text: 'Codex, OpenAI\'s code model, powered GitHub Copilot before evolving into the desktop agent you\'re theming right now.' },
-  { emoji: '🌍', text: 'OpenAI\'s mission statement: "Ensure artificial general intelligence benefits all of humanity."' },
+  { emoji: '🌍', text: 'OpenAI\'s mission: "Ensure artificial general intelligence benefits all of humanity."' },
+  { emoji: '💬', text: 'The "T" in GPT stands for "Transformer" — the neural network architecture introduced by Google in 2017.' },
+  { emoji: '🧠', text: 'The original Transformer paper was titled "Attention Is All You Need" and changed the entire field of AI.' },
+  { emoji: '📊', text: 'GPT-2 was initially considered "too dangerous to release" — OpenAI staged its rollout over several months.' },
+  { emoji: '🎯', text: 'RLHF (Reinforcement Learning from Human Feedback) is the technique that made ChatGPT so conversational.' },
+  { emoji: '🔢', text: 'The word "token" in AI roughly equals ¾ of a word. "DexThemes" is two tokens.' },
+  { emoji: '🖥️', text: 'OpenAI trained GPT-4 on a cluster of tens of thousands of NVIDIA GPUs.' },
+  // Coding & Dev Culture
+  { emoji: '☕', text: 'The first computer bug was a literal moth found in a Harvard Mark II computer in 1947.' },
+  { emoji: '🐍', text: 'Python was named after Monty Python\'s Flying Circus, not the snake.' },
+  { emoji: '💾', text: 'The floppy disk save icon is still used everywhere, but most developers have never used an actual floppy disk.' },
+  { emoji: '🌙', text: 'Dark mode was first popularized by code editors. Now it\'s everywhere — including here.' },
+  { emoji: '⌨️', text: 'The average developer writes about 100 lines of production code per day.' },
+  { emoji: '🔤', text: 'JavaScript was created in just 10 days by Brendan Eich in 1995.' },
+  { emoji: '🐙', text: 'GitHub\'s mascot Octocat was originally designed by Simon Oxley, who also designed Twitter\'s original bird.' },
+  { emoji: '📦', text: 'The npm registry has over 2 million packages — and about 1.9 million of them are left-pad alternatives.' },
+  { emoji: '🎸', text: 'The first website ever created is still online: info.cern.ch — built by Tim Berners-Lee in 1991.' },
+  // Themes & Design
+  { emoji: '🎨', text: 'Dracula theme was created by Zeno Rocha in 2013 and has been ported to over 300 apps.' },
+  { emoji: '🌿', text: 'Solarized was designed with precise CIELAB color values for optimal contrast in both light and dark modes.' },
+  { emoji: '🗼', text: 'Tokyo Night was inspired by the illuminated streets of downtown Tokyo at night.' },
+  { emoji: '🌸', text: 'Catppuccin is one of the most popular modern themes, with warm pastel colors inspired by coffee drinks.' },
+  { emoji: '🌲', text: 'Everforest was designed to be easy on the eyes during long coding sessions, inspired by natural green tones.' },
+  { emoji: '🦊', text: 'Monokai was one of the first themes to gain massive popularity thanks to Sublime Text.' },
+  { emoji: '🌊', text: 'Nord theme uses an Arctic-inspired color palette based on the aurora borealis.' },
+  // Fun & Misc
+  { emoji: '🚀', text: 'You\'re customizing your AI coding agent. The future is wild.' },
+  { emoji: '✨', text: 'DexThemes is community-built and open source. Your theme could be next.' },
+  { emoji: '🎲', text: 'There are over 16 million possible hex colors. You\'ve got plenty to choose from in the builder.' },
+  { emoji: '👀', text: 'The human eye can distinguish about 10 million different colors. Dark mode uses maybe 12.' },
+  { emoji: '🧩', text: 'The best code themes balance aesthetics with readability — which is harder than it sounds.' },
+  { emoji: '💡', text: 'Fun fact: blue light from screens doesn\'t actually cause eye strain. Staring without blinking does.' },
+  { emoji: '🔮', text: 'The first color monitors displayed only 8 colors. Now you can theme your AI agent with millions.' },
+  { emoji: '🎵', text: 'Many developers say they code better with music. Lo-fi hip hop streams exist because of this.' },
 ];
 
+let lastEasterEggIndex = -1;
+
 function getRandomEasterEgg() {
-  return EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)];
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * EASTER_EGGS.length);
+  } while (idx === lastEasterEggIndex && EASTER_EGGS.length > 1);
+  lastEasterEggIndex = idx;
+  return EASTER_EGGS[idx];
 }
 
 function initWindowDots() {
@@ -1024,27 +1063,48 @@ function initWindowDots() {
 function closePreviewWindow() {
   const win = document.getElementById('preview-window');
   const area = document.querySelector('.preview-area');
-  win.style.display = 'none';
   windowState = 'closed';
 
-  const egg = getRandomEasterEgg();
-  const overlay = document.createElement('div');
-  overlay.className = 'preview-closed-overlay';
-  overlay.id = 'closed-overlay';
-  overlay.innerHTML = `
-    <div class="easter-egg-emoji">${egg.emoji}</div>
-    <div class="easter-egg-text">${egg.text}</div>
-    <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
-  `;
-  area.appendChild(overlay);
+  // Smooth scale-down close
+  win.style.transform = 'scale(0.92)';
+  win.style.opacity = '0';
+  setTimeout(() => {
+    win.style.display = 'none';
+    win.style.transform = '';
+    win.style.opacity = '';
+
+    const egg = getRandomEasterEgg();
+    const overlay = document.createElement('div');
+    overlay.className = 'preview-closed-overlay';
+    overlay.id = 'closed-overlay';
+    overlay.innerHTML = `
+      <div class="easter-egg-emoji">${egg.emoji}</div>
+      <div class="easter-egg-text">${egg.text}</div>
+      <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
+    `;
+    area.appendChild(overlay);
+  }, 350);
 }
 
 function reopenPreviewWindow() {
   const overlay = document.getElementById('closed-overlay');
-  if (overlay) overlay.remove();
-  const win = document.getElementById('preview-window');
-  win.style.display = '';
-  windowState = 'normal';
+  if (overlay) {
+    overlay.style.opacity = '0';
+    overlay.style.transform = 'scale(0.95)';
+    overlay.style.transition = 'all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1)';
+  }
+  setTimeout(() => {
+    if (overlay) overlay.remove();
+    const win = document.getElementById('preview-window');
+    win.style.transform = 'scale(0.92)';
+    win.style.opacity = '0';
+    win.style.display = '';
+    // Trigger reflow then animate in
+    void win.offsetWidth;
+    win.style.transform = 'scale(1)';
+    win.style.opacity = '1';
+    windowState = 'normal';
+  }, 250);
 }
 
 function toggleFullscreen() {
