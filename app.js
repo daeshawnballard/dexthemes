@@ -1660,9 +1660,6 @@ async function submitFromBuilder() {
     return;
   }
 
-  const summary = prompt('Describe your theme in a sentence (max 240 chars):', b.name + ' theme for Codex');
-  if (summary === null) return; // cancelled
-
   const themeId = slugify(b.name);
   const variant = b.variant || 'dark';
   const variantData = {
@@ -1680,7 +1677,7 @@ async function submitFromBuilder() {
   const payload = {
     themeId,
     name: b.name.trim(),
-    summary: (summary || b.name).slice(0, 240),
+    summary: (b.name.trim() + ' theme for Codex').slice(0, 240),
     [variant]: variantData,
     accents: [b.accent],
     codeThemeId: { dark: 'codex', light: 'codex' },
