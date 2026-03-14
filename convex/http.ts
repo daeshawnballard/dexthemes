@@ -9,6 +9,7 @@ const http = httpRouter();
 // ---------------------------------------------------------------------------
 const ALLOWED_ORIGINS = [
   "https://dexthemes.com",
+  "https://www.dexthemes.com",
   "http://localhost:8080",
   "http://localhost:3000",
   "http://127.0.0.1:8080",
@@ -73,7 +74,7 @@ http.route({
     const reqUrl = new URL(request.url);
     const frontendOrigin = reqUrl.searchParams.get("origin") || "https://dexthemes.com";
     const state = btoa(JSON.stringify({ origin: frontendOrigin }));
-    const redirectUri = "https://dexthemes.com/auth/github/callback";
+    const redirectUri = "https://www.dexthemes.com/auth/github/callback";
     const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=${encodeURIComponent(state)}`;
     return Response.redirect(url, 302);
   }),
@@ -132,7 +133,7 @@ http.route({
     // Redirect back to frontend with session token
     // Read frontend origin from OAuth state parameter
     const state = url.searchParams.get("state");
-    let frontendBase = "https://dexthemes.com";
+    let frontendBase = "https://www.dexthemes.com";
     if (state) {
       try {
         const decoded = JSON.parse(atob(state));
