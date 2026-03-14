@@ -86,13 +86,10 @@ html, body {
   width: 28px;
   height: 28px;
   border-radius: 7px;
-  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background var(--transition);
-  color: var(--accent);
 }
 
 .sidebar-brand-name {
