@@ -506,7 +506,12 @@ function renderRightPanel() {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         Copy import string
       </button>
-      <div class="import-hint">Copy, then paste in Codex → Settings → Appearance → Import theme</div>
+      <button class="apply-codex-btn" id="apply-codex-btn" onclick="applyToCodex()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Apply to Codex
+        <span class="experimental-badge">Beta</span>
+      </button>
+      <div class="import-hint">Or copy and paste manually in Codex → Settings → Appearance → Import theme</div>
     </div>
   `;
 
@@ -829,6 +834,144 @@ function fallbackCopy(str, cb) {
 }
 
 // ================================================
+// Apply to Codex — deep link + clipboard
+// ================================================
+
+function applyToCodex() {
+  const str = buildImportString(selectedTheme, selectedVariant, selectedAccentIdx);
+  if (!str) return;
+  showApplyConfirm(str, document.getElementById('apply-codex-btn'));
+}
+
+function applyBuilderToCodex() {
+  const b = builderColors;
+  if (!b.name || !b.name.trim()) {
+    const input = document.getElementById('builder-name');
+    const warning = document.getElementById('builder-name-warning');
+    if (input) input.classList.add('name-required');
+    if (warning) warning.classList.add('visible');
+    input.focus();
+    return;
+  }
+  const str = `codex-theme-v1:${JSON.stringify({
+    codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
+    theme: {
+      accent: b.accent, contrast: b.contrast,
+      fonts: { code: null, ui: null },
+      ink: b.ink, opaqueWindows: true,
+      semanticColors: { diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill },
+      surface: b.surface
+    },
+    variant: b.variant
+  })}`;
+  showApplyConfirm(str, document.querySelector('.builder-apply-btn'));
+}
+
+function showApplyConfirm(themeStr, triggerBtn) {
+  // Remove any existing overlay
+  const existing = document.getElementById('apply-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'apply-overlay';
+  overlay.className = 'apply-overlay';
+  overlay.innerHTML = `
+    <div class="apply-modal">
+      <div class="apply-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Apply theme to Codex
+        <span class="experimental-badge">Beta</span>
+      </div>
+      <div class="apply-modal-body">
+        <p>This will copy your theme to the clipboard and open Codex settings. Just paste it in the Import field.</p>
+        <div class="apply-modal-steps">
+          <div class="apply-step"><span class="apply-step-num">1</span> Theme string copied to clipboard</div>
+          <div class="apply-step"><span class="apply-step-num">2</span> Codex settings opens automatically</div>
+          <div class="apply-step"><span class="apply-step-num">3</span> Paste in Appearance → Import theme</div>
+        </div>
+        <div class="apply-modal-terminal">
+          <div class="apply-terminal-label">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Or run in terminal for direct apply
+          </div>
+          <div class="apply-terminal-cmd" id="apply-terminal-cmd">echo '${themeStr.replace(/'/g, "\\'")}' | pbcopy && open "codex://settings"</div>
+          <button class="apply-terminal-copy" onclick="copyTerminalCmd()">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="apply-modal-actions">
+        <button class="apply-cancel-btn" onclick="closeApplyOverlay()">Cancel</button>
+        <button class="apply-confirm-btn" onclick="executeApply()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Copy & open Codex
+        </button>
+      </div>
+    </div>
+  `;
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeApplyOverlay();
+  });
+  document.body.appendChild(overlay);
+
+  // Store the theme string for the confirm action
+  overlay._themeStr = themeStr;
+}
+
+function executeApply() {
+  const overlay = document.getElementById('apply-overlay');
+  const str = overlay._themeStr;
+
+  const doCopy = (cb) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(str).then(cb).catch(() => fallbackCopy(str, cb));
+    } else {
+      fallbackCopy(str, cb);
+    }
+  };
+
+  doCopy(() => {
+    // Update button to show success
+    const btn = overlay.querySelector('.apply-confirm-btn');
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied! Opening Codex...';
+    btn.style.background = 'var(--green, #22c55e)';
+
+    // Try to open Codex settings via deep link
+    setTimeout(() => {
+      window.open('codex://settings', '_blank');
+    }, 300);
+
+    // Close overlay after a moment
+    setTimeout(() => {
+      closeApplyOverlay();
+    }, 2000);
+  });
+}
+
+function copyTerminalCmd() {
+  const cmd = document.getElementById('apply-terminal-cmd').textContent;
+  const btn = document.querySelector('.apply-terminal-copy');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(cmd).then(() => {
+      btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+      }, 1500);
+    });
+  } else {
+    fallbackCopy(cmd, () => {});
+  }
+}
+
+function closeApplyOverlay() {
+  const overlay = document.getElementById('apply-overlay');
+  if (overlay) {
+    overlay.classList.add('closing');
+    setTimeout(() => overlay.remove(), 150);
+  }
+}
+
+// ================================================
 // Window control dots (close / minimize / fullscreen)
 // ================================================
 
@@ -1072,6 +1215,11 @@ function renderBuilderPanel() {
       <button class="builder-share-btn" onclick="shareBuilderTheme()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         Copy import string
+      </button>
+      <button class="apply-codex-btn builder-apply-btn" onclick="applyBuilderToCodex()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Apply to Codex
+        <span class="experimental-badge">Beta</span>
       </button>
       <div class="builder-submit-hint">Create freely — no account needed.<br>To submit to the community gallery, connect GitHub or X (coming soon).</div>
     </div>
