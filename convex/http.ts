@@ -64,13 +64,17 @@ http.route({ path: "/themes/copy", method: "OPTIONS", handler: optionsHandler })
 http.route({
   path: "/auth/github",
   method: "GET",
-  handler: httpAction(async (ctx) => {
+  handler: httpAction(async (ctx, request) => {
     const clientId = process.env.GITHUB_CLIENT_ID;
     if (!clientId) {
       return new Response("GitHub OAuth not configured", { status: 500 });
     }
-    const redirectUri = process.env.CONVEX_SITE_URL + "/auth/github/callback";
-    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user`;
+    // Pass the frontend origin via state so callback knows where to redirect
+    const reqUrl = new URL(request.url);
+    const frontendOrigin = reqUrl.searchParams.get("origin") || "https://dexthemes.com";
+    const state = btoa(JSON.stringify({ origin: frontendOrigin }));
+    const redirectUri = "https://dexthemes.com/auth/github/callback";
+    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=${encodeURIComponent(state)}`;
     return Response.redirect(url, 302);
   }),
 });
@@ -126,7 +130,18 @@ http.route({
     });
 
     // Redirect back to frontend with session token
-    const frontendUrl = `https://dexthemes.com/#auth=${user!.sessionToken}`;
+    // Read frontend origin from OAuth state parameter
+    const state = url.searchParams.get("state");
+    let frontendBase = "https://dexthemes.com";
+    if (state) {
+      try {
+        const decoded = JSON.parse(atob(state));
+        if (decoded.origin && ALLOWED_ORIGINS.includes(decoded.origin)) {
+          frontendBase = decoded.origin;
+        }
+      } catch {}
+    }
+    const frontendUrl = `${frontendBase}/#auth=${user!.sessionToken}`;
     return Response.redirect(frontendUrl, 302);
   }),
 });

@@ -6,6 +6,15 @@
 // Default semantic colors used when a Codex theme doesn't define them
 const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
 const LIGHT_DEFAULTS = { diffAdded: '#00a240', diffRemoved: '#ba2623', skill: '#924ff7' };
+const DEXTHEMES_GROUP_LABELS = window.DEXTHEMES_GROUP_LABELS || {
+  anime: 'Anime',
+  games: 'Video Games',
+  movies: 'Movies',
+  comics: 'Comics',
+  zodiacs: 'Zodiacs',
+  lunar: 'Lunar Animals',
+  originals: 'Originals'
+};
 
 const THEMES = [
   // ==============================
@@ -145,41 +154,19 @@ const THEMES = [
   },
 
   // ==============================
-  // DEXTHEMES (Anime / Originals)
+  // DEXTHEMES (loaded from theme-data/dexthemes/*)
   // ==============================
-  {
-    id: 'ichigo-bankai', name: 'Ichigo / Bankai', category: 'dexthemes', copies: 87, dateAdded: '2025-12-01',
-    dark: { surface: '#121111', ink: '#FFF4EC', accent: '#FF7A1A', contrast: 64, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#F59E0B', sidebar: '#0d0c0c', codeBg: '#0a0909' },
-    light: { surface: '#FFF7F2', ink: '#121212', accent: '#F97316', contrast: 46, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#F59E0B', sidebar: '#f7efe9', codeBg: '#f0e8e2' },
-    accents: ['#FF7A1A', '#F97316']
-  },
-  {
-    id: 'naruto-hidden-leaf', name: 'Naruto / Hidden Leaf', category: 'dexthemes', copies: 112, dateAdded: '2025-12-01',
-    dark: { surface: '#101418', ink: '#F7F3EA', accent: '#FF9F1C', contrast: 66, diffAdded: '#22C55E', diffRemoved: '#F97316', skill: '#F59E0B', sidebar: '#0b0f12', codeBg: '#080c0f' },
-    light: { surface: '#FFF8ED', ink: '#1A1A1A', accent: '#F59E0B', contrast: 48, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#EA580C', sidebar: '#f7f0e4', codeBg: '#f0e9dd' },
-    accents: ['#FF9F1C', '#F59E0B']
-  },
-  {
-    id: 'luffy-grand-line', name: 'Luffy / Grand Line', category: 'dexthemes', copies: 98, dateAdded: '2025-12-15',
-    dark: { surface: '#0F172A', ink: '#F8F1DC', accent: '#F87171', contrast: 62, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#60A5FA', sidebar: '#0a1122', codeBg: '#070d1c' },
-    light: { surface: '#FFF8E7', ink: '#152033', accent: '#DC2626', contrast: 44, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#2563EB', sidebar: '#f7f0de', codeBg: '#f0e9d7' },
-    accents: ['#F87171', '#DC2626']
-  },
-  {
-    id: 'shonen-sunset', name: 'Shonen Sunset', category: 'dexthemes', copies: 76, dateAdded: '2026-01-10',
-    dark: { surface: '#111827', ink: '#FFF7ED', accent: '#FB923C', contrast: 67, diffAdded: '#22C55E', diffRemoved: '#EF4444', skill: '#A855F7', sidebar: '#0c1220', codeBg: '#090e1a' },
-    light: { surface: '#FFF7E8', ink: '#161616', accent: '#EA580C', contrast: 47, diffAdded: '#16A34A', diffRemoved: '#DC2626', skill: '#7C3AED', sidebar: '#f7efdf', codeBg: '#f0e8d8' },
-    accents: ['#FB923C', '#EA580C']
-  },
-
-  // ==============================
-  // COMMUNITY (placeholder)
-  // ==============================
+  ...Object.values((window.DEXTHEMES_PACKS && window.DEXTHEMES_PACKS.dexthemes) || {}).flat(),
 ];
 
 const CATEGORIES = [
   { id: 'official', name: 'Codex', icon: 'shield' },
-  { id: 'dexthemes', name: 'DexThemes', icon: 'palette' },
+  {
+    id: 'dexthemes',
+    name: 'DexThemes',
+    icon: 'palette',
+    groups: ['anime', 'games', 'movies', 'comics', 'zodiacs', 'lunar', 'originals']
+  },
   { id: 'community', name: 'Community', icon: 'users' }
 ];
 
@@ -190,7 +177,25 @@ const CATEGORIES = [
 let selectedTheme = THEMES[0];
 let selectedVariant = 'dark';
 let selectedAccentIdx = 0;
-let expandedCategories = { official: true, dexthemes: true, community: true };
+let expandedCategories = { official: false, dexthemes: false, community: false };
+let expandedSubgroups = {
+  official: {},
+  dexthemes: {
+    anime: false,
+    games: false,
+    movies: false,
+    comics: false,
+    zodiacs: false,
+    lunar: false,
+    originals: false,
+  },
+  community: {},
+};
+let pinnedSubgroups = {
+  official: {},
+  dexthemes: {},
+  community: {},
+};
 let currentExampleIdx = Math.floor(Math.random() * 3);
 let windowState = 'normal'; // 'normal', 'fullscreen', 'closed'
 let activeFilter = 'all'; // 'all', 'dark-only', 'light-only', 'both'
@@ -699,6 +704,54 @@ function renderSidebar() {
     if (themes.length === 0 && q) return '';
 
     const expanded = expandedCategories[cat.id] || !!q; // auto-expand when searching
+    const renderThreads = () => {
+      if (!cat.groups) {
+        return themes.map(t => `
+          <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
+               data-theme-id="${t.id}"
+               onclick="selectThemeById('${t.id}')">
+            <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+            <span class="thread-title">${t.name}</span>
+          </div>
+        `).join('');
+      }
+
+      return cat.groups.map(groupId => {
+        const groupThemes = themes.filter(t => (t.subgroup || 'originals') === groupId);
+        if (groupThemes.length === 0) return '';
+        const subgroupExpanded = (expandedSubgroups[cat.id] && expandedSubgroups[cat.id][groupId]) || !!q;
+        const subgroupPinned = !!(pinnedSubgroups[cat.id] && pinnedSubgroups[cat.id][groupId]);
+
+        return `
+          <div class="thread-group">
+            <button
+              class="thread-group-toggle${subgroupPinned ? ' is-pinned' : ''}"
+              type="button"
+              ondblclick="pinSubgroup('${cat.id}', '${groupId}')"
+              onclick="toggleSubgroup('${cat.id}', '${groupId}')"
+              title="${subgroupPinned ? 'Pinned open' : 'Click to open. Double-click to pin open.'}">
+              <svg class="thread-group-chevron ${subgroupExpanded ? 'expanded' : ''}" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              <span class="thread-group-label">${DEXTHEMES_GROUP_LABELS[groupId] || groupId}</span>
+              <span class="thread-group-count">${groupThemes.length}</span>
+              <span class="thread-group-pin${subgroupPinned ? ' visible' : ''}"></span>
+            </button>
+            <div class="thread-group-items ${subgroupExpanded ? 'expanded' : ''}">
+              ${groupThemes.map(t => `
+                <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
+                     data-theme-id="${t.id}"
+                     onclick="selectThemeById('${t.id}')">
+                  <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+                  <span class="thread-title">${t.name}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
     return `
       <div class="category">
         <div class="category-header" onclick="toggleCategory('${cat.id}')">
@@ -708,14 +761,7 @@ function renderSidebar() {
           <span class="category-count">${themes.length}</span>
         </div>
         <div class="category-threads ${expanded ? 'expanded' : ''}">
-          ${themes.map(t => `
-            <div class="thread-item ${t.id === selectedTheme.id ? 'active' : ''}"
-                 data-theme-id="${t.id}"
-                 onclick="selectThemeById('${t.id}')">
-              <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
-              <span class="thread-title">${t.name}</span>
-            </div>
-          `).join('')}
+          ${renderThreads()}
         </div>
       </div>
     `;
@@ -737,6 +783,39 @@ function getCategoryIcon(icon) {
 
 function toggleCategory(catId) {
   expandedCategories[catId] = !expandedCategories[catId];
+  renderSidebar();
+}
+
+function toggleSubgroup(categoryId, groupId) {
+  if (!expandedSubgroups[categoryId]) expandedSubgroups[categoryId] = {};
+  if (!pinnedSubgroups[categoryId]) pinnedSubgroups[categoryId] = {};
+
+  const isExpanded = !!expandedSubgroups[categoryId][groupId];
+  const isPinned = !!pinnedSubgroups[categoryId][groupId];
+
+  if (isExpanded && !isPinned) {
+    expandedSubgroups[categoryId][groupId] = false;
+    renderSidebar();
+    return;
+  }
+
+  Object.keys(expandedSubgroups[categoryId]).forEach((key) => {
+    if (key !== groupId && !pinnedSubgroups[categoryId][key]) {
+      expandedSubgroups[categoryId][key] = false;
+    }
+  });
+
+  expandedSubgroups[categoryId][groupId] = true;
+  renderSidebar();
+}
+
+function pinSubgroup(categoryId, groupId) {
+  if (!expandedSubgroups[categoryId]) expandedSubgroups[categoryId] = {};
+  if (!pinnedSubgroups[categoryId]) pinnedSubgroups[categoryId] = {};
+
+  const nextPinned = !pinnedSubgroups[categoryId][groupId];
+  pinnedSubgroups[categoryId][groupId] = nextPinned;
+  expandedSubgroups[categoryId][groupId] = true;
   renderSidebar();
 }
 
@@ -769,7 +848,10 @@ function selectThemeById(id) {
   // Exit builder mode if active
   if (panelMode === 'builder') {
     panelMode = 'preview';
+    const submitBtn = document.getElementById('submit-btn');
     document.getElementById('submit-btn-text').textContent = 'Create a theme';
+    const iconEl = submitBtn.querySelector('svg');
+    if (iconEl) iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
   }
 
   // Cycle to next example on theme change
@@ -848,7 +930,7 @@ function applyBuilderToCodex() {
     return;
   }
   const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
+    codeThemeId: 'codex',
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
@@ -1075,9 +1157,13 @@ function colorMeLucky() {
 }
 
 function toggleBuilderMode() {
+  const btn = document.getElementById('submit-btn');
+  const textEl = document.getElementById('submit-btn-text');
+  const iconEl = btn.querySelector('svg');
   if (panelMode === 'builder') {
     panelMode = 'preview';
-    document.getElementById('submit-btn-text').textContent = 'Create a theme';
+    textEl.textContent = 'Create a theme';
+    iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
     // Restore selected theme preview
     applyShellTheme(selectedTheme, selectedVariant);
     applyPreview(selectedTheme, selectedVariant);
@@ -1086,7 +1172,8 @@ function toggleBuilderMode() {
     panelMode = 'builder';
     // Load saved state or start fresh
     builderColors = loadBuilderState() || getDefaultBuilderColors();
-    document.getElementById('submit-btn-text').textContent = 'Back to browsing';
+    textEl.textContent = 'Back to browsing';
+    iconEl.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
     renderBuilderPanel();
     applyBuilderPreview();
   }
@@ -1156,7 +1243,10 @@ function renderBuilderPanel() {
           or paste JSON
         </button>
       ` : `
-        <div class="builder-submit-hint"><a href="#" onclick="toggleAuthDropdown(event); return false;" class="builder-signin-link">Sign in</a> to submit to the community gallery.</div>
+        <button class="builder-submit-btn builder-github-signin" onclick="signInWith('github')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Sign in with GitHub to submit
+        </button>
       `}
     </div>
   `;
@@ -1251,7 +1341,7 @@ function shareBuilderTheme() {
   }
 
   const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: b.variant === 'dark' ? 'codex-dark' : 'codex-light',
+    codeThemeId: 'codex',
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
@@ -1405,24 +1495,8 @@ function renderAuthUI() {
       </div>
     `;
   } else {
-    area.innerHTML = `
-      <div class="auth-signin-row">
-        <button class="auth-signin-btn" onclick="toggleAuthDropdown(event)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Sign in
-        </button>
-        <div class="auth-dropdown" id="auth-dropdown" style="display:none;">
-          <button class="auth-provider-btn" onclick="signInWith('github')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            Continue with GitHub
-          </button>
-          <button class="auth-provider-btn" onclick="signInWith('x')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Continue with X
-          </button>
-        </div>
-      </div>
-    `;
+    // No sign-in button in sidebar — sign in is triggered from builder submit flow
+    area.innerHTML = '';
   }
 }
 
@@ -1439,7 +1513,12 @@ function toggleAuthDropdown(e) {
 }
 
 function signInWith(provider) {
-  window.location.href = CONVEX_SITE_URL + '/auth/' + provider;
+  const origin = encodeURIComponent(window.location.origin);
+  // On production, use relative path (Vercel rewrites /auth/* to Convex)
+  // On localhost, go direct to Convex
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const base = isLocal ? CONVEX_SITE_URL : '';
+  window.location.href = base + '/auth/' + provider + '?origin=' + origin;
 }
 
 async function logout() {
@@ -1464,6 +1543,14 @@ async function logout() {
 // ================================================
 
 async function loadCommunityThemes() {
+  const isLocalPreview =
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === 'localhost';
+
+  if (isLocalPreview) {
+    return;
+  }
+
   try {
     const res = await fetch(CONVEX_SITE_URL + '/themes');
     if (!res.ok) return;
@@ -1504,6 +1591,7 @@ async function loadCommunityThemes() {
           codeBg: t.light.codeBg,
         } : undefined,
         accents: t.accents || [t.dark?.accent || t.light?.accent].filter(Boolean),
+        subgroup: 'community',
         _convexId: t._id,
         _authorName: t.authorName,
         _summary: t.summary,
@@ -1615,6 +1703,7 @@ async function submitFromBuilder() {
       id: themeId,
       name: b.name.trim(),
       category: 'community',
+      subgroup: 'community',
       codeThemeId: { dark: 'codex', light: 'codex' },
       copies: 0,
       dateAdded: new Date().toISOString().split('T')[0],
@@ -1716,6 +1805,7 @@ async function submitJsonFromModal() {
       id: payload.themeId,
       name: payload.name,
       category: 'community',
+      subgroup: 'community',
       codeThemeId: payload.codeThemeId,
       copies: 0,
       dateAdded: new Date().toISOString().split('T')[0],
@@ -1772,6 +1862,10 @@ async function flagTheme(convexId) {
 // ================================================
 // Init
 // ================================================
+
+// Expand the category of the initially selected theme
+const initCat = selectedTheme.category || 'official';
+expandedCategories[initCat] = true;
 
 renderSidebar();
 renderFilterDropdown();
