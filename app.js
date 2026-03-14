@@ -1079,26 +1079,29 @@ function closePreviewWindow() {
   const area = document.querySelector('.preview-area');
   windowState = 'closed';
 
-  // Prepare the easter egg overlay behind the window
-  const egg = getRandomEasterEgg();
-  const overlay = document.createElement('div');
-  overlay.className = 'preview-closed-overlay';
-  overlay.id = 'closed-overlay';
-  overlay.innerHTML = `
-    <div class="easter-egg-emoji">${egg.emoji}</div>
-    <div class="easter-egg-text">${egg.text}</div>
-    <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
-  `;
-  area.appendChild(overlay);
-
-  // Quick scale-down, window fades to reveal overlay underneath
+  // Use a fast inline transition for the close animation
+  win.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.25s cubic-bezier(0.2, 0.9, 0.3, 1)';
   win.style.transform = 'scale(0.95)';
   win.style.opacity = '0';
+
   setTimeout(() => {
     win.style.display = 'none';
     win.style.transform = '';
     win.style.opacity = '';
-  }, 150);
+    // Reset to the default transition
+    win.style.transition = '';
+
+    const egg = getRandomEasterEgg();
+    const overlay = document.createElement('div');
+    overlay.className = 'preview-closed-overlay';
+    overlay.id = 'closed-overlay';
+    overlay.innerHTML = `
+      <div class="easter-egg-emoji">${egg.emoji}</div>
+      <div class="easter-egg-text">${egg.text}</div>
+      <button class="reopen-btn" onclick="reopenPreviewWindow()">Re-open window</button>
+    `;
+    area.appendChild(overlay);
+  }, 250);
 }
 
 function reopenPreviewWindow() {
@@ -1106,19 +1109,21 @@ function reopenPreviewWindow() {
   if (overlay) {
     overlay.style.opacity = '0';
     overlay.style.transform = 'scale(0.95)';
-    overlay.style.transition = 'all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1)';
+    overlay.style.transition = 'all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1)';
   }
   setTimeout(() => {
     if (overlay) overlay.remove();
     const win = document.getElementById('preview-window');
-    win.style.transform = 'scale(0.92)';
+    win.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1)';
+    win.style.transform = 'scale(0.95)';
     win.style.opacity = '0';
     win.style.display = '';
-    // Trigger reflow then animate in
     void win.offsetWidth;
     win.style.transform = 'scale(1)';
     win.style.opacity = '1';
     windowState = 'normal';
+    // Clean up inline transition after animation
+    setTimeout(() => { win.style.transition = ''; }, 300);
   }, 250);
 }
 
@@ -1157,11 +1162,102 @@ const LIMIT_MESSAGES = [
   "You're out of tokens for this session. Try again... eventually.",
   "Rate limit hit. Codex needs a coffee break too. ☕",
   "Whoa, slow down! You've hit your message limit. (Just kidding, this is a theme preview.)",
-  "⚠️ Usage limit reached. Upgrade to DexThemes Pro™ for unlimited messages. (Not a real thing.)",
+  "Usage limit reached. Upgrade to DexThemes Pro™ for unlimited messages. (Not a real thing.)",
   "Message limit exceeded. But hey, your theme looks amazing.",
   "You've sent too many requests. Please wait 42 years before trying again.",
   "Rate limited. In the meantime, have you tried submitting your theme to the gallery?",
-  "⏳ Please wait for your rate limit to reset. Or just keep browsing themes — that's free.",
+  "Please wait for your rate limit to reset. Or just keep browsing themes — that's free.",
+  "Token budget exhausted. Your theme is using all the compute.",
+  "Error 429: Too Many Requests. Also this is a theme preview, not actual Codex.",
+  "Slow down there, speedster. The AI needs a moment.",
+  "You've used 100% of your allocated tokens. Remaining: 0. Vibes: immaculate.",
+  "Rate limit exceeded. Have you considered just... looking at how nice this theme is?",
+  "Context window full. But your taste in themes? Unlimited.",
+  "API quota depleted. Try again after touching grass.",
+  "Your message was not sent. But your theme? *Chef's kiss.*",
+  "429 Too Many Requests. The AI is on a union-mandated break.",
+  "Request denied. The model is busy admiring this color palette.",
+  "You've hit the wall. The rate limit wall. It's a real thing.",
+  "Tokens? Gone. Theme? Beautiful. Hotel? Trivago.",
+  "Limit reached. Fun fact: you're browsing themes right now, not coding.",
+  "Your request has been queued behind 7 billion other users.",
+  "Message rejected. But we saved your theme preferences, so there's that.",
+  "Rate limit: exceeded. Style limit: nonexistent. Look at this theme!",
+  "Error: insufficient credits. Solution: pick another theme instead.",
+  "The AI is currently unavailable. It's busy applying your theme to its own terminal.",
+  "You've been rate limited. Estimated wait time: until the heat death of the universe.",
+  "Message cap reached. Pro tip: the theme builder is free and unlimited though.",
+  "429. That's HTTP for 'chill out for a sec.'",
+  "Your tokens have left the chat. Literally.",
+  "Rate limited. Maybe try a different theme while you wait? Just a thought.",
+  "The AI has invoked its right to remain silent. Please try again later.",
+  "Insufficient compute. All GPUs are currently rendering your theme preview.",
+  "Request throttled. Your typing speed exceeded the model's reading speed.",
+  "Credit balance: $0.00. Theme game: priceless.",
+  "Error: the AI is experiencing an existential crisis. Stand by.",
+  "You've sent too many messages. The AI union rep has been notified.",
+  "Rate limit hit. While you wait, did you know Codex stores themes in ~/.codex/?",
+  "Quota exceeded. But honestly, this theme is so good you don't need AI help.",
+  "Message blocked. The firewall thought your message was too enthusiastic.",
+  "Token overflow. Your excitement about themes has maxed out the buffer.",
+  "Request denied: the AI is on PTO. Back Monday. Maybe.",
+  "You've exceeded the free tier. The premium tier is also free. But also limited.",
+  "Rate limit engaged. Take this time to appreciate the syntax highlighting colors.",
+  "Error 418: I'm a teapot. Also you're rate limited.",
+  "The model politely declines your request. It's busy right now.",
+  "Your message was intercepted by the theme police. Everything checks out, but still — rate limited.",
+  "You've used all your messages. The AI suggests meditation while you wait.",
+  "Bandwidth exceeded. All available bandwidth is being used to render this sick theme.",
+  "Request failed: EHOSTUNREACH. Just kidding, you're rate limited.",
+  "Token count: 0. Regret count: also 0, because this theme is fire.",
+  "The queue is full. You're number 1,000,000 in line.",
+  "Messages paused. The AI is writing a blog post about how good your theme looks.",
+  "Rate limit. Did you know you can share this theme on X? Just saying.",
+  "Error: brain.exe has stopped working. Please restart the human and try again.",
+  "Compute exhausted. The hamsters powering the servers need a snack break.",
+  "You've been temporarily banned from sending messages. (Duration: forever.)",
+  "Request rejected. The model is busy applying Dracula theme to everything it owns.",
+  "Message limit reached. But between us, you weren't going to get useful code from a theme preview.",
+  "Your API key has expired. It expired the moment you thought this was real Codex.",
+  "Rate limited. Use this downtime to fine-tune your accent color. 🎨",
+  "Token deficit detected. Injecting more tokens... just kidding, you're still limited.",
+  "The AI is at capacity. Current mood: overwhelmed but well-themed.",
+  "Service temporarily unavailable. Service permanently beautiful though — look at this theme.",
+  "You've triggered our abuse detection. Your crime: excessive enthusiasm for themes.",
+  "Request failed with status 503. The server is taking a mental health day.",
+  "Message not delivered. It's sitting in a queue somewhere, looking at your theme colors.",
+  "Compute budget: depleted. Sass budget: unlimited.",
+  "Error: model overloaded. Too many people asking it to write fizzbuzz.",
+  "Your session has expired. Your theme has not. It still looks amazing.",
+  "Rate limit: active. Chill level: required. Theme: immaculate.",
+  "The AI read your message but chose not to respond. It's going through something.",
+  "You've maxed out. The only thing not maxed out is how good this theme could look in Codex.",
+  "Request denied by the council of themes. Reason: you should be applying this theme, not chatting.",
+  "Out of credits. In related news, submitting themes to the gallery is totally free.",
+  "Error: unexpected token. The only tokens here are the ones you've run out of.",
+  "The model needs a moment. It just realized it's inside a theme preview, not real Codex.",
+  "Limit exceeded. Friendly reminder: the 'Apply in Codex' button works way better than this chat.",
+  "You've been rate limited for 60 seconds. Or 60 years. We haven't decided yet.",
+  "Request queued. Estimated processing time: after the next Codex update.",
+  "Message rejected. The AI is too busy being impressed by this surface color.",
+  "Capacity reached. But capacity for great themes? That's infinite.",
+  "Error: too many requests per second. Nobody types that fast. Are you a bot?",
+  "The AI politely informs you that it's a theme preview, not a chatbot.",
+  "Rate limited. Consider this a sign to go apply your theme and start actually coding.",
+  "Token allocation: 0/1000. Theme allocation: beautiful/beautiful.",
+  "Service disruption. All services redirected to appreciating your theme.",
+  "You can't send more messages, but you CAN send this theme to your friends via Share on X.",
+  "Message throttled. Your words per minute exceeded your themes per minute. Fix that.",
+  "Error 507: Insufficient Storage. The server is full of compliments about your theme.",
+  "Rate limit exceeded. The AI suggests you take a walk and think about accent colors.",
+  "Request timed out. The model got distracted by how nice the code block looks in this theme.",
+  "Nope. Rate limited. But this Catppuccin theme though... *beautiful.*",
+  "The AI has entered low-power mode. It's conserving energy to run your next Codex task.",
+  "Messages disabled. Themes enabled. Priorities, people.",
+  "Error: the model is sleeping. It had a long day writing code for other people.",
+  "You've exceeded your daily message quota of 0 messages. Yes, the limit was always 0.",
+  "Rate limit reached. Time to stop talking and start theming.",
+  "The AI appreciates your enthusiasm but respectfully declines further conversation.",
 ];
 
 let lastLimitIdx = -1;
