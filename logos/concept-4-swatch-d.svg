@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- D shape made entirely of color swatches -->
+  <rect width="64" height="64" rx="14" fill="#0f0f1a"/>
+  <!-- Vertical bar of D -->
+  <rect x="14" y="12" width="8" height="10" rx="2" fill="#3b82f6"/>
+  <rect x="14" y="24" width="8" height="10" rx="2" fill="#6366f1"/>
+  <rect x="14" y="36" width="8" height="10" rx="2" fill="#a855f7"/>
+  <rect x="14" y="48" width="8" height="4" rx="2" fill="#ec4899"/>
+  <!-- Curve of D — top -->
+  <rect x="24" y="12" width="8" height="8" rx="2" fill="#22c55e"/>
+  <rect x="34" y="14" width="8" height="8" rx="2" fill="#eab308"/>
+  <rect x="42" y="22" width="8" height="8" rx="2" fill="#f97316"/>
+  <!-- Curve of D — middle right -->
+  <rect x="44" y="32" width="8" height="8" rx="2" fill="#f43f5e"/>
+  <!-- Curve of D — bottom -->
+  <rect x="42" y="40" width="8" height="6" rx="2" fill="#14b8a6"/>
+  <rect x="34" y="44" width="8" height="8" rx="2" fill="#06b6d4"/>
+  <rect x="24" y="48" width="8" height="4" rx="2" fill="#8b5cf6"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Rounded square background -->
+  <rect width="64" height="64" rx="14" fill="#1a1a2e"/>
+  <!-- Color dots — theme palette -->
+  <circle cx="22" cy="22" r="5" fill="#f43f5e"/>
+  <circle cx="42" cy="22" r="5" fill="#3b82f6"/>
+  <circle cx="22" cy="42" r="5" fill="#22c55e"/>
+  <circle cx="42" cy="42" r="5" fill="#a855f7"/>
+  <!-- Center D -->
+  <path d="M26 26h6c3.3 0 6 2.7 6 6s-2.7 6-6 6h-6V26zm3 2.5v7h3c2 0 3.5-1.5 3.5-3.5s-1.5-3.5-3.5-3.5h-3z" fill="white" opacity="0.9"/>
+</svg>

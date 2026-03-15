@@ -177,7 +177,7 @@ const CATEGORIES = [
 let selectedTheme = THEMES[0];
 let selectedVariant = 'dark';
 let selectedAccentIdx = 0;
-let expandedCategories = { official: false, dexthemes: false, community: false };
+let expandedCategories = { official: false, dexthemes: true, community: false };
 let expandedSubgroups = {
   official: {},
   dexthemes: {
@@ -2111,10 +2111,6 @@ async function flagTheme(convexId) {
 // ================================================
 // Init
 // ================================================
-
-// Expand the category of the initially selected theme
-const initCat = selectedTheme.category || 'official';
-expandedCategories[initCat] = true;
 
 renderSidebar();
 renderFilterDropdown();

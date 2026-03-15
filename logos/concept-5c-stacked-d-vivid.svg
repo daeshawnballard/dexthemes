@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg5c" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f0f1e"/>
+      <stop offset="100%" stop-color="#1a1030"/>
+    </linearGradient>
+  </defs>
+  <!-- Dark background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg5c)"/>
+  <!-- Layer 4 (deepest) — hot pink, most offset -->
+  <path d="M24 19h10c7.2 0 13 5.8 13 13s-5.8 13-13 13H24V19zm6.5 5.5v15h3.5c4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5h-3.5z" fill="#ec4899" opacity="0.6"/>
+  <!-- Layer 3 — purple -->
+  <path d="M22 17h10c7.2 0 13 5.8 13 13s-5.8 13-13 13H22V17zm6.5 5.5v15h3.5c4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5h-3.5z" fill="#a855f7" opacity="0.6"/>
+  <!-- Layer 2 — indigo -->
+  <path d="M20 15h10c7.2 0 13 5.8 13 13s-5.8 13-13 13H20V15zm6.5 5.5v15h3.5c4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5h-3.5z" fill="#6366f1" opacity="0.7"/>
+  <!-- Layer 1 — blue -->
+  <path d="M19 14h10c7.2 0 13 5.8 13 13s-5.8 13-13 13H19V14zm6.5 5.5v15h3.5c4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5h-3.5z" fill="#3b82f6" opacity="0.75"/>
+  <!-- Front D — bright white -->
+  <path d="M18 13h10c7.2 0 13 5.8 13 13s-5.8 13-13 13H18V13zm6.5 5.5v15h3.5c4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5h-3.5z" fill="white"/>
+</svg>

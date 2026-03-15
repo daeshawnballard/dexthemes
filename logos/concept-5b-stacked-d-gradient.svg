@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg5b" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Gradient background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg5b)"/>
+  <!-- Stacked D layers — back to front -->
+  <!-- Layer 3 — darkest shadow, most offset -->
+  <path d="M22 17h11c7.7 0 14 6.3 14 14s-6.3 14-14 14H22V17zm7 6v16h4c4.4 0 8-3.6 8-8s-3.6-8-8-8h-4z" fill="rgba(0,0,0,0.2)"/>
+  <!-- Layer 2 — medium shadow -->
+  <path d="M20.5 15.5h11c7.7 0 14 6.3 14 14s-6.3 14-14 14h-11V15.5zm7 6v16h4c4.4 0 8-3.6 8-8s-3.6-8-8-8h-4z" fill="rgba(255,255,255,0.2)"/>
+  <!-- Layer 1 — light shadow -->
+  <path d="M19.25 14.25h11c7.7 0 14 6.3 14 14s-6.3 14-14 14h-11V14.25zm7 6v16h4c4.4 0 8-3.6 8-8s-3.6-8-8-8h-4z" fill="rgba(255,255,255,0.35)"/>
+  <!-- Front D — crisp white -->
+  <path d="M18 13h11c7.7 0 14 6.3 14 14s-6.3 14-14 14H18V13zm7 6v16h4c4.4 0 8-3.6 8-8s-3.6-8-8-8h-4z" fill="white"/>
+</svg>

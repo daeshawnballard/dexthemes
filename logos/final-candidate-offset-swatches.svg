@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="panel-a" x1="9" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#1c1730"/>
+    </linearGradient>
+    <clipPath id="d-mask-a">
+      <path d="M18 13h13.5c9.7 0 17.5 8.1 17.5 18s-7.8 18-17.5 18H18V13Z"/>
+    </clipPath>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#panel-a)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" stroke="#ffffff" stroke-opacity="0.08"/>
+  <path d="M18 13h13.5c9.7 0 17.5 8.1 17.5 18s-7.8 18-17.5 18H18V13Z" fill="#ffffff"/>
+  <g clip-path="url(#d-mask-a)">
+    <rect x="19" y="21" width="18" height="5" rx="2.5" fill="#40a9ff" transform="rotate(-16 19 21)"/>
+    <rect x="18.5" y="31.5" width="22" height="5.5" rx="2.75" fill="#8b5cf6" transform="rotate(-16 18.5 31.5)"/>
+    <rect x="18.5" y="42.5" width="18" height="5" rx="2.5" fill="#f15bb5" transform="rotate(-16 18.5 42.5)"/>
+  </g>
+  <path d="M29 22h2.5c4.8 0 8.5 3.9 8.5 9s-3.7 9-8.5 9H29V22Z" fill="url(#panel-a)"/>
+</svg>

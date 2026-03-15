@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square with gradient -->
+  <rect width="64" height="64" rx="14" fill="url(#g1)"/>
+  <!-- Bold D letterform -->
+  <path d="M18 14h14c8.8 0 16 7.2 16 16s-7.2 16-16 16H18V14zm8 7v18h6c5 0 9-4 9-9s-4-9-9-9h-6z" fill="white"/>
+</svg>
