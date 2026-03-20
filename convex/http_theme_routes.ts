@@ -336,7 +336,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
     method: "POST",
     handler: httpAction(async (ctx, request) => {
       const origin = request.headers.get("Origin");
-      const token = (request.headers.get("Authorization") || "").replace("Bearer ", "");
+      const token = getSessionToken(request);
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
       try {
@@ -358,7 +358,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
     method: "POST",
     handler: httpAction(async (ctx, request) => {
       const origin = request.headers.get("Origin");
-      const token = (request.headers.get("Authorization") || "").replace("Bearer ", "");
+      const token = getSessionToken(request);
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
       try {
