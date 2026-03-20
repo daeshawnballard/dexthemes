@@ -223,6 +223,12 @@ export function initDelegatedActions() {
   });
 
   document.addEventListener('input', (event) => {
+    const colorEl = event.target.closest('input[type="color"][data-change-action]');
+    if (colorEl) {
+      void dispatchAction(colorEl.dataset.changeAction, colorEl, event);
+      return;
+    }
+
     const actionEl = event.target.closest('[data-input-action]');
     if (!actionEl) return;
     if (actionEl.dataset.inputAction === 'sidebar-search') {
@@ -233,7 +239,7 @@ export function initDelegatedActions() {
   });
 
   document.addEventListener('change', (event) => {
-    const actionEl = event.target.closest('[data-change-action], input[type="color"][data-action]');
+    const actionEl = event.target.closest('[data-change-action]');
     if (!actionEl) return;
     const action = actionEl.dataset.changeAction || actionEl.dataset.action;
     if (!action) return;

@@ -373,9 +373,9 @@ function builderColorField(label, key, value) {
   return `
     <div class="builder-field">
       <label class="builder-field-label" for="${colorId}">${label}</label>
-      <div class="builder-color-input">
+        <div class="builder-color-input">
         <div class="builder-color-swatch" style="background:${value}">
-          <input type="color" value="${value}" aria-label="${label} color picker" data-color-key="${key}" data-action="builder-update-color">
+          <input type="color" value="${value}" aria-label="${label} color picker" data-color-key="${key}" data-change-action="builder-update-color">
         </div>
         <input type="text" class="builder-color-hex" id="${colorId}" value="${value}" maxlength="7" aria-label="${label} hex value"
           data-color-key="${key}"
