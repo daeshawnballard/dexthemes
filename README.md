@@ -52,8 +52,8 @@ index.html                 → App shell
 templates/                 → Source templates for the generated shell and service worker
   index.template.html      → Source template for the generated shell
   sw.template.js           → Source template for the generated service worker
-styles.css                 → Manifest entry for domain-scoped stylesheets
 styles/                    → CSS split by domain (tokens, layout, sidebar, preview, builder, mobile, overlays)
+  index.css                → Manifest entry for domain-scoped stylesheets
 src/                       → Frontend source modules
   main.js                  → App entry point
   preview-shell.js         → Preview rendering, shell, and window controls

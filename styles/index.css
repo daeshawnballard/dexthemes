@@ -1,0 +1,13 @@
+/* ================================================
+   DexThemes — styles.css
+   Manifest entry for domain-scoped stylesheets
+   ================================================ */
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./sidebar.css";
+@import "./preview.css";
+@import "./builder.css";
+@import "./mobile.css";
+@import "./overlays.css";

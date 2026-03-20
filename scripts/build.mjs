@@ -9,7 +9,7 @@ const distAssetsDir = path.join(root, "dist", "assets");
 const appEntry = path.join(root, "src", "main.js");
 const templatePath = path.join(root, "templates", "index.template.html");
 const swTemplatePath = path.join(root, "templates", "sw.template.js");
-const stylesPath = path.join(root, "styles.css");
+const stylesPath = path.join(root, "styles", "index.css");
 const themeBundlePath = path.join(root, "theme-data", "dexthemes", "bundle.js");
 const isWatch = process.argv.includes("--watch");
 

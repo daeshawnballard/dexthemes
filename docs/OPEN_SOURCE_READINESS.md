@@ -25,7 +25,7 @@ Continue carving responsibilities out of the remaining hotspots:
 - `src/api.js`
 - `convex/http.ts`
 - inline/delegated interaction wiring
-- `styles.css` ownership and domain boundaries
+- `styles/index.css` ownership and domain boundaries
 
 Rules:
 
@@ -78,4 +78,4 @@ This work should happen after the repo is legible, not before.
 - [x] Convex HTTP surface is split into smaller route domains
 - [x] delegated `data-action` handling covers the shell, sidebar, preview shell, builder, auth, leaderboard, preview chat, and compact browse flows
 - [x] browser smoke coverage exists for the main desktop and compact/mobile flows
-- [x] stylesheet ownership is split into domain files behind a manifest `styles.css`
+- [x] stylesheet ownership is split into domain files behind a manifest `styles/index.css`

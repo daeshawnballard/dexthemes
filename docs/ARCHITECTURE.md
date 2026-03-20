@@ -191,7 +191,7 @@ There is still a separate performance follow-up track for deeper desktop chunk c
 
 The stylesheet is now split by domain behind a manifest entry:
 
-- [`styles.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles.css): import manifest used by the build
+- [`styles/index.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/index.css): import manifest used by the build
 - [`styles/tokens.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/tokens.css): variables and design tokens
 - [`styles/base.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/base.css): reset and shared primitives
 - [`styles/layout.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/layout.css): shell, main area, and panel layout
