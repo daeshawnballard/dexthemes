@@ -15,6 +15,25 @@ import { grantUnlockAction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
 
+function getVariantDataFromDraft(draft, variant) {
+  if (!draft) return null;
+  return {
+    surface: draft.surface,
+    ink: draft.ink,
+    accent: draft.accent,
+    contrast: draft.contrast || (variant === 'dark' ? 60 : 45),
+    diffAdded: draft.diffAdded,
+    diffRemoved: draft.diffRemoved,
+    skill: draft.skill,
+    sidebar: draft.sidebar,
+    codeBg: draft.codeBg,
+  };
+}
+
+function hasReadySecondaryVariant(builder, variant) {
+  return !!builder?._variantTouched?.[variant] && !!builder?._variantDrafts?.[variant];
+}
+
 function checkColorCopying(newDark, newLight) {
   const protection = checkThemeProtection(newDark, newLight);
   return protection.reason || null;
@@ -104,16 +123,17 @@ export async function submitFromBuilder() {
   }
 
   const variant = b.variant || 'dark';
-  const variantData = {
-    surface: b.surface, ink: b.ink, accent: b.accent,
-    contrast: b.contrast || (variant === 'dark' ? 60 : 45),
-    diffAdded: b.diffAdded, diffRemoved: b.diffRemoved,
-    skill: b.skill, sidebar: b.sidebar, codeBg: b.codeBg,
-  };
+  const variantData = getVariantDataFromDraft(b, variant);
+  const oppositeVariant = variant === 'dark' ? 'light' : 'dark';
+  const oppositeVariantData = hasReadySecondaryVariant(b, oppositeVariant)
+    ? getVariantDataFromDraft(b._variantDrafts[oppositeVariant], oppositeVariant)
+    : null;
+  const darkVariantData = variant === 'dark' ? variantData : oppositeVariantData;
+  const lightVariantData = variant === 'light' ? variantData : oppositeVariantData;
 
   const copySource = checkColorCopying(
-    variant === 'dark' ? variantData : null,
-    variant === 'light' ? variantData : null
+    darkVariantData,
+    lightVariantData,
   );
   if (copySource) {
     showToast(copySource, 'error');
@@ -141,7 +161,8 @@ export async function submitFromBuilder() {
     themeId,
     name: b.name.trim(),
     summary,
-    [variant]: variantData,
+    dark: darkVariantData || undefined,
+    light: lightVariantData || undefined,
     accents: [b.accent],
     codeThemeId: 'codex',
   };
@@ -177,9 +198,9 @@ export async function submitFromBuilder() {
     void trackEvent('theme_submitted', null, {
       theme_id: themeId,
       theme_name: b.name.trim(),
-      variant,
-      has_dark: variant === 'dark',
-      has_light: variant === 'light',
+      variant: darkVariantData && lightVariantData ? 'both' : variant,
+      has_dark: !!darkVariantData,
+      has_light: !!lightVariantData,
       source: 'builder',
     });
     showSubmitDelighter(b.name.trim(), variant, variantData);
@@ -192,7 +213,8 @@ export async function submitFromBuilder() {
       codeThemeId: 'codex',
       copies: 0,
       dateAdded: new Date().toISOString().split('T')[0],
-      [variant]: variantData,
+      dark: darkVariantData || undefined,
+      light: lightVariantData || undefined,
       accents: [b.accent],
       _authorName: state.currentUser.displayName || state.currentUser.username,
       _authorAvatarUrl: state.currentUser.avatarUrl || '',
@@ -204,7 +226,9 @@ export async function submitFromBuilder() {
       _variantRequests: 0,
     };
     THEMES.push(createdTheme);
-    markBuilderForVariantAdd(themeId);
+    if (!(darkVariantData && lightVariantData)) {
+      markBuilderForVariantAdd(themeId);
+    }
     renderSidebar();
   } catch (error) {
     showToast('Network error — try again', 'error');

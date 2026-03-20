@@ -3,7 +3,7 @@
 // ================================================
 
 import * as state from './state.js';
-import { escapeHtml, isDark, fallbackCopy, slugify } from './utils.js';
+import { escapeHtml, fallbackCopy, slugify } from './utils.js';
 import { applyShellTheme, applyPreview } from './theme-engine.js';
 import { renderRightPanel } from './preview-shell.js';
 import { syncAttributionOverlay } from './preview-attribution.js';
@@ -14,6 +14,7 @@ import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from '
 import { grantUnlockAction } from './unlock-api.js';
 
 let builderCreationTracked = false;
+const BUILDER_VARIANT_KEYS = ['surface', 'ink', 'accent', 'sidebar', 'codeBg', 'diffAdded', 'diffRemoved', 'skill', 'contrast'];
 
 const LUCKY_ADJECTIVES = ['Cosmic', 'Neon', 'Velvet', 'Ember', 'Frozen', 'Solar', 'Midnight', 'Crystal', 'Thunder', 'Phantom', 'Ruby', 'Jade', 'Amber', 'Silver', 'Golden', 'Copper', 'Cobalt', 'Crimson', 'Indigo', 'Scarlet'];
 const LUCKY_NOUNS = ['Horizon', 'Circuit', 'Drift', 'Pulse', 'Aurora', 'Nebula', 'Prism', 'Forge', 'Cascade', 'Vertex', 'Bloom', 'Cipher', 'Wave', 'Storm', 'Spark', 'Flame', 'Shade', 'Frost', 'Tide', 'Glow'];
@@ -24,10 +25,22 @@ function generateLuckyName() {
   return `${adj} ${noun}`;
 }
 
-function getDefaultBuilderColors() {
+function getDefaultVariantDraft(variant) {
+  if (variant === 'light') {
+    return {
+      surface: '#f5f5f5',
+      ink: '#1a1a1a',
+      accent: '#e94560',
+      sidebar: '#eaeaea',
+      codeBg: '#e5e5e5',
+      diffAdded: '#00a240',
+      diffRemoved: '#e02e2a',
+      skill: '#924ff7',
+      contrast: 45,
+    };
+  }
+
   return {
-    name: '',
-    variant: 'dark',
     surface: '#1a1a2e',
     ink: '#e6e6e6',
     accent: '#e94560',
@@ -36,8 +49,71 @@ function getDefaultBuilderColors() {
     diffAdded: '#40c977',
     diffRemoved: '#fa423e',
     skill: '#ad7bf9',
-    contrast: 60
+    contrast: 60,
   };
+}
+
+function extractVariantDraft(source) {
+  return BUILDER_VARIANT_KEYS.reduce((draft, key) => {
+    draft[key] = source[key];
+    return draft;
+  }, {});
+}
+
+function draftDiffersFromDefault(variant, draft) {
+  const defaults = getDefaultVariantDraft(variant);
+  return BUILDER_VARIANT_KEYS.some((key) => draft[key] !== defaults[key]);
+}
+
+function normalizeBuilderState(saved) {
+  const variant = saved?.variant === 'light' ? 'light' : 'dark';
+  const drafts = {
+    dark: {
+      ...getDefaultVariantDraft('dark'),
+      ...(saved?._variantDrafts?.dark || {}),
+    },
+    light: {
+      ...getDefaultVariantDraft('light'),
+      ...(saved?._variantDrafts?.light || {}),
+    },
+  };
+
+  if (saved && !saved._variantDrafts) {
+    drafts[variant] = {
+      ...drafts[variant],
+      ...extractVariantDraft(saved),
+    };
+  }
+
+  const touched = {
+    dark: saved?._variantTouched?.dark ?? draftDiffersFromDefault('dark', drafts.dark),
+    light: saved?._variantTouched?.light ?? draftDiffersFromDefault('light', drafts.light),
+  };
+
+  return {
+    name: saved?.name || '',
+    variant,
+    _addVariantFor: saved?._addVariantFor,
+    _variantDrafts: drafts,
+    _variantTouched: touched,
+    ...drafts[variant],
+  };
+}
+
+function getDefaultBuilderColors() {
+  return normalizeBuilderState(null);
+}
+
+function syncBuilderVariantFields(builder, variant = builder.variant) {
+  Object.assign(builder, builder._variantDrafts[variant]);
+}
+
+function saveActiveBuilderDraft(builder, { touched } = {}) {
+  if (!builder?._variantDrafts) return;
+  builder._variantDrafts[builder.variant] = extractVariantDraft(builder);
+  if (typeof touched === 'boolean') {
+    builder._variantTouched[builder.variant] = touched;
+  }
 }
 
 function saveBuilderState() {
@@ -48,7 +124,7 @@ function saveBuilderState() {
 function loadBuilderState() {
   try {
     const saved = localStorage.getItem('dexthemes-builder');
-    if (saved) return JSON.parse(saved);
+    if (saved) return normalizeBuilderState(JSON.parse(saved));
   } catch (e) {}
   return null;
 }
@@ -146,6 +222,7 @@ export function colorMeLucky() {
   }
 
   b.name = generateLuckyName();
+  saveActiveBuilderDraft(b, { touched: true });
   saveBuilderState();
   renderBuilderPanel();
   applyBuilderPreview();
@@ -217,21 +294,38 @@ export async function openBuilderForVariant(themeId, variant) {
   const theme = state.THEMES.find((candidate) => candidate.id === themeId);
   if (!theme) return;
 
+  const opposite = variant === 'dark' ? 'light' : 'dark';
+  const oppositeThemeVariant = theme[opposite];
+  const oppositeDraft = oppositeThemeVariant ? {
+    surface: oppositeThemeVariant.surface,
+    ink: oppositeThemeVariant.ink,
+    accent: oppositeThemeVariant.accent,
+    sidebar: oppositeThemeVariant.sidebar || getDefaultVariantDraft(opposite).sidebar,
+    codeBg: oppositeThemeVariant.codeBg || getDefaultVariantDraft(opposite).codeBg,
+    diffAdded: oppositeThemeVariant.diffAdded,
+    diffRemoved: oppositeThemeVariant.diffRemoved,
+    skill: oppositeThemeVariant.skill,
+    contrast: oppositeThemeVariant.contrast,
+  } : getDefaultVariantDraft(opposite);
+  const currentDraft = {
+    ...getDefaultVariantDraft(variant),
+    accent: theme.accents?.[0] || '#e94560',
+  };
+
   state.setPanelMode('builder');
-  state.setBuilderColors({
+  state.setBuilderColors(normalizeBuilderState({
     name: theme.name,
     variant,
-    surface: variant === 'dark' ? '#1a1a2e' : '#f5f5f5',
-    ink: variant === 'dark' ? '#e6e6e6' : '#1a1a1a',
-    accent: theme.accents?.[0] || '#e94560',
-    sidebar: variant === 'dark' ? '#141428' : '#eaeaea',
-    codeBg: variant === 'dark' ? '#12122a' : '#e5e5e5',
-    diffAdded: variant === 'dark' ? '#40c977' : '#00a240',
-    diffRemoved: variant === 'dark' ? '#fa423e' : '#e02e2a',
-    skill: variant === 'dark' ? '#ad7bf9' : '#924ff7',
-    contrast: 60,
     _addVariantFor: themeId,
-  });
+    _variantDrafts: {
+      [variant]: currentDraft,
+      [opposite]: oppositeDraft,
+    },
+    _variantTouched: {
+      [variant]: true,
+      [opposite]: false,
+    },
+  }));
   resetBuilderCreationTracking();
   localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
 
@@ -397,6 +491,7 @@ export function updateBuilderColor(key, value) {
   if (!value.startsWith('#')) value = '#' + value;
   if (!/^#[0-9a-fA-F]{6}$/.test(value)) return;
   state.builderColors[key] = value;
+  saveActiveBuilderDraft(state.builderColors, { touched: true });
   maybeTrackThemeCreated('color_update');
   saveBuilderState();
   renderBuilderPanel();
@@ -405,18 +500,9 @@ export function updateBuilderColor(key, value) {
 
 export function setBuilderVariant(v) {
   void maybeShowBuilderSubmitPrompt();
+  saveActiveBuilderDraft(state.builderColors);
   state.builderColors.variant = v;
-  if (v === 'light' && isDark(state.builderColors.surface)) {
-    state.builderColors.surface = '#f5f5f5';
-    state.builderColors.ink = '#1a1a1a';
-    state.builderColors.sidebar = '#eaeaea';
-    state.builderColors.codeBg = '#e5e5e5';
-  } else if (v === 'dark' && !isDark(state.builderColors.surface)) {
-    state.builderColors.surface = '#1a1a2e';
-    state.builderColors.ink = '#e6e6e6';
-    state.builderColors.sidebar = '#141428';
-    state.builderColors.codeBg = '#12122a';
-  }
+  syncBuilderVariantFields(state.builderColors, v);
   maybeTrackThemeCreated('variant_switch');
   saveBuilderState();
   renderBuilderPanel();
