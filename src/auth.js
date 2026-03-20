@@ -88,7 +88,7 @@ export function renderAuthUI() {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
             Leaderboard
           </button>
-          <a class="sidebar-user-menu-btn" href="https://github.com/daeshawnballard/dexthemes-public/issues" target="_blank" rel="noopener" data-stop-propagation="true">
+          <a class="sidebar-user-menu-btn" href="https://github.com/daeshawnballard/dexthemes/issues" target="_blank" rel="noopener" data-stop-propagation="true">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             Report a bug
           </a>
