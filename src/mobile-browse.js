@@ -60,9 +60,9 @@ export function renderMobileBrowse() {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
               Leaderboard
             </button>
-            <a class="mobile-user-menu-btn" href="https://github.com/daeshawnballard/dexthemes/issues" target="_blank" rel="noopener" data-stop-propagation="true">
+            <a class="mobile-user-menu-btn" href="https://github.com/daeshawnballard/dexthemes-public/issues" target="_blank" rel="noopener" data-stop-propagation="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              Support
+              Report a bug
             </a>
             <button class="mobile-user-menu-btn" data-action="logout" data-stop-propagation="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
