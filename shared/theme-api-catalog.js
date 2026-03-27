@@ -407,6 +407,48 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "raycast",
+    "themeId": "raycast",
+    "name": "Raycast",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "raycast",
+    "copies": 0,
+    "dateAdded": "2026-03-27",
+    "dark": {
+      "surface": "#101010",
+      "ink": "#fefefe",
+      "accent": "#FF6363",
+      "contrast": 60,
+      "diffAdded": "#59D499",
+      "diffRemoved": "#FF6363",
+      "skill": "#FF9217",
+      "sidebar": "#101010",
+      "codeBg": "#141414",
+      "opaqueWindows": false
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#030303",
+      "accent": "#FF6363",
+      "contrast": 45,
+      "diffAdded": "#006B4F",
+      "diffRemoved": "#B12424",
+      "skill": "#C75D07",
+      "sidebar": "#fcfcfc",
+      "codeBg": "#ffffff",
+      "opaqueWindows": false
+    },
+    "accents": [
+      "#FF6363"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "rose-pine",
     "themeId": "rose-pine",
     "name": "Rosé Pine",
