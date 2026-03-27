@@ -31,7 +31,7 @@ export function buildThemeImportString(theme, variant, accentIdx = 0) {
       contrast: selected.contrast,
       fonts: { code: null, ui: null },
       ink: selected.ink,
-      opaqueWindows: true,
+      opaqueWindows: selected.opaqueWindows ?? true,
       semanticColors: {
         diffAdded: selected.diffAdded,
         diffRemoved: selected.diffRemoved,

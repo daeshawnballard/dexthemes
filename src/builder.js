@@ -534,7 +534,7 @@ export function applyBuilderToCodex() {
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
-      ink: b.ink, opaqueWindows: true,
+      ink: b.ink, opaqueWindows: b.opaqueWindows ?? true,
       semanticColors: { diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill },
       surface: b.surface
     },
@@ -601,7 +601,7 @@ export function shareBuilderTheme() {
     theme: {
       accent: b.accent, contrast: b.contrast,
       fonts: { code: null, ui: null },
-      ink: b.ink, opaqueWindows: true,
+      ink: b.ink, opaqueWindows: b.opaqueWindows ?? true,
       semanticColors: { diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill },
       surface: b.surface
     },
