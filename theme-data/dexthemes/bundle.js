@@ -203,6 +203,15 @@ registerDexThemesPack('anime', [
     light: { surface: '#FBFCFF', ink: '#172033', accent: '#1E40AF', diffAdded: '#15803D', diffRemoved: '#B91C1C', skill: '#C98900', sidebar: '#EEF2F8', codeBg: '#F4F7FB' },
   }),
   createDexTheme({
+    id: 'gundam-00-exia-trans-am',
+    name: 'Gundam 00 / Exia Trans-Am',
+    copies: 0,
+    dateAdded: '2026-05-15',
+    accents: ['#F43F5E', '#22D3EE', '#A78BFA'],
+    dark: { surface: '#130913', ink: '#FFEAF2', accent: '#F43F5E', diffAdded: '#2DD4BF', diffRemoved: '#FB7185', skill: '#22D3EE', sidebar: '#0D0710', codeBg: '#09050C' },
+    light: { surface: '#FFF3F7', ink: '#231522', accent: '#E11D48', diffAdded: '#0F766E', diffRemoved: '#BE123C', skill: '#0891B2', sidebar: '#F6E7ED', codeBg: '#FBEAF0' },
+  }),
+  createDexTheme({
     id: 'luffy-gear-five',
     name: 'Luffy / Gear Five',
     copies: 57,
