@@ -601,6 +601,52 @@
       "codeBg": "#e4eef1"
     }
   },
+  "gundam-rx-78-2": {
+    "name": "Gundam / RX-78-2",
+    "dark": {
+      "surface": "#0B1020",
+      "ink": "#F4F7FB",
+      "accent": "#2F6FE4",
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#EF3340",
+      "skill": "#FACC15",
+      "sidebar": "#070B16",
+      "codeBg": "#040711"
+    },
+    "light": {
+      "surface": "#F6F8FC",
+      "ink": "#182132",
+      "accent": "#2457C5",
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#B7791F",
+      "sidebar": "#E8ECF5",
+      "codeBg": "#EEF2F8"
+    }
+  },
+  "gundam-classic-colorway": {
+    "name": "Gundam / Classic Colorway",
+    "dark": {
+      "surface": "#080D17",
+      "ink": "#F8FAFC",
+      "accent": "#1D4ED8",
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#E11D48",
+      "skill": "#FACC15",
+      "sidebar": "#050914",
+      "codeBg": "#030711"
+    },
+    "light": {
+      "surface": "#FBFCFF",
+      "ink": "#172033",
+      "accent": "#1E40AF",
+      "diffAdded": "#15803D",
+      "diffRemoved": "#B91C1C",
+      "skill": "#C98900",
+      "sidebar": "#EEF2F8",
+      "codeBg": "#F4F7FB"
+    }
+  },
   "luffy-gear-five": {
     "name": "Luffy / Gear Five",
     "dark": {
