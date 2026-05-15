@@ -601,6 +601,75 @@
       "codeBg": "#e4eef1"
     }
   },
+  "gundam-rx-78-2": {
+    "name": "Gundam / RX-78-2",
+    "dark": {
+      "surface": "#0B1020",
+      "ink": "#F4F7FB",
+      "accent": "#2F6FE4",
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#EF3340",
+      "skill": "#FACC15",
+      "sidebar": "#070B16",
+      "codeBg": "#040711"
+    },
+    "light": {
+      "surface": "#F6F8FC",
+      "ink": "#182132",
+      "accent": "#2457C5",
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#B7791F",
+      "sidebar": "#E8ECF5",
+      "codeBg": "#EEF2F8"
+    }
+  },
+  "gundam-seed-strike": {
+    "name": "Gundam SEED / Strike",
+    "dark": {
+      "surface": "#080D17",
+      "ink": "#F8FAFC",
+      "accent": "#1D4ED8",
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#E11D48",
+      "skill": "#FACC15",
+      "sidebar": "#050914",
+      "codeBg": "#030711"
+    },
+    "light": {
+      "surface": "#FBFCFF",
+      "ink": "#172033",
+      "accent": "#1E40AF",
+      "diffAdded": "#15803D",
+      "diffRemoved": "#B91C1C",
+      "skill": "#C98900",
+      "sidebar": "#EEF2F8",
+      "codeBg": "#F4F7FB"
+    }
+  },
+  "gundam-00-exia-trans-am": {
+    "name": "Gundam 00 / Exia Trans-Am",
+    "dark": {
+      "surface": "#130913",
+      "ink": "#FFEAF2",
+      "accent": "#F43F5E",
+      "diffAdded": "#2DD4BF",
+      "diffRemoved": "#FB7185",
+      "skill": "#22D3EE",
+      "sidebar": "#0D0710",
+      "codeBg": "#09050C"
+    },
+    "light": {
+      "surface": "#FFF3F7",
+      "ink": "#231522",
+      "accent": "#E11D48",
+      "diffAdded": "#0F766E",
+      "diffRemoved": "#BE123C",
+      "skill": "#0891B2",
+      "sidebar": "#F6E7ED",
+      "codeBg": "#FBEAF0"
+    }
+  },
   "luffy-gear-five": {
     "name": "Luffy / Gear Five",
     "dark": {
