@@ -109,8 +109,8 @@ registerDexThemesPack('anime', [
     light: { surface: '#F6F8FC', ink: '#182132', accent: '#2457C5', diffAdded: '#15803D', diffRemoved: '#DC2626', skill: '#B7791F', sidebar: '#E8ECF5', codeBg: '#EEF2F8' },
   }),
   createDexTheme({
-    id: 'gundam-classic-colorway',
-    name: 'Gundam / Classic Colorway',
+    id: 'gundam-seed-strike',
+    name: 'Gundam SEED / Strike',
     copies: 0,
     dateAdded: '2026-05-15',
     accents: ['#1D4ED8', '#E11D48', '#FACC15'],
