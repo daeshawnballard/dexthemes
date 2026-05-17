@@ -21,7 +21,6 @@ export default async function handler(req, res) {
   const v = theme[variantKey] || theme.dark || theme.light;
   if (!v) { res.status(404).send('Variant not found'); return; }
 
-  // Fetch real like count
   let likes = 0;
   try {
     const likesRes = await fetch('https://acrobatic-corgi-867.convex.site/themes/likes/counts');
@@ -34,277 +33,373 @@ export default async function handler(req, res) {
   const isDark = isColorDark(v.surface);
   const codeBg = v.codeBg || v.surface;
   const sidebar = v.sidebar || v.surface;
+  const accent = v.accent;
   const variantLabel = variantKey === 'light' ? 'Light' : 'Dark';
   const mono = 'Menlo, monospace';
-  const sans = '-apple-system, sans-serif';
+  const sans = '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif';
 
-  // Colors
-  const borderSub = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.08)';
-  const dotColor = isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.12)';
-  const lineNumColor = isDark ? 'rgba(255,255,255,0.20)' : 'rgba(0,0,0,0.20)';
-  const mutedText = isDark ? 'rgba(255,255,255,0.50)' : 'rgba(0,0,0,0.40)';
-  const brandMuted = isDark ? 'rgba(255,255,255,0.50)' : 'rgba(0,0,0,0.40)';
-  const badgeBg = isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)';
-  const paletteBorder = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
-  const commentColor = isDark ? 'rgba(255,255,255,0.40)' : 'rgba(0,0,0,0.30)';
-  const diffAddedBg = withOpacity(v.diffAdded, 0.10);
-  const diffRemovedBg = withOpacity(v.diffRemoved, 0.10);
-  const diffAddedLineNum = withOpacity(v.diffAdded, 0.50);
-  const diffRemovedLineNum = withOpacity(v.diffRemoved, 0.50);
-  const accentBg = withOpacity(v.accent, 0.10);
-  const accentLineNum = withOpacity(v.accent, 0.50);
-
-  // Dynamic theme name
-  const themeName = `${theme.name} ${variantLabel}`;
-
-  // Scale theme name for long names
-  const nameLen = theme.name.length;
-  const nameFontSize = nameLen > 20 ? '40px' : nameLen > 12 ? '50px' : '60px';
-
-  // Likes display
+  const border = isDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.10)';
+  const borderStrong = isDark ? 'rgba(255,255,255,0.16)' : 'rgba(0,0,0,0.16)';
+  const muted = isDark ? 'rgba(255,255,255,0.54)' : 'rgba(0,0,0,0.54)';
+  const faint = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const titleSize = theme.name.length > 22 ? 38 : theme.name.length > 14 ? 44 : 52;
   const likesDisplay = likes >= 5 ? formatLikes(likes) : null;
 
-  // Code lines matching the updated Stitch design
   const codeLines = [
-    // Line 1: comment (dimmed)
-    { num: '1', bg: 'none', opacity: 0.4, parts: [
-      { text: `// Initialize ${themeName} optimized config`, color: commentColor },
-    ]},
-    // Line 2: import { CodexEngine } from "@dexthemes/core";
-    { num: '2', bg: 'none', parts: [
-      { text: 'import', color: v.accent },
-      { text: ' { ', color: v.ink },
-      { text: 'CodexEngine', color: v.ink },
-      { text: ' } ', color: v.ink },
-      { text: 'from', color: v.accent },
-      { text: ' ', color: v.ink },
-      { text: '"@dexthemes/core"', color: v.skill },
-      { text: ';', color: v.ink },
-    ]},
-    // Line 3: empty
-    { num: '3', bg: 'none', parts: [] },
-    // Line 4: const config: ThemeConfig = {
-    { num: '4', bg: 'none', parts: [
-      { text: 'const', color: v.accent },
-      { text: ' ', color: v.ink },
-      { text: 'config', color: v.ink },
-      { text: ': ', color: v.ink },
-      { text: 'ThemeConfig', color: v.skill },
-      { text: ' = {', color: v.ink },
-    ]},
-    // Line 5: name: "Codex Dark",
-    { num: '5', bg: 'none', parts: [
+    [
+      { text: 'const', color: accent },
+      { text: ' theme = {', color: v.ink },
+    ],
+    [
       { text: '  name', color: v.ink },
-      { text: ': ', color: v.ink },
-      { text: `"${themeName}"`, color: v.skill },
+      { text: ': ', color: muted },
+      { text: `'${theme.name}'`, color: v.diffAdded },
       { text: ',', color: v.ink },
-    ]},
-    // Line 6 (diff removed): mode: "legacy-dark",
-    { num: '- 6', bg: diffRemovedBg, lineNumColor: diffRemovedLineNum, parts: [
-      { text: '  mode', color: v.ink },
-      { text: ': ', color: v.ink },
-      { text: '"legacy-dark"', color: v.skill },
-      { text: ',', color: v.ink },
-    ]},
-    // Line 7 (diff added): mode: "codex-optimized",
-    { num: '+ 7', bg: diffAddedBg, lineNumColor: diffAddedLineNum, parts: [
-      { text: '  mode', color: v.ink },
-      { text: ': ', color: v.ink },
-      { text: '"codex-optimized"', color: v.skill },
-      { text: ',', color: v.ink },
-    ]},
-    // Line 8 (accent highlight): accent: "#0169cc",
-    { num: '8', bg: accentBg, lineNumColor: accentLineNum, parts: [
+    ],
+    [
       { text: '  accent', color: v.ink },
-      { text: ': ', color: v.ink },
-      { text: `"${v.accent}"`, color: v.skill },
+      { text: ': ', color: muted },
+      { text: `'${accent}'`, color: v.skill },
       { text: ',', color: v.ink },
-    ]},
-    // Line 9: };
-    { num: '9', bg: 'none', parts: [
-      { text: '};', color: v.ink },
-    ]},
-    // Line 10: empty
-    { num: '10', bg: 'none', parts: [] },
-    // Line 11: export function init() {
-    { num: '11', bg: 'none', parts: [
-      { text: 'export function', color: v.accent },
-      { text: ' ', color: v.ink },
-      { text: 'init', color: v.ink },
-      { text: '() {', color: v.ink },
-    ]},
-    // Line 12: return new CodexEngine(config).apply();
-    { num: '12', bg: 'none', parts: [
-      { text: '  ', color: v.ink },
-      { text: 'return new', color: v.accent },
-      { text: ' ', color: v.ink },
-      { text: 'CodexEngine', color: v.skill },
-      { text: '(config).', color: v.ink },
-      { text: 'apply', color: v.accent },
-      { text: '();', color: v.ink },
-    ]},
-    // Line 13: }
-    { num: '13', bg: 'none', parts: [
-      { text: '}', color: v.ink },
-    ]},
+    ],
   ];
 
-  // 2x3 palette grid colors: codeBg, accent, skill, diffAdded, diffRemoved, ink
-  const paletteGrid = [
-    codeBg, v.accent,
-    v.skill, v.diffAdded,
-    v.diffRemoved, v.ink,
+  const palette = [
+    { label: 'Surface', value: v.surface },
+    { label: 'Accent', value: accent },
+    { label: 'Skill', value: v.skill },
+    { label: 'Added', value: v.diffAdded },
+    { label: 'Removed', value: v.diffRemoved },
+    { label: 'Ink', value: v.ink },
   ];
 
   const element = h('div', {
     style: {
-      width: '1200px', height: '630px', display: 'flex',
-      background: v.surface, fontFamily: sans, overflow: 'hidden',
+      width: '1200px',
+      height: '630px',
+      display: 'flex',
+      flexDirection: 'column',
+      background: v.surface,
+      color: v.ink,
+      fontFamily: sans,
+      overflow: 'hidden',
+      padding: '26px 36px 28px',
     },
   },
-
-    // === LEFT: Editor panel (68%) ===
     h('div', {
       style: {
-        display: 'flex', flexDirection: 'column', width: '816px', height: '630px',
-        background: codeBg, borderRight: `1px solid ${borderSub}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '18px',
       },
     },
-      // Tab bar
-      h('div', {
-        style: {
-          display: 'flex', alignItems: 'center', height: '40px',
-          background: sidebar, borderBottom: `1px solid ${borderSub}`,
-          padding: '0 16px', gap: '8px',
-        },
-      },
-        // Dots
-        h('div', { style: { display: 'flex', gap: '6px', marginRight: '16px' } },
-          h('div', { style: { width: '12px', height: '12px', borderRadius: '50%', background: dotColor } }),
-          h('div', { style: { width: '12px', height: '12px', borderRadius: '50%', background: dotColor } }),
-          h('div', { style: { width: '12px', height: '12px', borderRadius: '50%', background: dotColor } }),
-        ),
-        // Active tab
+      h('div', { style: { display: 'flex', flexDirection: 'column' } },
         h('div', {
           style: {
-            display: 'flex', alignItems: 'center', height: '40px',
-            background: codeBg, padding: '0 16px',
-            borderTop: `2px solid ${v.accent}`,
-            fontFamily: mono, fontSize: '12px', fontWeight: 500,
-            color: v.ink,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '6px',
+            color: muted,
+            fontSize: '15px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
           },
         },
-          h('span', { style: { color: withOpacity(v.accent, 0.8), marginRight: '8px' } }, 'TS'),
-          h('span', {}, 'applyTheme.ts'),
+          h('div', { style: { width: '18px', height: '18px', borderRadius: '5px', background: accent } }),
+          h('span', {}, 'DexThemes Preview'),
         ),
+        h('div', {
+          style: {
+            fontSize: `${Math.min(titleSize, 44)}px`,
+            fontWeight: 760,
+            lineHeight: 1.02,
+            letterSpacing: '0',
+            color: v.ink,
+          },
+        }, theme.name),
       ),
-
-      // Code content
-      h('div', {
-        style: {
-          display: 'flex', flexDirection: 'column',
-          padding: '32px', flex: 1, overflow: 'hidden',
-          fontFamily: mono, fontSize: '18px', lineHeight: '1.625',
-        },
-      },
-        ...codeLines.map((line) =>
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: '12px' } },
+        ...(likesDisplay ? [
           h('div', {
             style: {
               display: 'flex',
-              background: line.bg === 'none' ? 'transparent' : line.bg,
-              opacity: line.opacity || 1,
+              alignItems: 'center',
+              gap: '8px',
+              border: `1px solid ${border}`,
+              borderRadius: '999px',
+              padding: '10px 14px',
+              color: v.ink,
+              background: faint,
+              fontSize: '16px',
+              fontWeight: 700,
             },
           },
-            // Line number
-            h('span', {
-              style: {
-                width: '48px', flexShrink: 0,
-                color: line.lineNumColor || lineNumColor,
-                fontFamily: mono, fontSize: '18px',
-              },
-            }, line.num),
-            // Code
-            ...(line.parts.length === 0
-              ? [h('span', {}, ' ')]
-              : line.parts.map((part, j) =>
-                  h('span', { style: { color: part.color, whiteSpace: 'pre' } }, part.text)
-                )
-            ),
-          )
-        ),
-        // Cursor on line 14
-        h('div', { style: { display: 'flex', marginTop: '8px' } },
-          h('span', { style: { width: '48px', flexShrink: 0, color: lineNumColor, fontFamily: mono, fontSize: '18px' } }, '14'),
-          h('div', { style: { width: '8px', height: '24px', background: v.accent } }),
-        ),
+            h('span', { style: { color: v.skill, fontSize: '18px' } }, 'heart'),
+            h('span', {}, likesDisplay),
+          ),
+        ] : []),
+        h('div', {
+          style: {
+            border: `1px solid ${border}`,
+            borderRadius: '999px',
+            padding: '10px 16px',
+            color: v.ink,
+            background: withOpacity(accent, 0.14),
+            fontSize: '16px',
+            fontWeight: 800,
+          },
+        }, variantLabel),
       ),
     ),
 
-    // === RIGHT: Metadata panel (32%) ===
-    h('div', {
-      style: {
-        display: 'flex', flexDirection: 'column', width: '384px', height: '630px',
-        background: sidebar, borderLeft: `1px solid ${borderSub}`,
-      },
-    },
-      // Top section: brand + name + description
-      h('div', {
-        style: { display: 'flex', flexDirection: 'column', padding: '40px 40px 24px 40px' },
-      },
-        // Brand row with likes on the right
-        h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' } },
-          h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
-            h('div', { style: { width: '20px', height: '20px', borderRadius: '3px', background: v.accent, flexShrink: 0 } }),
-            h('span', { style: { fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: brandMuted } }, 'DEXTHEMES.com'),
-          ),
-          // Likes (top right, subtle)
-          ...(likesDisplay ? [
-            h('div', { style: { display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.6 } },
-              h('span', { style: { color: v.skill, fontSize: '14px' } }, '♥'),
-              h('span', { style: { fontSize: '10px', fontWeight: 700, color: v.ink } }, likesDisplay),
-            ),
-          ] : []),
-        ),
-
-        // Theme name + badge
-        h('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' } },
-          h('span', { style: { fontSize: nameFontSize, fontWeight: 700, letterSpacing: '-0.05em', color: v.ink, lineHeight: 1 } }, theme.name),
-          h('span', { style: { padding: '2px 8px', borderRadius: '2px', background: badgeBg, fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: v.ink } }, variantLabel),
-        ),
-
-        // Support line
-        h('div', { style: { fontSize: '16px', lineHeight: '1.4', color: mutedText } }, 'Themes for Codex'),
-      ),
-
-      // Bottom section: palette grid fills remaining space
+    h('div', { style: { display: 'flex', flex: 1, gap: '26px', minHeight: 0 } },
       h('div', {
         style: {
-          display: 'flex', flexDirection: 'column', flex: 1,
-          padding: '0 40px 40px 40px', marginTop: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          minWidth: 0,
+          borderRadius: '24px',
+          border: `1px solid ${borderStrong}`,
+          overflow: 'hidden',
+          background: v.surface,
+          boxShadow: isDark ? '0 24px 80px rgba(0,0,0,0.36)' : '0 24px 80px rgba(25,25,60,0.14)',
         },
       },
-        // Label
-        h('div', { style: { display: 'flex', marginBottom: '16px' } },
-          h('span', { style: { fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 700, color: withOpacity(v.ink, 0.3) } }, 'COLOR PALETTE'),
-        ),
-
-        // 2x3 grid of palette swatches
         h('div', {
           style: {
-            display: 'flex', flexWrap: 'wrap', gap: '12px',
-            flex: 1, overflow: 'hidden',
+            height: '56px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            background: sidebar,
+            borderBottom: `1px solid ${border}`,
           },
         },
-          ...paletteGrid.map((c, i) =>
+          h('div', {
+            style: {
+              position: 'absolute',
+            left: '22px',
+              display: 'flex',
+              gap: '10px',
+            },
+          },
+            h('div', { style: { width: '15px', height: '15px', borderRadius: '50%', background: withOpacity(v.ink, 0.14) } }),
+            h('div', { style: { width: '15px', height: '15px', borderRadius: '50%', background: withOpacity(v.ink, 0.14) } }),
+            h('div', { style: { width: '15px', height: '15px', borderRadius: '50%', background: withOpacity(v.ink, 0.14) } }),
+          ),
+          h('div', { style: { fontSize: '20px', color: withOpacity(v.ink, 0.42), fontWeight: 650 } }, 'Codex'),
+        ),
+
+        h('div', {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            padding: '24px 40px 22px',
+            gap: '18px',
+          },
+        },
+          h('div', {
+            style: {
+              alignSelf: 'flex-end',
+              maxWidth: '560px',
+              borderRadius: '26px 26px 8px 26px',
+              padding: '17px 24px',
+              background: withOpacity(accent, 0.18),
+              color: v.ink,
+              fontSize: '24px',
+              lineHeight: 1.28,
+              fontWeight: 560,
+            },
+          }, `Preview ${theme.name} in Codex`),
+
+          h('div', {
+            style: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignSelf: 'flex-start',
+              width: '690px',
+              maxWidth: '100%',
+              color: v.ink,
+              fontSize: '22px',
+              lineHeight: 1.35,
+              gap: '18px',
+            },
+          },
+            h('div', {}, 'Here is how the theme looks in the editor:'),
             h('div', {
               style: {
-                width: '145px',
-                height: '80px',
-                borderRadius: '8px', background: c,
-                border: `1px solid ${paletteBorder}`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                borderRadius: '20px',
+                border: `1px solid ${border}`,
+                background: codeBg,
+                padding: '14px 20px',
+                fontFamily: mono,
+                fontSize: '16px',
+                lineHeight: 1.28,
+                overflow: 'hidden',
               },
-            })
+            },
+                  h('div', { style: { display: 'flex', gap: '8px', marginBottom: '4px' } },
+                h('span', {
+                  style: {
+                    padding: '4px 10px',
+                    borderRadius: '999px',
+                    border: `1px solid ${border}`,
+                    color: v.diffAdded,
+                    fontSize: '13px',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                  },
+                }, '+ Added'),
+                h('span', {
+                  style: {
+                    padding: '4px 10px',
+                    borderRadius: '999px',
+                    border: `1px solid ${border}`,
+                    color: v.skill,
+                    fontSize: '13px',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                  },
+                }, 'Function'),
+              ),
+              h('div', { style: { color: withOpacity(v.ink, 0.36) } }, '// theme-preview.ts'),
+              ...codeLines.map((line) =>
+                h('div', { style: { display: 'flex', whiteSpace: 'pre' } },
+                  ...line.map((part) => h('span', { style: { color: part.color } }, part.text)),
+                )
+              ),
+            ),
           ),
+        ),
+
+        h('div', {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            padding: '17px 40px 20px',
+            background: sidebar,
+            borderTop: `1px solid ${border}`,
+          },
+        },
+          h('div', { style: { color: muted, fontSize: '16px', fontWeight: 750 } }, 'Prompt'),
+          h('div', {
+            style: {
+              height: '58px',
+              borderRadius: '999px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 14px 0 24px',
+              background: codeBg,
+              border: `1px solid ${border}`,
+              color: withOpacity(v.ink, 0.30),
+              fontSize: '21px',
+            },
+          },
+            h('span', {}, 'Ask anything...'),
+            h('div', {
+              style: {
+                width: '42px',
+                height: '42px',
+                borderRadius: '50%',
+                background: accent,
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '28px',
+                fontWeight: 800,
+              },
+            }, '^'),
+          ),
+        ),
+      ),
+
+      h('div', {
+        style: {
+          width: '286px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '18px',
+          borderRadius: '24px',
+          border: `1px solid ${border}`,
+          background: sidebar,
+          padding: '22px',
+        },
+      },
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
+          h('div', {
+            style: {
+              color: muted,
+              fontSize: '13px',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              letterSpacing: '0.14em',
+            },
+          }, 'Selected theme'),
+          h('div', { style: { color: v.ink, fontSize: '25px', lineHeight: 1.14, fontWeight: 780 } }, theme.name),
+        ),
+
+        h('div', {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            marginTop: '8px',
+          },
+        },
+          ...palette.map((item) =>
+            h('div', {
+              style: {
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '8px',
+                borderRadius: '12px',
+                border: `1px solid ${border}`,
+                background: withOpacity(v.ink, isDark ? 0.035 : 0.05),
+              },
+            },
+              h('div', {
+                style: {
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '9px',
+                  background: item.value,
+                  border: `1px solid ${border}`,
+                },
+              }),
+              h('div', { style: { display: 'flex', flexDirection: 'column', gap: '2px' } },
+                h('div', { style: { color: v.ink, fontSize: '13px', fontWeight: 740 } }, item.label),
+                h('div', { style: { color: muted, fontSize: '11px', fontFamily: mono } }, item.value),
+              ),
+            )
+          ),
+        ),
+
+        h('div', {
+          style: {
+            marginTop: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            color: muted,
+            fontSize: '15px',
+            fontWeight: 700,
+          },
+        },
+          h('div', { style: { width: '16px', height: '16px', borderRadius: '4px', background: accent } }),
+          h('span', {}, 'dexthemes.com'),
         ),
       ),
     ),

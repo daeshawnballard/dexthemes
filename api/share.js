@@ -18,6 +18,7 @@ export default function handler(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const themeId = url.searchParams.get('theme') || 'codex';
   const variantKey = url.searchParams.get('variant') || 'dark';
+  const imageVersion = url.searchParams.get('v') || process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 8) || '1';
 
   const theme = themeMap[themeId];
   const displayName = theme
@@ -28,7 +29,7 @@ export default function handler(req, res) {
   const description = `Preview this Codex theme on DexThemes and apply it instantly.`;
 
   const origin = getRequestOrigin(req);
-  const ogImageUrl = `${origin}/api/og?theme=${enc(themeId)}&variant=${enc(variantKey)}`;
+  const ogImageUrl = `${origin}/api/og?theme=${enc(themeId)}&variant=${enc(variantKey)}&v=${enc(imageVersion)}`;
   const appUrl = `${origin}/?theme=${enc(themeId)}&variant=${enc(variantKey)}`;
 
   const html = `<!DOCTYPE html>
@@ -45,6 +46,7 @@ export default function handler(req, res) {
 <meta property="og:image" content="${esc(ogImageUrl)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(title)}">
 <meta property="og:url" content="${esc(appUrl)}">
 <meta property="og:site_name" content="DexThemes">
 
@@ -53,6 +55,7 @@ export default function handler(req, res) {
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${esc(ogImageUrl)}">
+<meta name="twitter:image:alt" content="${esc(title)}">
 
 <!-- Redirect human visitors to the app -->
 <meta http-equiv="refresh" content="0;url=${esc(appUrl)}">
