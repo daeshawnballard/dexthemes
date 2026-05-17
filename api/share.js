@@ -25,7 +25,7 @@ export default function handler(req, res) {
     ? theme.name
     : themeId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-  const title = `${displayName} (${variantKey === 'light' ? 'Light' : 'Dark'}) for Codex | DexThemes`;
+  const title = displayName;
   const description = `Preview this Codex theme on DexThemes and apply it instantly.`;
 
   const origin = getRequestOrigin(req);
