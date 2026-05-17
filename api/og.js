@@ -54,12 +54,6 @@ export default async function handler(req, res) {
       { text: ' theme = {', color: v.ink },
     ],
     [
-      { text: '  name', color: v.ink },
-      { text: ': ', color: muted },
-      { text: `'${theme.name}'`, color: v.diffAdded },
-      { text: ',', color: v.ink },
-    ],
-    [
       { text: '  accent', color: v.ink },
       { text: ': ', color: muted },
       { text: `'${accent}'`, color: v.skill },
@@ -230,7 +224,7 @@ export default async function handler(req, res) {
               lineHeight: 1.28,
               fontWeight: 560,
             },
-          }, `Preview ${theme.name} in Codex`),
+          }, 'Preview this theme in Codex'),
 
           h('div', {
             style: {
@@ -360,8 +354,8 @@ export default async function handler(req, res) {
               textTransform: 'uppercase',
               letterSpacing: '0.14em',
             },
-          }, 'Selected theme'),
-          h('div', { style: { color: v.ink, fontSize: '25px', lineHeight: 1.14, fontWeight: 780 } }, theme.name),
+          }, 'Theme palette'),
+          h('div', { style: { color: v.ink, fontSize: '25px', lineHeight: 1.14, fontWeight: 780 } }, 'Ready for Codex'),
         ),
 
         h('div', {
