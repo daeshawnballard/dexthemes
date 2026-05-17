@@ -5,6 +5,9 @@ import { join } from 'node:path';
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
 );
+const dexThemesLogo = `data:image/svg+xml;base64,${Buffer.from(
+  readFileSync(join(process.cwd(), 'public', 'favicon.svg'), 'utf-8')
+).toString('base64')}`;
 
 function h(type, props, ...children) {
   return { type, props: { ...props, children: children.length === 1 ? children[0] : children.length ? children : undefined } };
@@ -108,7 +111,18 @@ export default async function handler(req, res) {
             letterSpacing: '0.12em',
           },
         },
-          h('div', { style: { width: '18px', height: '18px', borderRadius: '5px', background: accent } }),
+          h('img', {
+            src: dexThemesLogo,
+            width: 30,
+            height: 30,
+            style: {
+              display: 'flex',
+              width: '30px',
+              height: '30px',
+              borderRadius: '8px',
+              flexShrink: 0,
+            },
+          }),
           h('span', {}, 'DexThemes Preview'),
         ),
         h('div', {
