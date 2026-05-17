@@ -22,6 +22,29 @@
       "codeBg": "#f0f0f0"
     }
   },
+  "codex-disco-cloud": {
+    "name": "Codex / Disco Cloud",
+    "dark": {
+      "surface": "#080922",
+      "ink": "#F1EDFF",
+      "accent": "#6D5DFF",
+      "diffAdded": "#55E6B5",
+      "diffRemoved": "#FF5F8A",
+      "skill": "#B8A6FF",
+      "sidebar": "#111330",
+      "codeBg": "#040613"
+    },
+    "light": {
+      "surface": "#F4F1FF",
+      "ink": "#171330",
+      "accent": "#5B4DDB",
+      "diffAdded": "#008A68",
+      "diffRemoved": "#C43B66",
+      "skill": "#7C3AED",
+      "sidebar": "#E7E2FF",
+      "codeBg": "#ECE7FF"
+    }
+  },
   "absolutely": {
     "name": "Absolutely",
     "dark": {

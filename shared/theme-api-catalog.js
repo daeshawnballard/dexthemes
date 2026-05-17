@@ -68,6 +68,48 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "codex-disco-cloud",
+    "themeId": "codex-disco-cloud",
+    "name": "Codex / Disco Cloud",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-17",
+    "dark": {
+      "surface": "#080922",
+      "ink": "#F1EDFF",
+      "accent": "#6D5DFF",
+      "contrast": 64,
+      "diffAdded": "#55E6B5",
+      "diffRemoved": "#FF5F8A",
+      "skill": "#B8A6FF",
+      "sidebar": "#111330",
+      "codeBg": "#040613"
+    },
+    "light": {
+      "surface": "#F4F1FF",
+      "ink": "#171330",
+      "accent": "#5B4DDB",
+      "contrast": 46,
+      "diffAdded": "#008A68",
+      "diffRemoved": "#C43B66",
+      "skill": "#7C3AED",
+      "sidebar": "#E7E2FF",
+      "codeBg": "#ECE7FF"
+    },
+    "accents": [
+      "#6D5DFF",
+      "#8F4FE7",
+      "#7487F2"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "absolutely",
     "themeId": "absolutely",
     "name": "Absolutely",
@@ -1160,6 +1202,132 @@ export const STATIC_THEME_CATALOG = [
     "accents": [
       "#00B8D9",
       "#38BDF8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "gundam-rx-78-2",
+    "themeId": "gundam-rx-78-2",
+    "name": "Gundam / RX-78-2",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#EF3340",
+      "skill": "#FACC15",
+      "surface": "#0B1020",
+      "ink": "#F4F7FB",
+      "accent": "#2F6FE4",
+      "sidebar": "#070B16",
+      "codeBg": "#040711"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#B7791F",
+      "surface": "#F6F8FC",
+      "ink": "#182132",
+      "accent": "#2457C5",
+      "sidebar": "#E8ECF5",
+      "codeBg": "#EEF2F8"
+    },
+    "accents": [
+      "#2F6FE4",
+      "#EF3340",
+      "#FACC15"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "gundam-seed-strike",
+    "themeId": "gundam-seed-strike",
+    "name": "Gundam SEED / Strike",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#E11D48",
+      "skill": "#FACC15",
+      "surface": "#080D17",
+      "ink": "#F8FAFC",
+      "accent": "#1D4ED8",
+      "sidebar": "#050914",
+      "codeBg": "#030711"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#B91C1C",
+      "skill": "#C98900",
+      "surface": "#FBFCFF",
+      "ink": "#172033",
+      "accent": "#1E40AF",
+      "sidebar": "#EEF2F8",
+      "codeBg": "#F4F7FB"
+    },
+    "accents": [
+      "#1D4ED8",
+      "#E11D48",
+      "#FACC15"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "gundam-00-exia-trans-am",
+    "themeId": "gundam-00-exia-trans-am",
+    "name": "Gundam 00 / Exia Trans-Am",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#2DD4BF",
+      "diffRemoved": "#FB7185",
+      "skill": "#22D3EE",
+      "surface": "#130913",
+      "ink": "#FFEAF2",
+      "accent": "#F43F5E",
+      "sidebar": "#0D0710",
+      "codeBg": "#09050C"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#0F766E",
+      "diffRemoved": "#BE123C",
+      "skill": "#0891B2",
+      "surface": "#FFF3F7",
+      "ink": "#231522",
+      "accent": "#E11D48",
+      "sidebar": "#F6E7ED",
+      "codeBg": "#FBEAF0"
+    },
+    "accents": [
+      "#F43F5E",
+      "#22D3EE",
+      "#A78BFA"
     ],
     "variants": null,
     "_company": null,

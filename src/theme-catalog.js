@@ -28,6 +28,12 @@ export const THEMES = [
     accents: ['#0169cc']
   },
   {
+    id: 'codex-disco-cloud', name: 'Codex / Disco Cloud', category: 'official', codeThemeId: 'codex', copies: 0, dateAdded: '2026-05-17',
+    dark: { surface: '#080922', ink: '#F1EDFF', accent: '#6D5DFF', contrast: 64, diffAdded: '#55E6B5', diffRemoved: '#FF5F8A', skill: '#B8A6FF', sidebar: '#111330', codeBg: '#040613' },
+    light: { surface: '#F4F1FF', ink: '#171330', accent: '#5B4DDB', contrast: 46, diffAdded: '#008A68', diffRemoved: '#C43B66', skill: '#7C3AED', sidebar: '#E7E2FF', codeBg: '#ECE7FF' },
+    accents: ['#6D5DFF', '#8F4FE7', '#7487F2']
+  },
+  {
     id: 'absolutely', name: 'Absolutely', category: 'official', codeThemeId: 'absolutely', copies: 127, dateAdded: '2025-05-01',
     dark: { surface: '#2d2d2b', ink: '#f9f9f7', accent: '#cc7d5e', contrast: 60, ...DARK_DEFAULTS, sidebar: '#242422', codeBg: '#222220' },
     light: { surface: '#f9f9f7', ink: '#2d2d2b', accent: '#cc7d5e', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f0f0ee', codeBg: '#ededed' },
