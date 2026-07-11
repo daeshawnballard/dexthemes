@@ -255,6 +255,44 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "everforest",
+    "themeId": "everforest",
+    "name": "Everforest",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "everforest",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#2d353b",
+      "ink": "#d3c6aa",
+      "accent": "#a7c080",
+      "contrast": 60,
+      "diffAdded": "#a7c080",
+      "diffRemoved": "#e67e80",
+      "skill": "#d699b6",
+      "sidebar": "#2d353b",
+      "codeBg": "#2d353b"
+    },
+    "light": {
+      "surface": "#fdf6e3",
+      "ink": "#5c6a72",
+      "accent": "#93b259",
+      "contrast": 45,
+      "diffAdded": "#8da101",
+      "diffRemoved": "#f85552",
+      "skill": "#df69ba",
+      "sidebar": "#fdf6e3",
+      "codeBg": "#fdf6e3"
+    },
+    "accents": [],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "github-dark",
     "themeId": "github-dark",
     "name": "GitHub Dark",
@@ -351,6 +389,150 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "linear",
+    "themeId": "linear",
+    "name": "Linear",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "linear",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#0f0f11",
+      "ink": "#e3e4e6",
+      "accent": "#606acc",
+      "contrast": 60,
+      "diffAdded": "#69c967",
+      "diffRemoved": "#ff7e78",
+      "skill": "#c2a1ff",
+      "sidebar": "#080a0f",
+      "codeBg": "#17181d",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    },
+    "light": {
+      "surface": "#fcfcfd",
+      "ink": "#1b1b1b",
+      "accent": "#5e6ad2",
+      "contrast": 45,
+      "diffAdded": "#52a450",
+      "diffRemoved": "#c94446",
+      "skill": "#8160d8",
+      "sidebar": "#f2f4f8",
+      "codeBg": "#f7f8fa",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    },
+    "accents": [],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "lobster",
+    "themeId": "lobster",
+    "name": "Lobster",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "lobster",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#111827",
+      "ink": "#e4e4e7",
+      "accent": "#ff5c5c",
+      "contrast": 60,
+      "diffAdded": "#22c55e",
+      "diffRemoved": "#ff5c5c",
+      "skill": "#3b82f6",
+      "sidebar": "#111827",
+      "codeBg": "#111827",
+      "fonts": {
+        "ui": "Satoshi"
+      }
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "material",
+    "themeId": "material",
+    "name": "Material",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "material",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#212121",
+      "ink": "#eeffff",
+      "accent": "#80cbc4",
+      "contrast": 60,
+      "diffAdded": "#c3e88d",
+      "diffRemoved": "#f07178",
+      "skill": "#c792ea",
+      "sidebar": "#212121",
+      "codeBg": "#212121"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "matrix",
+    "themeId": "matrix",
+    "name": "Matrix",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "matrix",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#040805",
+      "ink": "#b8ffca",
+      "accent": "#1eff5a",
+      "contrast": 60,
+      "diffAdded": "#1eff5a",
+      "diffRemoved": "#fa423e",
+      "skill": "#1eff5a",
+      "sidebar": "#020402",
+      "codeBg": "#040805",
+      "fonts": {
+        "code": null,
+        "ui": "ui-monospace, \"SFMono-Regular\", \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
+      },
+      "opaqueWindows": true
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "monokai",
     "themeId": "monokai",
     "name": "Monokai",
@@ -376,6 +558,36 @@ export const STATIC_THEME_CATALOG = [
       "#A6E22E",
       "#66D9EF"
     ],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "night-owl",
+    "themeId": "night-owl",
+    "name": "Night Owl",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "night-owl",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#011627",
+      "ink": "#d6deeb",
+      "accent": "#44596b",
+      "contrast": 60,
+      "diffAdded": "#c5e478",
+      "diffRemoved": "#ef5350",
+      "skill": "#c792ea",
+      "sidebar": "#011627",
+      "codeBg": "#011627"
+    },
+    "light": null,
+    "accents": [],
     "variants": [
       "dark"
     ],
@@ -417,6 +629,76 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "notion",
+    "themeId": "notion",
+    "name": "Notion",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "notion",
+    "copies": 0,
+    "dateAdded": "2026-07-03",
+    "dark": {
+      "surface": "#191919",
+      "ink": "#d9d9d8",
+      "accent": "#3183d8",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#ad7bf9",
+      "sidebar": "#151515",
+      "codeBg": "#191919"
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#37352f",
+      "accent": "#3183d8",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "sidebar": "#f7f6f3",
+      "codeBg": "#ffffff"
+    },
+    "accents": [
+      "#3183d8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "oscurange",
+    "themeId": "oscurange",
+    "name": "Oscurange",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "oscurange",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#0b0b0f",
+      "ink": "#e6e6e6",
+      "accent": "#f9b98c",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#479ffa",
+      "sidebar": "#0b0b0f",
+      "codeBg": "#0b0b0f"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "one-dark",
     "themeId": "one-dark",
     "name": "One Dark",
@@ -442,6 +724,41 @@ export const STATIC_THEME_CATALOG = [
     ],
     "variants": [
       "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "proof",
+    "themeId": "proof",
+    "name": "Proof",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "proof",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": null,
+    "light": {
+      "surface": "#f5f3ed",
+      "ink": "#2f312d",
+      "accent": "#3d755d",
+      "contrast": 45,
+      "diffAdded": "#3d755d",
+      "diffRemoved": "#ba2623",
+      "skill": "#5f6ac2",
+      "sidebar": "#efede6",
+      "codeBg": "#f5f3ed",
+      "fonts": {
+        "code": null,
+        "ui": null
+      },
+      "opaqueWindows": false
+    },
+    "accents": [],
+    "variants": [
+      "light"
     ],
     "_company": null,
     "_hiddenUntilUnlocked": null,
@@ -524,6 +841,40 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "sentry",
+    "themeId": "sentry",
+    "name": "Sentry",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "sentry",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#2d2935",
+      "ink": "#e6dff9",
+      "accent": "#7055f6",
+      "contrast": 60,
+      "diffAdded": "#8ee6d7",
+      "diffRemoved": "#fa423e",
+      "skill": "#7055f6",
+      "sidebar": "#26222d",
+      "codeBg": "#2d2935",
+      "fonts": {
+        "code": null,
+        "ui": null
+      }
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "solarized",
     "themeId": "solarized",
     "name": "Solarized",
@@ -564,6 +915,36 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "temple",
+    "themeId": "temple",
+    "name": "Temple",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "temple",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#02120c",
+      "ink": "#c7e6da",
+      "accent": "#e4f222",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#e4f222",
+      "sidebar": "#1d2d0f",
+      "codeBg": "#02120c"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "tokyo-night",
     "themeId": "tokyo-night",
     "name": "Tokyo Night",
@@ -590,6 +971,52 @@ export const STATIC_THEME_CATALOG = [
     "variants": [
       "dark"
     ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "vercel",
+    "themeId": "vercel",
+    "name": "Vercel",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "vercel",
+    "copies": 0,
+    "dateAdded": "2026-07-03",
+    "dark": {
+      "surface": "#000000",
+      "ink": "#ededed",
+      "accent": "#006efe",
+      "contrast": 50,
+      "diffAdded": "#00AD3A",
+      "diffRemoved": "#F13342",
+      "skill": "#9540D5",
+      "sidebar": "#000000",
+      "codeBg": "#000000",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#171717",
+      "accent": "#006aff",
+      "contrast": 40,
+      "diffAdded": "#28A948",
+      "diffRemoved": "#EB001D",
+      "skill": "#A100F8",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "accents": [],
+    "variants": null,
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
@@ -629,6 +1056,50 @@ export const STATIC_THEME_CATALOG = [
     "accents": [
       "#007ACC"
     ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "xcode",
+    "themeId": "xcode",
+    "name": "Xcode",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "xcode",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#1f1f24",
+      "ink": "#ffffff",
+      "accent": "#5482ff",
+      "contrast": 60,
+      "diffAdded": "#67b7a4",
+      "diffRemoved": "#fc6a5d",
+      "skill": "#5482ff",
+      "sidebar": "#1f1f24",
+      "codeBg": "#1f1f24",
+      "fonts": {
+        "code": "\"SFMono-Medium\""
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#000000",
+      "accent": "#0e0eff",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#c41a16",
+      "skill": "#0e0eff",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"SFMono-Regular\""
+      }
+    },
+    "accents": [],
     "variants": null,
     "_company": null,
     "_hiddenUntilUnlocked": null,

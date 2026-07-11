@@ -406,7 +406,7 @@ export function initPreviewChat() {
     const chat = document.getElementById('preview-chat');
     const v = state.selectedTheme[state.selectedVariant];
     if (!chat || !v) return;
-    const acc = state.selectedTheme.accents[state.selectedAccentIdx] || v.accent;
+    const acc = state.selectedTheme.accents?.[state.selectedAccentIdx] || v.accent;
     const dark = isDark(v.surface);
 
     const userMsg = document.createElement('div');

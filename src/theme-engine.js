@@ -21,7 +21,7 @@ export function buildImportString(theme, variant, accentIdx) {
 export function applyShellTheme(theme, variant) {
   const v = theme[variant];
   if (!v) return;
-  const acc = theme.accents[state.selectedAccentIdx] || v.accent;
+  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const root = document.documentElement.style;
 
@@ -43,7 +43,7 @@ export function applyShellTheme(theme, variant) {
 export function applyPreview(theme, variant) {
   const v = theme[variant];
   if (!v) return;
-  const acc = theme.accents[state.selectedAccentIdx] || v.accent;
+  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
 
@@ -115,7 +115,7 @@ export function renderChatContent(v, acc, containerId) {
 export function renderMiniPreview(containerId, theme, variant) {
   const v = theme[variant];
   if (!v) return;
-  const acc = theme.accents[state.selectedAccentIdx] || v.accent;
+  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
 

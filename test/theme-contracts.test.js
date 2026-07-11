@@ -51,3 +51,29 @@ test('buildThemeImportString produces Codex import payload with variant-specific
 test('buildThemeImportString returns empty string when variant is missing', () => {
   assert.equal(buildThemeImportString({ accents: [] }, 'dark', 0), '');
 });
+
+test('buildThemeImportString preserves variant font payloads', () => {
+  const fonts = {
+    code: '"Geist Mono", ui-monospace, "SFMono-Regular"',
+    ui: 'Geist, Inter',
+  };
+  const theme = {
+    codeThemeId: 'vercel',
+    dark: {
+      surface: '#000000',
+      ink: '#ededed',
+      accent: '#006efe',
+      contrast: 50,
+      diffAdded: '#00AD3A',
+      diffRemoved: '#F13342',
+      skill: '#9540D5',
+      fonts,
+    },
+  };
+
+  const importString = buildThemeImportString(theme, 'dark', 0);
+  const payload = JSON.parse(importString.slice('codex-theme-v1:'.length));
+  assert.equal(payload.codeThemeId, 'vercel');
+  assert.equal(payload.theme.accent, '#006efe');
+  assert.deepEqual(payload.theme.fonts, fonts);
+});

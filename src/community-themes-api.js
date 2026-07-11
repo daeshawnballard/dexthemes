@@ -62,7 +62,7 @@ export async function loadCommunityThemes() {
       renderSidebar();
 
       const savedId = localStorage.getItem('dexthemes-selected');
-      if (savedId && state.selectedTheme.id !== savedId) {
+      if (!state.isDeepLink && savedId && state.selectedTheme.id !== savedId) {
         const restored = THEMES.find((theme) => theme.id === savedId);
         if (restored) {
           state.setSelectedTheme(restored);

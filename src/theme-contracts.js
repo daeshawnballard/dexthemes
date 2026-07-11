@@ -29,7 +29,7 @@ export function buildThemeImportString(theme, variant, accentIdx = 0) {
     theme: {
       accent,
       contrast: selected.contrast,
-      fonts: { code: null, ui: null },
+      fonts: selected.fonts ?? { code: null, ui: null },
       ink: selected.ink,
       opaqueWindows: selected.opaqueWindows ?? true,
       semanticColors: {

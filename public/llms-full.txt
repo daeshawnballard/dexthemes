@@ -3,7 +3,7 @@
 > This file contains the complete theme catalog for LLM/agent consumption.
 > For the summary version, see /llms.txt
 
-Total themes: 111
+Total themes: 124
 
 ## API Endpoints
 
@@ -63,8 +63,8 @@ Total themes: 111
 ### Linear
 - ID: `linear`
 - Deep link: https://dexthemes.com/?theme=linear
-- Dark: surface=#17181d ink=#e6e9ef accent=#5e6ad2
-- Light: surface=#f7f8fa ink=#2a3140 accent=#5e6ad2
+- Dark: surface=#0f0f11 ink=#e3e4e6 accent=#606acc
+- Light: surface=#fcfcfd ink=#1b1b1b accent=#5e6ad2
 
 ### Lobster
 - ID: `lobster`
@@ -101,6 +101,11 @@ Total themes: 111
 - Deep link: https://dexthemes.com/?theme=notion
 - Dark: surface=#191919 ink=#d9d9d8 accent=#3183d8
 - Light: surface=#ffffff ink=#37352f accent=#3183d8
+
+### Oscurange
+- ID: `oscurange`
+- Deep link: https://dexthemes.com/?theme=oscurange
+- Dark: surface=#0b0b0f ink=#e6e6e6 accent=#f9b98c
 
 ### One
 - ID: `one`
@@ -140,11 +145,23 @@ Total themes: 111
 - Deep link: https://dexthemes.com/?theme=tokyo-night
 - Dark: surface=#1a1b26 ink=#a9b1d6 accent=#3d59a1
 
+### Vercel
+- ID: `vercel`
+- Deep link: https://dexthemes.com/?theme=vercel
+- Dark: surface=#000000 ink=#ededed accent=#006efe
+- Light: surface=#ffffff ink=#171717 accent=#006aff
+
 ### VS Code+
 - ID: `vscode-plus`
 - Deep link: https://dexthemes.com/?theme=vscode-plus
 - Dark: surface=#1E1E1E ink=#D4D4D4 accent=#007ACC
 - Light: surface=#FFFFFF ink=#000000 accent=#007ACC
+
+### Xcode
+- ID: `xcode`
+- Deep link: https://dexthemes.com/?theme=xcode
+- Dark: surface=#1f1f24 ink=#ffffff accent=#5482ff
+- Light: surface=#ffffff ink=#000000 accent=#0e0eff
 
 ### Ichigo / Bankai
 - ID: `ichigo-bankai`

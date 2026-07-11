@@ -189,6 +189,29 @@
     },
     "light": null
   },
+  "notion": {
+    "name": "Notion",
+    "dark": {
+      "surface": "#191919",
+      "ink": "#d9d9d8",
+      "accent": "#3183d8",
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#ad7bf9",
+      "sidebar": "#151515",
+      "codeBg": "#191919"
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#37352f",
+      "accent": "#3183d8",
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "sidebar": "#f7f6f3",
+      "codeBg": "#ffffff"
+    }
+  },
   "one-dark": {
     "name": "One Dark",
     "dark": {
@@ -279,6 +302,37 @@
     },
     "light": null
   },
+  "vercel": {
+    "name": "Vercel",
+    "dark": {
+      "surface": "#000000",
+      "ink": "#ededed",
+      "accent": "#006efe",
+      "diffAdded": "#00AD3A",
+      "diffRemoved": "#F13342",
+      "skill": "#9540D5",
+      "sidebar": "#000000",
+      "codeBg": "#000000",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#171717",
+      "accent": "#006aff",
+      "diffAdded": "#28A948",
+      "diffRemoved": "#EB001D",
+      "skill": "#A100F8",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    }
+  },
   "vscode-plus": {
     "name": "VS Code+",
     "dark": {
@@ -300,6 +354,218 @@
       "skill": "#924ff7",
       "sidebar": "#f3f3f3",
       "codeBg": "#ececec"
+    }
+  },
+  "everforest": {
+    "name": "Everforest",
+    "dark": {
+      "surface": "#2d353b",
+      "ink": "#d3c6aa",
+      "accent": "#a7c080",
+      "diffAdded": "#a7c080",
+      "diffRemoved": "#e67e80",
+      "skill": "#d699b6",
+      "sidebar": "#2d353b",
+      "codeBg": "#2d353b"
+    },
+    "light": {
+      "surface": "#fdf6e3",
+      "ink": "#5c6a72",
+      "accent": "#93b259",
+      "diffAdded": "#8da101",
+      "diffRemoved": "#f85552",
+      "skill": "#df69ba",
+      "sidebar": "#fdf6e3",
+      "codeBg": "#fdf6e3"
+    }
+  },
+  "linear": {
+    "name": "Linear",
+    "dark": {
+      "surface": "#0f0f11",
+      "ink": "#e3e4e6",
+      "accent": "#606acc",
+      "diffAdded": "#69c967",
+      "diffRemoved": "#ff7e78",
+      "skill": "#c2a1ff",
+      "sidebar": "#080a0f",
+      "codeBg": "#17181d",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    },
+    "light": {
+      "surface": "#fcfcfd",
+      "ink": "#1b1b1b",
+      "accent": "#5e6ad2",
+      "diffAdded": "#52a450",
+      "diffRemoved": "#c94446",
+      "skill": "#8160d8",
+      "sidebar": "#f2f4f8",
+      "codeBg": "#f7f8fa",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    }
+  },
+  "lobster": {
+    "name": "Lobster",
+    "dark": {
+      "surface": "#111827",
+      "ink": "#e4e4e7",
+      "accent": "#ff5c5c",
+      "diffAdded": "#22c55e",
+      "diffRemoved": "#ff5c5c",
+      "skill": "#3b82f6",
+      "sidebar": "#111827",
+      "codeBg": "#111827",
+      "fonts": {
+        "ui": "Satoshi"
+      }
+    },
+    "light": null
+  },
+  "material": {
+    "name": "Material",
+    "dark": {
+      "surface": "#212121",
+      "ink": "#eeffff",
+      "accent": "#80cbc4",
+      "diffAdded": "#c3e88d",
+      "diffRemoved": "#f07178",
+      "skill": "#c792ea",
+      "sidebar": "#212121",
+      "codeBg": "#212121"
+    },
+    "light": null
+  },
+  "matrix": {
+    "name": "Matrix",
+    "dark": {
+      "surface": "#040805",
+      "ink": "#b8ffca",
+      "accent": "#1eff5a",
+      "diffAdded": "#1eff5a",
+      "diffRemoved": "#fa423e",
+      "skill": "#1eff5a",
+      "sidebar": "#020402",
+      "codeBg": "#040805",
+      "fonts": {
+        "code": null,
+        "ui": "ui-monospace, \"SFMono-Regular\", \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
+      },
+      "opaqueWindows": true
+    },
+    "light": null
+  },
+  "night-owl": {
+    "name": "Night Owl",
+    "dark": {
+      "surface": "#011627",
+      "ink": "#d6deeb",
+      "accent": "#44596b",
+      "diffAdded": "#c5e478",
+      "diffRemoved": "#ef5350",
+      "skill": "#c792ea",
+      "sidebar": "#011627",
+      "codeBg": "#011627"
+    },
+    "light": null
+  },
+  "oscurange": {
+    "name": "Oscurange",
+    "dark": {
+      "surface": "#0b0b0f",
+      "ink": "#e6e6e6",
+      "accent": "#f9b98c",
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#479ffa",
+      "sidebar": "#0b0b0f",
+      "codeBg": "#0b0b0f"
+    },
+    "light": null
+  },
+  "proof": {
+    "name": "Proof",
+    "dark": null,
+    "light": {
+      "surface": "#f5f3ed",
+      "ink": "#2f312d",
+      "accent": "#3d755d",
+      "diffAdded": "#3d755d",
+      "diffRemoved": "#ba2623",
+      "skill": "#5f6ac2",
+      "sidebar": "#efede6",
+      "codeBg": "#f5f3ed",
+      "fonts": {
+        "code": null,
+        "ui": null
+      },
+      "opaqueWindows": false
+    }
+  },
+  "sentry": {
+    "name": "Sentry",
+    "dark": {
+      "surface": "#2d2935",
+      "ink": "#e6dff9",
+      "accent": "#7055f6",
+      "diffAdded": "#8ee6d7",
+      "diffRemoved": "#fa423e",
+      "skill": "#7055f6",
+      "sidebar": "#26222d",
+      "codeBg": "#2d2935",
+      "fonts": {
+        "code": null,
+        "ui": null
+      }
+    },
+    "light": null
+  },
+  "temple": {
+    "name": "Temple",
+    "dark": {
+      "surface": "#02120c",
+      "ink": "#c7e6da",
+      "accent": "#e4f222",
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#e4f222",
+      "sidebar": "#1d2d0f",
+      "codeBg": "#02120c"
+    },
+    "light": null
+  },
+  "xcode": {
+    "name": "Xcode",
+    "dark": {
+      "surface": "#1f1f24",
+      "ink": "#ffffff",
+      "accent": "#5482ff",
+      "diffAdded": "#67b7a4",
+      "diffRemoved": "#fc6a5d",
+      "skill": "#5482ff",
+      "sidebar": "#1f1f24",
+      "codeBg": "#1f1f24",
+      "fonts": {
+        "code": "\"SFMono-Medium\""
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#000000",
+      "accent": "#0e0eff",
+      "diffAdded": "#00a240",
+      "diffRemoved": "#c41a16",
+      "skill": "#0e0eff",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"SFMono-Regular\""
+      }
     }
   },
   "ichigo-bankai": {

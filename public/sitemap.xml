@@ -151,6 +151,12 @@
     <lastmod>2026-03-15</lastmod>
   </url>
   <url>
+    <loc>https://dexthemes.com/?theme=oscurange&amp;variant=dark</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
     <loc>https://dexthemes.com/?theme=one&amp;variant=dark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -221,6 +227,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <lastmod>2026-03-15</lastmod>
+  </url>
+  <url>
+    <loc>https://dexthemes.com/?theme=xcode&amp;variant=dark</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://dexthemes.com/?theme=xcode&amp;variant=light</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-11</lastmod>
   </url>
   <url>
     <loc>https://dexthemes.com/?theme=ichigo-bankai&amp;variant=dark</loc>
