@@ -53,7 +53,7 @@
       "durationSeconds": 20,
       "capture": "03-github-auth-achievements.mov",
       "overlay": "All-period ranks • Repeat wins • Reward themes",
-      "voiceover": "GitHub sign-in shows every rank, daily and weekly win history, and reward themes. Repeat wins grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus. Only eligibility is stored."
+      "voiceover": "GitHub sign-in shows every rank, repeat daily and weekly win history, finalized monthly Top 10 placements, and reward themes. Repeat results grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus. Only eligibility is stored."
     },
     {
       "id": "review-and-publish",
@@ -69,7 +69,7 @@
       "durationSeconds": 14,
       "capture": "05-github-issue-review.mov",
       "overlay": "Redact • Review • Continue to GitHub",
-      "voiceover": "I can also describe a bug and prepare a GitHub Issue. Secrets, paths, emails, and tokens are redacted, I see the exact draft, and GitHub still asks me to submit it."
+      "voiceover": "I can also describe a bug and prepare a GitHub Issue. DexThemes applies best-effort redaction for common secrets, paths, emails, and tokens, then warns me to review every character. GitHub still asks me to submit the exact draft."
     },
     {
       "id": "how-it-was-built",
@@ -84,7 +84,7 @@
       "startSeconds": 166,
       "durationSeconds": 9,
       "capture": "original-dexthemes-gallery-and-end-card",
-      "overlay": "dexthemes.com • Open source",
+      "overlay": "Speak a vibe. Make Codex yours.",
       "voiceover": "Speak a vibe. Make Codex yours. And, if you love it, share it with the DexThemes community."
     }
   ]

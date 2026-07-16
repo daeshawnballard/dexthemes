@@ -47,11 +47,11 @@ The machine-readable timing and exact per-shot narration live in [`demo-video/st
 >
 > DexThemes is also a discovery layer. Search results open as full Codex mockups inside the thread. I can compare official, DexThemes, and community themes, then switch between today's, this week's, monthly, and all-time leaderboards.
 >
-> GitHub sign-in shows every rank, daily and weekly win history, and reward themes. Repeat wins grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus: “OpenAI is nothing without its people.” Only eligibility is stored.
+> GitHub sign-in shows every rank, repeat daily and weekly win history, finalized monthly Top 10 placements, and reward themes. Repeat results grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus: “OpenAI is nothing without its people.” Only eligibility is stored.
 >
 > Publishing is deliberately explicit. The app shows the exact name, summary, dark and light palettes, and identity. Only after I press Publish does the short-lived confirmation authorize that exact payload. The model cannot invent an owner or reuse the review for a different theme.
 >
-> Because DexThemes is open source, I can also describe a bug and prepare a GitHub Issue. Secrets, paths, emails, and tokens are redacted, I see the exact draft, and GitHub still asks me to submit it.
+> Because DexThemes is open source, I can also describe a bug and prepare a GitHub Issue. DexThemes applies best-effort redaction for common secrets, paths, emails, and tokens, then warns me to review every character. GitHub still asks me to submit the exact draft.
 >
 > I used Codex throughout Build Week to understand the existing codebase, build the MCP app and plugin skill, connect authentication and achievements, trace the color pipeline, and add contract and security tests. GPT-5.6 supplies the creative palette reasoning inside the live experience.
 >
@@ -95,7 +95,7 @@ Record each take without narration. This makes timing and accessibility captions
 - Zooms: use only to make a real interaction readable; do not fabricate UI states
 - Cursor: one subtle ring on clicks that matter—Import, Sign in, Publish, and Continue to GitHub
 - Music: optional, original/cleared, mixed at least 18 dB below narration
-- End card: DexThemes wordmark, `dexthemes.com`, public repository URL, “Open source”
+- End card: “Speak a vibe. Make Codex yours.”, DexThemes wordmark, `dexthemes.com`, public repository URL, and “Open source”
 
 Implement each scene with frame-based Remotion `<Sequence>` components, load captures with `<Video>` and narration with `<Audio>` from `@remotion/media`, and reference local media through `staticFile()`. Do not use CSS transitions, CSS animations, or Tailwind animation classes; they are not deterministic in Remotion renders.
 
