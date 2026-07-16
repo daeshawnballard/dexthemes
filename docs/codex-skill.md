@@ -1,5 +1,7 @@
 # DexThemes Codex Skill
 
+> Legacy standalone skill reference. New installs should use the MCP-backed plugin in [`plugins/dexthemes`](../plugins/dexthemes), which adds visual previews, GitHub OAuth, community discovery, personal stats, achievements, confirmed publication, and GitHub feedback without pasted API keys.
+
 A Codex skill that lets you generate, preview, and apply themes directly from within Codex using the DexThemes Color Me Lucky API.
 
 ## Installation

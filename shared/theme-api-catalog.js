@@ -1889,6 +1889,170 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "liger-zero-base",
+    "themeId": "liger-zero-base",
+    "name": "Liger Zero / Base",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#EF4444",
+      "skill": "#D4A830",
+      "surface": "#1A1A22",
+      "ink": "#E8E8F0",
+      "accent": "#00E060",
+      "sidebar": "#22222C",
+      "codeBg": "#141418"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#A07820",
+      "surface": "#F2F2F6",
+      "ink": "#1E1E28",
+      "accent": "#00945A",
+      "sidebar": "#E4E4EC",
+      "codeBg": "#EAEAF0"
+    },
+    "accents": [
+      "#00E060",
+      "#00945A"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-schneider",
+    "themeId": "liger-zero-schneider",
+    "name": "Liger Zero / Schneider",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#FB7185",
+      "skill": "#FFAA30",
+      "surface": "#1E1410",
+      "ink": "#F0DCD0",
+      "accent": "#E06828",
+      "sidebar": "#281A14",
+      "codeBg": "#181010"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#16A34A",
+      "diffRemoved": "#DC2626",
+      "skill": "#A03A08",
+      "surface": "#FDF4EE",
+      "ink": "#2A1410",
+      "accent": "#C04A10",
+      "sidebar": "#F0E0D4",
+      "codeBg": "#F6ECDF"
+    },
+    "accents": [
+      "#E06828",
+      "#C04A10"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-jager",
+    "themeId": "liger-zero-jager",
+    "name": "Liger Zero / Jager",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#34D399",
+      "diffRemoved": "#F87171",
+      "skill": "#4070C8",
+      "surface": "#0C1020",
+      "ink": "#D0DCF0",
+      "accent": "#00C8FF",
+      "sidebar": "#101828",
+      "codeBg": "#080C18"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#BE123C",
+      "skill": "#0070B8",
+      "surface": "#EEF2FA",
+      "ink": "#0C1030",
+      "accent": "#1840A0",
+      "sidebar": "#DEE6F4",
+      "codeBg": "#E4EAF5"
+    },
+    "accents": [
+      "#00C8FF",
+      "#1840A0"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-panzer",
+    "themeId": "liger-zero-panzer",
+    "name": "Liger Zero / Panzer",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#F87171",
+      "skill": "#8A8050",
+      "surface": "#141810",
+      "ink": "#D0D8C0",
+      "accent": "#A0E030",
+      "sidebar": "#1C2018",
+      "codeBg": "#101408"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#606838",
+      "surface": "#F0F2EA",
+      "ink": "#1A2010",
+      "accent": "#4A5A30",
+      "sidebar": "#E2E6D8",
+      "codeBg": "#E8ECD8"
+    },
+    "accents": [
+      "#A0E030",
+      "#4A5A30"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "master-chief",
     "themeId": "master-chief",
     "name": "Master Chief / Mjolnir",
@@ -4964,6 +5128,259 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Pure black and white duality balanced into a calm, minimal pair."
+  },
+  {
+    "id": "plugged-in",
+    "themeId": "plugged-in",
+    "name": "Plugged In",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 66,
+      "diffAdded": "#46D49A",
+      "diffRemoved": "#FF667D",
+      "skill": "#46D7FF",
+      "surface": "#0A0B18",
+      "ink": "#EFF4FF",
+      "accent": "#6F7CFF",
+      "sidebar": "#060712",
+      "codeBg": "#04050D"
+    },
+    "light": {
+      "contrast": 49,
+      "diffAdded": "#168555",
+      "diffRemoved": "#B92C45",
+      "skill": "#087FA8",
+      "surface": "#F6F7FF",
+      "ink": "#171A31",
+      "accent": "#4D5AD8",
+      "sidebar": "#EBEDFA",
+      "codeBg": "#E3E6F5"
+    },
+    "accents": [
+      "#6F7CFF",
+      "#46D7FF",
+      "#4D5AD8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Electric indigo and bright cyan for creators working directly through the DexThemes plugin."
+  },
+  {
+    "id": "voiceprint",
+    "themeId": "voiceprint",
+    "name": "Voiceprint",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 65,
+      "diffAdded": "#4BD29A",
+      "diffRemoved": "#FF6A72",
+      "skill": "#62D9F1",
+      "surface": "#130A18",
+      "ink": "#FFF0FF",
+      "accent": "#EF62D6",
+      "sidebar": "#0E0712",
+      "codeBg": "#0A050D"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#168650",
+      "diffRemoved": "#B62D3B",
+      "skill": "#197F9B",
+      "surface": "#FFF6FD",
+      "ink": "#2C152D",
+      "accent": "#B834A0",
+      "sidebar": "#F7EAF5",
+      "codeBg": "#F0E2EE"
+    },
+    "accents": [
+      "#EF62D6",
+      "#62D9F1",
+      "#B834A0"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "A vivid waveform palette for turning a spoken or written idea into a personal theme."
+  },
+  {
+    "id": "builder-of-agi",
+    "themeId": "builder-of-agi",
+    "name": "Builder of AGI",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 67,
+      "diffAdded": "#46D39A",
+      "diffRemoved": "#F06B6B",
+      "skill": "#93A8FF",
+      "surface": "#101414",
+      "ink": "#F2F7F5",
+      "accent": "#35C995",
+      "sidebar": "#0B0E0E",
+      "codeBg": "#080B0B"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#147D4C",
+      "diffRemoved": "#B52F38",
+      "skill": "#536AC8",
+      "surface": "#F7FAF9",
+      "ink": "#17201D",
+      "accent": "#14845F",
+      "sidebar": "#ECF2F0",
+      "codeBg": "#E4EBE8"
+    },
+    "accents": [
+      "#35C995",
+      "#14845F",
+      "#93A8FF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "OpenAI is nothing without its people. Graphite, white, and signal green for verified OpenAI builders."
+  },
+  {
+    "id": "golden-hour",
+    "themeId": "golden-hour",
+    "name": "Golden Hour",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 67,
+      "diffAdded": "#52D18D",
+      "diffRemoved": "#FF6E64",
+      "skill": "#FF7F50",
+      "surface": "#160E08",
+      "ink": "#FFF4DF",
+      "accent": "#FFB23F",
+      "sidebar": "#100A06",
+      "codeBg": "#0C0704"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#16834B",
+      "diffRemoved": "#B9342E",
+      "skill": "#C2482A",
+      "surface": "#FFF8EC",
+      "ink": "#2C1A0D",
+      "accent": "#D86F20",
+      "sidebar": "#F8EEDB",
+      "codeBg": "#F0E3CD"
+    },
+    "accents": [
+      "#FFB23F",
+      "#FF7F50",
+      "#D86F20"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Sunrise gold and vivid coral for a theme that owned the day."
+  },
+  {
+    "id": "headliner",
+    "themeId": "headliner",
+    "name": "Headliner",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 68,
+      "diffAdded": "#43D39A",
+      "diffRemoved": "#F26378",
+      "skill": "#FFC857",
+      "surface": "#080D1C",
+      "ink": "#F4F7FF",
+      "accent": "#4A7DFF",
+      "sidebar": "#050914",
+      "codeBg": "#03060F"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#14814C",
+      "diffRemoved": "#B52F45",
+      "skill": "#B27700",
+      "surface": "#F5F7FF",
+      "ink": "#131A30",
+      "accent": "#315BD6",
+      "sidebar": "#E9EDFA",
+      "codeBg": "#E1E6F5"
+    },
+    "accents": [
+      "#4A7DFF",
+      "#FFC857",
+      "#315BD6"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Electric blue and spotlight gold for a theme that topped the week."
+  },
+  {
+    "id": "triple-dot",
+    "themeId": "triple-dot",
+    "name": "Easter Egg",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-14",
+    "dark": {
+      "contrast": 66,
+      "diffAdded": "#4DD488",
+      "diffRemoved": "#FF6B6B",
+      "skill": "#8AB4FF",
+      "surface": "#0C0E12",
+      "ink": "#EEF2F9",
+      "accent": "#FF6B6B",
+      "sidebar": "#090B0E",
+      "codeBg": "#06080B"
+    },
+    "light": {
+      "contrast": 49,
+      "diffAdded": "#1F9C56",
+      "diffRemoved": "#C73A3A",
+      "skill": "#5679F0",
+      "surface": "#F7F7FB",
+      "ink": "#1F2230",
+      "accent": "#E05252",
+      "sidebar": "#ECECF4",
+      "codeBg": "#E6E7EF"
+    },
+    "accents": [
+      "#FF6B6B",
+      "#F7C948",
+      "#4DD488",
+      "#6FA8FF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": true,
+    "_locked": null,
+    "_summary": "Smoked glass chrome and candy-button accents for people who click everything."
   }
 ];
 

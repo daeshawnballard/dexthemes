@@ -131,7 +131,17 @@ async function bootMobilePage(browser, baseUrl) {
 
 const server = await startStaticServer();
 const browserType = process.env.PLAYWRIGHT_BROWSER === 'webkit' ? webkit : chromium;
-const browser = await browserType.launch({ headless: true });
+let browser;
+try {
+  browser = await browserType.launch({ headless: true });
+} catch (error) {
+  if (browserType !== chromium) throw error;
+  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ||
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  browser = await chromium.launch({ headless: true, executablePath }).catch(() => {
+    throw error;
+  });
+}
 
 try {
   await runTest('desktop browse renders the Codex shell', async () => {

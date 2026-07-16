@@ -1,0 +1,91 @@
+{
+  "title": "Speak a Vibe. Build a Codex Theme.",
+  "version": 1,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationSeconds": 175,
+  "totalFrames": 5250,
+  "scenes": [
+    {
+      "id": "hook",
+      "startSeconds": 0,
+      "durationSeconds": 8,
+      "capture": "title-card-to-real-codex-chat",
+      "overlay": "Speak a vibe. Make Codex yours.",
+      "voiceover": "Your coding workspace should feel like yours. With DexThemes for Codex, a new theme can start as a sentence."
+    },
+    {
+      "id": "voice-prompt",
+      "startSeconds": 8,
+      "durationSeconds": 21,
+      "capture": "01-hero-voice-create-import.mov",
+      "overlay": "Voice-friendly creation • Your custom name",
+      "voiceover": "I can say, create a dark and light theme inspired by Argentina football at night, and name it Albiceleste Afterglow. The custom name is preserved."
+    },
+    {
+      "id": "reason-and-preview",
+      "startSeconds": 29,
+      "durationSeconds": 19,
+      "capture": "01-hero-voice-create-import.mov",
+      "overlay": "GPT-5.6 palette reasoning • DexThemes validation",
+      "voiceover": "GPT-5.6 interprets the mood, creates an original palette, and reasons about contrast while DexThemes validates every supported color and renders both variants."
+    },
+    {
+      "id": "codex-import",
+      "startSeconds": 48,
+      "durationSeconds": 20,
+      "capture": "01-hero-voice-create-import.mov",
+      "overlay": "Validated import • You stay in control",
+      "voiceover": "From the same conversation, I prepare the exact Codex import. The plugin gives me validated theme data, opens the fixed Codex Settings destination, and I choose to import it. Nothing is silently published."
+    },
+    {
+      "id": "discover-and-rank",
+      "startSeconds": 68,
+      "durationSeconds": 20,
+      "capture": "02-community-leaderboard.mov",
+      "overlay": "Inline previews • Today • This week",
+      "voiceover": "DexThemes is also a discovery layer. Search results open as full Codex mockups inside the thread. I can compare official, DexThemes, and community themes, then switch between today's, this week's, monthly, and all-time leaderboards."
+    },
+    {
+      "id": "identity-stats-achievements",
+      "startSeconds": 88,
+      "durationSeconds": 20,
+      "capture": "03-github-auth-achievements.mov",
+      "overlay": "All-period ranks • Repeat wins • Reward themes",
+      "voiceover": "GitHub sign-in shows every rank, daily and weekly win history, and reward themes. Repeat wins grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus. Only eligibility is stored."
+    },
+    {
+      "id": "review-and-publish",
+      "startSeconds": 108,
+      "durationSeconds": 24,
+      "capture": "04-review-and-publish.mov",
+      "overlay": "Exact review → User presses Publish",
+      "voiceover": "Publishing is deliberately explicit. The app shows the exact name, summary, palettes, and identity. Only after I press Publish does a short-lived confirmation authorize that exact payload. The model cannot invent an owner or reuse the review for another theme."
+    },
+    {
+      "id": "github-feedback",
+      "startSeconds": 132,
+      "durationSeconds": 14,
+      "capture": "05-github-issue-review.mov",
+      "overlay": "Redact • Review • Continue to GitHub",
+      "voiceover": "I can also describe a bug and prepare a GitHub Issue. Secrets, paths, emails, and tokens are redacted, I see the exact draft, and GitHub still asks me to submit it."
+    },
+    {
+      "id": "how-it-was-built",
+      "startSeconds": 146,
+      "durationSeconds": 20,
+      "capture": "06-codex-build-and-tests.mov",
+      "overlay": "Built with Codex • Creative reasoning with GPT-5.6",
+      "voiceover": "I used Codex throughout Build Week to understand the codebase, build the MCP app and plugin skill, connect authentication and achievements, trace the color pipeline, and add contract and security tests. GPT-5.6 supplies the creative palette reasoning in the live experience."
+    },
+    {
+      "id": "end-card",
+      "startSeconds": 166,
+      "durationSeconds": 9,
+      "capture": "original-dexthemes-gallery-and-end-card",
+      "overlay": "dexthemes.com • Open source",
+      "voiceover": "Speak a vibe. Make Codex yours. And, if you love it, share it with the DexThemes community."
+    }
+  ]
+}

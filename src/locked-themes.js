@@ -43,7 +43,7 @@ export function dismissSupporterClaimModal() {
   overlay.remove();
 }
 
-export function showSupporterClaimModal({ token, donateUrl, expiresAt, copied, alreadySupporter, onCopy }) {
+export function showSupporterClaimModal({ token, donateUrl, expiresAt, copied, alreadySupporter, publicListing, onCopy }) {
   dismissSupporterClaimModal();
 
   const overlay = document.createElement('div');
@@ -64,7 +64,7 @@ export function showSupporterClaimModal({ token, donateUrl, expiresAt, copied, a
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
         <div class="supporter-modal-title">Already Unlocked</div>
-        <div class="supporter-modal-text">Your account already has supporter status, so Patron should be available now.</div>
+        <div class="supporter-modal-text">Your account already has supporter status, so Patron should be available now. ${publicListing ? 'Your public GitHub profile is opted in to the supporter wall.' : 'Your supporter-wall profile remains private.'}</div>
         <button class="supporter-modal-dismiss supporter-claim-close-btn">Close</button>
       </div>
     `
@@ -80,6 +80,9 @@ export function showSupporterClaimModal({ token, donateUrl, expiresAt, copied, a
         <div class="supporter-modal-title">Support DexThemes</div>
         <div class="supporter-modal-text">
           Paste this claim code into your Buy Me a Coffee message so DexThemes can match the donation to your account.${expiresText ? ` This code expires ${escapeHtml(expiresText)}.` : ''}
+        </div>
+        <div class="agent-key-modal-note">
+          DexThemes retains the support transaction ID, supporter name/email supplied by Buy Me a Coffee, amount, currency, and claim status for verification, fraud handling, and revocation. ${publicListing ? 'You opted in to show your public GitHub profile and unlock date on the supporter wall.' : 'You stayed off the public supporter wall; Patron still unlocks normally.'}
         </div>
         <code class="agent-key-modal-code supporter-claim-code">${escapeHtml(token || '')}</code>
         <div class="agent-key-modal-note">${copied ? 'Claim code copied already.' : 'Copy was unavailable, so use the code shown here manually.'}</div>

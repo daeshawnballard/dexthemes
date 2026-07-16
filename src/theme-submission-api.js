@@ -11,7 +11,7 @@ import { checkThemeProtection } from '../convex/protectedThemes.ts';
 import { showSubmitDelighter } from './preview-chat.js';
 import { activateModalFocusTrap, deactivateModalFocusTrap } from './modal-a11y.js';
 import { showToast } from './toasts.js';
-import { grantUnlockAction } from './unlock-api.js';
+import { fetchMyUnlocks } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
 
@@ -80,7 +80,7 @@ async function addVariantToExistingTheme(themeId, themeName, variant, variantDat
   const existing = THEMES.find((theme) => theme.id === themeId);
   if (existing) existing[variant] = variantData;
 
-  grantUnlockAction('complete_pair');
+  await fetchMyUnlocks();
   void trackEvent('theme_variant_added', null, {
     theme_id: themeId,
     theme_name: themeName,
@@ -194,7 +194,7 @@ export async function submitFromBuilder() {
       return;
     }
 
-    grantUnlockAction('create_theme');
+    await fetchMyUnlocks();
     void trackEvent('theme_submitted', null, {
       theme_id: themeId,
       theme_name: b.name.trim(),
@@ -326,7 +326,7 @@ export async function submitJsonFromModal() {
 
     dismissSubmitJsonModal();
     showToast('Theme submitted to the community gallery!');
-    grantUnlockAction('create_theme');
+    await fetchMyUnlocks();
     void trackEvent('theme_submitted', null, {
       theme_id: payload.themeId,
       theme_name: payload.name,

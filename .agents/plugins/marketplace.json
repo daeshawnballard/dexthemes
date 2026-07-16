@@ -1,0 +1,20 @@
+{
+  "name": "dexthemes-community",
+  "interface": {
+    "displayName": "Dexthemes Community"
+  },
+  "plugins": [
+    {
+      "name": "dexthemes",
+      "source": {
+        "source": "local",
+        "path": "./plugins/dexthemes"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Creativity"
+    }
+  ]
+}

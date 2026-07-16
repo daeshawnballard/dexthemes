@@ -26,18 +26,21 @@ function generateClaimToken(): string {
 }
 
 export const createSupporterClaim = internalMutation({
-  args: { authToken: v.string() },
+  args: { authToken: v.string(), publicListing: v.boolean() },
   handler: async (ctx, args) => {
     const user = await getUserByAuthToken(ctx, args.authToken);
     if (!user) {
       throw new Error("Unauthorized");
+    }
+    if (user.supporterPublicListing !== args.publicListing) {
+      await ctx.db.patch(user._id, { supporterPublicListing: args.publicListing });
     }
 
     const existingUnlocks = await getSupporterUnlocksForUser(ctx, user._id);
     const activeUnlock = existingUnlocks.find(isActiveSupporterUnlock);
 
     if (activeUnlock) {
-      return { alreadySupporter: true };
+      return { alreadySupporter: true, publicListing: args.publicListing };
     }
 
     const now = Date.now();
@@ -52,7 +55,15 @@ export const createSupporterClaim = internalMutation({
 
     const reusable = findReusablePendingClaim(existingClaims, now);
     if (reusable) {
-      return { token: reusable.token, expiresAt: reusable.expiresAt, alreadySupporter: false };
+      if (reusable.publicListing !== args.publicListing) {
+        await ctx.db.patch(reusable._id, { publicListing: args.publicListing });
+      }
+      return {
+        token: reusable.token,
+        expiresAt: reusable.expiresAt,
+        publicListing: args.publicListing,
+        alreadySupporter: false,
+      };
     }
 
     const token = generateClaimToken();
@@ -63,9 +74,10 @@ export const createSupporterClaim = internalMutation({
       status: "pending",
       createdAt: now,
       expiresAt,
+      publicListing: args.publicListing,
     });
 
-    return { token, expiresAt, alreadySupporter: false };
+    return { token, expiresAt, publicListing: args.publicListing, alreadySupporter: false };
   },
 });
 

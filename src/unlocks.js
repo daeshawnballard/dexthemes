@@ -15,6 +15,11 @@ export const UNLOCK_THEMES = {
   agent_use:      { themeId: 'agent-claw',      name: 'Agent Claw',     description: 'Circuit-board greens and luminous traces for a tool-built, agentic feel.', prompt: 'Register an AI agent to unlock', deeplink: 'agent' },
   install_pwa:    { themeId: 'homebase',        name: 'Homebase',       description: 'Warm amber wood, soft evening light, and the comfort of being back home.', prompt: 'Add to your home screen to unlock', deeplink: 'install' },
   complete_pair:  { themeId: 'yin-yang',        name: 'Yin & Yang',     description: 'Pure black and white duality balanced into a calm, minimal pair.', prompt: 'Submit a theme with both dark & light variants to unlock', deeplink: 'pair' },
+  use_plugin:     { themeId: 'plugged-in',       name: 'Plugged In',     description: 'Electric indigo and bright cyan for creators working directly through the DexThemes plugin.', prompt: 'Use the DexThemes plugin while signed in to unlock', deeplink: 'plugin' },
+  create_theme_with_plugin: { themeId: 'voiceprint', name: 'Voiceprint', description: 'A vivid waveform palette for turning a spoken or written idea into a personal theme.', prompt: 'Create a theme with the DexThemes plugin to unlock', deeplink: 'plugin-create' },
+  openai_employee: { themeId: 'builder-of-agi',  name: 'Builder of AGI', description: 'OpenAI is nothing without its people.', prompt: 'Verify an eligible OpenAI work email through GitHub sign-in to unlock', deeplink: 'signin' },
+  theme_of_day: { themeId: 'golden-hour', name: 'Golden Hour', achievement: 'Theme of the Day', description: 'Sunrise gold and vivid coral for the creator whose theme leads a UTC day.', prompt: 'Have the most popular qualified theme of a UTC day to unlock', deeplink: 'leaderboard' },
+  theme_of_week: { themeId: 'headliner', name: 'Headliner', achievement: 'Theme of the Week', description: 'Electric blue and spotlight gold for the creator whose theme leads a UTC week.', prompt: 'Have the most popular qualified theme of a UTC week to unlock', deeplink: 'leaderboard' },
 };
 
 // Reverse map: themeId → action key

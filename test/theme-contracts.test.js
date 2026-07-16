@@ -77,3 +77,44 @@ test('buildThemeImportString preserves variant font payloads', () => {
   assert.equal(payload.theme.accent, '#006efe');
   assert.deepEqual(payload.theme.fonts, fonts);
 });
+
+test('buildThemeImportString rejects color and contrast injection payloads', () => {
+  const base = {
+    accents: ['#ff00aa'],
+    dark: {
+      surface: '#111111',
+      ink: '#fefefe',
+      accent: '#333333',
+      contrast: 60,
+      diffAdded: '#00aa00',
+      diffRemoved: '#aa0000',
+      skill: '#5500ff',
+    },
+  };
+  const attacks = [
+    '#000000;url(javascript:alert(1))',
+    '#000000\" onmouseover=\"alert(1)',
+    '#000000\\nbackground:url(https://attacker.invalid)',
+    'var(--host-color)',
+    'expression(alert(1))',
+    '#ＦＦＦＦＦＦ',
+    '#00000000',
+  ];
+
+  for (const attack of attacks) {
+    for (const key of ['surface', 'ink', 'accent', 'diffAdded', 'diffRemoved', 'skill']) {
+      const theme = structuredClone(base);
+      theme.dark[key] = attack;
+      assert.equal(buildThemeImportString(theme, 'dark'), '', `${key} accepted ${attack}`);
+    }
+    const theme = structuredClone(base);
+    theme.accents = [attack];
+    assert.equal(buildThemeImportString(theme, 'dark'), '', `accent accepted ${attack}`);
+  }
+
+  for (const contrast of [NaN, Infinity, -1, 101]) {
+    const theme = structuredClone(base);
+    theme.dark.contrast = contrast;
+    assert.equal(buildThemeImportString(theme, 'dark'), '', `contrast accepted ${contrast}`);
+  }
+});

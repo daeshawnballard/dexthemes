@@ -1,5 +1,6 @@
 import { internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
+import { grantUnlockForUser, syncOpenAIEmployeeUnlock } from "./unlocks";
 
 // Generate a cryptographically secure session token
 function generateSessionToken(): string {
@@ -10,6 +11,20 @@ function generateSessionToken(): string {
 
 // 30 days in milliseconds
 const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000;
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
+}
+
+function generateApiKeyValue(): string {
+  const bytes = new Uint8Array(24);
+  crypto.getRandomValues(bytes);
+  return "dxt_" + Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+}
 
 /**
  * Find or create a user by provider + providerId.
@@ -22,6 +37,7 @@ export const getOrCreateUser = internalMutation({
     username: v.string(),
     displayName: v.string(),
     avatarUrl: v.string(),
+    isOpenAIEmployee: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     // Look for existing user
@@ -37,14 +53,22 @@ export const getOrCreateUser = internalMutation({
 
     if (existing) {
       // Update profile info + refresh session
-      await ctx.db.patch(existing._id, {
+      const patch: Record<string, unknown> = {
         username: args.username,
         displayName: args.displayName,
         avatarUrl: args.avatarUrl,
         sessionToken,
         sessionExpiresAt,
-      });
-      return { ...existing, sessionToken, sessionExpiresAt };
+      };
+      if (args.isOpenAIEmployee !== undefined) {
+        patch.isOpenAIEmployee = args.isOpenAIEmployee;
+      }
+      await ctx.db.patch(existing._id, patch);
+      await grantUnlockForUser(ctx, existing._id, "sign_in");
+      if (args.isOpenAIEmployee !== undefined) {
+        await syncOpenAIEmployeeUnlock(ctx, existing._id, args.isOpenAIEmployee);
+      }
+      return await ctx.db.get(existing._id);
     }
 
     // Create new user
@@ -56,8 +80,14 @@ export const getOrCreateUser = internalMutation({
       avatarUrl: args.avatarUrl,
       sessionToken,
       sessionExpiresAt,
+      isOpenAIEmployee: args.isOpenAIEmployee ?? false,
       createdAt: Date.now(),
     });
+
+    await grantUnlockForUser(ctx, userId, "sign_in");
+    if (args.isOpenAIEmployee) {
+      await syncOpenAIEmployeeUnlock(ctx, userId, true);
+    }
 
     const user = await ctx.db.get(userId);
     return user;
@@ -84,6 +114,7 @@ export const getUserBySession = internalQuery({
       username: user.username,
       displayName: user.displayName,
       avatarUrl: user.avatarUrl,
+      isOpenAIEmployee: user.isOpenAIEmployee ?? false,
     };
   },
 });
@@ -104,11 +135,14 @@ export const generateApiKey = internalMutation({
       throw new Error("Unauthorized");
     }
 
-    const bytes = new Uint8Array(24);
-    crypto.getRandomValues(bytes);
-    const apiKey = "dxt_" + Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    const apiKey = generateApiKeyValue();
+    const apiKeyHash = await sha256Hex(apiKey);
 
-    await ctx.db.patch(user._id, { apiKey });
+    await ctx.db.patch(user._id, {
+      apiKey: undefined,
+      apiKeyHash,
+      apiKeyPrefix: apiKey.slice(0, 12),
+    });
     return { apiKey };
   },
 });
@@ -128,7 +162,11 @@ export const revokeApiKey = internalMutation({
       throw new Error("Unauthorized");
     }
 
-    await ctx.db.patch(user._id, { apiKey: undefined });
+    await ctx.db.patch(user._id, {
+      apiKey: undefined,
+      apiKeyHash: undefined,
+      apiKeyPrefix: undefined,
+    });
     return { success: true };
   },
 });
@@ -139,7 +177,13 @@ export const revokeApiKey = internalMutation({
 export const getUserByApiKey = internalQuery({
   args: { apiKey: v.string() },
   handler: async (ctx, args) => {
-    const user = await ctx.db
+    const apiKeyHash = await sha256Hex(args.apiKey);
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_api_key_hash", (q) => q.eq("apiKeyHash", apiKeyHash))
+      .first();
+
+    if (!user) user = await ctx.db
       .query("users")
       .withIndex("by_api_key", (q) => q.eq("apiKey", args.apiKey))
       .first();
@@ -152,44 +196,32 @@ export const getUserByApiKey = internalQuery({
       username: user.username,
       displayName: user.displayName,
       avatarUrl: user.avatarUrl,
+      isOpenAIEmployee: user.isOpenAIEmployee ?? false,
     };
   },
 });
 
-/**
- * Register an agent and issue an API key directly.
- * No OAuth required — agents self-register with a name.
- */
-export const registerAgent = internalMutation({
-  args: {
-    agentName: v.string(),
-  },
+/** Issue an agent/CLI key only to an existing GitHub-authenticated user. */
+export const generateAgentApiKey = internalMutation({
+  args: { sessionToken: v.string() },
   handler: async (ctx, args) => {
-    const name = args.agentName.trim().slice(0, 100);
-    if (!name) throw new Error("Agent name is required");
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_session", (q) => q.eq("sessionToken", args.sessionToken))
+      .first();
+    if (!user || user.sessionExpiresAt < Date.now() || user.provider !== "github") {
+      throw new Error("GitHub sign-in required");
+    }
 
-    // Generate a unique agent ID from the name
-    const agentId = "agent-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
-
-    // Generate API key
-    const bytes = new Uint8Array(24);
-    crypto.getRandomValues(bytes);
-    const apiKey = "dxt_" + Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-
-    // Create agent user
-    const userId = await ctx.db.insert("users", {
-      provider: "agent",
-      providerId: agentId,
-      username: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40),
-      displayName: name,
-      avatarUrl: "",
-      sessionToken: "",
-      sessionExpiresAt: 0,
-      apiKey,
-      createdAt: Date.now(),
+    const apiKey = generateApiKeyValue();
+    await ctx.db.patch(user._id, {
+      apiKey: undefined,
+      apiKeyHash: await sha256Hex(apiKey),
+      apiKeyPrefix: apiKey.slice(0, 12),
     });
+    await grantUnlockForUser(ctx, user._id, "agent_use");
 
-    return { apiKey, agentId, userId };
+    return { apiKey, agentId: `github:${user.providerId}` };
   },
 });
 

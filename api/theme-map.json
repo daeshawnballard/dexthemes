@@ -5,6 +5,7 @@
       "surface": "#111111",
       "ink": "#fcfcfc",
       "accent": "#0169cc",
+      "contrast": 60,
       "diffAdded": "#00a240",
       "diffRemoved": "#e02e2a",
       "skill": "#B06DFF",
@@ -15,6 +16,7 @@
       "surface": "#ffffff",
       "ink": "#0d0d0d",
       "accent": "#0169cc",
+      "contrast": 45,
       "diffAdded": "#00a240",
       "diffRemoved": "#e02e2a",
       "skill": "#751ED9",
@@ -28,6 +30,7 @@
       "surface": "#080922",
       "ink": "#F1EDFF",
       "accent": "#6D5DFF",
+      "contrast": 64,
       "diffAdded": "#55E6B5",
       "diffRemoved": "#FF5F8A",
       "skill": "#B8A6FF",
@@ -38,6 +41,7 @@
       "surface": "#F4F1FF",
       "ink": "#171330",
       "accent": "#5B4DDB",
+      "contrast": 46,
       "diffAdded": "#008A68",
       "diffRemoved": "#C43B66",
       "skill": "#7C3AED",
@@ -51,6 +55,7 @@
       "surface": "#2d2d2b",
       "ink": "#f9f9f7",
       "accent": "#cc7d5e",
+      "contrast": 60,
       "diffAdded": "#40c977",
       "diffRemoved": "#fa423e",
       "skill": "#ad7bf9",
@@ -61,6 +66,7 @@
       "surface": "#f9f9f7",
       "ink": "#2d2d2b",
       "accent": "#cc7d5e",
+      "contrast": 45,
       "diffAdded": "#00a240",
       "diffRemoved": "#ba2623",
       "skill": "#924ff7",
@@ -74,6 +80,7 @@
       "surface": "#0b0e14",
       "ink": "#bfbdb6",
       "accent": "#e6b450",
+      "contrast": 60,
       "diffAdded": "#7fd962",
       "diffRemoved": "#ea6c73",
       "skill": "#cda1fa",
@@ -88,6 +95,7 @@
       "surface": "#1e1e2e",
       "ink": "#cdd6f4",
       "accent": "#cba6f7",
+      "contrast": 60,
       "diffAdded": "#a6e3a1",
       "diffRemoved": "#f38ba8",
       "skill": "#cba6f7",
@@ -98,6 +106,7 @@
       "surface": "#eff1f5",
       "ink": "#4c4f69",
       "accent": "#8839ef",
+      "contrast": 45,
       "diffAdded": "#40a02b",
       "diffRemoved": "#d20f39",
       "skill": "#8839ef",
@@ -111,6 +120,7 @@
       "surface": "#282A36",
       "ink": "#F8F8F2",
       "accent": "#FF79C6",
+      "contrast": 60,
       "diffAdded": "#50FA7B",
       "diffRemoved": "#FF5555",
       "skill": "#FF79C6",
@@ -119,12 +129,38 @@
     },
     "light": null
   },
+  "everforest": {
+    "name": "Everforest",
+    "dark": {
+      "surface": "#2d353b",
+      "ink": "#d3c6aa",
+      "accent": "#a7c080",
+      "contrast": 60,
+      "diffAdded": "#a7c080",
+      "diffRemoved": "#e67e80",
+      "skill": "#d699b6",
+      "sidebar": "#2d353b",
+      "codeBg": "#2d353b"
+    },
+    "light": {
+      "surface": "#fdf6e3",
+      "ink": "#5c6a72",
+      "accent": "#93b259",
+      "contrast": 45,
+      "diffAdded": "#8da101",
+      "diffRemoved": "#f85552",
+      "skill": "#df69ba",
+      "sidebar": "#fdf6e3",
+      "codeBg": "#fdf6e3"
+    }
+  },
   "github-dark": {
     "name": "GitHub Dark",
     "dark": {
       "surface": "#0d1117",
       "ink": "#e6edf3",
       "accent": "#58a6ff",
+      "contrast": 60,
       "diffAdded": "#3fb950",
       "diffRemoved": "#f85149",
       "skill": "#bc8cff",
@@ -140,6 +176,7 @@
       "surface": "#ffffff",
       "ink": "#1f2328",
       "accent": "#0969da",
+      "contrast": 45,
       "diffAdded": "#1a7f37",
       "diffRemoved": "#cf222e",
       "skill": "#8250df",
@@ -153,6 +190,7 @@
       "surface": "#1d2021",
       "ink": "#ebdbb2",
       "accent": "#fe8019",
+      "contrast": 60,
       "diffAdded": "#b8bb26",
       "diffRemoved": "#fb4934",
       "skill": "#d3869b",
@@ -161,230 +199,13 @@
     },
     "light": null
   },
-  "monokai": {
-    "name": "Monokai",
-    "dark": {
-      "surface": "#272822",
-      "ink": "#F8F8F2",
-      "accent": "#F92672",
-      "diffAdded": "#A6E22E",
-      "diffRemoved": "#F92672",
-      "skill": "#AE81FF",
-      "sidebar": "#1f201b",
-      "codeBg": "#1b1c17"
-    },
-    "light": null
-  },
-  "nord": {
-    "name": "Nord",
-    "dark": {
-      "surface": "#2E3440",
-      "ink": "#ECEFF4",
-      "accent": "#88C0D0",
-      "diffAdded": "#A3BE8C",
-      "diffRemoved": "#BF616A",
-      "skill": "#B48EAD",
-      "sidebar": "#272c36",
-      "codeBg": "#242830"
-    },
-    "light": null
-  },
-  "notion": {
-    "name": "Notion",
-    "dark": {
-      "surface": "#191919",
-      "ink": "#d9d9d8",
-      "accent": "#3183d8",
-      "diffAdded": "#40c977",
-      "diffRemoved": "#fa423e",
-      "skill": "#ad7bf9",
-      "sidebar": "#151515",
-      "codeBg": "#191919"
-    },
-    "light": {
-      "surface": "#ffffff",
-      "ink": "#37352f",
-      "accent": "#3183d8",
-      "diffAdded": "#00a240",
-      "diffRemoved": "#ba2623",
-      "skill": "#924ff7",
-      "sidebar": "#f7f6f3",
-      "codeBg": "#ffffff"
-    }
-  },
-  "one-dark": {
-    "name": "One Dark",
-    "dark": {
-      "surface": "#282c34",
-      "ink": "#abb2bf",
-      "accent": "#61afef",
-      "diffAdded": "#98c379",
-      "diffRemoved": "#e06c75",
-      "skill": "#c678dd",
-      "sidebar": "#21252b",
-      "codeBg": "#1d2025"
-    },
-    "light": null
-  },
-  "raycast": {
-    "name": "Raycast",
-    "dark": {
-      "surface": "#101010",
-      "ink": "#fefefe",
-      "accent": "#FF6363",
-      "diffAdded": "#59D499",
-      "diffRemoved": "#FF6363",
-      "skill": "#FF9217",
-      "sidebar": "#101010",
-      "codeBg": "#141414",
-      "opaqueWindows": false
-    },
-    "light": {
-      "surface": "#ffffff",
-      "ink": "#030303",
-      "accent": "#FF6363",
-      "diffAdded": "#006B4F",
-      "diffRemoved": "#B12424",
-      "skill": "#C75D07",
-      "sidebar": "#fcfcfc",
-      "codeBg": "#ffffff",
-      "opaqueWindows": false
-    }
-  },
-  "rose-pine": {
-    "name": "Rosé Pine",
-    "dark": {
-      "surface": "#191724",
-      "ink": "#e0def4",
-      "accent": "#c4a7e7",
-      "diffAdded": "#9ccfd8",
-      "diffRemoved": "#eb6f92",
-      "skill": "#c4a7e7",
-      "sidebar": "#13111e",
-      "codeBg": "#100e19"
-    },
-    "light": null
-  },
-  "solarized": {
-    "name": "Solarized",
-    "dark": {
-      "surface": "#002b36",
-      "ink": "#839496",
-      "accent": "#268bd2",
-      "diffAdded": "#859900",
-      "diffRemoved": "#dc322f",
-      "skill": "#6c71c4",
-      "sidebar": "#00222b",
-      "codeBg": "#001e26"
-    },
-    "light": {
-      "surface": "#fdf6e3",
-      "ink": "#657b83",
-      "accent": "#268bd2",
-      "diffAdded": "#859900",
-      "diffRemoved": "#dc322f",
-      "skill": "#6c71c4",
-      "sidebar": "#f5eedb",
-      "codeBg": "#eee8d5"
-    }
-  },
-  "tokyo-night": {
-    "name": "Tokyo Night",
-    "dark": {
-      "surface": "#1a1b26",
-      "ink": "#c0caf5",
-      "accent": "#7aa2f7",
-      "diffAdded": "#9ece6a",
-      "diffRemoved": "#f7768e",
-      "skill": "#bb9af7",
-      "sidebar": "#13141d",
-      "codeBg": "#101018"
-    },
-    "light": null
-  },
-  "vercel": {
-    "name": "Vercel",
-    "dark": {
-      "surface": "#000000",
-      "ink": "#ededed",
-      "accent": "#006efe",
-      "diffAdded": "#00AD3A",
-      "diffRemoved": "#F13342",
-      "skill": "#9540D5",
-      "sidebar": "#000000",
-      "codeBg": "#000000",
-      "fonts": {
-        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
-        "ui": "Geist, Inter"
-      }
-    },
-    "light": {
-      "surface": "#ffffff",
-      "ink": "#171717",
-      "accent": "#006aff",
-      "diffAdded": "#28A948",
-      "diffRemoved": "#EB001D",
-      "skill": "#A100F8",
-      "sidebar": "#ffffff",
-      "codeBg": "#ffffff",
-      "fonts": {
-        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
-        "ui": "Geist, Inter"
-      }
-    }
-  },
-  "vscode-plus": {
-    "name": "VS Code+",
-    "dark": {
-      "surface": "#1E1E1E",
-      "ink": "#D4D4D4",
-      "accent": "#007ACC",
-      "diffAdded": "#40c977",
-      "diffRemoved": "#fa423e",
-      "skill": "#ad7bf9",
-      "sidebar": "#171717",
-      "codeBg": "#131313"
-    },
-    "light": {
-      "surface": "#FFFFFF",
-      "ink": "#000000",
-      "accent": "#007ACC",
-      "diffAdded": "#00a240",
-      "diffRemoved": "#ba2623",
-      "skill": "#924ff7",
-      "sidebar": "#f3f3f3",
-      "codeBg": "#ececec"
-    }
-  },
-  "everforest": {
-    "name": "Everforest",
-    "dark": {
-      "surface": "#2d353b",
-      "ink": "#d3c6aa",
-      "accent": "#a7c080",
-      "diffAdded": "#a7c080",
-      "diffRemoved": "#e67e80",
-      "skill": "#d699b6",
-      "sidebar": "#2d353b",
-      "codeBg": "#2d353b"
-    },
-    "light": {
-      "surface": "#fdf6e3",
-      "ink": "#5c6a72",
-      "accent": "#93b259",
-      "diffAdded": "#8da101",
-      "diffRemoved": "#f85552",
-      "skill": "#df69ba",
-      "sidebar": "#fdf6e3",
-      "codeBg": "#fdf6e3"
-    }
-  },
   "linear": {
     "name": "Linear",
     "dark": {
       "surface": "#0f0f11",
       "ink": "#e3e4e6",
       "accent": "#606acc",
+      "contrast": 60,
       "diffAdded": "#69c967",
       "diffRemoved": "#ff7e78",
       "skill": "#c2a1ff",
@@ -399,6 +220,7 @@
       "surface": "#fcfcfd",
       "ink": "#1b1b1b",
       "accent": "#5e6ad2",
+      "contrast": 45,
       "diffAdded": "#52a450",
       "diffRemoved": "#c94446",
       "skill": "#8160d8",
@@ -416,6 +238,7 @@
       "surface": "#111827",
       "ink": "#e4e4e7",
       "accent": "#ff5c5c",
+      "contrast": 60,
       "diffAdded": "#22c55e",
       "diffRemoved": "#ff5c5c",
       "skill": "#3b82f6",
@@ -433,6 +256,7 @@
       "surface": "#212121",
       "ink": "#eeffff",
       "accent": "#80cbc4",
+      "contrast": 60,
       "diffAdded": "#c3e88d",
       "diffRemoved": "#f07178",
       "skill": "#c792ea",
@@ -447,6 +271,7 @@
       "surface": "#040805",
       "ink": "#b8ffca",
       "accent": "#1eff5a",
+      "contrast": 60,
       "diffAdded": "#1eff5a",
       "diffRemoved": "#fa423e",
       "skill": "#1eff5a",
@@ -460,12 +285,28 @@
     },
     "light": null
   },
+  "monokai": {
+    "name": "Monokai",
+    "dark": {
+      "surface": "#272822",
+      "ink": "#F8F8F2",
+      "accent": "#F92672",
+      "contrast": 60,
+      "diffAdded": "#A6E22E",
+      "diffRemoved": "#F92672",
+      "skill": "#AE81FF",
+      "sidebar": "#1f201b",
+      "codeBg": "#1b1c17"
+    },
+    "light": null
+  },
   "night-owl": {
     "name": "Night Owl",
     "dark": {
       "surface": "#011627",
       "ink": "#d6deeb",
       "accent": "#44596b",
+      "contrast": 60,
       "diffAdded": "#c5e478",
       "diffRemoved": "#ef5350",
       "skill": "#c792ea",
@@ -474,17 +315,73 @@
     },
     "light": null
   },
+  "nord": {
+    "name": "Nord",
+    "dark": {
+      "surface": "#2E3440",
+      "ink": "#ECEFF4",
+      "accent": "#88C0D0",
+      "contrast": 60,
+      "diffAdded": "#A3BE8C",
+      "diffRemoved": "#BF616A",
+      "skill": "#B48EAD",
+      "sidebar": "#272c36",
+      "codeBg": "#242830"
+    },
+    "light": null
+  },
+  "notion": {
+    "name": "Notion",
+    "dark": {
+      "surface": "#191919",
+      "ink": "#d9d9d8",
+      "accent": "#3183d8",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#ad7bf9",
+      "sidebar": "#151515",
+      "codeBg": "#191919"
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#37352f",
+      "accent": "#3183d8",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "sidebar": "#f7f6f3",
+      "codeBg": "#ffffff"
+    }
+  },
   "oscurange": {
     "name": "Oscurange",
     "dark": {
       "surface": "#0b0b0f",
       "ink": "#e6e6e6",
       "accent": "#f9b98c",
+      "contrast": 60,
       "diffAdded": "#40c977",
       "diffRemoved": "#fa423e",
       "skill": "#479ffa",
       "sidebar": "#0b0b0f",
       "codeBg": "#0b0b0f"
+    },
+    "light": null
+  },
+  "one-dark": {
+    "name": "One Dark",
+    "dark": {
+      "surface": "#282c34",
+      "ink": "#abb2bf",
+      "accent": "#61afef",
+      "contrast": 60,
+      "diffAdded": "#98c379",
+      "diffRemoved": "#e06c75",
+      "skill": "#c678dd",
+      "sidebar": "#21252b",
+      "codeBg": "#1d2025"
     },
     "light": null
   },
@@ -495,6 +392,7 @@
       "surface": "#f5f3ed",
       "ink": "#2f312d",
       "accent": "#3d755d",
+      "contrast": 45,
       "diffAdded": "#3d755d",
       "diffRemoved": "#ba2623",
       "skill": "#5f6ac2",
@@ -507,12 +405,55 @@
       "opaqueWindows": false
     }
   },
+  "raycast": {
+    "name": "Raycast",
+    "dark": {
+      "surface": "#101010",
+      "ink": "#fefefe",
+      "accent": "#FF6363",
+      "contrast": 60,
+      "diffAdded": "#59D499",
+      "diffRemoved": "#FF6363",
+      "skill": "#FF9217",
+      "sidebar": "#101010",
+      "codeBg": "#141414",
+      "opaqueWindows": false
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#030303",
+      "accent": "#FF6363",
+      "contrast": 45,
+      "diffAdded": "#006B4F",
+      "diffRemoved": "#B12424",
+      "skill": "#C75D07",
+      "sidebar": "#fcfcfc",
+      "codeBg": "#ffffff",
+      "opaqueWindows": false
+    }
+  },
+  "rose-pine": {
+    "name": "Rosé Pine",
+    "dark": {
+      "surface": "#191724",
+      "ink": "#e0def4",
+      "accent": "#c4a7e7",
+      "contrast": 60,
+      "diffAdded": "#9ccfd8",
+      "diffRemoved": "#eb6f92",
+      "skill": "#c4a7e7",
+      "sidebar": "#13111e",
+      "codeBg": "#100e19"
+    },
+    "light": null
+  },
   "sentry": {
     "name": "Sentry",
     "dark": {
       "surface": "#2d2935",
       "ink": "#e6dff9",
       "accent": "#7055f6",
+      "contrast": 60,
       "diffAdded": "#8ee6d7",
       "diffRemoved": "#fa423e",
       "skill": "#7055f6",
@@ -525,12 +466,38 @@
     },
     "light": null
   },
+  "solarized": {
+    "name": "Solarized",
+    "dark": {
+      "surface": "#002b36",
+      "ink": "#839496",
+      "accent": "#268bd2",
+      "contrast": 60,
+      "diffAdded": "#859900",
+      "diffRemoved": "#dc322f",
+      "skill": "#6c71c4",
+      "sidebar": "#00222b",
+      "codeBg": "#001e26"
+    },
+    "light": {
+      "surface": "#fdf6e3",
+      "ink": "#657b83",
+      "accent": "#268bd2",
+      "contrast": 45,
+      "diffAdded": "#859900",
+      "diffRemoved": "#dc322f",
+      "skill": "#6c71c4",
+      "sidebar": "#f5eedb",
+      "codeBg": "#eee8d5"
+    }
+  },
   "temple": {
     "name": "Temple",
     "dark": {
       "surface": "#02120c",
       "ink": "#c7e6da",
       "accent": "#e4f222",
+      "contrast": 60,
       "diffAdded": "#40c977",
       "diffRemoved": "#fa423e",
       "skill": "#e4f222",
@@ -539,12 +506,86 @@
     },
     "light": null
   },
+  "tokyo-night": {
+    "name": "Tokyo Night",
+    "dark": {
+      "surface": "#1a1b26",
+      "ink": "#c0caf5",
+      "accent": "#7aa2f7",
+      "contrast": 60,
+      "diffAdded": "#9ece6a",
+      "diffRemoved": "#f7768e",
+      "skill": "#bb9af7",
+      "sidebar": "#13141d",
+      "codeBg": "#101018"
+    },
+    "light": null
+  },
+  "vercel": {
+    "name": "Vercel",
+    "dark": {
+      "surface": "#000000",
+      "ink": "#ededed",
+      "accent": "#006efe",
+      "contrast": 50,
+      "diffAdded": "#00AD3A",
+      "diffRemoved": "#F13342",
+      "skill": "#9540D5",
+      "sidebar": "#000000",
+      "codeBg": "#000000",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#171717",
+      "accent": "#006aff",
+      "contrast": 40,
+      "diffAdded": "#28A948",
+      "diffRemoved": "#EB001D",
+      "skill": "#A100F8",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    }
+  },
+  "vscode-plus": {
+    "name": "VS Code+",
+    "dark": {
+      "surface": "#1E1E1E",
+      "ink": "#D4D4D4",
+      "accent": "#007ACC",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#ad7bf9",
+      "sidebar": "#171717",
+      "codeBg": "#131313"
+    },
+    "light": {
+      "surface": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#007ACC",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "sidebar": "#f3f3f3",
+      "codeBg": "#ececec"
+    }
+  },
   "xcode": {
     "name": "Xcode",
     "dark": {
       "surface": "#1f1f24",
       "ink": "#ffffff",
       "accent": "#5482ff",
+      "contrast": 60,
       "diffAdded": "#67b7a4",
       "diffRemoved": "#fc6a5d",
       "skill": "#5482ff",
@@ -558,6 +599,7 @@
       "surface": "#ffffff",
       "ink": "#000000",
       "accent": "#0e0eff",
+      "contrast": 45,
       "diffAdded": "#00a240",
       "diffRemoved": "#c41a16",
       "skill": "#0e0eff",
@@ -571,22 +613,24 @@
   "ichigo-bankai": {
     "name": "Ichigo / Bankai",
     "dark": {
-      "surface": "#121111",
-      "ink": "#FFF4EC",
-      "accent": "#FF7A1A",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#EF4444",
       "skill": "#F59E0B",
+      "surface": "#121111",
+      "ink": "#FFF4EC",
+      "accent": "#FF7A1A",
       "sidebar": "#0b0a0a",
       "codeBg": "#060505"
     },
     "light": {
-      "surface": "#FFF7F2",
-      "ink": "#121212",
-      "accent": "#F97316",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#F59E0B",
+      "surface": "#FFF7F2",
+      "ink": "#121212",
+      "accent": "#F97316",
       "sidebar": "#f5ede8",
       "codeBg": "#f1e9e4"
     }
@@ -594,22 +638,24 @@
   "ichigo-hollow": {
     "name": "Ichigo / Hollow Mask",
     "dark": {
-      "surface": "#0E0C10",
-      "ink": "#F7F1F8",
-      "accent": "#E11D48",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#F8FAFC",
+      "surface": "#0E0C10",
+      "ink": "#F7F1F8",
+      "accent": "#E11D48",
       "sidebar": "#070509",
       "codeBg": "#020004"
     },
     "light": {
-      "surface": "#F6F2F7",
-      "ink": "#1A141C",
-      "accent": "#111827",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#BE123C",
       "skill": "#9F1239",
+      "surface": "#F6F2F7",
+      "ink": "#1A141C",
+      "accent": "#111827",
       "sidebar": "#ece8ed",
       "codeBg": "#e8e4e9"
     }
@@ -617,22 +663,24 @@
   "naruto-hidden-leaf": {
     "name": "Naruto / Hidden Leaf",
     "dark": {
-      "surface": "#101418",
-      "ink": "#F7F3EA",
-      "accent": "#FF9F1C",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#F97316",
       "skill": "#F59E0B",
+      "surface": "#101418",
+      "ink": "#F7F3EA",
+      "accent": "#FF9F1C",
       "sidebar": "#090d11",
       "codeBg": "#04080c"
     },
     "light": {
-      "surface": "#FFF8ED",
-      "ink": "#1A1A1A",
-      "accent": "#F59E0B",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#EA580C",
+      "surface": "#FFF8ED",
+      "ink": "#1A1A1A",
+      "accent": "#F59E0B",
       "sidebar": "#f5eee3",
       "codeBg": "#f1eadf"
     }
@@ -640,22 +688,24 @@
   "gachiakuta-rudo": {
     "name": "Gachiakuta / Rudo",
     "dark": {
-      "surface": "#111417",
-      "ink": "#E8EDF1",
-      "accent": "#78C6A3",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#F87171",
       "skill": "#93C5FD",
+      "surface": "#111417",
+      "ink": "#E8EDF1",
+      "accent": "#78C6A3",
       "sidebar": "#0a0d10",
       "codeBg": "#05080b"
     },
     "light": {
-      "surface": "#EEE7D8",
-      "ink": "#2E2A25",
-      "accent": "#4B5563",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#D97706",
+      "surface": "#EEE7D8",
+      "ink": "#2E2A25",
+      "accent": "#4B5563",
       "sidebar": "#e4ddce",
       "codeBg": "#e0d9ca"
     }
@@ -663,22 +713,24 @@
   "eren-titan-fall": {
     "name": "Eren / Titan Fall",
     "dark": {
-      "surface": "#0E1113",
-      "ink": "#F3E9D7",
-      "accent": "#8B1E1E",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#DC2626",
       "skill": "#F59E0B",
+      "surface": "#0E1113",
+      "ink": "#F3E9D7",
+      "accent": "#8B1E1E",
       "sidebar": "#070a0c",
       "codeBg": "#020507"
     },
     "light": {
-      "surface": "#F7F2EA",
-      "ink": "#23211E",
-      "accent": "#3B5C74",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#F7F2EA",
+      "ink": "#23211E",
+      "accent": "#3B5C74",
       "sidebar": "#ede8e0",
       "codeBg": "#e9e4dc"
     }
@@ -686,22 +738,24 @@
   "goku-ultra-instinct": {
     "name": "Goku / Ultra Instinct",
     "dark": {
-      "surface": "#161218",
-      "ink": "#F9F7FB",
-      "accent": "#7C3AED",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F472B6",
       "skill": "#F9FAFB",
+      "surface": "#161218",
+      "ink": "#F9F7FB",
+      "accent": "#7C3AED",
       "sidebar": "#0f0b11",
       "codeBg": "#0a060c"
     },
     "light": {
-      "surface": "#F5F9FF",
-      "ink": "#18212D",
-      "accent": "#A5B4FC",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#60A5FA",
+      "surface": "#F5F9FF",
+      "ink": "#18212D",
+      "accent": "#A5B4FC",
       "sidebar": "#ebeff5",
       "codeBg": "#e7ebf1"
     }
@@ -709,22 +763,24 @@
   "goku-ssj4": {
     "name": "Goku / Super Saiyan 4",
     "dark": {
-      "surface": "#180D11",
-      "ink": "#FFF1F2",
-      "accent": "#D9465F",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#F59E0B",
+      "surface": "#180D11",
+      "ink": "#FFF1F2",
+      "accent": "#D9465F",
       "sidebar": "#11060a",
       "codeBg": "#0c0105"
     },
     "light": {
-      "surface": "#F8F2ED",
-      "ink": "#2C1A1D",
-      "accent": "#E76F51",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#2563EB",
+      "surface": "#F8F2ED",
+      "ink": "#2C1A1D",
+      "accent": "#E76F51",
       "sidebar": "#eee8e3",
       "codeBg": "#eae4df"
     }
@@ -732,22 +788,24 @@
   "yuji-sukuna": {
     "name": "Yuji / Sukuna",
     "dark": {
-      "surface": "#110E12",
-      "ink": "#FAF5F5",
-      "accent": "#D62839",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#F87171",
       "skill": "#A855F7",
+      "surface": "#110E12",
+      "ink": "#FAF5F5",
+      "accent": "#D62839",
       "sidebar": "#0a070b",
       "codeBg": "#050206"
     },
     "light": {
-      "surface": "#FFF7F5",
-      "ink": "#251C20",
-      "accent": "#F97316",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#7C3AED",
+      "surface": "#FFF7F5",
+      "ink": "#251C20",
+      "accent": "#F97316",
       "sidebar": "#f5edeb",
       "codeBg": "#f1e9e7"
     }
@@ -755,22 +813,24 @@
   "gojo-limitless": {
     "name": "Gojo / Limitless",
     "dark": {
-      "surface": "#0D1220",
-      "ink": "#EEF6FF",
-      "accent": "#60A5FA",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#A78BFA",
+      "surface": "#0D1220",
+      "ink": "#EEF6FF",
+      "accent": "#60A5FA",
       "sidebar": "#060b19",
       "codeBg": "#010614"
     },
     "light": {
-      "surface": "#F5FAFF",
-      "ink": "#102132",
-      "accent": "#BFDBFE",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#6366F1",
+      "surface": "#F5FAFF",
+      "ink": "#102132",
+      "accent": "#BFDBFE",
       "sidebar": "#ebf0f5",
       "codeBg": "#e7ecf1"
     }
@@ -778,22 +838,24 @@
   "jojo-dio": {
     "name": "JoJo / Dio",
     "dark": {
-      "surface": "#161019",
-      "ink": "#F7F3FB",
-      "accent": "#D4AF37",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#FB7185",
       "skill": "#8B5CF6",
+      "surface": "#161019",
+      "ink": "#F7F3FB",
+      "accent": "#D4AF37",
       "sidebar": "#0f0912",
       "codeBg": "#0a040d"
     },
     "light": {
-      "surface": "#FFF7D6",
-      "ink": "#241A24",
-      "accent": "#7C3AED",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#F59E0B",
+      "surface": "#FFF7D6",
+      "ink": "#241A24",
+      "accent": "#7C3AED",
       "sidebar": "#f5edcc",
       "codeBg": "#f1e9c8"
     }
@@ -801,22 +863,24 @@
   "solo-leveling": {
     "name": "Sung Jinwoo / Igris",
     "dark": {
-      "surface": "#0C1020",
-      "ink": "#E6ECFF",
-      "accent": "#4C6FFF",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#F87171",
       "skill": "#7C3AED",
+      "surface": "#0C1020",
+      "ink": "#E6ECFF",
+      "accent": "#4C6FFF",
       "sidebar": "#050919",
       "codeBg": "#000414"
     },
     "light": {
-      "surface": "#F4F7FF",
-      "ink": "#1A2238",
-      "accent": "#94A3FF",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#4338CA",
+      "surface": "#F4F7FF",
+      "ink": "#1A2238",
+      "accent": "#94A3FF",
       "sidebar": "#eaedf5",
       "codeBg": "#e6e9f1"
     }
@@ -824,22 +888,24 @@
   "trigun-gunsmoke": {
     "name": "Trigun / Gunsmoke",
     "dark": {
-      "surface": "#16110E",
-      "ink": "#F8EFE6",
-      "accent": "#D97706",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#EF4444",
       "skill": "#F59E0B",
+      "surface": "#16110E",
+      "ink": "#F8EFE6",
+      "accent": "#D97706",
       "sidebar": "#0f0a07",
       "codeBg": "#0a0502"
     },
     "light": {
-      "surface": "#F5E6C8",
-      "ink": "#2C221B",
-      "accent": "#B45309",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#F5E6C8",
+      "ink": "#2C221B",
+      "accent": "#B45309",
       "sidebar": "#ebdcbe",
       "codeBg": "#e7d8ba"
     }
@@ -847,22 +913,24 @@
   "cowboy-bebop": {
     "name": "Cowboy Bebop / Blue Jazz",
     "dark": {
-      "surface": "#111827",
-      "ink": "#EAF2FF",
-      "accent": "#38BDF8",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#FBBF24",
+      "surface": "#111827",
+      "ink": "#EAF2FF",
+      "accent": "#38BDF8",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#F6E8C7",
-      "ink": "#1F2937",
-      "accent": "#0EA5E9",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#D97706",
+      "surface": "#F6E8C7",
+      "ink": "#1F2937",
+      "accent": "#0EA5E9",
       "sidebar": "#ecdebd",
       "codeBg": "#e8dab9"
     }
@@ -870,22 +938,24 @@
   "ghost-in-the-shell": {
     "name": "Ghost in the Shell / Major",
     "dark": {
-      "surface": "#0B1220",
-      "ink": "#E5F4FF",
-      "accent": "#00B8D9",
+      "contrast": 64,
       "diffAdded": "#2DD4BF",
       "diffRemoved": "#FB7185",
       "skill": "#818CF8",
+      "surface": "#0B1220",
+      "ink": "#E5F4FF",
+      "accent": "#00B8D9",
       "sidebar": "#040b19",
       "codeBg": "#000614"
     },
     "light": {
-      "surface": "#F2FCFF",
-      "ink": "#0F1E2E",
-      "accent": "#38BDF8",
+      "contrast": 46,
       "diffAdded": "#0F766E",
       "diffRemoved": "#DC2626",
       "skill": "#4F46E5",
+      "surface": "#F2FCFF",
+      "ink": "#0F1E2E",
+      "accent": "#38BDF8",
       "sidebar": "#e8f2f5",
       "codeBg": "#e4eef1"
     }
@@ -893,22 +963,24 @@
   "gundam-rx-78-2": {
     "name": "Gundam / RX-78-2",
     "dark": {
-      "surface": "#0B1020",
-      "ink": "#F4F7FB",
-      "accent": "#2F6FE4",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#EF3340",
       "skill": "#FACC15",
+      "surface": "#0B1020",
+      "ink": "#F4F7FB",
+      "accent": "#2F6FE4",
       "sidebar": "#070B16",
       "codeBg": "#040711"
     },
     "light": {
-      "surface": "#F6F8FC",
-      "ink": "#182132",
-      "accent": "#2457C5",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#DC2626",
       "skill": "#B7791F",
+      "surface": "#F6F8FC",
+      "ink": "#182132",
+      "accent": "#2457C5",
       "sidebar": "#E8ECF5",
       "codeBg": "#EEF2F8"
     }
@@ -916,22 +988,24 @@
   "gundam-seed-strike": {
     "name": "Gundam SEED / Strike",
     "dark": {
-      "surface": "#080D17",
-      "ink": "#F8FAFC",
-      "accent": "#1D4ED8",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#E11D48",
       "skill": "#FACC15",
+      "surface": "#080D17",
+      "ink": "#F8FAFC",
+      "accent": "#1D4ED8",
       "sidebar": "#050914",
       "codeBg": "#030711"
     },
     "light": {
-      "surface": "#FBFCFF",
-      "ink": "#172033",
-      "accent": "#1E40AF",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#C98900",
+      "surface": "#FBFCFF",
+      "ink": "#172033",
+      "accent": "#1E40AF",
       "sidebar": "#EEF2F8",
       "codeBg": "#F4F7FB"
     }
@@ -939,22 +1013,24 @@
   "gundam-00-exia-trans-am": {
     "name": "Gundam 00 / Exia Trans-Am",
     "dark": {
-      "surface": "#130913",
-      "ink": "#FFEAF2",
-      "accent": "#F43F5E",
+      "contrast": 64,
       "diffAdded": "#2DD4BF",
       "diffRemoved": "#FB7185",
       "skill": "#22D3EE",
+      "surface": "#130913",
+      "ink": "#FFEAF2",
+      "accent": "#F43F5E",
       "sidebar": "#0D0710",
       "codeBg": "#09050C"
     },
     "light": {
-      "surface": "#FFF3F7",
-      "ink": "#231522",
-      "accent": "#E11D48",
+      "contrast": 46,
       "diffAdded": "#0F766E",
       "diffRemoved": "#BE123C",
       "skill": "#0891B2",
+      "surface": "#FFF3F7",
+      "ink": "#231522",
+      "accent": "#E11D48",
       "sidebar": "#F6E7ED",
       "codeBg": "#FBEAF0"
     }
@@ -962,22 +1038,24 @@
   "luffy-gear-five": {
     "name": "Luffy / Gear Five",
     "dark": {
-      "surface": "#0F172A",
-      "ink": "#F8F1DC",
-      "accent": "#F87171",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#EF4444",
       "skill": "#60A5FA",
+      "surface": "#0F172A",
+      "ink": "#F8F1DC",
+      "accent": "#F87171",
       "sidebar": "#081023",
       "codeBg": "#030b1e"
     },
     "light": {
-      "surface": "#F7F9FF",
-      "ink": "#20293A",
-      "accent": "#F3F4F6",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#60A5FA",
+      "surface": "#F7F9FF",
+      "ink": "#20293A",
+      "accent": "#F3F4F6",
       "sidebar": "#EEF2FF",
       "codeBg": "#E6EDFF"
     }
@@ -985,22 +1063,24 @@
   "shonen-sunset": {
     "name": "Shonen Sunset",
     "dark": {
-      "surface": "#111827",
-      "ink": "#FFF7ED",
-      "accent": "#FB923C",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#EF4444",
       "skill": "#A855F7",
+      "surface": "#111827",
+      "ink": "#FFF7ED",
+      "accent": "#FB923C",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#FFF7E8",
-      "ink": "#161616",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#7C3AED",
+      "surface": "#FFF7E8",
+      "ink": "#161616",
+      "accent": "#EA580C",
       "sidebar": "#f5edde",
       "codeBg": "#f1e9da"
     }
@@ -1008,22 +1088,24 @@
   "liger-zero-base": {
     "name": "Liger Zero / Base",
     "dark": {
-      "surface": "#1A1A22",
-      "ink": "#E8E8F0",
-      "accent": "#00E060",
+      "contrast": 64,
       "diffAdded": "#22C55E",
       "diffRemoved": "#EF4444",
       "skill": "#D4A830",
+      "surface": "#1A1A22",
+      "ink": "#E8E8F0",
+      "accent": "#00E060",
       "sidebar": "#22222C",
       "codeBg": "#141418"
     },
     "light": {
-      "surface": "#F2F2F6",
-      "ink": "#1E1E28",
-      "accent": "#00945A",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#DC2626",
       "skill": "#A07820",
+      "surface": "#F2F2F6",
+      "ink": "#1E1E28",
+      "accent": "#00945A",
       "sidebar": "#E4E4EC",
       "codeBg": "#EAEAF0"
     }
@@ -1031,22 +1113,24 @@
   "liger-zero-schneider": {
     "name": "Liger Zero / Schneider",
     "dark": {
-      "surface": "#1E1410",
-      "ink": "#F0DCD0",
-      "accent": "#E06828",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#FFAA30",
+      "surface": "#1E1410",
+      "ink": "#F0DCD0",
+      "accent": "#E06828",
       "sidebar": "#281A14",
       "codeBg": "#181010"
     },
     "light": {
-      "surface": "#FDF4EE",
-      "ink": "#2A1410",
-      "accent": "#C04A10",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#A03A08",
+      "surface": "#FDF4EE",
+      "ink": "#2A1410",
+      "accent": "#C04A10",
       "sidebar": "#F0E0D4",
       "codeBg": "#F6ECDF"
     }
@@ -1054,22 +1138,24 @@
   "liger-zero-jager": {
     "name": "Liger Zero / Jager",
     "dark": {
-      "surface": "#0C1020",
-      "ink": "#D0DCF0",
-      "accent": "#00C8FF",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#4070C8",
+      "surface": "#0C1020",
+      "ink": "#D0DCF0",
+      "accent": "#00C8FF",
       "sidebar": "#101828",
       "codeBg": "#080C18"
     },
     "light": {
-      "surface": "#EEF2FA",
-      "ink": "#0C1030",
-      "accent": "#1840A0",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#0070B8",
+      "surface": "#EEF2FA",
+      "ink": "#0C1030",
+      "accent": "#1840A0",
       "sidebar": "#DEE6F4",
       "codeBg": "#E4EAF5"
     }
@@ -1077,22 +1163,24 @@
   "liger-zero-panzer": {
     "name": "Liger Zero / Panzer",
     "dark": {
-      "surface": "#141810",
-      "ink": "#D0D8C0",
-      "accent": "#A0E030",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#8A8050",
+      "surface": "#141810",
+      "ink": "#D0D8C0",
+      "accent": "#A0E030",
       "sidebar": "#1C2018",
       "codeBg": "#101408"
     },
     "light": {
-      "surface": "#F0F2EA",
-      "ink": "#1A2010",
-      "accent": "#4A5A30",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#DC2626",
       "skill": "#606838",
+      "surface": "#F0F2EA",
+      "ink": "#1A2010",
+      "accent": "#4A5A30",
       "sidebar": "#E2E6D8",
       "codeBg": "#E8ECD8"
     }
@@ -1100,22 +1188,24 @@
   "master-chief": {
     "name": "Master Chief / Mjolnir",
     "dark": {
-      "surface": "#0F1410",
-      "ink": "#E8F3DD",
-      "accent": "#7FB069",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#FBBF24",
+      "surface": "#0F1410",
+      "ink": "#E8F3DD",
+      "accent": "#7FB069",
       "sidebar": "#080d09",
       "codeBg": "#030804"
     },
     "light": {
-      "surface": "#EAF0DE",
-      "ink": "#1F2A20",
-      "accent": "#5E8C31",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#EAF0DE",
+      "ink": "#1F2A20",
+      "accent": "#5E8C31",
       "sidebar": "#e0e6d4",
       "codeBg": "#dce2d0"
     }
@@ -1123,22 +1213,24 @@
   "aloy-horizon": {
     "name": "Aloy / Horizon",
     "dark": {
-      "surface": "#111926",
-      "ink": "#E9F1F8",
-      "accent": "#F97316",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#38BDF8",
+      "surface": "#111926",
+      "ink": "#E9F1F8",
+      "accent": "#F97316",
       "sidebar": "#0a121f",
       "codeBg": "#050d1a"
     },
     "light": {
-      "surface": "#F5E7D2",
-      "ink": "#2A2A2A",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#0284C7",
+      "surface": "#F5E7D2",
+      "ink": "#2A2A2A",
+      "accent": "#EA580C",
       "sidebar": "#ebddc8",
       "codeBg": "#e7d9c4"
     }
@@ -1146,22 +1238,24 @@
   "kratos-olympus": {
     "name": "Kratos / Olympus",
     "dark": {
-      "surface": "#121010",
-      "ink": "#F7F2EE",
-      "accent": "#B91C1C",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#D4D4D8",
+      "surface": "#121010",
+      "ink": "#F7F2EE",
+      "accent": "#B91C1C",
       "sidebar": "#0b0909",
       "codeBg": "#060404"
     },
     "light": {
-      "surface": "#F6F1EB",
-      "ink": "#2B2321",
-      "accent": "#9A3412",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#64748B",
+      "surface": "#F6F1EB",
+      "ink": "#2B2321",
+      "accent": "#9A3412",
       "sidebar": "#ece7e1",
       "codeBg": "#e8e3dd"
     }
@@ -1169,22 +1263,24 @@
   "xbox-neon": {
     "name": "Xbox / Neon",
     "dark": {
-      "surface": "#0A0F0A",
-      "ink": "#E9FFE9",
-      "accent": "#22C55E",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#A3E635",
+      "surface": "#0A0F0A",
+      "ink": "#E9FFE9",
+      "accent": "#22C55E",
       "sidebar": "#030803",
       "codeBg": "#000300"
     },
     "light": {
-      "surface": "#F4FFF5",
-      "ink": "#12301A",
-      "accent": "#16A34A",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#65A30D",
+      "surface": "#F4FFF5",
+      "ink": "#12301A",
+      "accent": "#16A34A",
       "sidebar": "#eaf5eb",
       "codeBg": "#e6f1e7"
     }
@@ -1192,22 +1288,24 @@
   "playstation-cosmos": {
     "name": "PlayStation / Cosmos",
     "dark": {
-      "surface": "#0C1124",
-      "ink": "#EAF0FF",
-      "accent": "#2563EB",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#818CF8",
+      "surface": "#0C1124",
+      "ink": "#EAF0FF",
+      "accent": "#2563EB",
       "sidebar": "#050a1d",
       "codeBg": "#000518"
     },
     "light": {
-      "surface": "#F4F7FF",
-      "ink": "#1B2A4A",
-      "accent": "#1D4ED8",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#4338CA",
+      "surface": "#F4F7FF",
+      "ink": "#1B2A4A",
+      "accent": "#1D4ED8",
       "sidebar": "#eaedf5",
       "codeBg": "#e6e9f1"
     }
@@ -1215,22 +1313,24 @@
   "nintendo-switch": {
     "name": "Nintendo / Switch Split",
     "dark": {
-      "surface": "#11131A",
-      "ink": "#F8FAFC",
-      "accent": "#22D3EE",
+      "contrast": 64,
       "diffAdded": "#14B8A6",
       "diffRemoved": "#FB7185",
       "skill": "#22D3EE",
+      "surface": "#11131A",
+      "ink": "#F8FAFC",
+      "accent": "#22D3EE",
       "sidebar": "#0a0c13",
       "codeBg": "#05070e"
     },
     "light": {
-      "surface": "#FFF4F5",
-      "ink": "#141414",
-      "accent": "#E11D48",
+      "contrast": 46,
       "diffAdded": "#14B8A6",
       "diffRemoved": "#E11D48",
       "skill": "#06B6D4",
+      "surface": "#FFF4F5",
+      "ink": "#141414",
+      "accent": "#E11D48",
       "sidebar": "#f5eaeb",
       "codeBg": "#f1e6e7"
     }
@@ -1238,22 +1338,24 @@
   "mario-mushroom": {
     "name": "Mario / Mushroom Kingdom",
     "dark": {
-      "surface": "#15151A",
-      "ink": "#FFF8F4",
-      "accent": "#EF4444",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#3B82F6",
+      "surface": "#15151A",
+      "ink": "#FFF8F4",
+      "accent": "#EF4444",
       "sidebar": "#0e0e13",
       "codeBg": "#09090e"
     },
     "light": {
-      "surface": "#FFF5E8",
-      "ink": "#2A1810",
-      "accent": "#F59E0B",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#2563EB",
+      "surface": "#FFF5E8",
+      "ink": "#2A1810",
+      "accent": "#F59E0B",
       "sidebar": "#f5ebde",
       "codeBg": "#f1e7da"
     }
@@ -1261,22 +1363,24 @@
   "sonic-boost": {
     "name": "Sonic / Boost",
     "dark": {
-      "surface": "#0A1326",
-      "ink": "#ECF4FF",
-      "accent": "#3B82F6",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#FACC15",
+      "surface": "#0A1326",
+      "ink": "#ECF4FF",
+      "accent": "#3B82F6",
       "sidebar": "#030c1f",
       "codeBg": "#00071a"
     },
     "light": {
-      "surface": "#F5FBFF",
-      "ink": "#17304F",
-      "accent": "#0EA5E9",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#DC2626",
       "skill": "#EAB308",
+      "surface": "#F5FBFF",
+      "ink": "#17304F",
+      "accent": "#0EA5E9",
       "sidebar": "#ebf1f5",
       "codeBg": "#e7edf1"
     }
@@ -1284,22 +1388,24 @@
   "jet-set-radio": {
     "name": "Jet Set Radio Future",
     "dark": {
-      "surface": "#12121A",
-      "ink": "#F7FFFB",
-      "accent": "#22C55E",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#F97316",
+      "surface": "#12121A",
+      "ink": "#F7FFFB",
+      "accent": "#22C55E",
       "sidebar": "#0b0b13",
       "codeBg": "#06060e"
     },
     "light": {
-      "surface": "#F9FFE8",
-      "ink": "#18231A",
-      "accent": "#84CC16",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#EA580C",
       "skill": "#FB7185",
+      "surface": "#F9FFE8",
+      "ink": "#18231A",
+      "accent": "#84CC16",
       "sidebar": "#eff5de",
       "codeBg": "#ebf1da"
     }
@@ -1307,22 +1413,24 @@
   "samus-metroid": {
     "name": "Samus / Metroid",
     "dark": {
-      "surface": "#120E19",
-      "ink": "#FFF2D8",
-      "accent": "#F59E0B",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F97316",
       "skill": "#7C3AED",
+      "surface": "#120E19",
+      "ink": "#FFF2D8",
+      "accent": "#F59E0B",
       "sidebar": "#0b0712",
       "codeBg": "#06020d"
     },
     "light": {
-      "surface": "#F7EEE1",
-      "ink": "#2A1F1A",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#6D28D9",
+      "surface": "#F7EEE1",
+      "ink": "#2A1F1A",
+      "accent": "#EA580C",
       "sidebar": "#ede4d7",
       "codeBg": "#e9e0d3"
     }
@@ -1330,22 +1438,24 @@
   "pikachu-voltage": {
     "name": "Pikachu / Voltage",
     "dark": {
-      "surface": "#171412",
-      "ink": "#FFF7D6",
-      "accent": "#FACC15",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#60A5FA",
+      "surface": "#171412",
+      "ink": "#FFF7D6",
+      "accent": "#FACC15",
       "sidebar": "#100d0b",
       "codeBg": "#0b0806"
     },
     "light": {
-      "surface": "#FFFBE8",
-      "ink": "#2A2412",
-      "accent": "#EAB308",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#FFFBE8",
+      "ink": "#2A2412",
+      "accent": "#EAB308",
       "sidebar": "#f5f1de",
       "codeBg": "#f1edda"
     }
@@ -1353,22 +1463,24 @@
   "ash-indigo": {
     "name": "Ash / Indigo",
     "dark": {
-      "surface": "#111827",
-      "ink": "#EFF6FF",
-      "accent": "#EF4444",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#60A5FA",
+      "surface": "#111827",
+      "ink": "#EFF6FF",
+      "accent": "#EF4444",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#F5F7FF",
-      "ink": "#1E293B",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#DC2626",
+      "surface": "#F5F7FF",
+      "ink": "#1E293B",
+      "accent": "#2563EB",
       "sidebar": "#ebedf5",
       "codeBg": "#e7e9f1"
     }
@@ -1376,22 +1488,24 @@
   "zelda-hyrule": {
     "name": "Zelda / Hyrule",
     "dark": {
-      "surface": "#0F1712",
-      "ink": "#ECF9F0",
-      "accent": "#10B981",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#EAB308",
+      "surface": "#0F1712",
+      "ink": "#ECF9F0",
+      "accent": "#10B981",
       "sidebar": "#08100b",
       "codeBg": "#030b06"
     },
     "light": {
-      "surface": "#F4F0D7",
-      "ink": "#223127",
-      "accent": "#0F766E",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#F4F0D7",
+      "ink": "#223127",
+      "accent": "#0F766E",
       "sidebar": "#eae6cd",
       "codeBg": "#e6e2c9"
     }
@@ -1399,22 +1513,24 @@
   "doom-slayer": {
     "name": "Doom / Slayer",
     "dark": {
-      "surface": "#0B0D0B",
-      "ink": "#E8F5E9",
-      "accent": "#22C55E",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#EF4444",
       "skill": "#84CC16",
+      "surface": "#0B0D0B",
+      "ink": "#E8F5E9",
+      "accent": "#22C55E",
       "sidebar": "#040604",
       "codeBg": "#000100"
     },
     "light": {
-      "surface": "#E9EFE6",
-      "ink": "#1A261A",
-      "accent": "#15803D",
+      "contrast": 46,
       "diffAdded": "#166534",
       "diffRemoved": "#B91C1C",
       "skill": "#65A30D",
+      "surface": "#E9EFE6",
+      "ink": "#1A261A",
+      "accent": "#15803D",
       "sidebar": "#dfe5dc",
       "codeBg": "#dbe1d8"
     }
@@ -1422,22 +1538,24 @@
   "mega-man-cobalt": {
     "name": "Mega Man / Cobalt",
     "dark": {
-      "surface": "#0C1326",
-      "ink": "#EAF2FF",
-      "accent": "#2563EB",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#38BDF8",
+      "surface": "#0C1326",
+      "ink": "#EAF2FF",
+      "accent": "#2563EB",
       "sidebar": "#050c1f",
       "codeBg": "#00071a"
     },
     "light": {
-      "surface": "#F5FAFF",
-      "ink": "#1B2A4A",
-      "accent": "#3B82F6",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#0284C7",
+      "surface": "#F5FAFF",
+      "ink": "#1B2A4A",
+      "accent": "#3B82F6",
       "sidebar": "#ebf0f5",
       "codeBg": "#e7ecf1"
     }
@@ -1445,22 +1563,24 @@
   "terminator-future-war": {
     "name": "Terminator / Future War",
     "dark": {
-      "surface": "#111111",
-      "ink": "#F5F5F5",
-      "accent": "#DC2626",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#EF4444",
       "skill": "#A1A1AA",
+      "surface": "#111111",
+      "ink": "#F5F5F5",
+      "accent": "#DC2626",
       "sidebar": "#0a0a0a",
       "codeBg": "#050505"
     },
     "light": {
-      "surface": "#E7E5E4",
-      "ink": "#1C1917",
-      "accent": "#78716C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#52525B",
+      "surface": "#E7E5E4",
+      "ink": "#1C1917",
+      "accent": "#78716C",
       "sidebar": "#dddbda",
       "codeBg": "#d9d7d6"
     }
@@ -1468,22 +1588,24 @@
   "avatar-pandora": {
     "name": "Avatar / Pandora",
     "dark": {
-      "surface": "#0B1224",
-      "ink": "#E0F2FE",
-      "accent": "#0EA5E9",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#A78BFA",
+      "surface": "#0B1224",
+      "ink": "#E0F2FE",
+      "accent": "#0EA5E9",
       "sidebar": "#040b1d",
       "codeBg": "#000618"
     },
     "light": {
-      "surface": "#ECFEFF",
-      "ink": "#123047",
-      "accent": "#14B8A6",
+      "contrast": 46,
       "diffAdded": "#0F766E",
       "diffRemoved": "#BE123C",
       "skill": "#6366F1",
+      "surface": "#ECFEFF",
+      "ink": "#123047",
+      "accent": "#14B8A6",
       "sidebar": "#e2f4f5",
       "codeBg": "#def0f1"
     }
@@ -1491,22 +1613,24 @@
   "kill-bill-bride": {
     "name": "Kill Bill / Bride",
     "dark": {
-      "surface": "#121212",
-      "ink": "#FFF8CC",
-      "accent": "#FACC15",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#EF4444",
       "skill": "#F97316",
+      "surface": "#121212",
+      "ink": "#FFF8CC",
+      "accent": "#FACC15",
       "sidebar": "#0b0b0b",
       "codeBg": "#060606"
     },
     "light": {
-      "surface": "#FFFBEA",
-      "ink": "#1F1A10",
-      "accent": "#EAB308",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#EA580C",
+      "surface": "#FFFBEA",
+      "ink": "#1F1A10",
+      "accent": "#EAB308",
       "sidebar": "#f5f1e0",
       "codeBg": "#f1eddc"
     }
@@ -1514,22 +1638,24 @@
   "batman-knight": {
     "name": "Batman / Knight",
     "dark": {
-      "surface": "#0D1117",
-      "ink": "#E5E7EB",
-      "accent": "#FACC15",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#6B7280",
+      "surface": "#0D1117",
+      "ink": "#E5E7EB",
+      "accent": "#FACC15",
       "sidebar": "#060a10",
       "codeBg": "#01050b"
     },
     "light": {
-      "surface": "#F4F1E6",
-      "ink": "#1F2937",
-      "accent": "#111827",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#D97706",
+      "surface": "#F4F1E6",
+      "ink": "#1F2937",
+      "accent": "#111827",
       "sidebar": "#eae7dc",
       "codeBg": "#e6e3d8"
     }
@@ -1537,22 +1663,24 @@
   "superman-krypton": {
     "name": "Superman / Krypton",
     "dark": {
-      "surface": "#111827",
-      "ink": "#F8FAFC",
-      "accent": "#DC2626",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#FACC15",
+      "surface": "#111827",
+      "ink": "#F8FAFC",
+      "accent": "#DC2626",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#F5F9FF",
-      "ink": "#14213D",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#F5F9FF",
+      "ink": "#14213D",
+      "accent": "#2563EB",
       "sidebar": "#ebeff5",
       "codeBg": "#e7ebf1"
     }
@@ -1560,22 +1688,24 @@
   "wonder-woman": {
     "name": "Wonder Woman / Amazon",
     "dark": {
-      "surface": "#16111A",
-      "ink": "#FFF7ED",
-      "accent": "#E11D48",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#FACC15",
+      "surface": "#16111A",
+      "ink": "#FFF7ED",
+      "accent": "#E11D48",
       "sidebar": "#0f0a13",
       "codeBg": "#0a050e"
     },
     "light": {
-      "surface": "#FFF7E8",
-      "ink": "#2D1B24",
-      "accent": "#CA8A04",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#DC2626",
+      "surface": "#FFF7E8",
+      "ink": "#2D1B24",
+      "accent": "#CA8A04",
       "sidebar": "#f5edde",
       "codeBg": "#f1e9da"
     }
@@ -1583,22 +1713,24 @@
   "spider-man": {
     "name": "Spider-Man / Webline",
     "dark": {
-      "surface": "#111827",
-      "ink": "#EFF6FF",
-      "accent": "#DC2626",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#60A5FA",
+      "surface": "#111827",
+      "ink": "#EFF6FF",
+      "accent": "#DC2626",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#F8FBFF",
-      "ink": "#1E293B",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#DC2626",
+      "surface": "#F8FBFF",
+      "ink": "#1E293B",
+      "accent": "#2563EB",
       "sidebar": "#eef1f5",
       "codeBg": "#eaedf1"
     }
@@ -1606,22 +1738,24 @@
   "black-panther": {
     "name": "Black Panther / Vibranium",
     "dark": {
-      "surface": "#0E0B12",
-      "ink": "#F7F3FB",
-      "accent": "#7C3AED",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#A855F7",
+      "surface": "#0E0B12",
+      "ink": "#F7F3FB",
+      "accent": "#7C3AED",
       "sidebar": "#07040b",
       "codeBg": "#020006"
     },
     "light": {
-      "surface": "#F5F3FF",
-      "ink": "#251B2F",
-      "accent": "#6D28D9",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#A855F7",
+      "surface": "#F5F3FF",
+      "ink": "#251B2F",
+      "accent": "#6D28D9",
       "sidebar": "#ebe9f5",
       "codeBg": "#e7e5f1"
     }
@@ -1629,22 +1763,24 @@
   "iron-man": {
     "name": "Iron Man / Arc Reactor",
     "dark": {
-      "surface": "#18100F",
-      "ink": "#FFF7ED",
-      "accent": "#0EA5E9",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#F97316",
+      "surface": "#18100F",
+      "ink": "#FFF7ED",
+      "accent": "#0EA5E9",
       "sidebar": "#110908",
       "codeBg": "#0c0403"
     },
     "light": {
-      "surface": "#FFF6EE",
-      "ink": "#2A1915",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#0284C7",
+      "surface": "#FFF6EE",
+      "ink": "#2A1915",
+      "accent": "#EA580C",
       "sidebar": "#f5ece4",
       "codeBg": "#f1e8e0"
     }
@@ -1652,22 +1788,24 @@
   "daredevil-elektra": {
     "name": "Daredevil / Elektra",
     "dark": {
-      "surface": "#120C10",
-      "ink": "#F8F4F5",
-      "accent": "#B91C1C",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#FB7185",
+      "surface": "#120C10",
+      "ink": "#F8F4F5",
+      "accent": "#B91C1C",
       "sidebar": "#0b0509",
       "codeBg": "#060004"
     },
     "light": {
-      "surface": "#FFF4F4",
-      "ink": "#2B1A1C",
-      "accent": "#E11D48",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#BE123C",
+      "surface": "#FFF4F4",
+      "ink": "#2B1A1C",
+      "accent": "#E11D48",
       "sidebar": "#f5eaea",
       "codeBg": "#f1e6e6"
     }
@@ -1675,22 +1813,24 @@
   "avengers-assemble": {
     "name": "Avengers / Assemble",
     "dark": {
-      "surface": "#111827",
-      "ink": "#F8FAFC",
-      "accent": "#3B82F6",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#EF4444",
+      "surface": "#111827",
+      "ink": "#F8FAFC",
+      "accent": "#3B82F6",
       "sidebar": "#0a1120",
       "codeBg": "#050c1b"
     },
     "light": {
-      "surface": "#F5F7FF",
-      "ink": "#1E293B",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#DC2626",
+      "surface": "#F5F7FF",
+      "ink": "#1E293B",
+      "accent": "#2563EB",
       "sidebar": "#ebedf5",
       "codeBg": "#e7e9f1"
     }
@@ -1698,22 +1838,24 @@
   "justice-league": {
     "name": "Justice League / Watchtower",
     "dark": {
-      "surface": "#0F172A",
-      "ink": "#EAF2FF",
-      "accent": "#60A5FA",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#FACC15",
+      "surface": "#0F172A",
+      "ink": "#EAF2FF",
+      "accent": "#60A5FA",
       "sidebar": "#081023",
       "codeBg": "#030b1e"
     },
     "light": {
-      "surface": "#F7FBFF",
-      "ink": "#1B2A4A",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#CA8A04",
+      "surface": "#F7FBFF",
+      "ink": "#1B2A4A",
+      "accent": "#2563EB",
       "sidebar": "#edf1f5",
       "codeBg": "#e9edf1"
     }
@@ -1721,22 +1863,24 @@
   "aquarius-waterbearer": {
     "name": "Aquarius / Waterbearer",
     "dark": {
-      "surface": "#101A26",
-      "ink": "#EDF7FF",
-      "accent": "#38BDF8",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#A78BFA",
+      "surface": "#101A26",
+      "ink": "#EDF7FF",
+      "accent": "#38BDF8",
       "sidebar": "#09131f",
       "codeBg": "#040e1a"
     },
     "light": {
-      "surface": "#F3FBFF",
-      "ink": "#183246",
-      "accent": "#0EA5E9",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#6366F1",
+      "surface": "#F3FBFF",
+      "ink": "#183246",
+      "accent": "#0EA5E9",
       "sidebar": "#e9f1f5",
       "codeBg": "#e5edf1"
     }
@@ -1744,22 +1888,24 @@
   "pisces-dreamtide": {
     "name": "Pisces / Dreamtide",
     "dark": {
-      "surface": "#111726",
-      "ink": "#EEF2FF",
-      "accent": "#7C3AED",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#38BDF8",
+      "surface": "#111726",
+      "ink": "#EEF2FF",
+      "accent": "#7C3AED",
       "sidebar": "#0a101f",
       "codeBg": "#050b1a"
     },
     "light": {
-      "surface": "#F7F4FF",
-      "ink": "#251F3A",
-      "accent": "#A78BFA",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#0284C7",
+      "surface": "#F7F4FF",
+      "ink": "#251F3A",
+      "accent": "#A78BFA",
       "sidebar": "#edeaf5",
       "codeBg": "#e9e6f1"
     }
@@ -1767,22 +1913,24 @@
   "aries-ember-horn": {
     "name": "Aries / Ember Horn",
     "dark": {
-      "surface": "#1A1110",
-      "ink": "#FFF1EC",
-      "accent": "#F97316",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#FACC15",
+      "surface": "#1A1110",
+      "ink": "#FFF1EC",
+      "accent": "#F97316",
       "sidebar": "#130a09",
       "codeBg": "#0e0504"
     },
     "light": {
-      "surface": "#FFF5EE",
-      "ink": "#2B1B16",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#FFF5EE",
+      "ink": "#2B1B16",
+      "accent": "#EA580C",
       "sidebar": "#f5ebe4",
       "codeBg": "#f1e7e0"
     }
@@ -1790,22 +1938,24 @@
   "taurus-verdant-bronze": {
     "name": "Taurus / Verdant Bronze",
     "dark": {
-      "surface": "#131712",
-      "ink": "#EEF6EA",
-      "accent": "#65A30D",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#D97706",
+      "surface": "#131712",
+      "ink": "#EEF6EA",
+      "accent": "#65A30D",
       "sidebar": "#0c100b",
       "codeBg": "#070b06"
     },
     "light": {
-      "surface": "#F4F0E1",
-      "ink": "#29261E",
-      "accent": "#A16207",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#65A30D",
+      "surface": "#F4F0E1",
+      "ink": "#29261E",
+      "accent": "#A16207",
       "sidebar": "#eae6d7",
       "codeBg": "#e6e2d3"
     }
@@ -1813,22 +1963,24 @@
   "gemini-split-signal": {
     "name": "Gemini / Split Signal",
     "dark": {
-      "surface": "#111522",
-      "ink": "#F1F5FF",
-      "accent": "#22C55E",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#60A5FA",
+      "surface": "#111522",
+      "ink": "#F1F5FF",
+      "accent": "#22C55E",
       "sidebar": "#0a0e1b",
       "codeBg": "#050916"
     },
     "light": {
-      "surface": "#FFF8EF",
-      "ink": "#2A211B",
-      "accent": "#F59E0B",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#2563EB",
+      "surface": "#FFF8EF",
+      "ink": "#2A211B",
+      "accent": "#F59E0B",
       "sidebar": "#f5eee5",
       "codeBg": "#f1eae1"
     }
@@ -1836,22 +1988,24 @@
   "cancer-moontide": {
     "name": "Cancer / Moontide",
     "dark": {
-      "surface": "#101827",
-      "ink": "#EEF4FF",
-      "accent": "#7DD3FC",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#F9A8D4",
+      "surface": "#101827",
+      "ink": "#EEF4FF",
+      "accent": "#7DD3FC",
       "sidebar": "#091120",
       "codeBg": "#040c1b"
     },
     "light": {
-      "surface": "#FFF2F6",
-      "ink": "#2A1E28",
-      "accent": "#F472B6",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#38BDF8",
+      "surface": "#FFF2F6",
+      "ink": "#2A1E28",
+      "accent": "#F472B6",
       "sidebar": "#f5e8ec",
       "codeBg": "#f1e4e8"
     }
@@ -1859,22 +2013,24 @@
   "leo-goldflare": {
     "name": "Leo / Goldflare",
     "dark": {
-      "surface": "#1A130F",
-      "ink": "#FFF5E9",
-      "accent": "#F59E0B",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#FB7185",
+      "surface": "#1A130F",
+      "ink": "#FFF5E9",
+      "accent": "#F59E0B",
       "sidebar": "#130c08",
       "codeBg": "#0e0703"
     },
     "light": {
-      "surface": "#FFF7E6",
-      "ink": "#2B1F13",
-      "accent": "#D97706",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#E11D48",
+      "surface": "#FFF7E6",
+      "ink": "#2B1F13",
+      "accent": "#D97706",
       "sidebar": "#f5eddc",
       "codeBg": "#f1e9d8"
     }
@@ -1882,22 +2038,24 @@
   "virgo-garden-script": {
     "name": "Virgo / Garden Script",
     "dark": {
-      "surface": "#111713",
-      "ink": "#EDF8EF",
-      "accent": "#84CC16",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#38BDF8",
+      "surface": "#111713",
+      "ink": "#EDF8EF",
+      "accent": "#84CC16",
       "sidebar": "#0a100c",
       "codeBg": "#050b07"
     },
     "light": {
-      "surface": "#F6F4E8",
-      "ink": "#27261F",
-      "accent": "#65A30D",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#0284C7",
+      "surface": "#F6F4E8",
+      "ink": "#27261F",
+      "accent": "#65A30D",
       "sidebar": "#eceade",
       "codeBg": "#e8e6da"
     }
@@ -1905,22 +2063,24 @@
   "libra-rose-scale": {
     "name": "Libra / Rose Scale",
     "dark": {
-      "surface": "#15111A",
-      "ink": "#FAF3F8",
-      "accent": "#F472B6",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#A78BFA",
+      "surface": "#15111A",
+      "ink": "#FAF3F8",
+      "accent": "#F472B6",
       "sidebar": "#0e0a13",
       "codeBg": "#09050e"
     },
     "light": {
-      "surface": "#FFF4F8",
-      "ink": "#2B1D27",
-      "accent": "#EC4899",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#8B5CF6",
+      "surface": "#FFF4F8",
+      "ink": "#2B1D27",
+      "accent": "#EC4899",
       "sidebar": "#f5eaee",
       "codeBg": "#f1e6ea"
     }
@@ -1928,22 +2088,24 @@
   "scorpio-midnight-venom": {
     "name": "Scorpio / Midnight Venom",
     "dark": {
-      "surface": "#120E15",
-      "ink": "#F7F2FA",
-      "accent": "#A855F7",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#D4A017",
+      "surface": "#120E15",
+      "ink": "#F7F2FA",
+      "accent": "#A855F7",
       "sidebar": "#0b070e",
       "codeBg": "#060209"
     },
     "light": {
-      "surface": "#F7F2FB",
-      "ink": "#251F2D",
-      "accent": "#7C3AED",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#F7F2FB",
+      "ink": "#251F2D",
+      "accent": "#7C3AED",
       "sidebar": "#ede8f1",
       "codeBg": "#e9e4ed"
     }
@@ -1951,22 +2113,24 @@
   "sagittarius-stararrow": {
     "name": "Sagittarius / Stararrow",
     "dark": {
-      "surface": "#101521",
-      "ink": "#EEF2FF",
-      "accent": "#60A5FA",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#F59E0B",
+      "surface": "#101521",
+      "ink": "#EEF2FF",
+      "accent": "#60A5FA",
       "sidebar": "#090e1a",
       "codeBg": "#040915"
     },
     "light": {
-      "surface": "#FFF7EC",
-      "ink": "#2A2219",
-      "accent": "#FB923C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#FFF7EC",
+      "ink": "#2A2219",
+      "accent": "#FB923C",
       "sidebar": "#f5ede2",
       "codeBg": "#f1e9de"
     }
@@ -1974,22 +2138,24 @@
   "capricorn-stone-summit": {
     "name": "Capricorn / Stone Summit",
     "dark": {
-      "surface": "#131518",
-      "ink": "#F1F3F5",
-      "accent": "#94A3B8",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#D97706",
+      "surface": "#131518",
+      "ink": "#F1F3F5",
+      "accent": "#94A3B8",
       "sidebar": "#0c0e11",
       "codeBg": "#07090c"
     },
     "light": {
-      "surface": "#F2EDE4",
-      "ink": "#2B251F",
-      "accent": "#A16207",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#64748B",
+      "surface": "#F2EDE4",
+      "ink": "#2B251F",
+      "accent": "#A16207",
       "sidebar": "#e8e3da",
       "codeBg": "#e4dfd6"
     }
@@ -1997,22 +2163,24 @@
   "rat-streetwire": {
     "name": "Rat / Streetwire",
     "dark": {
-      "surface": "#121317",
-      "ink": "#F1F5F9",
-      "accent": "#94A3B8",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#60A5FA",
+      "surface": "#121317",
+      "ink": "#F1F5F9",
+      "accent": "#94A3B8",
       "sidebar": "#0b0c10",
       "codeBg": "#06070b"
     },
     "light": {
-      "surface": "#F5F6F8",
-      "ink": "#23262B",
-      "accent": "#64748B",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#F5F6F8",
+      "ink": "#23262B",
+      "accent": "#64748B",
       "sidebar": "#ebecee",
       "codeBg": "#e7e8ea"
     }
@@ -2020,22 +2188,24 @@
   "ox-iron-field": {
     "name": "Ox / Iron Field",
     "dark": {
-      "surface": "#141612",
-      "ink": "#F5F4ED",
-      "accent": "#A3A3A3",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#D97706",
+      "surface": "#141612",
+      "ink": "#F5F4ED",
+      "accent": "#A3A3A3",
       "sidebar": "#0d0f0b",
       "codeBg": "#080a06"
     },
     "light": {
-      "surface": "#F3EBDD",
-      "ink": "#28231D",
-      "accent": "#78716C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#A16207",
+      "surface": "#F3EBDD",
+      "ink": "#28231D",
+      "accent": "#78716C",
       "sidebar": "#e9e1d3",
       "codeBg": "#e5ddcf"
     }
@@ -2043,22 +2213,24 @@
   "tiger-ember-claw": {
     "name": "Tiger / Ember Claw",
     "dark": {
-      "surface": "#1A110E",
-      "ink": "#FFF2EB",
-      "accent": "#F97316",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#FACC15",
+      "surface": "#1A110E",
+      "ink": "#FFF2EB",
+      "accent": "#F97316",
       "sidebar": "#130a07",
       "codeBg": "#0e0502"
     },
     "light": {
-      "surface": "#FFF4E9",
-      "ink": "#2B1C15",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#FFF4E9",
+      "ink": "#2B1C15",
+      "accent": "#EA580C",
       "sidebar": "#f5eadf",
       "codeBg": "#f1e6db"
     }
@@ -2066,22 +2238,24 @@
   "rabbit-moonburrow": {
     "name": "Rabbit / Moonburrow",
     "dark": {
-      "surface": "#15111A",
-      "ink": "#FAF4FA",
-      "accent": "#F9A8D4",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#C084FC",
+      "surface": "#15111A",
+      "ink": "#FAF4FA",
+      "accent": "#F9A8D4",
       "sidebar": "#0e0a13",
       "codeBg": "#09050e"
     },
     "light": {
-      "surface": "#FFF3F8",
-      "ink": "#2A1F28",
-      "accent": "#F472B6",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#A855F7",
+      "surface": "#FFF3F8",
+      "ink": "#2A1F28",
+      "accent": "#F472B6",
       "sidebar": "#f5e9ee",
       "codeBg": "#f1e5ea"
     }
@@ -2089,22 +2263,24 @@
   "dragon-celestial-forge": {
     "name": "Dragon / Celestial Forge",
     "dark": {
-      "surface": "#0F1422",
-      "ink": "#EEF2FF",
-      "accent": "#38BDF8",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#D4A017",
+      "surface": "#0F1422",
+      "ink": "#EEF2FF",
+      "accent": "#38BDF8",
       "sidebar": "#080d1b",
       "codeBg": "#030816"
     },
     "light": {
-      "surface": "#F7F9FF",
-      "ink": "#1E2740",
-      "accent": "#2563EB",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#F7F9FF",
+      "ink": "#1E2740",
+      "accent": "#2563EB",
       "sidebar": "#edeff5",
       "codeBg": "#e9ebf1"
     }
@@ -2112,22 +2288,24 @@
   "snake-jade-venom": {
     "name": "Snake / Jade Venom",
     "dark": {
-      "surface": "#101713",
-      "ink": "#EEF7F1",
-      "accent": "#10B981",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#A855F7",
+      "surface": "#101713",
+      "ink": "#EEF7F1",
+      "accent": "#10B981",
       "sidebar": "#09100c",
       "codeBg": "#040b07"
     },
     "light": {
-      "surface": "#F2F7F1",
-      "ink": "#1E2A22",
-      "accent": "#059669",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#7C3AED",
+      "surface": "#F2F7F1",
+      "ink": "#1E2A22",
+      "accent": "#059669",
       "sidebar": "#e8ede7",
       "codeBg": "#e4e9e3"
     }
@@ -2135,22 +2313,24 @@
   "horse-sunrunner": {
     "name": "Horse / Sunrunner",
     "dark": {
-      "surface": "#16120F",
-      "ink": "#FFF3E8",
-      "accent": "#FB923C",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#60A5FA",
+      "surface": "#16120F",
+      "ink": "#FFF3E8",
+      "accent": "#FB923C",
       "sidebar": "#0f0b08",
       "codeBg": "#0a0603"
     },
     "light": {
-      "surface": "#FFF5E8",
-      "ink": "#2A1E15",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#FFF5E8",
+      "ink": "#2A1E15",
+      "accent": "#EA580C",
       "sidebar": "#f5ebde",
       "codeBg": "#f1e7da"
     }
@@ -2158,22 +2338,24 @@
   "goat-cloud-fleece": {
     "name": "Goat / Cloud Fleece",
     "dark": {
-      "surface": "#14141A",
-      "ink": "#F6F5FA",
-      "accent": "#A78BFA",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#F9A8D4",
+      "surface": "#14141A",
+      "ink": "#F6F5FA",
+      "accent": "#A78BFA",
       "sidebar": "#0d0d13",
       "codeBg": "#08080e"
     },
     "light": {
-      "surface": "#F8F7FC",
-      "ink": "#242233",
-      "accent": "#8B5CF6",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#EC4899",
+      "surface": "#F8F7FC",
+      "ink": "#242233",
+      "accent": "#8B5CF6",
       "sidebar": "#eeedf2",
       "codeBg": "#eae9ee"
     }
@@ -2181,22 +2363,24 @@
   "monkey-neon-trickster": {
     "name": "Monkey / Neon Trickster",
     "dark": {
-      "surface": "#111620",
-      "ink": "#EEF8FF",
-      "accent": "#22C55E",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#F59E0B",
+      "surface": "#111620",
+      "ink": "#EEF8FF",
+      "accent": "#22C55E",
       "sidebar": "#0a0f19",
       "codeBg": "#050a14"
     },
     "light": {
-      "surface": "#FFF8EE",
-      "ink": "#2A2319",
-      "accent": "#EAB308",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#16A34A",
+      "surface": "#FFF8EE",
+      "ink": "#2A2319",
+      "accent": "#EAB308",
       "sidebar": "#f5eee4",
       "codeBg": "#f1eae0"
     }
@@ -2204,22 +2388,24 @@
   "rooster-dawn-brass": {
     "name": "Rooster / Dawn Brass",
     "dark": {
-      "surface": "#181210",
-      "ink": "#FFF5ED",
-      "accent": "#D97706",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#DC2626",
+      "surface": "#181210",
+      "ink": "#FFF5ED",
+      "accent": "#D97706",
       "sidebar": "#110b09",
       "codeBg": "#0c0604"
     },
     "light": {
-      "surface": "#FFF7EA",
-      "ink": "#2B1E16",
-      "accent": "#B45309",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#EA580C",
+      "surface": "#FFF7EA",
+      "ink": "#2B1E16",
+      "accent": "#B45309",
       "sidebar": "#f5ede0",
       "codeBg": "#f1e9dc"
     }
@@ -2227,22 +2413,24 @@
   "dog-hearthguard": {
     "name": "Dog / Hearthguard",
     "dark": {
-      "surface": "#151313",
-      "ink": "#F8F4F0",
-      "accent": "#A16207",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#60A5FA",
+      "surface": "#151313",
+      "ink": "#F8F4F0",
+      "accent": "#A16207",
       "sidebar": "#0e0c0c",
       "codeBg": "#090707"
     },
     "light": {
-      "surface": "#F4ECE4",
-      "ink": "#2A231E",
-      "accent": "#92400E",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#2563EB",
+      "surface": "#F4ECE4",
+      "ink": "#2A231E",
+      "accent": "#92400E",
       "sidebar": "#eae2da",
       "codeBg": "#e6ded6"
     }
@@ -2250,45 +2438,74 @@
   "pig-velvet-orchard": {
     "name": "Pig / Velvet Orchard",
     "dark": {
-      "surface": "#151118",
-      "ink": "#FAF4F8",
-      "accent": "#EC4899",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#84CC16",
+      "surface": "#151118",
+      "ink": "#FAF4F8",
+      "accent": "#EC4899",
       "sidebar": "#0e0a11",
       "codeBg": "#09050c"
     },
     "light": {
-      "surface": "#FFF3F8",
-      "ink": "#2A1F27",
-      "accent": "#DB2777",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#65A30D",
+      "surface": "#FFF3F8",
+      "ink": "#2A1F27",
+      "accent": "#DB2777",
       "sidebar": "#f5e9ee",
       "codeBg": "#f1e5ea"
+    }
+  },
+  "liquid-glass": {
+    "name": "Liquid Glass / Apple",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#bf7af0",
+      "surface": "#1a1d24",
+      "ink": "#e4e8ef",
+      "accent": "#5ac8fa",
+      "sidebar": "#141720",
+      "codeBg": "#12151b"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "surface": "#f2f4f8",
+      "ink": "#1c1e24",
+      "accent": "#007aff",
+      "sidebar": "#e8ecf2",
+      "codeBg": "#e2e6ee"
     }
   },
   "current-valentine": {
     "name": "Meridian Bloom",
     "dark": {
-      "surface": "#12131D",
-      "ink": "#F3F6FF",
-      "accent": "#4F7CFF",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#F472B6",
+      "surface": "#12131D",
+      "ink": "#F3F6FF",
+      "accent": "#4F7CFF",
       "sidebar": "#0b0c16",
       "codeBg": "#060711"
     },
     "light": {
-      "surface": "#FFF4F7",
-      "ink": "#201A26",
-      "accent": "#7C3AED",
+      "contrast": 46,
       "diffAdded": "#16A34A",
       "diffRemoved": "#DC2626",
       "skill": "#EC4899",
+      "surface": "#FFF4F7",
+      "ink": "#201A26",
+      "accent": "#7C3AED",
       "sidebar": "#f5eaed",
       "codeBg": "#f1e6e9"
     }
@@ -2296,22 +2513,24 @@
   "second-tide": {
     "name": "Tideglass",
     "dark": {
-      "surface": "#101A24",
-      "ink": "#EAF8FF",
-      "accent": "#4CC9F0",
+      "contrast": 64,
       "diffAdded": "#2DD4BF",
       "diffRemoved": "#FB7185",
       "skill": "#A78BFA",
+      "surface": "#101A24",
+      "ink": "#EAF8FF",
+      "accent": "#4CC9F0",
       "sidebar": "#09131d",
       "codeBg": "#040e18"
     },
     "light": {
-      "surface": "#FFF8F0",
-      "ink": "#2A1F1B",
-      "accent": "#FF8A5B",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#6366F1",
+      "surface": "#FFF8F0",
+      "ink": "#2A1F1B",
+      "accent": "#FF8A5B",
       "sidebar": "#f5eee6",
       "codeBg": "#f1eae2"
     }
@@ -2319,22 +2538,24 @@
   "keepsake-gold": {
     "name": "Keepsake Halo",
     "dark": {
-      "surface": "#151112",
-      "ink": "#FFF7E8",
-      "accent": "#D4A017",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#A78BFA",
+      "surface": "#151112",
+      "ink": "#FFF7E8",
+      "accent": "#D4A017",
       "sidebar": "#0e0a0b",
       "codeBg": "#090506"
     },
     "light": {
-      "surface": "#F8F1E3",
-      "ink": "#2B241C",
-      "accent": "#B45309",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#7C3AED",
+      "surface": "#F8F1E3",
+      "ink": "#2B241C",
+      "accent": "#B45309",
       "sidebar": "#eee7d9",
       "codeBg": "#eae3d5"
     }
@@ -2342,22 +2563,24 @@
   "north-current": {
     "name": "North Current",
     "dark": {
-      "surface": "#101A28",
-      "ink": "#EEF6FF",
-      "accent": "#3B82F6",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#C084FC",
+      "surface": "#101A28",
+      "ink": "#EEF6FF",
+      "accent": "#3B82F6",
       "sidebar": "#091321",
       "codeBg": "#040e1c"
     },
     "light": {
-      "surface": "#F4FAFF",
-      "ink": "#1A2940",
-      "accent": "#0EA5E9",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#8B5CF6",
+      "surface": "#F4FAFF",
+      "ink": "#1A2940",
+      "accent": "#0EA5E9",
       "sidebar": "#eaf0f5",
       "codeBg": "#e6ecf1"
     }
@@ -2365,22 +2588,24 @@
   "quiet-orbit": {
     "name": "Quiet Orbit",
     "dark": {
-      "surface": "#11121A",
-      "ink": "#F4F4FA",
-      "accent": "#8B7CF6",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#D4A017",
+      "surface": "#11121A",
+      "ink": "#F4F4FA",
+      "accent": "#8B7CF6",
       "sidebar": "#0a0b13",
       "codeBg": "#05060e"
     },
     "light": {
-      "surface": "#F7F3FB",
-      "ink": "#251F2D",
-      "accent": "#A78BFA",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#CA8A04",
+      "surface": "#F7F3FB",
+      "ink": "#251F2D",
+      "accent": "#A78BFA",
       "sidebar": "#ede9f1",
       "codeBg": "#e9e5ed"
     }
@@ -2388,22 +2613,24 @@
   "lantern-echo": {
     "name": "Lantern Echo",
     "dark": {
-      "surface": "#151015",
-      "ink": "#FAF3F7",
-      "accent": "#EAB308",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#A855F7",
+      "surface": "#151015",
+      "ink": "#FAF3F7",
+      "accent": "#EAB308",
       "sidebar": "#0e090e",
       "codeBg": "#090409"
     },
     "light": {
-      "surface": "#FFF5EA",
-      "ink": "#2B211D",
-      "accent": "#CA8A04",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#7C3AED",
+      "surface": "#FFF5EA",
+      "ink": "#2B211D",
+      "accent": "#CA8A04",
       "sidebar": "#f5ebe0",
       "codeBg": "#f1e7dc"
     }
@@ -2411,22 +2638,24 @@
   "harvest-theory": {
     "name": "Harvest Relay",
     "dark": {
-      "surface": "#141814",
-      "ink": "#EEF6EA",
-      "accent": "#7A8F3B",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#F59E0B",
+      "surface": "#141814",
+      "ink": "#EEF6EA",
+      "accent": "#7A8F3B",
       "sidebar": "#0d110d",
       "codeBg": "#080c08"
     },
     "light": {
-      "surface": "#F3F0E1",
-      "ink": "#2A2921",
-      "accent": "#6B8E23",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#F3F0E1",
+      "ink": "#2A2921",
+      "accent": "#6B8E23",
       "sidebar": "#e9e6d7",
       "codeBg": "#e5e2d3"
     }
@@ -2434,22 +2663,24 @@
   "blue-halo": {
     "name": "Blue Halo",
     "dark": {
-      "surface": "#101827",
-      "ink": "#EEF4FF",
-      "accent": "#60A5FA",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#FB7185",
       "skill": "#C084FC",
+      "surface": "#101827",
+      "ink": "#EEF4FF",
+      "accent": "#60A5FA",
       "sidebar": "#091120",
       "codeBg": "#040c1b"
     },
     "light": {
-      "surface": "#F4FBFF",
-      "ink": "#1A2840",
-      "accent": "#38BDF8",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#8B5CF6",
+      "surface": "#F4FBFF",
+      "ink": "#1A2840",
+      "accent": "#38BDF8",
       "sidebar": "#eaf1f5",
       "codeBg": "#e6edf1"
     }
@@ -2457,22 +2688,24 @@
   "may-mosaic": {
     "name": "Vernal Mosaic",
     "dark": {
-      "surface": "#121714",
-      "ink": "#F1F8EE",
-      "accent": "#84CC16",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#F59E0B",
+      "surface": "#121714",
+      "ink": "#F1F8EE",
+      "accent": "#84CC16",
       "sidebar": "#0b100d",
       "codeBg": "#060b08"
     },
     "light": {
-      "surface": "#FFF6E8",
-      "ink": "#2C221B",
-      "accent": "#F59E0B",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#C2410C",
       "skill": "#65A30D",
+      "surface": "#FFF6E8",
+      "ink": "#2C221B",
+      "accent": "#F59E0B",
       "sidebar": "#f5ecde",
       "codeBg": "#f1e8da"
     }
@@ -2480,22 +2713,24 @@
   "solar-frequency": {
     "name": "Solar Frequency",
     "dark": {
-      "surface": "#1A1210",
-      "ink": "#FFF4EC",
-      "accent": "#F97316",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#FB7185",
       "skill": "#FACC15",
+      "surface": "#1A1210",
+      "ink": "#FFF4EC",
+      "accent": "#F97316",
       "sidebar": "#130b09",
       "codeBg": "#0e0604"
     },
     "light": {
-      "surface": "#FFF7E7",
-      "ink": "#2A1C14",
-      "accent": "#EA580C",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#CA8A04",
+      "surface": "#FFF7E7",
+      "ink": "#2A1C14",
+      "accent": "#EA580C",
       "sidebar": "#f5eddd",
       "codeBg": "#f1e9d9"
     }
@@ -2503,22 +2738,24 @@
   "harbor-lace": {
     "name": "Harbor Lace",
     "dark": {
-      "surface": "#11161F",
-      "ink": "#EFF7FF",
-      "accent": "#7DD3FC",
+      "contrast": 64,
       "diffAdded": "#34D399",
       "diffRemoved": "#F87171",
       "skill": "#F9A8D4",
+      "surface": "#11161F",
+      "ink": "#EFF7FF",
+      "accent": "#7DD3FC",
       "sidebar": "#0a0f18",
       "codeBg": "#050a13"
     },
     "light": {
-      "surface": "#FFF3F6",
-      "ink": "#2A1E28",
-      "accent": "#F472B6",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#BE123C",
       "skill": "#38BDF8",
+      "surface": "#FFF3F6",
+      "ink": "#2A1E28",
+      "accent": "#F472B6",
       "sidebar": "#f5e9ec",
       "codeBg": "#f1e5e8"
     }
@@ -2526,392 +2763,26 @@
   "late-summer-steel": {
     "name": "August Alloy",
     "dark": {
-      "surface": "#131619",
-      "ink": "#EEF2F4",
-      "accent": "#94A3B8",
+      "contrast": 64,
       "diffAdded": "#4ADE80",
       "diffRemoved": "#F87171",
       "skill": "#F59E0B",
+      "surface": "#131619",
+      "ink": "#EEF2F4",
+      "accent": "#94A3B8",
       "sidebar": "#0c0f12",
       "codeBg": "#070a0d"
     },
     "light": {
-      "surface": "#F5EEE4",
-      "ink": "#2D261E",
-      "accent": "#A16207",
+      "contrast": 46,
       "diffAdded": "#15803D",
       "diffRemoved": "#B91C1C",
       "skill": "#64748B",
+      "surface": "#F5EEE4",
+      "ink": "#2D261E",
+      "accent": "#A16207",
       "sidebar": "#ebe4da",
       "codeBg": "#e7e0d6"
-    }
-  },
-  "liquid-glass": {
-    "name": "Liquid Glass / Apple",
-    "dark": {
-      "surface": "#1a1d24",
-      "ink": "#e4e8ef",
-      "accent": "#5ac8fa",
-      "diffAdded": "#40c977",
-      "diffRemoved": "#fa423e",
-      "skill": "#bf7af0",
-      "sidebar": "#141720",
-      "codeBg": "#12151b"
-    },
-    "light": {
-      "surface": "#f2f4f8",
-      "ink": "#1c1e24",
-      "accent": "#007aff",
-      "diffAdded": "#00a240",
-      "diffRemoved": "#ba2623",
-      "skill": "#924ff7",
-      "sidebar": "#e8ecf2",
-      "codeBg": "#e2e6ee"
-    }
-  },
-  "patron": {
-    "name": "Patron",
-    "dark": {
-      "surface": "#0F0D09",
-      "ink": "#FFF5DC",
-      "accent": "#D4A54A",
-      "diffAdded": "#5CB870",
-      "diffRemoved": "#E05A4F",
-      "skill": "#C9A0DC",
-      "sidebar": "#0A0805",
-      "codeBg": "#080703"
-    },
-    "light": {
-      "surface": "#FAF5EC",
-      "ink": "#2C2416",
-      "accent": "#A87B1E",
-      "diffAdded": "#1D8A42",
-      "diffRemoved": "#B33024",
-      "skill": "#8855BB",
-      "sidebar": "#F2ECDF",
-      "codeBg": "#EDE6D6"
-    }
-  },
-  "seraphim": {
-    "name": "Seraphim",
-    "dark": {
-      "surface": "#0B0E18",
-      "ink": "#EAF0FF",
-      "accent": "#7EB4F0",
-      "diffAdded": "#48C78E",
-      "diffRemoved": "#E86B6B",
-      "skill": "#D1A6F0",
-      "sidebar": "#080B14",
-      "codeBg": "#06080F"
-    },
-    "light": {
-      "surface": "#F5F8FF",
-      "ink": "#1C2235",
-      "accent": "#4A7FCC",
-      "diffAdded": "#18874A",
-      "diffRemoved": "#C03030",
-      "skill": "#9565CC",
-      "sidebar": "#EBEFFA",
-      "codeBg": "#E4E9F6"
-    }
-  },
-  "mint-condition": {
-    "name": "Mint Condition",
-    "dark": {
-      "surface": "#090E0B",
-      "ink": "#E8F5EC",
-      "accent": "#4FBF7A",
-      "diffAdded": "#44D490",
-      "diffRemoved": "#E4605A",
-      "skill": "#B08FDB",
-      "sidebar": "#060A07",
-      "codeBg": "#040804"
-    },
-    "light": {
-      "surface": "#F4FAF5",
-      "ink": "#1A2B20",
-      "accent": "#2D8C54",
-      "diffAdded": "#1A8544",
-      "diffRemoved": "#B82E2E",
-      "skill": "#7E52B3",
-      "sidebar": "#E9F3EB",
-      "codeBg": "#E0ECDF"
-    }
-  },
-  "cupids-code": {
-    "name": "Cupid's Code",
-    "dark": {
-      "surface": "#140B0E",
-      "ink": "#FFE8EE",
-      "accent": "#E0708A",
-      "diffAdded": "#50C484",
-      "diffRemoved": "#D94F5A",
-      "skill": "#C490D8",
-      "sidebar": "#100709",
-      "codeBg": "#0D0507"
-    },
-    "light": {
-      "surface": "#FFF4F6",
-      "ink": "#2D1820",
-      "accent": "#C44466",
-      "diffAdded": "#1B8946",
-      "diffRemoved": "#A82D3E",
-      "skill": "#9A5CB8",
-      "sidebar": "#F8E9ED",
-      "codeBg": "#F2DFE5"
-    }
-  },
-  "heartbeat": {
-    "name": "Heartbeat",
-    "dark": {
-      "surface": "#180A0A",
-      "ink": "#FFE0E0",
-      "accent": "#E84057",
-      "diffAdded": "#4FCA80",
-      "diffRemoved": "#E84057",
-      "skill": "#D88CCF",
-      "sidebar": "#130606",
-      "codeBg": "#100404"
-    },
-    "light": {
-      "surface": "#FFF5F5",
-      "ink": "#2D1018",
-      "accent": "#C62840",
-      "diffAdded": "#1D8848",
-      "diffRemoved": "#B82030",
-      "skill": "#A050A8",
-      "sidebar": "#F8E8EA",
-      "codeBg": "#F2DEE2"
-    }
-  },
-  "summit": {
-    "name": "Summit",
-    "dark": {
-      "surface": "#0E1018",
-      "ink": "#E8ECF4",
-      "accent": "#F0C050",
-      "diffAdded": "#50C880",
-      "diffRemoved": "#E86060",
-      "skill": "#B8A0E0",
-      "sidebar": "#0A0C14",
-      "codeBg": "#080A10"
-    },
-    "light": {
-      "surface": "#F8F6F0",
-      "ink": "#1C1E28",
-      "accent": "#C89820",
-      "diffAdded": "#1A8844",
-      "diffRemoved": "#B83030",
-      "skill": "#7850B8",
-      "sidebar": "#F0ECE4",
-      "codeBg": "#E8E4DA"
-    }
-  },
-  "the-builder": {
-    "name": "The Builder",
-    "dark": {
-      "surface": "#121416",
-      "ink": "#E8E4E0",
-      "accent": "#E8802A",
-      "diffAdded": "#4CC87A",
-      "diffRemoved": "#E05550",
-      "skill": "#C090E0",
-      "sidebar": "#0D0F11",
-      "codeBg": "#0A0C0E"
-    },
-    "light": {
-      "surface": "#F8F6F2",
-      "ink": "#1C1A18",
-      "accent": "#C06018",
-      "diffAdded": "#1D8844",
-      "diffRemoved": "#B83028",
-      "skill": "#8050B0",
-      "sidebar": "#F0EEEA",
-      "codeBg": "#E8E6E0"
-    }
-  },
-  "kaleidoscope": {
-    "name": "Kaleidoscope",
-    "dark": {
-      "surface": "#0E0A14",
-      "ink": "#F0E8FF",
-      "accent": "#E850E8",
-      "diffAdded": "#40E890",
-      "diffRemoved": "#FF5070",
-      "skill": "#50C8FF",
-      "sidebar": "#0A0610",
-      "codeBg": "#08050D"
-    },
-    "light": {
-      "surface": "#FFF8FC",
-      "ink": "#1A1028",
-      "accent": "#C030C0",
-      "diffAdded": "#18A050",
-      "diffRemoved": "#D02050",
-      "skill": "#2090D0",
-      "sidebar": "#F8F0F8",
-      "codeBg": "#F0E8F4"
-    }
-  },
-  "agent-claw": {
-    "name": "Agent Claw",
-    "dark": {
-      "surface": "#0A100A",
-      "ink": "#D8F0D8",
-      "accent": "#00E870",
-      "diffAdded": "#40D080",
-      "diffRemoved": "#E85050",
-      "skill": "#60C0E0",
-      "sidebar": "#060C06",
-      "codeBg": "#040A04"
-    },
-    "light": {
-      "surface": "#F2FAF2",
-      "ink": "#0C1C0C",
-      "accent": "#00A848",
-      "diffAdded": "#18884A",
-      "diffRemoved": "#B03030",
-      "skill": "#2888B0",
-      "sidebar": "#E8F4E8",
-      "codeBg": "#E0EEE0"
-    }
-  },
-  "homebase": {
-    "name": "Homebase",
-    "dark": {
-      "surface": "#14100A",
-      "ink": "#F0E8D8",
-      "accent": "#E0A040",
-      "diffAdded": "#50C078",
-      "diffRemoved": "#E06048",
-      "skill": "#C898E0",
-      "sidebar": "#100C06",
-      "codeBg": "#0D0A04"
-    },
-    "light": {
-      "surface": "#FAF6F0",
-      "ink": "#2C2418",
-      "accent": "#B87818",
-      "diffAdded": "#1D8840",
-      "diffRemoved": "#B84028",
-      "skill": "#8860B8",
-      "sidebar": "#F2EEE4",
-      "codeBg": "#EAE6DA"
-    }
-  },
-  "yin-yang": {
-    "name": "Yin & Yang",
-    "dark": {
-      "surface": "#0A0A0A",
-      "ink": "#F0F0F0",
-      "accent": "#FFFFFF",
-      "diffAdded": "#48D080",
-      "diffRemoved": "#E85050",
-      "skill": "#B0B0B0",
-      "sidebar": "#050505",
-      "codeBg": "#030303"
-    },
-    "light": {
-      "surface": "#FAFAFA",
-      "ink": "#0A0A0A",
-      "accent": "#000000",
-      "diffAdded": "#1A8848",
-      "diffRemoved": "#B82828",
-      "skill": "#505050",
-      "sidebar": "#F0F0F0",
-      "codeBg": "#E8E8E8"
-    }
-  },
-  "cupids-love": {
-    "name": "Cupid's Love",
-    "dark": {
-      "surface": "#1e1018",
-      "ink": "#fce4ec",
-      "accent": "#e91e63",
-      "diffAdded": "#f48fb1",
-      "diffRemoved": "#ef5350",
-      "skill": "#ce93d8",
-      "sidebar": "#180c14",
-      "codeBg": "#150910"
-    },
-    "light": {
-      "surface": "#fef2f5",
-      "ink": "#3e1929",
-      "accent": "#c2185b",
-      "diffAdded": "#2e7d32",
-      "diffRemoved": "#c62828",
-      "skill": "#8e24aa",
-      "sidebar": "#f9e8ed",
-      "codeBg": "#f5dfe5"
-    }
-  },
-  "sad-boy-joy": {
-    "name": "Sad Boy Joy",
-    "dark": {
-      "surface": "#0f1523",
-      "ink": "#c8d6e5",
-      "accent": "#6c5ce7",
-      "diffAdded": "#55efc4",
-      "diffRemoved": "#fd79a8",
-      "skill": "#a29bfe",
-      "sidebar": "#0b1019",
-      "codeBg": "#080c15"
-    },
-    "light": {
-      "surface": "#f0f0ff",
-      "ink": "#2d3436",
-      "accent": "#6c5ce7",
-      "diffAdded": "#00b894",
-      "diffRemoved": "#d63031",
-      "skill": "#a29bfe",
-      "sidebar": "#e4e4f5",
-      "codeBg": "#ddddf0"
-    }
-  },
-  "journey-for-wisdom": {
-    "name": "The Journey for Wisdom",
-    "dark": {
-      "surface": "#1a1610",
-      "ink": "#e8dcc8",
-      "accent": "#d4a030",
-      "diffAdded": "#81c784",
-      "diffRemoved": "#e57373",
-      "skill": "#ba68c8",
-      "sidebar": "#141009",
-      "codeBg": "#100c06"
-    },
-    "light": {
-      "surface": "#faf6ef",
-      "ink": "#2c2416",
-      "accent": "#b8860b",
-      "diffAdded": "#388e3c",
-      "diffRemoved": "#c62828",
-      "skill": "#7b1fa2",
-      "sidebar": "#f0ebe1",
-      "codeBg": "#ebe5d8"
-    }
-  },
-  "solace-and-serenity": {
-    "name": "Solace and Serenity",
-    "dark": {
-      "surface": "#0e1a1e",
-      "ink": "#d4e9ef",
-      "accent": "#4db6ac",
-      "diffAdded": "#80cbc4",
-      "diffRemoved": "#ef9a9a",
-      "skill": "#90caf9",
-      "sidebar": "#091316",
-      "codeBg": "#060f12"
-    },
-    "light": {
-      "surface": "#f0f8f7",
-      "ink": "#1a3038",
-      "accent": "#00897b",
-      "diffAdded": "#2e7d32",
-      "diffRemoved": "#c62828",
-      "skill": "#1565c0",
-      "sidebar": "#e2f0ee",
-      "codeBg": "#d9ebe8"
     }
   }
 }

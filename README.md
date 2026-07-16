@@ -22,7 +22,10 @@
 - **Create your own** — the built-in theme builder lets you design and share custom themes
 - **Color Me Lucky** — random theme generator with 6 color harmonies and ~5000+ name combos
 - **Community themes** — sign in with GitHub and submit your creations
-- **Leaderboard** — monthly and all-time creator rankings
+- **Leaderboard** — daily, weekly, monthly, and all-time creator rankings
+- **Codex plugin** — discover, create, preview, apply, publish, and collect themes without leaving the conversation
+- **Voice-friendly creation** — turn a spoken idea, fandom, event, or personality prompt into a named dark/light theme
+- **GitHub feedback** — prepare a best-effort redacted GitHub Issue for exact review without silently posting it
 
 ## Quick start
 
@@ -46,6 +49,8 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Contributing guide](CONTRIBUTING.md)
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
+- [Codex plugin guide](docs/PLUGIN.md)
+- [OpenAI Build Week 2026 notes](docs/BUILD-WEEK-2026.md)
 
 ## Project structure
 
@@ -94,6 +99,10 @@ convex/                    → Backend (Convex) — auth, likes, community theme
   themes.ts                → Community theme submissions
   http.ts                  → HTTP route composition entrypoint
 api/                       → Vercel edge/serverless endpoints (`/api/themes`, OG, share, warm-cache)
+  mcp.js                   → Stateless MCP endpoint for the DexThemes plugin
+server/                    → MCP tools, theme creation/validation, generated app resource
+mcp-app/                   → Interactive Apps SDK theme cards and previews
+plugins/dexthemes/         → Installable Codex plugin manifest, MCP config, assets, and skill
 docs/themes.schema.json    → JSON schema for theme submissions
 docs/theme-submission-example.json → Example contribution payload
 ```
@@ -116,13 +125,15 @@ If you want a small place to start, prefer issues labeled `good first issue` or 
 
 The backend runs on [Convex](https://convex.dev) and handles:
 
-- GitHub OAuth (PKCE + HMAC-signed state)
-- Agent self-registration and API key issuance (`/auth/agent` preferred)
+- GitHub OAuth with one-time browser-bound state and PKCE S256
+- GitHub-authenticated agent/API key issuance with SHA-256 hash-at-rest
+- OAuth 2.1 resource-server support for the plugin, with GitHub as the upstream login
 - Browser session management (HttpOnly same-site cookies in production, token handoff only for localhost/dev)
 - Community theme submissions and moderation
-- Like/unlike with optimistic UI
+- Like/unlike with canonical theme resolution and optimistic UI
 - Apply tracking
 - Color Me Lucky API endpoints
+- Plugin-bound stats, unlocks, and confirmed community submissions
 
 Copy [.env.example](.env.example) to `.env.local` to get started. All secrets live in Convex environment variables — nothing is committed to the repo.
 
@@ -132,10 +143,18 @@ DexThemes is built on top of Codex theme import and settings behavior that this 
 
 ## Security
 
-- All OAuth state parameters are HMAC-SHA256 signed and time-limited
+- OAuth state values are cryptographically random, single-use, time-limited, bound to the initiating browser, and bound to PKCE S256 verifiers
 - Session tokens are 256-bit cryptographically random hex strings
-- CORS is environment-gated (localhost only in development)
-- All user input is escaped through `escapeHtml()` before rendering
+- New agent/API keys are stored only as SHA-256 digests and shown once
+- MCP identity is derived from a verified JWT; tools never accept a user or owner ID
+- MCP JWTs require a valid signature, issuer, audience, scope, and expiry; identity and network quotas are enforced independently
+- Theme IDs and palettes are checked against the canonical static catalog, and every color is validated before storage, preview, or apply
+- Monthly ranking achievements require unique signed-in non-author adoptions; raw copy analytics alone cannot unlock them
+- Daily and weekly #1 results are finalized on closed UTC periods. Repeat winners keep every win in their stats, while the Golden Hour and Headliner reward themes unlock only once per account.
+- Supporter-wall listing is explicit opt-in and independent from Patron access
+- Public achievement claims are limited to client-observable actions; account, theme, leaderboard, plugin, and employee unlocks are derived server-side
+- Credentialed account CORS is origin-gated; public and explicit Bearer-token routes are separated from cookie-backed writes
+- User-controlled strings in HTML templates are escaped, while the MCP app renders tool data through DOM `textContent`
 - No secrets in the codebase — environment variables only
 
 ## Validation
@@ -147,6 +166,15 @@ npm run validate
 ```
 
 That runs the lightweight contract tests, documentation checks, and production build.
+
+Plugin-specific preflight:
+
+```sh
+python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/dexthemes
+npm audit
+```
+
+The MCP contract tests verify every exposed tool has an `outputSchema` and explicit `readOnlyHint`, `openWorldHint`, and `destructiveHint` values.
 
 For visible-flow browser coverage, run:
 

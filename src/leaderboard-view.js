@@ -5,7 +5,7 @@ import { supporterMarkHtml, buildSupporterAvatar, agentBadgeHtml } from './suppo
 import { trackEvent } from './analytics-client.js';
 
 let leaderboardData = null;
-let leaderboardTab = 'monthly';
+let leaderboardTab = 'daily';
 let countdownInterval = null;
 
 export function toggleLeaderboard() {
@@ -48,6 +48,11 @@ function renderLeaderboardContent(lb, data) {
     const rankClass = rank <= 3 ? ' top-three' : '';
     const primary = entry[primaryKey] ?? 0;
     const secondary = entry[secondaryKey] ?? 0;
+    const primaryLabel = primaryKey === 'likes'
+      ? '♥'
+      : primaryKey === 'qualifiedAdoptions'
+        ? 'qualified'
+        : 'copies';
     const authorName = entry.authorName || 'Unknown';
     const authorAvatar = buildSupporterAvatar(authorName, entry.authorAvatarUrl, !!entry.authorIsSupporter);
     const creatorTags = [
@@ -66,7 +71,7 @@ function renderLeaderboardContent(lb, data) {
           </span>
         </div>
         <span class="leaderboard-stats">
-          <span class="leaderboard-stat-primary">${primary} ${primaryKey === 'likes' ? '♥' : 'copies'}</span>
+          <span class="leaderboard-stat-primary">${primary} ${primaryLabel}</span>
           <span class="leaderboard-stat-secondary">${secondary} ${secondaryLabel}</span>
         </span>
       </div>
@@ -77,28 +82,42 @@ function renderLeaderboardContent(lb, data) {
   let emptyMsg = '';
   const tab = leaderboardTab;
 
-  if (tab === 'monthly') {
-    const entries = data.monthly || [];
-    rows = entries.map((entry, index) => renderRow(entry, index + 1, 'copies', 'likes', '♥')).join('');
+  const entries = data[tab] || [];
+  if (tab === 'daily' || tab === 'weekly') {
+    rows = entries.map((entry, index) => renderRow(entry, index + 1, 'qualifiedAdoptions', 'copies', 'copies')).join('');
+    emptyMsg = tab === 'daily'
+      ? 'No qualified theme activity today yet.'
+      : 'No qualified theme activity this week yet.';
+  } else if (tab === 'monthly') {
+    rows = entries.map((entry, index) => renderRow(entry, index + 1, 'copies', 'rawCopies', 'copies')).join('');
     emptyMsg = 'The month is young. Be the first to top the board.';
   } else {
-    const entries = data.allTime || [];
     rows = entries.map((entry, index) => renderRow(entry, index + 1, 'copies', 'likes', '♥')).join('');
     emptyMsg = 'No data yet';
   }
 
   let unlockCallout = '';
   let personalRank = '';
-  if (tab === 'monthly') {
+  if (tab === 'daily') {
+    unlockCallout = `<div class="leaderboard-unlock-callout">
+      <span>☀️ The qualified #1 theme today unlocks <strong>Golden Hour</strong> when the UTC day closes</span>
+      <span class="leaderboard-countdown" id="leaderboard-countdown"></span>
+    </div>`;
+  } else if (tab === 'weekly') {
+    unlockCallout = `<div class="leaderboard-unlock-callout">
+      <span>⭐ The qualified #1 theme this week unlocks <strong>Headliner</strong> after Sunday UTC</span>
+      <span class="leaderboard-countdown" id="leaderboard-countdown"></span>
+    </div>`;
+  } else if (tab === 'monthly') {
     unlockCallout = `<div class="leaderboard-unlock-callout">
       <span>🏆 Top 10 this month unlocks <strong>Summit</strong></span>
       <span class="leaderboard-countdown" id="leaderboard-countdown"></span>
     </div>`;
-    if (state.currentUser && data.monthly?.length) {
-      const idx = data.monthly.findIndex((entry) => entry.authorId === state.currentUser._id);
-      if (idx >= 0) {
-        personalRank = `<div class="leaderboard-personal-rank">Your rank: <strong>#${idx + 1}</strong> of ${data.monthly.length}</div>`;
-      }
+  }
+  if (state.currentUser && entries.length) {
+    const idx = entries.findIndex((entry) => entry.authorId === state.currentUser._id);
+    if (idx >= 0) {
+      personalRank = `<div class="leaderboard-personal-rank">Your rank: <strong>#${idx + 1}</strong> of ${entries.length}</div>`;
     }
   }
 
@@ -111,6 +130,8 @@ function renderLeaderboardContent(lb, data) {
         </button>
       </div>
       <div class="leaderboard-tabs">
+        <button class="leaderboard-tab${tab === 'daily' ? ' active' : ''}" data-action="switch-leaderboard-tab" data-tab="daily">Today</button>
+        <button class="leaderboard-tab${tab === 'weekly' ? ' active' : ''}" data-action="switch-leaderboard-tab" data-tab="weekly">This Week</button>
         <button class="leaderboard-tab${tab === 'monthly' ? ' active' : ''}" data-action="switch-leaderboard-tab" data-tab="monthly">${monthName}</button>
         <button class="leaderboard-tab${tab === 'allTime' ? ' active' : ''}" data-action="switch-leaderboard-tab" data-tab="allTime">All Time</button>
       </div>
@@ -122,10 +143,10 @@ function renderLeaderboardContent(lb, data) {
     </div>
   `;
 
-  if (tab === 'monthly') startCountdownTimer();
+  if (tab !== 'allTime') startCountdownTimer(tab);
 }
 
-function startCountdownTimer() {
+function startCountdownTimer(period) {
   if (countdownInterval) clearInterval(countdownInterval);
   const updateCountdown = () => {
     const el = document.getElementById('leaderboard-countdown');
@@ -135,8 +156,16 @@ function startCountdownTimer() {
       return;
     }
     const now = new Date();
-    const nextMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
-    const diff = nextMonth - Date.now();
+    let nextBoundary;
+    if (period === 'daily') {
+      nextBoundary = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+    } else if (period === 'weekly') {
+      const daysUntilMonday = (8 - now.getUTCDay()) % 7 || 7;
+      nextBoundary = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + daysUntilMonday);
+    } else {
+      nextBoundary = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1);
+    }
+    const diff = nextBoundary - Date.now();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));

@@ -1,5 +1,5 @@
 import * as state from './state.js';
-import { escapeHtml, isDark } from './utils.js';
+import { escapeHtml, isDark, safeHexColor } from './utils.js';
 import { buildSupporterAvatar, supporterMarkHtml } from './supporter-ui.js';
 
 const LIMIT_MESSAGES = [
@@ -256,7 +256,7 @@ export function showSubmitDelighter(themeName, variant, colors) {
   const chat = document.getElementById('preview-chat');
   if (!chat) return;
 
-  const accent = colors.accent || '#0169cc';
+  const accent = safeHexColor(colors.accent, '#0169CC');
   const authorName = state.currentUser?.displayName || state.currentUser?.username || 'You';
   const userMsg = document.createElement('div');
   userMsg.className = 'user-msg';
@@ -267,7 +267,9 @@ export function showSubmitDelighter(themeName, variant, colors) {
 
   const card = document.createElement('div');
   card.className = 'assistant-msg submit-delighter';
-  const paletteColors = [colors.surface, colors.accent, colors.skill, colors.diffAdded, colors.diffRemoved, colors.ink].filter(Boolean);
+  const paletteColors = [colors.surface, colors.accent, colors.skill, colors.diffAdded, colors.diffRemoved, colors.ink]
+    .map((color) => safeHexColor(color, ''))
+    .filter(Boolean);
   card.innerHTML = `
     <div class="delighter-card assistant-surface">
       <div class="delighter-file">
@@ -406,19 +408,21 @@ export function initPreviewChat() {
     const chat = document.getElementById('preview-chat');
     const v = state.selectedTheme[state.selectedVariant];
     if (!chat || !v) return;
-    const acc = state.selectedTheme.accents?.[state.selectedAccentIdx] || v.accent;
-    const dark = isDark(v.surface);
+    const acc = safeHexColor(state.selectedTheme.accents?.[state.selectedAccentIdx] || v.accent, '#0169CC');
+    const ink = safeHexColor(v.ink, '#F9FAFB');
+    const surface = safeHexColor(v.surface, '#111827');
+    const dark = isDark(surface);
 
     const userMsg = document.createElement('div');
     userMsg.className = 'user-msg';
     userMsg.style.background = acc + '22';
-    userMsg.style.color = v.ink;
+    userMsg.style.color = ink;
     userMsg.textContent = text;
     chat.appendChild(userMsg);
     void import('./unlock-api.js').then((m) => m.recordSecretInteraction('dtx.shell.4'));
 
     if (isSupportersPrompt(text)) {
-      await renderSupportersDelighter(chat, v.ink);
+      await renderSupportersDelighter(chat, ink);
       return;
     }
 

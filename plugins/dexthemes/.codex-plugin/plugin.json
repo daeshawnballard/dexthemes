@@ -1,0 +1,34 @@
+{
+  "name": "dexthemes",
+  "version": "1.0.0",
+  "description": "Discover, create, preview, apply, collect, and publish Codex themes with DexThemes.",
+  "author": {
+    "name": "Daeshawn Ballard",
+    "url": "https://github.com/daeshawnballard"
+  },
+  "homepage": "https://www.dexthemes.com/",
+  "repository": "https://github.com/daeshawnballard/dexthemes",
+  "license": "MIT",
+  "keywords": ["codex", "themes", "creativity", "community", "personalization"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DexThemes",
+    "shortDescription": "Discover and create themes for Codex.",
+    "longDescription": "Browse official, DexThemes, and community palettes; turn an idea or voice request into a named theme; compare full Codex workspace mockups; use an explicit import handoff; publish with confirmation; and track all-period ranks, repeat wins, and achievement themes.",
+    "developerName": "Daeshawn Ballard",
+    "category": "Creativity",
+    "capabilities": ["Interactive", "Read", "Write", "OAuth"],
+    "websiteURL": "https://www.dexthemes.com/",
+    "privacyPolicyURL": "https://www.dexthemes.com/privacy.html",
+    "termsOfServiceURL": "https://www.dexthemes.com/terms.html",
+    "brandColor": "#6F7CFF",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "defaultPrompt": [
+      "Create a Codex theme inspired by me.",
+      "Show me three dark community themes.",
+      "What have I unlocked in DexThemes?"
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

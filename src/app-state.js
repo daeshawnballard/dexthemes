@@ -3,7 +3,7 @@
 // ================================================
 
 import { THEMES } from './theme-catalog.js';
-import { SUPPORTER_THEME_ID } from './unlocks.js';
+import { SUPPORTER_THEME_ID, getUnlockActionForThemeId } from './unlocks.js';
 import { normalizeThemeVariant, readThemeRoute, syncThemeUrl } from './theme-url.js';
 
 // URL state takes priority over localStorage. Query deep links are canonicalized
@@ -12,9 +12,14 @@ const _themeRoute = readThemeRoute(window.location);
 const _urlThemeId = _themeRoute.themeId;
 const _urlVariant = _themeRoute.variant;
 const _savedThemeId = _urlThemeId || localStorage.getItem('dexthemes-selected');
+const _requestedTheme = _savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId);
+const _requestedThemeIsProtected = Boolean(_requestedTheme && getUnlockActionForThemeId(_requestedTheme.id));
 
-export let selectedTheme = (_savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId)) || THEMES[0];
+// Protected reward palettes are never rendered from a URL or localStorage
+// before the current account's unlocks have been verified.
+export let selectedTheme = (_requestedTheme && !_requestedThemeIsProtected ? _requestedTheme : null) || THEMES[0];
 export let selectedVariant = _urlVariant || normalizeThemeVariant(localStorage.getItem('dexthemes-variant')) || 'dark';
+export let deferredProtectedThemeId = _requestedThemeIsProtected ? _requestedTheme.id : null;
 
 // Track if we arrived via a share deep link (for mobile auto-preview)
 export const isDeepLink = !!_urlThemeId;
@@ -57,6 +62,7 @@ export let currentUser = null;
 export let flaggedThemes = new Set();
 
 export function setUserUnlocks(unlocks) { userUnlocks = unlocks; }
+export function clearDeferredProtectedThemeId() { deferredProtectedThemeId = null; }
 export function isCurrentUserSupporter() { return userUnlocks.has(SUPPORTER_THEME_ID); }
 export function setSupporterPromptShown(value) { supporterPromptShown = value; }
 

@@ -82,7 +82,7 @@ export async function fetchLeaderboard() {
     console.warn('Failed to fetch leaderboard:', error);
     showToast("Couldn't load leaderboard", 'error');
   }
-  return { monthly: [], allTime: [] };
+  return { daily: [], weekly: [], monthly: [], allTime: [], periods: {} };
 }
 
 export async function fetchSupporters() {
@@ -99,9 +99,11 @@ export async function fetchSupporters() {
   return [];
 }
 
-export async function createSupporterClaim() {
+export async function createSupporterClaim({ publicListing = false } = {}) {
   const res = await authFetch(CONVEX_SITE_URL + '/supporters/claim', {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ publicListing }),
   });
 
   const data = await res.json().catch(() => ({}));

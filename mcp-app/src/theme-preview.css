@@ -1,0 +1,42 @@
+:root { color-scheme: light dark; font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); }
+* { box-sizing: border-box; }
+body { margin: 0; color: #17191f; background: transparent; }
+button { font: inherit; }
+.shell { padding: 18px; border: 1px solid color-mix(in srgb, currentColor 12%, transparent); border-radius: 22px; background: color-mix(in srgb, Canvas 96%, transparent); box-shadow: 0 18px 60px rgba(0,0,0,.08); }
+.header { display: flex; gap: 16px; align-items: start; justify-content: space-between; margin-bottom: 16px; }
+.brand,.eyebrow { display: block; font-size: 11px; font-weight: 800; letter-spacing: .14em; opacity: .56; text-transform: uppercase; }
+.theme-name { margin: 5px 0 0; font-size: clamp(24px, 5vw, 38px); letter-spacing: -.04em; }
+.summary { max-width: 60ch; margin: 7px 0 0; opacity: .68; line-height: 1.5; }
+.open-button { padding: 10px 14px; border: 0; border-radius: 999px; color: white; background: #14171c; cursor: pointer; white-space: nowrap; }
+.variant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.variant { min-height: 235px; padding: 18px; color: var(--ink); background: var(--surface); border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); border-radius: 17px; overflow: hidden; }
+.variant .eyebrow { color: var(--accent); opacity: 1; }
+.sample-title { margin: 28px 0 5px; font-size: 22px; letter-spacing: -.03em; }
+.sample-copy { max-width: 32ch; margin: 0; opacity: .68; font-size: 13px; line-height: 1.45; }
+.swatches { display: grid; gap: 7px; margin-top: 24px; }
+.swatch { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; font-size: 11px; }
+.dot,.mini-dot { width: 12px; height: 12px; border: 1px solid color-mix(in srgb, currentColor 18%, transparent); border-radius: 50%; }
+.swatch-label { opacity: .62; text-transform: capitalize; }
+.swatch-code { opacity: .74; }
+.notice { margin: 13px 0 0; padding: 10px 12px; border-radius: 12px; background: #f3e9bf; color: #4d3b00; font-size: 12px; }
+.theme-list { display: grid; gap: 8px; margin-top: 15px; }
+.theme-row { display: flex; gap: 12px; align-items: center; width: 100%; padding: 12px; border: 1px solid color-mix(in srgb, currentColor 10%, transparent); border-radius: 14px; color: inherit; background: color-mix(in srgb, Canvas 93%, transparent); cursor: pointer; text-align: left; }
+.mini-palette { display: flex; gap: 3px; }
+.mini-dot { width: 18px; height: 18px; }
+.theme-row-copy { display: grid; gap: 2px; }
+.theme-row-copy small { opacity: .58; }
+.leaderboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 18px; margin-top: 14px; }
+.rank-column h3 { margin: 0 0 9px; }
+.rank-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; padding: 8px 0; border-bottom: 1px solid color-mix(in srgb, currentColor 8%, transparent); }
+.rank { opacity: .42; }.rank-count { font-variant-numeric: tabular-nums; opacity: .62; }
+.json { overflow: auto; font-size: 11px; }.empty { padding: 20px; opacity: .62; }
+.apply-handoff { display: grid; gap: 10px; margin-top: 14px; padding: 14px; border: 1px solid color-mix(in srgb, currentColor 10%, transparent); border-radius: 14px; }
+.apply-code { display: block; max-height: 112px; padding: 10px; overflow: auto; border-radius: 10px; background: color-mix(in srgb, currentColor 7%, transparent); font-size: 10px; overflow-wrap: anywhere; }
+.issue-review { display: grid; gap: 8px; margin: 14px 0; }
+.issue-copy { max-height: 220px; margin: 0 0 6px; padding: 12px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 12px; background: color-mix(in srgb, currentColor 7%, transparent); font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.submission-review { display: grid; gap: 10px; margin-top: 14px; padding: 15px; border: 1px solid color-mix(in srgb, #e84057 30%, transparent); border-radius: 15px; }
+.publish-button { justify-self: start; background: #b4233a; }
+.open-button:disabled { cursor: not-allowed; opacity: .5; transform: none; }
+@media (prefers-color-scheme: dark) { body { color: #f2f4f8; } .open-button { color: #13151a; background: #f4f5f7; } }
+@media (max-width: 520px) { .shell { padding: 13px; border-radius: 18px; }.header { display: grid; }.open-button { width: 100%; }.variant-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) { .theme-row,.open-button { transition: transform .16s ease, opacity .16s ease; }.theme-row:hover,.open-button:hover { transform: translateY(-1px); } }

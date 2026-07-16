@@ -7,6 +7,7 @@ export const createOauthState = internalMutation({
     provider: v.string(),
     origin: v.string(),
     codeVerifier: v.optional(v.string()),
+    bindingHash: v.string(),
     expiresAt: v.number(),
   },
   handler: async (ctx, args) => {
@@ -15,6 +16,7 @@ export const createOauthState = internalMutation({
       provider: args.provider,
       origin: args.origin,
       codeVerifier: args.codeVerifier,
+      bindingHash: args.bindingHash,
       expiresAt: args.expiresAt,
       createdAt: Date.now(),
     });
@@ -27,6 +29,7 @@ export const consumeOauthState = internalMutation({
   args: {
     nonce: v.string(),
     provider: v.string(),
+    bindingHash: v.string(),
   },
   handler: async (ctx, args) => {
     const state = await ctx.db
@@ -36,15 +39,31 @@ export const consumeOauthState = internalMutation({
 
     if (!state) return null;
 
-    await ctx.db.delete(state._id);
-
     if (state.provider !== args.provider) return null;
-    if (state.expiresAt < Date.now()) return null;
+    if (state.expiresAt < Date.now()) {
+      await ctx.db.delete(state._id);
+      return null;
+    }
+    if (state.bindingHash !== args.bindingHash) return null;
+
+    await ctx.db.delete(state._id);
 
     return {
       origin: state.origin,
       codeVerifier: state.codeVerifier,
       expiresAt: state.expiresAt,
     };
+  },
+});
+
+export const cleanupExpiredOauthStates = internalMutation({
+  args: { limit: v.number() },
+  handler: async (ctx, args) => {
+    const expired = await ctx.db
+      .query("oauthStates")
+      .withIndex("by_expires", (q) => q.lt("expiresAt", Date.now()))
+      .take(Math.max(1, Math.min(args.limit, 500)));
+    await Promise.all(expired.map((state) => ctx.db.delete(state._id)));
+    return { deleted: expired.length };
   },
 });

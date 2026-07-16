@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "npx convex dev",
     "deploy": "npx convex deploy",
-    "build": "node scripts/build.mjs",
+    "build": "npm run build:mcp-app && node scripts/build.mjs",
+    "build:mcp-app": "node scripts/build-mcp-app.mjs",
+    "build:theme-bundle": "node scripts/build-theme-bundle.mjs",
     "test": "node --test",
     "smoke:browser": "node scripts/browser-smoke.mjs",
+    "qa:mcp-app": "node scripts/visual-qa-mcp-app.mjs",
     "check:docs": "node scripts/check-docs.mjs",
     "validate": "npm run test && npm run check:docs && npm run build",
     "watch": "node scripts/build.mjs --watch",
@@ -16,12 +19,16 @@
     "warm-cache": "node scripts/warm-cache.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.7.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@statsig/js-client": "^3.32.2",
     "@vercel/og": "^0.11.1",
-    "convex": "^1.21.0"
+    "convex": "^1.42.2",
+    "jose": "^6.2.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.28.1",
     "playwright": "^1.58.2"
   }
 }

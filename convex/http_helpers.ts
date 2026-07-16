@@ -17,6 +17,7 @@ const DEV_ORIGINS = [
 
 export const SESSION_COOKIE_NAME = "__Host-dexthemes_session";
 export const SESSION_HINT_COOKIE_NAME = "__Host-dexthemes_session_present";
+export const OAUTH_BINDING_COOKIE_NAME = "__Host-dexthemes_oauth_binding";
 export const SESSION_DURATION_SECONDS = 30 * 24 * 60 * 60;
 
 export const ALLOWED_ORIGINS =
@@ -64,6 +65,10 @@ function parseCookies(header: string | null): Record<string, string> {
   }, {});
 }
 
+export function getCookieValue(request: Request, name: string): string | null {
+  return parseCookies(request.headers.get("Cookie"))[name] || null;
+}
+
 export function getSessionToken(request: Request): string | null {
   const auth = request.headers.get("Authorization");
   if (auth && auth.startsWith("Bearer ")) return auth.slice(7);
@@ -91,23 +96,59 @@ export function clearSessionHintCookie(): string {
   return `${SESSION_HINT_COOKIE_NAME}=; Path=/; Max-Age=0; Secure; SameSite=Lax`;
 }
 
-export function getClientIP(request: Request): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
+export function buildOauthBindingCookie(binding: string): string {
+  return `${OAUTH_BINDING_COOKIE_NAME}=${encodeURIComponent(binding)}; Path=/; Max-Age=${Math.floor(OAUTH_STATE_TTL_MS / 1000)}; HttpOnly; Secure; SameSite=Lax`;
+}
+
+export function clearOauthBindingCookie(): string {
+  return `${OAUTH_BINDING_COOKIE_NAME}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`;
+}
+
+function normalizeNetworkIdentity(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  return normalized.length <= 64 && /^[0-9a-f:.]+$/.test(normalized) ? normalized : null;
+}
+
+export async function getClientIP(ctx: any, request: Request): Promise<string> {
+  try {
+    const metadata = await ctx.meta?.getRequestMetadata?.();
+    const authoritative = normalizeNetworkIdentity(metadata?.ip);
+    if (authoritative) return authoritative;
+  } catch {
+    // Local harnesses and older runtimes may not expose request metadata.
+  }
+  const realIp = normalizeNetworkIdentity(request.headers.get("x-real-ip"));
+  if (realIp) return realIp;
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",").at(-1);
+  return normalizeNetworkIdentity(forwarded) || "unknown";
 }
 
 export const RATE_LIMITS = {
   agentRegister: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
+  agentRegisterNetwork: { maxRequests: 30, windowMs: 60 * 60 * 1000 },
+  oauthStartNetwork: { maxRequests: 20, windowMs: 60 * 1000 },
+  oauthStartGlobal: { maxRequests: 600, windowMs: 60 * 1000 },
   themeSubmit: { maxRequests: 10, windowMs: 60 * 60 * 1000 },
+  themeSubmitNetwork: { maxRequests: 60, windowMs: 60 * 60 * 1000 },
   themeFlag: { maxRequests: 20, windowMs: 60 * 60 * 1000 },
+  themeFlagNetwork: { maxRequests: 120, windowMs: 60 * 60 * 1000 },
   themeCopy: { maxRequests: 60, windowMs: 60 * 1000 },
   publicThemesRead: { maxRequests: 240, windowMs: 60 * 1000 },
   publicLeaderboardRead: { maxRequests: 120, windowMs: 60 * 1000 },
   publicSupportersRead: { maxRequests: 60, windowMs: 60 * 1000 },
   publicLikesRead: { maxRequests: 120, windowMs: 60 * 1000 },
+  authenticatedDemo: { maxRequests: 10, windowMs: 60 * 1000 },
+  authenticatedDemoNetwork: { maxRequests: 120, windowMs: 60 * 1000 },
+  statsReadIdentity: { maxRequests: 30, windowMs: 60 * 1000 },
+  statsReadNetwork: { maxRequests: 120, windowMs: 60 * 1000 },
+  themeLikeIdentity: { maxRequests: 60, windowMs: 60 * 1000 },
+  themeLikeNetwork: { maxRequests: 240, windowMs: 60 * 1000 },
+  pluginReadIdentity: { maxRequests: 120, windowMs: 60 * 1000 },
+  pluginReadNetwork: { maxRequests: 480, windowMs: 60 * 1000 },
+  pluginWriteIdentity: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
+  pluginWriteNetwork: { maxRequests: 40, windowMs: 60 * 60 * 1000 },
+  pluginAuthNetwork: { maxRequests: 240, windowMs: 60 * 1000 },
 } as const;
 
 export function isApiKey(token: string): boolean {
@@ -148,6 +189,15 @@ export async function sha256Base64Url(input: string): Promise<string> {
   const hash = await crypto.subtle.digest("SHA-256", data);
   const base64 = btoa(String.fromCharCode(...new Uint8Array(hash)));
   return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+export async function sha256Hex(input: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash), (byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
 }
 
 export async function hmacSign(secret: string, message: string): Promise<string> {

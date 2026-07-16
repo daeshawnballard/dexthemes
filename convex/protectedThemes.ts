@@ -5,6 +5,7 @@
  * Each entry stores the core color triplet (surface, ink, accent) per variant.
  * We compare using Euclidean distance in RGB space with a strict threshold.
  */
+import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 
 interface ProtectedVariant {
   surface: string;
@@ -175,10 +176,45 @@ const SUPPORTER: ProtectedTheme[] = [
     dark: { surface: '#0A0A0A', ink: '#F0F0F0', accent: '#FFFFFF' },
     light: { surface: '#FAFAFA', ink: '#0A0A0A', accent: '#000000' },
   },
+  {
+    id: 'plugged-in',
+    dark: { surface: '#0A0B18', ink: '#EFF4FF', accent: '#6F7CFF' },
+    light: { surface: '#F6F7FF', ink: '#171A31', accent: '#4D5AD8' },
+  },
+  {
+    id: 'voiceprint',
+    dark: { surface: '#130A18', ink: '#FFF0FF', accent: '#EF62D6' },
+    light: { surface: '#FFF6FD', ink: '#2C152D', accent: '#B834A0' },
+  },
+  {
+    id: 'builder-of-agi',
+    dark: { surface: '#101414', ink: '#F2F7F5', accent: '#35C995' },
+    light: { surface: '#F7FAF9', ink: '#17201D', accent: '#14845F' },
+  },
+  {
+    id: 'triple-dot',
+    dark: { surface: '#0C0E12', ink: '#EEF2F9', accent: '#FF6B6B' },
+    light: { surface: '#F7F7FB', ink: '#1F2230', accent: '#E05252' },
+  },
 ];
 
-// All protected themes combined
-const ALL_PROTECTED: ProtectedTheme[] = [...OFFICIAL, ...DEXTHEMES, ...SUPPORTER];
+const CATALOG_PROTECTED: ProtectedTheme[] = STATIC_THEME_CATALOG.map((theme: any) => ({
+  id: String(theme.id || theme.themeId),
+  dark: theme.dark
+    ? { surface: theme.dark.surface, ink: theme.dark.ink, accent: theme.dark.accent }
+    : undefined,
+  light: theme.light
+    ? { surface: theme.light.surface, ink: theme.light.ink, accent: theme.light.accent }
+    : undefined,
+}));
+
+// The generated catalog is the canonical static-ID and palette boundary. The
+// checked-in arrays remain as readable documentation and a fallback, while
+// catalog entries win if a theme is updated or added.
+const ALL_PROTECTED: ProtectedTheme[] = [...new Map(
+  [...OFFICIAL, ...DEXTHEMES, ...SUPPORTER, ...CATALOG_PROTECTED]
+    .map((theme) => [theme.id, theme]),
+).values()];
 const PROTECTED_THEME_IDS = new Set(ALL_PROTECTED.map((theme) => theme.id));
 
 // ── Color distance ────────────────────────────────────────────────────

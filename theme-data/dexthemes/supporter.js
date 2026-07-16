@@ -357,6 +357,171 @@ registerDexThemesPack('supporter', [
     accents: ['#FFFFFF', '#000000'],
   }),
 
+  // ── Plugged In ───────────────────────────────────────────────────────
+  // Unlocked by the first authenticated DexThemes plugin use.
+  createDexTheme({
+    id: 'plugged-in',
+    name: 'Plugged In',
+    dateAdded: '2026-07-16',
+    copies: 0,
+    _summary: 'Electric indigo and bright cyan for creators working directly through the DexThemes plugin.',
+    dark: {
+      surface: '#0A0B18',
+      ink: '#EFF4FF',
+      accent: '#6F7CFF',
+      contrast: 66,
+      diffAdded: '#46D49A',
+      diffRemoved: '#FF667D',
+      skill: '#46D7FF',
+      sidebar: '#060712',
+      codeBg: '#04050D',
+    },
+    light: {
+      surface: '#F6F7FF',
+      ink: '#171A31',
+      accent: '#4D5AD8',
+      contrast: 49,
+      diffAdded: '#168555',
+      diffRemoved: '#B92C45',
+      skill: '#087FA8',
+      sidebar: '#EBEDFA',
+      codeBg: '#E3E6F5',
+    },
+    accents: ['#6F7CFF', '#46D7FF', '#4D5AD8'],
+  }),
+
+  // ── Voiceprint ────────────────────────────────────────────────────────
+  // Unlocked by creating and publishing a theme through the plugin.
+  createDexTheme({
+    id: 'voiceprint',
+    name: 'Voiceprint',
+    dateAdded: '2026-07-16',
+    copies: 0,
+    _summary: 'A vivid waveform palette for turning a spoken or written idea into a personal theme.',
+    dark: {
+      surface: '#130A18',
+      ink: '#FFF0FF',
+      accent: '#EF62D6',
+      contrast: 65,
+      diffAdded: '#4BD29A',
+      diffRemoved: '#FF6A72',
+      skill: '#62D9F1',
+      sidebar: '#0E0712',
+      codeBg: '#0A050D',
+    },
+    light: {
+      surface: '#FFF6FD',
+      ink: '#2C152D',
+      accent: '#B834A0',
+      contrast: 48,
+      diffAdded: '#168650',
+      diffRemoved: '#B62D3B',
+      skill: '#197F9B',
+      sidebar: '#F7EAF5',
+      codeBg: '#F0E2EE',
+    },
+    accents: ['#EF62D6', '#62D9F1', '#B834A0'],
+  }),
+
+  // ── Builder of AGI ────────────────────────────────────────────────────
+  // Original, non-logo palette for verified @openai.com GitHub identities.
+  createDexTheme({
+    id: 'builder-of-agi',
+    name: 'Builder of AGI',
+    dateAdded: '2026-07-16',
+    copies: 0,
+    _summary: 'OpenAI is nothing without its people. Graphite, white, and signal green for verified OpenAI builders.',
+    dark: {
+      surface: '#101414',
+      ink: '#F2F7F5',
+      accent: '#35C995',
+      contrast: 67,
+      diffAdded: '#46D39A',
+      diffRemoved: '#F06B6B',
+      skill: '#93A8FF',
+      sidebar: '#0B0E0E',
+      codeBg: '#080B0B',
+    },
+    light: {
+      surface: '#F7FAF9',
+      ink: '#17201D',
+      accent: '#14845F',
+      contrast: 50,
+      diffAdded: '#147D4C',
+      diffRemoved: '#B52F38',
+      skill: '#536AC8',
+      sidebar: '#ECF2F0',
+      codeBg: '#E4EBE8',
+    },
+    accents: ['#35C995', '#14845F', '#93A8FF'],
+  }),
+
+  // ── Golden Hour ───────────────────────────────────────────────────────
+  // One-time theme unlock for a creator's first qualified Theme of the Day.
+  createDexTheme({
+    id: 'golden-hour',
+    name: 'Golden Hour',
+    dateAdded: '2026-07-16',
+    copies: 0,
+    _summary: 'Sunrise gold and vivid coral for a theme that owned the day.',
+    dark: {
+      surface: '#160E08',
+      ink: '#FFF4DF',
+      accent: '#FFB23F',
+      contrast: 67,
+      diffAdded: '#52D18D',
+      diffRemoved: '#FF6E64',
+      skill: '#FF7F50',
+      sidebar: '#100A06',
+      codeBg: '#0C0704',
+    },
+    light: {
+      surface: '#FFF8EC',
+      ink: '#2C1A0D',
+      accent: '#D86F20',
+      contrast: 50,
+      diffAdded: '#16834B',
+      diffRemoved: '#B9342E',
+      skill: '#C2482A',
+      sidebar: '#F8EEDB',
+      codeBg: '#F0E3CD',
+    },
+    accents: ['#FFB23F', '#FF7F50', '#D86F20'],
+  }),
+
+  // ── Headliner ─────────────────────────────────────────────────────────
+  // One-time theme unlock for a creator's first qualified Theme of the Week.
+  createDexTheme({
+    id: 'headliner',
+    name: 'Headliner',
+    dateAdded: '2026-07-16',
+    copies: 0,
+    _summary: 'Electric blue and spotlight gold for a theme that topped the week.',
+    dark: {
+      surface: '#080D1C',
+      ink: '#F4F7FF',
+      accent: '#4A7DFF',
+      contrast: 68,
+      diffAdded: '#43D39A',
+      diffRemoved: '#F26378',
+      skill: '#FFC857',
+      sidebar: '#050914',
+      codeBg: '#03060F',
+    },
+    light: {
+      surface: '#F5F7FF',
+      ink: '#131A30',
+      accent: '#315BD6',
+      contrast: 50,
+      diffAdded: '#14814C',
+      diffRemoved: '#B52F45',
+      skill: '#B27700',
+      sidebar: '#E9EDFA',
+      codeBg: '#E1E6F5',
+    },
+    accents: ['#4A7DFF', '#FFC857', '#315BD6'],
+  }),
+
   // ── Easter Egg ────────────────────────────────────────────────────
   // Hidden window-controls surprise theme. Unlocked by discovering the close,
   // minimize, maximize, and chat-send interactions while signed in.

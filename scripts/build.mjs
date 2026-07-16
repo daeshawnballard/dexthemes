@@ -22,6 +22,9 @@ const staticPublicFiles = [
   "apple-touch-icon.png",
   "favicon.svg",
   "icon-192.png",
+  "privacy.html",
+  "terms.html",
+  "support.html",
 ];
 
 function contentHash(buffer) {
@@ -68,6 +71,32 @@ async function syncPublicFiles() {
   await mkdir(publicDir, { recursive: true });
   for (const fileName of staticPublicFiles) {
     await copyFile(path.join(publicDir, fileName), path.join(root, fileName));
+  }
+}
+
+async function writeWellKnownFiles() {
+  const wellKnownDir = path.join(root, ".well-known");
+  await mkdir(wellKnownDir, { recursive: true });
+
+  const challenge = String(process.env.OPENAI_APPS_CHALLENGE || "").trim();
+  if (challenge && challenge.length <= 512 && !/[\r\n]/.test(challenge)) {
+    await writeFile(path.join(wellKnownDir, "openai-apps-challenge"), challenge);
+  }
+
+  const issuerValue = String(process.env.DEXTHEMES_AUTH_ISSUER || "").trim();
+  if (issuerValue) {
+    const issuer = issuerValue.endsWith("/") ? issuerValue : `${issuerValue}/`;
+    await writeFile(
+      path.join(wellKnownDir, "oauth-protected-resource"),
+      `${JSON.stringify({
+        resource: "https://www.dexthemes.com/api/mcp",
+        authorization_servers: [issuer],
+        scopes_supported: ["themes:read", "themes:write"],
+        bearer_methods_supported: ["header"],
+        resource_name: "DexThemes",
+        resource_documentation: "https://www.dexthemes.com/support.html",
+      }, null, 2)}\n`,
+    );
   }
 }
 
@@ -156,6 +185,10 @@ function createEsbuildOptions() {
 }
 
 async function cleanDist() {
+  if (process.env.DEXTHEMES_SKIP_CLEAN === "1") {
+    await mkdir(distAssetsDir, { recursive: true });
+    return;
+  }
   await rm(path.join(root, "dist"), { recursive: true, force: true });
   await mkdir(distAssetsDir, { recursive: true });
   for (const fileName of staticPublicFiles) {
@@ -165,6 +198,7 @@ async function cleanDist() {
 
 async function runBuildOnce() {
   await generateThemeApiCatalog();
+  await writeWellKnownFiles();
   await cleanDist();
   await syncPublicFiles();
   const result = await build(createEsbuildOptions());
@@ -173,6 +207,7 @@ async function runBuildOnce() {
 
 async function runWatch() {
   await generateThemeApiCatalog();
+  await writeWellKnownFiles();
   await cleanDist();
   const ctx = await context(createEsbuildOptions());
   let rebuilding = Promise.resolve();

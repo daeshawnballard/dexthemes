@@ -3,8 +3,22 @@
 // ================================================
 
 import * as state from './state.js';
-import { escapeHtml, isDark, hexToRgb, blendColor } from './utils.js';
+import { escapeHtml, isDark, hexToRgb, blendColor, isSixDigitHexColor } from './utils.js';
 import { getThemeVariants, themeHasVariant, buildThemeImportString } from './theme-contracts.js';
+
+const PREVIEW_REQUIRED_COLOR_KEYS = ['surface', 'ink', 'accent', 'diffAdded', 'diffRemoved', 'skill'];
+
+function getSafePreviewVariant(variant, accent) {
+  if (!variant || !PREVIEW_REQUIRED_COLOR_KEYS.every((key) => isSixDigitHexColor(variant[key]))) return null;
+  if (!isSixDigitHexColor(accent)) return null;
+  if (variant.sidebar != null && !isSixDigitHexColor(variant.sidebar)) return null;
+  if (variant.codeBg != null && !isSixDigitHexColor(variant.codeBg)) return null;
+  return {
+    ...variant,
+    sidebar: variant.sidebar || variant.surface,
+    codeBg: variant.codeBg || variant.surface,
+  };
+}
 
 export function getVariants(theme) {
   return getThemeVariants(theme);
@@ -19,9 +33,10 @@ export function buildImportString(theme, variant, accentIdx) {
 }
 
 export function applyShellTheme(theme, variant) {
-  const v = theme[variant];
+  const source = theme[variant];
+  const acc = theme.accents?.[state.selectedAccentIdx] || source?.accent;
+  const v = getSafePreviewVariant(source, acc);
   if (!v) return;
-  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const root = document.documentElement.style;
 
@@ -41,9 +56,10 @@ export function applyShellTheme(theme, variant) {
 }
 
 export function applyPreview(theme, variant) {
-  const v = theme[variant];
+  const source = theme[variant];
+  const acc = theme.accents?.[state.selectedAccentIdx] || source?.accent;
+  const v = getSafePreviewVariant(source, acc);
   if (!v) return;
-  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
 
@@ -79,6 +95,8 @@ export function applyPreview(theme, variant) {
 }
 
 export function renderChatContent(v, acc, containerId) {
+  v = getSafePreviewVariant(v, acc);
+  if (!v) return;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
@@ -113,9 +131,10 @@ export function renderChatContent(v, acc, containerId) {
 }
 
 export function renderMiniPreview(containerId, theme, variant) {
-  const v = theme[variant];
+  const source = theme[variant];
+  const acc = theme.accents?.[state.selectedAccentIdx] || source?.accent;
+  const v = getSafePreviewVariant(source, acc);
   if (!v) return;
-  const acc = theme.accents?.[state.selectedAccentIdx] || v.accent;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
 

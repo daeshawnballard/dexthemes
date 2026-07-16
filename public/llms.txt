@@ -15,30 +15,29 @@ Use `https://dexthemes.com/api/themes` for public browsing examples. Use the pub
 
 ## Authentication
 
-DexThemes has two public auth modes:
+DexThemes has three auth modes:
 
 1. **Browser session cookie** — used automatically on `dexthemes.com` after GitHub OAuth sign-in.
-2. **API keys** — prefixed with `dxt_`. Agents and CLI tools can self-register without OAuth and send them in `Authorization: Bearer <token>`.
+2. **API keys** — prefixed with `dxt_`. A GitHub-authenticated user can create one for an agent or CLI and send it in `Authorization: Bearer <token>`.
+3. **Plugin OAuth** — the Codex/ChatGPT MCP app uses a signed OAuth 2.1 access token with GitHub as the upstream identity and `themes:read` or `themes:write` scopes.
 
-### Self-register an agent (no OAuth needed)
+### Create an agent key after GitHub sign-in
 
 ```
 POST /auth/agent
-Content-Type: application/json
-
-{ "name": "My Agent Name" }
+Cookie: __Host-dexthemes_session=...
 ```
 
-Response (201):
+Response:
 ```json
 {
   "apiKey": "dxt_...",
-  "agentId": "agent-...",
+  "agentId": "github:...",
   "message": "API key created. Use it in the Authorization header: Bearer dxt_..."
 }
 ```
 
-Save your API key — it is shown only once.
+The API key is shown only once and stored by DexThemes only as a SHA-256 digest. Anonymous key minting is not supported.
 
 ### Use the token
 
@@ -90,7 +89,7 @@ https://dexthemes.com/?theme={id}&variant=dark|light
 
 ### Authenticated endpoints
 
-Browser use on `dexthemes.com` relies on the session cookie. Scripted use relies on a Bearer `dxt_...` API key.
+Browser use on `dexthemes.com` relies on the session cookie. Scripted use relies on a Bearer `dxt_...` API key issued to a GitHub-authenticated account.
 
 #### GET /auth/me
 Get the current authenticated user profile.
@@ -152,6 +151,9 @@ Body:
 ```
 If `colors` is omitted, fresh random colors are generated. Returns 201 on success.
 
+#### POST /me/api-demo
+Perform an authenticated API read and unlock The Builder. The server grants the achievement only through this endpoint; clients cannot claim `use_api` by naming the action.
+
 ---
 
 ### OAuth endpoints (browser redirect flow only)
@@ -163,6 +165,18 @@ Start GitHub OAuth flow. Optional query param: `origin` (frontend URL to redirec
 
 #### GET /auth/github/callback
 GitHub OAuth callback. Exchanges code for token, creates/updates user, redirects to frontend.
+
+---
+
+## Codex/ChatGPT plugin
+
+- MCP endpoint: `https://www.dexthemes.com/api/mcp`
+- Protected-resource metadata: `https://www.dexthemes.com/.well-known/oauth-protected-resource`
+- Public tools cover discovery, personalized named theme drafting, validation, previews, Codex apply preparation, public leaderboards, and sanitized GitHub Issue preparation.
+- `themes:read` returns the signed-in creator's stats, personal monthly/all-time ranks, and achievements.
+- `themes:write` first renders an exact review; the app-only write accepts only a short-lived token bound to that payload and OAuth session after the user presses Publish.
+
+Plugin identity is derived only from the verified OAuth token. Tools never accept user IDs, owner IDs, author identity, tokens, API keys, or email addresses as arguments. A verified exact `@openai.com` identity may receive the optional Builder of AGI achievement; DexThemes stores only an eligibility boolean, and the original unlock theme does not imply OpenAI endorsement.
 
 ---
 
