@@ -4,22 +4,27 @@
 
 import { THEMES } from './theme-catalog.js';
 import { SUPPORTER_THEME_ID } from './unlocks.js';
+import { normalizeThemeVariant, readThemeRoute, syncThemeUrl } from './theme-url.js';
 
-// URL params take priority over localStorage (for share links like /?theme=codex&variant=dark)
-const _urlParams = new URLSearchParams(window.location.search);
-const _urlThemeId = _urlParams.get('theme');
-const _urlVariant = _urlParams.get('variant');
+// URL state takes priority over localStorage. Query deep links are canonicalized
+// to copyable paths such as /mancity/dark after their values are read.
+const _themeRoute = readThemeRoute(window.location);
+const _urlThemeId = _themeRoute.themeId;
+const _urlVariant = _themeRoute.variant;
 const _savedThemeId = _urlThemeId || localStorage.getItem('dexthemes-selected');
 
 export let selectedTheme = (_savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId)) || THEMES[0];
-export let selectedVariant = _urlVariant || localStorage.getItem('dexthemes-variant') || 'dark';
+export let selectedVariant = _urlVariant || normalizeThemeVariant(localStorage.getItem('dexthemes-variant')) || 'dark';
 
 // Track if we arrived via a share deep link (for mobile auto-preview)
 export const isDeepLink = !!_urlThemeId;
+export const deepLinkThemeId = _urlThemeId;
 
-// Clean URL params after reading so they don't persist on refresh
+// Keep the address bar aligned with what the preview is actually showing.
 if (_urlThemeId) {
-  try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+  syncThemeUrl(_urlThemeId, selectedVariant);
+} else if (_savedThemeId && selectedTheme.id === _savedThemeId) {
+  syncThemeUrl(selectedTheme.id, selectedVariant);
 }
 
 export let selectedAccentIdx = 0;
@@ -67,11 +72,17 @@ export function setSelectedTheme(theme) {
       accents: theme.accents || []
     }));
   } catch {}
+  syncSelectedThemeUrl();
 }
 
 export function setSelectedVariant(variant) {
   selectedVariant = variant;
   try { localStorage.setItem('dexthemes-variant', variant); } catch {}
+  syncSelectedThemeUrl();
+}
+
+export function syncSelectedThemeUrl() {
+  syncThemeUrl(selectedTheme?.id, selectedVariant);
 }
 
 export function setSelectedAccentIdx(index) { selectedAccentIdx = index; }

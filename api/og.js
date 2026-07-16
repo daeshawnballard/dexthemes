@@ -1,6 +1,7 @@
 import { ImageResponse } from '@vercel/og';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { resolveTheme } from './theme-data.js';
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
@@ -18,7 +19,15 @@ export default async function handler(req, res) {
   const themeId = url.searchParams.get('theme') || 'codex';
   const variantKey = url.searchParams.get('variant') || 'dark';
 
-  const theme = themeMap[themeId];
+  let theme;
+  try {
+    theme = await resolveTheme(themeMap, themeId);
+  } catch (error) {
+    console.warn(`Unable to resolve OG image theme "${themeId}":`, error);
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(503).send('Theme data unavailable');
+    return;
+  }
   if (!theme) { res.status(404).send('Theme not found'); return; }
 
   const v = theme[variantKey] || theme.dark || theme.light;

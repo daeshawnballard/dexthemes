@@ -12,6 +12,7 @@ import { loadBuilderModule } from './lazy-modules.js';
 import { grantUnlockAction, recordSecretInteraction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
+import { buildThemePath } from './theme-url.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -352,7 +353,7 @@ export function shareOnX() {
   const themeName = state.selectedTheme.name || 'a theme';
   const variant = state.selectedVariant === 'dark' ? 'dark' : 'light';
   const themeId = state.selectedTheme.id || 'codex';
-  const shareUrl = `${window.location.origin}/${encodeURIComponent(themeId)}/${encodeURIComponent(variant)}`;
+  const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
   const text = `"${themeName}" — my new Codex theme\n\n${shareUrl}`;
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
   grantUnlockAction('share_x');
@@ -525,6 +526,11 @@ export function minimizePreviewWindow() {
 
 export async function checkOnboarding() {
   if (localStorage.getItem('dexthemes-onboarded')) return;
+
+  if (state.isDeepLink) {
+    localStorage.setItem('dexthemes-onboarded', '1');
+    return;
+  }
 
   if (window.innerWidth > 1024) {
     const showcase = state.THEMES.find((theme) => theme.id === 'current-valentine') || state.THEMES.find((theme) => theme.category === 'dexthemes');

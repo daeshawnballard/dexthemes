@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { buildThemeImageVersion, resolveTheme } from './theme-data.js';
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
@@ -14,13 +15,22 @@ const themeMap = JSON.parse(
  * pointing to the dynamic OG image. Immediately redirects human
  * visitors to the actual app with deep link params.
  */
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const themeId = url.searchParams.get('theme') || 'codex';
   const variantKey = url.searchParams.get('variant') || 'dark';
-  const imageVersion = url.searchParams.get('v') || process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 8) || '1';
 
-  const theme = themeMap[themeId];
+  let theme = null;
+  let themeLookupFailed = false;
+  try {
+    theme = await resolveTheme(themeMap, themeId);
+  } catch (error) {
+    themeLookupFailed = true;
+    console.warn(`Unable to resolve social preview theme "${themeId}":`, error);
+  }
+
+  const deploymentVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 8) || '1';
+  const imageVersion = url.searchParams.get('v') || buildThemeImageVersion(theme, deploymentVersion);
   const displayName = theme
     ? theme.name
     : themeId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -30,6 +40,7 @@ export default function handler(req, res) {
 
   const origin = getRequestOrigin(req);
   const ogImageUrl = `${origin}/api/og?theme=${enc(themeId)}&variant=${enc(variantKey)}&v=${enc(imageVersion)}`;
+  const canonicalUrl = `${origin}/${enc(themeId)}/${enc(variantKey)}`;
   const appUrl = `${origin}/?theme=${enc(themeId)}&variant=${enc(variantKey)}`;
 
   const html = `<!DOCTYPE html>
@@ -38,6 +49,7 @@ export default function handler(req, res) {
 <meta charset="UTF-8">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
+<link rel="canonical" href="${esc(canonicalUrl)}">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -47,7 +59,7 @@ export default function handler(req, res) {
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(title)}">
-<meta property="og:url" content="${esc(appUrl)}">
+<meta property="og:url" content="${esc(canonicalUrl)}">
 <meta property="og:site_name" content="DexThemes">
 
 <!-- Twitter Card -->
@@ -66,7 +78,12 @@ export default function handler(req, res) {
 </html>`;
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+  res.setHeader(
+    'Cache-Control',
+    themeLookupFailed
+      ? 'public, max-age=60, s-maxage=60'
+      : 'public, max-age=3600, s-maxage=86400',
+  );
   res.status(200).send(html);
 }
 

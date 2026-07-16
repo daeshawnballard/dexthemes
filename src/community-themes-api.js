@@ -61,13 +61,16 @@ export async function loadCommunityThemes() {
       THEMES.push(...communityThemes);
       renderSidebar();
 
-      const savedId = localStorage.getItem('dexthemes-selected');
-      if (!state.isDeepLink && savedId && state.selectedTheme.id !== savedId) {
-        const restored = THEMES.find((theme) => theme.id === savedId);
+      const requestedId = state.deepLinkThemeId || localStorage.getItem('dexthemes-selected');
+      if (requestedId && state.selectedTheme.id !== requestedId) {
+        const restored = THEMES.find((theme) => theme.id === requestedId);
         if (restored) {
           state.setSelectedTheme(restored);
-          const { applyShellTheme, applyPreview } = await import('./theme-engine.js');
+          const { applyShellTheme, applyPreview, getVariants, hasVariant } = await import('./theme-engine.js');
           const { syncAttributionOverlay } = await import('./preview-actions.js');
+          if (!hasVariant(restored, state.selectedVariant)) {
+            state.setSelectedVariant(getVariants(restored)[0]);
+          }
           applyShellTheme(restored, state.selectedVariant);
           applyPreview(restored, state.selectedVariant);
           syncAttributionOverlay(restored);
