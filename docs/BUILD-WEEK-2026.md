@@ -50,13 +50,19 @@ Judging is based on Technological Implementation, Design, Potential Impact, and 
 
 ### Production preflight status
 
-The July 16, 2026 production probe confirms the source is ready for deployment, but the judge path is **not live yet**:
+The July 17, 2026 production probe confirms the public release is deployed:
 
-- a real MCP `initialize` POST to `https://www.dexthemes.com/api/mcp` currently returns the gallery's HTML social page rather than an MCP response;
-- both required `/.well-known` resources currently return HTML rather than the OAuth metadata and literal OpenAI challenge token;
-- `/privacy`, `/terms`, and `/support` currently return `404`.
+- a real MCP `initialize` POST to `https://www.dexthemes.com/api/mcp` returns a valid `2025-06-18` MCP response for DexThemes `1.0.0`;
+- `https://www.dexthemes.com/privacy.html`, `/terms.html`, and `/support.html` return the published policy and support pages;
+- the complete Build Week release is merged into the public MIT repository.
 
-Do not describe the deployed plugin as judge-testable until a production deployment replaces those responses and the authenticated flow is exercised end to end.
+The anonymous discovery, drafting, validation, preview, apply-handoff, leaderboard, and GitHub Issue tools are ready for live host testing. The authenticated judge path is **not live yet**:
+
+- `DEXTHEMES_AUTH_ISSUER` is not configured in the production build, so no literal `/.well-known/oauth-protected-resource` file is emitted and `/api/oauth-protected-resource` returns `503`;
+- `OPENAI_APPS_CHALLENGE` is still waiting for the portal-provided token, so no literal `/.well-known/openai-apps-challenge` file is emitted;
+- the matching Auth0 and Convex configuration, reviewer account, and end-to-end GitHub linking flow still require verification.
+
+Do not describe personal stats, achievements, or publication as judge-testable until those authentication gates pass.
 
 The July 17 local release preflight is green: all 81 automated tests pass, the docs and production builds pass, the plugin bundle validates, `npm audit` reports zero known vulnerabilities, and the 95.1-second video master passes full audio/video decode, caption-range, fast-start, loudness, and frame-level visual checks.
 
@@ -64,13 +70,13 @@ The July 17 local release preflight is green: all 81 automated tests pass, the d
 
 Supported surfaces: Codex/ChatGPT unified plugin hosts on desktop and web.
 
-Public test path after deployment:
+Public test path:
 
 1. Connect `https://www.dexthemes.com/api/mcp` or install `plugins/dexthemes` from the public repository.
 2. Ask: “Create a dark and light DexTheme inspired by Argentina football at night. Name it Argentina Afterglow.”
 3. Preview and prepare the dark variant for Codex without publishing.
 4. Ask for three community themes, inspect one inside the thread, then switch between today's and this week's visual leaderboards.
-5. Sign in with GitHub to view personal ranks, repeat daily/weekly wins, achievement reward themes, open the exact publication review, and press Publish in the app.
+5. After the OAuth configuration gate is complete, sign in with GitHub to view personal ranks, repeat daily/weekly wins, achievement reward themes, open the exact publication review, and press Publish in the app.
 6. Ask the plugin to prepare a GitHub Issue and verify the exact best-effort redacted draft is shown before GitHub opens and nothing is posted until GitHub's form is submitted.
 
 Local source verification:
@@ -94,13 +100,14 @@ The edit uses verified product captures from the MCP visual-QA flow, HeyGen voic
 - [ ] Auth0 access-token claim mapping verified: standard `email` + `email_verified` are signed when the employee bonus is enabled; no raw work email reaches DexThemes persistence.
 - [ ] Matching OAuth environment variables configured in Vercel and Convex.
 - [ ] A unique 32+ character `DEXTHEMES_CONFIRMATION_SECRET` is configured in Vercel for app-only publication review tokens.
-- [ ] Convex and Vercel deployments completed and live endpoint tested.
+- [x] Vercel production deployment completed; anonymous MCP initialization plus privacy, terms, and support endpoints tested live.
+- [ ] Matching Auth0 and Convex authentication deployment completed and the signed-in flow tested end to end.
 - [ ] Developer/domain identity verified in the OpenAI submission portal.
 - [ ] Portal domain challenge token supplied at production build time and verified as a literal static `/.well-known/openai-apps-challenge` file (no Vercel rewrite).
 - [ ] Reviewer-ready authenticated test path works without MFA, SMS, email confirmation, or private-network access.
-- [ ] Privacy, terms, and support URLs confirmed live.
-- [ ] Public repository URL and MIT license confirmed accessible to judges.
-- [ ] Current Build Week plugin code synchronized to the public MIT repository; the public repository exists but its latest verified push predates this implementation.
+- [x] Privacy, terms, and support URLs confirmed live.
+- [x] Public repository URL and MIT license confirmed accessible to judges.
+- [x] Current Build Week plugin code synchronized and merged into the public MIT repository.
 - [x] Local release preflight passes: 81 tests, docs/build, plugin validation, zero known npm vulnerabilities, and complete media validation.
 - [x] Versioned plugin archive and 1:35 submission master rendered with recorded SHA-256 checksums.
 - [ ] Demo video uploaded publicly with audio and under three minutes.

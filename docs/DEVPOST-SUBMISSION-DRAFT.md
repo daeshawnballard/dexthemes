@@ -69,7 +69,7 @@ After Build Week: community collections and follows, theme remix lineage, expand
 
 Use the install and test path in `docs/BUILD-WEEK-2026.md`. Authenticated tools require the live GitHub OAuth connection; discovery, drafting, preview, validation, apply handoff, public leaderboard, and GitHub Issue preparation are available without an account.
 
-Supported platforms: Codex and ChatGPT plugin hosts on desktop and web. The deployment target is `https://www.dexthemes.com/api/mcp`; it is not yet judge-testable because the current production route returns the gallery HTML instead of MCP. The public gallery at `https://www.dexthemes.com/` remains available for catalog and preview inspection.
+Supported platforms: Codex and ChatGPT plugin hosts on desktop and web. The deployment target `https://www.dexthemes.com/api/mcp` now returns a valid MCP initialization response, and the anonymous discovery, drafting, preview, validation, apply-handoff, leaderboard, and GitHub Issue tools are ready for live host testing. GitHub linking, personal stats, achievements, and publication are not yet judge-testable because the production Auth0 issuer and matching Convex configuration are still pending. The public gallery at `https://www.dexthemes.com/` remains available for catalog and preview inspection.
 
 ## Prepared release artifacts
 
@@ -86,7 +86,7 @@ The local release preflight passes all 81 tests, docs/build, Remotion lint/typec
 - **Country of Residence (`27946`):** pending user confirmation
 - **Category (`27947`):** Developer Tools
 - **Repository (`27948`):** https://github.com/daeshawnballard/dexthemes
-- **Judge URL and instructions (`27949`):** after the production deployment is verified, use `https://www.dexthemes.com/api/mcp`; sign in with GitHub only for personal stats, unlocks, and publication; public discovery, drafting, preview, apply handoff, leaderboard, and GitHub Issue review require no account
+- **Judge URL and instructions (`27949`):** use `https://www.dexthemes.com/api/mcp`; public discovery, drafting, preview, apply handoff, leaderboard, and GitHub Issue review require no account; add the GitHub sign-in steps for personal stats, unlocks, and publication only after the authenticated production flow is verified
 - **`/feedback` Session ID (`27950`):** pending
 - **Plugin installation and testing (`27951`):** connect `https://www.dexthemes.com/api/mcp` in the unified Codex/ChatGPT plugin host, then follow the six-step judge path in `docs/BUILD-WEEK-2026.md`
 
@@ -101,8 +101,7 @@ The local release preflight passes all 81 tests, docs/build, Remotion lint/typec
 
 - Public demo video URL
 - `/feedback` Codex session ID
-- Final live MCP test confirmation
+- Final authenticated MCP/OAuth test confirmation
 - Final repository visibility check
-- Synchronize this Build Week implementation to the public MIT repository; the currently public repository is accessible but its latest verified push predates the plugin work
 - Team/member details requested by Devpost
 - Explicit approval before the final Devpost submission action
