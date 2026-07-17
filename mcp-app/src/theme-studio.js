@@ -22,7 +22,7 @@ const ACHIEVEMENTS = {
   complete_pair: { icon: "☯", label: "Complete Pair", reward: "Yin & Yang" },
   use_plugin: { icon: "⌁", label: "Plugin Connected", reward: "Plugged In" },
   create_theme_with_plugin: { icon: "◉", label: "Plugin Creator", reward: "Voiceprint" },
-  openai_employee: { icon: "◎", label: "Builder of AGI", reward: "Builder of AGI" },
+  openai_employee: { icon: "◎", label: "OpenAI is nothing without its people", reward: "Human Spark" },
   theme_of_day: { icon: "☀", label: "Theme of the Day", reward: "Golden Hour" },
   theme_of_week: { icon: "★", label: "Theme of the Week", reward: "Headliner" },
   window_controls: { icon: "•••", label: "Easter Egg", reward: "Easter Egg" },
@@ -357,7 +357,7 @@ function renderAchievementGrid(unlocks, backData) {
     const copy = element("span", "achievement-copy");
     copy.append(element("strong", "", info.label));
     copy.append(element("small", "", unlock ? `Unlocked ${info.reward}` : `Unlocks ${info.reward}`));
-    if (action === "openai_employee") copy.append(element("em", "", "OpenAI is nothing without its people."));
+    if (action === "openai_employee") copy.append(element("em", "", "Unlocked when GitHub verifies an eligible @openai.com email. DexThemes stores only eligibility."));
     card.append(copy);
     if (unlock?.theme) {
       card.append(miniCodexPreview(unlock.theme));

@@ -33,7 +33,7 @@ Themes can be inspired by sports, games, films, places, moods, or personality. D
 - Never ask for or pass `userId`, `ownerId`, author identity, access tokens, API keys, or email addresses.
 - When the user wants to publish, call `prepare_theme_submission` after validation. It requires GitHub sign-in and renders the exact public name, summary, and variants without publishing.
 - `submit_theme` is app-only. Never try to invent or request its confirmation token; only the review app receives the short-lived payload/sign-in-bound token and calls the write after the user presses Publish.
-- A successful plugin publication can unlock Plugged In and Voiceprint. A verified eligible OpenAI work identity can unlock Builder of AGI, whose achievement line is “OpenAI is nothing without its people.” The theme is original and does not imply OpenAI endorsement.
+- A successful plugin publication can unlock Plugged In and Voiceprint. A verified eligible OpenAI work identity can unlock the “OpenAI is nothing without its people” achievement and its Human Spark reward theme. The theme is original and does not imply OpenAI endorsement.
 - Closed UTC-day and Monday-through-Sunday UTC-week winners can unlock Golden Hour and Headliner. A repeat win adds to creator stats but does not duplicate the one-time achievement or reward theme.
 
 ## Feedback

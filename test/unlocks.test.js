@@ -10,7 +10,7 @@ import {
 } from '../src/unlocks.js';
 import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
 
-const OPENAI_ACHIEVEMENT_LINE = 'OpenAI is nothing without its people.';
+const OPENAI_ACHIEVEMENT_NAME = 'OpenAI is nothing without its people';
 
 test('reverse unlock map resolves each theme id back to its action', () => {
   for (const [action, unlock] of Object.entries(UNLOCK_THEMES)) {
@@ -32,14 +32,15 @@ test('locked theme detection depends on whether the user has unlocked that theme
   assert.equal(isThemeLockedForUser(lockedThemeId, new Set([lockedThemeId])), false);
 });
 
-test('Builder of AGI keeps its people-first achievement line across unlock and catalog surfaces', () => {
+test('OpenAI people achievement unlocks the Human Spark reward theme', () => {
   const unlock = UNLOCK_THEMES.openai_employee;
   const theme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === unlock.themeId);
 
-  assert.equal(unlock.name, 'Builder of AGI');
-  assert.equal(unlock.description, OPENAI_ACHIEVEMENT_LINE);
+  assert.equal(unlock.achievement, OPENAI_ACHIEVEMENT_NAME);
+  assert.equal(unlock.name, 'Human Spark');
   assert.ok(theme);
-  assert.match(theme._summary, /^OpenAI is nothing without its people\./);
+  assert.equal(theme.name, 'Human Spark');
+  assert.match(theme._summary, /^People are the spark behind intelligence\./);
 });
 
 test('daily and weekly winner achievements unlock distinct one-time reward themes', () => {

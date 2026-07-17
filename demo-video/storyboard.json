@@ -1,91 +1,121 @@
 {
-  "title": "Speak a Vibe. Build a Codex Theme.",
-  "version": 1,
+  "title": "One Sentence. A Codex That Feels Yours.",
+  "version": 3,
   "width": 1920,
   "height": 1080,
   "fps": 30,
-  "durationSeconds": 175,
-  "totalFrames": 5250,
+  "durationSeconds": 139,
+  "totalFrames": 4170,
+  "narration": {
+    "provider": "HeyGen",
+    "engine": "starfish",
+    "voiceName": "Smooth Dev",
+    "voiceId": "07d2ba65847541feb97abc9b60181555",
+    "inputType": "text",
+    "language": "en",
+    "speed": 1,
+    "direction": "Warm, curious, conversational builder voice with restrained confidence; technically credible, never commercial."
+  },
   "scenes": [
     {
       "id": "hook",
       "startSeconds": 0,
-      "durationSeconds": 8,
+      "durationSeconds": 7,
       "capture": "title-card-to-real-codex-chat",
-      "overlay": "Speak a vibe. Make Codex yours.",
-      "voiceover": "Your coding workspace should feel like yours. With DexThemes for Codex, a new theme can start as a sentence."
+      "overlay": "What if one sentence made Codex yours?",
+      "support": "Describe it. Preview it. Apply it.",
+      "proof": "One idea → a complete Codex theme",
+      "voiceover": "What if one sentence could turn Codex into a workspace that feels unmistakably yours?"
     },
     {
-      "id": "voice-prompt",
-      "startSeconds": 8,
-      "durationSeconds": 21,
-      "capture": "01-hero-voice-create-import.mov",
-      "overlay": "Voice-friendly creation • Your custom name",
-      "voiceover": "I can say, create a dark and light theme inspired by Argentina football at night, and name it Albiceleste Afterglow. The custom name is preserved."
-    },
-    {
-      "id": "reason-and-preview",
-      "startSeconds": 29,
-      "durationSeconds": 19,
-      "capture": "01-hero-voice-create-import.mov",
-      "overlay": "GPT-5.6 palette reasoning • DexThemes validation",
-      "voiceover": "GPT-5.6 interprets the mood, creates an original palette, and reasons about contrast while DexThemes validates every supported color and renders both variants."
-    },
-    {
-      "id": "codex-import",
-      "startSeconds": 48,
+      "id": "create-and-name",
+      "startSeconds": 7,
       "durationSeconds": 20,
-      "capture": "01-hero-voice-create-import.mov",
-      "overlay": "Validated import • You stay in control",
-      "voiceover": "From the same conversation, I prepare the exact Codex import. The plugin gives me validated theme data, opens the fixed Codex Settings destination, and I choose to import it. Nothing is silently published."
+      "capture": "01-create-from-voice-or-text.mov",
+      "overlay": "Say it. Name it. See both variants.",
+      "support": "Voice or text becomes an original dark and light pair.",
+      "proof": "Creative reference → semantic color roles → validated pair",
+      "voiceover": "By voice or text, I ask Codex for dark and light themes inspired by Argentina football at night, and name it Albiazul Afterglow. GPT-5.6 interprets the brief; DexThemes validates both variants and makes sure every theme has a name."
     },
     {
-      "id": "discover-and-rank",
-      "startSeconds": 68,
-      "durationSeconds": 20,
-      "capture": "02-community-leaderboard.mov",
-      "overlay": "Inline previews • Today • This week",
-      "voiceover": "DexThemes is also a discovery layer. Search results open as full Codex mockups inside the thread. I can compare official, DexThemes, and community themes, then switch between today's, this week's, monthly, and all-time leaderboards."
+      "id": "full-preview",
+      "startSeconds": 27,
+      "durationSeconds": 14,
+      "capture": "02-dark-light-inline-preview.mov",
+      "overlay": "Preview the whole workspace—not just swatches.",
+      "support": "Full dark and light Codex mockups keep every color in context.",
+      "proof": "Code · diffs · contrast · accents · sidebar",
+      "voiceover": "Before I switch, DexThemes renders both variants as full Codex workspaces in the thread, not just swatches, so I can judge code, diffs, contrast, and accents in context."
     },
     {
-      "id": "identity-stats-achievements",
-      "startSeconds": 88,
-      "durationSeconds": 20,
-      "capture": "03-github-auth-achievements.mov",
-      "overlay": "All-period ranks • Repeat wins • Reward themes",
-      "voiceover": "GitHub sign-in shows every rank, repeat daily and weekly win history, finalized monthly Top 10 placements, and reward themes. Repeat results grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus. Only eligibility is stored."
+      "id": "apply-without-account",
+      "startSeconds": 41,
+      "durationSeconds": 14,
+      "capture": "03-copy-and-open-appearance.mov",
+      "overlay": "No account between you and a new theme.",
+      "support": "Create, preview, discover, and apply before signing in.",
+      "proof": "Copy exact import · Open Appearance · You apply",
+      "voiceover": "I copy the exact import, open Codex Appearance, and apply it. No account is required to create, preview, discover, or use a theme. Value comes before sign-in."
+    },
+    {
+      "id": "discover-community",
+      "startSeconds": 55,
+      "durationSeconds": 13,
+      "capture": "04-search-and-leaderboards.mov",
+      "overlay": "Find what fits—or what is winning.",
+      "support": "Search every source, compare full previews, and follow community momentum.",
+      "proof": "Today · this week · this month · all time",
+      "voiceover": "I can search official, DexThemes, and community themes, compare full previews, and see what people love today, this week, this month, or all time."
     },
     {
       "id": "review-and-publish",
-      "startSeconds": 108,
-      "durationSeconds": 24,
-      "capture": "04-review-and-publish.mov",
-      "overlay": "Exact review → User presses Publish",
-      "voiceover": "Publishing is deliberately explicit. The app shows the exact name, summary, palettes, and identity. Only after I press Publish does a short-lived confirmation authorize that exact payload. The model cannot invent an owner or reuse the review for another theme."
+      "startSeconds": 68,
+      "durationSeconds": 15,
+      "capture": "05-review-and-publish.mov",
+      "overlay": "Choose to publish. Get the credit.",
+      "support": "GitHub sign-in appears only when a community feature needs identity.",
+      "proof": "Your name · both previews · explicit Publish",
+      "voiceover": "Only when I choose Publish does DexThemes ask for GitHub. I review the name and both previews, approve the public action, and my verified GitHub identity is credited as the creator."
     },
     {
-      "id": "github-feedback",
-      "startSeconds": 132,
+      "id": "creator-loop",
+      "startSeconds": 83,
       "durationSeconds": 14,
-      "capture": "05-github-issue-review.mov",
-      "overlay": "Redact • Review • Continue to GitHub",
-      "voiceover": "I can also describe a bug and prepare a GitHub Issue. DexThemes applies best-effort redaction for common secrets, paths, emails, and tokens, then warns me to review every character. GitHub still asks me to submit the exact draft."
+      "capture": "06-github-stats-and-achievements.mov",
+      "overlay": "Your themes. Your ranks. Your wins.",
+      "support": "Signed-in creators can see their community progress in the same flow.",
+      "proof": "Repeat wins stay in stats · rewards unlock once",
+      "voiceover": "Signed-in creators see achievements, ranks, and every daily or weekly win. A theme can win repeatedly and its totals keep growing, while each achievement reward unlocks only once."
     },
     {
-      "id": "how-it-was-built",
-      "startSeconds": 146,
-      "durationSeconds": 20,
-      "capture": "06-codex-build-and-tests.mov",
-      "overlay": "Built with Codex • Creative reasoning with GPT-5.6",
-      "voiceover": "I used Codex throughout Build Week to understand the codebase, build the MCP app and plugin skill, connect authentication and achievements, trace the color pipeline, and add contract and security tests. GPT-5.6 supplies the creative palette reasoning in the live experience."
+      "id": "human-spark",
+      "startSeconds": 97,
+      "durationSeconds": 16,
+      "capture": "07-human-spark-achievement.mov",
+      "overlay": "A people-first thank you.",
+      "support": "OpenAI is nothing without its people.",
+      "proof": "Unlocks Human Spark · only eligibility is stored",
+      "voiceover": "Eligible OpenAI builders unlock Human Spark and the achievement, OpenAI is nothing without its people. GitHub verifies an openai.com address; DexThemes stores only eligibility, never the address."
+    },
+    {
+      "id": "open-source-feedback",
+      "startSeconds": 113,
+      "durationSeconds": 10,
+      "capture": "08-reviewed-github-issue.mov",
+      "overlay": "Help improve what you use.",
+      "support": "Open-source feedback stays reviewable and user-controlled.",
+      "proof": "Nothing opens on GitHub until you choose it",
+      "voiceover": "Because DexThemes is open source, I can review feedback and explicitly open a GitHub issue from the same conversation."
     },
     {
       "id": "end-card",
-      "startSeconds": 166,
-      "durationSeconds": 9,
-      "capture": "original-dexthemes-gallery-and-end-card",
-      "overlay": "Speak a vibe. Make Codex yours.",
-      "voiceover": "Speak a vibe. Make Codex yours. And, if you love it, share it with the DexThemes community."
+      "startSeconds": 123,
+      "durationSeconds": 16,
+      "capture": "gallery-montage-and-end-card",
+      "overlay": "Personal for you. Discoverable by everyone.",
+      "support": "One conversation from idea to community.",
+      "proof": "GPT-5.6 interprets · DexThemes validates · Codex previews and acts",
+      "voiceover": "Every theme starts personal and can become something the Codex community discovers. GPT-5.6 interprets the idea, DexThemes validates it, and the visual app keeps creation, preview, and sharing in one conversation."
     }
   ]
 }

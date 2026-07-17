@@ -32,7 +32,7 @@ export const UNLOCK_MAP: Record<string, { themeId: string; themeName: string }> 
   complete_pair: { themeId: "yin-yang", themeName: "Yin & Yang" },
   use_plugin: { themeId: "plugged-in", themeName: "Plugged In" },
   create_theme_with_plugin: { themeId: "voiceprint", themeName: "Voiceprint" },
-  openai_employee: { themeId: "builder-of-agi", themeName: "Builder of AGI" },
+  openai_employee: { themeId: "builder-of-agi", themeName: "Human Spark" },
   theme_of_day: { themeId: "golden-hour", themeName: "Golden Hour" },
   theme_of_week: { themeId: "headliner", themeName: "Headliner" },
   [SECRET_INTERACTION_UNLOCK_ACTION]: { themeId: "triple-dot", themeName: "Easter Egg" },

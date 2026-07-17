@@ -66,7 +66,7 @@ The website continues to support direct GitHub OAuth. Both paths key accounts by
 
 - `Plugged In` / `plugged-in`: first authenticated plugin use. The host does not expose a trustworthy installation webhook, so this is the secure equivalent of an install achievement.
 - `Voiceprint` / `voiceprint`: create and publish a theme through the plugin.
-- `Builder of AGI` / `builder-of-agi`: a signed identity-provider claim verifies an exact `@openai.com` domain. Its achievement line is: “OpenAI is nothing without its people.”
+- `OpenAI is nothing without its people` unlocks the `Human Spark` reward theme (`builder-of-agi`, retained as the stable internal ID) when a signed identity-provider claim verifies an exact `@openai.com` domain.
 - `Theme of the Day` / `golden-hour`: the creator of a closed UTC day's qualified #1 theme. Eligibility requires at least three unique copies and one signed-in, non-author adoption.
 - `Theme of the Week` / `headliner`: the creator of a closed Monday-through-Sunday UTC week's qualified #1 theme. Eligibility requires at least five unique copies and two signed-in, non-author adoptions.
 

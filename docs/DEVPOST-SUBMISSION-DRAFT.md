@@ -52,9 +52,9 @@ We also hardened the plugin as an account surface: GitHub OAuth state is bound t
 - A short apply path from conversation to a valid Codex import payload
 - One plugin spanning discovery, creation, community, stats, unlocks, and feedback
 - Full dark/light Codex workspace mockups for search, creation, leaderboard, apply, and review flows
-- Five new achievement themes: Plugged In, Voiceprint, Builder of AGI, Golden Hour, and Headliner
+- Five new achievement themes: Plugged In, Voiceprint, Human Spark, Golden Hour, and Headliner
 - Daily and weekly winner history that counts repeat wins without duplicating one-time unlocks
-- Builder of AGI is reserved for signed-in users whose upstream identity provides a verified exact `@openai.com` email; its line is “OpenAI is nothing without its people,” and DexThemes persists only the eligibility result, not the employee email address
+- “OpenAI is nothing without its people” is reserved for signed-in users whose upstream identity provides a verified exact `@openai.com` email; it unlocks Human Spark, and DexThemes persists only the eligibility result, not the work email address
 - GitHub feedback with automatic secret/path/email redaction and an exact user-review gate instead of auto-posting
 - Twelve MCP tools with output schemas, explicit safety annotations, and a model/app publication boundary
 - Five positive and three negative app review tests

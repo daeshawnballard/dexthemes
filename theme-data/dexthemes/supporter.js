@@ -423,14 +423,14 @@ registerDexThemesPack('supporter', [
     accents: ['#EF62D6', '#62D9F1', '#B834A0'],
   }),
 
-  // ── Builder of AGI ────────────────────────────────────────────────────
+  // ── Human Spark ───────────────────────────────────────────────────────
   // Original, non-logo palette for verified @openai.com GitHub identities.
   createDexTheme({
     id: 'builder-of-agi',
-    name: 'Builder of AGI',
+    name: 'Human Spark',
     dateAdded: '2026-07-16',
     copies: 0,
-    _summary: 'OpenAI is nothing without its people. Graphite, white, and signal green for verified OpenAI builders.',
+    _summary: 'People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders.',
     dark: {
       surface: '#101414',
       ink: '#F2F7F5',

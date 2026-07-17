@@ -20,7 +20,7 @@ The Build Week extension adds:
 - full dark/light Codex workspace mockups, validation, and an explicit copy-and-Settings import handoff inside the conversation;
 - daily, weekly, monthly, and all-time visual leaderboards with in-thread theme inspection;
 - OAuth-gated personal stats, all-period leaderboard ranks, repeat-win history, unlocks, and app-confirmed public submission with a model-hidden payload-bound review token;
-- `Plugged In`, `Voiceprint`, `Builder of AGI`, `Theme of the Day`, and `Theme of the Week` achievements and original unlock themes;
+- `Plugged In`, `Voiceprint`, `OpenAI is nothing without its people`, `Theme of the Day`, and `Theme of the Week` achievements and original unlock themes, including the Human Spark reward;
 - best-effort redacted, exact-review GitHub Issue preparation for open-source feedback;
 - browser-bound GitHub OAuth state plus PKCE, hashed API keys, server-derived achievements, expiry-enforced scoped JWT validation, independent identity/network rate limits, and account-bound plugin sessions;
 - canonical theme-ID and palette protection, validated colors at storage/render/apply boundaries, and qualified-adoption leaderboard achievements;

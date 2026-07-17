@@ -9,12 +9,19 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { Audio } from "@remotion/media";
 import storyboard from "../../storyboard.json";
+import captions from "./captions.json";
+import narrationManifest from "./narration-manifest.json";
 
 type Scene = (typeof storyboard.scenes)[number];
 type DemoProps = {
   previsualization: boolean;
 };
+
+const narrationByScene = new Map(
+  narrationManifest.tracks.map((track) => [track.sceneId, track]),
+);
 
 const COLORS = {
   background: "#080A10",
@@ -30,24 +37,11 @@ const COLORS = {
 };
 
 const captureByScene: Partial<Record<Scene["id"], string>> = {
-  "voice-prompt": "captures/theme-preview.png",
-  "reason-and-preview": "captures/theme-preview.png",
-  "codex-import": "captures/apply-handoff.png",
-  "discover-and-rank": "captures/leaderboard.png",
-  "identity-stats-achievements": "captures/creator-dashboard.png",
-};
-
-const supportCopy: Record<Scene["id"], string> = {
-  hook: "A personal coding workspace can begin with one sentence.",
-  "voice-prompt": "Describe the mood. Keep the name you chose.",
-  "reason-and-preview": "An original palette, checked and rendered before you use it.",
-  "codex-import": "Copy the validated import, open Settings, and stay in control.",
-  "discover-and-rank": "Search, inspect, and compare without leaving the conversation.",
-  "identity-stats-achievements": "Ranks, repeat wins, monthly placements, and reward themes in one view.",
-  "review-and-publish": "The exact reviewed payload is the only payload that can become public.",
-  "github-feedback": "Best-effort redaction, exact review, and GitHub's own final submit step.",
-  "how-it-was-built": "Codex helped build, harden, test, and package the complete plugin.",
-  "end-card": "Create it. Make it yours. Share it with the community.",
+  "create-and-name": "captures/theme-preview.png",
+  "full-preview": "captures/theme-preview.png",
+  "apply-without-account": "captures/apply-handoff.png",
+  "discover-community": "captures/leaderboard.png",
+  "creator-loop": "captures/creator-dashboard.png",
 };
 
 const Background: React.FC = () => {
@@ -131,14 +125,14 @@ const SceneHeading: React.FC<{ scene: Scene; align?: "left" | "center" }> = ({
           textTransform: "uppercase",
         }}
       >
-        DexThemes · OpenAI Build Week
+        DexThemes for Codex
       </span>
       <h1
         style={{
           maxWidth: 1680,
           margin: 0,
           color: COLORS.ink,
-          fontSize: scene.id === "hook" || scene.id === "end-card" ? 112 : 68,
+          fontSize: scene.id === "hook" || scene.id === "end-card" ? 106 : 64,
           fontWeight: 780,
           letterSpacing: "-0.055em",
           lineHeight: 0.98,
@@ -146,19 +140,21 @@ const SceneHeading: React.FC<{ scene: Scene; align?: "left" | "center" }> = ({
       >
         {headline}
       </h1>
-      <p
+      <span
         style={{
-          maxWidth: 1440,
-          margin: 0,
-          color: COLORS.muted,
-          fontSize: 34,
-          fontWeight: 520,
-          letterSpacing: "-0.02em",
-          lineHeight: 1.25,
+          marginTop: 2,
+          padding: "9px 14px",
+          border: `1px solid ${COLORS.line}`,
+          borderRadius: 999,
+          color: COLORS.ink,
+          background: "rgba(255, 255, 255, 0.055)",
+          fontSize: 20,
+          fontWeight: 720,
+          letterSpacing: "0.01em",
         }}
       >
-        {supportCopy[scene.id]}
-      </p>
+        {scene.proof}
+      </span>
     </div>
   );
 };
@@ -191,14 +187,14 @@ const PrevisBadge: React.FC<{ visible: boolean }> = ({ visible }) => {
 const CaptureFrame: React.FC<{ scene: Scene; source: string }> = ({ scene, source }) => {
   const frame = useCurrentFrame();
   const duration = Math.round(scene.durationSeconds * storyboard.fps);
-  const panEnd = scene.id === "codex-import" ? -470 : scene.id === "identity-stats-achievements" ? -710 : 0;
-  const panStart = scene.id === "identity-stats-achievements" ? -20 : 0;
+  const panEnd = scene.id === "apply-without-account" ? -470 : scene.id === "creator-loop" ? -710 : 0;
+  const panStart = scene.id === "creator-loop" ? -20 : 0;
   return (
     <div
       style={{
         position: "relative",
         width: 1540,
-        height: scene.id === "discover-and-rank" ? 550 : 695,
+        height: scene.id === "discover-community" ? 550 : 650,
         overflow: "hidden",
         border: `1px solid ${COLORS.line}`,
         borderRadius: 34,
@@ -355,9 +351,74 @@ const PublishScene: React.FC<{ scene: Scene }> = ({ scene }) => {
     <AbsoluteFill style={{ padding: "88px 96px", display: "flex", flexDirection: "column", gap: 66 }}>
       <SceneHeading scene={scene} />
       <div style={{ display: "flex", gap: 28, flex: 1, alignItems: "center" }}>
-        <StepCard number="01" title="Review" detail="Name, summary, dark and light palettes." accent={COLORS.cyan} delay={14} />
-        <StepCard number="02" title="Bind" detail="Short-lived confirmation for that exact payload." accent={COLORS.indigo} delay={24} />
-        <StepCard number="03" title="Publish" detail="Only after the signed-in user presses the button." accent={COLORS.green} delay={34} />
+        <StepCard number="01" title="Name" detail="Keep the title and story you want people to discover." accent={COLORS.cyan} delay={14} />
+        <StepCard number="02" title="Preview" detail="Inspect the complete dark and light Codex workspaces." accent={COLORS.indigo} delay={24} />
+        <StepCard number="03" title="Publish" detail="You press the final button; your GitHub identity gets the credit." accent={COLORS.green} delay={34} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const ThemeVariantCard: React.FC<{
+  label: string;
+  surface: string;
+  sidebar: string;
+  ink: string;
+  accent: string;
+  delay: number;
+}> = ({ label, surface, sidebar, ink, accent, delay }) => {
+  const frame = useCurrentFrame();
+  return (
+    <div
+      style={{
+        flex: 1,
+        minHeight: 370,
+        overflow: "hidden",
+        border: `1px solid ${COLORS.line}`,
+        borderRadius: 30,
+        color: ink,
+        background: surface,
+        boxShadow: "0 26px 70px rgba(0,0,0,0.3)",
+        opacity: interpolate(frame, [delay, delay + 18], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        }),
+        translate: `0 ${interpolate(frame, [delay, delay + 22], [34, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.bezier(0.16, 1, 0.3, 1),
+        })}px`,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 56, padding: "0 20px", background: sidebar }}>
+        <span style={{ fontSize: 18, fontWeight: 840, letterSpacing: "0.12em", textTransform: "uppercase" }}>{label}</span>
+        <span style={{ color: accent, fontSize: 18, fontWeight: 820 }}>Human Spark</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "104px 1fr", minHeight: 314 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18, padding: "24px 18px", background: sidebar }}>
+          <span style={{ display: "grid", placeItems: "center", width: 46, height: 46, borderRadius: 14, color: surface, background: accent, fontSize: 24, fontWeight: 900 }}>D</span>
+          {[0, 1, 2].map((item) => <span key={item} style={{ width: 48, height: 7, borderRadius: 999, background: item === 0 ? accent : `${ink}2B` }} />)}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, padding: 28 }}>
+          <strong style={{ fontSize: 30, letterSpacing: "-0.035em" }}>People are the spark behind intelligence.</strong>
+          <span style={{ maxWidth: 470, color: `${ink}A8`, fontSize: 21, lineHeight: 1.35 }}>A focused graphite workspace with signal green for ideas in motion.</span>
+          <div style={{ marginTop: "auto", padding: 20, borderRadius: 16, background: sidebar, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 17 }}>
+            <span style={{ display: "block", color: accent }}>+ human curiosity</span>
+            <span style={{ display: "block", marginTop: 8, color: `${ink}A8` }}>+ machine intelligence</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const HumanSparkScene: React.FC<{ scene: Scene }> = ({ scene }) => {
+  return (
+    <AbsoluteFill style={{ padding: "74px 96px 82px", display: "flex", flexDirection: "column", gap: 34 }}>
+      <SceneHeading scene={scene} />
+      <div style={{ display: "flex", alignItems: "center", gap: 26, flex: 1 }}>
+        <ThemeVariantCard label="Dark" surface="#101414" sidebar="#0B0E0E" ink="#F2F7F5" accent="#35C995" delay={12} />
+        <ThemeVariantCard label="Light" surface="#F7FAF9" sidebar="#ECF2F0" ink="#17201D" accent="#14845F" delay={22} />
       </div>
     </AbsoluteFill>
   );
@@ -396,82 +457,27 @@ const FeedbackScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           <span style={{ color: COLORS.green, fontSize: 24, fontWeight: 780 }}>Nothing posted</span>
         </div>
         <div style={{ display: "grid", gap: 14, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 25 }}>
-          <span style={{ color: COLORS.muted }}>Token: <b style={{ color: COLORS.coral }}>[redacted access token]</b></span>
-          <span style={{ color: COLORS.muted }}>Path: <b style={{ color: COLORS.coral }}>/[redacted home]/project</b></span>
-          <span style={{ color: COLORS.muted }}>Context: Variant switch leaves the light preview blank.</span>
+          <span style={{ color: COLORS.muted }}>Expected: dark and light previews stay visible.</span>
+          <span style={{ color: COLORS.muted }}>Observed: the light preview becomes blank after switching.</span>
+          <span style={{ color: COLORS.muted }}>Reproduction: open preview → choose light → return to dark.</span>
         </div>
         <div
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 24,
             padding: "18px 22px",
             borderRadius: 18,
             color: COLORS.ink,
             background: "rgba(140,145,255,0.11)",
-            fontSize: 27,
+            fontSize: 25,
             lineHeight: 1.3,
           }}
         >
-          Best-effort redaction can miss sensitive context. Review every character before opening GitHub.
+          <span>Review the exact draft before continuing to GitHub.</span>
+          <strong style={{ flex: "0 0 auto", padding: "12px 18px", borderRadius: 999, color: "#090B10", background: COLORS.ink, fontSize: 22 }}>Review GitHub issue →</strong>
         </div>
-      </div>
-    </AbsoluteFill>
-  );
-};
-
-const Metric: React.FC<{ value: string; label: string; color: string; delay: number }> = ({
-  value,
-  label,
-  color,
-  delay,
-}) => {
-  const frame = useCurrentFrame();
-  return (
-    <div
-      style={{
-        minWidth: 360,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 12,
-        padding: "44px 34px",
-        border: `1px solid ${COLORS.line}`,
-        borderRadius: 30,
-        background: COLORS.panel,
-        opacity: interpolate(frame, [delay, delay + 18], [0, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        }),
-        translate: `0 ${interpolate(frame, [delay, delay + 20], [36, 0], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-          easing: Easing.bezier(0.16, 1, 0.3, 1),
-        })}px`,
-      }}
-    >
-      <strong style={{ color, fontSize: 98, lineHeight: 1, letterSpacing: "-0.07em" }}>{value}</strong>
-      <span style={{ color: COLORS.muted, fontSize: 29, fontWeight: 720, textAlign: "center" }}>{label}</span>
-    </div>
-  );
-};
-
-const BuildScene: React.FC<{ scene: Scene }> = ({ scene }) => {
-  return (
-    <AbsoluteFill style={{ padding: "88px 96px", display: "flex", flexDirection: "column", gap: 64 }}>
-      <SceneHeading scene={scene} />
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 28 }}>
-        <Metric value="81" label="passing contract and security tests" color={COLORS.cyan} delay={12} />
-        <Metric value="2" label="sealed security scan rounds" color={COLORS.indigo} delay={22} />
-        <Metric value="0" label="known npm audit vulnerabilities" color={COLORS.green} delay={32} />
-      </div>
-      <div
-        style={{
-          alignSelf: "center",
-          color: COLORS.muted,
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-          fontSize: 28,
-          letterSpacing: "0.015em",
-        }}
-      >
-        MCP · Apps SDK · Convex · OAuth 2.1 · Codex plugin
       </div>
     </AbsoluteFill>
   );
@@ -522,12 +528,58 @@ const EndScene: React.FC<{ scene: Scene }> = ({ scene }) => {
 
 const SceneRenderer: React.FC<{ scene: Scene }> = ({ scene }) => {
   if (scene.id === "hook") return <HookScene scene={scene} />;
+  if (scene.id === "human-spark") return <HumanSparkScene scene={scene} />;
   if (scene.id === "review-and-publish") return <PublishScene scene={scene} />;
-  if (scene.id === "github-feedback") return <FeedbackScene scene={scene} />;
-  if (scene.id === "how-it-was-built") return <BuildScene scene={scene} />;
+  if (scene.id === "open-source-feedback") return <FeedbackScene scene={scene} />;
   if (scene.id === "end-card") return <EndScene scene={scene} />;
   const capture = captureByScene[scene.id];
   return capture ? <ProductScene scene={scene} source={capture} /> : null;
+};
+
+const CaptionLayer: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const currentMs = (frame / fps) * 1000;
+  const caption = captions.find((cue) => currentMs >= cue.startMs && currentMs <= cue.endMs);
+  if (!caption) return null;
+
+  const opacity = Math.min(
+    interpolate(currentMs, [caption.startMs, caption.startMs + 120], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }),
+    interpolate(currentMs, [caption.endMs - 120, caption.endMs], [1, 0], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }),
+  );
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: "50%",
+        bottom: 72,
+        zIndex: 70,
+        maxWidth: 1420,
+        padding: "13px 22px 15px",
+        border: "1px solid rgba(255, 255, 255, 0.13)",
+        borderRadius: 18,
+        color: "#FFFFFF",
+        background: "rgba(5, 7, 12, 0.88)",
+        boxShadow: "0 16px 44px rgba(0, 0, 0, 0.34)",
+        fontSize: 33,
+        fontWeight: 680,
+        letterSpacing: "-0.02em",
+        lineHeight: 1.22,
+        textAlign: "center",
+        opacity,
+        translate: "-50% 0",
+      }}
+    >
+      {caption.text}
+    </div>
+  );
 };
 
 const GlobalProgress: React.FC = () => {
@@ -556,16 +608,21 @@ export const BuildWeekDemo: React.FC<DemoProps> = ({ previsualization }) => {
   return (
     <AbsoluteFill style={{ background: COLORS.background }}>
       <Background />
-      {storyboard.scenes.map((scene) => (
-        <Sequence
-          key={scene.id}
-          from={Math.round(scene.startSeconds * storyboard.fps)}
-          durationInFrames={Math.round(scene.durationSeconds * storyboard.fps)}
-        >
-          <SceneRenderer scene={scene} />
-        </Sequence>
-      ))}
+      {storyboard.scenes.map((scene) => {
+        const narration = narrationByScene.get(scene.id);
+        return (
+          <Sequence
+            key={scene.id}
+            from={Math.round(scene.startSeconds * storyboard.fps)}
+            durationInFrames={Math.round(scene.durationSeconds * storyboard.fps)}
+          >
+            <SceneRenderer scene={scene} />
+            {narration ? <Audio src={staticFile(narration.file)} volume={1.3} /> : null}
+          </Sequence>
+        );
+      })}
       <PrevisBadge visible={previsualization} />
+      <CaptionLayer />
       <GlobalProgress />
     </AbsoluteFill>
   );

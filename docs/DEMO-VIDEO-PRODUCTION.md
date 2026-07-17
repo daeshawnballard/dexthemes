@@ -1,141 +1,146 @@
 # Build Week Demo Video Production
 
-This packet is the production source of truth for the public Build Week demo. The final video must be a real, judge-reproducible product capture, not a simulated product video.
+This packet is the production source of truth for the public OpenAI Build Week demo. The cut is a product demo first: judges should understand the problem, see the complete happy path, and leave knowing why DexThemes is useful and distinctive. Internal test counts, scan rounds, and implementation housekeeping do not belong in the story.
 
 ## Deliverable
 
-- **Working title:** Speak a Vibe. Build a Codex Theme.
-- **Target length:** 2:55 maximum (`175` seconds)
+- **Title:** One Sentence. A Codex That Feels Yours.
+- **Target length:** 2:19 (`139` seconds)
 - **Format:** 1920x1080, 16:9, 30 fps, H.264 video, AAC audio
-- **Destination:** Public YouTube URL
-- **Required spoken coverage:** what DexThemes for Codex does, how Codex was used to build it, and how GPT-5.6 is used in the experience
-- **Primary proof:** a continuous real capture of Codex invoking the deployed DexThemes plugin
-- **Creative constraint:** use original DexThemes visuals and cleared narration only; do not use team logos, match footage, game art, or copyrighted music
+- **Destination:** Public YouTube URL for the Build Week submission
+- **Product promise:** turn an idea into a named, validated dark/light Codex theme; preview it in context; apply it without an account; and optionally publish it to the community
+- **Primary proof:** real Codex footage invoking the deployed DexThemes visual MCP app
+- **Creative constraint:** use original DexThemes visuals, real product captures, cleared narration, and cleared music only
 
-The recommended production stack is:
+The final edit uses Remotion for deterministic scene timing, crop/zoom, captions, and the end card. HeyGen supplies voice-over audio only; it does not replace the real product footage and no avatar is needed.
 
-1. Record the real Codex/plugin workflow after the production MCP and OAuth paths pass preflight.
-2. Use Remotion for the edit, captions, cursor emphasis, crop/zoom, and end card.
-3. Add narration after the script and product claims are locked, using Daeshawn's recorded voice or a dedicated text-to-speech tool.
+## What judges should understand
 
-HeyGen's installed video workflow is optimized for presenter-led generated video, not narration-only. If HeyGen is used, limit it to an optional presenter intro/outro after approval; do not use an AI avatar or prompt-generated video as the primary demo. Judges need to see the real plugin working.
+| Build Week lens | Visible evidence |
+| --- | --- |
+| Quality of the idea | A coding workspace can become personal from one natural-language idea. |
+| Thoughtful GPT-5.6 use | GPT-5.6 interprets a creative reference into semantic color intent; DexThemes validates the named dark/light result. |
+| Design and user experience | Full Codex mockups appear inside the thread, the anonymous happy path comes first, and identity is requested only for community actions. |
+| Technical implementation | A visual MCP app coordinates generation, validation, previews, a safe apply handoff, GitHub identity, explicit publication, stats, and feedback. |
+| Potential impact | Creators can publish, discover, rank, collect achievements, and improve an open-source theme ecosystem without leaving the conversation. |
+| Problem, solution, and approach | The hook states the ownership problem; the product flow demonstrates the solution; the final line summarizes the GPT-5.6 → DexThemes → Codex approach. |
 
 ## Story arc
 
-| Time | Product proof | Spoken point |
+| Time | Product proof | Viewer takeaway |
 | --- | --- | --- |
-| 0:00–0:08 | Codex and DexThemes title card, then the real chat | A workspace theme can begin as a sentence, not a settings scavenger hunt. |
-| 0:08–0:29 | Speak/type the Argentina-at-night prompt with the custom name | Voice-friendly creation; the user may always supply the name. |
-| 0:29–0:48 | GPT-5.6 returns an original dark/light pair and visual preview | Personalized palette reasoning, naming, and DexThemes validation. |
-| 0:48–1:08 | Prepare the import, open the fixed Codex Settings route, import, and show the applied result | The theme payload is validated JSON; no theme is silently published. |
-| 1:08–1:28 | Search community themes, inspect one inline, and switch Today/This Week leaderboard cards | Discovery and community momentum stay visual inside the thread. |
-| 1:28–1:48 | GitHub sign-in, all-period ranks, repeat-win history, and achievement reward previews | GitHub identity joins plugin and website activity without user IDs in tool arguments. |
-| 1:48–2:12 | Exact app review, user presses Publish, then published result | Public writes require the signed-in user and an explicit payload-bound confirmation. |
-| 2:12–2:26 | Prepare a redacted GitHub Issue and stop on the GitHub review page | Open-source feedback is easy, but never silently posted. |
-| 2:26–2:46 | Source tree, tests, MCP app, and Codex task | Codex built and hardened the integration; GPT-5.6 drives palette reasoning. |
-| 2:46–2:55 | Gallery/end card with repository and project URL | Open-source invitation and final product promise. |
+| 0:00–0:07 | Product hook, then real Codex thread | One sentence can make Codex feel personally yours. |
+| 0:07–0:27 | Voice/text request with the visible custom name `Albiazul Afterglow` | GPT-5.6 interprets the brief; DexThemes validates and names both variants. |
+| 0:27–0:41 | Full dark/light Codex mockups in the thread | Users choose in context, not from swatches alone. |
+| 0:41–0:55 | Exact import and Codex Appearance handoff | The useful path works without an account. |
+| 0:55–1:08 | Search plus daily, weekly, monthly, and all-time leaderboards | Discovery and community momentum stay visual. |
+| 1:08–1:23 | Optional GitHub sign-in, exact theme review, and user-pressed Publish | Identity appears only when needed, and the creator controls the public action. |
+| 1:23–1:37 | Personal ranks, repeat-win history, and achievements | Repeat wins remain in stats while each reward unlocks once. |
+| 1:37–1:53 | Human Spark dark/light preview | A small people-first achievement delights eligible OpenAI builders without claiming employment. |
+| 1:53–2:03 | Reviewed GitHub Issue draft | Open-source feedback is easy and still user-controlled. |
+| 2:03–2:19 | Gallery montage and closing product promise | Personal creation can become community discovery. |
 
 The machine-readable timing and exact per-shot narration live in [`demo-video/storyboard.json`](../demo-video/storyboard.json).
 
 ## Locked narration script
 
-> Your coding workspace should feel like yours. With DexThemes for Codex, a new theme can start as a sentence.
+> What if one sentence could turn Codex into a workspace that feels unmistakably yours?
 >
-> I can say, “Create a dark and light theme inspired by Argentina football at night, and name it Albiceleste Afterglow.” The custom name is preserved. GPT-5.6 interprets the mood, creates an original palette, and reasons about contrast while DexThemes validates every supported color and renders both variants.
+> By voice or text, I ask Codex for dark and light themes inspired by Argentina football at night, and name it Albiazul Afterglow. GPT-5.6 interprets the brief; DexThemes validates both variants and makes sure every theme has a name.
 >
-> From the same conversation, I can prepare the exact Codex import. The plugin never hides a community write inside this step: it gives me validated theme data, opens the fixed Codex Settings destination, and I choose to import it. Now the workspace has the new look.
+> Before I switch, DexThemes renders both variants as full Codex workspaces in the thread, not just swatches, so I can judge code, diffs, contrast, and accents in context.
 >
-> DexThemes is also a discovery layer. Search results open as full Codex mockups inside the thread. I can compare official, DexThemes, and community themes, then switch between today's, this week's, monthly, and all-time leaderboards.
+> I copy the exact import, open Codex Appearance, and apply it. No account is required to create, preview, discover, or use a theme. Value comes before sign-in.
 >
-> GitHub sign-in shows every rank, repeat daily and weekly win history, finalized monthly Top 10 placements, and reward themes. Repeat results grow the stats; each achievement unlocks once. Golden Hour and Headliner reward qualified themes of the day and week. Builder of AGI is the verified OpenAI-work-domain bonus: “OpenAI is nothing without its people.” Only eligibility is stored.
+> I can search official, DexThemes, and community themes, compare full previews, and see what people love today, this week, this month, or all time.
 >
-> Publishing is deliberately explicit. The app shows the exact name, summary, dark and light palettes, and identity. Only after I press Publish does the short-lived confirmation authorize that exact payload. The model cannot invent an owner or reuse the review for a different theme.
+> Only when I choose Publish does DexThemes ask for GitHub. I review the name and both previews, approve the public action, and my verified GitHub identity is credited as the creator.
 >
-> Because DexThemes is open source, I can also describe a bug and prepare a GitHub Issue. DexThemes applies best-effort redaction for common secrets, paths, emails, and tokens, then warns me to review every character. GitHub still asks me to submit the exact draft.
+> Signed-in creators see achievements, ranks, and every daily or weekly win. A theme can win repeatedly and its totals keep growing, while each achievement reward unlocks only once.
 >
-> I used Codex throughout Build Week to understand the existing codebase, build the MCP app and plugin skill, connect authentication and achievements, trace the color pipeline, and add contract and security tests. GPT-5.6 supplies the creative palette reasoning inside the live experience.
+> Eligible OpenAI builders unlock Human Spark and the achievement, OpenAI is nothing without its people. GitHub verifies an openai.com address; DexThemes stores only eligibility, never the address.
 >
-> Speak a vibe. Make Codex yours. And, if you love it, share it with the DexThemes community.
+> Because DexThemes is open source, I can review feedback and explicitly open a GitHub issue from the same conversation.
+>
+> Every theme starts personal and can become something the Codex community discovers. GPT-5.6 interprets the idea, DexThemes validates it, and the visual app keeps creation, preview, and sharing in one conversation.
 
-Read at a calm product-demo pace. Do not accelerate the final security/build section to fit; shorten pauses or capture transitions first.
+The script is `272` words, averaging about `117` words per minute. Do not accelerate the close; let product footage provide the breathing room.
 
 ## Capture checklist
 
 ### Before recording
 
-- Production `https://www.dexthemes.com/api/mcp` returns a valid MCP response.
-- OAuth protected-resource metadata and the OpenAI challenge are live as literal resources.
+- The production MCP and OAuth paths pass plugin preflight.
 - Privacy, terms, and support pages return `200`.
-- GitHub OAuth completes in the judge-ready account without MFA, SMS, or private-network access.
-- The account has no private themes, private repository names, personal email, access token, or unrelated notifications visible.
-- Browser bookmarks, terminal environment values, account menus, and notification center are hidden.
-- A disposable, original demo theme name and publication plan are approved.
-- Codex, browser, and capture display use a consistent 16:9 layout at 100% scaling.
+- GitHub OAuth completes in the judge-ready account without private-network access.
+- The account and desktop show no private themes, repository names, email addresses, tokens, unrelated notifications, or browser chrome.
+- The original demo theme and publication plan are approved.
+- Codex and capture display use a consistent 16:9 layout at 100% scaling.
 
 ### Required takes
 
-1. **Hero take:** one uninterrupted flow from the voice/text request through preview and Codex import.
-2. **Community take:** search with inline theme selection, Today/This Week leaderboards, personal ranks and repeat-win history, and reward-theme previews.
-3. **Publication take:** exact app review, visible user click, successful community result.
-4. **Feedback take:** best-effort redacted draft, explicit review warning, and GitHub's final review page; do not press GitHub's submit button for the demo unless the issue is real and approved.
-5. **Build take:** repository tree, MCP app, plugin skill, and a clean test result.
-6. **Safety take:** close crop of the reviewed payload and fixed settings handoff, if the hero take is too small to read.
+1. **Create take:** one uninterrupted flow from the voice/text request through the named dark/light preview.
+2. **Apply take:** select a variant, copy the exact import, open Appearance, and show the applied result.
+3. **Discovery take:** search, open a full preview, and move through Today, This week, This month, and All time.
+4. **Publication take:** trigger GitHub linking only from Publish, return to the exact review, press Publish, and show the community result.
+5. **Creator take:** show personal ranks, repeat-win history, achievements, and the Human Spark reward preview.
+6. **Feedback take:** prepare a GitHub Issue, review the draft, and stop before GitHub submission unless the issue is real and approved.
+7. **Closing take:** gallery or community montage using real DexThemes product footage.
 
-Record each take without narration. This makes timing and accessibility captions easier to revise.
+Record each take without narration. Keep enough interaction before and after tool results for a judge to distinguish a working app from a static mockup.
 
-## Remotion edit specification
+## Visual edit rules
 
 - Composition ID: `BuildWeekDemo`
 - Canvas: `1920x1080`
 - Frame rate: `30`
-- Maximum frames: `5250`
-- Safe area: keep key text at least 96 px from the sides and 100 px from the top and bottom
-- Captions: two lines maximum, sentence case, high-contrast background, no word-by-word karaoke animation
-- Transitions: hard cuts or 6–10 frame dissolves only
-- Zooms: use only to make a real interaction readable; do not fabricate UI states
-- Cursor: one subtle ring on clicks that matter—Import, Sign in, Publish, and Continue to GitHub
-- Music: optional, original/cleared, mixed at least 18 dB below narration
-- End card: “Speak a vibe. Make Codex yours.”, DexThemes wordmark, `dexthemes.com`, public repository URL, and “Open source”
+- Total frames: `4170`
+- Product footage should occupy most of every feature scene.
+- Use one primary value statement, narration captions, and at most one small proof line; avoid turning the demo into a slide deck.
+- Keep key text at least 96 px from the sides and 100 px from the top and bottom.
+- Use hard cuts or 6–10 frame dissolves only.
+- Use crop/zoom only to make real interactions readable; never fabricate product states.
+- Add one subtle click ring only for actions that matter: select variant, apply, sign in, Publish, and Review GitHub issue.
+- Optional cleared music should sit at least 18 dB below narration.
+- The end card must retain `dexthemes.com`, the public repository, and `Open source`.
 
-Implement each scene with frame-based Remotion `<Sequence>` components, load captures with `<Video>` and narration with `<Audio>` from `@remotion/media`, and reference local media through `staticFile()`. Do not use CSS transitions, CSS animations, or Tailwind animation classes; they are not deterministic in Remotion renders.
+Use frame-based Remotion `<Sequence>` components, `<Video>` and `<Audio>` from `@remotion/media`, and local media through `staticFile()`. Do not use CSS animations or CSS transitions in the Remotion composition.
 
-After the final narration file exists, transcribe it to a JSON array using Remotion's `Caption` shape (`text`, `startMs`, `endMs`, `timestampMs`, and `confidence`). Keep caption rendering in a separate component and derive its frame ranges from those timestamps. Do not invent word timings from this storyboard.
+## HeyGen voice-over plan
 
-The edit should preserve enough uncut interaction around each result that a judge can distinguish a working tool call from a static mockup.
+- **Primary voice:** `Smooth Dev` (`07d2ba65847541feb97abc9b60181555`), verified in HeyGen's public English catalog with Starfish support.
+- **Alternates:** `Affable Aaron` (`184c9014f94142ae949363089aaf53dd`) for a warmer human-first take; `Chill Brian` (`d2f4f24783d04e22ab49ee8fdc3715e0`) for a more relaxed founder take.
+- Generate one file per scene so the edit can follow the product interaction instead of stretching footage around one fixed master.
+- Target a warm, intelligent, conversational builder voice: confident and technically credible, never hypey or commercial.
+- Use `inputType: text`, `language: en`, and `speed: 1.0`; adjust no higher than `1.03` only after measuring the generated files.
+- Use plain text with synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `COH-decks`, `G P T five point six`, `ahl-byah-SOOL`, `GIT-hub`, and `open A I dot com`.
+- Keep one dry master and one alternate take; do not bake music or effects into narration.
+- Preserve HeyGen word timestamps when available and use them to create Remotion `Caption` records.
+- Mix narration around `-16 LUFS` with peaks below `-1 dBTP`; keep music about 10–12 dB beneath narration.
 
-## Narration and HeyGen gate
-
-The available HeyGen catalog includes English presenter voices such as Cody and Aria, but the installed HeyGen video workflow is not the right tool for a narration-only track. Use it only if the final cut intentionally includes a presenter. Generate any paid or externally hosted media only after:
-
-- the real product capture is complete;
-- all spoken claims match the deployed behavior;
-- the final script is approved;
-- a pronunciation test confirms “DexThemes,” “Codex,” “Albiceleste,” “GPT-5.6,” and “GitHub”; and
-- the chosen voice/avatar and licensing terms permit the public YouTube submission.
-
-For narration, produce one dry master and one alternate take. Do not bake music or sound effects into the voice file.
+Scene timing is already shaped around Smooth Dev: curious hook, conversational creation, assured apply path, brighter discovery, reassuring publication, crisp creator stats, warm Human Spark moment, collaborative feedback, and a confident quiet close.
 
 ## Final review
 
-- [ ] Runtime shown is the deployed judge path, not localhost or a mock.
-- [ ] Video is less than three minutes after YouTube processing.
-- [ ] Spoken audio explicitly covers the product, Codex, and GPT-5.6.
-- [ ] Custom naming is visible.
-- [ ] The user—not the model—performs the final public write.
-- [ ] Daily, weekly, monthly, and all-time personal ranks plus repeat-win history and achievement previews are shown.
-- [ ] Builder of AGI is described accurately and not portrayed as unlocked by an ineligible account.
-- [ ] The GitHub Issue is reviewed and not silently submitted.
-- [ ] No secrets, personal email, access token, private repository, or copyrighted third-party asset appears.
+- [ ] Runtime shown is the deployed judge path, not localhost or a simulated app.
+- [ ] The first 25 seconds show the idea, custom name, GPT-5.6 interpretation, and validated pair.
+- [ ] Full dark and light Codex previews—not only swatches—are readable.
+- [ ] Create, preview, discover, and apply are visibly useful without sign-in.
+- [ ] GitHub linking starts only when the demo chooses an authenticated community feature.
+- [ ] Daily, weekly, monthly, and all-time rankings are visible.
+- [ ] Repeat wins remain in creator stats while each achievement reward unlocks once.
+- [ ] The achievement is named `OpenAI is nothing without its people` and unlocks the `Human Spark` reward theme.
+- [ ] The video says only that GitHub verified an eligible exact `@openai.com` address; it does not claim to prove employment.
+- [ ] The creator performs the final public theme action.
+- [ ] The GitHub Issue stays a reviewed draft until the user explicitly continues.
+- [ ] The closing frame makes GPT-5.6, DexThemes validation, the Codex visual app, community impact, and open source legible.
 - [ ] Captions have been manually reviewed.
-- [ ] YouTube visibility is Public, not Unlisted or Private.
-- [ ] Public URL works in a signed-out browser window.
+- [ ] The final video is public on YouTube and works signed out.
 
-## Remaining gates before production
+## Remaining production gates
 
-The storyboard and narration are ready for capture, but the final video must wait for:
-
-1. the production MCP, OAuth, and legal/support endpoints to be deployed and verified;
-2. the current local Build Week work to be reviewed and synchronized to the submission repository;
-3. an approved demo account and disposable public theme;
-4. a real capture of the end-to-end flow; and
-5. explicit approval to generate paid narration, upload publicly, and use the final URL in Devpost.
+1. Verify the deployed MCP, OAuth, legal, and support routes.
+2. Capture the real end-to-end product takes.
+3. Replace all previsualization stills with live captures and render the final master.
+4. Manually review the complete edit, narration, captions, and pronunciation.
+5. Upload the approved video publicly, verify it signed out, and use its URL in Devpost.

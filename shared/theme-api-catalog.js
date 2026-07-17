@@ -5216,7 +5216,7 @@ export const STATIC_THEME_CATALOG = [
   {
     "id": "builder-of-agi",
     "themeId": "builder-of-agi",
-    "name": "Builder of AGI",
+    "name": "Human Spark",
     "category": "dexthemes",
     "subgroup": "unlockables",
     "codeThemeId": "codex",
@@ -5253,7 +5253,7 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "OpenAI is nothing without its people. Graphite, white, and signal green for verified OpenAI builders."
+    "_summary": "People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders."
   },
   {
     "id": "golden-hour",

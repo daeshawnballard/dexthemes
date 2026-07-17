@@ -59,7 +59,7 @@ A July 16 targeted source-to-sink review of the color pipeline found one additio
 
 ### Employee bonus privacy
 
-- `Builder of AGI` requires a signed identity-provider claim with `email_verified === true` and an exact case-insensitive `openai.com` domain. Suffix matches such as `openai.com.example` are rejected.
+- The `OpenAI is nothing without its people` achievement and Human Spark reward require a signed identity-provider claim with `email_verified === true` and an exact case-insensitive `openai.com` domain. Suffix matches such as `openai.com.example` are rejected.
 - DexThemes persists only `isOpenAIEmployee: boolean`; it does not store or return the work email for this achievement.
 - A later signed, verified non-OpenAI email revokes the achievement. Missing email claims do not silently grant it.
 - The unlock theme is an original graphite/green palette with no OpenAI logo and the public terms state that DexThemes is independent and not endorsed by OpenAI.

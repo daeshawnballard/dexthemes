@@ -176,7 +176,7 @@ GitHub OAuth callback. Exchanges code for token, creates/updates user, redirects
 - `themes:read` returns the signed-in creator's stats, personal monthly/all-time ranks, and achievements.
 - `themes:write` first renders an exact review; the app-only write accepts only a short-lived token bound to that payload and OAuth session after the user presses Publish.
 
-Plugin identity is derived only from the verified OAuth token. Tools never accept user IDs, owner IDs, author identity, tokens, API keys, or email addresses as arguments. A verified exact `@openai.com` identity may receive the optional Builder of AGI achievement; DexThemes stores only an eligibility boolean, and the original unlock theme does not imply OpenAI endorsement.
+Plugin identity is derived only from the verified OAuth token. Tools never accept user IDs, owner IDs, author identity, tokens, API keys, or email addresses as arguments. A verified exact `@openai.com` identity may receive the optional “OpenAI is nothing without its people” achievement and Human Spark reward; DexThemes stores only an eligibility boolean, and the original unlock theme does not imply OpenAI endorsement.
 
 ---
 
