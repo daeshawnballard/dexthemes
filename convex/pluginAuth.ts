@@ -1,6 +1,7 @@
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
 const MCP_RESOURCE = "https://www.dexthemes.com/api/mcp";
+const AUTH0_CLAIM_NAMESPACE = "https://dexthemes.com/";
 let jwks: ReturnType<typeof createRemoteJWKSet> | undefined;
 
 function normalizeIssuer(value: string | undefined) {
@@ -15,6 +16,10 @@ function exactVerifiedOpenAIDomain(email: unknown, verified: unknown) {
 
 function safeClaim(value: unknown, fallback = "", maxLength = 160) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : fallback;
+}
+
+function identityClaim(payload: Record<string, unknown>, name: string) {
+  return payload[name] ?? payload[`${AUTH0_CLAIM_NAMESPACE}${name}`];
 }
 
 export async function verifyPluginBearer(request: Request, requiredScope: string) {
@@ -40,9 +45,12 @@ export async function verifyPluginBearer(request: Request, requiredScope: string
 
   return {
     githubId,
-    username: safeClaim(payload.nickname || payload.preferred_username, "", 100),
-    displayName: safeClaim(payload.name, "", 160),
-    avatarUrl: safeClaim(payload.picture, "", 500),
-    isOpenAIEmployee: exactVerifiedOpenAIDomain(payload.email, payload.email_verified),
+    username: safeClaim(identityClaim(payload, "nickname") || identityClaim(payload, "preferred_username"), "", 100),
+    displayName: safeClaim(identityClaim(payload, "name"), "", 160),
+    avatarUrl: safeClaim(identityClaim(payload, "picture"), "", 500),
+    isOpenAIEmployee: exactVerifiedOpenAIDomain(
+      identityClaim(payload, "email"),
+      identityClaim(payload, "email_verified"),
+    ),
   };
 }
