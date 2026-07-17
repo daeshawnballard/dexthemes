@@ -1,156 +1,156 @@
 [
   {
     "text": "What if one sentence could turn Codex into a workspace that feels unmistakably yours?",
-    "startMs": 199,
-    "endMs": 5059,
-    "timestampMs": 199,
+    "startMs": 179,
+    "endMs": 5159,
+    "timestampMs": 179,
     "confidence": 1
   },
   {
     "text": "By voice or text, I ask Codex for dark and light themes inspired by Argentina football at night,",
-    "startMs": 7099,
-    "endMs": 12940,
-    "timestampMs": 7099,
+    "startMs": 7119,
+    "endMs": 13279,
+    "timestampMs": 7119,
     "confidence": 1
   },
   {
     "text": "and name it Albiazul Afterglow.",
-    "startMs": 13339,
-    "endMs": 16399,
-    "timestampMs": 13339,
+    "startMs": 13659,
+    "endMs": 17439,
+    "timestampMs": 13659,
     "confidence": 1
   },
   {
     "text": "GPT-5.6 interprets the brief; DexThemes validates both variants and makes sure every theme has a name.",
-    "startMs": 16739,
-    "endMs": 24119,
-    "timestampMs": 16739,
+    "startMs": 17880,
+    "endMs": 26019,
+    "timestampMs": 17880,
     "confidence": 1
   },
   {
     "text": "Before I switch, DexThemes renders both variants as full Codex workspaces in the thread,",
-    "startMs": 27119,
-    "endMs": 31879,
-    "timestampMs": 27119,
+    "startMs": 27140,
+    "endMs": 33179,
+    "timestampMs": 27140,
     "confidence": 1
   },
   {
     "text": "not just swatches, so I can judge code, diffs, contrast, and accents in context.",
-    "startMs": 32339,
-    "endMs": 36759,
-    "timestampMs": 32339,
+    "startMs": 33619,
+    "endMs": 39019,
+    "timestampMs": 33619,
     "confidence": 1
   },
   {
     "text": "I copy the exact import, open Codex Appearance, and apply it.",
-    "startMs": 41119,
-    "endMs": 45619,
-    "timestampMs": 41119,
+    "startMs": 41159,
+    "endMs": 45420,
+    "timestampMs": 41159,
     "confidence": 1
   },
   {
     "text": "No account is required to create, preview, discover, or use a theme.",
-    "startMs": 46299,
-    "endMs": 51579,
-    "timestampMs": 46299,
+    "startMs": 45920,
+    "endMs": 50039,
+    "timestampMs": 45920,
     "confidence": 1
   },
   {
     "text": "Value comes before sign-in.",
-    "startMs": 52239,
-    "endMs": 53939,
-    "timestampMs": 52239,
+    "startMs": 51079,
+    "endMs": 52460,
+    "timestampMs": 51079,
     "confidence": 1
   },
   {
     "text": "I can search official, DexThemes, and community themes, compare full previews,",
-    "startMs": 55140,
-    "endMs": 61119,
-    "timestampMs": 55140,
+    "startMs": 55119,
+    "endMs": 60960,
+    "timestampMs": 55119,
     "confidence": 1
   },
   {
     "text": "and see what people love today, this week, this month, or all time.",
-    "startMs": 61920,
-    "endMs": 67379,
-    "timestampMs": 61920,
+    "startMs": 61379,
+    "endMs": 65939,
+    "timestampMs": 61379,
     "confidence": 1
   },
   {
     "text": "Only when I choose Publish does DexThemes ask for GitHub.",
-    "startMs": 68159,
-    "endMs": 71959,
-    "timestampMs": 68159,
+    "startMs": 68140,
+    "endMs": 71819,
+    "timestampMs": 68140,
     "confidence": 1
   },
   {
     "text": "I review the name and both previews, and approve the public action.",
-    "startMs": 72440,
-    "endMs": 75859,
-    "timestampMs": 72440,
+    "startMs": 72799,
+    "endMs": 76300,
+    "timestampMs": 72799,
     "confidence": 1
   },
   {
     "text": "My verified GitHub identity is credited as the creator.",
-    "startMs": 76300,
-    "endMs": 80099,
-    "timestampMs": 76300,
+    "startMs": 76819,
+    "endMs": 80819,
+    "timestampMs": 76819,
     "confidence": 1
   },
   {
     "text": "Signed-in creators see achievements, ranks, and every daily or weekly win.",
-    "startMs": 83219,
-    "endMs": 88199,
-    "timestampMs": 83219,
+    "startMs": 83179,
+    "endMs": 88039,
+    "timestampMs": 83179,
     "confidence": 1
   },
   {
     "text": "A theme can win repeatedly and its totals keep growing, while each achievement reward unlocks only once.",
-    "startMs": 88699,
-    "endMs": 94340,
-    "timestampMs": 88699,
+    "startMs": 89119,
+    "endMs": 96000,
+    "timestampMs": 89119,
     "confidence": 1
   },
   {
     "text": "Eligible OpenAI builders unlock Human Spark and the achievement, “OpenAI is nothing without its people.”",
-    "startMs": 97179,
-    "endMs": 102719,
-    "timestampMs": 97179,
+    "startMs": 97140,
+    "endMs": 103239,
+    "timestampMs": 97140,
     "confidence": 1
   },
   {
     "text": "GitHub verifies an openai.com address; DexThemes stores only eligibility, never the address.",
-    "startMs": 103599,
-    "endMs": 109999,
-    "timestampMs": 103599,
+    "startMs": 104319,
+    "endMs": 111699,
+    "timestampMs": 104319,
     "confidence": 1
   },
   {
     "text": "Because DexThemes is open source, I can review feedback and explicitly open a GitHub issue from the same conversation.",
-    "startMs": 113179,
-    "endMs": 120000,
-    "timestampMs": 113179,
+    "startMs": 113159,
+    "endMs": 120739,
+    "timestampMs": 113159,
     "confidence": 1
   },
   {
     "text": "Every theme starts personal and can become something the Codex community discovers.",
-    "startMs": 123140,
-    "endMs": 127039,
-    "timestampMs": 123140,
+    "startMs": 123219,
+    "endMs": 127779,
+    "timestampMs": 123219,
     "confidence": 1
   },
   {
     "text": "GPT-5.6 interprets the idea, and DexThemes validates it.",
-    "startMs": 127259,
-    "endMs": 131840,
-    "timestampMs": 127259,
+    "startMs": 128259,
+    "endMs": 133659,
+    "timestampMs": 128259,
     "confidence": 1
   },
   {
     "text": "And the visual app keeps creation, preview, and sharing in one conversation.",
-    "startMs": 132300,
-    "endMs": 136579,
-    "timestampMs": 132300,
+    "startMs": 133699,
+    "endMs": 138460,
+    "timestampMs": 133699,
     "confidence": 1
   }
 ]

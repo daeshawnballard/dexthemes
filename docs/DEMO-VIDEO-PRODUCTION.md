@@ -108,8 +108,8 @@ Use frame-based Remotion `<Sequence>` components, `<Video>` and `<Audio>` from `
 
 ## HeyGen voice-over plan
 
-- **Primary voice:** `Smooth Dev` (`07d2ba65847541feb97abc9b60181555`), verified in HeyGen's public English catalog with Starfish support.
-- **Alternates:** `Affable Aaron` (`184c9014f94142ae949363089aaf53dd`) for a warmer human-first take; `Chill Brian` (`d2f4f24783d04e22ab49ee8fdc3715e0`) for a more relaxed founder take.
+- **Primary voice:** `Affable Aaron` (`184c9014f94142ae949363089aaf53dd`), verified in HeyGen's public English catalog with Starfish support for a warmer, human-first delivery.
+- **Alternates:** `Smooth Dev` (`07d2ba65847541feb97abc9b60181555`) for a more technical delivery; `Chill Brian` (`d2f4f24783d04e22ab49ee8fdc3715e0`) for a more relaxed founder take.
 - Generate one file per scene so the edit can follow the product interaction instead of stretching footage around one fixed master.
 - Target a warm, intelligent, conversational builder voice: confident and technically credible, never hypey or commercial.
 - Use `inputType: text`, `language: en`, and `speed: 1.0`; adjust no higher than `1.03` only after measuring the generated files.
@@ -118,7 +118,7 @@ Use frame-based Remotion `<Sequence>` components, `<Video>` and `<Audio>` from `
 - Preserve HeyGen word timestamps when available and use them to create Remotion `Caption` records.
 - Mix narration around `-16 LUFS` with peaks below `-1 dBTP`; keep music about 10–12 dB beneath narration.
 
-Scene timing is already shaped around Smooth Dev: curious hook, conversational creation, assured apply path, brighter discovery, reassuring publication, crisp creator stats, warm Human Spark moment, collaborative feedback, and a confident quiet close.
+Scene timing is shaped around Affable Aaron: curious hook, personable creation, assured apply path, brighter discovery, reassuring publication, crisp creator stats, warm Human Spark moment, collaborative feedback, and a confident quiet close.
 
 ## Final review
 

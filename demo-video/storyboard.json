@@ -9,12 +9,12 @@
   "narration": {
     "provider": "HeyGen",
     "engine": "starfish",
-    "voiceName": "Smooth Dev",
-    "voiceId": "07d2ba65847541feb97abc9b60181555",
+    "voiceName": "Affable Aaron",
+    "voiceId": "184c9014f94142ae949363089aaf53dd",
     "inputType": "text",
     "language": "en",
     "speed": 1,
-    "direction": "Warm, curious, conversational builder voice with restrained confidence; technically credible, never commercial."
+    "direction": "Warm, personable, conversational builder voice with gentle energy; human-first and clear, never commercial."
   },
   "scenes": [
     {

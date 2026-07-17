@@ -617,7 +617,7 @@ export const BuildWeekDemo: React.FC<DemoProps> = ({ previsualization }) => {
             durationInFrames={Math.round(scene.durationSeconds * storyboard.fps)}
           >
             <SceneRenderer scene={scene} />
-            {narration ? <Audio src={staticFile(narration.file)} volume={1.3} /> : null}
+            {narration ? <Audio src={staticFile(narration.file)} volume={0.88} /> : null}
           </Sequence>
         );
       })}
