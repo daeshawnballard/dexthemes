@@ -365,7 +365,7 @@ const CreateAndNameScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             gap: 12,
           }}
         >
-          <PromptChip delay={12}>Argentina football at night</PromptChip>
+          <PromptChip delay={12}>A theme inspired by Argentina football at night</PromptChip>
           <PromptChip delay={265} accent={COLORS.indigo}>
             Name it Argentina Afterglow
           </PromptChip>
@@ -523,7 +523,7 @@ const DiscoverScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             gap: 10,
           }}
         >
-          <BeatPill text="Codex" delay={18} />
+          <BeatPill text="Official Codex" delay={18} />
           <BeatPill text="DexThemes" delay={32} active />
           <BeatPill text="Community" delay={46} />
         </div>
@@ -758,8 +758,8 @@ const CreatorScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             gap: 10,
           }}
         >
-          <BeatPill text="Repeat wins add to stats" delay={28} active />
-          <BeatPill text="Each reward unlocks once" delay={168} />
+          <BeatPill text="Track daily + weekly wins" delay={28} active />
+          <BeatPill text="New achievements unlock" delay={168} />
         </div>
         <div
           style={{

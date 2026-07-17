@@ -9,9 +9,9 @@
   "tracks": [
     {
       "sceneId": "create-and-name",
-      "file": "narration/00-create-and-name-v7.wav",
-      "durationSeconds": 15.856327,
-      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Argentina Afterglow."
+      "file": "narration/00-create-and-name-v9.wav",
+      "durationSeconds": 14.942041,
+      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week plugin brings decks themes' studio and community directly into the conversation. I asked for a theme inspired by Argentina football at night and named it Argentina Afterglow."
     },
     {
       "sceneId": "preview-and-apply",
@@ -21,9 +21,9 @@
     },
     {
       "sceneId": "discover-community",
-      "file": "narration/02-discover-community-v5.wav",
-      "durationSeconds": 13.191837,
-      "speechText": "The plugin makes the catalog conversational: search Coh-dex, decks themes, and community themes, compare full previews, and see what is trending today, this week, this month, or all time."
+      "file": "narration/02-discover-community-v9.wav",
+      "durationSeconds": 13.688163,
+      "speechText": "The catalog is conversational. Search official Coh-dex themes, decks themes releases, and community submissions. Compare full previews and see daily, weekly, monthly, and historical leaders."
     },
     {
       "sceneId": "review-and-publish",
@@ -33,9 +33,9 @@
     },
     {
       "sceneId": "creator-loop",
-      "file": "narration/04-creator-loop-v5.wav",
-      "durationSeconds": 10.840816,
-      "speechText": "Creators get one dashboard for themes, ranks, repeat daily and weekly wins, and the complete achievement collection. Stats accumulate; each achievement reward unlocks once."
+      "file": "narration/04-creator-loop-v9.wav",
+      "durationSeconds": 11.128163,
+      "speechText": "Creators track themes, rankings, daily and weekly wins, and achievements in one dashboard, where stats grow and new achievements unlock with each milestone."
     },
     {
       "sceneId": "open-source-feedback",

@@ -23,9 +23,9 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
-    "render:previs:source": "remotion render BuildWeekDemo out/dexthemes-build-week-judge-previs-v8-install-flow-1m38s-source.mp4 --codec=h264 --scale=0.5",
-    "render:previs": "npm run render:previs:source && remotion ffmpeg -y -i out/dexthemes-build-week-judge-previs-v8-install-flow-1m38s-source.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -c:a aac -b:a 192k -movflags +faststart out/dexthemes-build-week-judge-previs-v8-install-flow-1m38s.mp4",
-    "render:still": "remotion still BuildWeekDemo out/dexthemes-build-week-review-v8.png --frame=2520 --scale=0.5",
+    "render:previs:source": "remotion render BuildWeekDemo out/dexthemes-build-week-judge-previs-v9-phrasing-1m35s-source.mp4 --codec=h264 --scale=0.5",
+    "render:previs": "npm run render:previs:source && remotion ffmpeg -y -i out/dexthemes-build-week-judge-previs-v9-phrasing-1m35s-source.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -c:a aac -b:a 192k -movflags +faststart out/dexthemes-build-week-judge-previs-v9-phrasing-1m35s.mp4",
+    "render:still": "remotion still BuildWeekDemo out/dexthemes-build-week-review-v9.png --frame=2400 --scale=0.5",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },

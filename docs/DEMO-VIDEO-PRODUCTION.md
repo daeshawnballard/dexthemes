@@ -7,7 +7,7 @@ Internal test counts, implementation housekeeping, and individual achievement lo
 ## Deliverable
 
 - **Title:** DexThemes for Codex — Make Codex Feel Like Yours
-- **Target length:** `1:38` (`98` seconds)
+- **Target length:** `1:35` (`95` seconds)
 - **Format:** 1920x1080, 16:9, 30 fps, H.264 video, AAC audio
 - **Destination:** public YouTube URL for the Build Week submission
 - **Product promise:** turn an idea into a named, validated dark/light Codex theme; preview and apply it without an account; optionally discover, publish, progress, and contribute through the community
@@ -25,13 +25,13 @@ The final edit uses Remotion for deterministic scene timing, crop/zoom, captions
 | Design and user experience | Full Codex mockups appear in-thread, the anonymous happy path comes first, and identity is requested only for community actions. |
 | Technical implementation | The product shows generated state, validation, deferred GitHub OAuth, explicit public writes, interactive previews, stats, and reviewed issue creation. |
 | Potential impact | The plugin joins personalization, discovery, creator attribution, rankings, achievements, and open-source contribution in one community loop. |
-| Problem, solution, and approach | The first sentence states the value, the first 29 seconds prove it, and the architecture beat makes the implementation legible. |
+| Problem, solution, and approach | The first sentence states the value, the first 28 seconds prove it, and the architecture beat makes the implementation legible. |
 
 ## Editorial principles applied
 
 - Start inside the value: the completed theme is visible from the first frame and the core promise is spoken in the first three seconds.
 - Keep the product on screen. Use graphics to direct attention, not to replace working product proof.
-- Complete the create → preview → apply happy path by `0:29`; every later scene adds one new evaluative signal.
+- Complete the create → preview → apply happy path by `0:28`; every later scene adds one new evaluative signal.
 - Prefer short value statements and concrete actions over feature descriptions.
 - Use visual state changes every few seconds: prompt, result, contextual preview, apply handoff, leaderboard scope, publish steps, dashboard pan, issue review, architecture pipeline, close.
 - Treat achievements as one collective progression system. No single achievement receives a hero scene.
@@ -43,28 +43,28 @@ The approach follows Google's current ABCD guidance to start big, keep the produ
 
 | Time | Product proof | Judge takeaway |
 | --- | --- | --- |
-| 0:00–0:15.8 | Product result, natural-language prompt, visible custom name | DexThemes is a theme studio and community; the plugin brings it into Codex. |
-| 0:15.8–0:29 | Full workspace preview, variant choice, copy, and Codex import | The design is contextual and installation is immediate. |
-| 0:29–0:42.5 | Unified catalog plus daily, weekly, monthly, and all-time scopes | The idea extends into a discoverable community. |
-| 0:42.5–0:53.5 | Deferred GitHub OAuth, review, explicit Publish | Identity and public writes are intentional and user-controlled. |
-| 0:53.5–1:04.5 | Dashboard pan from themes and wins into the full achievement collection | Creator progress is legible without centering one reward. |
-| 1:04.5–1:14 | Structured, ready-to-review GitHub Issue | Open-source contribution is accessible from the conversation. |
-| 1:14–1:28 | GPT-5.6 → MCP → Apps SDK implementation pipeline | The technical split is creative, deterministic, and context-preserving. |
-| 1:28–1:38 | Product montage and close | Personalization, discovery, and recognition form one Codex community experience. |
+| 0:00–0:15 | Product result, natural-language prompt, visible custom name | DexThemes is a theme studio and community; the plugin brings it into Codex. |
+| 0:15–0:28 | Full workspace preview, variant choice, copy, and Codex import | The design is contextual and installation is immediate. |
+| 0:28–0:41.5 | Unified catalog plus daily, weekly, monthly, and historical leaders | The idea extends into a discoverable community. |
+| 0:41.5–0:51 | Deferred GitHub OAuth, review, explicit Publish | Identity and public writes are intentional and user-controlled. |
+| 0:51–1:02.2 | Dashboard pan from themes and wins into the achievement collection | Creator progress is legible without centering one reward. |
+| 1:02.2–1:10.2 | Structured, ready-to-review GitHub Issue | Open-source contribution is accessible from the conversation. |
+| 1:10.2–1:24.2 | GPT-5.6 → MCP → Apps SDK implementation pipeline | The technical split is creative, deterministic, and context-preserving. |
+| 1:24.2–1:35 | Product montage and close | Personalization, discovery, and recognition form one Codex community experience. |
 
 The machine-readable timing lives in [`demo-video/storyboard.json`](../demo-video/storyboard.json).
 
 ## Locked narration script
 
-> Turn any idea into a complete Codex theme. This Build Week release brings DexThemes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Argentina Afterglow.
+> Turn any idea into a complete Codex theme. This Build Week plugin brings DexThemes' studio and community directly into the conversation. I asked for a theme inspired by Argentina football at night and named it Argentina Afterglow.
 >
 > DexThemes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Codex Appearance. Paste, import, done. The theme is yours. No account required.
 >
-> The plugin makes the catalog conversational: search Codex, DexThemes, and community themes, compare full previews, and see what is trending today, this week, this month, or all time.
+> The catalog is conversational. Search official Codex themes, DexThemes releases, and community submissions. Compare full previews and see daily, weekly, monthly, and historical leaders.
 >
 > GitHub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit.
 >
-> Creators get one dashboard for themes, ranks, repeat daily and weekly wins, and the complete achievement collection. Stats accumulate; each achievement reward unlocks once.
+> Creators track themes, rankings, daily and weekly wins, and achievements in one dashboard, where stats grow and new achievements unlock with each milestone.
 >
 > Because DexThemes is open source, users can turn product feedback into a ready-to-review GitHub issue from the same conversation.
 >
@@ -72,7 +72,7 @@ The machine-readable timing lives in [`demo-video/storyboard.json`](../demo-vide
 >
 > Personal themes, community discovery, and creator recognition, all in one Codex conversation. DexThemes is open source and built for the community.
 
-The script is `203` words. The delivery is intentionally brisk, with visual pauses carried by scene transitions rather than extra narration.
+The script is `200` words. The delivery is intentionally brisk, with visual pauses carried by scene transitions rather than extra narration.
 
 ## Capture checklist
 
@@ -102,7 +102,7 @@ Record each take without narration. Leave clean interaction handles before and a
 - Composition ID: `BuildWeekDemo`
 - Canvas: `1920x1080`
 - Frame rate: `30`
-- Total frames: `2940`
+- Total frames: `2850`
 - Product footage occupies most of every product scene.
 - Use one primary value statement and at most one proof line; do not turn the demo into a slide deck.
 - Keep key text at least 80 px from the sides and 100 px from the top and bottom.
@@ -129,12 +129,12 @@ Use frame-based Remotion `<Sequence>` components and local media through `static
 
 - [ ] The runtime shown is the deployed judge path, not localhost or a simulated app.
 - [ ] The first three seconds state the value and show the product.
-- [ ] The first 29 seconds show the idea, custom name, complete pair, contextual preview, and apply handoff.
+- [ ] The first 28 seconds show the idea, custom name, complete pair, contextual preview, and apply handoff.
 - [ ] Full dark and light Codex previews—not only swatches—are readable.
 - [ ] Create, preview, discover, and apply are visibly useful without sign-in.
 - [ ] GitHub linking starts only when the demo chooses an authenticated community feature.
 - [ ] Daily, weekly, monthly, and all-time rankings are visible.
-- [ ] Repeat wins remain in creator stats while each achievement reward unlocks once.
+- [ ] Creator stats retain repeat daily and weekly wins, and achievements unlock against their milestones.
 - [ ] Achievements appear as a collective; none receives a special feature scene.
 - [ ] The creator performs the final public theme action.
 - [ ] The GitHub Issue stays a reviewed draft until the user explicitly continues.

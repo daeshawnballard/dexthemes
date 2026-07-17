@@ -1,8 +1,8 @@
 # DexThemes Build Week video
 
-Reproducible `1920x1080`, 30 fps Remotion edit for the `1:38` OpenAI Build Week demo.
+Reproducible `1920x1080`, 30 fps Remotion edit for the `1:35` OpenAI Build Week demo.
 
-The current V5 review cut includes:
+The current V9 review cut includes:
 
 - product-first motion design using verified MCP visual-QA captures;
 - HeyGen narration using `Radiant Riley — Friendly` at `1.04x`;
