@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
-    "render:previs": "remotion render BuildWeekDemo out/dexthemes-build-week-previs.mp4 --codec=h264 --scale=0.5",
+    "render:previs": "remotion render BuildWeekDemo out/dexthemes-build-week-judge-previs-v3-2m19s.mp4 --codec=h264 --scale=0.5",
     "render:still": "remotion still BuildWeekDemo out/dexthemes-build-week-review.png --frame=2670 --scale=0.5",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
