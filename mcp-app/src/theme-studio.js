@@ -575,7 +575,7 @@ function renderSubmitted(data) {
   shell.append(element("span", "success-mark", "✓"));
   shell.append(element("span", "brand", "PUBLISHED"));
   shell.append(element("h2", "theme-name", data.theme?.name || "Theme published"));
-  shell.append(element("p", "summary", "The community theme is live under your verified GitHub identity."));
+  shell.append(element("p", "summary", "The community theme is live under your verified DexThemes identity."));
   if (data.achievements?.length) {
     shell.append(element("p", "notice", `Unlocked: ${data.achievements.map((item) => item.themeName || item.themeId).join(", ")}.`));
   }

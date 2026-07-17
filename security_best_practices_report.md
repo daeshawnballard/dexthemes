@@ -36,9 +36,9 @@ A July 16 targeted source-to-sink review of the color pipeline found one additio
 ### Identity and authorization
 
 - MCP bearer tokens are verified with RS256, issuer, audience, expiry, and requested scope checks.
-- Only a signed `github|...` subject is accepted by account-bound Convex plugin routes.
+- Account-bound plugin routes accept signed, well-formed `github|...` subjects plus one exact environment-gated Auth0 reviewer subject. The reviewer maps to an isolated synthetic identity, cannot receive employee eligibility, and all other non-GitHub subjects are rejected.
 - Account identity is derived from that verified subject. MCP tool arguments do not accept `userId`, `ownerId`, author identity, access tokens, API keys, or email addresses.
-- GitHub remains the upstream login for both the website and plugin, so the same verified GitHub numeric identity maps to one DexThemes account.
+- GitHub remains the upstream login for normal website and plugin users, so the same verified GitHub numeric identity maps to one DexThemes account; the isolated reviewer exception is not a user sign-up path.
 - Direct website GitHub OAuth uses single-use, time-limited, browser-bound state and PKCE S256.
 
 ### Secrets and sessions

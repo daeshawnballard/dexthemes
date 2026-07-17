@@ -44,6 +44,22 @@ test('employee achievement requires a signed verified exact-domain claim', async
   assert.match(source, /requiredClaims: \["exp"\]/);
 });
 
+test('OpenAI reviewer access is exact-subject, environment-gated, and isolated', async () => {
+  const [edge, convex] = await Promise.all([
+    readFile(new URL('../api/mcp.js', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/pluginAuth.ts', import.meta.url), 'utf8'),
+  ]);
+
+  for (const source of [edge, convex]) {
+    assert.match(source, /DEXTHEMES_OPENAI_REVIEWER_SUBJECT/);
+    assert.match(source, /reviewerSubject\.length > 0 && subject === reviewerSubject|reviewerSubject && subject === reviewerSubject/);
+    assert.doesNotMatch(source, /subject\.startsWith\("auth0\|"\)/);
+  }
+  assert.match(edge, /\^github\\\|\[A-Za-z0-9_-\]\{1,100\}\$/);
+  assert.match(convex, /OPENAI_REVIEWER_GITHUB_ID = "openai-plugin-reviewer"/);
+  assert.match(convex, /isOpenAIEmployee: identity\.isReviewer \? false/);
+});
+
 test('plugin quotas are enforced independently for identity and network', async () => {
   const source = await readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8');
   assert.match(source, /plugin:\$\{scope\}:identity:/);

@@ -118,11 +118,11 @@ function authChallenge(requiredScope) {
     isError: true,
     content: [{
       type: "text",
-      text: "Sign in with GitHub to use this DexThemes account feature.",
+      text: "Sign in to DexThemes to use this account feature.",
     }],
     _meta: {
       "mcp/www_authenticate": [
-        `Bearer resource_metadata="${MCP_PROTECTED_RESOURCE_METADATA}", scope="${requiredScope}", error="insufficient_scope", error_description="GitHub sign-in with the requested DexThemes permission is required"`,
+        `Bearer resource_metadata="${MCP_PROTECTED_RESOURCE_METADATA}", scope="${requiredScope}", error="insufficient_scope", error_description="DexThemes sign-in with the requested permission is required"`,
       ],
     },
   };
@@ -337,7 +337,7 @@ export function createDexThemesMcpServer() {
 
   registerAppTool(server, "get_my_stats", {
     title: "Get my DexThemes stats",
-    description: "Show the signed-in creator dashboard: themes, copies, likes, daily/weekly/monthly/all-time ranks, repeat daily/weekly win history, finalized monthly Top 10 placements, and achievements. Requires GitHub sign-in.",
+    description: "Show the signed-in creator dashboard: themes, copies, likes, daily/weekly/monthly/all-time ranks, repeat daily/weekly win history, finalized monthly Top 10 placements, and achievements. Requires DexThemes sign-in.",
     inputSchema: {},
     outputSchema: z.object({ kind: z.literal("my-stats"), stats: genericRecord }),
     annotations: annotations(true, false, false),
@@ -353,7 +353,7 @@ export function createDexThemesMcpServer() {
 
   registerAppTool(server, "get_my_unlocks", {
     title: "Get my DexThemes achievements",
-    description: "Show the signed-in user's unlocked themes and achievements, including plugin and eligible employee bonuses. Requires GitHub sign-in.",
+    description: "Show the signed-in user's unlocked themes and achievements, including plugin and eligible employee bonuses. Requires DexThemes sign-in.",
     inputSchema: {},
     outputSchema: z.object({ kind: z.literal("my-unlocks"), unlocks: z.array(genericRecord) }),
     annotations: annotations(true, false, false),
@@ -368,7 +368,7 @@ export function createDexThemesMcpServer() {
 
   registerAppTool(server, "prepare_theme_submission", {
     title: "Review a public DexTheme submission",
-    description: "Validate and show the exact theme that would become public. Requires GitHub sign-in. This creates no public data; publication is available only from the review app's explicit Publish button.",
+    description: "Validate and show the exact theme that would become public. Requires DexThemes sign-in. This creates no public data; publication is available only from the review app's explicit Publish button.",
     inputSchema: { theme: themeInputSchema },
     outputSchema: z.object({
       kind: z.literal("theme-submission-review"),
@@ -392,7 +392,7 @@ export function createDexThemesMcpServer() {
         kind: "theme-submission-review",
         theme,
         warnings: validation.warnings,
-        publicNotice: "Publishing creates a public community theme attributed to your verified GitHub identity.",
+        publicNotice: "Publishing creates a public community theme attributed to your verified DexThemes identity.",
       };
       return toolResult(
         payload,

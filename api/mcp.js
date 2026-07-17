@@ -7,6 +7,7 @@ const ALLOWED_HOSTS = new Set([
   "www.dexthemes.com",
   ...(process.env.MCP_ALLOWED_HOSTS || "").split(",").map((host) => host.trim()).filter(Boolean),
 ]);
+const GITHUB_SUBJECT = /^github\|[A-Za-z0-9_-]{1,100}$/;
 let jwks;
 
 function sendJson(res, status, body, headers = {}) {
@@ -18,6 +19,13 @@ function sendJson(res, status, body, headers = {}) {
 
 function normalizeIssuer(value) {
   return value && value.endsWith("/") ? value : value ? `${value}/` : "";
+}
+
+function isAllowedPluginSubject(subject) {
+  if (typeof subject !== "string") return false;
+  if (GITHUB_SUBJECT.test(subject)) return true;
+  const reviewerSubject = (process.env.DEXTHEMES_OPENAI_REVIEWER_SUBJECT || "").trim();
+  return reviewerSubject.length > 0 && subject === reviewerSubject;
 }
 
 async function verifyAuthorization(req) {
@@ -36,7 +44,7 @@ async function verifyAuthorization(req) {
     requiredClaims: ["exp"],
   });
   const scopes = String(payload.scope || "").split(/\s+/).filter(Boolean);
-  if (typeof payload.sub !== "string" || !payload.sub.startsWith("github|")) {
+  if (!isAllowedPluginSubject(payload.sub)) {
     throw new Error("invalid_token_claims");
   }
   return {
