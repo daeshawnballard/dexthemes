@@ -37,7 +37,7 @@ Required `/feedback` session ID: **pending final submission run**. Run `/feedbac
 
 ## Live Devpost requirements
 
-Verified from the OpenAI Build Week Devpost project on July 16, 2026:
+Verified from the OpenAI Build Week Devpost project on July 17, 2026:
 
 - submissions close **Tuesday, July 21, 2026 at 5:00 PM PT** (`2026-07-22T00:00:00Z`);
 - the category is **Developer Tools**;
@@ -57,6 +57,8 @@ The July 16, 2026 production probe confirms the source is ready for deployment, 
 - `/privacy`, `/terms`, and `/support` currently return `404`.
 
 Do not describe the deployed plugin as judge-testable until a production deployment replaces those responses and the authenticated flow is exercised end to end.
+
+The July 17 local release preflight is green: all 81 automated tests pass, the docs and production builds pass, the plugin bundle validates, `npm audit` reports zero known vulnerabilities, and the 95.1-second video master passes full audio/video decode, caption-range, fast-start, loudness, and frame-level visual checks.
 
 ## Judge setup
 
@@ -80,11 +82,11 @@ npm audit
 python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/dexthemes
 ```
 
-## Demo video outline (under three minutes)
+## Demo video (under three minutes)
 
-The locked 2:55 production plan, narration, capture checklist, Remotion specification, and YouTube gates live in [`docs/DEMO-VIDEO-PRODUCTION.md`](./DEMO-VIDEO-PRODUCTION.md). Its machine-readable timeline is [`demo-video/storyboard.json`](../demo-video/storyboard.json).
+The locked 1:35 production plan, narration, capture checklist, Remotion specification, and YouTube gates live in [`docs/DEMO-VIDEO-PRODUCTION.md`](./DEMO-VIDEO-PRODUCTION.md). Its machine-readable timeline is [`demo-video/storyboard.json`](../demo-video/storyboard.json), and the reproducible render command is `npm run render:master` from `demo-video/remotion`.
 
-The edit uses a real deployed Codex/plugin capture as the primary proof and Remotion for captions and pacing. HeyGen is reserved for an optional presenter intro/outro, not synthetic product footage or a narration-only track. Use only original visuals and cleared audio. Do not include third-party logos, match footage, game art, copyrighted music, or other unlicensed assets in the demo.
+The edit uses verified product captures from the MCP visual-QA flow, HeyGen voice-over, and Remotion for deterministic motion, captions, pacing, and the cleared music bed. It uses only original product visuals and licensed audio; it does not include third-party logos, match footage, game art, or unlicensed assets.
 
 ## Submission gates
 
@@ -99,6 +101,8 @@ The edit uses a real deployed Codex/plugin capture as the primary proof and Remo
 - [ ] Privacy, terms, and support URLs confirmed live.
 - [ ] Public repository URL and MIT license confirmed accessible to judges.
 - [ ] Current Build Week plugin code synchronized to the public MIT repository; the public repository exists but its latest verified push predates this implementation.
+- [x] Local release preflight passes: 81 tests, docs/build, plugin validation, zero known npm vulnerabilities, and complete media validation.
+- [x] Versioned plugin archive and 1:35 submission master rendered with recorded SHA-256 checksums.
 - [ ] Demo video uploaded publicly with audio and under three minutes.
 - [ ] `/feedback` session ID added.
 - [ ] Devpost draft reviewed and final submission explicitly approved.

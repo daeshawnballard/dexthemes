@@ -58,6 +58,7 @@ We also hardened the plugin as an account surface: GitHub OAuth state is bound t
 - GitHub feedback with automatic secret/path/email redaction and an exact user-review gate instead of auto-posting
 - Twelve MCP tools with output schemas, explicit safety annotations, and a model/app publication boundary
 - Five positive and three negative app review tests
+- Eighty-one passing automated tests across app behavior, MCP contracts, authentication boundaries, theme validation, achievements, leaderboards, and publication confirmation
 - Zero known npm audit vulnerabilities in the local preflight
 
 ## What is next
@@ -69,6 +70,15 @@ After Build Week: community collections and follows, theme remix lineage, expand
 Use the install and test path in `docs/BUILD-WEEK-2026.md`. Authenticated tools require the live GitHub OAuth connection; discovery, drafting, preview, validation, apply handoff, public leaderboard, and GitHub Issue preparation are available without an account.
 
 Supported platforms: Codex and ChatGPT plugin hosts on desktop and web. The deployment target is `https://www.dexthemes.com/api/mcp`; it is not yet judge-testable because the current production route returns the gallery HTML instead of MCP. The public gallery at `https://www.dexthemes.com/` remains available for catalog and preview inspection.
+
+## Prepared release artifacts
+
+- **Submission master:** `demo-video/remotion/out/dexthemes-build-week-demo-final-1m35s.mp4` — 95.1 seconds, voice-over and captions included, SHA-256 `92ae46cb9551f4cb02bc2ad3f3e5457eb0651de40704f740cd61f82401a67f52`
+- **Installable plugin archive:** `.artifacts/dexthemes-plugin-1.0.0.zip` — archive integrity and plugin schema validated, SHA-256 `b62e9b2c102d2d2fd0cb870f315f8b92d6cd014c250054f3970c9eeb5b99aecd`
+- **OpenAI review metadata:** `chatgpt-app-submission.json` — twelve tools, five positive tests, and three negative tests
+- **Judge path:** the six-step flow in `docs/BUILD-WEEK-2026.md`
+
+The local release preflight passes all 81 tests, docs/build, Remotion lint/typecheck, plugin validation, archive integrity, complete media decode, caption timing, fast-start placement, and npm audit with zero known vulnerabilities. Public upload and live deployment verification remain external release gates.
 
 ## Live submission fields
 

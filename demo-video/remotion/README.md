@@ -2,7 +2,7 @@
 
 Reproducible `1920x1080`, 30 fps Remotion edit for the `1:35` OpenAI Build Week demo.
 
-The current V9 review cut includes:
+The current V10 submission cut includes:
 
 - product-first motion design using verified MCP visual-QA captures;
 - HeyGen narration using `Radiant Riley — Friendly` at `1.04x`;
@@ -24,10 +24,10 @@ Start Remotion Studio:
 npm run dev
 ```
 
-Render the half-resolution review MP4:
+Render the half-resolution submission master:
 
 ```console
-npm run render:previs
+npm run render:master
 ```
 
 Render the implementation-pipeline review frame:
@@ -36,11 +36,9 @@ Render the implementation-pipeline review frame:
 npm run render:still
 ```
 
-## Asset replacement
+## Product captures
 
-Replace the stills under `public/captures/` with final deployed takes, or update the scene renderers in `src/Composition.tsx`. Final recordings must preserve the proof in `../storyboard.json` and must not expose personal email, tokens, private repository names, or unrelated notifications.
-
-Keep the `PREVIS · LIVE CAPTURE PENDING` watermark until every runtime shot is real and the deployed OAuth path has been verified.
+The approved stills under `public/captures/` come from the MCP visual-QA flow and preserve the exact product states in `../storyboard.json`. Any future replacement must keep those proof points and must not expose personal email, tokens, private repository names, or unrelated notifications.
 
 ## Source of truth
 

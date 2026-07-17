@@ -45,9 +45,9 @@
     },
     {
       "sceneId": "judge-proof",
-      "file": "narration/06-judge-proof-v5.wav",
-      "durationSeconds": 13.635918,
-      "speechText": "G P T five point six interprets the creative intent. The M C P server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context."
+      "file": "narration/06-judge-proof-v10.mp3",
+      "durationSeconds": 13.511224,
+      "speechText": "GPT five point six interprets the creative intent. The M C P server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context."
     },
     {
       "sceneId": "end-card",

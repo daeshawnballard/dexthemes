@@ -119,7 +119,7 @@ Use frame-based Remotion `<Sequence>` components and local media through `static
 - **Speed:** `1.04x`.
 - **Direction:** friendly, confident, product-literate, and concise; no presenter cadence or exaggerated sales emphasis.
 - Generate one file per scene so the edit follows interaction rather than stretching footage around one master.
-- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `G P T five point six`, `M C P`, and `Get Hub` for GitHub. `Argentina Afterglow` is spoken normally.
+- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `GPT five point six`, `M C P`, and `Get Hub` for GitHub. `Argentina Afterglow` is spoken normally.
 - Preserve HeyGen word timestamps and use them for Remotion caption timing.
 - **Music:** `Close Up` by Michael Ramir C. from Mixkit, recorded in [`demo-video/remotion/public/music/LICENSE.md`](../demo-video/remotion/public/music/LICENSE.md).
 - Keep music roughly `12 dB` beneath narration and fade it at both ends.
@@ -146,7 +146,7 @@ Use frame-based Remotion `<Sequence>` components and local media through `static
 ## Remaining production gates
 
 1. Verify the deployed MCP, OAuth, legal, and support routes.
-2. Capture the real end-to-end product takes.
-3. Replace the previsualization stills with live captures and render the final master.
+2. Verify the approved visual-QA captures still match the deployed judge path.
+3. Render the submission master.
 4. Manually review the complete edit, narration, captions, pronunciation, and music balance.
 5. Upload the approved video publicly, verify it signed out, and use its URL in Devpost.

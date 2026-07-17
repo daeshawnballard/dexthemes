@@ -16,7 +16,7 @@ import narrationManifest from "./narration-manifest.json";
 
 type Scene = (typeof storyboard.scenes)[number];
 type DemoProps = {
-  previsualization: boolean;
+  showBuildWeekBadge: boolean;
 };
 
 const narrationByScene = new Map(
@@ -206,7 +206,7 @@ const SceneHeader: React.FC<{
   );
 };
 
-const PrevisBadge: React.FC<{ visible: boolean }> = ({ visible }) => {
+const BuildWeekBadge: React.FC<{ visible: boolean }> = ({ visible }) => {
   if (!visible) return null;
   return (
     <div
@@ -226,7 +226,7 @@ const PrevisBadge: React.FC<{ visible: boolean }> = ({ visible }) => {
         textTransform: "uppercase",
       }}
     >
-      Previs · live capture pending
+      Build Week · product demo
     </div>
   );
 };
@@ -1240,7 +1240,7 @@ const MusicBed: React.FC = () => {
   );
 };
 
-export const BuildWeekDemo: React.FC<DemoProps> = ({ previsualization }) => {
+export const BuildWeekDemo: React.FC<DemoProps> = ({ showBuildWeekBadge }) => {
   return (
     <AbsoluteFill style={{ background: COLORS.background }}>
       <Background />
@@ -1260,7 +1260,7 @@ export const BuildWeekDemo: React.FC<DemoProps> = ({ previsualization }) => {
         );
       })}
       <BrandLockup />
-      <PrevisBadge visible={previsualization} />
+      <BuildWeekBadge visible={showBuildWeekBadge} />
       <CaptionLayer />
     </AbsoluteFill>
   );
@@ -1275,7 +1275,7 @@ export const BuildWeekComposition: React.FC = () => {
       fps={storyboard.fps}
       width={storyboard.width}
       height={storyboard.height}
-      defaultProps={{ previsualization: true }}
+      defaultProps={{ showBuildWeekBadge: true }}
     />
   );
 };
