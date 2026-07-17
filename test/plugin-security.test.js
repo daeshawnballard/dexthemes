@@ -34,6 +34,8 @@ test('API achievement flow uses the authenticated server-observed endpoint', asy
 
 test('employee achievement requires a signed verified exact-domain claim', async () => {
   const source = await readFile(new URL('../convex/pluginAuth.ts', import.meta.url), 'utf8');
+  assert.match(source, /AUTH0_CLAIM_NAMESPACE = "https:\/\/dexthemes\.com\/"/);
+  assert.match(source, /payload\[name\] \?\? payload\[`\$\{AUTH0_CLAIM_NAMESPACE\}\$\{name\}`\]/);
   assert.match(source, /verified !== true/);
   assert.match(source, /email\.slice\(separator \+ 1\)\.toLowerCase\(\) === \"openai\.com\"/);
   assert.match(source, /algorithms: \[\"RS256\"\]/);
@@ -96,6 +98,17 @@ test('Vercel config never rewrites its reserved well-known namespace', async () 
   for (const rewrite of config.rewrites || []) {
     assert.equal(String(rewrite.source).startsWith('/.well-known'), false);
   }
+});
+
+test('well-known OAuth metadata is served as JSON for plugin discovery', async () => {
+  const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+  const oauthHeaders = config.headers.find(
+    (entry) => entry.source === '/.well-known/oauth-protected-resource',
+  )?.headers;
+  assert.equal(
+    oauthHeaders?.find((header) => header.key === 'Content-Type')?.value,
+    'application/json; charset=utf-8',
+  );
 });
 
 test('protected unlock IDs include the hidden Easter egg', async () => {
