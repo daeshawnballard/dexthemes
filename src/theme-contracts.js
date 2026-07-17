@@ -1,3 +1,7 @@
+import { isSixDigitHexColor } from './utils.js';
+
+const IMPORT_COLOR_KEYS = ['surface', 'ink', 'accent', 'diffAdded', 'diffRemoved', 'skill'];
+
 export function getThemeVariants(theme) {
   if (theme.variants) return theme.variants;
   const variants = [];
@@ -20,6 +24,15 @@ export function buildThemeImportString(theme, variant, accentIdx = 0) {
   if (!selected) return '';
 
   const accent = theme.accents?.[accentIdx] || selected.accent;
+  if (
+    !IMPORT_COLOR_KEYS.every((key) => isSixDigitHexColor(selected[key])) ||
+    !isSixDigitHexColor(accent) ||
+    !Number.isFinite(selected.contrast) ||
+    selected.contrast < 0 ||
+    selected.contrast > 100
+  ) {
+    return '';
+  }
   const codeThemeId = typeof theme.codeThemeId === 'string'
     ? theme.codeThemeId
     : (theme.codeThemeId && theme.codeThemeId[variant]) || 'codex';
@@ -29,7 +42,7 @@ export function buildThemeImportString(theme, variant, accentIdx = 0) {
     theme: {
       accent,
       contrast: selected.contrast,
-      fonts: { code: null, ui: null },
+      fonts: selected.fonts ?? { code: null, ui: null },
       ink: selected.ink,
       opaqueWindows: selected.opaqueWindows ?? true,
       semanticColors: {

@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "DexThemes API",
-    "description": "Browse, generate, and submit themes for Codex. Browser users authenticate with the DexThemes session cookie after OAuth sign-in; agents and scripts authenticate with a dxt_ API key from POST /auth/agent.",
-    "version": "1.1.0"
+    "description": "Browse, generate, and submit themes for Codex. Browser users authenticate with the DexThemes session cookie after GitHub OAuth sign-in; agents and scripts use a dxt_ API key issued to a GitHub-authenticated account.",
+    "version": "1.2.0"
   },
   "servers": [
     {
@@ -263,22 +263,9 @@
     "/auth/agent": {
       "post": {
         "operationId": "registerAgent",
-        "summary": "Register an agent and get an API key",
-        "description": "Agents can self-register to get a dxt_ API key for authenticated actions like submitting and liking themes. No OAuth required. The API key is shown only once.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["name"],
-                "properties": {
-                  "name": { "type": "string", "description": "A name for the agent (e.g. 'My Codex Agent')" }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Create an agent API key",
+        "description": "Creates a dxt_ API key for the active GitHub-authenticated browser account. Anonymous registration and API-key-to-API-key minting are not allowed. The key is shown only once and stored only as a hash.",
+        "security": [{ "BrowserSession": [] }],
         "responses": {
           "201": {
             "description": "API key created",
@@ -296,7 +283,9 @@
               }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" }
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "429": { "description": "Agent key creation rate limit exceeded" }
         }
       }
     },
@@ -598,7 +587,7 @@
           }
         }
       }
-    },
+    }
   },
   "components": {
     "securitySchemes": {
@@ -606,6 +595,12 @@
         "type": "http",
         "scheme": "bearer",
         "description": "Use a Bearer dxt_ API key for scripted access. Browser sessions on dexthemes.com authenticate with the DexThemes session cookie."
+      },
+      "BrowserSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-dexthemes_session",
+        "description": "Secure HttpOnly session established after GitHub OAuth sign-in on dexthemes.com."
       }
     },
     "schemas": {

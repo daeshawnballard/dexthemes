@@ -8,21 +8,14 @@ import {
   jsonResponse,
   normalizeHex,
   registerOptionsRoutes,
+  resolveUser,
   type DexHttpRouter,
 } from "./http_helpers";
 
 const PUBLIC_UNLOCK_ACTIONS = new Set([
-  "buy_coffee",
-  "create_theme",
   "share_x",
-  "sign_in",
-  "like_theme",
-  "top10_monthly",
-  "use_api",
   "color_me_lucky",
-  "agent_use",
   "install_pwa",
-  "complete_pair",
 ]);
 
 export function extractBmcEventName(payload: any): string {
@@ -132,6 +125,7 @@ function extractBmcCurrency(payload: any): string | null {
 export function registerUnlockRoutes(http: DexHttpRouter) {
   registerOptionsRoutes(http, [
     "/unlocks/grant",
+    "/me/api-demo",
     "/me/unlocks",
     "/me/activity",
     "/leaderboard",
@@ -157,6 +151,57 @@ export function registerUnlockRoutes(http: DexHttpRouter) {
           action: body.action,
         });
         return jsonResponse(result, origin);
+      } catch (e: any) {
+        const status = e.message === "Unauthorized" ? 401 : 400;
+        return jsonResponse({ error: e.message }, origin, status);
+      }
+    }),
+  });
+
+  http.route({
+    path: "/me/api-demo",
+    method: "POST",
+    handler: httpAction(async (ctx, request) => {
+      const origin = request.headers.get("Origin");
+      const token = getSessionToken(request);
+      if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
+
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `api-demo:network:${ip}`,
+        ...RATE_LIMITS.authenticatedDemoNetwork,
+      });
+      if (!networkRate.allowed) {
+        return jsonResponse(
+          { error: "Too many requests. Try again later.", retryAfter: networkRate.retryAfter },
+          origin,
+          429,
+        );
+      }
+      const user = await resolveUser(ctx, token);
+      if (!user) return jsonResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `api-demo:user:${String(user._id)}`,
+        ...RATE_LIMITS.authenticatedDemo,
+      });
+      if (!identityRate.allowed) {
+        return jsonResponse(
+          { error: "Too many requests. Try again later.", retryAfter: identityRate.retryAfter },
+          origin,
+          429,
+        );
+      }
+
+      try {
+        const themes = await ctx.runQuery(internal.themes.listPublished, {});
+        const unlock = await ctx.runMutation(internal.unlocks.completeApiDemo, {
+          authToken: token,
+        });
+        return jsonResponse({
+          success: true,
+          communityThemeCount: themes.length,
+          unlock,
+        }, origin);
       } catch (e: any) {
         const status = e.message === "Unauthorized" ? 401 : 400;
         return jsonResponse({ error: e.message }, origin, status);
@@ -211,7 +256,7 @@ export function registerUnlockRoutes(http: DexHttpRouter) {
     method: "GET",
     handler: httpAction(async (ctx, request) => {
       const origin = request.headers.get("Origin");
-      const ip = getClientIP(request);
+      const ip = await getClientIP(ctx, request);
       const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
         key: `read:leaderboard:${ip}`,
         ...RATE_LIMITS.publicLeaderboardRead,
@@ -235,7 +280,7 @@ export function registerUnlockRoutes(http: DexHttpRouter) {
     method: "GET",
     handler: httpAction(async (ctx, request) => {
       const origin = request.headers.get("Origin");
-      const ip = getClientIP(request);
+      const ip = await getClientIP(ctx, request);
       const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
         key: `read:supporters:${ip}`,
         ...RATE_LIMITS.publicSupportersRead,
@@ -263,8 +308,10 @@ export function registerUnlockRoutes(http: DexHttpRouter) {
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
       try {
+        const body = await request.json().catch(() => ({}));
         const result = await ctx.runMutation(internal.supporters.createSupporterClaim, {
           authToken: token,
+          publicListing: body.publicListing === true,
         });
         return jsonResponse({
           ...result,

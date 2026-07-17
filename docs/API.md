@@ -26,8 +26,11 @@ Use the website for public browsing and discovery docs. Use the direct Convex ba
 ## Authentication model
 
 - Browser users on [dexthemes.com](https://dexthemes.com) authenticate with a secure session cookie after OAuth sign-in.
-- Agents and scripts authenticate with a `dxt_...` API key in `Authorization: Bearer <token>`.
+- Agents and scripts authenticate with a `dxt_...` API key issued only after GitHub sign-in and send it in `Authorization: Bearer <token>`.
+- The Codex/ChatGPT plugin uses OAuth 2.1 bearer tokens with GitHub as the upstream identity. The resource server validates signature, issuer, audience, expiry, and `themes:read` or `themes:write` scope.
 - Localhost/dev-only OAuth bootstrap may still pass a temporary session token through the callback hash so the browser can convert it into the local session mode. That is not the intended public production contract.
+
+Account identity is derived by the server. No authenticated endpoint or MCP tool accepts `userId`, `ownerId`, author identity, an email address, or a token in its JSON arguments.
 
 ---
 
@@ -136,6 +139,8 @@ For scripted calls, prefer an API key (`dxt_...`) from the agent/auth flow and s
 Authorization: Bearer <your-dexthemes-api-key>
 ```
 
+Creating or replacing an API key requires an active GitHub-authenticated browser session. The secret is shown once and only its SHA-256 digest and a short non-secret prefix are stored.
+
 ### Request Body
 
 ```json
@@ -189,11 +194,23 @@ Authorization: Bearer <your-dexthemes-api-key>
 
 ## CORS
 
-The API has open CORS (`Access-Control-Allow-Origin: *`). You can call it from any origin — browser apps, CLI tools, Codex skills, etc.
+Credentialed browser account routes allow the production DexThemes origins, plus explicit localhost origins when `ENVIRONMENT=development`. Public catalog/generator routes and explicit Bearer-token protocol surfaces may use wildcard CORS; browser cookies are not usable with wildcard origins, and CLI clients do not rely on browser CORS.
+
+The MCP endpoint uses wildcard CORS because protocol clients can run in multiple hosts; it separately validates the HTTP host, JWT issuer/audience/signature/expiry, OAuth scopes, and account identity before any authenticated tool reaches Convex.
 
 ## Rate limits
 
 DexThemes applies IP and user-based rate limiting on sensitive routes. Public reads are intentionally generous; authenticated writes are tighter.
+
+## Codex/ChatGPT plugin
+
+- MCP endpoint: `https://www.dexthemes.com/api/mcp`
+- Protected-resource metadata: `https://www.dexthemes.com/.well-known/oauth-protected-resource`
+- Public tools: theme search/fetch, drafting, validation, full Codex-style previews, apply preparation, daily/weekly/monthly/all-time leaderboards, and GitHub Issue preparation
+- OAuth `themes:read`: personal creator stats, current ranks, daily/weekly win history, achievements, and unlocked reward-theme previews
+- OAuth `themes:write`: confirmed public theme submission
+
+`submit_theme` is the only plugin tool that creates public state. It is app-only and accepts a short-lived confirmation token bound to the exact reviewed payload and current OAuth token; only the review app receives that token in model-hidden metadata. It re-validates server-side, publishes under the GitHub identity derived from the signed token, and cannot edit or delete another theme.
 
 ## License
 

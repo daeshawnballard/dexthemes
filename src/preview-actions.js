@@ -20,6 +20,7 @@ import { renderRightPanel } from './preview-shell.js';
 import { grantUnlockAction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { clearDeferredInstallPrompt, getDeferredInstallPrompt } from './install-prompt.js';
+import { authFetch } from './session-auth.js';
 
 export { syncAttributionOverlay, reportThemeName, initPreviewChat };
 
@@ -194,11 +195,17 @@ export async function runSupporterUnlockFlow(actionKey = 'buy_coffee') {
   }
 
   try {
-    const claim = await createSupporterClaim();
+    const publicListing = window.confirm(
+      'Optional: list your public GitHub name, username, avatar, and supporter-unlock date on the DexThemes supporter wall? Choose Cancel to stay private; Patron still unlocks either way.',
+    );
+    const claim = await createSupporterClaim({ publicListing });
     if (claim.alreadySupporter) {
       localStorage.removeItem('dexthemes-pending-unlock-action');
       track('supporter_claim_started', { action: actionKey, already_supporter: true });
-      showSupporterClaimModal({ alreadySupporter: true });
+      showSupporterClaimModal({
+        alreadySupporter: true,
+        publicListing: claim.publicListing === true,
+      });
       return;
     }
 
@@ -211,6 +218,7 @@ export async function runSupporterUnlockFlow(actionKey = 'buy_coffee') {
       expiresAt: claim.expiresAt,
       copied,
       alreadySupporter: false,
+      publicListing: claim.publicListing === true,
       onCopy: async (token) => {
         const copiedNow = await copySupporterClaimToken(token);
         showToast(copiedNow ? 'Claim code copied' : "Couldn't copy the claim code automatically", copiedNow ? 'success' : 'error');
@@ -239,25 +247,21 @@ export async function runApiUnlockFlow(actionKey) {
   }
 
   try {
-    const res = await fetch(state.CONVEX_SITE_URL + '/themes', { method: 'GET' });
+    const res = await authFetch(state.CONVEX_SITE_URL + '/me/api-demo', {
+      method: 'POST',
+    });
     if (!res.ok) {
       showToast("Couldn't reach the API right now", 'error');
       return;
     }
 
-    await grantUnlockAction(actionKey);
+    const { fetchMyUnlocks } = await import('./unlock-api.js');
+    await fetchMyUnlocks();
     showToast(`API call complete. ${unlock.name} unlocked.`, 'success');
   } catch (error) {
     console.warn('API unlock flow failed:', error);
     showToast("Couldn't reach the API right now", 'error');
   }
-}
-
-function buildAgentRegistrationName() {
-  const user = state.currentUser;
-  const baseName = user?.displayName || user?.username || 'DexThemes Agent';
-  const cleanBase = baseName.replace(/\s+/g, ' ').trim().slice(0, 60) || 'DexThemes Agent';
-  return `${cleanBase} Agent`;
 }
 
 async function copyAgentApiKey(apiKey) {
@@ -341,10 +345,9 @@ export async function runAgentUnlockFlow(actionKey) {
     localStorage.removeItem('dexthemes-agent-api-key');
     localStorage.removeItem('dexthemes-agent-docs');
 
-    const res = await fetch(state.CONVEX_SITE_URL + '/auth/agent', {
+    const res = await authFetch(state.CONVEX_SITE_URL + '/auth/agent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: buildAgentRegistrationName() }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.apiKey) {
@@ -353,7 +356,8 @@ export async function runAgentUnlockFlow(actionKey) {
     }
 
     const copied = await copyAgentApiKey(data.apiKey);
-    await grantUnlockAction(actionKey);
+    const { fetchMyUnlocks } = await import('./unlock-api.js');
+    await fetchMyUnlocks();
     track('agent_registered', { agent_id: data.agentId });
     showAgentKeyModal({
       apiKey: data.apiKey,

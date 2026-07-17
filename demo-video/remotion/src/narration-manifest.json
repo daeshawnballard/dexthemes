@@ -1,0 +1,59 @@
+{
+  "provider": "HeyGen",
+  "engine": "starfish",
+  "voiceName": "Radiant Riley — Friendly",
+  "voiceId": "0ed165284d1c4dc9b600d3129821146a",
+  "inputType": "text",
+  "language": "en-US",
+  "speed": 1.04,
+  "tracks": [
+    {
+      "sceneId": "create-and-name",
+      "file": "narration/00-create-and-name-v9.wav",
+      "durationSeconds": 14.942041,
+      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week plugin brings decks themes' studio and community directly into the conversation. I asked for a theme inspired by Argentina football at night and named it Argentina Afterglow."
+    },
+    {
+      "sceneId": "preview-and-apply",
+      "file": "narration/01-preview-and-apply-v8.wav",
+      "durationSeconds": 12.930612,
+      "speechText": "decks themes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Coh-dex Appearance. Paste, import, done. The theme is yours. No account required."
+    },
+    {
+      "sceneId": "discover-community",
+      "file": "narration/02-discover-community-v9.wav",
+      "durationSeconds": 13.688163,
+      "speechText": "The catalog is conversational. Search official Coh-dex themes, decks themes releases, and community submissions. Compare full previews and see daily, weekly, monthly, and historical leaders."
+    },
+    {
+      "sceneId": "review-and-publish",
+      "file": "narration/03-review-and-publish-v6.wav",
+      "durationSeconds": 9.325714,
+      "speechText": "Get Hub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit."
+    },
+    {
+      "sceneId": "creator-loop",
+      "file": "narration/04-creator-loop-v9.wav",
+      "durationSeconds": 11.128163,
+      "speechText": "Creators track themes, rankings, daily and weekly wins, and achievements in one dashboard, where stats grow and new achievements unlock with each milestone."
+    },
+    {
+      "sceneId": "open-source-feedback",
+      "file": "narration/05-open-source-feedback-v8.wav",
+      "durationSeconds": 7.78449,
+      "speechText": "Because decks themes is open source, users can turn product feedback into a ready-to-review Get Hub issue from the same conversation."
+    },
+    {
+      "sceneId": "judge-proof",
+      "file": "narration/06-judge-proof-v10.mp3",
+      "durationSeconds": 13.511224,
+      "speechText": "GPT five point six interprets the creative intent. The M C P server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context."
+    },
+    {
+      "sceneId": "end-card",
+      "file": "narration/07-end-card-v5.wav",
+      "durationSeconds": 9.743673,
+      "speechText": "Personal themes, community discovery, and creator recognition, all in one Coh-dex conversation. decks themes is open source and built for the community."
+    }
+  ]
+}

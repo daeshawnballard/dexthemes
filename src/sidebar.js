@@ -5,7 +5,7 @@
 import * as state from './state.js';
 import { THEMES, CATEGORIES, DEXTHEMES_GROUP_LABELS } from './theme-catalog.js';
 import { SUPPORTER_THEME_IDS } from './unlocks.js';
-import { escapeHtml } from './utils.js';
+import { escapeHtml, safeHexColor } from './utils.js';
 import { hasVariant, getVariants } from './theme-engine.js';
 import { isThemeVisibleInCatalog } from './theme-contracts.js';
 import { trackEvent } from './analytics.js';
@@ -180,7 +180,7 @@ export function renderSidebar() {
                data-theme-id="${t.id}"
                data-action="select-theme"
                data-action-keyboard="true">
-            <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+            <div class="thread-swatch" style="background:${safeHexColor((t.dark || t.light)?.accent, '#6B7280')}"></div>
             <span class="thread-title">${escapeHtml(t.name)}</span>
             ${t.id === state.selectedTheme.id ? '<span class="selection-indicator">Selected</span>' : ''}
           </div>
@@ -221,7 +221,7 @@ export function renderSidebar() {
                      data-theme-id="${t.id}"
                      data-action="select-theme"
                      data-action-keyboard="true">
-                  <div class="thread-swatch" style="background:${(t.dark || t.light).accent}"></div>
+                  <div class="thread-swatch" style="background:${safeHexColor((t.dark || t.light)?.accent, '#6B7280')}"></div>
                   <span class="thread-title">${escapeHtml(t.name)}</span>
                   ${t.id === state.selectedTheme.id ? '<span class="selection-indicator">Selected</span>' : ''}
                   ${isSupporter ? '<svg class="thread-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>' : ''}

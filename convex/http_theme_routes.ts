@@ -63,7 +63,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
   };
 
   const withThemeReadRateLimit = async (ctx: any, request: Request) => {
-    const ip = getClientIP(request);
+    const ip = await getClientIP(ctx, request);
     return ctx.runMutation(internal.rateLimit.checkRateLimit, {
       key: `read:themes:${ip}`,
       ...RATE_LIMITS.publicThemesRead,
@@ -156,13 +156,27 @@ export function registerThemeRoutes(http: DexHttpRouter) {
       const token = getSessionToken(request);
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
-      const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
-        key: `submit:${token}`,
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `submit:network:${ip}`,
+        ...RATE_LIMITS.themeSubmitNetwork,
+      });
+      if (!networkRate.allowed) {
+        return jsonResponse({
+          error: "Too many submission attempts. Try again later.",
+          retryAfter: networkRate.retryAfter,
+        }, origin, 429);
+      }
+
+      const user = await resolveUser(ctx, token);
+      if (!user) return jsonResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `submit:user:${String(user._id)}`,
         ...RATE_LIMITS.themeSubmit,
       });
-      if (!rl.allowed) {
+      if (!identityRate.allowed) {
         return jsonResponse(
-          { error: "Too many submissions. Try again later.", retryAfter: rl.retryAfter },
+          { error: "Too many submissions. Try again later.", retryAfter: identityRate.retryAfter },
           origin, 429
         );
       }
@@ -198,13 +212,26 @@ export function registerThemeRoutes(http: DexHttpRouter) {
       const token = getSessionToken(request);
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
-      const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
-        key: `flag:${token}`,
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `flag:network:${ip}`,
+        ...RATE_LIMITS.themeFlagNetwork,
+      });
+      if (!networkRate.allowed) {
+        return jsonResponse(
+          { error: "Too many flag attempts. Try again later.", retryAfter: networkRate.retryAfter },
+          origin, 429
+        );
+      }
+      const user = await resolveUser(ctx, token);
+      if (!user || isApiKey(token)) return jsonResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `flag:user:${String(user._id)}`,
         ...RATE_LIMITS.themeFlag,
       });
-      if (!rl.allowed) {
+      if (!identityRate.allowed) {
         return jsonResponse(
-          { error: "Too many flag requests. Try again later.", retryAfter: rl.retryAfter },
+          { error: "Too many flag requests. Try again later.", retryAfter: identityRate.retryAfter },
           origin, 429
         );
       }
@@ -239,7 +266,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
         if (user) userId = user._id;
       }
 
-      const ip = getClientIP(request);
+      const ip = await getClientIP(ctx, request);
       const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
         key: `copy:${ip}`,
         ...RATE_LIMITS.themeCopy,
@@ -273,6 +300,30 @@ export function registerThemeRoutes(http: DexHttpRouter) {
       const token = getSessionToken(request);
       if (!token) return jsonResponse({ error: "Unauthorized" }, origin, 401);
 
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `like:network:${ip}`,
+        ...RATE_LIMITS.themeLikeNetwork,
+      });
+      if (!networkRate.allowed) {
+        return jsonResponse({
+          error: "Too many like requests. Try again later.",
+          retryAfter: networkRate.retryAfter,
+        }, origin, 429);
+      }
+      const user = await resolveUser(ctx, token);
+      if (!user || isApiKey(token)) return jsonResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `like:user:${String(user._id)}`,
+        ...RATE_LIMITS.themeLikeIdentity,
+      });
+      if (!identityRate.allowed) {
+        return jsonResponse({
+          error: "Too many like requests. Try again later.",
+          retryAfter: identityRate.retryAfter,
+        }, origin, 429);
+      }
+
       try {
         const body = await request.json();
         const result = await ctx.runMutation(internal.likes.toggleLike, {
@@ -292,7 +343,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
     method: "GET",
     handler: httpAction(async (ctx, request) => {
       const origin = request.headers.get("Origin");
-      const ip = getClientIP(request);
+      const ip = await getClientIP(ctx, request);
       const rl = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
         key: `read:likes:${ip}`,
         ...RATE_LIMITS.publicLikesRead,

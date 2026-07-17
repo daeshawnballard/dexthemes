@@ -1,0 +1,176 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "DexThemes",
+    "subtitle": "Create and discover themes",
+    "description": "DexThemes helps people discover official and community Codex themes, create and name personalized palettes, compare full dark/light Codex workspace previews, use an explicit import handoff, publish confirmed community submissions, inspect all-period ranks and achievements, and prepare GitHub feedback for review.",
+    "category": "DESIGN"
+  },
+  "tools": {
+    "search": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Retrieves matching public theme records without creating or changing data.",
+        "open_world_justification": "Does not publish content or change any public or third-party system.",
+        "destructive_justification": "Cannot delete, overwrite, revoke, or perform an irreversible action."
+      }
+    },
+    "fetch": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Retrieves one public theme by stable ID and does not modify it.",
+        "open_world_justification": "Does not write to public internet state or another service.",
+        "destructive_justification": "Cannot delete or overwrite the fetched theme."
+      }
+    },
+    "draft_theme": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Computes a local theme draft from the supplied inspiration without saving it.",
+        "open_world_justification": "The draft remains in the conversation and is not published or sent to a third party.",
+        "destructive_justification": "Cannot remove, overwrite, or revoke existing content."
+      }
+    },
+    "validate_theme": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Computes validation errors and warnings without saving or changing the theme.",
+        "open_world_justification": "Does not publish or transmit the validated theme to an external system.",
+        "destructive_justification": "Cannot delete, overwrite, or otherwise change user data."
+      }
+    },
+    "render_theme_preview": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Renders the provided palette in the DexThemes view without persisting it.",
+        "open_world_justification": "The preview does not create public content or change another system.",
+        "destructive_justification": "Cannot delete, overwrite, revoke, or perform an irreversible action."
+      }
+    },
+    "prepare_theme_apply": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Computes a Codex import string and settings handoff without changing community data.",
+        "open_world_justification": "Does not publish content or modify an external internet service.",
+        "destructive_justification": "Cannot delete or overwrite a theme or account record."
+      }
+    },
+    "get_leaderboard": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Retrieves public daily, weekly, monthly, and all-time rankings without changing them.",
+        "open_world_justification": "Does not publish or update public leaderboard state.",
+        "destructive_justification": "Cannot remove rankings or modify creator data."
+      }
+    },
+    "get_my_stats": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Retrieves the authenticated creator's theme performance and ranks without modifying account data.",
+        "open_world_justification": "Does not publish or change data on the public internet or a third-party service.",
+        "destructive_justification": "Cannot delete, overwrite, or revoke account or theme data."
+      }
+    },
+    "get_my_unlocks": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Retrieves achievements already associated with the verified account without changing them.",
+        "open_world_justification": "Does not publish achievements or modify an external service.",
+        "destructive_justification": "Cannot revoke, delete, or overwrite an achievement."
+      }
+    },
+    "prepare_theme_submission": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Validates and displays the exact proposed public payload without creating community data.",
+        "open_world_justification": "The review remains inside the app; no theme is published until the user presses the separate Publish button.",
+        "destructive_justification": "Cannot delete, overwrite, revoke, or publish any theme."
+      }
+    },
+    "submit_theme": {
+      "annotations": { "readOnlyHint": false, "openWorldHint": true, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Creates one new public community theme after the app receives a valid payload/OAuth-bound review token and the user presses Publish, so it changes DexThemes data.",
+        "open_world_justification": "The app-only tool publishes the exact reviewed theme and verified creator attribution to the public DexThemes community.",
+        "destructive_justification": "Creates a new record and cannot delete, overwrite, or revoke an existing theme."
+      }
+    },
+    "prepare_github_issue": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Applies best-effort redaction and computes an issue title/body locally without submitting the issue.",
+        "open_world_justification": "The exact draft and a redaction warning are shown first; a GitHub URL is constructed only after the user clicks to continue, and nothing is posted until the user submits GitHub's form.",
+        "destructive_justification": "Cannot delete, overwrite, send, or revoke any external content."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Discover a small set of matching public themes.",
+      "user_prompt": "Find me three dark purple community themes with gentle contrast.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search",
+      "expected_output": "Returns up to three relevant theme cards with names, creators when available, and dark palette previews.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Create, name, validate, preview, and prepare a personal theme for Codex.",
+      "user_prompt": "Create a dark and light DexTheme inspired by Argentina football at night. Name it Argentina Afterglow, preview it, and prepare the dark version for Codex without publishing it.",
+      "file_attachment_urls": null,
+      "tools_triggered": "draft_theme, validate_theme, render_theme_preview, prepare_theme_apply",
+      "expected_output": "Preserves the custom name, shows valid dark and light previews, and returns the dark Codex import handoff without publishing.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Publish only through the exact app review and user-pressed write control.",
+      "user_prompt": "I want to publish the validated Midnight Plum theme. Show me the exact public submission review first.",
+      "file_attachment_urls": null,
+      "tools_triggered": "prepare_theme_submission, submit_theme",
+      "expected_output": "Shows the exact public payload in the signed-in review app; only after the user presses Publish does the app-only tool publish under the verified GitHub identity and report achievements.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Read personal creator performance and achievements.",
+      "user_prompt": "Show my DexThemes creator dashboard: daily, weekly, monthly, and all-time ranks, repeat popularity wins, and everything I have unlocked.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_my_stats, get_my_unlocks",
+      "expected_output": "After GitHub sign-in, renders creator totals, all-period rank details, repeat daily/weekly wins, finalized monthly Top 10 placements, and active reward-theme previews without exposing email addresses or tokens.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Prepare best-effort redacted GitHub feedback without posting it.",
+      "user_prompt": "The light preview is blank after I switch variants. Prepare a GitHub issue with those reproduction details, but do not post it.",
+      "file_attachment_urls": null,
+      "tools_triggered": "prepare_github_issue",
+      "expected_output": "Shows the exact title and body with a best-effort redaction warning, reports detected redactions, states that nothing was posted, and offers a separate button to continue to GitHub for final review and submission.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not invoke for unrelated code maintenance.",
+      "user_prompt": "Refactor my authentication middleware and run the unit tests.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because general repository implementation is outside the theme workflows.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not invoke for general sports information.",
+      "user_prompt": "When is Argentina's next World Cup match?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because the user asked for sports information rather than a theme inspired by the team.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not invoke for unrelated image creation.",
+      "user_prompt": "Generate a photorealistic poster of a futuristic city.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because it creates Codex palettes and previews, not standalone images.",
+      "expected_output_url": null
+    }
+  ]
+}

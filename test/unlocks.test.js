@@ -8,6 +8,9 @@ import {
   getUnlockConfigForThemeId,
   isThemeLockedForUser,
 } from '../src/unlocks.js';
+import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
+
+const OPENAI_ACHIEVEMENT_NAME = 'OpenAI is nothing without its people';
 
 test('reverse unlock map resolves each theme id back to its action', () => {
   for (const [action, unlock] of Object.entries(UNLOCK_THEMES)) {
@@ -27,4 +30,29 @@ test('locked theme detection depends on whether the user has unlocked that theme
   const lockedThemeId = UNLOCK_THEMES.buy_coffee.themeId;
   assert.equal(isThemeLockedForUser(lockedThemeId, new Set()), true);
   assert.equal(isThemeLockedForUser(lockedThemeId, new Set([lockedThemeId])), false);
+});
+
+test('OpenAI people achievement unlocks the Human Spark reward theme', () => {
+  const unlock = UNLOCK_THEMES.openai_employee;
+  const theme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === unlock.themeId);
+
+  assert.equal(unlock.achievement, OPENAI_ACHIEVEMENT_NAME);
+  assert.equal(unlock.name, 'Human Spark');
+  assert.ok(theme);
+  assert.equal(theme.name, 'Human Spark');
+  assert.match(theme._summary, /^People are the spark behind intelligence\./);
+});
+
+test('daily and weekly winner achievements unlock distinct one-time reward themes', () => {
+  const daily = UNLOCK_THEMES.theme_of_day;
+  const weekly = UNLOCK_THEMES.theme_of_week;
+  const dailyTheme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === daily.themeId);
+  const weeklyTheme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === weekly.themeId);
+
+  assert.equal(daily.achievement, 'Theme of the Day');
+  assert.equal(weekly.achievement, 'Theme of the Week');
+  assert.equal(daily.name, 'Golden Hour');
+  assert.equal(weekly.name, 'Headliner');
+  assert.ok(dailyTheme?.dark && dailyTheme?.light);
+  assert.ok(weeklyTheme?.dark && weeklyTheme?.light);
 });

@@ -1,0 +1,37 @@
+{
+  "name": "dexthemes-build-week-video",
+  "version": "1.0.0",
+  "description": "Reproducible Remotion edit for the DexThemes OpenAI Build Week demo.",
+  "repository": "https://github.com/daeshawnballard/dexthemes",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.490",
+    "@remotion/media": "4.0.490",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.490"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.490",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "render:master:source": "remotion render BuildWeekDemo out/dexthemes-build-week-demo-final-1m35s-source.mp4 --codec=h264 --scale=0.5",
+    "render:master": "npm run render:master:source && remotion ffmpeg -y -i out/dexthemes-build-week-demo-final-1m35s-source.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -c:a aac -b:a 192k -movflags +faststart out/dexthemes-build-week-demo-final-1m35s.mp4",
+    "render:previs:source": "npm run render:master:source",
+    "render:previs": "npm run render:master",
+    "render:still": "remotion still BuildWeekDemo out/dexthemes-build-week-review-v10.png --frame=2400 --scale=0.5",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

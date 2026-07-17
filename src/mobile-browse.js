@@ -3,7 +3,7 @@
 // ================================================
 
 import * as state from './state.js';
-import { escapeHtml, safeImageSrc } from './utils.js';
+import { escapeHtml, safeHexColor, safeImageSrc } from './utils.js';
 import { isMobile } from './mobile.js';
 import { isThemeVisibleInCatalog } from './theme-contracts.js';
 
@@ -138,10 +138,10 @@ export function renderMobileBrowse() {
 
   // Build theme cards
   const cards = themes.map(t => {
-    const colors = t.dark || t.light;
-    const surface = colors.surface;
-    const accent = colors.accent;
-    const ink = colors.ink;
+    const colors = t.dark || t.light || {};
+    const surface = safeHexColor(colors.surface, '#111827');
+    const accent = safeHexColor(colors.accent, '#6B7280');
+    const ink = safeHexColor(colors.ink, '#F9FAFB');
     const isSelected = t.id === state.selectedTheme?.id;
 
     return `

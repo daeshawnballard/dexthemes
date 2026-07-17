@@ -28,6 +28,12 @@ export const THEMES = [
     accents: ['#0169cc']
   },
   {
+    id: 'codex-disco-cloud', name: 'Codex / Disco Cloud', category: 'official', codeThemeId: 'codex', copies: 0, dateAdded: '2026-05-17',
+    dark: { surface: '#080922', ink: '#F1EDFF', accent: '#6D5DFF', contrast: 64, diffAdded: '#55E6B5', diffRemoved: '#FF5F8A', skill: '#B8A6FF', sidebar: '#111330', codeBg: '#040613' },
+    light: { surface: '#F4F1FF', ink: '#171330', accent: '#5B4DDB', contrast: 46, diffAdded: '#008A68', diffRemoved: '#C43B66', skill: '#7C3AED', sidebar: '#E7E2FF', codeBg: '#ECE7FF' },
+    accents: ['#6D5DFF', '#8F4FE7', '#7487F2']
+  },
+  {
     id: 'absolutely', name: 'Absolutely', category: 'official', codeThemeId: 'absolutely', copies: 127, dateAdded: '2025-05-01',
     dark: { surface: '#2d2d2b', ink: '#f9f9f7', accent: '#cc7d5e', contrast: 60, ...DARK_DEFAULTS, sidebar: '#242422', codeBg: '#222220' },
     light: { surface: '#f9f9f7', ink: '#2d2d2b', accent: '#cc7d5e', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f0f0ee', codeBg: '#ededed' },
@@ -50,6 +56,11 @@ export const THEMES = [
     accents: ['#FF79C6']
   },
   {
+    id: 'everforest', name: 'Everforest', category: 'official', codeThemeId: 'everforest', copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#2d353b', ink: '#d3c6aa', accent: '#a7c080', contrast: 60, diffAdded: '#a7c080', diffRemoved: '#e67e80', skill: '#d699b6', sidebar: '#2d353b', codeBg: '#2d353b' },
+    light: { surface: '#fdf6e3', ink: '#5c6a72', accent: '#93b259', contrast: 45, diffAdded: '#8da101', diffRemoved: '#f85552', skill: '#df69ba', sidebar: '#fdf6e3', codeBg: '#fdf6e3' }
+  },
+  {
     id: 'github-dark', name: 'GitHub Dark', category: 'official', codeThemeId: 'github-dark-default', variants: ['dark'], copies: 256, dateAdded: '2025-05-01',
     dark: { surface: '#0d1117', ink: '#e6edf3', accent: '#58a6ff', contrast: 60, diffAdded: '#3fb950', diffRemoved: '#f85149', skill: '#bc8cff', sidebar: '#090c10', codeBg: '#070a0f' },
     accents: ['#58a6ff']
@@ -65,9 +76,30 @@ export const THEMES = [
     accents: ['#fe8019']
   },
   {
+    id: 'linear', name: 'Linear', category: 'official', codeThemeId: 'linear', copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#0f0f11', ink: '#e3e4e6', accent: '#606acc', contrast: 60, diffAdded: '#69c967', diffRemoved: '#ff7e78', skill: '#c2a1ff', sidebar: '#080a0f', codeBg: '#17181d', fonts: { ui: 'Inter' }, opaqueWindows: true },
+    light: { surface: '#fcfcfd', ink: '#1b1b1b', accent: '#5e6ad2', contrast: 45, diffAdded: '#52a450', diffRemoved: '#c94446', skill: '#8160d8', sidebar: '#f2f4f8', codeBg: '#f7f8fa', fonts: { ui: 'Inter' }, opaqueWindows: true }
+  },
+  {
+    id: 'lobster', name: 'Lobster', category: 'official', codeThemeId: 'lobster', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#111827', ink: '#e4e4e7', accent: '#ff5c5c', contrast: 60, diffAdded: '#22c55e', diffRemoved: '#ff5c5c', skill: '#3b82f6', sidebar: '#111827', codeBg: '#111827', fonts: { ui: 'Satoshi' } }
+  },
+  {
+    id: 'material', name: 'Material', category: 'official', codeThemeId: 'material', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#212121', ink: '#eeffff', accent: '#80cbc4', contrast: 60, diffAdded: '#c3e88d', diffRemoved: '#f07178', skill: '#c792ea', sidebar: '#212121', codeBg: '#212121' }
+  },
+  {
+    id: 'matrix', name: 'Matrix', category: 'official', codeThemeId: 'matrix', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#040805', ink: '#b8ffca', accent: '#1eff5a', contrast: 60, diffAdded: '#1eff5a', diffRemoved: '#fa423e', skill: '#1eff5a', sidebar: '#020402', codeBg: '#040805', fonts: { code: null, ui: 'ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace' }, opaqueWindows: true }
+  },
+  {
     id: 'monokai', name: 'Monokai', category: 'official', codeThemeId: 'monokai', variants: ['dark'], copies: 287, dateAdded: '2025-05-01',
     dark: { surface: '#272822', ink: '#F8F8F2', accent: '#F92672', contrast: 60, diffAdded: '#A6E22E', diffRemoved: '#F92672', skill: '#AE81FF', sidebar: '#1f201b', codeBg: '#1b1c17' },
     accents: ['#F92672', '#A6E22E', '#66D9EF']
+  },
+  {
+    id: 'night-owl', name: 'Night Owl', category: 'official', codeThemeId: 'night-owl', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#011627', ink: '#d6deeb', accent: '#44596b', contrast: 60, diffAdded: '#c5e478', diffRemoved: '#ef5350', skill: '#c792ea', sidebar: '#011627', codeBg: '#011627' }
   },
   {
     id: 'nord', name: 'Nord', category: 'official', codeThemeId: 'nord', variants: ['dark'], copies: 231, dateAdded: '2025-05-01',
@@ -75,9 +107,23 @@ export const THEMES = [
     accents: ['#88C0D0']
   },
   {
+    id: 'notion', name: 'Notion', category: 'official', codeThemeId: 'notion', copies: 0, dateAdded: '2026-07-03',
+    dark: { surface: '#191919', ink: '#d9d9d8', accent: '#3183d8', contrast: 60, diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9', sidebar: '#151515', codeBg: '#191919' },
+    light: { surface: '#ffffff', ink: '#37352f', accent: '#3183d8', contrast: 45, diffAdded: '#00a240', diffRemoved: '#ba2623', skill: '#924ff7', sidebar: '#f7f6f3', codeBg: '#ffffff' },
+    accents: ['#3183d8']
+  },
+  {
+    id: 'oscurange', name: 'Oscurange', category: 'official', codeThemeId: 'oscurange', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#0b0b0f', ink: '#e6e6e6', accent: '#f9b98c', contrast: 60, diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#479ffa', sidebar: '#0b0b0f', codeBg: '#0b0b0f' }
+  },
+  {
     id: 'one-dark', name: 'One Dark', category: 'official', codeThemeId: 'one-dark-pro', variants: ['dark'], copies: 312, dateAdded: '2025-05-01',
     dark: { surface: '#282c34', ink: '#abb2bf', accent: '#61afef', contrast: 60, diffAdded: '#98c379', diffRemoved: '#e06c75', skill: '#c678dd', sidebar: '#21252b', codeBg: '#1d2025' },
     accents: ['#61afef']
+  },
+  {
+    id: 'proof', name: 'Proof', category: 'official', codeThemeId: 'proof', variants: ['light'], copies: 0, dateAdded: '2026-07-11',
+    light: { surface: '#f5f3ed', ink: '#2f312d', accent: '#3d755d', contrast: 45, diffAdded: '#3d755d', diffRemoved: '#ba2623', skill: '#5f6ac2', sidebar: '#efede6', codeBg: '#f5f3ed', fonts: { code: null, ui: null }, opaqueWindows: false }
   },
   {
     id: 'raycast', name: 'Raycast', category: 'official', codeThemeId: 'raycast', copies: 0, dateAdded: '2026-03-27',
@@ -91,10 +137,18 @@ export const THEMES = [
     accents: ['#c4a7e7', '#ebbcba']
   },
   {
+    id: 'sentry', name: 'Sentry', category: 'official', codeThemeId: 'sentry', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#2d2935', ink: '#e6dff9', accent: '#7055f6', contrast: 60, diffAdded: '#8ee6d7', diffRemoved: '#fa423e', skill: '#7055f6', sidebar: '#26222d', codeBg: '#2d2935', fonts: { code: null, ui: null } }
+  },
+  {
     id: 'solarized', name: 'Solarized', category: 'official', codeThemeId: 'solarized', copies: 267, dateAdded: '2025-05-01',
     dark: { surface: '#002b36', ink: '#839496', accent: '#268bd2', contrast: 60, diffAdded: '#859900', diffRemoved: '#dc322f', skill: '#6c71c4', sidebar: '#00222b', codeBg: '#001e26' },
     light: { surface: '#fdf6e3', ink: '#657b83', accent: '#268bd2', contrast: 45, diffAdded: '#859900', diffRemoved: '#dc322f', skill: '#6c71c4', sidebar: '#f5eedb', codeBg: '#eee8d5' },
     accents: ['#268bd2']
+  },
+  {
+    id: 'temple', name: 'Temple', category: 'official', codeThemeId: 'temple', variants: ['dark'], copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#02120c', ink: '#c7e6da', accent: '#e4f222', contrast: 60, diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#e4f222', sidebar: '#1d2d0f', codeBg: '#02120c' }
   },
   {
     id: 'tokyo-night', name: 'Tokyo Night', category: 'official', codeThemeId: 'tokyo-night', variants: ['dark'], copies: 298, dateAdded: '2025-05-01',
@@ -102,10 +156,20 @@ export const THEMES = [
     accents: ['#7aa2f7']
   },
   {
+    id: 'vercel', name: 'Vercel', category: 'official', codeThemeId: 'vercel', copies: 0, dateAdded: '2026-07-03',
+    dark: { surface: '#000000', ink: '#ededed', accent: '#006efe', contrast: 50, diffAdded: '#00AD3A', diffRemoved: '#F13342', skill: '#9540D5', sidebar: '#000000', codeBg: '#000000', fonts: { code: '"Geist Mono", ui-monospace, "SFMono-Regular"', ui: 'Geist, Inter' } },
+    light: { surface: '#ffffff', ink: '#171717', accent: '#006aff', contrast: 40, diffAdded: '#28A948', diffRemoved: '#EB001D', skill: '#A100F8', sidebar: '#ffffff', codeBg: '#ffffff', fonts: { code: '"Geist Mono", ui-monospace, "SFMono-Regular"', ui: 'Geist, Inter' } }
+  },
+  {
     id: 'vscode-plus', name: 'VS Code+', category: 'official', codeThemeId: 'codex', copies: 223, dateAdded: '2025-05-01',
     dark: { surface: '#1E1E1E', ink: '#D4D4D4', accent: '#007ACC', contrast: 60, ...DARK_DEFAULTS, sidebar: '#171717', codeBg: '#131313' },
     light: { surface: '#FFFFFF', ink: '#000000', accent: '#007ACC', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f3f3f3', codeBg: '#ececec' },
     accents: ['#007ACC']
+  },
+  {
+    id: 'xcode', name: 'Xcode', category: 'official', codeThemeId: 'xcode', copies: 0, dateAdded: '2026-07-11',
+    dark: { surface: '#1f1f24', ink: '#ffffff', accent: '#5482ff', contrast: 60, diffAdded: '#67b7a4', diffRemoved: '#fc6a5d', skill: '#5482ff', sidebar: '#1f1f24', codeBg: '#1f1f24', fonts: { code: '"SFMono-Medium"' } },
+    light: { surface: '#ffffff', ink: '#000000', accent: '#0e0eff', contrast: 45, diffAdded: '#00a240', diffRemoved: '#c41a16', skill: '#0e0eff', sidebar: '#ffffff', codeBg: '#ffffff', fonts: { code: '"SFMono-Regular"' } }
   },
 
   // ==============================

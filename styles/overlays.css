@@ -306,10 +306,11 @@
   padding: 0 24px 12px;
   flex-shrink: 0;
   background: transparent;
+  overflow-x: auto;
 }
 
 .leaderboard-tab {
-  flex: 1;
+  flex: 1 0 auto;
   padding: 6px 0;
   font-size: 12px;
   font-weight: 500;
@@ -869,7 +870,7 @@
 
 .profile-stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 12px;
 }
 
@@ -891,6 +892,35 @@
 .profile-stat-label {
   font-size: 11px;
   color: var(--text-secondary);
+}
+.profile-popularity-history {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.profile-popularity-win {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+.profile-popularity-win:last-child { border-bottom: 0; }
+.profile-popularity-win > span:first-child {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.profile-popularity-win > span:last-child { color: var(--text-muted); }
+.profile-popularity-empty {
+  padding: 12px;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
 }
 .achievements-section {
   margin-top: 8px;

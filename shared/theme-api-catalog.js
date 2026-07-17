@@ -68,6 +68,48 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "codex-disco-cloud",
+    "themeId": "codex-disco-cloud",
+    "name": "Codex / Disco Cloud",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-17",
+    "dark": {
+      "surface": "#080922",
+      "ink": "#F1EDFF",
+      "accent": "#6D5DFF",
+      "contrast": 64,
+      "diffAdded": "#55E6B5",
+      "diffRemoved": "#FF5F8A",
+      "skill": "#B8A6FF",
+      "sidebar": "#111330",
+      "codeBg": "#040613"
+    },
+    "light": {
+      "surface": "#F4F1FF",
+      "ink": "#171330",
+      "accent": "#5B4DDB",
+      "contrast": 46,
+      "diffAdded": "#008A68",
+      "diffRemoved": "#C43B66",
+      "skill": "#7C3AED",
+      "sidebar": "#E7E2FF",
+      "codeBg": "#ECE7FF"
+    },
+    "accents": [
+      "#6D5DFF",
+      "#8F4FE7",
+      "#7487F2"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "absolutely",
     "themeId": "absolutely",
     "name": "Absolutely",
@@ -213,6 +255,44 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "everforest",
+    "themeId": "everforest",
+    "name": "Everforest",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "everforest",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#2d353b",
+      "ink": "#d3c6aa",
+      "accent": "#a7c080",
+      "contrast": 60,
+      "diffAdded": "#a7c080",
+      "diffRemoved": "#e67e80",
+      "skill": "#d699b6",
+      "sidebar": "#2d353b",
+      "codeBg": "#2d353b"
+    },
+    "light": {
+      "surface": "#fdf6e3",
+      "ink": "#5c6a72",
+      "accent": "#93b259",
+      "contrast": 45,
+      "diffAdded": "#8da101",
+      "diffRemoved": "#f85552",
+      "skill": "#df69ba",
+      "sidebar": "#fdf6e3",
+      "codeBg": "#fdf6e3"
+    },
+    "accents": [],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "github-dark",
     "themeId": "github-dark",
     "name": "GitHub Dark",
@@ -309,6 +389,150 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "linear",
+    "themeId": "linear",
+    "name": "Linear",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "linear",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#0f0f11",
+      "ink": "#e3e4e6",
+      "accent": "#606acc",
+      "contrast": 60,
+      "diffAdded": "#69c967",
+      "diffRemoved": "#ff7e78",
+      "skill": "#c2a1ff",
+      "sidebar": "#080a0f",
+      "codeBg": "#17181d",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    },
+    "light": {
+      "surface": "#fcfcfd",
+      "ink": "#1b1b1b",
+      "accent": "#5e6ad2",
+      "contrast": 45,
+      "diffAdded": "#52a450",
+      "diffRemoved": "#c94446",
+      "skill": "#8160d8",
+      "sidebar": "#f2f4f8",
+      "codeBg": "#f7f8fa",
+      "fonts": {
+        "ui": "Inter"
+      },
+      "opaqueWindows": true
+    },
+    "accents": [],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "lobster",
+    "themeId": "lobster",
+    "name": "Lobster",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "lobster",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#111827",
+      "ink": "#e4e4e7",
+      "accent": "#ff5c5c",
+      "contrast": 60,
+      "diffAdded": "#22c55e",
+      "diffRemoved": "#ff5c5c",
+      "skill": "#3b82f6",
+      "sidebar": "#111827",
+      "codeBg": "#111827",
+      "fonts": {
+        "ui": "Satoshi"
+      }
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "material",
+    "themeId": "material",
+    "name": "Material",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "material",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#212121",
+      "ink": "#eeffff",
+      "accent": "#80cbc4",
+      "contrast": 60,
+      "diffAdded": "#c3e88d",
+      "diffRemoved": "#f07178",
+      "skill": "#c792ea",
+      "sidebar": "#212121",
+      "codeBg": "#212121"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "matrix",
+    "themeId": "matrix",
+    "name": "Matrix",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "matrix",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#040805",
+      "ink": "#b8ffca",
+      "accent": "#1eff5a",
+      "contrast": 60,
+      "diffAdded": "#1eff5a",
+      "diffRemoved": "#fa423e",
+      "skill": "#1eff5a",
+      "sidebar": "#020402",
+      "codeBg": "#040805",
+      "fonts": {
+        "code": null,
+        "ui": "ui-monospace, \"SFMono-Regular\", \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
+      },
+      "opaqueWindows": true
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "monokai",
     "themeId": "monokai",
     "name": "Monokai",
@@ -334,6 +558,36 @@ export const STATIC_THEME_CATALOG = [
       "#A6E22E",
       "#66D9EF"
     ],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "night-owl",
+    "themeId": "night-owl",
+    "name": "Night Owl",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "night-owl",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#011627",
+      "ink": "#d6deeb",
+      "accent": "#44596b",
+      "contrast": 60,
+      "diffAdded": "#c5e478",
+      "diffRemoved": "#ef5350",
+      "skill": "#c792ea",
+      "sidebar": "#011627",
+      "codeBg": "#011627"
+    },
+    "light": null,
+    "accents": [],
     "variants": [
       "dark"
     ],
@@ -375,6 +629,76 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "notion",
+    "themeId": "notion",
+    "name": "Notion",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "notion",
+    "copies": 0,
+    "dateAdded": "2026-07-03",
+    "dark": {
+      "surface": "#191919",
+      "ink": "#d9d9d8",
+      "accent": "#3183d8",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#ad7bf9",
+      "sidebar": "#151515",
+      "codeBg": "#191919"
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#37352f",
+      "accent": "#3183d8",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#ba2623",
+      "skill": "#924ff7",
+      "sidebar": "#f7f6f3",
+      "codeBg": "#ffffff"
+    },
+    "accents": [
+      "#3183d8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "oscurange",
+    "themeId": "oscurange",
+    "name": "Oscurange",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "oscurange",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#0b0b0f",
+      "ink": "#e6e6e6",
+      "accent": "#f9b98c",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#479ffa",
+      "sidebar": "#0b0b0f",
+      "codeBg": "#0b0b0f"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "one-dark",
     "themeId": "one-dark",
     "name": "One Dark",
@@ -400,6 +724,41 @@ export const STATIC_THEME_CATALOG = [
     ],
     "variants": [
       "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "proof",
+    "themeId": "proof",
+    "name": "Proof",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "proof",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": null,
+    "light": {
+      "surface": "#f5f3ed",
+      "ink": "#2f312d",
+      "accent": "#3d755d",
+      "contrast": 45,
+      "diffAdded": "#3d755d",
+      "diffRemoved": "#ba2623",
+      "skill": "#5f6ac2",
+      "sidebar": "#efede6",
+      "codeBg": "#f5f3ed",
+      "fonts": {
+        "code": null,
+        "ui": null
+      },
+      "opaqueWindows": false
+    },
+    "accents": [],
+    "variants": [
+      "light"
     ],
     "_company": null,
     "_hiddenUntilUnlocked": null,
@@ -482,6 +841,40 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "sentry",
+    "themeId": "sentry",
+    "name": "Sentry",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "sentry",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#2d2935",
+      "ink": "#e6dff9",
+      "accent": "#7055f6",
+      "contrast": 60,
+      "diffAdded": "#8ee6d7",
+      "diffRemoved": "#fa423e",
+      "skill": "#7055f6",
+      "sidebar": "#26222d",
+      "codeBg": "#2d2935",
+      "fonts": {
+        "code": null,
+        "ui": null
+      }
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "solarized",
     "themeId": "solarized",
     "name": "Solarized",
@@ -522,6 +915,36 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "temple",
+    "themeId": "temple",
+    "name": "Temple",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "temple",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#02120c",
+      "ink": "#c7e6da",
+      "accent": "#e4f222",
+      "contrast": 60,
+      "diffAdded": "#40c977",
+      "diffRemoved": "#fa423e",
+      "skill": "#e4f222",
+      "sidebar": "#1d2d0f",
+      "codeBg": "#02120c"
+    },
+    "light": null,
+    "accents": [],
+    "variants": [
+      "dark"
+    ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "tokyo-night",
     "themeId": "tokyo-night",
     "name": "Tokyo Night",
@@ -548,6 +971,52 @@ export const STATIC_THEME_CATALOG = [
     "variants": [
       "dark"
     ],
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "vercel",
+    "themeId": "vercel",
+    "name": "Vercel",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "vercel",
+    "copies": 0,
+    "dateAdded": "2026-07-03",
+    "dark": {
+      "surface": "#000000",
+      "ink": "#ededed",
+      "accent": "#006efe",
+      "contrast": 50,
+      "diffAdded": "#00AD3A",
+      "diffRemoved": "#F13342",
+      "skill": "#9540D5",
+      "sidebar": "#000000",
+      "codeBg": "#000000",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#171717",
+      "accent": "#006aff",
+      "contrast": 40,
+      "diffAdded": "#28A948",
+      "diffRemoved": "#EB001D",
+      "skill": "#A100F8",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
+        "ui": "Geist, Inter"
+      }
+    },
+    "accents": [],
+    "variants": null,
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
@@ -587,6 +1056,50 @@ export const STATIC_THEME_CATALOG = [
     "accents": [
       "#007ACC"
     ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "xcode",
+    "themeId": "xcode",
+    "name": "Xcode",
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "xcode",
+    "copies": 0,
+    "dateAdded": "2026-07-11",
+    "dark": {
+      "surface": "#1f1f24",
+      "ink": "#ffffff",
+      "accent": "#5482ff",
+      "contrast": 60,
+      "diffAdded": "#67b7a4",
+      "diffRemoved": "#fc6a5d",
+      "skill": "#5482ff",
+      "sidebar": "#1f1f24",
+      "codeBg": "#1f1f24",
+      "fonts": {
+        "code": "\"SFMono-Medium\""
+      }
+    },
+    "light": {
+      "surface": "#ffffff",
+      "ink": "#000000",
+      "accent": "#0e0eff",
+      "contrast": 45,
+      "diffAdded": "#00a240",
+      "diffRemoved": "#c41a16",
+      "skill": "#0e0eff",
+      "sidebar": "#ffffff",
+      "codeBg": "#ffffff",
+      "fonts": {
+        "code": "\"SFMono-Regular\""
+      }
+    },
+    "accents": [],
     "variants": null,
     "_company": null,
     "_hiddenUntilUnlocked": null,
@@ -1168,6 +1681,132 @@ export const STATIC_THEME_CATALOG = [
     "_summary": null
   },
   {
+    "id": "gundam-rx-78-2",
+    "themeId": "gundam-rx-78-2",
+    "name": "Gundam / RX-78-2",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#EF3340",
+      "skill": "#FACC15",
+      "surface": "#0B1020",
+      "ink": "#F4F7FB",
+      "accent": "#2F6FE4",
+      "sidebar": "#070B16",
+      "codeBg": "#040711"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#B7791F",
+      "surface": "#F6F8FC",
+      "ink": "#182132",
+      "accent": "#2457C5",
+      "sidebar": "#E8ECF5",
+      "codeBg": "#EEF2F8"
+    },
+    "accents": [
+      "#2F6FE4",
+      "#EF3340",
+      "#FACC15"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "gundam-seed-strike",
+    "themeId": "gundam-seed-strike",
+    "name": "Gundam SEED / Strike",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#E11D48",
+      "skill": "#FACC15",
+      "surface": "#080D17",
+      "ink": "#F8FAFC",
+      "accent": "#1D4ED8",
+      "sidebar": "#050914",
+      "codeBg": "#030711"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#B91C1C",
+      "skill": "#C98900",
+      "surface": "#FBFCFF",
+      "ink": "#172033",
+      "accent": "#1E40AF",
+      "sidebar": "#EEF2F8",
+      "codeBg": "#F4F7FB"
+    },
+    "accents": [
+      "#1D4ED8",
+      "#E11D48",
+      "#FACC15"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "gundam-00-exia-trans-am",
+    "themeId": "gundam-00-exia-trans-am",
+    "name": "Gundam 00 / Exia Trans-Am",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-05-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#2DD4BF",
+      "diffRemoved": "#FB7185",
+      "skill": "#22D3EE",
+      "surface": "#130913",
+      "ink": "#FFEAF2",
+      "accent": "#F43F5E",
+      "sidebar": "#0D0710",
+      "codeBg": "#09050C"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#0F766E",
+      "diffRemoved": "#BE123C",
+      "skill": "#0891B2",
+      "surface": "#FFF3F7",
+      "ink": "#231522",
+      "accent": "#E11D48",
+      "sidebar": "#F6E7ED",
+      "codeBg": "#FBEAF0"
+    },
+    "accents": [
+      "#F43F5E",
+      "#22D3EE",
+      "#A78BFA"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
     "id": "luffy-gear-five",
     "themeId": "luffy-gear-five",
     "name": "Luffy / Gear Five",
@@ -1242,6 +1881,170 @@ export const STATIC_THEME_CATALOG = [
     "accents": [
       "#FB923C",
       "#EA580C"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-base",
+    "themeId": "liger-zero-base",
+    "name": "Liger Zero / Base",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#EF4444",
+      "skill": "#D4A830",
+      "surface": "#1A1A22",
+      "ink": "#E8E8F0",
+      "accent": "#00E060",
+      "sidebar": "#22222C",
+      "codeBg": "#141418"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#A07820",
+      "surface": "#F2F2F6",
+      "ink": "#1E1E28",
+      "accent": "#00945A",
+      "sidebar": "#E4E4EC",
+      "codeBg": "#EAEAF0"
+    },
+    "accents": [
+      "#00E060",
+      "#00945A"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-schneider",
+    "themeId": "liger-zero-schneider",
+    "name": "Liger Zero / Schneider",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#FB7185",
+      "skill": "#FFAA30",
+      "surface": "#1E1410",
+      "ink": "#F0DCD0",
+      "accent": "#E06828",
+      "sidebar": "#281A14",
+      "codeBg": "#181010"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#16A34A",
+      "diffRemoved": "#DC2626",
+      "skill": "#A03A08",
+      "surface": "#FDF4EE",
+      "ink": "#2A1410",
+      "accent": "#C04A10",
+      "sidebar": "#F0E0D4",
+      "codeBg": "#F6ECDF"
+    },
+    "accents": [
+      "#E06828",
+      "#C04A10"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-jager",
+    "themeId": "liger-zero-jager",
+    "name": "Liger Zero / Jager",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#34D399",
+      "diffRemoved": "#F87171",
+      "skill": "#4070C8",
+      "surface": "#0C1020",
+      "ink": "#D0DCF0",
+      "accent": "#00C8FF",
+      "sidebar": "#101828",
+      "codeBg": "#080C18"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#BE123C",
+      "skill": "#0070B8",
+      "surface": "#EEF2FA",
+      "ink": "#0C1030",
+      "accent": "#1840A0",
+      "sidebar": "#DEE6F4",
+      "codeBg": "#E4EAF5"
+    },
+    "accents": [
+      "#00C8FF",
+      "#1840A0"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null
+  },
+  {
+    "id": "liger-zero-panzer",
+    "themeId": "liger-zero-panzer",
+    "name": "Liger Zero / Panzer",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-15",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#4ADE80",
+      "diffRemoved": "#F87171",
+      "skill": "#8A8050",
+      "surface": "#141810",
+      "ink": "#D0D8C0",
+      "accent": "#A0E030",
+      "sidebar": "#1C2018",
+      "codeBg": "#101408"
+    },
+    "light": {
+      "contrast": 46,
+      "diffAdded": "#15803D",
+      "diffRemoved": "#DC2626",
+      "skill": "#606838",
+      "surface": "#F0F2EA",
+      "ink": "#1A2010",
+      "accent": "#4A5A30",
+      "sidebar": "#E2E6D8",
+      "codeBg": "#E8ECD8"
+    },
+    "accents": [
+      "#A0E030",
+      "#4A5A30"
     ],
     "variants": null,
     "_company": null,
@@ -4325,6 +5128,259 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Pure black and white duality balanced into a calm, minimal pair."
+  },
+  {
+    "id": "plugged-in",
+    "themeId": "plugged-in",
+    "name": "Plugged In",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 66,
+      "diffAdded": "#46D49A",
+      "diffRemoved": "#FF667D",
+      "skill": "#46D7FF",
+      "surface": "#0A0B18",
+      "ink": "#EFF4FF",
+      "accent": "#6F7CFF",
+      "sidebar": "#060712",
+      "codeBg": "#04050D"
+    },
+    "light": {
+      "contrast": 49,
+      "diffAdded": "#168555",
+      "diffRemoved": "#B92C45",
+      "skill": "#087FA8",
+      "surface": "#F6F7FF",
+      "ink": "#171A31",
+      "accent": "#4D5AD8",
+      "sidebar": "#EBEDFA",
+      "codeBg": "#E3E6F5"
+    },
+    "accents": [
+      "#6F7CFF",
+      "#46D7FF",
+      "#4D5AD8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Electric indigo and bright cyan for creators working directly through the DexThemes plugin."
+  },
+  {
+    "id": "voiceprint",
+    "themeId": "voiceprint",
+    "name": "Voiceprint",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 65,
+      "diffAdded": "#4BD29A",
+      "diffRemoved": "#FF6A72",
+      "skill": "#62D9F1",
+      "surface": "#130A18",
+      "ink": "#FFF0FF",
+      "accent": "#EF62D6",
+      "sidebar": "#0E0712",
+      "codeBg": "#0A050D"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#168650",
+      "diffRemoved": "#B62D3B",
+      "skill": "#197F9B",
+      "surface": "#FFF6FD",
+      "ink": "#2C152D",
+      "accent": "#B834A0",
+      "sidebar": "#F7EAF5",
+      "codeBg": "#F0E2EE"
+    },
+    "accents": [
+      "#EF62D6",
+      "#62D9F1",
+      "#B834A0"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "A vivid waveform palette for turning a spoken or written idea into a personal theme."
+  },
+  {
+    "id": "builder-of-agi",
+    "themeId": "builder-of-agi",
+    "name": "Human Spark",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 67,
+      "diffAdded": "#46D39A",
+      "diffRemoved": "#F06B6B",
+      "skill": "#93A8FF",
+      "surface": "#101414",
+      "ink": "#F2F7F5",
+      "accent": "#35C995",
+      "sidebar": "#0B0E0E",
+      "codeBg": "#080B0B"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#147D4C",
+      "diffRemoved": "#B52F38",
+      "skill": "#536AC8",
+      "surface": "#F7FAF9",
+      "ink": "#17201D",
+      "accent": "#14845F",
+      "sidebar": "#ECF2F0",
+      "codeBg": "#E4EBE8"
+    },
+    "accents": [
+      "#35C995",
+      "#14845F",
+      "#93A8FF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders."
+  },
+  {
+    "id": "golden-hour",
+    "themeId": "golden-hour",
+    "name": "Golden Hour",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 67,
+      "diffAdded": "#52D18D",
+      "diffRemoved": "#FF6E64",
+      "skill": "#FF7F50",
+      "surface": "#160E08",
+      "ink": "#FFF4DF",
+      "accent": "#FFB23F",
+      "sidebar": "#100A06",
+      "codeBg": "#0C0704"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#16834B",
+      "diffRemoved": "#B9342E",
+      "skill": "#C2482A",
+      "surface": "#FFF8EC",
+      "ink": "#2C1A0D",
+      "accent": "#D86F20",
+      "sidebar": "#F8EEDB",
+      "codeBg": "#F0E3CD"
+    },
+    "accents": [
+      "#FFB23F",
+      "#FF7F50",
+      "#D86F20"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Sunrise gold and vivid coral for a theme that owned the day."
+  },
+  {
+    "id": "headliner",
+    "themeId": "headliner",
+    "name": "Headliner",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-07-16",
+    "dark": {
+      "contrast": 68,
+      "diffAdded": "#43D39A",
+      "diffRemoved": "#F26378",
+      "skill": "#FFC857",
+      "surface": "#080D1C",
+      "ink": "#F4F7FF",
+      "accent": "#4A7DFF",
+      "sidebar": "#050914",
+      "codeBg": "#03060F"
+    },
+    "light": {
+      "contrast": 50,
+      "diffAdded": "#14814C",
+      "diffRemoved": "#B52F45",
+      "skill": "#B27700",
+      "surface": "#F5F7FF",
+      "ink": "#131A30",
+      "accent": "#315BD6",
+      "sidebar": "#E9EDFA",
+      "codeBg": "#E1E6F5"
+    },
+    "accents": [
+      "#4A7DFF",
+      "#FFC857",
+      "#315BD6"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Electric blue and spotlight gold for a theme that topped the week."
+  },
+  {
+    "id": "triple-dot",
+    "themeId": "triple-dot",
+    "name": "Easter Egg",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-03-14",
+    "dark": {
+      "contrast": 66,
+      "diffAdded": "#4DD488",
+      "diffRemoved": "#FF6B6B",
+      "skill": "#8AB4FF",
+      "surface": "#0C0E12",
+      "ink": "#EEF2F9",
+      "accent": "#FF6B6B",
+      "sidebar": "#090B0E",
+      "codeBg": "#06080B"
+    },
+    "light": {
+      "contrast": 49,
+      "diffAdded": "#1F9C56",
+      "diffRemoved": "#C73A3A",
+      "skill": "#5679F0",
+      "surface": "#F7F7FB",
+      "ink": "#1F2230",
+      "accent": "#E05252",
+      "sidebar": "#ECECF4",
+      "codeBg": "#E6E7EF"
+    },
+    "accents": [
+      "#FF6B6B",
+      "#F7C948",
+      "#4DD488",
+      "#6FA8FF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": true,
+    "_locked": null,
+    "_summary": "Smoked glass chrome and candy-button accents for people who click everything."
   }
 ];
 

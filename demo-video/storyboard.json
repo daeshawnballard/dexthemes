@@ -1,0 +1,120 @@
+{
+  "title": "DexThemes for Codex — Build Week Product Demo",
+  "version": 6,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationSeconds": 95,
+  "totalFrames": 2850,
+  "audience": "OpenAI Build Week judges",
+  "editorialGoal": "Explain the product, prove the plugin happy path, and surface concise evidence for technical implementation, design and UX, potential impact, and idea quality.",
+  "narration": {
+    "provider": "HeyGen",
+    "engine": "starfish",
+    "voiceName": "Radiant Riley — Friendly",
+    "voiceId": "0ed165284d1c4dc9b600d3129821146a",
+    "inputType": "text",
+    "language": "en-US",
+    "speed": 1.04,
+    "direction": "Bright, confident, and conversational. Product-literate without sounding like an advertisement; brisk phrasing with room for the interface to read."
+  },
+  "music": {
+    "title": "Close Up",
+    "artist": "Michael Ramir C.",
+    "source": "Mixkit",
+    "sourceUrl": "https://mixkit.co/free-stock-music/rhythmic-underscore/",
+    "licenseUrl": "https://mixkit.co/license/",
+    "playbackRate": 0.97,
+    "mixDirection": "Speech first; keep the rhythmic bed roughly 12 dB below narration and fade cleanly at both ends."
+  },
+  "scenes": [
+    {
+      "id": "create-and-name",
+      "startSeconds": 0,
+      "durationSeconds": 15,
+      "capture": "01-create-and-name.mov",
+      "overlay": "Turn any idea into a complete Codex theme.",
+      "support": "DexThemes is a theme studio and community, now inside the conversation.",
+      "proof": "Prompt → named dark + light pair",
+      "judgeSignal": "Idea quality · Design and UX",
+      "voiceover": "Turn any idea into a complete Codex theme. This Build Week plugin brings DexThemes' studio and community directly into the conversation. I asked for a theme inspired by Argentina football at night and named it Argentina Afterglow."
+    },
+    {
+      "id": "preview-and-apply",
+      "startSeconds": 15,
+      "durationSeconds": 13,
+      "capture": "02-preview-and-apply.mov",
+      "overlay": "Preview it. Copy it. Install it.",
+      "support": "Choose a variant, copy its import, then paste it into Codex Appearance.",
+      "proof": "Choose variant · Copy import · Open Appearance · Paste + Import",
+      "judgeSignal": "Design and UX",
+      "voiceover": "DexThemes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Codex Appearance. Paste, import, done. The theme is yours. No account required."
+    },
+    {
+      "id": "discover-community",
+      "startSeconds": 28,
+      "durationSeconds": 13.5,
+      "capture": "03-discover-community.mov",
+      "overlay": "Search, compare, and follow what is winning.",
+      "support": "Official Codex, DexThemes, and community themes share one conversational catalog.",
+      "proof": "Today · this week · this month · all time",
+      "judgeSignal": "Potential impact",
+      "voiceover": "The catalog is conversational. Search official Codex themes, DexThemes releases, and community submissions. Compare full previews and see daily, weekly, monthly, and historical leaders."
+    },
+    {
+      "id": "review-and-publish",
+      "startSeconds": 41.5,
+      "durationSeconds": 9.5,
+      "capture": "04-review-and-publish.mov",
+      "overlay": "Sign in only when identity adds value.",
+      "support": "GitHub OAuth is deferred until the user chooses a community action.",
+      "proof": "Review both variants · explicit Publish · creator credit",
+      "judgeSignal": "Technical implementation · Design and UX",
+      "voiceover": "GitHub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit."
+    },
+    {
+      "id": "creator-loop",
+      "startSeconds": 51,
+      "durationSeconds": 11.2,
+      "capture": "05-creator-dashboard.mov",
+      "overlay": "Creator momentum in one place.",
+      "support": "Themes, rankings, daily and weekly wins, and the achievement collection.",
+      "proof": "Stats grow · achievements unlock with each milestone",
+      "judgeSignal": "Potential impact · Design and UX",
+      "voiceover": "Creators track themes, rankings, daily and weekly wins, and achievements in one dashboard, where stats grow and new achievements unlock with each milestone."
+    },
+    {
+      "id": "open-source-feedback",
+      "startSeconds": 62.2,
+      "durationSeconds": 8,
+      "capture": "06-reviewed-github-issue.mov",
+      "overlay": "Turn feedback into an open-source contribution.",
+      "support": "Draft a structured GitHub issue without leaving the conversation.",
+      "proof": "Feedback → ready-to-review GitHub issue",
+      "judgeSignal": "Potential impact · Technical implementation",
+      "voiceover": "Because DexThemes is open source, users can turn product feedback into a ready-to-review GitHub issue from the same conversation."
+    },
+    {
+      "id": "judge-proof",
+      "startSeconds": 70.2,
+      "durationSeconds": 14,
+      "capture": "07-implementation-pipeline.mov",
+      "overlay": "Creative where it should be. Deterministic where it must be.",
+      "support": "GPT-5.6 interprets intent; the MCP server validates; the visual app keeps decisions in context.",
+      "proof": "Intent → validation + identity → interactive preview",
+      "judgeSignal": "Technical implementation · Thoughtful GPT-5.6 and Codex use",
+      "voiceover": "GPT-5.6 interprets the creative intent. The MCP server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context."
+    },
+    {
+      "id": "end-card",
+      "startSeconds": 84.2,
+      "durationSeconds": 10.8,
+      "capture": "08-product-montage-and-end-card.mov",
+      "overlay": "Make Codex feel like yours.",
+      "support": "Create · discover · share",
+      "proof": "Open source · built for the Codex community",
+      "judgeSignal": "Clear problem, solution, and impact",
+      "voiceover": "Personal themes, community discovery, and creator recognition, all in one Codex conversation. DexThemes is open source and built for the community."
+    }
+  ]
+}

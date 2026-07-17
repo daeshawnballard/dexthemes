@@ -8,6 +8,7 @@ import { escapeHtml, safeImageSrc } from './utils.js';
 import { fetchMyUnlocks, grantUnlockAction } from './api.js';
 import { trackEvent, syncStatsigUser } from './analytics.js';
 import { loadBuilderModule } from './lazy-modules.js';
+import { getUnlockActionForThemeId } from './unlocks.js';
 import {
   authFetch,
   clearSessionHint,
@@ -18,6 +19,25 @@ import {
   migrateLegacySessionToCookie,
   shouldUseLegacySessionStorage,
 } from './session-auth.js';
+
+async function resolveDeferredProtectedTheme() {
+  const id = state.deferredProtectedThemeId;
+  if (!id) return;
+  const theme = state.THEMES.find((candidate) => candidate.id === id);
+  const action = getUnlockActionForThemeId(id);
+  if (!theme || !action) {
+    state.clearDeferredProtectedThemeId();
+    return;
+  }
+  if (state.userUnlocks.has(id)) {
+    state.clearDeferredProtectedThemeId();
+    const { selectThemeById } = await import('./preview-actions.js');
+    await selectThemeById(id);
+    return;
+  }
+  const { showLockedThemeShell } = await import('./preview-chat.js');
+  showLockedThemeShell(theme, action);
+}
 
 export async function initAuth() {
   const hash = window.location.hash;
@@ -32,11 +52,13 @@ export async function initAuth() {
   const token = getStoredSessionToken();
   if (shouldUseLegacySessionStorage() && !token) {
     renderAuthUI();
+    await resolveDeferredProtectedTheme();
     return;
   }
   if (!shouldUseLegacySessionStorage() && !hasSessionHint()) {
     state.setCurrentUser(null);
     renderAuthUI();
+    await resolveDeferredProtectedTheme();
     return;
   }
 
@@ -50,8 +72,6 @@ export async function initAuth() {
       if (localStorage.getItem('dexthemes-pwa-installed') === '1') {
         grantUnlockAction('install_pwa');
       }
-      // Auto-grant sign_in unlock on first sign-in
-      grantUnlockAction('sign_in');
       await syncStatsigUser();
       trackEvent('sign_in_completed', null, { provider: data.user.provider, user_id: data.user._id });
     } else {
@@ -63,6 +83,7 @@ export async function initAuth() {
     console.warn('Auth check failed:', e);
   }
   renderAuthUI();
+  await resolveDeferredProtectedTheme();
 }
 
 export function renderAuthUI() {
@@ -179,6 +200,11 @@ export async function showAchievements() {
     agent_use:     '🤖',
     install_pwa:   '📱',
     complete_pair: '☯️',
+    use_plugin:    '🔌',
+    create_theme_with_plugin: '🎙️',
+    openai_employee: '🧠',
+    theme_of_day: '☀️',
+    theme_of_week: '⭐',
     preview_theme: '👁️',
   };
 
@@ -188,8 +214,8 @@ export async function showAchievements() {
       const icon = BADGE_ICONS[action] || '🏆';
       return `<div class="achievement-badge${unlocked ? ' unlocked' : ''}">
         <div class="achievement-badge-icon">${icon}</div>
-        <div class="achievement-badge-name">${info.name}</div>
-        <div class="achievement-badge-hint">${unlocked ? 'Unlocked' : info.prompt}</div>
+        <div class="achievement-badge-name">${info.achievement || info.name}</div>
+        <div class="achievement-badge-hint">${unlocked ? `Unlocked ${info.name}` : info.prompt}</div>
       </div>`;
     }).join('');
 
@@ -198,6 +224,25 @@ export async function showAchievements() {
   const progressPct = Math.round((unlockedCount / totalUnlocks) * 100);
   const creatorTotals = stats?.creatorTotals || stats?.totals || {};
   const activityTotals = stats?.activityTotals || {};
+  const leaderboardStats = stats?.leaderboard || {};
+  const dailyRank = leaderboardStats.daily;
+  const weeklyRank = leaderboardStats.weekly;
+  const monthlyRank = leaderboardStats.monthly;
+  const allTimeRank = leaderboardStats.allTime;
+  const popularityWins = stats?.popularityWins || {};
+  const recentPopularityWins = (popularityWins.recent || []).map((win) => {
+    const date = Number.isFinite(win.periodStart)
+      ? new Date(win.periodStart).toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' })
+      : '';
+    const resultType = win.periodType === 'monthly'
+      ? `Month #${win.rank || '—'}`
+      : win.periodType === 'weekly' ? 'Week' : 'Day';
+    return `<div class="profile-popularity-win">
+      <span>${resultType}</span>
+      <strong>${escapeHtml(win.name || win.themeId || 'Theme')}</strong>
+      <span>${escapeHtml(date)}</span>
+    </div>`;
+  }).join('');
 
   pv.innerHTML = `
     <div class="profile-container">
@@ -240,6 +285,51 @@ export async function showAchievements() {
               <div class="profile-stat-value">${activityTotals.likedThemes || 0}</div>
               <div class="profile-stat-label">Themes You Liked</div>
             </div>
+          </div>
+        </section>
+        <section class="profile-metric-section">
+          <div class="profile-section-title">Your leaderboard stats</div>
+          <div class="profile-stats-grid">
+            <div class="profile-stat">
+              <div class="profile-stat-value">${dailyRank ? `#${dailyRank.rank}` : '—'}</div>
+              <div class="profile-stat-label">Best Daily Rank${dailyRank?.name ? ` · ${escapeHtml(dailyRank.name)}` : ''}</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${weeklyRank ? `#${weeklyRank.rank}` : '—'}</div>
+              <div class="profile-stat-label">Best Weekly Rank${weeklyRank?.name ? ` · ${escapeHtml(weeklyRank.name)}` : ''}</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${monthlyRank ? `#${monthlyRank.rank}` : '—'}</div>
+              <div class="profile-stat-label">Best Monthly Rank${monthlyRank?.name ? ` · ${escapeHtml(monthlyRank.name)}` : ''}</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${allTimeRank ? `#${allTimeRank.rank}` : '—'}</div>
+              <div class="profile-stat-label">Best All-Time Rank${allTimeRank?.name ? ` · ${escapeHtml(allTimeRank.name)}` : ''}</div>
+            </div>
+          </div>
+        </section>
+        <section class="profile-metric-section">
+          <div class="profile-section-title">Your popularity wins</div>
+          <div class="profile-stats-grid">
+            <div class="profile-stat">
+              <div class="profile-stat-value">${popularityWins.daily || 0}</div>
+              <div class="profile-stat-label">Days at #1</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${popularityWins.weekly || 0}</div>
+              <div class="profile-stat-label">Weeks at #1</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${popularityWins.monthlyTop10 || 0}</div>
+              <div class="profile-stat-label">Monthly Top 10s</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value">${popularityWins.total || 0}</div>
+              <div class="profile-stat-label">Total Wins</div>
+            </div>
+          </div>
+          <div class="profile-popularity-history">
+            ${recentPopularityWins || '<div class="profile-popularity-empty">Your first finalized popularity result will appear here.</div>'}
           </div>
         </section>
       </div>

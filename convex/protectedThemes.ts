@@ -5,6 +5,7 @@
  * Each entry stores the core color triplet (surface, ink, accent) per variant.
  * We compare using Euclidean distance in RGB space with a strict threshold.
  */
+import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 
 interface ProtectedVariant {
   surface: string;
@@ -25,16 +26,29 @@ const OFFICIAL: ProtectedTheme[] = [
   { id: 'ayu', dark: { surface: '#0b0e14', ink: '#bfbdb6', accent: '#e6b450' } },
   { id: 'catppuccin', dark: { surface: '#1e1e2e', ink: '#cdd6f4', accent: '#cba6f7' }, light: { surface: '#eff1f5', ink: '#4c4f69', accent: '#8839ef' } },
   { id: 'dracula', dark: { surface: '#282A36', ink: '#F8F8F2', accent: '#FF79C6' } },
+  { id: 'everforest', dark: { surface: '#2d353b', ink: '#d3c6aa', accent: '#a7c080' }, light: { surface: '#fdf6e3', ink: '#5c6a72', accent: '#93b259' } },
   { id: 'github-dark', dark: { surface: '#0d1117', ink: '#e6edf3', accent: '#58a6ff' } },
   { id: 'github-light', light: { surface: '#ffffff', ink: '#1f2328', accent: '#0969da' } },
   { id: 'gruvbox', dark: { surface: '#1d2021', ink: '#ebdbb2', accent: '#fe8019' } },
+  { id: 'linear', dark: { surface: '#0f0f11', ink: '#e3e4e6', accent: '#606acc' }, light: { surface: '#fcfcfd', ink: '#1b1b1b', accent: '#5e6ad2' } },
+  { id: 'lobster', dark: { surface: '#111827', ink: '#e4e4e7', accent: '#ff5c5c' } },
+  { id: 'material', dark: { surface: '#212121', ink: '#eeffff', accent: '#80cbc4' } },
+  { id: 'matrix', dark: { surface: '#040805', ink: '#b8ffca', accent: '#1eff5a' } },
   { id: 'monokai', dark: { surface: '#272822', ink: '#F8F8F2', accent: '#F92672' } },
+  { id: 'night-owl', dark: { surface: '#011627', ink: '#d6deeb', accent: '#44596b' } },
   { id: 'nord', dark: { surface: '#2E3440', ink: '#ECEFF4', accent: '#88C0D0' } },
+  { id: 'notion', dark: { surface: '#191919', ink: '#d9d9d8', accent: '#3183d8' }, light: { surface: '#ffffff', ink: '#37352f', accent: '#3183d8' } },
+  { id: 'oscurange', dark: { surface: '#0b0b0f', ink: '#e6e6e6', accent: '#f9b98c' } },
   { id: 'one-dark', dark: { surface: '#282c34', ink: '#abb2bf', accent: '#61afef' } },
+  { id: 'proof', light: { surface: '#f5f3ed', ink: '#2f312d', accent: '#3d755d' } },
   { id: 'rose-pine', dark: { surface: '#191724', ink: '#e0def4', accent: '#c4a7e7' } },
+  { id: 'sentry', dark: { surface: '#2d2935', ink: '#e6dff9', accent: '#7055f6' } },
   { id: 'solarized', dark: { surface: '#002b36', ink: '#839496', accent: '#268bd2' }, light: { surface: '#fdf6e3', ink: '#657b83', accent: '#268bd2' } },
+  { id: 'temple', dark: { surface: '#02120c', ink: '#c7e6da', accent: '#e4f222' } },
   { id: 'tokyo-night', dark: { surface: '#1a1b26', ink: '#c0caf5', accent: '#7aa2f7' } },
+  { id: 'vercel', dark: { surface: '#000000', ink: '#ededed', accent: '#006efe' }, light: { surface: '#ffffff', ink: '#171717', accent: '#006aff' } },
   { id: 'vscode-plus', dark: { surface: '#1E1E1E', ink: '#D4D4D4', accent: '#007ACC' }, light: { surface: '#FFFFFF', ink: '#000000', accent: '#007ACC' } },
+  { id: 'xcode', dark: { surface: '#1f1f24', ink: '#ffffff', accent: '#5482ff' }, light: { surface: '#ffffff', ink: '#000000', accent: '#0e0eff' } },
 ];
 
 // ── DexThemes Originals (anime, games, movies, comics, zodiacs, lunar, originals) ──
@@ -162,10 +176,45 @@ const SUPPORTER: ProtectedTheme[] = [
     dark: { surface: '#0A0A0A', ink: '#F0F0F0', accent: '#FFFFFF' },
     light: { surface: '#FAFAFA', ink: '#0A0A0A', accent: '#000000' },
   },
+  {
+    id: 'plugged-in',
+    dark: { surface: '#0A0B18', ink: '#EFF4FF', accent: '#6F7CFF' },
+    light: { surface: '#F6F7FF', ink: '#171A31', accent: '#4D5AD8' },
+  },
+  {
+    id: 'voiceprint',
+    dark: { surface: '#130A18', ink: '#FFF0FF', accent: '#EF62D6' },
+    light: { surface: '#FFF6FD', ink: '#2C152D', accent: '#B834A0' },
+  },
+  {
+    id: 'builder-of-agi',
+    dark: { surface: '#101414', ink: '#F2F7F5', accent: '#35C995' },
+    light: { surface: '#F7FAF9', ink: '#17201D', accent: '#14845F' },
+  },
+  {
+    id: 'triple-dot',
+    dark: { surface: '#0C0E12', ink: '#EEF2F9', accent: '#FF6B6B' },
+    light: { surface: '#F7F7FB', ink: '#1F2230', accent: '#E05252' },
+  },
 ];
 
-// All protected themes combined
-const ALL_PROTECTED: ProtectedTheme[] = [...OFFICIAL, ...DEXTHEMES, ...SUPPORTER];
+const CATALOG_PROTECTED: ProtectedTheme[] = STATIC_THEME_CATALOG.map((theme: any) => ({
+  id: String(theme.id || theme.themeId),
+  dark: theme.dark
+    ? { surface: theme.dark.surface, ink: theme.dark.ink, accent: theme.dark.accent }
+    : undefined,
+  light: theme.light
+    ? { surface: theme.light.surface, ink: theme.light.ink, accent: theme.light.accent }
+    : undefined,
+}));
+
+// The generated catalog is the canonical static-ID and palette boundary. The
+// checked-in arrays remain as readable documentation and a fallback, while
+// catalog entries win if a theme is updated or added.
+const ALL_PROTECTED: ProtectedTheme[] = [...new Map(
+  [...OFFICIAL, ...DEXTHEMES, ...SUPPORTER, ...CATALOG_PROTECTED]
+    .map((theme) => [theme.id, theme]),
+).values()];
 const PROTECTED_THEME_IDS = new Set(ALL_PROTECTED.map((theme) => theme.id));
 
 // ── Color distance ────────────────────────────────────────────────────

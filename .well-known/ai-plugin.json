@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_human": "DexThemes",
   "name_for_model": "dexthemes",
-  "description_for_human": "Browse, preview, and apply 100+ community-built themes for Codex.",
-  "description_for_model": "DexThemes is a theme gallery for Codex by OpenAI. Use this plugin to browse themes, get theme colors, generate random themes, and provide deep links for users to apply themes. The /api/themes endpoint returns the full catalog as JSON. The /api/color-me-lucky endpoint generates random harmonious themes. Each theme has dark and/or light variants with colors: surface, ink, accent, sidebar, codeBg, diffAdded, diffRemoved, skill, contrast. To apply a theme, direct users to https://dexthemes.com/?theme={id}&variant={dark|light}.",
+  "description_for_human": "Browse and preview 100+ community-built themes for Codex.",
+  "description_for_model": "Legacy discovery manifest for DexThemes public read tools. Use the current MCP plugin at https://www.dexthemes.com/api/mcp for personalized theme creation, previews, achievements, account stats, and confirmed community publishing. Public discovery can browse themes and generate original palettes without authentication.",
   "auth": {
     "type": "none"
   },

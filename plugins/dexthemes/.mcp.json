@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dexthemes": {
+      "type": "http",
+      "url": "https://www.dexthemes.com/api/mcp"
+    }
+  }
+}

@@ -9,9 +9,10 @@ import { renderSidebar } from './sidebar.js';
 import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from './codex-handoff.js';
 import { syncAttributionOverlay } from './preview-attribution.js';
 import { loadBuilderModule } from './lazy-modules.js';
-import { grantUnlockAction, recordSecretInteraction } from './unlock-api.js';
+import { fetchMyUnlocks, grantUnlockAction, recordSecretInteraction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
+import { buildThemePath } from './theme-url.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -43,19 +44,24 @@ async function showSystemMessage(message, className) {
 export function renderAccentDots() {
   const theme = state.selectedTheme;
   if (!theme?.accents) return;
-  const dotsHtml = theme.accents.map((accent, idx) => `
-    <div
-      class="accent-dot${idx === state.selectedAccentIdx ? ' selected' : ''}"
-      style="background:${accent}"
-      title="${accent}"
-      data-action="select-accent"
-      data-accent-idx="${idx}"
-    ></div>
-  `).join('');
+  const populate = (container) => {
+    if (!container) return;
+    const dots = theme.accents.flatMap((accent, idx) => {
+      if (!/^#[0-9A-Fa-f]{6}$/.test(accent)) return [];
+      const dot = document.createElement('div');
+      dot.className = `accent-dot${idx === state.selectedAccentIdx ? ' selected' : ''}`;
+      dot.style.backgroundColor = accent;
+      dot.title = accent;
+      dot.dataset.action = 'select-accent';
+      dot.dataset.accentIdx = String(idx);
+      return [dot];
+    });
+    container.replaceChildren(...dots);
+  };
   const el = document.getElementById('accent-dots');
-  if (el) el.innerHTML = dotsHtml;
+  populate(el);
   const mobileEl = document.getElementById('accent-dots-mobile');
-  if (mobileEl) mobileEl.innerHTML = dotsHtml;
+  populate(mobileEl);
 }
 
 function updateVariantCards() {
@@ -352,7 +358,7 @@ export function shareOnX() {
   const themeName = state.selectedTheme.name || 'a theme';
   const variant = state.selectedVariant === 'dark' ? 'dark' : 'light';
   const themeId = state.selectedTheme.id || 'codex';
-  const shareUrl = `${window.location.origin}/${encodeURIComponent(themeId)}/${encodeURIComponent(variant)}`;
+  const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
   const text = `"${themeName}" — my new Codex theme\n\n${shareUrl}`;
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
   grantUnlockAction('share_x');
@@ -375,14 +381,25 @@ export async function likeTheme() {
   const likeBtn = document.getElementById('like-btn');
   if (!likeBtn) return;
 
+  const res = await authFetch(state.CONVEX_SITE_URL + '/themes/like', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ themeId }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    await showSystemMessage(data.error || 'Unable to update this like right now.', 'error');
+    return;
+  }
+
   const idx = liked.indexOf(themeId);
-  if (idx === -1) {
-    liked.push(themeId);
+  if (data.liked) {
+    if (idx === -1) liked.push(themeId);
     likeBtn.classList.add('liked');
-    grantUnlockAction('like_theme');
+    await fetchMyUnlocks();
     track('theme_liked', { theme_id: themeId, theme_name: state.selectedTheme.name });
   } else {
-    liked.splice(idx, 1);
+    if (idx !== -1) liked.splice(idx, 1);
     likeBtn.classList.remove('liked');
   }
   localStorage.setItem('dex-liked', JSON.stringify(liked));
@@ -525,6 +542,11 @@ export function minimizePreviewWindow() {
 
 export async function checkOnboarding() {
   if (localStorage.getItem('dexthemes-onboarded')) return;
+
+  if (state.isDeepLink) {
+    localStorage.setItem('dexthemes-onboarded', '1');
+    return;
+  }
 
   if (window.innerWidth > 1024) {
     const showcase = state.THEMES.find((theme) => theme.id === 'current-valentine') || state.THEMES.find((theme) => theme.category === 'dexthemes');

@@ -1,5 +1,13 @@
 import { internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
+import { grantUnlockForUser } from "./unlocks";
+import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
+
+const VISIBLE_STATIC_THEME_IDS = new Set(
+  STATIC_THEME_CATALOG
+    .filter((theme: any) => !theme._hiddenUntilUnlocked)
+    .map((theme: any) => String(theme.id || theme.themeId)),
+);
 
 /**
  * Toggle a like on a theme. Returns the new liked state.
@@ -16,6 +24,18 @@ export const toggleLike = internalMutation({
       .first();
     if (!user || user.sessionExpiresAt < Date.now()) {
       throw new Error("Unauthorized");
+    }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(args.themeId) || args.themeId.length > 80) {
+      throw new Error("Invalid theme ID");
+    }
+    if (!VISIBLE_STATIC_THEME_IDS.has(args.themeId)) {
+      const communityTheme = await ctx.db
+        .query("themes")
+        .withIndex("by_themeId", (q) => q.eq("themeId", args.themeId))
+        .first();
+      if (!communityTheme || communityTheme.status !== "published") {
+        throw new Error("Theme not found");
+      }
     }
 
     // Check if already liked
@@ -38,6 +58,7 @@ export const toggleLike = internalMutation({
       themeId: args.themeId,
       createdAt: Date.now(),
     });
+    await grantUnlockForUser(ctx, user._id, "like_theme");
     return { liked: true };
   },
 });

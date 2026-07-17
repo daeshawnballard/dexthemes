@@ -3,8 +3,9 @@
 // ================================================
 
 import * as state from './state.js';
-import { escapeHtml, fallbackCopy, slugify } from './utils.js';
+import { escapeHtml, fallbackCopy, isSixDigitHexColor, slugify } from './utils.js';
 import { applyShellTheme, applyPreview } from './theme-engine.js';
+import { buildThemeImportString } from './theme-contracts.js';
 import { renderRightPanel } from './preview-shell.js';
 import { syncAttributionOverlay } from './preview-attribution.js';
 import { isMobile } from './mobile.js';
@@ -15,6 +16,7 @@ import { grantUnlockAction } from './unlock-api.js';
 
 let builderCreationTracked = false;
 const BUILDER_VARIANT_KEYS = ['surface', 'ink', 'accent', 'sidebar', 'codeBg', 'diffAdded', 'diffRemoved', 'skill', 'contrast'];
+const BUILDER_COLOR_KEYS = BUILDER_VARIANT_KEYS.filter((key) => key !== 'contrast');
 
 const LUCKY_ADJECTIVES = ['Cosmic', 'Neon', 'Velvet', 'Ember', 'Frozen', 'Solar', 'Midnight', 'Crystal', 'Thunder', 'Phantom', 'Ruby', 'Jade', 'Amber', 'Silver', 'Golden', 'Copper', 'Cobalt', 'Crimson', 'Indigo', 'Scarlet'];
 const LUCKY_NOUNS = ['Horizon', 'Circuit', 'Drift', 'Pulse', 'Aurora', 'Nebula', 'Prism', 'Forge', 'Cascade', 'Vertex', 'Bloom', 'Cipher', 'Wave', 'Storm', 'Spark', 'Flame', 'Shade', 'Frost', 'Tide', 'Glow'];
@@ -53,6 +55,46 @@ function getDefaultVariantDraft(variant) {
   };
 }
 
+function sanitizeVariantDraft(variant, draft) {
+  const defaults = getDefaultVariantDraft(variant);
+  const safe = { ...defaults };
+  for (const key of BUILDER_COLOR_KEYS) {
+    if (isSixDigitHexColor(draft?.[key])) safe[key] = draft[key];
+  }
+  if (Number.isFinite(draft?.contrast) && draft.contrast >= 0 && draft.contrast <= 100) {
+    safe.contrast = draft.contrast;
+  }
+  return safe;
+}
+
+function isSafeBuilderDraft(draft) {
+  return BUILDER_COLOR_KEYS.every((key) => isSixDigitHexColor(draft?.[key])) &&
+    Number.isFinite(draft?.contrast) &&
+    draft.contrast >= 0 &&
+    draft.contrast <= 100;
+}
+
+function buildBuilderTheme(builder) {
+  return {
+    id: '_builder',
+    name: builder.name,
+    category: 'custom',
+    codeThemeId: 'codex',
+    [builder.variant]: {
+      surface: builder.surface,
+      ink: builder.ink,
+      accent: builder.accent,
+      contrast: builder.contrast,
+      sidebar: builder.sidebar,
+      codeBg: builder.codeBg,
+      diffAdded: builder.diffAdded,
+      diffRemoved: builder.diffRemoved,
+      skill: builder.skill,
+    },
+    accents: [builder.accent],
+  };
+}
+
 function extractVariantDraft(source) {
   return BUILDER_VARIANT_KEYS.reduce((draft, key) => {
     draft[key] = source[key];
@@ -68,21 +110,21 @@ function draftDiffersFromDefault(variant, draft) {
 function normalizeBuilderState(saved) {
   const variant = saved?.variant === 'light' ? 'light' : 'dark';
   const drafts = {
-    dark: {
+    dark: sanitizeVariantDraft('dark', {
       ...getDefaultVariantDraft('dark'),
       ...(saved?._variantDrafts?.dark || {}),
-    },
-    light: {
+    }),
+    light: sanitizeVariantDraft('light', {
       ...getDefaultVariantDraft('light'),
       ...(saved?._variantDrafts?.light || {}),
-    },
+    }),
   };
 
   if (saved && !saved._variantDrafts) {
-    drafts[variant] = {
+    drafts[variant] = sanitizeVariantDraft(variant, {
       ...drafts[variant],
       ...extractVariantDraft(saved),
-    };
+    });
   }
 
   const touched = {
@@ -91,7 +133,7 @@ function normalizeBuilderState(saved) {
   };
 
   return {
-    name: saved?.name || '',
+    name: typeof saved?.name === 'string' ? saved.name.slice(0, 80) : '',
     variant,
     _addVariantFor: saved?._addVariantFor,
     _variantDrafts: drafts,
@@ -470,14 +512,15 @@ export function onBuilderNameInput(val) {
 
 function builderColorField(label, key, value) {
   const colorId = `builder-color-${key}`;
+  const safeValue = isSixDigitHexColor(value) ? value : '#000000';
   return `
     <div class="builder-field">
       <label class="builder-field-label" for="${colorId}">${label}</label>
         <div class="builder-color-input">
-        <div class="builder-color-swatch" style="background:${value}">
-          <input type="color" value="${value}" aria-label="${label} color picker" data-color-key="${key}" data-change-action="builder-update-color">
+        <div class="builder-color-swatch" style="background:${safeValue}">
+          <input type="color" value="${safeValue}" aria-label="${label} color picker" data-color-key="${key}" data-change-action="builder-update-color">
         </div>
-        <input type="text" class="builder-color-hex" id="${colorId}" value="${value}" maxlength="7" aria-label="${label} hex value"
+        <input type="text" class="builder-color-hex" id="${colorId}" value="${safeValue}" maxlength="7" aria-label="${label} hex value"
           data-color-key="${key}"
           data-change-action="builder-update-color"
           data-enter-action="builder-update-color">
@@ -489,7 +532,7 @@ function builderColorField(label, key, value) {
 export function updateBuilderColor(key, value) {
   void maybeShowBuilderSubmitPrompt();
   if (!value.startsWith('#')) value = '#' + value;
-  if (!/^#[0-9a-fA-F]{6}$/.test(value)) return;
+  if (!BUILDER_COLOR_KEYS.includes(key) || !isSixDigitHexColor(value)) return;
   state.builderColors[key] = value;
   saveActiveBuilderDraft(state.builderColors, { touched: true });
   maybeTrackThemeCreated('color_update');
@@ -511,16 +554,8 @@ export function setBuilderVariant(v) {
 
 export function applyBuilderPreview() {
   const b = state.builderColors;
-  const tempTheme = {
-    id: '_builder', name: b.name, category: 'custom',
-    codeThemeId: 'codex',
-    [b.variant]: {
-      surface: b.surface, ink: b.ink, accent: b.accent,
-      contrast: b.contrast, sidebar: b.sidebar, codeBg: b.codeBg,
-      diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill
-    },
-    accents: [b.accent]
-  };
+  if (!isSafeBuilderDraft(b)) return;
+  const tempTheme = buildBuilderTheme(b);
   state.setSelectedAccentIdx(0);
   applyShellTheme(tempTheme, b.variant);
   applyPreview(tempTheme, b.variant);
@@ -529,17 +564,11 @@ export function applyBuilderPreview() {
 export function applyBuilderToCodex() {
   const b = state.builderColors;
   const displayName = b.name && b.name.trim() ? b.name.trim() : 'Custom Theme';
-  const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: 'codex',
-    theme: {
-      accent: b.accent, contrast: b.contrast,
-      fonts: { code: null, ui: null },
-      ink: b.ink, opaqueWindows: b.opaqueWindows ?? true,
-      semanticColors: { diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill },
-      surface: b.surface
-    },
-    variant: b.variant
-  })}`;
+  const str = buildThemeImportString(buildBuilderTheme(b), b.variant, 0);
+  if (!str) {
+    showToast('Every theme color must be an exact six-digit hex value.', 'error');
+    return;
+  }
   const btn = document.querySelector('.builder-apply-btn');
   const textEl = btn?.querySelector('.builder-apply-btn-text');
   const hint = document.querySelector('.builder-import-hint');
@@ -596,17 +625,11 @@ export function shareBuilderTheme() {
     return;
   }
 
-  const str = `codex-theme-v1:${JSON.stringify({
-    codeThemeId: 'codex',
-    theme: {
-      accent: b.accent, contrast: b.contrast,
-      fonts: { code: null, ui: null },
-      ink: b.ink, opaqueWindows: b.opaqueWindows ?? true,
-      semanticColors: { diffAdded: b.diffAdded, diffRemoved: b.diffRemoved, skill: b.skill },
-      surface: b.surface
-    },
-    variant: b.variant
-  })}`;
+  const str = buildThemeImportString(buildBuilderTheme(b), b.variant, 0);
+  if (!str) {
+    showToast('Every theme color must be an exact six-digit hex value.', 'error');
+    return;
+  }
 
   const btn = document.querySelector('.builder-share-btn');
   if (navigator.clipboard && navigator.clipboard.writeText) {

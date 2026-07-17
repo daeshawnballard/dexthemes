@@ -4,12 +4,13 @@ This document is the 10-minute mental model for the repo. Read this before you s
 
 ## Product Shape
 
-DexThemes is a static frontend backed by Convex HTTP routes.
+DexThemes is a static frontend backed by Convex HTTP routes, plus a stateless MCP app endpoint for the Codex/ChatGPT plugin.
 
 - The website is served from `https://www.dexthemes.com`
 - The public browse surface lives at `https://www.dexthemes.com/api/themes`
 - Direct category routes live at `/themes`, `/themes/community`, `/themes/codex`, and `/themes/dexthemes/:subgroup`
 - Authenticated and generator endpoints are served from the Convex deployment
+- The plugin is served from `https://www.dexthemes.com/api/mcp`; its visual resource is bundled from `mcp-app/`
 - Build output is a hashed static shell under `dist/assets/*`
 
 The product has three primary user loops:
@@ -140,6 +141,19 @@ Runtime routes are split between:
 Main backend entry:
 
 - [`convex/http.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http.ts)
+
+Plugin entry points:
+
+- `api/mcp.js`: stateless Streamable HTTP MCP transport and first JWT verification boundary
+- `server/dexthemes-mcp.js`: tool schemas, annotations, output schemas, OAuth challenges, and app resource registration
+- `server/theme-tools.js`: pure/search-fetch theme operations, drafting, validation, apply payloads, and GitHub Issue preparation
+- `mcp-app/src/`: sandboxed visual theme cards and preview UI
+- `convex/http_plugin_routes.ts`: account-bound stats, unlocks, and confirmed publishing
+- `convex/pluginAuth.ts`: second JWT/scope verification boundary before Convex account access
+- `convex/pluginUsers.ts`: GitHub-identity linking and short-lived hashed plugin sessions
+- `plugins/dexthemes/`: installable plugin manifest, MCP configuration, assets, and bundled skill
+
+The MCP server can perform public discovery and local computation without authentication. Personal stats/unlocks require `themes:read`; publishing requires `themes:write`. Identity always comes from the verified GitHub-backed bearer token, never a tool argument.
 
 Route families now live in:
 

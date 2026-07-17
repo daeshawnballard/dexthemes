@@ -2,6 +2,16 @@
 // DexThemes — Utility Functions
 // ================================================
 
+export const SIX_DIGIT_HEX_COLOR = /^#[0-9A-Fa-f]{6}$/;
+
+export function isSixDigitHexColor(value) {
+  return typeof value === 'string' && SIX_DIGIT_HEX_COLOR.test(value);
+}
+
+export function safeHexColor(value, fallback = '#000000') {
+  return isSixDigitHexColor(value) ? value : fallback;
+}
+
 export function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')

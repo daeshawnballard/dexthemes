@@ -3,10 +3,31 @@ import { createReadStream } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
 import http from 'node:http';
 import path from 'node:path';
-import { chromium } from 'playwright';
+import { chromium, webkit } from 'playwright';
 
 const root = process.cwd();
 const host = '127.0.0.1';
+const COMMUNITY_THEME_FIXTURE = {
+  id: 'mancity',
+  themeId: 'mancity',
+  name: 'ManCity',
+  category: 'community',
+  subgroup: 'community',
+  codeThemeId: { dark: 'codex', light: 'codex' },
+  copies: 8,
+  createdAt: 1783447865082,
+  dark: {
+    surface: '#0d1b3e', ink: '#f0f4ff', accent: '#6cb4ee', contrast: 60,
+    diffAdded: '#6cb4ee', diffRemoved: '#e84c5e', skill: '#f5c84a',
+    sidebar: '#08122a', codeBg: '#0f1f42',
+  },
+  light: {
+    surface: '#f2f7ff', ink: '#0d1b3e', accent: '#6cb4ee', contrast: 45,
+    diffAdded: '#16834b', diffRemoved: '#d9364f', skill: '#8a6500',
+    sidebar: '#e5efff', codeBg: '#ffffff',
+  },
+  accents: ['#6cb4ee'],
+};
 
 const MIME_TYPES = {
   '.css': 'text/css; charset=utf-8',
@@ -26,6 +47,9 @@ function contentTypeFor(filePath) {
 async function resolveRequestPath(urlPath) {
   const cleanPath = decodeURIComponent(urlPath.split('?')[0]);
   if (cleanPath === '/' || cleanPath === '') return path.join(root, 'index.html');
+  if (/^\/[a-z0-9]+(?:-[a-z0-9]+)*\/(?:dark|light)$/.test(cleanPath)) {
+    return path.join(root, 'index.html');
+  }
   const absolute = path.join(root, cleanPath.replace(/^\/+/, ''));
   const fileInfo = await stat(absolute).catch(() => null);
   if (fileInfo?.isFile()) return absolute;
@@ -34,6 +58,13 @@ async function resolveRequestPath(urlPath) {
 
 async function startStaticServer() {
   const server = http.createServer(async (req, res) => {
+    const requestPath = (req.url || '/').split('?')[0];
+    if (requestPath === '/themes/community') {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify([COMMUNITY_THEME_FIXTURE]));
+      return;
+    }
+
     const filePath = await resolveRequestPath(req.url || '/');
     if (!filePath) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -54,6 +85,7 @@ async function startStaticServer() {
   const port = typeof address === 'object' && address ? address.port : 4173;
   return {
     baseUrl: `http://${host}:${port}`,
+    communityBaseUrl: `http://dexthemes.localhost:${port}`,
     close: () => new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve())),
   };
 }
@@ -98,7 +130,18 @@ async function bootMobilePage(browser, baseUrl) {
 }
 
 const server = await startStaticServer();
-const browser = await chromium.launch({ headless: true });
+const browserType = process.env.PLAYWRIGHT_BROWSER === 'webkit' ? webkit : chromium;
+let browser;
+try {
+  browser = await browserType.launch({ headless: true });
+} catch (error) {
+  if (browserType !== chromium) throw error;
+  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ||
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  browser = await chromium.launch({ headless: true, executablePath }).catch(() => {
+    throw error;
+  });
+}
 
 try {
   await runTest('desktop browse renders the Codex shell', async () => {
@@ -110,8 +153,11 @@ try {
 
   await runTest('desktop variant switching updates the selected card', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
+    const activeThemeId = await page.locator('.thread-item.active').first().getAttribute('data-theme-id');
+    assert.ok(activeThemeId, 'expected an active theme id');
     await page.click('#card-light');
     await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
+    assert.equal(new URL(page.url()).pathname, `/${activeThemeId}/light`);
     const applyText = await page.locator('.apply-codex-btn').first().textContent();
     assert.match(applyText || '', /Apply in Codex/);
     await page.close();
@@ -152,6 +198,24 @@ try {
     await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
     const url = page.url();
     assert.equal(new URL(url).search, '');
+    assert.equal(new URL(url).pathname, '/solarized/light');
+    await page.close();
+  });
+
+  await runTest('desktop canonical path boot restores its theme and variant', async () => {
+    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/solarized/light`);
+    await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
+    const title = await page.locator('#preview-theme-name').textContent();
+    assert.equal(title, 'Solarized');
+    assert.equal(new URL(page.url()).pathname, '/solarized/light');
+    await page.close();
+  });
+
+  await runTest('desktop community deep link resolves after the community catalog loads', async () => {
+    const page = await bootDesktopPageAt(browser, `${server.communityBaseUrl}/?theme=mancity&variant=light`);
+    await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'ManCity');
+    await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
+    assert.equal(new URL(page.url()).pathname, '/mancity/light');
     await page.close();
   });
 
