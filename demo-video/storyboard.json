@@ -1,6 +1,6 @@
 {
   "title": "DexThemes for Codex — Build Week Product Demo",
-  "version": 4,
+  "version": 5,
   "width": 1920,
   "height": 1080,
   "fps": 30,
@@ -31,7 +31,7 @@
     {
       "id": "create-and-name",
       "startSeconds": 0,
-      "durationSeconds": 17,
+      "durationSeconds": 15.8,
       "capture": "01-create-and-name.mov",
       "overlay": "Turn any idea into a complete Codex theme.",
       "support": "DexThemes is a theme studio and community, now inside the conversation.",
@@ -41,14 +41,14 @@
     },
     {
       "id": "preview-and-apply",
-      "startSeconds": 17,
-      "durationSeconds": 12,
+      "startSeconds": 15.8,
+      "durationSeconds": 13.2,
       "capture": "02-preview-and-apply.mov",
-      "overlay": "Preview the workspace. Apply with no account.",
-      "support": "Full dark and light Codex previews keep every semantic color in context.",
-      "proof": "Code · diffs · contrast · exact import",
+      "overlay": "Preview it. Copy it. Install it.",
+      "support": "Choose a variant, copy its import, then paste it into Codex Appearance.",
+      "proof": "Choose variant · Copy import · Open Appearance · Paste + Import",
       "judgeSignal": "Design and UX",
-      "voiceover": "DexThemes creates a validated dark and light pair, then previews the full workspace, not just swatches. I can check code, diffs, and contrast, then apply it with no account."
+      "voiceover": "DexThemes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Codex Appearance. Paste, import, done. The theme is yours. No account required."
     },
     {
       "id": "discover-community",
@@ -88,11 +88,11 @@
       "startSeconds": 64.5,
       "durationSeconds": 9.5,
       "capture": "06-reviewed-github-issue.mov",
-      "overlay": "Improve the open-source product from the same flow.",
-      "support": "Feedback remains reviewable and user-controlled before GitHub opens.",
-      "proof": "Nothing posts automatically",
+      "overlay": "Turn feedback into an open-source contribution.",
+      "support": "Draft a structured GitHub issue without leaving the conversation.",
+      "proof": "Feedback → ready-to-review GitHub issue",
       "judgeSignal": "Potential impact · Technical implementation",
-      "voiceover": "Because DexThemes is open source, users can turn reviewed feedback into a GitHub issue, without anything posting automatically."
+      "voiceover": "Because DexThemes is open source, users can turn product feedback into a ready-to-review GitHub issue from the same conversation."
     },
     {
       "id": "judge-proof",

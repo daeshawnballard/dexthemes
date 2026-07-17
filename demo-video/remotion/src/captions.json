@@ -35,31 +35,38 @@
     "confidence": 1
   },
   {
-    "text": "DexThemes creates a validated dark and light pair,",
-    "startMs": 17119,
-    "endMs": 20720,
-    "timestampMs": 17119,
+    "text": "DexThemes previews the full workspace—not just swatches.",
+    "startMs": 15879,
+    "endMs": 20160,
+    "timestampMs": 15879,
     "confidence": 1
   },
   {
-    "text": "then previews the full workspace—not just swatches.",
-    "startMs": 21119,
-    "endMs": 24259,
-    "timestampMs": 21119,
+    "text": "Choose a variant, copy its import,",
+    "startMs": 20260,
+    "endMs": 22220,
+    "timestampMs": 20260,
     "confidence": 1
   },
   {
-    "text": "I can check code, diffs, and contrast,",
-    "startMs": 24339,
-    "endMs": 26939,
-    "timestampMs": 24339,
+    "text": "and open Codex Appearance.",
+    "startMs": 22280,
+    "endMs": 24079,
+    "timestampMs": 22280,
     "confidence": 1
   },
   {
-    "text": "then apply it with no account.",
-    "startMs": 27300,
-    "endMs": 28559,
-    "timestampMs": 27300,
+    "text": "Paste, import, done.",
+    "startMs": 24140,
+    "endMs": 25899,
+    "timestampMs": 24140,
+    "confidence": 1
+  },
+  {
+    "text": "The theme is yours. No account required.",
+    "startMs": 26180,
+    "endMs": 28539,
+    "timestampMs": 26180,
     "confidence": 1
   },
   {
@@ -148,23 +155,30 @@
   },
   {
     "text": "Because DexThemes is open source,",
-    "startMs": 64619,
-    "endMs": 67000,
-    "timestampMs": 64619,
+    "startMs": 64659,
+    "endMs": 66479,
+    "timestampMs": 64659,
     "confidence": 1
   },
   {
-    "text": "users can turn reviewed feedback into a GitHub issue,",
-    "startMs": 67539,
-    "endMs": 70779,
-    "timestampMs": 67539,
+    "text": "users can turn product feedback into",
+    "startMs": 66899,
+    "endMs": 68880,
+    "timestampMs": 66899,
     "confidence": 1
   },
   {
-    "text": "without anything posting automatically.",
-    "startMs": 71299,
-    "endMs": 73439,
-    "timestampMs": 71299,
+    "text": "a ready-to-review GitHub issue",
+    "startMs": 68900,
+    "endMs": 70699,
+    "timestampMs": 68900,
+    "confidence": 1
+  },
+  {
+    "text": "from the same conversation.",
+    "startMs": 70739,
+    "endMs": 72059,
+    "timestampMs": 70739,
     "confidence": 1
   },
   {

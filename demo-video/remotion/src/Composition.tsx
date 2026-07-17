@@ -408,7 +408,7 @@ const PreviewAndApplyScene: React.FC<{ scene: Scene }> = ({ scene }) => {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
-  const applyPan = interpolate(frame, [184, 338], [-34, -430], {
+  const applyPan = interpolate(frame, [184, 338], [-34, -560], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.45, 0, 0.55, 1),
@@ -419,11 +419,11 @@ const PreviewAndApplyScene: React.FC<{ scene: Scene }> = ({ scene }) => {
       <SceneHeader
         scene={scene}
         compact
-        title={phase < 0.52 ? "Preview the workspace—not just swatches." : "Apply with no account."}
+        title={phase < 0.52 ? "Preview the workspace—not just swatches." : "Copy. Open Appearance. Import."}
         support={
           phase < 0.52
             ? "Judge the interface, code, diffs, contrast, and accents in context."
-            : "Copy the exact import and open Codex Appearance from the same flow."
+            : "Choose a variant, copy its import, then paste it into Codex Appearance."
         }
       />
       <div
@@ -485,9 +485,9 @@ const PreviewAndApplyScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             </>
           ) : (
             <>
-              <BeatPill text="Exact import" delay={182} />
+              <BeatPill text="Copy exact import" delay={182} />
               <BeatPill text="Open Appearance" delay={198} active />
-              <BeatPill text="No account" delay={214} />
+              <BeatPill text="Paste + Import" delay={214} />
             </>
           )}
         </div>
@@ -822,7 +822,7 @@ const FeedbackScene: React.FC<{ scene: Scene }> = ({ scene }) => {
               Theme preview blanks after switching variants
             </strong>
           </div>
-          <span style={{ color: COLORS.green, fontSize: 21, fontWeight: 790 }}>Draft only</span>
+          <span style={{ color: COLORS.green, fontSize: 21, fontWeight: 790 }}>Ready to review</span>
         </div>
         <div
           style={{
@@ -851,7 +851,7 @@ const FeedbackScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           }}
         >
           <span style={{ color: COLORS.muted, fontSize: 24 }}>
-            Review the exact payload before leaving the conversation.
+            Structured feedback and reproduction steps, ready for the project.
           </span>
           <strong
             style={{
@@ -862,7 +862,7 @@ const FeedbackScene: React.FC<{ scene: Scene }> = ({ scene }) => {
               fontSize: 21,
             }}
           >
-            Review GitHub issue →
+            Open in GitHub →
           </strong>
         </div>
       </div>

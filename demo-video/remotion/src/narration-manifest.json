@@ -15,9 +15,9 @@
     },
     {
       "sceneId": "preview-and-apply",
-      "file": "narration/01-preview-and-apply-v5.wav",
-      "durationSeconds": 11.781224,
-      "speechText": "decks themes creates a validated dark and light pair, then previews the full workspace, not just swatches. I can check code, diffs, and contrast, then apply it with no account."
+      "file": "narration/01-preview-and-apply-v8.wav",
+      "durationSeconds": 12.930612,
+      "speechText": "decks themes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Coh-dex Appearance. Paste, import, done. The theme is yours. No account required."
     },
     {
       "sceneId": "discover-community",
@@ -39,9 +39,9 @@
     },
     {
       "sceneId": "open-source-feedback",
-      "file": "narration/05-open-source-feedback-v6.wav",
-      "durationSeconds": 9.221224,
-      "speechText": "Because decks themes is open source, users can turn reviewed feedback into a Get Hub issue, without anything posting automatically."
+      "file": "narration/05-open-source-feedback-v8.wav",
+      "durationSeconds": 7.78449,
+      "speechText": "Because decks themes is open source, users can turn product feedback into a ready-to-review Get Hub issue from the same conversation."
     },
     {
       "sceneId": "judge-proof",

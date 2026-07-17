@@ -43,12 +43,12 @@ The approach follows Google's current ABCD guidance to start big, keep the produ
 
 | Time | Product proof | Judge takeaway |
 | --- | --- | --- |
-| 0:00–0:17 | Product result, natural-language prompt, visible custom name | DexThemes is a theme studio and community; the plugin brings it into Codex. |
-| 0:17–0:29 | Full workspace preview, then exact apply handoff | The design is contextual and the useful path needs no account. |
+| 0:00–0:15.8 | Product result, natural-language prompt, visible custom name | DexThemes is a theme studio and community; the plugin brings it into Codex. |
+| 0:15.8–0:29 | Full workspace preview, variant choice, copy, and Codex import | The design is contextual and installation is immediate. |
 | 0:29–0:42.5 | Unified catalog plus daily, weekly, monthly, and all-time scopes | The idea extends into a discoverable community. |
 | 0:42.5–0:53.5 | Deferred GitHub OAuth, review, explicit Publish | Identity and public writes are intentional and user-controlled. |
 | 0:53.5–1:04.5 | Dashboard pan from themes and wins into the full achievement collection | Creator progress is legible without centering one reward. |
-| 1:04.5–1:14 | Reviewed GitHub Issue draft | Open-source contribution is accessible and still controlled by the user. |
+| 1:04.5–1:14 | Structured, ready-to-review GitHub Issue | Open-source contribution is accessible from the conversation. |
 | 1:14–1:28 | GPT-5.6 → MCP → Apps SDK implementation pipeline | The technical split is creative, deterministic, and context-preserving. |
 | 1:28–1:38 | Product montage and close | Personalization, discovery, and recognition form one Codex community experience. |
 
@@ -58,7 +58,7 @@ The machine-readable timing lives in [`demo-video/storyboard.json`](../demo-vide
 
 > Turn any idea into a complete Codex theme. This Build Week release brings DexThemes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Argentina Afterglow.
 >
-> DexThemes creates a validated dark and light pair, then previews the full workspace, not just swatches. I can check code, diffs, and contrast, then apply it with no account.
+> DexThemes previews the full workspace, not just swatches. Choose a variant, copy its import, and open Codex Appearance. Paste, import, done. The theme is yours. No account required.
 >
 > The plugin makes the catalog conversational: search Codex, DexThemes, and community themes, compare full previews, and see what is trending today, this week, this month, or all time.
 >
@@ -66,7 +66,7 @@ The machine-readable timing lives in [`demo-video/storyboard.json`](../demo-vide
 >
 > Creators get one dashboard for themes, ranks, repeat daily and weekly wins, and the complete achievement collection. Stats accumulate; each achievement reward unlocks once.
 >
-> Because DexThemes is open source, users can turn reviewed feedback into a GitHub issue, without anything posting automatically.
+> Because DexThemes is open source, users can turn product feedback into a ready-to-review GitHub issue from the same conversation.
 >
 > GPT-5.6 interprets the creative intent. The MCP server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context.
 >
