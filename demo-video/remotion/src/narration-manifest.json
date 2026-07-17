@@ -1,71 +1,59 @@
 {
   "provider": "HeyGen",
   "engine": "starfish",
-  "voiceName": "Affable Aaron",
-  "voiceId": "184c9014f94142ae949363089aaf53dd",
+  "voiceName": "Radiant Riley — Friendly",
+  "voiceId": "0ed165284d1c4dc9b600d3129821146a",
   "inputType": "text",
-  "language": "en",
-  "speed": 1,
+  "language": "en-US",
+  "speed": 1.04,
   "tracks": [
     {
-      "sceneId": "hook",
-      "file": "narration/00-hook.wav",
-      "durationSeconds": 5.433469,
-      "speechText": "What if one sentence could turn Coh-dex into a workspace that feels unmistakably yours?"
-    },
-    {
       "sceneId": "create-and-name",
-      "file": "narration/01-create-and-name.wav",
-      "durationSeconds": 19.30449,
-      "speechText": "By voice or text, I ask Coh-dex for dark and light themes inspired by Argentina football at night, and name it ahl-byah-SOOL Afterglow. G P T five point six interprets the brief; decks themes validates both variants and makes sure every theme has a name."
+      "file": "narration/00-create-and-name-v5.wav",
+      "durationSeconds": 15.986939,
+      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night, and named it ahl-byah-SOOL Afterglow."
     },
     {
-      "sceneId": "full-preview",
-      "file": "narration/02-full-preview.wav",
-      "durationSeconds": 12.303673,
-      "speechText": "Before I switch, decks themes renders both variants as full Coh-dex workspaces in the thread, not just swatches, so I can judge code, diffs, contrast, and accents in context."
-    },
-    {
-      "sceneId": "apply-without-account",
-      "file": "narration/03-apply-without-account.wav",
-      "durationSeconds": 11.650612,
-      "speechText": "I copy the exact import, open Coh-dex Appearance, and apply it. No account is required to create, preview, discover, or use a theme. Value comes before sign-in."
+      "sceneId": "preview-and-apply",
+      "file": "narration/01-preview-and-apply-v5.wav",
+      "durationSeconds": 11.781224,
+      "speechText": "decks themes creates a validated dark and light pair, then previews the full workspace, not just swatches. I can check code, diffs, and contrast, then apply it with no account."
     },
     {
       "sceneId": "discover-community",
-      "file": "narration/04-discover-community.wav",
-      "durationSeconds": 11.206531,
-      "speechText": "I can search official, decks themes, and community themes, compare full previews, and see what people love today, this week, this month, or all time."
+      "file": "narration/02-discover-community-v5.wav",
+      "durationSeconds": 13.191837,
+      "speechText": "The plugin makes the catalog conversational: search Coh-dex, decks themes, and community themes, compare full previews, and see what is trending today, this week, this month, or all time."
     },
     {
       "sceneId": "review-and-publish",
-      "file": "narration/05-review-and-publish.wav",
-      "durationSeconds": 13.113469,
-      "speechText": "Only when I choose Publish does decks themes ask for GIT-hub. I review the name and both previews, approve the public action, and my verified GIT-hub identity is credited as the creator."
+      "file": "narration/03-review-and-publish-v5.wav",
+      "durationSeconds": 10.840816,
+      "speechText": "GIT-hub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit."
     },
     {
       "sceneId": "creator-loop",
-      "file": "narration/06-creator-loop.wav",
-      "durationSeconds": 13.296327,
-      "speechText": "Signed-in creators see achievements, ranks, and every daily or weekly win. A theme can win repeatedly and its totals keep growing, while each achievement reward unlocks only once."
-    },
-    {
-      "sceneId": "human-spark",
-      "file": "narration/07-human-spark.wav",
-      "durationSeconds": 14.942041,
-      "speechText": "Eligible OpenAI builders unlock Human Spark and the achievement, OpenAI is nothing without its people. GitHub verifies an openai.com address; DexThemes stores only eligibility, never the address."
+      "file": "narration/04-creator-loop-v5.wav",
+      "durationSeconds": 10.840816,
+      "speechText": "Creators get one dashboard for themes, ranks, repeat daily and weekly wins, and the complete achievement collection. Stats accumulate; each achievement reward unlocks once."
     },
     {
       "sceneId": "open-source-feedback",
-      "file": "narration/08-open-source-feedback.wav",
-      "durationSeconds": 7.941224,
-      "speechText": "Because decks themes is open source, I can review feedback and explicitly open a GIT-hub issue from the same conversation."
+      "file": "narration/05-open-source-feedback-v5.wav",
+      "durationSeconds": 9.456327,
+      "speechText": "Because decks themes is open source, users can turn reviewed feedback into a GIT-hub issue, without anything posting automatically."
+    },
+    {
+      "sceneId": "judge-proof",
+      "file": "narration/06-judge-proof-v5.wav",
+      "durationSeconds": 13.635918,
+      "speechText": "G P T five point six interprets the creative intent. The M C P server validates names, colors, identity, and public actions. The visual app keeps every preview and decision in context."
     },
     {
       "sceneId": "end-card",
-      "file": "narration/09-end-card.wav",
-      "durationSeconds": 15.673469,
-      "speechText": "Every theme starts personal and can become something the Coh-dex community discovers. G P T five point six interprets the idea, decks themes validates it, and the visual app keeps creation, preview, and sharing in one conversation."
+      "file": "narration/07-end-card-v5.wav",
+      "durationSeconds": 9.743673,
+      "speechText": "Personal themes, community discovery, and creator recognition, all in one Coh-dex conversation. decks themes is open source and built for the community."
     }
   ]
 }
