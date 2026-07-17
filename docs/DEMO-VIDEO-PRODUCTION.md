@@ -56,7 +56,7 @@ The machine-readable timing lives in [`demo-video/storyboard.json`](../demo-vide
 
 ## Locked narration script
 
-> Turn any idea into a complete Codex theme. This Build Week release brings DexThemes, a theme studio and community, directly into the conversation. I asked for Argentina football at night, and named it Albiazul Afterglow.
+> Turn any idea into a complete Codex theme. This Build Week release brings DexThemes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Argentina Afterglow.
 >
 > DexThemes creates a validated dark and light pair, then previews the full workspace, not just swatches. I can check code, diffs, and contrast, then apply it with no account.
 >
@@ -119,7 +119,7 @@ Use frame-based Remotion `<Sequence>` components and local media through `static
 - **Speed:** `1.04x`.
 - **Direction:** friendly, confident, product-literate, and concise; no presenter cadence or exaggerated sales emphasis.
 - Generate one file per scene so the edit follows interaction rather than stretching footage around one master.
-- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `G P T five point six`, `M C P`, `Al-bee-ah-ZOOL` for Albiazul, and `Get Hub` for GitHub.
+- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `G P T five point six`, `M C P`, and `Get Hub` for GitHub. `Argentina Afterglow` is spoken normally.
 - Preserve HeyGen word timestamps and use them for Remotion caption timing.
 - **Music:** `Close Up` by Michael Ramir C. from Mixkit, recorded in [`demo-video/remotion/public/music/LICENSE.md`](../demo-video/remotion/public/music/LICENSE.md).
 - Keep music roughly `12 dB` beneath narration and fade it at both ends.

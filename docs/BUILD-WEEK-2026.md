@@ -65,7 +65,7 @@ Supported surfaces: Codex/ChatGPT unified plugin hosts on desktop and web.
 Public test path after deployment:
 
 1. Connect `https://www.dexthemes.com/api/mcp` or install `plugins/dexthemes` from the public repository.
-2. Ask: “Create a dark and light DexTheme inspired by Argentina football at night. Name it Albiceleste Afterglow.”
+2. Ask: “Create a dark and light DexTheme inspired by Argentina football at night. Name it Argentina Afterglow.”
 3. Preview and prepare the dark variant for Codex without publishing.
 4. Ask for three community themes, inspect one inside the thread, then switch between today's and this week's visual leaderboards.
 5. Sign in with GitHub to view personal ranks, repeat daily/weekly wins, achievement reward themes, open the exact publication review, and press Publish in the app.

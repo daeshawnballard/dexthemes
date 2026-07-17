@@ -60,9 +60,9 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
 
   const draft = await client.callTool({
     name: 'draft_theme',
-    arguments: { inspiration: 'Argentina football at night', name: 'Albiceleste Afterglow' },
+    arguments: { inspiration: 'Argentina football at night', name: 'Argentina Afterglow' },
   });
-  assert.equal(draft.structuredContent.theme.name, 'Albiceleste Afterglow');
+  assert.equal(draft.structuredContent.theme.name, 'Argentina Afterglow');
   assert.equal(draft.structuredContent.needsNameConfirmation, false);
 
   const oversizedName = await client.callTool({

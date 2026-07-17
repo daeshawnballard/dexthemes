@@ -367,7 +367,7 @@ const CreateAndNameScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         >
           <PromptChip delay={12}>Argentina football at night</PromptChip>
           <PromptChip delay={265} accent={COLORS.indigo}>
-            Name it Albiazul Afterglow
+            Name it Argentina Afterglow
           </PromptChip>
         </div>
       </CaptureCard>

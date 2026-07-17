@@ -8,9 +8,9 @@ const outputDir = path.resolve(process.argv[2] || ".artifacts/mcp-app-visual-qa"
 await mkdir(outputDir, { recursive: true });
 
 const theme = {
-  id: "albiazul-afterglow",
-  themeId: "albiazul-afterglow",
-  name: "Albiazul Afterglow",
+  id: "argentina-afterglow",
+  themeId: "argentina-afterglow",
+  name: "Argentina Afterglow",
   summary: "Argentina sky blues, stadium light, and deep midnight focus.",
   codeThemeId: { dark: "codex", light: "codex" },
   accents: ["#64B5F6", "#2A68B8"],

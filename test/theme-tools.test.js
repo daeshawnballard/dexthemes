@@ -9,8 +9,8 @@ import {
 } from '../server/theme-tools.js';
 
 test('draftTheme preserves a user-selected custom name', () => {
-  const draft = draftTheme({ inspiration: 'Argentina football at night', name: 'Albiceleste Afterglow' });
-  assert.equal(draft.theme.name, 'Albiceleste Afterglow');
+  const draft = draftTheme({ inspiration: 'Argentina football at night', name: 'Argentina Afterglow' });
+  assert.equal(draft.theme.name, 'Argentina Afterglow');
   assert.equal(draft.usedCustomName, true);
   assert.equal(draft.needsNameConfirmation, false);
   assert.ok(draft.theme.dark);

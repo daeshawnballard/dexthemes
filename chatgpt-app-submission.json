@@ -116,7 +116,7 @@
     },
     {
       "description": "Create, name, validate, preview, and prepare a personal theme for Codex.",
-      "user_prompt": "Create a dark and light DexTheme inspired by Argentina football at night. Name it Albiceleste Afterglow, preview it, and prepare the dark version for Codex without publishing it.",
+      "user_prompt": "Create a dark and light DexTheme inspired by Argentina football at night. Name it Argentina Afterglow, preview it, and prepare the dark version for Codex without publishing it.",
       "file_attachment_urls": null,
       "tools_triggered": "draft_theme, validate_theme, render_theme_preview, prepare_theme_apply",
       "expected_output": "Preserves the custom name, shows valid dark and light previews, and returns the dark Codex import handoff without publishing.",

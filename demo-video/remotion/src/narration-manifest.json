@@ -9,9 +9,9 @@
   "tracks": [
     {
       "sceneId": "create-and-name",
-      "file": "narration/00-create-and-name-v6.wav",
-      "durationSeconds": 15.804082,
-      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Al-bee-ah-ZOOL Afterglow."
+      "file": "narration/00-create-and-name-v7.wav",
+      "durationSeconds": 15.856327,
+      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Argentina Afterglow."
     },
     {
       "sceneId": "preview-and-apply",
