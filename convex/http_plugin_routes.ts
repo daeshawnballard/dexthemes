@@ -120,7 +120,7 @@ export function registerPluginRoutes(http: DexHttpRouter) {
           ),
         }, origin, 201);
       } catch (error: any) {
-        if (error?.message && !["Unauthorized", "Insufficient scope", "GitHub sign-in required"].includes(error.message)) {
+        if (error?.message && !["Unauthorized", "Insufficient scope", "DexThemes sign-in required"].includes(error.message)) {
           error.status ||= 400;
         }
         return errorResponse(error, origin);

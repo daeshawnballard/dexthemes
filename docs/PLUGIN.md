@@ -56,7 +56,7 @@ DEXTHEMES_CONFIRMATION_SECRET=AT_LEAST_32_RANDOM_CHARACTERS
 
 Configure the authorization server to include signed `email` and `email_verified` access-token claims only if the optional employee achievement is enabled. DexThemes derives the exact-domain eligibility boolean at the resource server and does not persist or return the email address. If those claims are absent, normal GitHub account linking still works and no employee bonus is granted.
 
-The resource server validates issuer, audience, expiry, RS256 signature, and scopes. Only `github|...` subjects are accepted. MCP arguments never accept `userId`, `ownerId`, author identity, tokens, API keys, or email addresses.
+The resource server validates issuer, audience, expiry, RS256 signature, and scopes. Normal account access accepts only well-formed `github|...` subjects. OpenAI review can additionally use one exact Auth0 database subject configured through `DEXTHEMES_OPENAI_REVIEWER_SUBJECT`; that subject is mapped to an isolated synthetic reviewer identity and can never receive employee eligibility. Every other non-GitHub subject is rejected. MCP arguments never accept `userId`, `ownerId`, author identity, tokens, API keys, or email addresses.
 
 The provider discovery document must advertise the chosen client-registration method, token endpoint authentication method, PKCE S256, and enabled scopes. It must preserve the `resource=https://www.dexthemes.com/api/mcp` parameter into the access-token audience. Add the exact callback URL shown in the plugin management page to the provider allowlist.
 
@@ -92,6 +92,6 @@ The current Codex desktop build supports `codex-theme-v1` imports and the generi
 6. is called only by the review app after the user presses Publish;
 7. creates a new theme and cannot edit or delete existing themes.
 
-## Remaining live configuration gate
+## Live authentication configuration
 
-The code and local contract tests are complete, but authenticated plugin tools are not live until an OAuth tenant is configured and both Convex and Vercel are deployed with matching environment variables. Domain verification also needs the portal-provided challenge token at production build time, and authenticated review needs a reviewer-ready login path. Public tools can still be reviewed locally without those credentials.
+Production uses Auth0 with GitHub as the primary social connection, an exact-subject database reviewer account with public signups disabled, matching Convex and Vercel issuer/audience/JWKS configuration, and the OpenAI domain challenge endpoint. The reviewer subject must be configured identically in Convex and Vercel before authenticated review.

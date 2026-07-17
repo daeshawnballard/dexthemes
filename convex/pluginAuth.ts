@@ -2,6 +2,8 @@ import { createRemoteJWKSet, jwtVerify } from "jose";
 
 const MCP_RESOURCE = "https://www.dexthemes.com/api/mcp";
 const AUTH0_CLAIM_NAMESPACE = "https://dexthemes.com/";
+const GITHUB_SUBJECT = /^github\|([A-Za-z0-9_-]{1,100})$/;
+const OPENAI_REVIEWER_GITHUB_ID = "openai-plugin-reviewer";
 let jwks: ReturnType<typeof createRemoteJWKSet> | undefined;
 
 function normalizeIssuer(value: string | undefined) {
@@ -22,6 +24,18 @@ function identityClaim(payload: Record<string, unknown>, name: string) {
   return payload[name] ?? payload[`${AUTH0_CLAIM_NAMESPACE}${name}`];
 }
 
+function resolvePluginIdentity(payload: Record<string, unknown>) {
+  const subject = payload.sub;
+  const githubMatch = typeof subject === "string" ? GITHUB_SUBJECT.exec(subject) : null;
+  if (githubMatch) return { githubId: githubMatch[1], isReviewer: false };
+
+  const reviewerSubject = (process.env.DEXTHEMES_OPENAI_REVIEWER_SUBJECT || "").trim();
+  if (reviewerSubject && subject === reviewerSubject) {
+    return { githubId: OPENAI_REVIEWER_GITHUB_ID, isReviewer: true };
+  }
+  throw new Error("DexThemes sign-in required");
+}
+
 export async function verifyPluginBearer(request: Request, requiredScope: string) {
   const authorization = request.headers.get("Authorization") || "";
   if (!authorization.startsWith("Bearer ")) throw new Error("Unauthorized");
@@ -37,18 +51,18 @@ export async function verifyPluginBearer(request: Request, requiredScope: string
   });
   const scopes = String(payload.scope || "").split(/\s+/).filter(Boolean);
   if (!scopes.includes(requiredScope)) throw new Error("Insufficient scope");
-  if (typeof payload.sub !== "string" || !payload.sub.startsWith("github|")) {
-    throw new Error("GitHub sign-in required");
-  }
-  const githubId = payload.sub.slice("github|".length);
-  if (!/^[A-Za-z0-9_-]{1,100}$/.test(githubId)) throw new Error("Invalid GitHub identity");
+  const identity = resolvePluginIdentity(payload);
 
   return {
-    githubId,
-    username: safeClaim(identityClaim(payload, "nickname") || identityClaim(payload, "preferred_username"), "", 100),
-    displayName: safeClaim(identityClaim(payload, "name"), "", 160),
-    avatarUrl: safeClaim(identityClaim(payload, "picture"), "", 500),
-    isOpenAIEmployee: exactVerifiedOpenAIDomain(
+    githubId: identity.githubId,
+    username: identity.isReviewer
+      ? OPENAI_REVIEWER_GITHUB_ID
+      : safeClaim(identityClaim(payload, "nickname") || identityClaim(payload, "preferred_username"), "", 100),
+    displayName: identity.isReviewer
+      ? "OpenAI Plugin Reviewer"
+      : safeClaim(identityClaim(payload, "name"), "", 160),
+    avatarUrl: identity.isReviewer ? "" : safeClaim(identityClaim(payload, "picture"), "", 500),
+    isOpenAIEmployee: identity.isReviewer ? false : exactVerifiedOpenAIDomain(
       identityClaim(payload, "email"),
       identityClaim(payload, "email_verified"),
     ),
