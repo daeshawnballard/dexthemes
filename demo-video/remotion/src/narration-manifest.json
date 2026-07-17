@@ -9,9 +9,9 @@
   "tracks": [
     {
       "sceneId": "create-and-name",
-      "file": "narration/00-create-and-name-v5.wav",
-      "durationSeconds": 15.986939,
-      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night, and named it ahl-byah-SOOL Afterglow."
+      "file": "narration/00-create-and-name-v6.wav",
+      "durationSeconds": 15.804082,
+      "speechText": "Turn any idea into a complete Coh-dex theme. This Build Week release brings decks themes, a theme studio and community, directly into the conversation. I asked for Argentina football at night and named it Al-bee-ah-ZOOL Afterglow."
     },
     {
       "sceneId": "preview-and-apply",
@@ -27,9 +27,9 @@
     },
     {
       "sceneId": "review-and-publish",
-      "file": "narration/03-review-and-publish-v5.wav",
-      "durationSeconds": 10.840816,
-      "speechText": "GIT-hub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit."
+      "file": "narration/03-review-and-publish-v6.wav",
+      "durationSeconds": 9.325714,
+      "speechText": "Get Hub sign-in appears only when I publish. I review the name and both variants, approve the public action, and keep verified creator credit."
     },
     {
       "sceneId": "creator-loop",
@@ -39,9 +39,9 @@
     },
     {
       "sceneId": "open-source-feedback",
-      "file": "narration/05-open-source-feedback-v5.wav",
-      "durationSeconds": 9.456327,
-      "speechText": "Because decks themes is open source, users can turn reviewed feedback into a GIT-hub issue, without anything posting automatically."
+      "file": "narration/05-open-source-feedback-v6.wav",
+      "durationSeconds": 9.221224,
+      "speechText": "Because decks themes is open source, users can turn reviewed feedback into a Get Hub issue, without anything posting automatically."
     },
     {
       "sceneId": "judge-proof",

@@ -119,7 +119,7 @@ Use frame-based Remotion `<Sequence>` components and local media through `static
 - **Speed:** `1.04x`.
 - **Direction:** friendly, confident, product-literate, and concise; no presenter cadence or exaggerated sales emphasis.
 - Generate one file per scene so the edit follows interaction rather than stretching footage around one master.
-- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `G P T five point six`, `M C P`, `ahl-byah-SOOL`, and `GIT-hub`.
+- Use synthesis-only phonetic substitutions while captions retain official spelling: `decks themes`, `Coh-dex`, `G P T five point six`, `M C P`, `Al-bee-ah-ZOOL` for Albiazul, and `Get Hub` for GitHub.
 - Preserve HeyGen word timestamps and use them for Remotion caption timing.
 - **Music:** `Close Up` by Michael Ramir C. from Mixkit, recorded in [`demo-video/remotion/public/music/LICENSE.md`](../demo-video/remotion/public/music/LICENSE.md).
 - Keep music roughly `12 dB` beneath narration and fade it at both ends.
