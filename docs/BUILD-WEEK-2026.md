@@ -64,6 +64,8 @@ The anonymous discovery, drafting, validation, preview, apply-handoff, leaderboa
 
 Do not describe personal stats, achievements, or publication as judge-testable until those authentication gates pass.
 
+The final anonymous production smoke lists all twelve tools; successfully calls theme drafting, visual preview, Codex apply preparation, search, all four leaderboard periods, and reviewed GitHub Issue preparation; and reads the `ui://dexthemes/theme-studio-v2.html` MCP app resource. A fresh production-only `DEXTHEMES_CONFIRMATION_SECRET` is configured as a sensitive Vercel variable and active after redeployment. The post-deploy Vercel runtime error scan is clean.
+
 The July 17 local release preflight is green: all 81 automated tests pass, the docs and production builds pass, the plugin bundle validates, `npm audit` reports zero known vulnerabilities, and the 95.1-second video master passes full audio/video decode, caption-range, fast-start, loudness, and frame-level visual checks.
 
 ## Judge setup
@@ -99,7 +101,7 @@ The edit uses verified product captures from the MCP visual-QA flow, HeyGen voic
 - [ ] Auth0 tenant configured with GitHub upstream login, CIMD preferred (or verified DCR/predefined client), PKCE S256, the exact MCP resource/audience, and `themes:read` / `themes:write` scopes.
 - [ ] Auth0 access-token claim mapping verified: standard `email` + `email_verified` are signed when the employee bonus is enabled; no raw work email reaches DexThemes persistence.
 - [ ] Matching OAuth environment variables configured in Vercel and Convex.
-- [ ] A unique 32+ character `DEXTHEMES_CONFIRMATION_SECRET` is configured in Vercel for app-only publication review tokens.
+- [x] A fresh 32+ character `DEXTHEMES_CONFIRMATION_SECRET` is configured as a sensitive production-only Vercel variable and activated by redeployment.
 - [x] Vercel production deployment completed; anonymous MCP initialization plus privacy, terms, and support endpoints tested live.
 - [ ] Matching Auth0 and Convex authentication deployment completed and the signed-in flow tested end to end.
 - [ ] Developer/domain identity verified in the OpenAI submission portal.

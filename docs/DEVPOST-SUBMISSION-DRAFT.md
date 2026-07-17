@@ -78,7 +78,7 @@ Supported platforms: Codex and ChatGPT plugin hosts on desktop and web. The depl
 - **OpenAI review metadata:** `chatgpt-app-submission.json` — twelve tools, five positive tests, and three negative tests
 - **Judge path:** the six-step flow in `docs/BUILD-WEEK-2026.md`
 
-The local release preflight passes all 81 tests, docs/build, Remotion lint/typecheck, plugin validation, archive integrity, complete media decode, caption timing, fast-start placement, and npm audit with zero known vulnerabilities. Public upload and live deployment verification remain external release gates.
+The local release preflight passes all 81 tests, docs/build, Remotion lint/typecheck, plugin validation, archive integrity, complete media decode, caption timing, fast-start placement, and npm audit with zero known vulnerabilities. The live anonymous smoke also lists all twelve tools; exercises draft, preview, apply, search, four-period leaderboard, and reviewed GitHub Issue flows; reads the MCP app resource; and reports no Vercel runtime errors after the production confirmation-secret redeploy. Public video upload and authenticated OAuth verification remain external release gates.
 
 ## Live submission fields
 
