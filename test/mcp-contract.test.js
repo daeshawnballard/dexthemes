@@ -65,6 +65,25 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.equal(draft.structuredContent.theme.name, 'Argentina Afterglow');
   assert.equal(draft.structuredContent.needsNameConfirmation, false);
 
+  const argentinaPublication = await client.callTool({
+    name: 'validate_theme',
+    arguments: { theme: draft.structuredContent.theme, forPublication: true },
+  });
+  assert.equal(argentinaPublication.structuredContent.valid, true);
+
+  const fandomDraft = await client.callTool({
+    name: 'draft_theme',
+    arguments: { inspiration: 'Halo Reach at midnight', name: 'Halo Reach Night' },
+  });
+  assert.equal(fandomDraft.structuredContent.valid, true);
+  const fandomPublication = await client.callTool({
+    name: 'validate_theme',
+    arguments: { theme: fandomDraft.structuredContent.theme, forPublication: true },
+  });
+  assert.equal(fandomPublication.structuredContent.valid, false);
+  assert.equal(fandomPublication.structuredContent.suggestedNames.length, 3);
+  assert.match(fandomPublication.structuredContent.suggestedSummary, /^An original /);
+
   const oversizedName = await client.callTool({
     name: 'render_theme_preview',
     arguments: { theme: { ...draft.structuredContent.theme, name: 'n'.repeat(81) } },
@@ -87,7 +106,6 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.deepEqual(view._meta.ui.csp.resourceDomains, []);
   assert.deepEqual(view._meta.ui.permissions, { clipboardWrite: {} });
   assert.deepEqual(view._meta['openai/widgetCSP'].redirect_domains, [
-    'https://www.dexthemes.com',
     'https://github.com',
   ]);
 

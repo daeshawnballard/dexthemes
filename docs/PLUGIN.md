@@ -4,15 +4,19 @@ DexThemes is packaged as an MCP-backed interactive app plus a bundled Codex skil
 
 ## What works
 
-- Search official Codex, DexThemes, and community themes with standard `search` and `fetch` tools.
+- Search built-in Codex, DexThemes, and community themes with standard `search` and `fetch` tools.
 - Create a theme from natural language or a transcribed voice request.
 - Preserve a user-supplied custom name; if no name is supplied, suggest one and require a naming decision before publication.
-- Validate theme IDs, names, summaries, color fields, contrast, and protected palettes.
+- Validate theme IDs, names, summaries, color fields, contrast, protected palettes, and original public-facing wording.
 - Render dark/light previews as full Codex workspace mockups, not color swatches alone, and prepare the exact `codex-theme-v1` import string.
 - Keep search, leaderboard selection, reward-theme inspection, and created-theme comparison inside the conversation.
 - Show daily, weekly, monthly, and all-time public leaderboards plus an authenticated creator dashboard with ranks, win history, unlocks, and achievement reward previews.
 - Publish a confirmed community theme under the verified GitHub identity.
 - Prepare a best-effort redacted GitHub Issue draft, show its exact title/body for review, and construct the GitHub URL only after the user clicks to continue.
+
+The plugin uses its own policy-clean catalog view. Existing franchise-labeled website palettes receive original descriptive aliases in plugin search and previews, and Patron/supporter rewards are not returned by MCP account tools. The standalone website and its donation flow remain unchanged.
+
+Aliases preserve recognizable atmosphere without returning the original catalog label—for example, the leaf-green seventh-guardian palette is **Seventh Fire Shadow**, and the armored military sci-fi palette is **Emerald Spartan**. Descriptive country, sport, color, and time-of-day concepts such as “Argentina football at night” remain allowed.
 
 ## Install
 
@@ -88,9 +92,10 @@ The current Codex desktop build supports `codex-theme-v1` imports and the generi
 2. derives identity only from the verified bearer token;
 3. requires a five-minute token bound to the exact reviewed payload and current OAuth token; the token is returned only in app metadata hidden from the model;
 4. re-runs server-side moderation and protected-palette checks;
-5. independently rate-limits writes per verified identity and per network;
-6. is called only by the review app after the user presses Publish;
-7. creates a new theme and cannot edit or delete existing themes.
+5. requires original wording in every public name, ID, and summary while leaving private drafts flexible;
+6. independently rate-limits writes per verified identity and per network;
+7. is called only by the review app after the user presses Publish;
+8. creates a new theme and cannot edit or delete existing themes.
 
 ## Live authentication configuration
 

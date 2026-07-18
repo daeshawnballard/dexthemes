@@ -2,6 +2,10 @@ import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { verifyPluginBearer } from "./pluginAuth";
 import {
+  isPluginUnlockVisible,
+  sanitizeCreatorStatsForPlugin,
+} from "../shared/plugin-public-policy.js";
+import {
   RATE_LIMITS,
   getClientIP,
   jsonResponse,
@@ -60,13 +64,16 @@ export function registerPluginRoutes(http: DexHttpRouter) {
       const origin = request.headers.get("Origin");
       try {
         const session = await authorizePlugin(ctx, request, "themes:read");
-        const stats = await ctx.runQuery(internal.themes.getMySubmissionStats, {
+        const stats = sanitizeCreatorStatsForPlugin(await ctx.runQuery(internal.themes.getMySubmissionStats, {
           authToken: session.pluginAuthToken,
-        });
+        }));
         const achievements = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: session.pluginAuthToken,
         });
-        return jsonResponse({ ...stats, achievements }, origin);
+        return jsonResponse({
+          ...stats,
+          achievements: achievements.filter(isPluginUnlockVisible),
+        }, origin);
       } catch (error) {
         return errorResponse(error, origin);
       }
@@ -83,7 +90,7 @@ export function registerPluginRoutes(http: DexHttpRouter) {
         const unlocks = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: session.pluginAuthToken,
         });
-        return jsonResponse({ unlocks }, origin);
+        return jsonResponse({ unlocks: unlocks.filter(isPluginUnlockVisible) }, origin);
       } catch (error) {
         return errorResponse(error, origin);
       }

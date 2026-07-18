@@ -10,8 +10,13 @@ import {
   prepareGitHubIssue,
   prepareThemeApply,
   searchThemes,
+  validatePublicTheme,
   validateTheme,
 } from "./theme-tools.js";
+import {
+  isPluginUnlockVisible,
+  sanitizeCreatorStatsForPlugin,
+} from "../shared/plugin-public-policy.js";
 import {
   createSubmissionConfirmation,
   verifySubmissionConfirmation,
@@ -101,7 +106,7 @@ const widgetResourceMeta = {
     connect_domains: [],
     resource_domains: [],
     frame_domains: [],
-    redirect_domains: ["https://www.dexthemes.com", "https://github.com"],
+    redirect_domains: ["https://github.com"],
   },
 };
 
@@ -135,10 +140,12 @@ function requireAccessToken(extra, scope) {
 }
 
 function enrichAchievements(unlocks) {
-  return (Array.isArray(unlocks) ? unlocks : []).map((unlock) => ({
-    ...unlock,
-    theme: getUnlockedThemeDetails(unlock.themeId),
-  }));
+  return (Array.isArray(unlocks) ? unlocks : [])
+    .filter(isPluginUnlockVisible)
+    .map((unlock) => ({
+      ...unlock,
+      theme: getUnlockedThemeDetails(unlock.themeId),
+    }));
 }
 
 async function callPluginApi(path, token, options = {}) {
@@ -184,7 +191,7 @@ export function createDexThemesMcpServer() {
 
   registerAppTool(server, "search", {
     title: "Search DexThemes",
-    description: "Search official Codex, DexThemes, and community themes by name, creator, category, mood, or color idea.",
+    description: "Search built-in Codex, DexThemes, and community themes by name, creator, category, mood, or color idea.",
     inputSchema: {
       query: z.string().max(160).describe("Natural-language theme search query."),
       limit: z.number().int().min(1).max(24).optional().describe("Maximum results; defaults to 12."),
@@ -211,7 +218,6 @@ export function createDexThemesMcpServer() {
       id: z.string(),
       title: z.string(),
       text: z.string(),
-      url: z.string(),
       metadata: genericRecord,
     }),
     annotations: annotations(true, false, false),
@@ -224,7 +230,6 @@ export function createDexThemesMcpServer() {
       id: theme.id,
       title: theme.name,
       text: `${theme.name}\n${theme.summary || "DexThemes theme"}\n${theme.dark ? "Dark" : ""}${theme.dark && theme.light ? " + " : ""}${theme.light ? "Light" : ""}`,
-      url: theme.url,
       metadata: theme,
     };
     return toolResult(payload, JSON.stringify(payload));
@@ -232,7 +237,7 @@ export function createDexThemesMcpServer() {
 
   registerAppTool(server, "draft_theme", {
     title: "Create a DexTheme draft",
-    description: "Create a personalized Codex theme from an idea, voice request, fandom, event, or user personality. Honor a supplied custom name exactly; if no name is supplied, return a suggestion that must be confirmed before publication.",
+    description: "Create a private personalized Codex theme draft from an idea, voice request, story or game atmosphere, event, or user personality. Honor a supplied custom name exactly; public submissions require original public-facing wording.",
     inputSchema: {
       inspiration: z.string().min(2).max(500).describe("What should inspire the theme, including any personality context the user explicitly wants considered."),
       name: z.string().min(1).max(80).optional().describe("Optional user-chosen theme name; honor it exactly after trimming."),
@@ -265,18 +270,31 @@ export function createDexThemesMcpServer() {
 
   server.registerTool("validate_theme", {
     title: "Validate a DexTheme",
-    description: "Validate a theme against DexThemes naming, shape, hex color, contrast, and protected-palette rules before submission.",
-    inputSchema: { theme: themeInputSchema },
+    description: "Validate a private theme's structure, colors, contrast, and protected palette. Set forPublication to also check that its public name, ID, and summary use original wording.",
+    inputSchema: {
+      theme: themeInputSchema,
+      forPublication: z.boolean().optional().describe("Check public-facing identity rules in addition to structural validation."),
+    },
     outputSchema: z.object({
       kind: z.literal("theme-validation"),
       valid: z.boolean(),
       errors: z.array(z.string()),
       warnings: z.array(z.string()),
+      suggestedNames: z.array(z.string()),
+      suggestedSummary: z.string().nullable(),
     }),
     annotations: annotations(true, false, false),
     securitySchemes: NOAUTH,
     _meta: withSecurityMeta(NOAUTH),
-  }, async ({ theme }) => toolResult({ kind: "theme-validation", ...validateTheme(theme) }));
+  }, async ({ theme, forPublication }) => {
+    const validation = forPublication ? validatePublicTheme(theme) : validateTheme(theme);
+    return toolResult({
+      kind: "theme-validation",
+      suggestedNames: [],
+      suggestedSummary: null,
+      ...validation,
+    });
+  });
 
   registerAppTool(server, "render_theme_preview", {
     title: "Preview a DexTheme",
@@ -346,7 +364,7 @@ export function createDexThemesMcpServer() {
   }, async (_args, extra) => {
     const token = requireAccessToken(extra, "themes:read");
     if (!token) return authChallenge("themes:read");
-    const stats = await callPluginApi("/plugin/me/stats", token);
+    const stats = sanitizeCreatorStatsForPlugin(await callPluginApi("/plugin/me/stats", token));
     stats.achievements = enrichAchievements(stats.achievements);
     return toolResult({ kind: "my-stats", stats });
   });
@@ -382,7 +400,7 @@ export function createDexThemesMcpServer() {
   }, async ({ theme }, extra) => {
     const token = requireAccessToken(extra, "themes:write");
     if (!token) return authChallenge("themes:write");
-    const validation = validateTheme(theme);
+    const validation = validatePublicTheme(theme);
     if (!validation.valid) {
       return { isError: true, content: [{ type: "text", text: `Theme is not valid: ${validation.errors.join(" ")}` }] };
     }
@@ -418,7 +436,7 @@ export function createDexThemesMcpServer() {
   }, async ({ theme, confirmationToken }, extra) => {
     const token = requireAccessToken(extra, "themes:write");
     if (!token) return authChallenge("themes:write");
-    const validation = validateTheme(theme);
+    const validation = validatePublicTheme(theme);
     if (!validation.valid) {
       return { isError: true, content: [{ type: "text", text: `Theme is not valid: ${validation.errors.join(" ")}` }] };
     }

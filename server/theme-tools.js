@@ -1,4 +1,11 @@
 import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
+import {
+  evaluatePublicThemeIdentity,
+  getPluginThemeAlias,
+  getPluginThemeSearchTerms,
+  resolvePluginThemeSourceId,
+  sanitizeThemeForPlugin,
+} from "../shared/plugin-public-policy.js";
 
 const COMMUNITY_THEMES_URL =
   process.env.DEXTHEMES_COMMUNITY_THEMES_URL ||
@@ -63,6 +70,7 @@ export async function loadThemeCatalog() {
 }
 
 function searchableText(theme) {
+  const alias = getPluginThemeAlias(theme.id || theme.themeId);
   return [
     theme.name,
     theme.id,
@@ -72,6 +80,9 @@ function searchableText(theme) {
     theme._summary,
     theme.summary,
     theme.authorName,
+    alias?.name,
+    alias?.id,
+    ...getPluginThemeSearchTerms(theme.id || theme.themeId),
   ].filter(Boolean).join(" ").toLowerCase();
 }
 
@@ -88,8 +99,13 @@ export function compactTheme(theme) {
     dark: theme.dark || null,
     light: theme.light || null,
     accents: theme.accents || [],
-    url: `https://www.dexthemes.com/?theme=${encodeURIComponent(id)}`,
   };
+}
+
+export function compactPluginTheme(theme) {
+  const safeTheme = sanitizeThemeForPlugin(theme);
+  if (!safeTheme) return null;
+  return compactTheme(safeTheme);
 }
 
 export function getUnlockedThemeDetails(themeId) {
@@ -98,7 +114,8 @@ export function getUnlockedThemeDetails(themeId) {
     entry.subgroup === "unlockables" &&
     String(entry.id || entry.themeId || "").toLowerCase() === target
   );
-  return theme ? compactTheme(theme) : null;
+  if (!theme) return null;
+  return compactTheme(theme);
 }
 
 export async function searchThemes(query, limit = 12) {
@@ -112,16 +129,19 @@ export async function searchThemes(query, limit = 12) {
   const matches = terms.length
     ? scored.filter((entry) => entry.score > 0).sort((a, b) => b.score - a.score)
     : scored;
-  return matches.slice(0, Math.max(1, Math.min(limit, 24))).map(({ theme }) => compactTheme(theme));
+  return matches
+    .map(({ theme }) => compactPluginTheme(theme))
+    .filter(Boolean)
+    .slice(0, Math.max(1, Math.min(limit, 24)));
 }
 
 export async function fetchThemeById(id) {
-  const target = String(id || "").trim().toLowerCase();
+  const target = resolvePluginThemeSourceId(id);
   const catalog = await loadThemeCatalog();
   const theme = catalog.find((entry) =>
     String(entry.id || entry.themeId || "").toLowerCase() === target
   );
-  return theme ? compactTheme(theme) : null;
+  return theme ? compactPluginTheme(theme) : null;
 }
 
 function hash32(value) {
@@ -286,6 +306,24 @@ export function validateTheme(theme) {
   return { valid: errors.length === 0, errors, warnings };
 }
 
+export function validatePublicTheme(theme) {
+  const validation = validateTheme(theme);
+  const identity = evaluatePublicThemeIdentity(theme);
+  const errors = [...validation.errors];
+  if (!identity.allowed) {
+    errors.push(
+      `Public theme names, IDs, and summaries must use original wording. Try a name such as ${identity.suggestedNames.join(", ")} and the summary: ${identity.suggestedSummary}`,
+    );
+  }
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings: validation.warnings,
+    suggestedNames: identity.suggestedNames,
+    suggestedSummary: identity.suggestedSummary,
+  };
+}
+
 export function prepareThemeApply(theme, variant) {
   const name = String(theme?.name || "");
   const summary = String(theme?.summary || "");
@@ -356,12 +394,18 @@ export async function getLeaderboard() {
     periods: {},
   });
   return {
-    daily: Array.isArray(data?.daily) ? data.daily : [],
-    weekly: Array.isArray(data?.weekly) ? data.weekly : [],
-    monthly: Array.isArray(data?.monthly) ? data.monthly : [],
-    allTime: Array.isArray(data?.allTime) ? data.allTime : [],
+    daily: sanitizeLeaderboardRows(data?.daily),
+    weekly: sanitizeLeaderboardRows(data?.weekly),
+    monthly: sanitizeLeaderboardRows(data?.monthly),
+    allTime: sanitizeLeaderboardRows(data?.allTime),
     periods: data?.periods && typeof data.periods === "object" ? data.periods : {},
   };
+}
+
+function sanitizeLeaderboardRows(rows) {
+  return (Array.isArray(rows) ? rows : [])
+    .map((theme) => sanitizeThemeForPlugin(theme))
+    .filter(Boolean);
 }
 
 function redactSensitiveText(value) {
