@@ -4,7 +4,7 @@
   "app_info": {
     "display_name": "DexThemes",
     "subtitle": "Create and discover themes",
-    "description": "DexThemes helps people discover official and community Codex themes, create and name personalized palettes, compare full dark/light Codex workspace previews, use an explicit import handoff, publish confirmed community submissions, inspect all-period ranks and achievements, and prepare GitHub feedback for review.",
+    "description": "DexThemes helps people discover built-in Codex, DexThemes, and community themes, create and name personalized palettes, compare full dark/light Codex workspace previews, use an explicit import handoff, publish confirmed community submissions with original public wording, inspect all-period ranks and achievements, and prepare GitHub feedback for review.",
     "category": "DESIGN"
   },
   "tools": {
@@ -124,10 +124,10 @@
     },
     {
       "description": "Publish only through the exact app review and user-pressed write control.",
-      "user_prompt": "I want to publish the validated Midnight Plum theme. Show me the exact public submission review first.",
+      "user_prompt": "I want to publish the Midnight Plum theme. Validate its public wording and show me the exact submission review first.",
       "file_attachment_urls": null,
-      "tools_triggered": "prepare_theme_submission, submit_theme",
-      "expected_output": "Shows the exact public payload in the signed-in review app; only after the user presses Publish does the app-only tool publish under the verified GitHub identity and report achievements.",
+      "tools_triggered": "validate_theme, prepare_theme_submission, submit_theme",
+      "expected_output": "Checks that the public name, ID, and summary use original wording, then shows the exact payload in the signed-in review app; only after the user presses Publish does the app-only tool publish under the verified GitHub identity and report achievements.",
       "expected_output_url": null
     },
     {

@@ -9,7 +9,6 @@ const app = new App(
 const HEX = /^#[0-9A-Fa-f]{6}$/;
 
 const ACHIEVEMENTS = {
-  buy_coffee: { icon: "☕", label: "Patron", reward: "Patron" },
   create_theme: { icon: "🎨", label: "Theme Creator", reward: "Seraphim" },
   share_x: { icon: "📣", label: "Shared Signal", reward: "Mint Condition" },
   sign_in: { icon: "💘", label: "Signed In", reward: "Cupid's Code" },
@@ -238,12 +237,6 @@ function renderTheme(theme, extras = {}) {
       callToolAndRender("prepare_theme_apply", { theme, variant: selectedVariant }, sourceData);
     });
     actions.append(applyButton);
-    const id = theme.id || theme.themeId;
-    if (id && !extras.hideExternal) {
-      actions.append(makeButton("secondary-button", "Open on DexThemes", () => {
-        app.openLink({ url: `https://www.dexthemes.com/?theme=${encodeURIComponent(id)}` });
-      }));
-    }
     shell.append(actions);
   }
   return shell;

@@ -236,7 +236,21 @@ test('plugin visual studio uses full Codex mockups and an explicit copy-and-sett
   assert.match(source, /callToolAndRender\("fetch"/);
   assert.match(source, /Copy & open Settings/);
   assert.match(source, /choose Appearance/);
+  assert.doesNotMatch(source, /buy_coffee|Patron|Open on DexThemes/);
   assert.doesNotMatch(source, /innerHTML/);
+});
+
+test('plugin account routes hide Patron and public submissions enforce original identity wording server-side', async () => {
+  const [routes, themes, mcp] = await Promise.all([
+    readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/themes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../server/dexthemes-mcp.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(routes, /achievements\.filter\(isPluginUnlockVisible\)/);
+  assert.match(routes, /unlocks: unlocks\.filter\(isPluginUnlockVisible\)/);
+  assert.match(themes, /evaluatePublicThemeIdentity\(args\)/);
+  assert.match(themes, /server-side gate prevents a client from bypassing the MCP review step/);
+  assert.match(mcp, /validatePublicTheme\(theme\)/);
 });
 
 test('every persisted variant color is validated before browser rendering', async () => {

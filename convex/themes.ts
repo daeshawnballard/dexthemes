@@ -8,6 +8,7 @@ import {
   currentPopularityPeriod,
   rankPopularityEntries,
 } from "../shared/popularity-periods.js";
+import { evaluatePublicThemeIdentity } from "../shared/plugin-public-policy.js";
 
 const isActiveUnlock = (unlock: { revokedAt?: number }) => !unlock.revokedAt;
 const HEX_COLOR = /^#[A-Fa-f0-9]{6}$/;
@@ -230,6 +231,16 @@ export const submit = internalMutation({
     const summaryCheck = moderateText(args.summary);
     if (!summaryCheck.clean) {
       throw new Error("Summary rejected: " + summaryCheck.reason);
+    }
+
+    // Keep private creation flexible, but require original wording anywhere a
+    // public community theme is named, linked, or described. This final
+    // server-side gate prevents a client from bypassing the MCP review step.
+    const publicIdentity = evaluatePublicThemeIdentity(args);
+    if (!publicIdentity.allowed) {
+      throw new Error(
+        `Public theme names, IDs, and summaries must use original wording. Try a name such as ${publicIdentity.suggestedNames.join(", ")} and the summary: ${publicIdentity.suggestedSummary}`,
+      );
     }
 
     // Validate accents array length

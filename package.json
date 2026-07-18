@@ -9,7 +9,7 @@
     "build": "npm run build:mcp-app && node scripts/build.mjs",
     "build:mcp-app": "node scripts/build-mcp-app.mjs",
     "build:theme-bundle": "node scripts/build-theme-bundle.mjs",
-    "test": "node --test",
+    "test": "node --test test/*.test.js",
     "smoke:browser": "node scripts/browser-smoke.mjs",
     "qa:mcp-app": "node scripts/visual-qa-mcp-app.mjs",
     "check:docs": "node scripts/check-docs.mjs",
