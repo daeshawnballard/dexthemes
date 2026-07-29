@@ -127,7 +127,7 @@ test('prepareThemeApply rejects non-finite and out-of-range contrast values', ()
   for (const contrast of [NaN, Infinity, -1, 101]) {
     const { theme } = draftTheme({ inspiration: 'safe blue', name: 'Safe Blue' });
     theme.dark.contrast = contrast;
-    assert.throws(() => prepareThemeApply(theme, 'dark'), /contrast must be between 0 and 100/);
+    assert.throws(() => prepareThemeApply(theme, 'dark'), /contrast must be an integer between 0 and 100/);
   }
 });
 
@@ -139,11 +139,37 @@ test('theme validation and apply reject oversized reflected strings', () => {
   assert.equal(validateTheme({ ...theme, id: 'a'.repeat(65), themeId: undefined }).valid, false);
   assert.equal(validateTheme({ ...theme, codeThemeId: 'c'.repeat(81) }).valid, false);
   assert.throws(() => prepareThemeApply({ ...theme, name: 'n'.repeat(81) }, 'dark'), /Theme name/);
-  assert.throws(() => prepareThemeApply({ ...theme, codeThemeId: 'c'.repeat(81) }, 'dark'), /Code theme IDs/);
+  assert.throws(() => prepareThemeApply({ ...theme, codeThemeId: 'c'.repeat(81) }, 'dark'), /Unsupported Codex code theme ID/);
   assert.throws(() => prepareThemeApply({
     ...theme,
     dark: { ...theme.dark, fonts: { code: 'f'.repeat(101), ui: null } },
   }, 'dark'), /fonts\.code/);
+});
+
+test('theme validation fails closed for unknown and variant-incompatible code theme IDs', () => {
+  const { theme } = draftTheme({ inspiration: 'safe blue', name: 'Safe Blue' });
+  for (const codeThemeId of ['unknown-theme', 'github_dark', ' github']) {
+    const candidate = { ...theme, codeThemeId };
+    assert.equal(validateTheme(candidate).valid, false, codeThemeId);
+    assert.throws(() => prepareThemeApply(candidate, 'dark'), /Unsupported Codex code theme ID/);
+  }
+
+  const incompatible = { ...theme, codeThemeId: { dark: 'proof', light: 'ayu' } };
+  assert.equal(validateTheme(incompatible).valid, false);
+  assert.throws(() => prepareThemeApply(incompatible, 'dark'), /Unsupported Codex code theme ID/);
+});
+
+test('custom and community themes using the Codex family remain valid', () => {
+  const { theme } = draftTheme({ inspiration: 'calm original focus', name: 'Calm Signal' });
+  theme.codeThemeId = { dark: 'codex', light: 'codex' };
+  assert.equal(validateTheme(theme).valid, true);
+  for (const variant of ['dark', 'light']) {
+    const payload = JSON.parse(
+      prepareThemeApply(theme, variant).importString.slice('codex-theme-v1:'.length),
+    );
+    assert.equal(payload.codeThemeId, 'codex');
+    assert.equal(payload.variant, variant);
+  }
 });
 
 test('validateTheme rejects every reserved static theme ID', () => {

@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { buildThemeBundle } from "./build-theme-bundle.mjs";
+import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -44,13 +45,18 @@ function normalizeStaticTheme(theme) {
       ? subgroupSlugByKey[theme.subgroup] || theme.subgroup
       : null;
 
+  const codeThemeId = normalizeThemeCodeThemeId(theme);
+  if (!codeThemeId) {
+    throw new Error(`Theme "${theme.id}" has an unsupported Codex codeThemeId.`);
+  }
+
   return {
     id: theme.id,
     themeId: theme.id,
     name: theme.name,
     category,
     subgroup,
-    codeThemeId: theme.codeThemeId ?? "codex",
+    codeThemeId,
     copies: theme.copies ?? 0,
     dateAdded: theme.dateAdded ?? null,
     dark: theme.dark ?? null,

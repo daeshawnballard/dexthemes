@@ -97,6 +97,14 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
     },
   });
   assert.equal(oversizedCodeTheme.isError, true);
+  const unknownCodeTheme = await client.callTool({
+    name: 'prepare_theme_apply',
+    arguments: {
+      theme: { ...draft.structuredContent.theme, codeThemeId: 'unknown-theme' },
+      variant: 'dark',
+    },
+  });
+  assert.equal(unknownCodeTheme.isError, true);
 
   const { resources } = await client.listResources();
   const view = resources.find((resource) => resource.uri === 'ui://dexthemes/theme-studio-v2.html');

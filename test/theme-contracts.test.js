@@ -6,6 +6,8 @@ import {
   themeHasVariant,
   buildThemeImportString,
 } from '../src/theme-contracts.js';
+import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
+import { prepareThemeApply } from '../server/theme-tools.js';
 
 test('getThemeVariants derives variants from dark/light properties', () => {
   const theme = { dark: {}, light: {} };
@@ -117,4 +119,98 @@ test('buildThemeImportString rejects color and contrast injection payloads', () 
     theme.dark.contrast = contrast;
     assert.equal(buildThemeImportString(theme, 'dark'), '', `contrast accepted ${contrast}`);
   }
+});
+
+test('known legacy module IDs canonicalize but malformed and unknown IDs fail closed', () => {
+  const base = {
+    codeThemeId: 'github-dark-default',
+    dark: {
+      surface: '#111111',
+      ink: '#fefefe',
+      accent: '#333333',
+      contrast: 60,
+      diffAdded: '#00aa00',
+      diffRemoved: '#aa0000',
+      skill: '#5500ff',
+    },
+  };
+
+  const legacyPayload = JSON.parse(
+    buildThemeImportString(base, 'dark').slice('codex-theme-v1:'.length),
+  );
+  assert.equal(legacyPayload.codeThemeId, 'github');
+
+  for (const codeThemeId of ['github_dark', 'unknown', ' github', '', 'a'.repeat(81)]) {
+    assert.equal(buildThemeImportString({ ...base, codeThemeId }, 'dark'), '', codeThemeId);
+  }
+  assert.equal(
+    buildThemeImportString({ ...base, codeThemeId: 'github-light-default' }, 'dark'),
+    '',
+    'variant-specific legacy ID crossed variants',
+  );
+  assert.equal(
+    buildThemeImportString({
+      ...base,
+      codeThemeId: 'proof',
+    }, 'dark'),
+    '',
+    'light-only code theme imported as dark',
+  );
+});
+
+test('variant-specific code theme objects and partial font objects serialize safely', () => {
+  const theme = {
+    codeThemeId: { dark: 'gruvbox', light: 'one' },
+    dark: {
+      surface: '#1d2021', ink: '#ebdbb2', accent: '#fe8019', contrast: 60,
+      diffAdded: '#b8bb26', diffRemoved: '#fb4934', skill: '#d3869b',
+      fonts: { code: 'Berkeley Mono' },
+    },
+    light: {
+      surface: '#ffffff', ink: '#1f2328', accent: '#0969da', contrast: 45,
+      diffAdded: '#1a7f37', diffRemoved: '#cf222e', skill: '#8250df',
+      fonts: { ui: 'Inter' },
+    },
+  };
+
+  const dark = JSON.parse(buildThemeImportString(theme, 'dark').slice('codex-theme-v1:'.length));
+  const light = JSON.parse(buildThemeImportString(theme, 'light').slice('codex-theme-v1:'.length));
+  assert.equal(dark.codeThemeId, 'gruvbox');
+  assert.deepEqual(dark.theme.fonts, { code: 'Berkeley Mono', ui: null });
+  assert.equal(light.codeThemeId, 'one');
+  assert.deepEqual(light.theme.fonts, { code: null, ui: 'Inter' });
+});
+
+test('website exporter and MCP prepare path emit byte-identical imports', () => {
+  const affected = ['github-dark', 'github-light', 'gruvbox', 'one-dark'];
+  for (const id of affected) {
+    const theme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === id);
+    const variant = theme.dark ? 'dark' : 'light';
+    assert.equal(
+      buildThemeImportString(theme, variant),
+      prepareThemeApply({
+        ...theme,
+        summary: theme.summary || theme._summary || `A ${theme.name} workspace theme for Codex.`,
+      }, variant).importString,
+      id,
+    );
+  }
+
+  const custom = {
+    id: 'custom-signal',
+    name: 'Custom Signal',
+    summary: 'An original custom workspace palette.',
+    category: 'community',
+    codeThemeId: 'codex',
+    dark: {
+      surface: '#101218', ink: '#f4f5f7', accent: '#6f8cff', contrast: 64,
+      diffAdded: '#4fd18a', diffRemoved: '#f06a6a', skill: '#b39ddb',
+      fonts: { code: 'Berkeley Mono', ui: 'Inter' },
+    },
+    accents: ['#6f8cff'],
+  };
+  assert.equal(
+    buildThemeImportString(custom, 'dark'),
+    prepareThemeApply(custom, 'dark').importString,
+  );
 });

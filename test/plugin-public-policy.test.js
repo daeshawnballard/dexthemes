@@ -77,6 +77,11 @@ test('plugin search and fetch return aliases without exposing source catalog lab
   assert.equal(fetched.name, 'Seventh Fire Shadow');
   assert.equal('url' in fetched, false);
 
+  const github = await fetchThemeById('github-dark');
+  assert.equal(github.id, 'github-dark');
+  assert.equal(github.codeThemeId, 'github');
+  assert.match(github.summary, /workspace theme for Codex/);
+
   const haloResults = await searchThemes('Halo Reach', 3);
   assert.equal(haloResults[0].id, 'emerald-spartan');
   assert.equal(haloResults[0].name, 'Emerald Spartan');

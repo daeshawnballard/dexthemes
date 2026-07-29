@@ -61,17 +61,17 @@ export const THEMES = [
     light: { surface: '#fdf6e3', ink: '#5c6a72', accent: '#93b259', contrast: 45, diffAdded: '#8da101', diffRemoved: '#f85552', skill: '#df69ba', sidebar: '#fdf6e3', codeBg: '#fdf6e3' }
   },
   {
-    id: 'github-dark', name: 'GitHub Dark', category: 'official', codeThemeId: 'github-dark-default', variants: ['dark'], copies: 256, dateAdded: '2025-05-01',
+    id: 'github-dark', name: 'GitHub Dark', category: 'official', codeThemeId: 'github', variants: ['dark'], copies: 256, dateAdded: '2025-05-01',
     dark: { surface: '#0d1117', ink: '#e6edf3', accent: '#58a6ff', contrast: 60, diffAdded: '#3fb950', diffRemoved: '#f85149', skill: '#bc8cff', sidebar: '#090c10', codeBg: '#070a0f' },
     accents: ['#58a6ff']
   },
   {
-    id: 'github-light', name: 'GitHub Light', category: 'official', codeThemeId: 'github-light-default', variants: ['light'], copies: 178, dateAdded: '2025-05-01',
+    id: 'github-light', name: 'GitHub Light', category: 'official', codeThemeId: 'github', variants: ['light'], copies: 178, dateAdded: '2025-05-01',
     light: { surface: '#ffffff', ink: '#1f2328', accent: '#0969da', contrast: 45, diffAdded: '#1a7f37', diffRemoved: '#cf222e', skill: '#8250df', sidebar: '#f6f8fa', codeBg: '#f0f2f4' },
     accents: ['#0969da']
   },
   {
-    id: 'gruvbox', name: 'Gruvbox', category: 'official', codeThemeId: 'gruvbox-dark-hard', variants: ['dark'], copies: 194, dateAdded: '2025-05-01',
+    id: 'gruvbox', name: 'Gruvbox', category: 'official', codeThemeId: 'gruvbox', variants: ['dark'], copies: 194, dateAdded: '2025-05-01',
     dark: { surface: '#1d2021', ink: '#ebdbb2', accent: '#fe8019', contrast: 60, diffAdded: '#b8bb26', diffRemoved: '#fb4934', skill: '#d3869b', sidebar: '#171819', codeBg: '#131415' },
     accents: ['#fe8019']
   },
@@ -117,7 +117,7 @@ export const THEMES = [
     dark: { surface: '#0b0b0f', ink: '#e6e6e6', accent: '#f9b98c', contrast: 60, diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#479ffa', sidebar: '#0b0b0f', codeBg: '#0b0b0f' }
   },
   {
-    id: 'one-dark', name: 'One Dark', category: 'official', codeThemeId: 'one-dark-pro', variants: ['dark'], copies: 312, dateAdded: '2025-05-01',
+    id: 'one-dark', name: 'One Dark', category: 'official', codeThemeId: 'one', variants: ['dark'], copies: 312, dateAdded: '2025-05-01',
     dark: { surface: '#282c34', ink: '#abb2bf', accent: '#61afef', contrast: 60, diffAdded: '#98c379', diffRemoved: '#e06c75', skill: '#c678dd', sidebar: '#21252b', codeBg: '#1d2025' },
     accents: ['#61afef']
   },
@@ -161,7 +161,7 @@ export const THEMES = [
     light: { surface: '#ffffff', ink: '#171717', accent: '#006aff', contrast: 40, diffAdded: '#28A948', diffRemoved: '#EB001D', skill: '#A100F8', sidebar: '#ffffff', codeBg: '#ffffff', fonts: { code: '"Geist Mono", ui-monospace, "SFMono-Regular"', ui: 'Geist, Inter' } }
   },
   {
-    id: 'vscode-plus', name: 'VS Code+', category: 'official', codeThemeId: 'codex', copies: 223, dateAdded: '2025-05-01',
+    id: 'vscode-plus', name: 'VS Code+', category: 'official', codeThemeId: 'vscode-plus', copies: 223, dateAdded: '2025-05-01',
     dark: { surface: '#1E1E1E', ink: '#D4D4D4', accent: '#007ACC', contrast: 60, ...DARK_DEFAULTS, sidebar: '#171717', codeBg: '#131313' },
     light: { surface: '#FFFFFF', ink: '#000000', accent: '#007ACC', contrast: 45, ...LIGHT_DEFAULTS, sidebar: '#f3f3f3', codeBg: '#ececec' },
     accents: ['#007ACC']

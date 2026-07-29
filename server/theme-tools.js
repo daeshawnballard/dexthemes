@@ -6,6 +6,11 @@ import {
   resolvePluginThemeSourceId,
   sanitizeThemeForPlugin,
 } from "../shared/plugin-public-policy.js";
+import {
+  buildCodexThemeImport,
+  normalizeThemeCodeThemeId,
+  validateCodexThemeImport,
+} from "../shared/codex-theme-contract.js";
 
 const COMMUNITY_THEMES_URL =
   process.env.DEXTHEMES_COMMUNITY_THEMES_URL ||
@@ -16,8 +21,6 @@ const LEADERBOARD_URL =
 const CATALOG_CACHE_TTL_MS = 30 * 1000;
 const HEX = /^#[0-9A-Fa-f]{6}$/;
 const THEME_ID_MAX_LENGTH = 64;
-const CODE_THEME_ID_MAX_LENGTH = 80;
-const FONT_NAME_MAX_LENGTH = 100;
 const VARIANT_KEYS = [
   "surface",
   "ink",
@@ -88,12 +91,15 @@ function searchableText(theme) {
 
 export function compactTheme(theme) {
   const id = theme.id || theme.themeId;
+  const codeThemeId = normalizeThemeCodeThemeId(theme);
+  if (!id || !codeThemeId) return null;
   return {
     id,
     name: theme.name,
     category: theme.category || "community",
     subgroup: theme.subgroup || null,
-    summary: theme.summary || theme._summary || null,
+    codeThemeId,
+    summary: theme.summary || theme._summary || `A ${theme.name} workspace theme for Codex.`,
     authorName: theme.authorName || theme._authorName || null,
     copies: theme.copies || 0,
     dark: theme.dark || null,
@@ -266,31 +272,14 @@ export function validateTheme(theme) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) errors.push("Theme ID must be kebab-case.");
   if (PROTECTED_THEME_IDS.has(id)) errors.push("Theme ID is reserved by DexThemes.");
   if (!theme?.dark && !theme?.light) errors.push("At least one dark or light variant is required.");
-  if (Array.isArray(theme?.accents) && theme.accents.length > 10) errors.push("A maximum of 10 accents is allowed.");
-  for (const [index, accent] of (theme?.accents || []).entries()) {
-    if (!HEX.test(String(accent || ""))) errors.push(`accents[${index}] must be a six-digit hex color.`);
-  }
-
-  const codeThemeIds = typeof theme?.codeThemeId === "string"
-    ? [theme.codeThemeId]
-    : [theme?.codeThemeId?.dark, theme?.codeThemeId?.light].filter((value) => value != null);
-  for (const value of codeThemeIds) {
-    if (typeof value !== "string" || value.length < 1 || value.length > CODE_THEME_ID_MAX_LENGTH) {
-      errors.push(`Code theme IDs must be 1-${CODE_THEME_ID_MAX_LENGTH} characters.`);
-      break;
-    }
-  }
-
   const protectedSignatures = protectedPaletteSignatures();
   for (const mode of ["dark", "light"]) {
     const variant = theme?.[mode];
     if (!variant) continue;
-    for (const key of [...VARIANT_KEYS, "sidebar", "codeBg"]) {
+    errors.push(...validateCodexThemeImport(theme, mode).errors);
+    for (const key of ["sidebar", "codeBg"]) {
       if (variant[key] == null) continue;
       if (!HEX.test(String(variant[key] || ""))) errors.push(`${mode}.${key} must be a six-digit hex color.`);
-    }
-    if (!Number.isFinite(variant.contrast) || variant.contrast < 0 || variant.contrast > 100) {
-      errors.push(`${mode}.contrast must be between 0 and 100.`);
     }
     if (HEX.test(variant.surface) && HEX.test(variant.ink)) {
       const ratio = contrastRatio(variant.surface, variant.ink);
@@ -302,8 +291,9 @@ export function validateTheme(theme) {
     }
   }
 
-  if (!errors.length) warnings.push("Final publication also runs server-side name, summary, and protected-palette moderation.");
-  return { valid: errors.length === 0, errors, warnings };
+  const uniqueErrors = [...new Set(errors)];
+  if (!uniqueErrors.length) warnings.push("Final publication also runs server-side name, summary, and protected-palette moderation.");
+  return { valid: uniqueErrors.length === 0, errors: uniqueErrors, warnings };
 }
 
 export function validatePublicTheme(theme) {
@@ -333,56 +323,16 @@ export function prepareThemeApply(theme, variant) {
   if (id.length < 1 || id.length > THEME_ID_MAX_LENGTH) {
     throw new Error(`Theme ID must be 1-${THEME_ID_MAX_LENGTH} characters.`);
   }
+  const result = buildCodexThemeImport(theme, variant);
+  if (!result.valid) throw new Error(result.errors[0]);
   const selected = theme?.[variant];
-  if (!selected) throw new Error(`${variant} variant is not available for this theme.`);
-  for (const key of [...VARIANT_KEYS, "sidebar", "codeBg"]) {
+  for (const key of ["sidebar", "codeBg"]) {
     if (selected[key] == null) continue;
     if (!HEX.test(String(selected[key] || ""))) {
       throw new Error(`${variant}.${key} must be a six-digit hex color.`);
     }
   }
-  for (const [index, color] of (theme.accents || []).entries()) {
-    if (!HEX.test(String(color || ""))) throw new Error(`accents[${index}] must be a six-digit hex color.`);
-  }
-  if ((theme.accents || []).length > 10) throw new Error("A maximum of 10 accents is allowed.");
-  if (!Number.isFinite(selected.contrast) || selected.contrast < 0 || selected.contrast > 100) {
-    throw new Error(`${variant}.contrast must be between 0 and 100.`);
-  }
-  const accent = theme.accents?.[0] || selected.accent;
-  const codeThemeId = typeof theme.codeThemeId === "string"
-    ? theme.codeThemeId
-    : theme.codeThemeId?.[variant] || "codex";
-  if (codeThemeId.length < 1 || codeThemeId.length > CODE_THEME_ID_MAX_LENGTH) {
-    throw new Error(`Code theme IDs must be 1-${CODE_THEME_ID_MAX_LENGTH} characters.`);
-  }
-  const rawFonts = selected.fonts;
-  if (rawFonts != null && (typeof rawFonts !== "object" || Array.isArray(rawFonts))) {
-    throw new Error("Theme fonts must be an object.");
-  }
-  const fonts = { code: rawFonts?.code ?? null, ui: rawFonts?.ui ?? null };
-  for (const [key, value] of Object.entries(fonts)) {
-    if (value != null && (typeof value !== "string" || value.length > FONT_NAME_MAX_LENGTH)) {
-      throw new Error(`${variant}.fonts.${key} must be at most ${FONT_NAME_MAX_LENGTH} characters.`);
-    }
-  }
-  const importString = `codex-theme-v1:${JSON.stringify({
-    codeThemeId,
-    theme: {
-      accent,
-      contrast: selected.contrast,
-      fonts,
-      ink: selected.ink,
-      opaqueWindows: selected.opaqueWindows ?? true,
-      semanticColors: {
-        diffAdded: selected.diffAdded,
-        diffRemoved: selected.diffRemoved,
-        skill: selected.skill,
-      },
-      surface: selected.surface,
-    },
-    variant,
-  })}`;
-  return { importString, settingsUrl: "codex://settings", variant };
+  return { importString: result.importString, settingsUrl: "codex://settings", variant };
 }
 
 export async function getLeaderboard() {

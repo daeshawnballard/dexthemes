@@ -9,6 +9,7 @@ import {
   rankPopularityEntries,
 } from "../shared/popularity-periods.js";
 import { evaluatePublicThemeIdentity } from "../shared/plugin-public-policy.js";
+import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
 
 const isActiveUnlock = (unlock: { revokedAt?: number }) => !unlock.revokedAt;
 const HEX_COLOR = /^#[A-Fa-f0-9]{6}$/;
@@ -220,11 +221,9 @@ export const submit = internalMutation({
       throw new Error("Summary must be 1-240 characters");
     }
 
-    const codeThemeIds = typeof args.codeThemeId === "string"
-      ? [args.codeThemeId]
-      : [args.codeThemeId.dark, args.codeThemeId.light];
-    if (codeThemeIds.some((value) => value.length < 1 || value.length > 80)) {
-      throw new Error("Code theme IDs must be 1-80 characters");
+    const normalizedCodeThemeId = normalizeThemeCodeThemeId(args);
+    if (!normalizedCodeThemeId) {
+      throw new Error("Code theme IDs must match a supported Codex theme and variant");
     }
 
     // Content moderation on summary
@@ -287,7 +286,7 @@ export const submit = internalMutation({
       dark: args.dark,
       light: args.light,
       accents: args.accents,
-      codeThemeId: args.codeThemeId,
+      codeThemeId: normalizedCodeThemeId,
       copies: 0,
       createdAt: Date.now(),
       protected: false,

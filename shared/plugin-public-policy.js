@@ -1,3 +1,5 @@
+import { normalizeThemeCodeThemeId } from "./codex-theme-contract.js";
+
 const PLUGIN_HIDDEN_UNLOCK_ACTIONS = new Set(["buy_coffee"]);
 
 /**
@@ -273,8 +275,10 @@ export function sanitizeThemeForPlugin(theme) {
   const alias = getPluginThemeAlias(sourceId);
   const builtInCodex = theme.category === "codex";
   if (!alias && !builtInCodex && !evaluatePublicThemeIdentity(theme).allowed) return null;
+  const codeThemeId = normalizeThemeCodeThemeId(theme);
+  if (!codeThemeId) return null;
 
-  const sanitized = { ...theme };
+  const sanitized = { ...theme, codeThemeId };
   delete sanitized.authorIsSupporter;
   delete sanitized.supporter;
   delete sanitized.supporterStatus;
