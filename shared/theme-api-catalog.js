@@ -298,7 +298,7 @@ export const STATIC_THEME_CATALOG = [
     "name": "GitHub Dark",
     "category": "codex",
     "subgroup": null,
-    "codeThemeId": "github-dark-default",
+    "codeThemeId": "github",
     "copies": 256,
     "dateAdded": "2025-05-01",
     "dark": {
@@ -330,7 +330,7 @@ export const STATIC_THEME_CATALOG = [
     "name": "GitHub Light",
     "category": "codex",
     "subgroup": null,
-    "codeThemeId": "github-light-default",
+    "codeThemeId": "github",
     "copies": 178,
     "dateAdded": "2025-05-01",
     "dark": null,
@@ -362,7 +362,7 @@ export const STATIC_THEME_CATALOG = [
     "name": "Gruvbox",
     "category": "codex",
     "subgroup": null,
-    "codeThemeId": "gruvbox-dark-hard",
+    "codeThemeId": "gruvbox",
     "copies": 194,
     "dateAdded": "2025-05-01",
     "dark": {
@@ -704,7 +704,7 @@ export const STATIC_THEME_CATALOG = [
     "name": "One Dark",
     "category": "codex",
     "subgroup": null,
-    "codeThemeId": "one-dark-pro",
+    "codeThemeId": "one",
     "copies": 312,
     "dateAdded": "2025-05-01",
     "dark": {
@@ -1028,7 +1028,7 @@ export const STATIC_THEME_CATALOG = [
     "name": "VS Code+",
     "category": "codex",
     "subgroup": null,
-    "codeThemeId": "codex",
+    "codeThemeId": "vscode-plus",
     "copies": 223,
     "dateAdded": "2025-05-01",
     "dark": {

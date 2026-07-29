@@ -18,6 +18,10 @@ import {
   sanitizeCreatorStatsForPlugin,
 } from "../shared/plugin-public-policy.js";
 import {
+  CODEX_CODE_THEME_INPUT_IDS,
+  normalizeThemeCodeThemeId,
+} from "../shared/codex-theme-contract.js";
+import {
   createSubmissionConfirmation,
   verifySubmissionConfirmation,
 } from "./submission-confirmation.js";
@@ -31,7 +35,7 @@ const CONVEX_SITE_URL =
 const HEX = /^#[0-9A-Fa-f]{6}$/;
 const hexColor = z.string().regex(HEX, "Must be a six-digit hex color such as #1A2B3C");
 const themeId = z.string().min(1).max(64);
-const codeThemeId = z.string().min(1).max(80);
+const codeThemeId = z.enum(CODEX_CODE_THEME_INPUT_IDS);
 const fontName = z.string().max(100).nullable();
 
 const variantSchema = z.object({
@@ -332,7 +336,8 @@ export function createDexThemesMcpServer() {
     _meta: withSecurityMeta(NOAUTH, viewMeta),
   }, async ({ theme, variant }) => {
     const apply = prepareThemeApply(theme, variant);
-    return toolResult({ kind: "theme-apply", theme, ...apply },
+    const normalizedTheme = { ...theme, codeThemeId: normalizeThemeCodeThemeId(theme) };
+    return toolResult({ kind: "theme-apply", theme: normalizedTheme, ...apply },
       `Copy this import string, open Codex Settings, choose Appearance, then import it for ${theme.name} (${variant}):\n${apply.importString}`);
   });
 
