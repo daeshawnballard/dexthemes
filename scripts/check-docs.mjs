@@ -4,12 +4,17 @@ const checks = [
   {
     file: 'README.md',
     forbidden: ['preview.js', 'dist/app.js'],
-    required: ['docs/ARCHITECTURE.md', 'CONTRIBUTING.md'],
+    required: ['docs/ARCHITECTURE.md', 'docs/CONTENT.md', 'CONTRIBUTING.md'],
   },
   {
     file: 'CONTRIBUTING.md',
     forbidden: ['no build step required'],
-    required: ['npm run build', 'npm run validate'],
+    required: ['npm run build', 'npm run validate', 'npm run content:generate'],
+  },
+  {
+    file: 'docs/CONTENT.md',
+    forbidden: [],
+    required: ['Daeshawn Ballard', 'https://x.com/daeshawn', 'X-Robots-Tag: noindex'],
   },
 ];
 

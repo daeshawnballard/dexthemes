@@ -5,6 +5,7 @@ import { buildThemeBundle } from "./build-theme-bundle.mjs";
 import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
 import { getWebsiteThemeId } from "../shared/plugin-public-policy.js";
 import { CANONICAL_ORIGIN, buildSitemapXml } from "../shared/seo.js";
+import { CONTENT_ITEMS } from "../shared/generated-content.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -81,6 +82,20 @@ function formatVariant(label, variant) {
   return `- ${label}: surface=${variant.surface} ink=${variant.ink} accent=${variant.accent}`;
 }
 
+function buildContentIndex() {
+  const sectionOrder = ["guides", "features", "articles", "reference"];
+  return sectionOrder.map((section) => {
+    const items = CONTENT_ITEMS.filter((item) => item.routeSection === section);
+    const heading = items[0]?.section || section;
+    return [
+      `### ${heading}`,
+      ...items.map((item) => (
+        `- [${item.title}](${CANONICAL_ORIGIN}${item.path}) — ${item.description} ([Markdown](${CANONICAL_ORIGIN}${item.path}.md))`
+      )),
+    ].join("\n");
+  }).join("\n\n");
+}
+
 function buildLlmsFullCatalog(themes) {
   const visibleThemes = themes.filter(isPublicCatalogTheme);
   const entries = visibleThemes.map((theme) => {
@@ -113,6 +128,13 @@ Total public static themes: ${visibleThemes.length}
 - Public theme page: ${CANONICAL_ORIGIN}/{id}/dark|light
 - Install guide: ${CANONICAL_ORIGIN}/guides/how-to-install-a-codex-theme
 - Theme collections: ${CANONICAL_ORIGIN}/collections
+- Feature documentation: ${CANONICAL_ORIGIN}/features
+- Articles: ${CANONICAL_ORIGIN}/articles
+- Theme reference: ${CANONICAL_ORIGIN}/reference
+
+## Guides, Features, Articles, and Reference
+
+${buildContentIndex()}
 
 ## Theme Catalog
 

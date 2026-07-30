@@ -4,7 +4,7 @@
     <loc>https://www.dexthemes.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/privacy.html</loc>
@@ -28,55 +28,247 @@
     <loc>https://www.dexthemes.com/guides</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
-    <loc>https://www.dexthemes.com/guides/how-to-install-a-codex-theme</loc>
+    <loc>https://www.dexthemes.com/guides/change-codex-ui-and-code-fonts</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
-    <loc>https://www.dexthemes.com/guides/create-a-custom-codex-theme</loc>
+    <loc>https://www.dexthemes.com/guides/codex-app-themes-vs-cli-themes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/codex-theme-accessibility</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/guides/codex-theme-import-troubleshooting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/create-a-custom-codex-theme</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/create-dark-and-light-codex-themes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/how-to-install-a-codex-theme</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/is-dexthemes-safe</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/move-a-codex-theme-to-another-computer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/official-curated-community-themes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/guides/share-a-custom-codex-theme</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/codex-theme-import</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/theme-library</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/color-me-lucky</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/community-themes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/theme-builder</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/achievements-and-unlocks</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/codex-plugin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/leaderboard</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/creator-dashboard</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/open-source</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/theme-api</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/interactive-previews</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/features/likes-and-sharing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/best-codex-themes-for-long-coding-sessions</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/best-high-contrast-codex-themes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/best-light-codex-themes-for-daytime</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/designing-colors-for-code-review-and-diffs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/github-dark-vs-one-dark-vs-dracula-for-codex</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/how-we-test-codex-themes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/what-makes-a-good-codex-theme</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/reference</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/reference/codex-theme-format</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/dark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/light</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/editor-classics</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/community</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/codex/dark</loc>

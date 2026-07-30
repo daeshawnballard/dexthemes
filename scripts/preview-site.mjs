@@ -98,9 +98,16 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const contentMatch = /^\/(guides|collections)(?:\/([a-z0-9]+(?:-[a-z0-9]+)*))?$/.exec(pathname);
-    if (contentMatch) {
-      req.url = `/api/content-page?section=${contentMatch[1]}${contentMatch[2] ? `&slug=${encodeURIComponent(contentMatch[2])}` : ""}`;
+    const editorialMatch = /^\/(guides|features|articles|reference)(?:\/([a-z0-9]+(?:-[a-z0-9]+)*)(\.md)?)?$/.exec(pathname);
+    if (editorialMatch) {
+      req.url = `/api/content-page?section=${editorialMatch[1]}${editorialMatch[2] ? `&slug=${encodeURIComponent(editorialMatch[2])}` : ""}${editorialMatch[3] ? "&format=markdown" : ""}`;
+      await contentPageHandler(req, res);
+      return;
+    }
+
+    const collectionMatch = /^\/collections(?:\/([a-z0-9]+(?:-[a-z0-9]+)*))?$/.exec(pathname);
+    if (collectionMatch) {
+      req.url = `/api/content-page?section=collections${collectionMatch[1] ? `&slug=${encodeURIComponent(collectionMatch[1])}` : ""}`;
       await contentPageHandler(req, res);
       return;
     }

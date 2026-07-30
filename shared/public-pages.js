@@ -1,109 +1,64 @@
 import {
   CANONICAL_ORIGIN,
   COLLECTION_ROUTES,
+  EDITORIAL_ROUTES,
   EDITOR_CLASSIC_THEME_IDS,
-  GUIDE_ROUTES,
   getCatalogThemeId,
   getCatalogThemeVariants,
 } from "./seo.js";
+import {
+  CONTENT_ITEMS,
+} from "./generated-content.js";
 
 const SITE_NAME = "DexThemes";
 const DEFAULT_OG_IMAGE = `${CANONICAL_ORIGIN}/logos/logo-github-transparent.png`;
+const AUTHOR_NAME = "Daeshawn Ballard";
+const AUTHOR_URL = "https://x.com/daeshawn";
 const SAME_AS = [
   "https://github.com/daeshawnballard/dexthemes",
   "https://x.com/DexThemes",
 ];
 
-export const GUIDE_PAGES = Object.freeze({
-  "how-to-install-a-codex-theme": {
-    eyebrow: "Getting started",
-    title: "How to install a Codex theme",
-    description: "Copy a DexThemes import string, open Codex Settings, and approve the theme from Appearance.",
-    answer: "Choose a theme and variant in DexThemes, copy its import string, then open Codex Settings. In Appearance, choose Import theme, paste the string, and approve the change.",
-    steps: [
-      {
-        title: "Choose a theme and variant",
-        body: "Open any theme in DexThemes and select an available dark or light variant. The right panel always shows which variant is active.",
-      },
-      {
-        title: "Copy the import string",
-        body: "Use Copy theme & open Settings on desktop, or Copy theme on compact layouts. DexThemes copies the complete codex-theme-v1 payload.",
-      },
-      {
-        title: "Open Appearance",
-        body: "DexThemes can open general Codex Settings. Choose Appearance yourself; Codex does not currently expose a public Appearance-specific deep link.",
-      },
-      {
-        title: "Import and approve",
-        body: "Choose Import theme, paste the copied string, review the result, and approve the appearance change in Codex.",
-      },
-    ],
-    calloutTitle: "Does DexThemes modify Codex files?",
-    calloutBody: "No. DexThemes prepares and copies the import payload. Codex owns the final import and the user approves the appearance change.",
-    related: [
-      { href: "/collections/dark", label: "Browse dark themes" },
-      { href: "/collections/light", label: "Browse light themes" },
-    ],
+const CONTENT_SECTION_CONFIG = Object.freeze({
+  guides: {
+    label: "Guides",
+    eyebrow: "Learn · DexThemes guides",
+    title: "Make Codex yours,\nwith confidence.",
+    description: "Answer-first instructions for choosing, creating, importing, sharing, and troubleshooting Codex themes.",
+    kicker: "Choose a task",
+    prompt: "Start with what you need to do.",
+    accent: "#47adff",
+    action: "Read the guide",
   },
-  "create-a-custom-codex-theme": {
-    eyebrow: "Theme creator",
-    title: "Create a custom Codex theme",
-    description: "Turn a visual direction into a complete Codex palette, preview it in context, and publish it when it is ready.",
-    answer: "Start with a surface, readable ink, and one purposeful accent. Complete the semantic colors, preview the palette in the DexThemes workspace, then copy it for private use or sign in to publish an original community theme.",
-    steps: [
-      {
-        title: "Name the visual direction",
-        body: "Describe the mood or working style before choosing colors. A clear direction keeps the palette coherent and makes the public summary useful.",
-      },
-      {
-        title: "Build the core contrast",
-        body: "Choose the main surface and ink first. Verify that navigation, body copy, code, and controls remain legible before adding accents.",
-      },
-      {
-        title: "Assign semantic colors",
-        body: "Use distinct colors for actions, additions, removals, and skills. The preview shows these roles together so clashes are visible early.",
-      },
-      {
-        title: "Preview, copy, or publish",
-        body: "Test the palette in the faux Codex conversation. Copy the import for your own use, or sign in with GitHub to review and publish an original community theme.",
-      },
-    ],
-    calloutTitle: "What can be published?",
-    calloutBody: "Community names and summaries must use original wording. DexThemes also protects built-in, curated, and reward palettes from direct cloning.",
-    related: [
-      { href: "/collections/community", label: "See community themes" },
-      { href: "/", label: "Open the theme creator" },
-    ],
+  features: {
+    label: "Features",
+    eyebrow: "Explore · DexThemes features",
+    title: "One theme system,\nfrom idea to import.",
+    description: "See how discovery, previews, creation, community publishing, rankings, rewards, and developer tools fit together.",
+    kicker: "Explore the product",
+    prompt: "Everything DexThemes can do.",
+    accent: "#f15bb5",
+    action: "Explore the feature",
   },
-  "codex-theme-import-troubleshooting": {
-    eyebrow: "Troubleshooting",
-    title: "Fix a Codex theme import",
-    description: "Diagnose the copy-and-import handoff by symptom without guessing or editing Codex files directly.",
-    answer: "Most import problems come from an incomplete clipboard payload, choosing an unavailable variant, or stopping in Settings before opening Appearance. Copy the theme again, confirm the full codex-theme-v1 prefix, then import from Appearance.",
-    steps: [
-      {
-        title: "Nothing was pasted",
-        body: "Allow clipboard access or use the selectable fallback string, then copy again. Compact layouts intentionally copy without trying to open a desktop deep link.",
-      },
-      {
-        title: "Codex rejected the string",
-        body: "Confirm the payload begins with codex-theme-v1: and was copied in full. Avoid adding quotation marks or copying only the JSON portion.",
-      },
-      {
-        title: "The requested variant is missing",
-        body: "Return to DexThemes and choose a variant shown as available. Theme URLs for unavailable variants correctly return 404.",
-      },
-      {
-        title: "Settings opened to the wrong section",
-        body: "Choose Appearance manually, then Import theme. DexThemes opens general Settings because there is no documented public Appearance-specific apply route.",
-      },
-    ],
-    calloutTitle: "Still stuck?",
-    calloutBody: "Open a GitHub issue with the theme URL, variant, Codex version, and the stable error text. Never include tokens, account details, or private screenshots.",
-    related: [
-      { href: "/guides/how-to-install-a-codex-theme", label: "Review the install steps" },
-      { href: "https://github.com/daeshawnballard/dexthemes/issues", label: "Report an issue", external: true },
-    ],
+  articles: {
+    label: "Articles",
+    eyebrow: "Read · DexThemes journal",
+    title: "Better themes begin\nwith better decisions.",
+    description: "Field notes, comparisons, and practical design guidance for building a Codex workspace that stays readable.",
+    kicker: "From the studio",
+    prompt: "Comparisons, methods, and design thinking.",
+    accent: "#f4b942",
+    action: "Read the article",
+  },
+  reference: {
+    label: "Reference",
+    eyebrow: "Reference · Theme contracts",
+    title: "The details,\nwithout the guesswork.",
+    description: "Technical reference for the DexThemes theme format and its safe handoff into Codex.",
+    kicker: "Technical reference",
+    prompt: "Use the exact contract.",
+    accent: "#8ee3c8",
+    action: "Open reference",
   },
 });
 
@@ -325,130 +280,176 @@ export function renderThemePage({ theme, variant, relatedThemes = [], imageVersi
   });
 }
 
-export function renderGuidesHub() {
-  const canonicalUrl = `${CANONICAL_ORIGIN}/guides`;
-  const cards = Object.entries(GUIDE_PAGES).map(([slug, guide], index) => `
-    <a class="hub-card" href="/guides/${escapeHtml(slug)}">
-      <span class="hub-card-number">0${index + 1}</span>
-      <span class="hub-card-label">${escapeHtml(guide.eyebrow)}</span>
-      <h2>${escapeHtml(guide.title)}</h2>
-      <p>${escapeHtml(guide.description)}</p>
-      <span class="hub-card-action">Read the guide <span aria-hidden="true">→</span></span>
+export function getContentItem(section, slug) {
+  return CONTENT_ITEMS.find(
+    (item) => item.routeSection === section && item.slug === slug,
+  ) || null;
+}
+
+export function renderContentHub(section) {
+  const config = CONTENT_SECTION_CONFIG[section];
+  if (!config) {
+    return renderNotFoundPage({
+      title: "Section not found",
+      message: "That section is not part of the DexThemes content catalog.",
+    });
+  }
+
+  const items = CONTENT_ITEMS.filter((item) => item.routeSection === section);
+  const canonicalUrl = `${CANONICAL_ORIGIN}/${section}`;
+  const cards = items.map((item, index) => `
+    <a class="hub-card" href="${escapeHtml(item.path)}">
+      <span class="hub-card-number">${String(index + 1).padStart(2, "0")}</span>
+      <span class="hub-card-label">${escapeHtml(item.section)}</span>
+      <h2>${escapeHtml(item.title)}</h2>
+      <p>${escapeHtml(item.description)}</p>
+      <span class="hub-card-action">${escapeHtml(config.action)} <span aria-hidden="true">→</span></span>
     </a>
   `).join("");
+  const pageData = buildPageStructuredData({
+    type: "CollectionPage",
+    title: `DexThemes ${config.label}`,
+    description: config.description,
+    canonicalUrl,
+    breadcrumbs: [
+      { name: "DexThemes", url: `${CANONICAL_ORIGIN}/` },
+      { name: config.label, url: canonicalUrl },
+    ],
+  });
+  pageData["@graph"].push({
+    "@type": "ItemList",
+    "@id": `${canonicalUrl}#items`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      url: `${CANONICAL_ORIGIN}${item.path}`,
+    })),
+  });
 
   return renderDocument({
-    title: "DexThemes Guides — Install, Create & Troubleshoot Codex Themes",
-    description: "Answer-first guides for installing, creating, and troubleshooting Codex themes with DexThemes.",
+    title: `DexThemes ${config.label} | Codex Theme Resources`,
+    description: config.description,
     canonicalUrl,
-    accent: "#f15bb5",
+    accent: config.accent,
     body: `
       <main id="main-content">
         <section class="hub-hero">
-          ${renderBreadcrumbs([{ label: "Guides" }])}
-          <p class="eyebrow">Learn · DexThemes guides</p>
-          <h1>Make Codex yours,<br>with confidence.</h1>
-          <p class="hero-copy">Short, answer-first guides for installing, creating, and fixing themes without digging through product documentation.</p>
-          <div class="route-meta"><code>/guides</code><span>Three starting guides</span></div>
+          ${renderBreadcrumbs([{ label: config.label }])}
+          <p class="eyebrow">${escapeHtml(config.eyebrow)}</p>
+          <h1>${config.title.split("\n").map(escapeHtml).join("<br>")}</h1>
+          <p class="hero-copy">${escapeHtml(config.description)}</p>
+          <div class="route-meta"><code>/${escapeHtml(section)}</code><span>${items.length} ${items.length === 1 ? "page" : "pages"}</span></div>
         </section>
-        <section class="hub-content" aria-labelledby="guide-start-title">
+        <section class="hub-content" aria-labelledby="${escapeHtml(section)}-start-title">
           <div class="hub-section-heading">
-            <div><p class="section-kicker">Choose a task</p><h2 id="guide-start-title">Start with what you need to do.</h2></div>
-              <a class="button button-secondary" href="/?source=guide_page">Back to the app <span aria-hidden="true">↗</span></a>
+            <div><p class="section-kicker">${escapeHtml(config.kicker)}</p><h2 id="${escapeHtml(section)}-start-title">${escapeHtml(config.prompt)}</h2></div>
+            <a class="button button-secondary" href="/?source=${escapeHtml(section)}_hub">Back to the app <span aria-hidden="true">↗</span></a>
           </div>
           <div class="hub-card-grid">${cards}</div>
         </section>
       </main>
     `,
-    structuredData: buildPageStructuredData({
-      type: "CollectionPage",
-      title: "DexThemes Guides",
-      description: "Answer-first guides for installing, creating, and troubleshooting Codex themes.",
-      canonicalUrl,
-      breadcrumbs: [{ name: "DexThemes", url: `${CANONICAL_ORIGIN}/` }, { name: "Guides", url: canonicalUrl }],
-    }),
+    structuredData: pageData,
     pageType: "hub",
   });
 }
 
-export function renderGuidePage(slug) {
-  const guide = GUIDE_PAGES[slug];
-  if (!guide) {
+export function renderContentPage(section, slug) {
+  const config = CONTENT_SECTION_CONFIG[section];
+  const item = getContentItem(section, slug);
+  if (!config || !item) {
     return renderNotFoundPage({
-      title: "Guide not found",
-      message: "That guide is not part of the DexThemes documentation catalog.",
+      title: `${config?.label?.replace(/s$/, "") || "Page"} not found`,
+      message: "That page is not part of the DexThemes content catalog.",
     });
   }
 
-  const canonicalUrl = `${CANONICAL_ORIGIN}/guides/${slug}`;
-  const howToSteps = guide.steps.map((step, index) => ({
-    "@type": "HowToStep",
-    position: index + 1,
-    name: step.title,
-    text: step.body,
-    url: `${canonicalUrl}#step-${index + 1}`,
-  }));
+  const canonicalUrl = `${CANONICAL_ORIGIN}${item.path}`;
+  const markdownUrl = `${canonicalUrl}.md`;
   const pageData = buildPageStructuredData({
     type: "WebPage",
-    title: guide.title,
-    description: guide.description,
+    title: item.title,
+    description: item.description,
     canonicalUrl,
     breadcrumbs: [
       { name: "DexThemes", url: `${CANONICAL_ORIGIN}/` },
-      { name: "Guides", url: `${CANONICAL_ORIGIN}/guides` },
-      { name: guide.title, url: canonicalUrl },
+      { name: config.label, url: `${CANONICAL_ORIGIN}/${section}` },
+      { name: item.title, url: canonicalUrl },
     ],
   });
-  pageData["@graph"].push({
-    "@type": "HowTo",
-    "@id": `${canonicalUrl}#howto`,
-    name: guide.title,
-    description: guide.answer,
-    step: howToSteps,
-  });
+  pageData["@graph"].push(
+    {
+      "@type": item.kind === "article" || item.kind === "feature" ? "Article" : "TechArticle",
+      "@id": `${canonicalUrl}#article`,
+      headline: item.title,
+      description: item.description,
+      datePublished: item.datePublished,
+      dateModified: item.dateModified,
+      author: { "@id": `${CANONICAL_ORIGIN}/#daeshawn-ballard` },
+      publisher: { "@id": `${CANONICAL_ORIGIN}/#daeshawn-ballard` },
+      mainEntityOfPage: { "@id": `${canonicalUrl}#webpage` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${CANONICAL_ORIGIN}/#daeshawn-ballard`,
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
+      sameAs: [AUTHOR_URL],
+    },
+  );
+
+  const relatedHtml = item.related.length
+    ? `<nav class="related-links" aria-label="Related resources">
+        ${item.related.map((route) => {
+          const related = CONTENT_ITEMS.find((candidate) => candidate.path === route);
+          return `<a href="${escapeHtml(route)}">${escapeHtml(related?.title || titleFromSlug(route.split("/").filter(Boolean).at(-1)))} <span aria-hidden="true">→</span></a>`;
+        }).join("")}
+      </nav>`
+    : "";
 
   return renderDocument({
-    title: `${guide.title} | DexThemes Guides`,
-    description: guide.description,
+    title: `${item.title} | DexThemes`,
+    description: item.description,
     canonicalUrl,
-    accent: "#47adff",
+    markdownUrl,
+    accent: config.accent,
     body: `
       <main id="main-content">
-        <article class="guide-page">
+        <article class="content-page">
           ${renderBreadcrumbs([
-            { label: "Guides", href: "/guides" },
-            { label: guide.title },
+            { label: config.label, href: `/${section}` },
+            { label: item.title },
           ])}
-          <header class="guide-hero">
-            <p class="eyebrow">${escapeHtml(guide.eyebrow)}</p>
-            <h1>${escapeHtml(guide.title)}</h1>
-            <p class="answer-first">${escapeHtml(guide.answer)}</p>
+          <header class="content-hero">
+            <p class="eyebrow">${escapeHtml(item.section)} · DexThemes</p>
+            <h1>${escapeHtml(item.title)}</h1>
+            <p class="answer-first">${escapeHtml(item.answer)}</p>
+            <div class="content-byline">
+              <span>Written by <a href="${AUTHOR_URL}" target="_blank" rel="author noopener">${AUTHOR_NAME}</a></span>
+              <span>Updated <time datetime="${escapeHtml(item.dateModified)}">${escapeHtml(formatDisplayDate(item.dateModified))}</time></span>
+              <span>${item.wordCount.toLocaleString("en-US")} words</span>
+            </div>
             <div class="guide-actions">
-              <a class="button button-primary" href="/?source=guide_page">Open DexThemes <span aria-hidden="true">↗</span></a>
-              <a class="button button-secondary" href="/collections">Browse collections</a>
+              <a class="button button-primary" href="/?source=${escapeHtml(item.kind)}_page">Open DexThemes <span aria-hidden="true">↗</span></a>
+              <a class="button button-secondary" href="${escapeHtml(`${item.path}.md`)}">Read as Markdown</a>
             </div>
           </header>
-          <section class="guide-steps" aria-label="${escapeHtml(guide.title)} steps">
-            ${guide.steps.map((step, index) => `
-              <section class="guide-step" id="step-${index + 1}">
-                <span class="section-number">${String(index + 1).padStart(2, "0")}</span>
-                <div><h2>${escapeHtml(step.title)}</h2><p>${escapeHtml(step.body)}</p></div>
-              </section>
-            `).join("")}
-          </section>
-          <aside class="guide-callout">
-            <p class="section-kicker">Good to know</p>
-            <h2>${escapeHtml(guide.calloutTitle)}</h2>
-            <p>${escapeHtml(guide.calloutBody)}</p>
-          </aside>
-          <nav class="related-links" aria-label="Related resources">
-            ${guide.related.map((item) => `<a href="${escapeHtml(item.href)}"${item.external ? ' target="_blank" rel="noopener"' : ""}>${escapeHtml(item.label)} <span aria-hidden="true">→</span></a>`).join("")}
-          </nav>
+          <div class="content-layout">
+            <aside class="content-context">
+              <p class="section-kicker">Verified against</p>
+              <p>${escapeHtml(item.testedWith)}</p>
+              <a href="${AUTHOR_URL}" target="_blank" rel="author noopener">@daeshawn on X <span aria-hidden="true">↗</span></a>
+            </aside>
+            <div class="prose">${item.bodyHtml}</div>
+          </div>
+          ${relatedHtml}
         </article>
       </main>
     `,
     structuredData: pageData,
-    pageType: "guide",
+    pageType: item.kind,
   });
 }
 
@@ -627,6 +628,7 @@ function renderDocument({
   title,
   description,
   canonicalUrl,
+  markdownUrl = "",
   body,
   structuredData,
   accent = "#47adff",
@@ -636,6 +638,9 @@ function renderDocument({
   pageType = "page",
   shareUrl = "",
 }) {
+  const ogType = ["guide", "feature", "article", "reference"].includes(pageType)
+    ? "article"
+    : "website";
   const schema = structuredData
     ? `<script type="application/ld+json">${jsonForScript(structuredData)}</script>`
     : "";
@@ -674,11 +679,12 @@ function renderDocument({
   <meta name="description" content="${escapeHtml(description)}">
   <meta name="robots" content="${noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"}">
   <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
+  ${markdownUrl ? `<link rel="alternate" type="text/markdown" href="${escapeHtml(markdownUrl)}">` : ""}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/public-pages.css">
   <meta name="theme-color" content="${escapeHtml(surface)}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="${ogType}">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:image" content="${escapeHtml(ogImageUrl)}">
@@ -710,8 +716,9 @@ function renderSiteHeader() {
     </a>
     <nav aria-label="DexThemes">
       <a href="/collections">Collections</a>
-      <a href="/collections/community">Community</a>
+      <a href="/features">Features</a>
       <a href="/guides">Guides</a>
+      <a href="/articles">Articles</a>
     </nav>
     <a class="header-app-link" href="/">Open DexThemes <span aria-hidden="true">↗</span></a>
   </header>`;
@@ -721,7 +728,9 @@ function renderSiteFooter() {
   return `<footer class="public-footer">
     <div><strong>DexThemes</strong><p>Discover, preview, and create themes for Codex.</p></div>
     <nav aria-label="Footer">
+      <a href="/features">Features</a>
       <a href="/guides">Guides</a>
+      <a href="/articles">Articles</a>
       <a href="/collections">Theme collections</a>
       <a href="https://github.com/daeshawnballard/dexthemes" target="_blank" rel="noopener">GitHub</a>
     </nav>
@@ -878,6 +887,15 @@ function titleFromSlug(value) {
     .join(" ");
 }
 
+function formatDisplayDate(value) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
 function jsonForScript(value) {
   return JSON.stringify(value).replaceAll("<", "\\u003c");
 }
@@ -892,6 +910,6 @@ function escapeHtml(value) {
 }
 
 export const CONTENT_ROUTE_PATHS = Object.freeze([
-  ...GUIDE_ROUTES,
+  ...EDITORIAL_ROUTES,
   ...COLLECTION_ROUTES,
 ]);

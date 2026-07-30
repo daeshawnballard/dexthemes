@@ -176,10 +176,12 @@ export function renderMobileBrowse() {
       <nav class="mobile-explore" aria-label="Explore DexThemes">
         <div>
           <span>Explore beyond the app</span>
-          <strong>Guides and curated collections</strong>
+          <strong>Features, guides, articles, and curated collections</strong>
         </div>
-        <a href="/collections">Theme collections <span aria-hidden="true">↗</span></a>
+        <a href="/features">Features <span aria-hidden="true">↗</span></a>
         <a href="/guides">Guides <span aria-hidden="true">↗</span></a>
+        <a href="/articles">Articles <span aria-hidden="true">↗</span></a>
+        <a href="/collections">Theme collections <span aria-hidden="true">↗</span></a>
         <a href="/collections/community">Community themes <span aria-hidden="true">↗</span></a>
       </nav>
       <div class="mobile-card-grid">${cards}${emptyState}</div>

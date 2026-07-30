@@ -65,9 +65,9 @@ async function startStaticServer() {
     }
 
     attachVercelResponseHelpers(res);
-    if (requestPath === '/guides' || requestPath.startsWith('/guides/')) {
-      const slug = requestPath.split('/')[2] || '';
-      req.url = `/api/content-page?section=guides${slug ? `&slug=${encodeURIComponent(slug)}` : ''}`;
+    const editorialMatch = /^\/(guides|features|articles|reference)(?:\/([a-z0-9]+(?:-[a-z0-9]+)*)(\.md)?)?$/.exec(requestPath);
+    if (editorialMatch) {
+      req.url = `/api/content-page?section=${editorialMatch[1]}${editorialMatch[2] ? `&slug=${encodeURIComponent(editorialMatch[2])}` : ''}${editorialMatch[3] ? '&format=markdown' : ''}`;
       await contentPageHandler(req, res);
       return;
     }
@@ -291,8 +291,25 @@ try {
       { waitUntil: 'networkidle' },
     );
     assert.equal(response?.status(), 200);
-    assert.equal(await page.locator('h1').textContent(), 'How to install a Codex theme');
+    assert.equal(await page.locator('h1').textContent(), 'How to Install a Codex Theme');
     assert.match(await page.locator('.answer-first').textContent() || '', /Appearance/);
+    await page.close();
+  });
+
+  await runTest('feature articles render with a truthful author byline and Markdown alternate', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+    const response = await page.goto(
+      `${server.baseUrl}/features/leaderboard`,
+      { waitUntil: 'networkidle' },
+    );
+    assert.equal(response?.status(), 200);
+    assert.match(await page.locator('h1').textContent() || '', /leaderboard/i);
+    assert.match(await page.locator('.content-byline').textContent() || '', /Daeshawn Ballard/);
+    assert.equal(
+      await page.locator('link[rel="alternate"][type="text/markdown"]').count(),
+      1,
+    );
+    assert.ok(await page.locator('.prose h2').count() >= 2);
     await page.close();
   });
 
@@ -326,6 +343,13 @@ try {
     await page.waitForSelector('.mobile-cat-pills');
     const activeNav = await page.locator('.mobile-nav-btn.active').textContent();
     assert.match(activeNav || '', /Browse/i);
+    for (const href of ['/features', '/guides', '/articles', '/collections', '/collections/community']) {
+      assert.equal(
+        await page.locator(`.mobile-explore a[href="${href}"]`).count(),
+        1,
+        `expected mobile Explore to link ${href}`,
+      );
+    }
     await page.close();
   });
 

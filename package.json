@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "npx convex dev",
     "deploy": "npx convex deploy",
-    "build": "npm run build:mcp-app && node scripts/build.mjs",
+    "build": "npm run content:generate && npm run build:mcp-app && node scripts/build.mjs",
     "build:mcp-app": "node scripts/build-mcp-app.mjs",
     "build:theme-bundle": "node scripts/build-theme-bundle.mjs",
-    "test": "node --test test/*.test.js",
+    "content:generate": "node scripts/generate-content.mjs",
+    "test": "npm run content:generate && node --test test/*.test.js",
     "smoke:browser": "node scripts/browser-smoke.mjs",
     "preview:site": "node scripts/preview-site.mjs",
     "qa:mcp-app": "node scripts/visual-qa-mcp-app.mjs",

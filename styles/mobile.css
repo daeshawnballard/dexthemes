@@ -926,7 +926,7 @@
 
   .mobile-explore {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1px;
     overflow: hidden;
     margin: 8px 0 4px;
@@ -976,6 +976,10 @@
 
   .mobile-explore > a span {
     color: var(--accent);
+  }
+
+  .mobile-explore > a:last-child {
+    grid-column: 1 / -1;
   }
 
   /* P1: Subgroup pills for DexThemes */

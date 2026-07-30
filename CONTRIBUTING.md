@@ -71,6 +71,15 @@ That rebuilds the hashed shell and assets as files change.
 
 Root-served static files like `manifest.json`, `robots.txt`, `sitemap.xml`, `llms*.txt`, and the app icons are sourced from `public/` and emitted to the deploy root during `npm run build`. Edit the files under `public/`, not the generated root copies.
 
+### Guides, features, and articles
+
+Public editorial pages are authored in `content/` Markdown. Read [docs/CONTENT.md](docs/CONTENT.md) before editing them. Run `npm run content:generate` after a content change; do not edit `shared/generated-content.js` directly.
+
+The author identity is intentionally consistent across the visible byline and structured data:
+
+- Daeshawn Ballard
+- https://x.com/daeshawn
+
 ### Backend (Convex)
 
 If you want to work on auth, likes, or community themes:

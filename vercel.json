@@ -18,8 +18,48 @@
       "destination": "/api/content-page?section=guides"
     },
     {
+      "source": "/guides/:slug.md",
+      "destination": "/api/content-page?section=guides&slug=:slug&format=markdown"
+    },
+    {
       "source": "/guides/:slug",
       "destination": "/api/content-page?section=guides&slug=:slug"
+    },
+    {
+      "source": "/features",
+      "destination": "/api/content-page?section=features"
+    },
+    {
+      "source": "/features/:slug.md",
+      "destination": "/api/content-page?section=features&slug=:slug&format=markdown"
+    },
+    {
+      "source": "/features/:slug",
+      "destination": "/api/content-page?section=features&slug=:slug"
+    },
+    {
+      "source": "/articles",
+      "destination": "/api/content-page?section=articles"
+    },
+    {
+      "source": "/articles/:slug.md",
+      "destination": "/api/content-page?section=articles&slug=:slug&format=markdown"
+    },
+    {
+      "source": "/articles/:slug",
+      "destination": "/api/content-page?section=articles&slug=:slug"
+    },
+    {
+      "source": "/reference",
+      "destination": "/api/content-page?section=reference"
+    },
+    {
+      "source": "/reference/:slug.md",
+      "destination": "/api/content-page?section=reference&slug=:slug&format=markdown"
+    },
+    {
+      "source": "/reference/:slug",
+      "destination": "/api/content-page?section=reference&slug=:slug"
     },
     {
       "source": "/collections",

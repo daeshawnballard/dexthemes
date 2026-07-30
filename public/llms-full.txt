@@ -14,6 +14,51 @@ Total public static themes: 117
 - Public theme page: https://www.dexthemes.com/{id}/dark|light
 - Install guide: https://www.dexthemes.com/guides/how-to-install-a-codex-theme
 - Theme collections: https://www.dexthemes.com/collections
+- Feature documentation: https://www.dexthemes.com/features
+- Articles: https://www.dexthemes.com/articles
+- Theme reference: https://www.dexthemes.com/reference
+
+## Guides, Features, Articles, and Reference
+
+### Guides
+- [Change Codex UI and Code Fonts](https://www.dexthemes.com/guides/change-codex-ui-and-code-fonts) — Change interface and code fonts from Codex Appearance and understand how font names behave in theme imports. ([Markdown](https://www.dexthemes.com/guides/change-codex-ui-and-code-fonts.md))
+- [Codex App Themes vs CLI Themes](https://www.dexthemes.com/guides/codex-app-themes-vs-cli-themes) — Understand why Codex desktop Appearance imports and Codex CLI syntax themes use different formats and settings. ([Markdown](https://www.dexthemes.com/guides/codex-app-themes-vs-cli-themes.md))
+- [Codex Theme Accessibility](https://www.dexthemes.com/guides/codex-theme-accessibility) — Test text, controls, semantic colors, fonts, and dark and light variants before sharing a Codex theme. ([Markdown](https://www.dexthemes.com/guides/codex-theme-accessibility.md))
+- [Codex Theme Import Troubleshooting](https://www.dexthemes.com/guides/codex-theme-import-troubleshooting) — Diagnose incomplete payloads, variant mismatches, unsupported code theme IDs, font fallbacks, and settings handoff confusion. ([Markdown](https://www.dexthemes.com/guides/codex-theme-import-troubleshooting.md))
+- [Create a Custom Codex Theme](https://www.dexthemes.com/guides/create-a-custom-codex-theme) — Build and preview a focused dark or light Codex palette with the DexThemes theme builder. ([Markdown](https://www.dexthemes.com/guides/create-a-custom-codex-theme.md))
+- [Create Dark and Light Codex Themes](https://www.dexthemes.com/guides/create-dark-and-light-codex-themes) — Design paired dark and light variants that share an identity without relying on automatic color inversion. ([Markdown](https://www.dexthemes.com/guides/create-dark-and-light-codex-themes.md))
+- [How to Install a Codex Theme](https://www.dexthemes.com/guides/how-to-install-a-codex-theme) — Copy a validated Codex theme string from DexThemes and import it through Codex Appearance settings. ([Markdown](https://www.dexthemes.com/guides/how-to-install-a-codex-theme.md))
+- [Is DexThemes Safe](https://www.dexthemes.com/guides/is-dexthemes-safe) — Understand the theme import trust boundary, community provenance, account separation, and checks to perform before importing. ([Markdown](https://www.dexthemes.com/guides/is-dexthemes-safe.md))
+- [Move a Codex Theme to Another Computer](https://www.dexthemes.com/guides/move-a-codex-theme-to-another-computer) — Save each app theme variant as a portable import string and reinstall fonts separately on the destination computer. ([Markdown](https://www.dexthemes.com/guides/move-a-codex-theme-to-another-computer.md))
+- [Official Curated and Community Themes](https://www.dexthemes.com/guides/official-curated-community-themes) — Distinguish Codex-sourced theme families, DexThemes-maintained palettes, and published community submissions. ([Markdown](https://www.dexthemes.com/guides/official-curated-community-themes.md))
+- [Share a Custom Codex Theme](https://www.dexthemes.com/guides/share-a-custom-codex-theme) — Share a portable theme import string, a public theme page, or a community submission without implying automatic installation. ([Markdown](https://www.dexthemes.com/guides/share-a-custom-codex-theme.md))
+
+### Features
+- [Codex Theme Import Handoff](https://www.dexthemes.com/features/codex-theme-import) — Copy a validated DexThemes import string and complete the theme change explicitly in Codex Appearance settings. ([Markdown](https://www.dexthemes.com/features/codex-theme-import.md))
+- [Codex Theme Library](https://www.dexthemes.com/features/theme-library) — Browse built-in Codex palettes, DexThemes collections, and creator-published community themes in one catalog. ([Markdown](https://www.dexthemes.com/features/theme-library.md))
+- [Color Me Lucky Theme Generator](https://www.dexthemes.com/features/color-me-lucky) — Generate an editable dark or light Codex palette from coordinated hues, then preview and import it safely. ([Markdown](https://www.dexthemes.com/features/color-me-lucky.md))
+- [Community Codex Themes](https://www.dexthemes.com/features/community-themes) — Publish original palettes, browse creator attribution, request missing variants, and report themes through DexThemes. ([Markdown](https://www.dexthemes.com/features/community-themes.md))
+- [Custom Codex Theme Builder](https://www.dexthemes.com/features/theme-builder) — Design a dark or light Codex palette with live previews, semantic colors, local drafts, and an explicit import handoff. ([Markdown](https://www.dexthemes.com/features/theme-builder.md))
+- [DexThemes Achievements and Unlocks](https://www.dexthemes.com/features/achievements-and-unlocks) — Earn account-bound reward themes through creation, community participation, qualified rankings, and supported integrations. ([Markdown](https://www.dexthemes.com/features/achievements-and-unlocks.md))
+- [DexThemes Codex Plugin and MCP App](https://www.dexthemes.com/features/codex-plugin) — Discover, create, preview, import, collect, and publish Codex themes through an implemented MCP-backed app. ([Markdown](https://www.dexthemes.com/features/codex-plugin.md))
+- [DexThemes Community Leaderboard](https://www.dexthemes.com/features/leaderboard) — Understand daily, weekly, monthly, and all-time rankings, qualified adoptions, UTC periods, and reward eligibility. ([Markdown](https://www.dexthemes.com/features/leaderboard.md))
+- [DexThemes Creator Dashboard](https://www.dexthemes.com/features/creator-dashboard) — Review private theme totals, current ranks, finalized popularity history, activity, and achievements after signing in. ([Markdown](https://www.dexthemes.com/features/creator-dashboard.md))
+- [DexThemes Open Source Project](https://www.dexthemes.com/features/open-source) — Explore, run, validate, and contribute to the MIT-licensed DexThemes website, theme catalog, API, and MCP app. ([Markdown](https://www.dexthemes.com/features/open-source.md))
+- [DexThemes Theme API](https://www.dexthemes.com/features/theme-api) — Read the public Codex theme catalog, filter exact variants, and discover the documented MCP and account surfaces. ([Markdown](https://www.dexthemes.com/features/theme-api.md))
+- [Interactive Codex Theme Previews](https://www.dexthemes.com/features/interactive-previews) — Compare dark and light palettes, accents, semantic colors, and theme details before importing a Codex theme. ([Markdown](https://www.dexthemes.com/features/interactive-previews.md))
+- [Theme Likes and Sharing](https://www.dexthemes.com/features/likes-and-sharing) — Like a theme with a signed-in account or share its exact dark or light public page without applying it. ([Markdown](https://www.dexthemes.com/features/likes-and-sharing.md))
+
+### Articles
+- [Best Codex Themes for Long Coding Sessions](https://www.dexthemes.com/articles/best-codex-themes-for-long-coding-sessions) — A practical shortlist of Codex themes with restrained accents, clear workspace hierarchy, and readable semantic colors. ([Markdown](https://www.dexthemes.com/articles/best-codex-themes-for-long-coding-sessions.md))
+- [Best High-Contrast Codex Themes](https://www.dexthemes.com/articles/best-high-contrast-codex-themes) — Codex themes with strong visible separation between workspace surfaces, primary ink, accents, and semantic code colors. ([Markdown](https://www.dexthemes.com/articles/best-high-contrast-codex-themes.md))
+- [Best Light Codex Themes for Daytime](https://www.dexthemes.com/articles/best-light-codex-themes-for-daytime) — Five light Codex themes for bright workspaces, compared by surface tone, ink, hierarchy, accents, and diff colors. ([Markdown](https://www.dexthemes.com/articles/best-light-codex-themes-for-daytime.md))
+- [Designing Colors for Code Review and Diffs](https://www.dexthemes.com/articles/designing-colors-for-code-review-and-diffs) — A practical method for choosing addition and removal colors that work with surfaces, code backgrounds, accents, and non-color signals. ([Markdown](https://www.dexthemes.com/articles/designing-colors-for-code-review-and-diffs.md))
+- [GitHub Dark vs One Dark vs Dracula for Codex](https://www.dexthemes.com/articles/github-dark-vs-one-dark-vs-dracula-for-codex) — A direct comparison of three verified dark-only Codex themes by workspace hierarchy, ink, accents, syntax roles, and diff colors. ([Markdown](https://www.dexthemes.com/articles/github-dark-vs-one-dark-vs-dracula-for-codex.md))
+- [How We Test Codex Themes](https://www.dexthemes.com/articles/how-we-test-codex-themes) — The DexThemes editorial method for checking catalog integrity, palette roles, contextual previews, import payloads, and loaded runtime evidence. ([Markdown](https://www.dexthemes.com/articles/how-we-test-codex-themes.md))
+- [What Makes a Good Codex Theme](https://www.dexthemes.com/articles/what-makes-a-good-codex-theme) — A practical framework for judging Codex themes by hierarchy, readable ink, purposeful accents, semantic colors, and real workspace context. ([Markdown](https://www.dexthemes.com/articles/what-makes-a-good-codex-theme.md))
+
+### Reference
+- [Codex Theme Format Reference](https://www.dexthemes.com/reference/codex-theme-format) — Field-by-field reference for the codex-theme-v1 string generated and validated by DexThemes. ([Markdown](https://www.dexthemes.com/reference/codex-theme-format.md))
 
 ## Theme Catalog
 
