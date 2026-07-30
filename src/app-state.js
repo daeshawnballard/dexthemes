@@ -5,11 +5,13 @@
 import { THEMES } from './theme-catalog.js';
 import { SUPPORTER_THEME_ID, getUnlockActionForThemeId } from './unlocks.js';
 import { normalizeThemeVariant, readThemeRoute, syncThemeUrl } from './theme-url.js';
+import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
 
 // URL state takes priority over localStorage. Query deep links are canonicalized
 // to copyable paths such as /mancity/dark after their values are read.
 const _themeRoute = readThemeRoute(window.location);
-const _urlThemeId = _themeRoute.themeId;
+const _routeThemeId = _themeRoute.themeId;
+const _urlThemeId = _routeThemeId ? resolvePluginThemeSourceId(_routeThemeId) : null;
 const _urlVariant = _themeRoute.variant;
 const _savedThemeId = _urlThemeId || localStorage.getItem('dexthemes-selected');
 const _requestedTheme = _savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId);
@@ -22,14 +24,14 @@ export let selectedVariant = _urlVariant || normalizeThemeVariant(localStorage.g
 export let deferredProtectedThemeId = _requestedThemeIsProtected ? _requestedTheme.id : null;
 
 // Track if we arrived via a share deep link (for mobile auto-preview)
-export const isDeepLink = !!_urlThemeId;
+export const isDeepLink = !!_routeThemeId;
 export const deepLinkThemeId = _urlThemeId;
 
 // Keep the address bar aligned with what the preview is actually showing.
-if (_urlThemeId) {
-  syncThemeUrl(_urlThemeId, selectedVariant);
+if (_routeThemeId) {
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
 } else if (_savedThemeId && selectedTheme.id === _savedThemeId) {
-  syncThemeUrl(selectedTheme.id, selectedVariant);
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
 }
 
 export let selectedAccentIdx = 0;
@@ -88,7 +90,7 @@ export function setSelectedVariant(variant) {
 }
 
 export function syncSelectedThemeUrl() {
-  syncThemeUrl(selectedTheme?.id, selectedVariant);
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
 }
 
 export function setSelectedAccentIdx(index) { selectedAccentIdx = index; }

@@ -1,4 +1,5 @@
 import { STATIC_THEME_CATALOG, normalizeDexThemesSubgroup } from '../shared/theme-api-catalog.js';
+import { presentThemeForPublicApi } from '../shared/plugin-public-policy.js';
 
 export const config = { runtime: 'edge' };
 
@@ -20,7 +21,9 @@ export default function handler(req) {
   const themes = STATIC_THEME_CATALOG.filter(
       (theme) => theme.category === 'dexthemes' && normalizeDexThemesSubgroup(theme.subgroup) === normalizedGroup,
     )
-    .filter((theme) => !theme._hiddenUntilUnlocked);
+    .filter((theme) => !theme._hiddenUntilUnlocked)
+    .map((theme) => presentThemeForPublicApi(theme))
+    .filter(Boolean);
 
   return new Response(JSON.stringify(themes), {
     status: 200,

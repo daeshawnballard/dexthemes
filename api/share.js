@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { buildThemeImageVersion, resolveTheme } from './theme-data.js';
+import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
@@ -23,7 +24,10 @@ export default async function handler(req, res) {
   let theme = null;
   let themeLookupFailed = false;
   try {
-    theme = await resolveTheme(themeMap, themeId);
+    theme = await resolveTheme(
+      themeMap,
+      getWebsiteThemeId(resolvePluginThemeSourceId(themeId)),
+    );
   } catch (error) {
     themeLookupFailed = true;
     console.warn(`Unable to resolve social preview theme "${themeId}":`, error);
@@ -34,14 +38,15 @@ export default async function handler(req, res) {
   const displayName = theme
     ? theme.name
     : themeId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const publicThemeId = theme?.id || themeId;
 
   const title = displayName;
   const description = `Preview this Codex theme on DexThemes and apply it instantly.`;
 
   const origin = getRequestOrigin(req);
-  const ogImageUrl = `${origin}/api/og?theme=${enc(themeId)}&variant=${enc(variantKey)}&v=${enc(imageVersion)}`;
-  const canonicalUrl = `${origin}/${enc(themeId)}/${enc(variantKey)}`;
-  const appUrl = `${origin}/?theme=${enc(themeId)}&variant=${enc(variantKey)}`;
+  const ogImageUrl = `${origin}/api/og?theme=${enc(publicThemeId)}&variant=${enc(variantKey)}&v=${enc(imageVersion)}`;
+  const canonicalUrl = `${origin}/${enc(publicThemeId)}/${enc(variantKey)}`;
+  const appUrl = `${origin}/${enc(publicThemeId)}/${enc(variantKey)}`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">

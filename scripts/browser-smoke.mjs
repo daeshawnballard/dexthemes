@@ -151,6 +151,25 @@ try {
     await page.close();
   });
 
+  await runTest('desktop fandom intent resolves to an original identity with visual descriptors', async () => {
+    const page = await bootDesktopPageAt(
+      browser,
+      `${server.baseUrl}/?theme=naruto-hidden-leaf&variant=dark`,
+    );
+    const expectedSummary = 'Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.';
+    assert.equal(await page.locator('#preview-theme-name').textContent(), 'Seventh Fire Shadow');
+    assert.equal(await page.locator('#preview-theme-summary').textContent(), expectedSummary);
+    assert.equal(await page.locator('.preview-theme-summary').textContent(), `Palette direction${expectedSummary}`);
+    assert.equal(await page.locator('.mini-theme-summary').count(), 2);
+    assert.equal(new URL(page.url()).pathname, '/seventh-fire-shadow/dark');
+
+    await page.fill('#sidebar-search', 'Naruto');
+    const searchResult = page.locator('[data-theme-id="naruto-hidden-leaf"] .thread-title');
+    await searchResult.waitFor();
+    assert.equal(await searchResult.textContent(), 'Seventh Fire Shadow');
+    await page.close();
+  });
+
   await runTest('desktop variant switching updates the selected card', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
     const activeThemeId = await page.locator('.thread-item.active').first().getAttribute('data-theme-id');

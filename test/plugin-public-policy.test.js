@@ -3,9 +3,13 @@ import test from 'node:test';
 import {
   PLUGIN_THEME_ALIASES,
   evaluatePublicThemeIdentity,
+  getWebsiteThemeId,
   isPluginUnlockVisible,
+  presentThemeForPublicApi,
+  presentThemeForWebsite,
   sanitizeCreatorStatsForPlugin,
   sanitizeThemeForPlugin,
+  websiteThemeMatchesSearch,
 } from '../shared/plugin-public-policy.js';
 import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
 import {
@@ -23,6 +27,11 @@ test('descriptive country, sport, and time-of-day inspiration remains publishabl
   });
   assert.equal(evaluatePublicThemeIdentity(theme).allowed, true);
   assert.equal(validatePublicTheme(theme).valid, true);
+  assert.equal(evaluatePublicThemeIdentity({
+    name: 'Blue Halo',
+    id: 'blue-halo',
+    summary: 'A soft ring of blue light.',
+  }).allowed, true);
 });
 
 test('private fandom drafts remain usable while public wording is gated', () => {
@@ -47,11 +56,12 @@ test('curated plugin aliases are original, deterministic, and recognizable by at
   assert.deepEqual(PLUGIN_THEME_ALIASES['naruto-hidden-leaf'], {
     id: 'seventh-fire-shadow',
     name: 'Seventh Fire Shadow',
-    summary: 'A leaf-green and ember-orange palette for a steadfast village guardian.',
+    summary: 'Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.',
   });
   assert.equal(PLUGIN_THEME_ALIASES['master-chief'].name, 'Emerald Spartan');
   for (const alias of Object.values(PLUGIN_THEME_ALIASES)) {
     assert.equal(evaluatePublicThemeIdentity(alias).allowed, true, alias.name);
+    assert.ok(alias.summary?.length > 20, `Missing useful summary for ${alias.name}`);
   }
   const directReferenceGroups = new Set(['anime', 'video-games', 'movies', 'comics', 'companies']);
   const directReferenceThemes = STATIC_THEME_CATALOG.filter((theme) =>
@@ -59,8 +69,46 @@ test('curated plugin aliases are original, deterministic, and recognizable by at
   );
   assert.equal(directReferenceThemes.length, Object.keys(PLUGIN_THEME_ALIASES).length);
   for (const theme of directReferenceThemes) {
-    assert.ok(PLUGIN_THEME_ALIASES[theme.id], `Missing plugin alias for ${theme.id}`);
+    const alias = PLUGIN_THEME_ALIASES[theme.id];
+    assert.ok(alias, `Missing plugin alias for ${theme.id}`);
+    assert.equal(theme.name, alias.name, `Public catalog name drifted for ${theme.id}`);
+    assert.equal(theme._summary, alias.summary, `Public catalog summary drifted for ${theme.id}`);
   }
+});
+
+test('website aliases preserve source links while keeping familiar intent searchable', () => {
+  const source = {
+    id: 'naruto-hidden-leaf',
+    name: 'Naruto / Hidden Leaf',
+    category: 'dexthemes',
+    dark: { accent: '#FF9F1C' },
+  };
+  const presented = presentThemeForWebsite(source);
+
+  assert.equal(presented.id, source.id);
+  assert.equal(getWebsiteThemeId(presented), 'seventh-fire-shadow');
+  assert.equal(presented.name, 'Seventh Fire Shadow');
+  assert.equal(
+    presented._summary,
+    'Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.',
+  );
+  assert.equal(websiteThemeMatchesSearch(presented, 'Naruto'), true);
+  assert.equal(websiteThemeMatchesSearch(presented, 'Seventh Hokage'), true);
+  assert.equal(websiteThemeMatchesSearch(presented, 'purple garden'), false);
+
+  const apiTheme = presentThemeForPublicApi(source);
+  assert.equal(apiTheme.id, 'seventh-fire-shadow');
+  assert.equal(apiTheme.themeId, 'seventh-fire-shadow');
+  assert.equal(apiTheme.name, 'Seventh Fire Shadow');
+});
+
+test('website presentation omits unsafe unaliased community identities', () => {
+  assert.equal(presentThemeForWebsite({
+    id: 'naruto-fan-submission',
+    name: 'Naruto Fan Theme',
+    summary: 'A public fandom submission.',
+    category: 'community',
+  }), null);
 });
 
 test('plugin search and fetch return aliases without exposing source catalog labels', async (t) => {
@@ -85,7 +133,8 @@ test('plugin search and fetch return aliases without exposing source catalog lab
   const haloResults = await searchThemes('Halo Reach', 3);
   assert.equal(haloResults[0].id, 'emerald-spartan');
   assert.equal(haloResults[0].name, 'Emerald Spartan');
-  assert.doesNotMatch(JSON.stringify(haloResults), /Halo|Master Chief|Mjolnir/i);
+  assert.doesNotMatch(JSON.stringify(haloResults[0]), /Halo|Master Chief|Mjolnir/i);
+  assert.doesNotMatch(JSON.stringify(haloResults), /Master Chief|Mjolnir/i);
 });
 
 test('Patron and supporter status are absent from plugin account payloads', () => {

@@ -2,6 +2,7 @@ import { ImageResponse } from '@vercel/og';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { resolveTheme } from './theme-data.js';
+import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
@@ -21,7 +22,10 @@ export default async function handler(req, res) {
 
   let theme;
   try {
-    theme = await resolveTheme(themeMap, themeId);
+    theme = await resolveTheme(
+      themeMap,
+      getWebsiteThemeId(resolvePluginThemeSourceId(themeId)),
+    );
   } catch (error) {
     console.warn(`Unable to resolve OG image theme "${themeId}":`, error);
     res.setHeader('Cache-Control', 'no-store');
@@ -38,7 +42,7 @@ export default async function handler(req, res) {
     const likesRes = await fetch('https://acrobatic-corgi-867.convex.site/themes/likes/counts');
     if (likesRes.ok) {
       const counts = await likesRes.json();
-      likes = counts[themeId] || 0;
+      likes = counts[theme.sourceId || themeId] || 0;
     }
   } catch (e) { /* fail silently */ }
 

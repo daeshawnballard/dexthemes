@@ -2,6 +2,8 @@
 // DexThemes — Theme Catalog & Static Taxonomy
 // ================================================
 
+import { presentThemeForWebsite } from '../shared/plugin-public-policy.js';
+
 // Default semantic colors used when a Codex theme doesn't define them
 export const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
 export const LIGHT_DEFAULTS = { diffAdded: '#00a240', diffRemoved: '#ba2623', skill: '#924ff7' };
@@ -175,7 +177,10 @@ export const THEMES = [
   // ==============================
   // DEXTHEMES (loaded from theme-data/dexthemes/*)
   // ==============================
-  ...Object.values((window.DEXTHEMES_PACKS && window.DEXTHEMES_PACKS.dexthemes) || {}).flat(),
+  ...Object.values((window.DEXTHEMES_PACKS && window.DEXTHEMES_PACKS.dexthemes) || {})
+    .flat()
+    .map((theme) => presentThemeForWebsite(theme))
+    .filter(Boolean),
 
   // ==============================
   // COMMUNITY THEMES

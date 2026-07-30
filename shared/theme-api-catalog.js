@@ -1109,7 +1109,7 @@ export const STATIC_THEME_CATALOG = [
   {
     "id": "ichigo-bankai",
     "themeId": "ichigo-bankai",
-    "name": "Ichigo / Bankai",
+    "name": "Crimson Soulblade",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1145,12 +1145,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure."
   },
   {
     "id": "ichigo-hollow",
     "themeId": "ichigo-hollow",
-    "name": "Ichigo / Hollow Mask",
+    "name": "Ivory Mask Soulblade",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1186,12 +1186,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge."
   },
   {
     "id": "naruto-hidden-leaf",
     "themeId": "naruto-hidden-leaf",
-    "name": "Naruto / Hidden Leaf",
+    "name": "Seventh Fire Shadow",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1227,12 +1227,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward."
   },
   {
     "id": "gachiakuta-rudo",
     "themeId": "gachiakuta-rudo",
-    "name": "Gachiakuta / Rudo",
+    "name": "Groundbound Scavenger",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1268,12 +1268,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps."
   },
   {
     "id": "eren-titan-fall",
     "themeId": "eren-titan-fall",
-    "name": "Eren / Titan Fall",
+    "name": "Fallen Colossus",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1309,12 +1309,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale."
   },
   {
     "id": "goku-ultra-instinct",
     "themeId": "goku-ultra-instinct",
-    "name": "Goku / Ultra Instinct",
+    "name": "Silver Instinct",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1350,12 +1350,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus."
   },
   {
     "id": "goku-ssj4",
     "themeId": "goku-ssj4",
-    "name": "Goku / Super Saiyan 4",
+    "name": "Primal Crimson Ascent",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1391,12 +1391,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher."
   },
   {
     "id": "yuji-sukuna",
     "themeId": "yuji-sukuna",
-    "name": "Yuji / Sukuna",
+    "name": "Cursed Twin Vessel",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1432,12 +1432,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame."
   },
   {
     "id": "gojo-limitless",
     "themeId": "gojo-limitless",
-    "name": "Gojo / Limitless",
+    "name": "Infinite Azure",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1473,12 +1473,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach."
   },
   {
     "id": "jojo-dio",
     "themeId": "jojo-dio",
-    "name": "JoJo / Dio",
+    "name": "Golden Timebreaker",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1514,12 +1514,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock."
   },
   {
     "id": "solo-leveling",
     "themeId": "solo-leveling",
-    "name": "Sung Jinwoo / Igris",
+    "name": "Solo Shadow Ascent",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1555,12 +1555,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows."
   },
   {
     "id": "trigun-gunsmoke",
     "themeId": "trigun-gunsmoke",
-    "name": "Trigun / Gunsmoke",
+    "name": "Scarlet Gunsmoke",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1596,12 +1596,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier."
   },
   {
     "id": "cowboy-bebop",
     "themeId": "cowboy-bebop",
-    "name": "Cowboy Bebop / Blue Jazz",
+    "name": "Blue Space Jazz",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1637,12 +1637,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm."
   },
   {
     "id": "ghost-in-the-shell",
     "themeId": "ghost-in-the-shell",
-    "name": "Ghost in the Shell / Major",
+    "name": "Cybernetic Major",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1678,12 +1678,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine."
   },
   {
     "id": "gundam-rx-78-2",
     "themeId": "gundam-rx-78-2",
-    "name": "Gundam / RX-78-2",
+    "name": "White Orbital Prototype",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1720,12 +1720,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace."
   },
   {
     "id": "gundam-seed-strike",
     "themeId": "gundam-seed-strike",
-    "name": "Gundam SEED / Strike",
+    "name": "Cosmic Strikeframe",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1762,12 +1762,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work."
   },
   {
     "id": "gundam-00-exia-trans-am",
     "themeId": "gundam-00-exia-trans-am",
-    "name": "Gundam 00 / Exia Trans-Am",
+    "name": "Azure Translight",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1804,12 +1804,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive."
   },
   {
     "id": "luffy-gear-five",
     "themeId": "luffy-gear-five",
-    "name": "Luffy / Gear Five",
+    "name": "Sunlit Rubber Myth",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1845,7 +1845,7 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum."
   },
   {
     "id": "shonen-sunset",
@@ -1891,7 +1891,7 @@ export const STATIC_THEME_CATALOG = [
   {
     "id": "liger-zero-base",
     "themeId": "liger-zero-base",
-    "name": "Liger Zero / Base",
+    "name": "Zero Mechcat",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1927,12 +1927,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit."
   },
   {
     "id": "liger-zero-schneider",
     "themeId": "liger-zero-schneider",
-    "name": "Liger Zero / Schneider",
+    "name": "Zero Bladecat",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1968,12 +1968,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge."
   },
   {
     "id": "liger-zero-jager",
     "themeId": "liger-zero-jager",
-    "name": "Liger Zero / Jager",
+    "name": "Zero Swiftcat",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2009,12 +2009,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity."
   },
   {
     "id": "liger-zero-panzer",
     "themeId": "liger-zero-panzer",
-    "name": "Liger Zero / Panzer",
+    "name": "Zero Siegecat",
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2050,12 +2050,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line."
   },
   {
     "id": "master-chief",
     "themeId": "master-chief",
-    "name": "Master Chief / Mjolnir",
+    "name": "Emerald Spartan",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2091,12 +2091,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds."
   },
   {
     "id": "aloy-horizon",
     "themeId": "aloy-horizon",
-    "name": "Aloy / Horizon",
+    "name": "Sunset Machine Huntress",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2132,12 +2132,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world."
   },
   {
     "id": "kratos-olympus",
     "themeId": "kratos-olympus",
-    "name": "Kratos / Olympus",
+    "name": "Ashen Godslayer",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2173,12 +2173,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences."
   },
   {
     "id": "xbox-neon",
     "themeId": "xbox-neon",
-    "name": "Xbox / Neon",
+    "name": "Neon Console Green",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2214,12 +2214,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Electric green on carbon black for a fast, high-contrast console glow."
   },
   {
     "id": "playstation-cosmos",
     "themeId": "playstation-cosmos",
-    "name": "PlayStation / Cosmos",
+    "name": "Cosmic Controller",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2255,12 +2255,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace."
   },
   {
     "id": "nintendo-switch",
     "themeId": "nintendo-switch",
-    "name": "Nintendo / Switch Split",
+    "name": "Split-Screen Neon",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2296,12 +2296,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Split cyan and coral over graphite for playful motion and handheld energy."
   },
   {
     "id": "mario-mushroom",
     "themeId": "mario-mushroom",
-    "name": "Mario / Mushroom Kingdom",
+    "name": "Scarlet Mushroom Run",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2337,12 +2337,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level."
   },
   {
     "id": "sonic-boost",
     "themeId": "sonic-boost",
-    "name": "Sonic / Boost",
+    "name": "Cobalt Speedline",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2378,12 +2378,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up."
   },
   {
     "id": "jet-set-radio",
     "themeId": "jet-set-radio",
-    "name": "Jet Set Radio Future",
+    "name": "Future Graffiti Radio",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2419,12 +2419,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum."
   },
   {
     "id": "samus-metroid",
     "themeId": "samus-metroid",
-    "name": "Samus / Metroid",
+    "name": "Orange Star Bounty",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2460,12 +2460,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds."
   },
   {
     "id": "pikachu-voltage",
     "themeId": "pikachu-voltage",
-    "name": "Pikachu / Voltage",
+    "name": "Pocket Voltage",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2501,12 +2501,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still."
   },
   {
     "id": "ash-indigo",
     "themeId": "ash-indigo",
-    "name": "Ash / Indigo",
+    "name": "Indigo Field Trainer",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2542,12 +2542,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth."
   },
   {
     "id": "zelda-hyrule",
     "themeId": "zelda-hyrule",
-    "name": "Zelda / Hyrule",
+    "name": "Emerald Kingdom Legend",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2583,12 +2583,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom."
   },
   {
     "id": "doom-slayer",
     "themeId": "doom-slayer",
-    "name": "Doom / Slayer",
+    "name": "Infernal Slayer",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2624,12 +2624,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Hellfire orange, scorched black, and warning red for relentless forward motion."
   },
   {
     "id": "mega-man-cobalt",
     "themeId": "mega-man-cobalt",
-    "name": "Mega Man / Cobalt",
+    "name": "Cobalt Arm Cannon",
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -2665,12 +2665,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving."
   },
   {
     "id": "terminator-future-war",
     "themeId": "terminator-future-war",
-    "name": "Terminator / Future War",
+    "name": "Chrome Future Hunter",
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -2706,12 +2706,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow."
   },
   {
     "id": "avatar-pandora",
     "themeId": "avatar-pandora",
-    "name": "Avatar / Pandora",
+    "name": "Bioluminescent Moon",
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -2747,12 +2747,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness."
   },
   {
     "id": "kill-bill-bride",
     "themeId": "kill-bill-bride",
-    "name": "Kill Bill / Bride",
+    "name": "Golden Bride",
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -2788,12 +2788,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge."
   },
   {
     "id": "batman-knight",
     "themeId": "batman-knight",
-    "name": "Batman / Knight",
+    "name": "Nocturnal Vigil",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -2829,12 +2829,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark."
   },
   {
     "id": "superman-krypton",
     "themeId": "superman-krypton",
-    "name": "Superman / Krypton",
+    "name": "Solar Sentinel",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -2870,12 +2870,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky."
   },
   {
     "id": "wonder-woman",
     "themeId": "wonder-woman",
-    "name": "Wonder Woman / Amazon",
+    "name": "Amazonian Truth",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -2911,12 +2911,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace."
   },
   {
     "id": "spider-man",
     "themeId": "spider-man",
-    "name": "Spider-Man / Webline",
+    "name": "Scarlet Webline",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -2952,12 +2952,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline."
   },
   {
     "id": "black-panther",
     "themeId": "black-panther",
-    "name": "Black Panther / Vibranium",
+    "name": "Violet Panther Guard",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -2993,12 +2993,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Royal violet, polished silver, and deep black for quiet precision and protected power."
   },
   {
     "id": "iron-man",
     "themeId": "iron-man",
-    "name": "Iron Man / Arc Reactor",
+    "name": "Crimson Arc Armor",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -3034,12 +3034,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell."
   },
   {
     "id": "daredevil-elektra",
     "themeId": "daredevil-elektra",
-    "name": "Daredevil / Elektra",
+    "name": "Scarlet Rooftop Duel",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -3075,12 +3075,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city."
   },
   {
     "id": "avengers-assemble",
     "themeId": "avengers-assemble",
-    "name": "Avengers / Assemble",
+    "name": "United Hero Signal",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -3116,12 +3116,12 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team."
   },
   {
     "id": "justice-league",
     "themeId": "justice-league",
-    "name": "Justice League / Watchtower",
+    "name": "Worldwatch Alliance",
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -3157,7 +3157,7 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale."
   },
   {
     "id": "aquarius-waterbearer",
@@ -4146,7 +4146,7 @@ export const STATIC_THEME_CATALOG = [
   {
     "id": "liquid-glass",
     "themeId": "liquid-glass",
-    "name": "Liquid Glass / Apple",
+    "name": "Orchard Glass",
     "category": "dexthemes",
     "subgroup": "companies",
     "codeThemeId": "codex",
@@ -4182,7 +4182,7 @@ export const STATIC_THEME_CATALOG = [
     "_company": "Apple",
     "_hiddenUntilUnlocked": null,
     "_locked": true,
-    "_summary": null
+    "_summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace."
   },
   {
     "id": "current-valentine",

@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { buildThemeBundle } from "./build-theme-bundle.mjs";
 import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
+import { getWebsiteThemeId } from "../shared/plugin-public-policy.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -81,15 +82,19 @@ function formatVariant(label, variant) {
 
 function buildLlmsFullCatalog(themes) {
   const visibleThemes = themes.filter(isPublicCatalogTheme);
-  const entries = visibleThemes.map((theme) => [
+  const entries = visibleThemes.map((theme) => {
+    const publicThemeId = getWebsiteThemeId(theme);
+    const preferredVariant = theme.dark ? "dark" : "light";
+    return [
     `### ${theme.name}`,
-    `- ID: \`${theme.id}\``,
+    `- ID: \`${publicThemeId}\``,
     `- Category: ${theme.category}${theme.subgroup ? ` / ${theme.subgroup}` : ""}`,
-    `- Deep link: https://dexthemes.com/?theme=${encodeURIComponent(theme.id)}`,
+    `- Deep link: https://dexthemes.com/${encodeURIComponent(publicThemeId)}/${preferredVariant}`,
     theme._summary ? `- Summary: ${theme._summary}` : null,
     formatVariant("Dark", theme.dark),
     formatVariant("Light", theme.light),
-  ].filter(Boolean).join("\n")).join("\n\n");
+    ].filter(Boolean).join("\n");
+  }).join("\n\n");
 
   return `# DexThemes — Full Theme Catalog
 
@@ -133,7 +138,7 @@ function buildSitemap(themes) {
     .flatMap((theme) => ["dark", "light"]
       .filter((variant) => Boolean(theme[variant]))
       .map((variant) => ({
-        url: `https://dexthemes.com/?theme=${encodeURIComponent(theme.id)}&variant=${variant}`,
+        url: `https://dexthemes.com/${encodeURIComponent(getWebsiteThemeId(theme))}/${variant}`,
         changefreq: "weekly",
         priority: "0.7",
         lastmod: theme.dateAdded || "2026-03-15",
@@ -184,11 +189,17 @@ export function normalizeDexThemesSubgroup(segment) {
   const themeMap = Object.fromEntries(
     staticThemes
       .filter(isPublicCatalogTheme)
-      .map((theme) => [theme.id, {
-        name: theme.name,
-        dark: theme.dark,
-        light: theme.light,
-      }]),
+      .flatMap((theme) => {
+        const publicThemeId = getWebsiteThemeId(theme);
+        const publicTheme = {
+          id: publicThemeId,
+          sourceId: theme.id,
+          name: theme.name,
+          dark: theme.dark,
+          light: theme.light,
+        };
+        return [[publicThemeId, publicTheme]];
+      }),
   );
   await writeFile(themeMapOutputPath, `${JSON.stringify(themeMap, null, 2)}\n`);
   await writeFile(llmsFullOutputPath, buildLlmsFullCatalog(staticThemes));

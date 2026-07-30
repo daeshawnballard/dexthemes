@@ -77,6 +77,21 @@ test('community share pages emit the canonical theme name and a versioned image'
   );
 });
 
+test('legacy fandom share links canonicalize to the original public identity', async () => {
+  const res = createResponse();
+
+  await shareHandler({
+    url: '/api/share?theme=naruto-hidden-leaf&variant=dark',
+    headers: { host: 'www.dexthemes.com', 'x-forwarded-proto': 'https' },
+  }, res);
+
+  assert.equal(res.statusCode, 200);
+  assert.match(res.body, /<title>Seventh Fire Shadow<\/title>/);
+  assert.match(res.body, /<link rel="canonical" href="https:\/\/www\.dexthemes\.com\/seventh-fire-shadow\/dark">/);
+  assert.match(res.body, /theme=seventh-fire-shadow/);
+  assert.doesNotMatch(res.body, /Naruto|Hidden Leaf/i);
+});
+
 test('community OG requests render a PNG instead of returning 404', async (t) => {
   installCommunityFetch(t);
   const res = createResponse();

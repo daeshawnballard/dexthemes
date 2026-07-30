@@ -2,6 +2,10 @@ import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { STATIC_THEME_CATALOG, normalizeDexThemesSubgroup } from "../shared/theme-api-catalog.js";
 import {
+  presentThemeForPublicApi,
+  resolvePluginThemeSourceId,
+} from "../shared/plugin-public-policy.js";
+import {
   RATE_LIMITS,
   getClientIP,
   getSessionToken,
@@ -28,11 +32,14 @@ export function registerThemeRoutes(http: DexHttpRouter) {
   ]);
 
   const visibleStaticThemes = () =>
-    STATIC_THEME_CATALOG.filter((theme) => !theme._hiddenUntilUnlocked);
+    STATIC_THEME_CATALOG
+      .filter((theme) => !theme._hiddenUntilUnlocked)
+      .map((theme) => presentThemeForPublicApi(theme))
+      .filter(Boolean);
 
   const listCommunityThemes = async (ctx: any) => {
     const themes = await ctx.runQuery(internal.themes.listPublished, {});
-    return themes.map((theme: any) => ({
+    return themes.map((theme: any) => presentThemeForPublicApi({
       id: theme.themeId,
       themeId: theme.themeId,
       _id: theme._id,
@@ -59,7 +66,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
       _authorIsSupporter: !!theme.authorIsSupporter,
       _authorIsAgent: !!theme.authorIsAgent,
       _summary: theme.summary || null,
-    }));
+    })).filter(Boolean);
   };
 
   const withThemeReadRateLimit = async (ctx: any, request: Request) => {
@@ -281,7 +288,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
       try {
         const body = await request.json();
         const result = await ctx.runMutation(internal.themes.registerCopy, {
-          themeId: body.themeId,
+          themeId: resolvePluginThemeSourceId(body.themeId),
           ip,
           userId,
         });
@@ -328,7 +335,7 @@ export function registerThemeRoutes(http: DexHttpRouter) {
         const body = await request.json();
         const result = await ctx.runMutation(internal.likes.toggleLike, {
           sessionToken: token,
-          themeId: body.themeId,
+          themeId: resolvePluginThemeSourceId(body.themeId),
         });
         return jsonResponse(result, origin);
       } catch (e: any) {

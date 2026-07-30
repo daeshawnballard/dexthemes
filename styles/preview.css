@@ -105,6 +105,23 @@
   margin-bottom: 8px;
 }
 
+.preview-theme-summary {
+  margin: 0 0 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--accent);
+  color: inherit;
+  opacity: 0.78;
+}
+
+.preview-theme-summary-label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .assistant-surface {
   border: 1px solid var(--border);
   background:

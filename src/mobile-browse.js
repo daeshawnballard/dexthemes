@@ -6,6 +6,7 @@ import * as state from './state.js';
 import { escapeHtml, safeHexColor, safeImageSrc } from './utils.js';
 import { isMobile } from './mobile.js';
 import { isThemeVisibleInCatalog } from './theme-contracts.js';
+import { websiteThemeMatchesSearch } from '../shared/plugin-public-policy.js';
 
 let activeMobileCategory = 'official'; // which pill is selected
 let activeMobileSubgroup = 'all'; // subgroup filter for dexthemes
@@ -90,7 +91,7 @@ export function renderMobileBrowse() {
   const themes = state.THEMES.filter(t => {
     if (!isThemeVisibleInCatalog(t, state.userUnlocks)) return false;
     if (t.category !== activeMobileCategory) return false;
-    if (query && !t.name.toLowerCase().includes(query)) return false;
+    if (query && !websiteThemeMatchesSearch(t, query)) return false;
     // Subgroup filter for dexthemes
     if (activeMobileCategory === 'dexthemes' && activeMobileSubgroup !== 'all') {
       if (t.subgroup !== activeMobileSubgroup) return false;

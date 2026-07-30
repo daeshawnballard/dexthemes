@@ -1,5 +1,7 @@
 {
   "codex": {
+    "id": "codex",
+    "sourceId": "codex",
     "name": "Codex",
     "dark": {
       "surface": "#111111",
@@ -25,6 +27,8 @@
     }
   },
   "codex-disco-cloud": {
+    "id": "codex-disco-cloud",
+    "sourceId": "codex-disco-cloud",
     "name": "Codex / Disco Cloud",
     "dark": {
       "surface": "#080922",
@@ -50,6 +54,8 @@
     }
   },
   "absolutely": {
+    "id": "absolutely",
+    "sourceId": "absolutely",
     "name": "Absolutely",
     "dark": {
       "surface": "#2d2d2b",
@@ -75,6 +81,8 @@
     }
   },
   "ayu": {
+    "id": "ayu",
+    "sourceId": "ayu",
     "name": "Ayu",
     "dark": {
       "surface": "#0b0e14",
@@ -90,6 +98,8 @@
     "light": null
   },
   "catppuccin": {
+    "id": "catppuccin",
+    "sourceId": "catppuccin",
     "name": "Catppuccin",
     "dark": {
       "surface": "#1e1e2e",
@@ -115,6 +125,8 @@
     }
   },
   "dracula": {
+    "id": "dracula",
+    "sourceId": "dracula",
     "name": "Dracula",
     "dark": {
       "surface": "#282A36",
@@ -130,6 +142,8 @@
     "light": null
   },
   "everforest": {
+    "id": "everforest",
+    "sourceId": "everforest",
     "name": "Everforest",
     "dark": {
       "surface": "#2d353b",
@@ -155,6 +169,8 @@
     }
   },
   "github-dark": {
+    "id": "github-dark",
+    "sourceId": "github-dark",
     "name": "GitHub Dark",
     "dark": {
       "surface": "#0d1117",
@@ -170,6 +186,8 @@
     "light": null
   },
   "github-light": {
+    "id": "github-light",
+    "sourceId": "github-light",
     "name": "GitHub Light",
     "dark": null,
     "light": {
@@ -185,6 +203,8 @@
     }
   },
   "gruvbox": {
+    "id": "gruvbox",
+    "sourceId": "gruvbox",
     "name": "Gruvbox",
     "dark": {
       "surface": "#1d2021",
@@ -200,6 +220,8 @@
     "light": null
   },
   "linear": {
+    "id": "linear",
+    "sourceId": "linear",
     "name": "Linear",
     "dark": {
       "surface": "#0f0f11",
@@ -233,6 +255,8 @@
     }
   },
   "lobster": {
+    "id": "lobster",
+    "sourceId": "lobster",
     "name": "Lobster",
     "dark": {
       "surface": "#111827",
@@ -251,6 +275,8 @@
     "light": null
   },
   "material": {
+    "id": "material",
+    "sourceId": "material",
     "name": "Material",
     "dark": {
       "surface": "#212121",
@@ -266,6 +292,8 @@
     "light": null
   },
   "matrix": {
+    "id": "matrix",
+    "sourceId": "matrix",
     "name": "Matrix",
     "dark": {
       "surface": "#040805",
@@ -286,6 +314,8 @@
     "light": null
   },
   "monokai": {
+    "id": "monokai",
+    "sourceId": "monokai",
     "name": "Monokai",
     "dark": {
       "surface": "#272822",
@@ -301,6 +331,8 @@
     "light": null
   },
   "night-owl": {
+    "id": "night-owl",
+    "sourceId": "night-owl",
     "name": "Night Owl",
     "dark": {
       "surface": "#011627",
@@ -316,6 +348,8 @@
     "light": null
   },
   "nord": {
+    "id": "nord",
+    "sourceId": "nord",
     "name": "Nord",
     "dark": {
       "surface": "#2E3440",
@@ -331,6 +365,8 @@
     "light": null
   },
   "notion": {
+    "id": "notion",
+    "sourceId": "notion",
     "name": "Notion",
     "dark": {
       "surface": "#191919",
@@ -356,6 +392,8 @@
     }
   },
   "oscurange": {
+    "id": "oscurange",
+    "sourceId": "oscurange",
     "name": "Oscurange",
     "dark": {
       "surface": "#0b0b0f",
@@ -371,6 +409,8 @@
     "light": null
   },
   "one-dark": {
+    "id": "one-dark",
+    "sourceId": "one-dark",
     "name": "One Dark",
     "dark": {
       "surface": "#282c34",
@@ -386,6 +426,8 @@
     "light": null
   },
   "proof": {
+    "id": "proof",
+    "sourceId": "proof",
     "name": "Proof",
     "dark": null,
     "light": {
@@ -406,6 +448,8 @@
     }
   },
   "raycast": {
+    "id": "raycast",
+    "sourceId": "raycast",
     "name": "Raycast",
     "dark": {
       "surface": "#101010",
@@ -433,6 +477,8 @@
     }
   },
   "rose-pine": {
+    "id": "rose-pine",
+    "sourceId": "rose-pine",
     "name": "Rosé Pine",
     "dark": {
       "surface": "#191724",
@@ -448,6 +494,8 @@
     "light": null
   },
   "sentry": {
+    "id": "sentry",
+    "sourceId": "sentry",
     "name": "Sentry",
     "dark": {
       "surface": "#2d2935",
@@ -467,6 +515,8 @@
     "light": null
   },
   "solarized": {
+    "id": "solarized",
+    "sourceId": "solarized",
     "name": "Solarized",
     "dark": {
       "surface": "#002b36",
@@ -492,6 +542,8 @@
     }
   },
   "temple": {
+    "id": "temple",
+    "sourceId": "temple",
     "name": "Temple",
     "dark": {
       "surface": "#02120c",
@@ -507,6 +559,8 @@
     "light": null
   },
   "tokyo-night": {
+    "id": "tokyo-night",
+    "sourceId": "tokyo-night",
     "name": "Tokyo Night",
     "dark": {
       "surface": "#1a1b26",
@@ -522,6 +576,8 @@
     "light": null
   },
   "vercel": {
+    "id": "vercel",
+    "sourceId": "vercel",
     "name": "Vercel",
     "dark": {
       "surface": "#000000",
@@ -555,6 +611,8 @@
     }
   },
   "vscode-plus": {
+    "id": "vscode-plus",
+    "sourceId": "vscode-plus",
     "name": "VS Code+",
     "dark": {
       "surface": "#1E1E1E",
@@ -580,6 +638,8 @@
     }
   },
   "xcode": {
+    "id": "xcode",
+    "sourceId": "xcode",
     "name": "Xcode",
     "dark": {
       "surface": "#1f1f24",
@@ -610,8 +670,10 @@
       }
     }
   },
-  "ichigo-bankai": {
-    "name": "Ichigo / Bankai",
+  "crimson-soulblade": {
+    "id": "crimson-soulblade",
+    "sourceId": "ichigo-bankai",
+    "name": "Crimson Soulblade",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -635,8 +697,10 @@
       "codeBg": "#f1e9e4"
     }
   },
-  "ichigo-hollow": {
-    "name": "Ichigo / Hollow Mask",
+  "ivory-mask-soulblade": {
+    "id": "ivory-mask-soulblade",
+    "sourceId": "ichigo-hollow",
+    "name": "Ivory Mask Soulblade",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -660,8 +724,10 @@
       "codeBg": "#e8e4e9"
     }
   },
-  "naruto-hidden-leaf": {
-    "name": "Naruto / Hidden Leaf",
+  "seventh-fire-shadow": {
+    "id": "seventh-fire-shadow",
+    "sourceId": "naruto-hidden-leaf",
+    "name": "Seventh Fire Shadow",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -685,8 +751,10 @@
       "codeBg": "#f1eadf"
     }
   },
-  "gachiakuta-rudo": {
-    "name": "Gachiakuta / Rudo",
+  "groundbound-scavenger": {
+    "id": "groundbound-scavenger",
+    "sourceId": "gachiakuta-rudo",
+    "name": "Groundbound Scavenger",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -710,8 +778,10 @@
       "codeBg": "#e0d9ca"
     }
   },
-  "eren-titan-fall": {
-    "name": "Eren / Titan Fall",
+  "fallen-colossus": {
+    "id": "fallen-colossus",
+    "sourceId": "eren-titan-fall",
+    "name": "Fallen Colossus",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -735,8 +805,10 @@
       "codeBg": "#e9e4dc"
     }
   },
-  "goku-ultra-instinct": {
-    "name": "Goku / Ultra Instinct",
+  "silver-instinct": {
+    "id": "silver-instinct",
+    "sourceId": "goku-ultra-instinct",
+    "name": "Silver Instinct",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -760,8 +832,10 @@
       "codeBg": "#e7ebf1"
     }
   },
-  "goku-ssj4": {
-    "name": "Goku / Super Saiyan 4",
+  "primal-crimson-ascent": {
+    "id": "primal-crimson-ascent",
+    "sourceId": "goku-ssj4",
+    "name": "Primal Crimson Ascent",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -785,8 +859,10 @@
       "codeBg": "#eae4df"
     }
   },
-  "yuji-sukuna": {
-    "name": "Yuji / Sukuna",
+  "cursed-twin-vessel": {
+    "id": "cursed-twin-vessel",
+    "sourceId": "yuji-sukuna",
+    "name": "Cursed Twin Vessel",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -810,8 +886,10 @@
       "codeBg": "#f1e9e7"
     }
   },
-  "gojo-limitless": {
-    "name": "Gojo / Limitless",
+  "infinite-azure": {
+    "id": "infinite-azure",
+    "sourceId": "gojo-limitless",
+    "name": "Infinite Azure",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -835,8 +913,10 @@
       "codeBg": "#e7ecf1"
     }
   },
-  "jojo-dio": {
-    "name": "JoJo / Dio",
+  "golden-timebreaker": {
+    "id": "golden-timebreaker",
+    "sourceId": "jojo-dio",
+    "name": "Golden Timebreaker",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -860,8 +940,10 @@
       "codeBg": "#f1e9c8"
     }
   },
-  "solo-leveling": {
-    "name": "Sung Jinwoo / Igris",
+  "solo-shadow-ascent": {
+    "id": "solo-shadow-ascent",
+    "sourceId": "solo-leveling",
+    "name": "Solo Shadow Ascent",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -885,8 +967,10 @@
       "codeBg": "#e6e9f1"
     }
   },
-  "trigun-gunsmoke": {
-    "name": "Trigun / Gunsmoke",
+  "scarlet-gunsmoke": {
+    "id": "scarlet-gunsmoke",
+    "sourceId": "trigun-gunsmoke",
+    "name": "Scarlet Gunsmoke",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -910,8 +994,10 @@
       "codeBg": "#e7d8ba"
     }
   },
-  "cowboy-bebop": {
-    "name": "Cowboy Bebop / Blue Jazz",
+  "blue-space-jazz": {
+    "id": "blue-space-jazz",
+    "sourceId": "cowboy-bebop",
+    "name": "Blue Space Jazz",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -935,8 +1021,10 @@
       "codeBg": "#e8dab9"
     }
   },
-  "ghost-in-the-shell": {
-    "name": "Ghost in the Shell / Major",
+  "cybernetic-major": {
+    "id": "cybernetic-major",
+    "sourceId": "ghost-in-the-shell",
+    "name": "Cybernetic Major",
     "dark": {
       "contrast": 64,
       "diffAdded": "#2DD4BF",
@@ -960,8 +1048,10 @@
       "codeBg": "#e4eef1"
     }
   },
-  "gundam-rx-78-2": {
-    "name": "Gundam / RX-78-2",
+  "white-orbital-prototype": {
+    "id": "white-orbital-prototype",
+    "sourceId": "gundam-rx-78-2",
+    "name": "White Orbital Prototype",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -985,8 +1075,10 @@
       "codeBg": "#EEF2F8"
     }
   },
-  "gundam-seed-strike": {
-    "name": "Gundam SEED / Strike",
+  "cosmic-strikeframe": {
+    "id": "cosmic-strikeframe",
+    "sourceId": "gundam-seed-strike",
+    "name": "Cosmic Strikeframe",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1010,8 +1102,10 @@
       "codeBg": "#F4F7FB"
     }
   },
-  "gundam-00-exia-trans-am": {
-    "name": "Gundam 00 / Exia Trans-Am",
+  "azure-translight": {
+    "id": "azure-translight",
+    "sourceId": "gundam-00-exia-trans-am",
+    "name": "Azure Translight",
     "dark": {
       "contrast": 64,
       "diffAdded": "#2DD4BF",
@@ -1035,8 +1129,10 @@
       "codeBg": "#FBEAF0"
     }
   },
-  "luffy-gear-five": {
-    "name": "Luffy / Gear Five",
+  "sunlit-rubber-myth": {
+    "id": "sunlit-rubber-myth",
+    "sourceId": "luffy-gear-five",
+    "name": "Sunlit Rubber Myth",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1061,6 +1157,8 @@
     }
   },
   "shonen-sunset": {
+    "id": "shonen-sunset",
+    "sourceId": "shonen-sunset",
     "name": "Shonen Sunset",
     "dark": {
       "contrast": 64,
@@ -1085,8 +1183,10 @@
       "codeBg": "#f1e9da"
     }
   },
-  "liger-zero-base": {
-    "name": "Liger Zero / Base",
+  "zero-mechcat": {
+    "id": "zero-mechcat",
+    "sourceId": "liger-zero-base",
+    "name": "Zero Mechcat",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1110,8 +1210,10 @@
       "codeBg": "#EAEAF0"
     }
   },
-  "liger-zero-schneider": {
-    "name": "Liger Zero / Schneider",
+  "zero-bladecat": {
+    "id": "zero-bladecat",
+    "sourceId": "liger-zero-schneider",
+    "name": "Zero Bladecat",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1135,8 +1237,10 @@
       "codeBg": "#F6ECDF"
     }
   },
-  "liger-zero-jager": {
-    "name": "Liger Zero / Jager",
+  "zero-swiftcat": {
+    "id": "zero-swiftcat",
+    "sourceId": "liger-zero-jager",
+    "name": "Zero Swiftcat",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1160,8 +1264,10 @@
       "codeBg": "#E4EAF5"
     }
   },
-  "liger-zero-panzer": {
-    "name": "Liger Zero / Panzer",
+  "zero-siegecat": {
+    "id": "zero-siegecat",
+    "sourceId": "liger-zero-panzer",
+    "name": "Zero Siegecat",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1185,8 +1291,10 @@
       "codeBg": "#E8ECD8"
     }
   },
-  "master-chief": {
-    "name": "Master Chief / Mjolnir",
+  "emerald-spartan": {
+    "id": "emerald-spartan",
+    "sourceId": "master-chief",
+    "name": "Emerald Spartan",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1210,8 +1318,10 @@
       "codeBg": "#dce2d0"
     }
   },
-  "aloy-horizon": {
-    "name": "Aloy / Horizon",
+  "sunset-machine-huntress": {
+    "id": "sunset-machine-huntress",
+    "sourceId": "aloy-horizon",
+    "name": "Sunset Machine Huntress",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1235,8 +1345,10 @@
       "codeBg": "#e7d9c4"
     }
   },
-  "kratos-olympus": {
-    "name": "Kratos / Olympus",
+  "ashen-godslayer": {
+    "id": "ashen-godslayer",
+    "sourceId": "kratos-olympus",
+    "name": "Ashen Godslayer",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1260,8 +1372,10 @@
       "codeBg": "#e8e3dd"
     }
   },
-  "xbox-neon": {
-    "name": "Xbox / Neon",
+  "neon-console-green": {
+    "id": "neon-console-green",
+    "sourceId": "xbox-neon",
+    "name": "Neon Console Green",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1285,8 +1399,10 @@
       "codeBg": "#e6f1e7"
     }
   },
-  "playstation-cosmos": {
-    "name": "PlayStation / Cosmos",
+  "cosmic-controller": {
+    "id": "cosmic-controller",
+    "sourceId": "playstation-cosmos",
+    "name": "Cosmic Controller",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1310,8 +1426,10 @@
       "codeBg": "#e6e9f1"
     }
   },
-  "nintendo-switch": {
-    "name": "Nintendo / Switch Split",
+  "split-screen-neon": {
+    "id": "split-screen-neon",
+    "sourceId": "nintendo-switch",
+    "name": "Split-Screen Neon",
     "dark": {
       "contrast": 64,
       "diffAdded": "#14B8A6",
@@ -1335,8 +1453,10 @@
       "codeBg": "#f1e6e7"
     }
   },
-  "mario-mushroom": {
-    "name": "Mario / Mushroom Kingdom",
+  "scarlet-mushroom-run": {
+    "id": "scarlet-mushroom-run",
+    "sourceId": "mario-mushroom",
+    "name": "Scarlet Mushroom Run",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1360,8 +1480,10 @@
       "codeBg": "#f1e7da"
     }
   },
-  "sonic-boost": {
-    "name": "Sonic / Boost",
+  "cobalt-speedline": {
+    "id": "cobalt-speedline",
+    "sourceId": "sonic-boost",
+    "name": "Cobalt Speedline",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1385,8 +1507,10 @@
       "codeBg": "#e7edf1"
     }
   },
-  "jet-set-radio": {
-    "name": "Jet Set Radio Future",
+  "future-graffiti-radio": {
+    "id": "future-graffiti-radio",
+    "sourceId": "jet-set-radio",
+    "name": "Future Graffiti Radio",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1410,8 +1534,10 @@
       "codeBg": "#ebf1da"
     }
   },
-  "samus-metroid": {
-    "name": "Samus / Metroid",
+  "orange-star-bounty": {
+    "id": "orange-star-bounty",
+    "sourceId": "samus-metroid",
+    "name": "Orange Star Bounty",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1435,8 +1561,10 @@
       "codeBg": "#e9e0d3"
     }
   },
-  "pikachu-voltage": {
-    "name": "Pikachu / Voltage",
+  "pocket-voltage": {
+    "id": "pocket-voltage",
+    "sourceId": "pikachu-voltage",
+    "name": "Pocket Voltage",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1460,8 +1588,10 @@
       "codeBg": "#f1edda"
     }
   },
-  "ash-indigo": {
-    "name": "Ash / Indigo",
+  "indigo-field-trainer": {
+    "id": "indigo-field-trainer",
+    "sourceId": "ash-indigo",
+    "name": "Indigo Field Trainer",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1485,8 +1615,10 @@
       "codeBg": "#e7e9f1"
     }
   },
-  "zelda-hyrule": {
-    "name": "Zelda / Hyrule",
+  "emerald-kingdom-legend": {
+    "id": "emerald-kingdom-legend",
+    "sourceId": "zelda-hyrule",
+    "name": "Emerald Kingdom Legend",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1510,8 +1642,10 @@
       "codeBg": "#e6e2c9"
     }
   },
-  "doom-slayer": {
-    "name": "Doom / Slayer",
+  "infernal-slayer": {
+    "id": "infernal-slayer",
+    "sourceId": "doom-slayer",
+    "name": "Infernal Slayer",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1535,8 +1669,10 @@
       "codeBg": "#dbe1d8"
     }
   },
-  "mega-man-cobalt": {
-    "name": "Mega Man / Cobalt",
+  "cobalt-arm-cannon": {
+    "id": "cobalt-arm-cannon",
+    "sourceId": "mega-man-cobalt",
+    "name": "Cobalt Arm Cannon",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1560,8 +1696,10 @@
       "codeBg": "#e7ecf1"
     }
   },
-  "terminator-future-war": {
-    "name": "Terminator / Future War",
+  "chrome-future-hunter": {
+    "id": "chrome-future-hunter",
+    "sourceId": "terminator-future-war",
+    "name": "Chrome Future Hunter",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1585,8 +1723,10 @@
       "codeBg": "#d9d7d6"
     }
   },
-  "avatar-pandora": {
-    "name": "Avatar / Pandora",
+  "bioluminescent-moon": {
+    "id": "bioluminescent-moon",
+    "sourceId": "avatar-pandora",
+    "name": "Bioluminescent Moon",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1610,8 +1750,10 @@
       "codeBg": "#def0f1"
     }
   },
-  "kill-bill-bride": {
-    "name": "Kill Bill / Bride",
+  "golden-bride": {
+    "id": "golden-bride",
+    "sourceId": "kill-bill-bride",
+    "name": "Golden Bride",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1635,8 +1777,10 @@
       "codeBg": "#f1eddc"
     }
   },
-  "batman-knight": {
-    "name": "Batman / Knight",
+  "nocturnal-vigil": {
+    "id": "nocturnal-vigil",
+    "sourceId": "batman-knight",
+    "name": "Nocturnal Vigil",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1660,8 +1804,10 @@
       "codeBg": "#e6e3d8"
     }
   },
-  "superman-krypton": {
-    "name": "Superman / Krypton",
+  "solar-sentinel": {
+    "id": "solar-sentinel",
+    "sourceId": "superman-krypton",
+    "name": "Solar Sentinel",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1685,8 +1831,10 @@
       "codeBg": "#e7ebf1"
     }
   },
-  "wonder-woman": {
-    "name": "Wonder Woman / Amazon",
+  "amazonian-truth": {
+    "id": "amazonian-truth",
+    "sourceId": "wonder-woman",
+    "name": "Amazonian Truth",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1710,8 +1858,10 @@
       "codeBg": "#f1e9da"
     }
   },
-  "spider-man": {
-    "name": "Spider-Man / Webline",
+  "scarlet-webline": {
+    "id": "scarlet-webline",
+    "sourceId": "spider-man",
+    "name": "Scarlet Webline",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1735,8 +1885,10 @@
       "codeBg": "#eaedf1"
     }
   },
-  "black-panther": {
-    "name": "Black Panther / Vibranium",
+  "violet-panther-guard": {
+    "id": "violet-panther-guard",
+    "sourceId": "black-panther",
+    "name": "Violet Panther Guard",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1760,8 +1912,10 @@
       "codeBg": "#e7e5f1"
     }
   },
-  "iron-man": {
-    "name": "Iron Man / Arc Reactor",
+  "crimson-arc-armor": {
+    "id": "crimson-arc-armor",
+    "sourceId": "iron-man",
+    "name": "Crimson Arc Armor",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1785,8 +1939,10 @@
       "codeBg": "#f1e8e0"
     }
   },
-  "daredevil-elektra": {
-    "name": "Daredevil / Elektra",
+  "scarlet-rooftop-duel": {
+    "id": "scarlet-rooftop-duel",
+    "sourceId": "daredevil-elektra",
+    "name": "Scarlet Rooftop Duel",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1810,8 +1966,10 @@
       "codeBg": "#f1e6e6"
     }
   },
-  "avengers-assemble": {
-    "name": "Avengers / Assemble",
+  "united-hero-signal": {
+    "id": "united-hero-signal",
+    "sourceId": "avengers-assemble",
+    "name": "United Hero Signal",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1835,8 +1993,10 @@
       "codeBg": "#e7e9f1"
     }
   },
-  "justice-league": {
-    "name": "Justice League / Watchtower",
+  "worldwatch-alliance": {
+    "id": "worldwatch-alliance",
+    "sourceId": "justice-league",
+    "name": "Worldwatch Alliance",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1861,6 +2021,8 @@
     }
   },
   "aquarius-waterbearer": {
+    "id": "aquarius-waterbearer",
+    "sourceId": "aquarius-waterbearer",
     "name": "Aquarius / Waterbearer",
     "dark": {
       "contrast": 64,
@@ -1886,6 +2048,8 @@
     }
   },
   "pisces-dreamtide": {
+    "id": "pisces-dreamtide",
+    "sourceId": "pisces-dreamtide",
     "name": "Pisces / Dreamtide",
     "dark": {
       "contrast": 64,
@@ -1911,6 +2075,8 @@
     }
   },
   "aries-ember-horn": {
+    "id": "aries-ember-horn",
+    "sourceId": "aries-ember-horn",
     "name": "Aries / Ember Horn",
     "dark": {
       "contrast": 64,
@@ -1936,6 +2102,8 @@
     }
   },
   "taurus-verdant-bronze": {
+    "id": "taurus-verdant-bronze",
+    "sourceId": "taurus-verdant-bronze",
     "name": "Taurus / Verdant Bronze",
     "dark": {
       "contrast": 64,
@@ -1961,6 +2129,8 @@
     }
   },
   "gemini-split-signal": {
+    "id": "gemini-split-signal",
+    "sourceId": "gemini-split-signal",
     "name": "Gemini / Split Signal",
     "dark": {
       "contrast": 64,
@@ -1986,6 +2156,8 @@
     }
   },
   "cancer-moontide": {
+    "id": "cancer-moontide",
+    "sourceId": "cancer-moontide",
     "name": "Cancer / Moontide",
     "dark": {
       "contrast": 64,
@@ -2011,6 +2183,8 @@
     }
   },
   "leo-goldflare": {
+    "id": "leo-goldflare",
+    "sourceId": "leo-goldflare",
     "name": "Leo / Goldflare",
     "dark": {
       "contrast": 64,
@@ -2036,6 +2210,8 @@
     }
   },
   "virgo-garden-script": {
+    "id": "virgo-garden-script",
+    "sourceId": "virgo-garden-script",
     "name": "Virgo / Garden Script",
     "dark": {
       "contrast": 64,
@@ -2061,6 +2237,8 @@
     }
   },
   "libra-rose-scale": {
+    "id": "libra-rose-scale",
+    "sourceId": "libra-rose-scale",
     "name": "Libra / Rose Scale",
     "dark": {
       "contrast": 64,
@@ -2086,6 +2264,8 @@
     }
   },
   "scorpio-midnight-venom": {
+    "id": "scorpio-midnight-venom",
+    "sourceId": "scorpio-midnight-venom",
     "name": "Scorpio / Midnight Venom",
     "dark": {
       "contrast": 64,
@@ -2111,6 +2291,8 @@
     }
   },
   "sagittarius-stararrow": {
+    "id": "sagittarius-stararrow",
+    "sourceId": "sagittarius-stararrow",
     "name": "Sagittarius / Stararrow",
     "dark": {
       "contrast": 64,
@@ -2136,6 +2318,8 @@
     }
   },
   "capricorn-stone-summit": {
+    "id": "capricorn-stone-summit",
+    "sourceId": "capricorn-stone-summit",
     "name": "Capricorn / Stone Summit",
     "dark": {
       "contrast": 64,
@@ -2161,6 +2345,8 @@
     }
   },
   "rat-streetwire": {
+    "id": "rat-streetwire",
+    "sourceId": "rat-streetwire",
     "name": "Rat / Streetwire",
     "dark": {
       "contrast": 64,
@@ -2186,6 +2372,8 @@
     }
   },
   "ox-iron-field": {
+    "id": "ox-iron-field",
+    "sourceId": "ox-iron-field",
     "name": "Ox / Iron Field",
     "dark": {
       "contrast": 64,
@@ -2211,6 +2399,8 @@
     }
   },
   "tiger-ember-claw": {
+    "id": "tiger-ember-claw",
+    "sourceId": "tiger-ember-claw",
     "name": "Tiger / Ember Claw",
     "dark": {
       "contrast": 64,
@@ -2236,6 +2426,8 @@
     }
   },
   "rabbit-moonburrow": {
+    "id": "rabbit-moonburrow",
+    "sourceId": "rabbit-moonburrow",
     "name": "Rabbit / Moonburrow",
     "dark": {
       "contrast": 64,
@@ -2261,6 +2453,8 @@
     }
   },
   "dragon-celestial-forge": {
+    "id": "dragon-celestial-forge",
+    "sourceId": "dragon-celestial-forge",
     "name": "Dragon / Celestial Forge",
     "dark": {
       "contrast": 64,
@@ -2286,6 +2480,8 @@
     }
   },
   "snake-jade-venom": {
+    "id": "snake-jade-venom",
+    "sourceId": "snake-jade-venom",
     "name": "Snake / Jade Venom",
     "dark": {
       "contrast": 64,
@@ -2311,6 +2507,8 @@
     }
   },
   "horse-sunrunner": {
+    "id": "horse-sunrunner",
+    "sourceId": "horse-sunrunner",
     "name": "Horse / Sunrunner",
     "dark": {
       "contrast": 64,
@@ -2336,6 +2534,8 @@
     }
   },
   "goat-cloud-fleece": {
+    "id": "goat-cloud-fleece",
+    "sourceId": "goat-cloud-fleece",
     "name": "Goat / Cloud Fleece",
     "dark": {
       "contrast": 64,
@@ -2361,6 +2561,8 @@
     }
   },
   "monkey-neon-trickster": {
+    "id": "monkey-neon-trickster",
+    "sourceId": "monkey-neon-trickster",
     "name": "Monkey / Neon Trickster",
     "dark": {
       "contrast": 64,
@@ -2386,6 +2588,8 @@
     }
   },
   "rooster-dawn-brass": {
+    "id": "rooster-dawn-brass",
+    "sourceId": "rooster-dawn-brass",
     "name": "Rooster / Dawn Brass",
     "dark": {
       "contrast": 64,
@@ -2411,6 +2615,8 @@
     }
   },
   "dog-hearthguard": {
+    "id": "dog-hearthguard",
+    "sourceId": "dog-hearthguard",
     "name": "Dog / Hearthguard",
     "dark": {
       "contrast": 64,
@@ -2436,6 +2642,8 @@
     }
   },
   "pig-velvet-orchard": {
+    "id": "pig-velvet-orchard",
+    "sourceId": "pig-velvet-orchard",
     "name": "Pig / Velvet Orchard",
     "dark": {
       "contrast": 64,
@@ -2460,8 +2668,10 @@
       "codeBg": "#f1e5ea"
     }
   },
-  "liquid-glass": {
-    "name": "Liquid Glass / Apple",
+  "orchard-glass": {
+    "id": "orchard-glass",
+    "sourceId": "liquid-glass",
+    "name": "Orchard Glass",
     "dark": {
       "contrast": 64,
       "diffAdded": "#40c977",
@@ -2486,6 +2696,8 @@
     }
   },
   "current-valentine": {
+    "id": "current-valentine",
+    "sourceId": "current-valentine",
     "name": "Meridian Bloom",
     "dark": {
       "contrast": 64,
@@ -2511,6 +2723,8 @@
     }
   },
   "second-tide": {
+    "id": "second-tide",
+    "sourceId": "second-tide",
     "name": "Tideglass",
     "dark": {
       "contrast": 64,
@@ -2536,6 +2750,8 @@
     }
   },
   "keepsake-gold": {
+    "id": "keepsake-gold",
+    "sourceId": "keepsake-gold",
     "name": "Keepsake Halo",
     "dark": {
       "contrast": 64,
@@ -2561,6 +2777,8 @@
     }
   },
   "north-current": {
+    "id": "north-current",
+    "sourceId": "north-current",
     "name": "North Current",
     "dark": {
       "contrast": 64,
@@ -2586,6 +2804,8 @@
     }
   },
   "quiet-orbit": {
+    "id": "quiet-orbit",
+    "sourceId": "quiet-orbit",
     "name": "Quiet Orbit",
     "dark": {
       "contrast": 64,
@@ -2611,6 +2831,8 @@
     }
   },
   "lantern-echo": {
+    "id": "lantern-echo",
+    "sourceId": "lantern-echo",
     "name": "Lantern Echo",
     "dark": {
       "contrast": 64,
@@ -2636,6 +2858,8 @@
     }
   },
   "harvest-theory": {
+    "id": "harvest-theory",
+    "sourceId": "harvest-theory",
     "name": "Harvest Relay",
     "dark": {
       "contrast": 64,
@@ -2661,6 +2885,8 @@
     }
   },
   "blue-halo": {
+    "id": "blue-halo",
+    "sourceId": "blue-halo",
     "name": "Blue Halo",
     "dark": {
       "contrast": 64,
@@ -2686,6 +2912,8 @@
     }
   },
   "may-mosaic": {
+    "id": "may-mosaic",
+    "sourceId": "may-mosaic",
     "name": "Vernal Mosaic",
     "dark": {
       "contrast": 64,
@@ -2711,6 +2939,8 @@
     }
   },
   "solar-frequency": {
+    "id": "solar-frequency",
+    "sourceId": "solar-frequency",
     "name": "Solar Frequency",
     "dark": {
       "contrast": 64,
@@ -2736,6 +2966,8 @@
     }
   },
   "harbor-lace": {
+    "id": "harbor-lace",
+    "sourceId": "harbor-lace",
     "name": "Harbor Lace",
     "dark": {
       "contrast": 64,
@@ -2761,6 +2993,8 @@
     }
   },
   "late-summer-steel": {
+    "id": "late-summer-steel",
+    "sourceId": "late-summer-steel",
     "name": "August Alloy",
     "dark": {
       "contrast": 64,

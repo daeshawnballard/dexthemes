@@ -1027,6 +1027,19 @@
     font-size: 14px;
   }
 
+  .main-summary {
+    display: -webkit-box;
+    max-width: none;
+    font-size: 10px;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .main-summary[hidden] {
+    display: none;
+  }
+
   /* Narrower variant cards on small screens */
   .variant-cards {
     gap: 6px;

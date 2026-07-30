@@ -10,6 +10,7 @@ import { hasVariant, getVariants } from './theme-engine.js';
 import { isThemeVisibleInCatalog } from './theme-contracts.js';
 import { trackEvent } from './analytics.js';
 import { loadMobileBrowseModule } from './lazy-modules.js';
+import { websiteThemeMatchesSearch } from '../shared/plugin-public-policy.js';
 
 function getCategoryIcon(icon) {
   switch (icon) {
@@ -140,7 +141,7 @@ export function renderSidebar() {
 
   el.innerHTML = CATEGORIES.map(cat => {
     let themes = THEMES.filter((t) => t.category === cat.id && isThemeVisibleInCatalog(t, state.userUnlocks));
-    if (q) themes = themes.filter(t => t.name.toLowerCase().includes(q));
+    if (q) themes = themes.filter((theme) => websiteThemeMatchesSearch(theme, q));
     // Apply variant filter — "has dark" / "has light" (includes themes with both)
     if (state.activeFilter === 'dark-only') themes = themes.filter(t => hasVariant(t, 'dark'));
     else if (state.activeFilter === 'light-only') themes = themes.filter(t => hasVariant(t, 'light'));

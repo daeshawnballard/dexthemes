@@ -32,6 +32,21 @@ export function buildImportString(theme, variant, accentIdx) {
   return buildThemeImportString(theme, variant, accentIdx);
 }
 
+export function getThemeSummary(theme) {
+  return String(theme?.summary || theme?._summary || '').trim();
+}
+
+export function syncThemeHeader(theme) {
+  const name = document.getElementById('preview-theme-name');
+  const summary = document.getElementById('preview-theme-summary');
+  if (name) name.textContent = theme?.name || 'Codex';
+  if (!summary) return;
+
+  const copy = getThemeSummary(theme);
+  summary.textContent = copy;
+  summary.hidden = !copy;
+}
+
 export function applyShellTheme(theme, variant) {
   const source = theme[variant];
   const acc = theme.accents?.[state.selectedAccentIdx] || source?.accent;
@@ -90,11 +105,11 @@ export function applyPreview(theme, variant) {
   sendBtn.style.background = acc;
   sendBtn.querySelector('svg').style.color = '#fff';
 
-  document.getElementById('preview-theme-name').textContent = theme.name;
-  renderChatContent(v, acc, 'preview-chat');
+  syncThemeHeader(theme);
+  renderChatContent(v, acc, 'preview-chat', theme);
 }
 
-export function renderChatContent(v, acc, containerId) {
+export function renderChatContent(v, acc, containerId, theme = null) {
   v = getSafePreviewVariant(v, acc);
   if (!v) return;
   const dark = isDark(v.surface);
@@ -102,6 +117,10 @@ export function renderChatContent(v, acc, containerId) {
   const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
   const c = document.getElementById(containerId);
   const ex = state.EXAMPLES[state.currentExampleIdx];
+  const summary = getThemeSummary(theme);
+  const summaryHtml = summary
+    ? `<p class="preview-theme-summary"><span class="preview-theme-summary-label">Palette direction</span>${escapeHtml(summary)}</p>`
+    : '';
 
   const codeHtml = ex.code.map(part => {
     if (typeof part === 'string') return escapeHtml(part).replace(/\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;');
@@ -114,6 +133,7 @@ export function renderChatContent(v, acc, containerId) {
       ${escapeHtml(ex.user)}
     </div>
     <div class="assistant-msg" style="color:${v.ink};">
+      ${summaryHtml}
       <p>${escapeHtml(ex.intro)}</p>
       <div class="code-block" style="background:${v.codeBg};border:1px solid ${borderColor};color:${v.ink};">
         <div class="semantic-legend">
@@ -137,6 +157,8 @@ export function renderMiniPreview(containerId, theme, variant) {
   if (!v) return;
   const dark = isDark(v.surface);
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const summary = getThemeSummary(theme);
+  const summaryHtml = summary ? `<div class="mini-theme-summary">${escapeHtml(summary)}</div>` : '';
 
   const el = document.getElementById(containerId);
   el.style.background = v.surface;
@@ -144,6 +166,7 @@ export function renderMiniPreview(containerId, theme, variant) {
   el.innerHTML = `
     <div class="mini-user" style="background:${acc}22;color:${v.ink};">Spawn a subagent to fix lint errors</div>
     <div class="mini-assistant" style="color:${v.ink};">
+      ${summaryHtml}
       Here's a Codex API call to spawn it:
       <div class="mini-code" style="background:${v.codeBg};border:1px solid ${borderColor};">
         <div class="semantic-legend semantic-legend--mini">

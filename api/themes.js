@@ -1,4 +1,9 @@
 import { STATIC_THEME_CATALOG, normalizeDexThemesSubgroup } from '../shared/theme-api-catalog.js';
+import {
+  presentThemeForPublicApi,
+  resolvePluginThemeSourceId,
+  websiteThemeMatchesSearch,
+} from '../shared/plugin-public-policy.js';
 
 export const config = { runtime: 'edge' };
 
@@ -16,7 +21,8 @@ function filterThemes(themes, { id, search, variant, category, subgroup }) {
   let results = themes;
 
   if (id) {
-    results = results.filter((theme) => theme.id === id || theme.themeId === id);
+    const resolvedId = resolvePluginThemeSourceId(id);
+    results = results.filter((theme) => theme.id === resolvedId || theme.themeId === resolvedId);
   }
 
   if (category) {
@@ -35,8 +41,7 @@ function filterThemes(themes, { id, search, variant, category, subgroup }) {
   }
 
   if (search) {
-    const q = search.toLowerCase();
-    results = results.filter((theme) => theme.name.toLowerCase().includes(q));
+    results = results.filter((theme) => websiteThemeMatchesSearch(theme, search));
   }
 
   if (variant === 'dark') {
@@ -62,7 +67,9 @@ export default async function handler(req) {
 
   const communityThemes = await fetchCommunityThemes();
   const allThemes = [...visibleStaticThemes(), ...communityThemes];
-  const results = filterThemes(allThemes, { id, search, variant, category, subgroup });
+  const results = filterThemes(allThemes, { id, search, variant, category, subgroup })
+    .map((theme) => presentThemeForPublicApi(theme))
+    .filter(Boolean);
 
   return new Response(
     JSON.stringify({

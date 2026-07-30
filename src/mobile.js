@@ -5,7 +5,7 @@
 import * as state from './state.js';
 import { renderSidebar } from './sidebar.js';
 import { renderMobileBrowse } from './mobile-browse.js';
-import { applyShellTheme, applyPreview } from './theme-engine.js';
+import { applyShellTheme, applyPreview, syncThemeHeader } from './theme-engine.js';
 import { loadBuilderModule } from './lazy-modules.js';
 import { getMobileViewTransition, getViewportMode } from './mobile-view-model.js';
 
@@ -150,12 +150,17 @@ export async function mobileSetView(view) {
 
   if (view === 'create') {
     if (mainTitle && transition.headerTitle) mainTitle.textContent = transition.headerTitle;
+    const mainSummary = document.getElementById('preview-theme-summary');
+    if (mainSummary) {
+      mainSummary.textContent = '';
+      mainSummary.hidden = true;
+    }
     // Hide all social actions on create — nothing to share/like yet
     if (headerSocial) {
       headerSocial.style.display = transition.hideHeaderSocial ? 'none' : '';
     }
   } else if (view === 'preview') {
-    if (mainTitle) mainTitle.textContent = state.selectedTheme?.name || 'Codex';
+    syncThemeHeader(state.selectedTheme);
     if (headerSocial) {
       headerSocial.style.display = '';
       const likeBtn = headerSocial.querySelector('.like-btn');

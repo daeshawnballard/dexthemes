@@ -18,800 +18,850 @@ Total public static themes: 117
 ### Codex
 - ID: `codex`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=codex
+- Deep link: https://dexthemes.com/codex/dark
 - Dark: surface=#111111 ink=#fcfcfc accent=#0169cc
 - Light: surface=#ffffff ink=#0d0d0d accent=#0169cc
 
 ### Codex / Disco Cloud
 - ID: `codex-disco-cloud`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=codex-disco-cloud
+- Deep link: https://dexthemes.com/codex-disco-cloud/dark
 - Dark: surface=#080922 ink=#F1EDFF accent=#6D5DFF
 - Light: surface=#F4F1FF ink=#171330 accent=#5B4DDB
 
 ### Absolutely
 - ID: `absolutely`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=absolutely
+- Deep link: https://dexthemes.com/absolutely/dark
 - Dark: surface=#2d2d2b ink=#f9f9f7 accent=#cc7d5e
 - Light: surface=#f9f9f7 ink=#2d2d2b accent=#cc7d5e
 
 ### Ayu
 - ID: `ayu`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=ayu
+- Deep link: https://dexthemes.com/ayu/dark
 - Dark: surface=#0b0e14 ink=#bfbdb6 accent=#e6b450
 
 ### Catppuccin
 - ID: `catppuccin`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=catppuccin
+- Deep link: https://dexthemes.com/catppuccin/dark
 - Dark: surface=#1e1e2e ink=#cdd6f4 accent=#cba6f7
 - Light: surface=#eff1f5 ink=#4c4f69 accent=#8839ef
 
 ### Dracula
 - ID: `dracula`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=dracula
+- Deep link: https://dexthemes.com/dracula/dark
 - Dark: surface=#282A36 ink=#F8F8F2 accent=#FF79C6
 
 ### Everforest
 - ID: `everforest`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=everforest
+- Deep link: https://dexthemes.com/everforest/dark
 - Dark: surface=#2d353b ink=#d3c6aa accent=#a7c080
 - Light: surface=#fdf6e3 ink=#5c6a72 accent=#93b259
 
 ### GitHub Dark
 - ID: `github-dark`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=github-dark
+- Deep link: https://dexthemes.com/github-dark/dark
 - Dark: surface=#0d1117 ink=#e6edf3 accent=#58a6ff
 
 ### GitHub Light
 - ID: `github-light`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=github-light
+- Deep link: https://dexthemes.com/github-light/light
 - Light: surface=#ffffff ink=#1f2328 accent=#0969da
 
 ### Gruvbox
 - ID: `gruvbox`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=gruvbox
+- Deep link: https://dexthemes.com/gruvbox/dark
 - Dark: surface=#1d2021 ink=#ebdbb2 accent=#fe8019
 
 ### Linear
 - ID: `linear`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=linear
+- Deep link: https://dexthemes.com/linear/dark
 - Dark: surface=#0f0f11 ink=#e3e4e6 accent=#606acc
 - Light: surface=#fcfcfd ink=#1b1b1b accent=#5e6ad2
 
 ### Lobster
 - ID: `lobster`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=lobster
+- Deep link: https://dexthemes.com/lobster/dark
 - Dark: surface=#111827 ink=#e4e4e7 accent=#ff5c5c
 
 ### Material
 - ID: `material`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=material
+- Deep link: https://dexthemes.com/material/dark
 - Dark: surface=#212121 ink=#eeffff accent=#80cbc4
 
 ### Matrix
 - ID: `matrix`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=matrix
+- Deep link: https://dexthemes.com/matrix/dark
 - Dark: surface=#040805 ink=#b8ffca accent=#1eff5a
 
 ### Monokai
 - ID: `monokai`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=monokai
+- Deep link: https://dexthemes.com/monokai/dark
 - Dark: surface=#272822 ink=#F8F8F2 accent=#F92672
 
 ### Night Owl
 - ID: `night-owl`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=night-owl
+- Deep link: https://dexthemes.com/night-owl/dark
 - Dark: surface=#011627 ink=#d6deeb accent=#44596b
 
 ### Nord
 - ID: `nord`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=nord
+- Deep link: https://dexthemes.com/nord/dark
 - Dark: surface=#2E3440 ink=#ECEFF4 accent=#88C0D0
 
 ### Notion
 - ID: `notion`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=notion
+- Deep link: https://dexthemes.com/notion/dark
 - Dark: surface=#191919 ink=#d9d9d8 accent=#3183d8
 - Light: surface=#ffffff ink=#37352f accent=#3183d8
 
 ### Oscurange
 - ID: `oscurange`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=oscurange
+- Deep link: https://dexthemes.com/oscurange/dark
 - Dark: surface=#0b0b0f ink=#e6e6e6 accent=#f9b98c
 
 ### One Dark
 - ID: `one-dark`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=one-dark
+- Deep link: https://dexthemes.com/one-dark/dark
 - Dark: surface=#282c34 ink=#abb2bf accent=#61afef
 
 ### Proof
 - ID: `proof`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=proof
+- Deep link: https://dexthemes.com/proof/light
 - Light: surface=#f5f3ed ink=#2f312d accent=#3d755d
 
 ### Raycast
 - ID: `raycast`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=raycast
+- Deep link: https://dexthemes.com/raycast/dark
 - Dark: surface=#101010 ink=#fefefe accent=#FF6363
 - Light: surface=#ffffff ink=#030303 accent=#FF6363
 
 ### Rosé Pine
 - ID: `rose-pine`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=rose-pine
+- Deep link: https://dexthemes.com/rose-pine/dark
 - Dark: surface=#191724 ink=#e0def4 accent=#c4a7e7
 
 ### Sentry
 - ID: `sentry`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=sentry
+- Deep link: https://dexthemes.com/sentry/dark
 - Dark: surface=#2d2935 ink=#e6dff9 accent=#7055f6
 
 ### Solarized
 - ID: `solarized`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=solarized
+- Deep link: https://dexthemes.com/solarized/dark
 - Dark: surface=#002b36 ink=#839496 accent=#268bd2
 - Light: surface=#fdf6e3 ink=#657b83 accent=#268bd2
 
 ### Temple
 - ID: `temple`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=temple
+- Deep link: https://dexthemes.com/temple/dark
 - Dark: surface=#02120c ink=#c7e6da accent=#e4f222
 
 ### Tokyo Night
 - ID: `tokyo-night`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=tokyo-night
+- Deep link: https://dexthemes.com/tokyo-night/dark
 - Dark: surface=#1a1b26 ink=#c0caf5 accent=#7aa2f7
 
 ### Vercel
 - ID: `vercel`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=vercel
+- Deep link: https://dexthemes.com/vercel/dark
 - Dark: surface=#000000 ink=#ededed accent=#006efe
 - Light: surface=#ffffff ink=#171717 accent=#006aff
 
 ### VS Code+
 - ID: `vscode-plus`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=vscode-plus
+- Deep link: https://dexthemes.com/vscode-plus/dark
 - Dark: surface=#1E1E1E ink=#D4D4D4 accent=#007ACC
 - Light: surface=#FFFFFF ink=#000000 accent=#007ACC
 
 ### Xcode
 - ID: `xcode`
 - Category: codex
-- Deep link: https://dexthemes.com/?theme=xcode
+- Deep link: https://dexthemes.com/xcode/dark
 - Dark: surface=#1f1f24 ink=#ffffff accent=#5482ff
 - Light: surface=#ffffff ink=#000000 accent=#0e0eff
 
-### Ichigo / Bankai
-- ID: `ichigo-bankai`
+### Crimson Soulblade
+- ID: `crimson-soulblade`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=ichigo-bankai
+- Deep link: https://dexthemes.com/crimson-soulblade/dark
+- Summary: Blackened steel, ember orange, and disciplined crimson for focused work under pressure.
 - Dark: surface=#121111 ink=#FFF4EC accent=#FF7A1A
 - Light: surface=#FFF7F2 ink=#121212 accent=#F97316
 
-### Ichigo / Hollow Mask
-- ID: `ichigo-hollow`
+### Ivory Mask Soulblade
+- ID: `ivory-mask-soulblade`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=ichigo-hollow
+- Deep link: https://dexthemes.com/ivory-mask-soulblade/dark
+- Summary: Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.
 - Dark: surface=#0E0C10 ink=#F7F1F8 accent=#E11D48
 - Light: surface=#F6F2F7 ink=#1A141C accent=#111827
 
-### Naruto / Hidden Leaf
-- ID: `naruto-hidden-leaf`
+### Seventh Fire Shadow
+- ID: `seventh-fire-shadow`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=naruto-hidden-leaf
+- Deep link: https://dexthemes.com/seventh-fire-shadow/dark
+- Summary: Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.
 - Dark: surface=#101418 ink=#F7F3EA accent=#FF9F1C
 - Light: surface=#FFF8ED ink=#1A1A1A accent=#F59E0B
 
-### Gachiakuta / Rudo
-- ID: `gachiakuta-rudo`
+### Groundbound Scavenger
+- ID: `groundbound-scavenger`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=gachiakuta-rudo
+- Deep link: https://dexthemes.com/groundbound-scavenger/dark
+- Summary: Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.
 - Dark: surface=#111417 ink=#E8EDF1 accent=#78C6A3
 - Light: surface=#EEE7D8 ink=#2E2A25 accent=#4B5563
 
-### Eren / Titan Fall
-- ID: `eren-titan-fall`
+### Fallen Colossus
+- ID: `fallen-colossus`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=eren-titan-fall
+- Deep link: https://dexthemes.com/fallen-colossus/dark
+- Summary: Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.
 - Dark: surface=#0E1113 ink=#F3E9D7 accent=#8B1E1E
 - Light: surface=#F7F2EA ink=#23211E accent=#3B5C74
 
-### Goku / Ultra Instinct
-- ID: `goku-ultra-instinct`
+### Silver Instinct
+- ID: `silver-instinct`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=goku-ultra-instinct
+- Deep link: https://dexthemes.com/silver-instinct/dark
+- Summary: Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.
 - Dark: surface=#161218 ink=#F9F7FB accent=#7C3AED
 - Light: surface=#F5F9FF ink=#18212D accent=#A5B4FC
 
-### Goku / Super Saiyan 4
-- ID: `goku-ssj4`
+### Primal Crimson Ascent
+- ID: `primal-crimson-ascent`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=goku-ssj4
+- Deep link: https://dexthemes.com/primal-crimson-ascent/dark
+- Summary: Wild crimson, midnight black, and electric gold for untamed power climbing higher.
 - Dark: surface=#180D11 ink=#FFF1F2 accent=#D9465F
 - Light: surface=#F8F2ED ink=#2C1A1D accent=#E76F51
 
-### Yuji / Sukuna
-- ID: `yuji-sukuna`
+### Cursed Twin Vessel
+- ID: `cursed-twin-vessel`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=yuji-sukuna
+- Deep link: https://dexthemes.com/cursed-twin-vessel/dark
+- Summary: Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.
 - Dark: surface=#110E12 ink=#FAF5F5 accent=#D62839
 - Light: surface=#FFF7F5 ink=#251C20 accent=#F97316
 
-### Gojo / Limitless
-- ID: `gojo-limitless`
+### Infinite Azure
+- ID: `infinite-azure`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=gojo-limitless
+- Deep link: https://dexthemes.com/infinite-azure/dark
+- Summary: Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.
 - Dark: surface=#0D1220 ink=#EEF6FF accent=#60A5FA
 - Light: surface=#F5FAFF ink=#102132 accent=#BFDBFE
 
-### JoJo / Dio
-- ID: `jojo-dio`
+### Golden Timebreaker
+- ID: `golden-timebreaker`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=jojo-dio
+- Deep link: https://dexthemes.com/golden-timebreaker/dark
+- Summary: Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.
 - Dark: surface=#161019 ink=#F7F3FB accent=#D4AF37
 - Light: surface=#FFF7D6 ink=#241A24 accent=#7C3AED
 
-### Sung Jinwoo / Igris
-- ID: `solo-leveling`
+### Solo Shadow Ascent
+- ID: `solo-shadow-ascent`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=solo-leveling
+- Deep link: https://dexthemes.com/solo-shadow-ascent/dark
+- Summary: Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.
 - Dark: surface=#0C1020 ink=#E6ECFF accent=#4C6FFF
 - Light: surface=#F4F7FF ink=#1A2238 accent=#94A3FF
 
-### Trigun / Gunsmoke
-- ID: `trigun-gunsmoke`
+### Scarlet Gunsmoke
+- ID: `scarlet-gunsmoke`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=trigun-gunsmoke
+- Deep link: https://dexthemes.com/scarlet-gunsmoke/dark
+- Summary: Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.
 - Dark: surface=#16110E ink=#F8EFE6 accent=#D97706
 - Light: surface=#F5E6C8 ink=#2C221B accent=#B45309
 
-### Cowboy Bebop / Blue Jazz
-- ID: `cowboy-bebop`
+### Blue Space Jazz
+- ID: `blue-space-jazz`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=cowboy-bebop
+- Deep link: https://dexthemes.com/blue-space-jazz/dark
+- Summary: Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.
 - Dark: surface=#111827 ink=#EAF2FF accent=#38BDF8
 - Light: surface=#F6E8C7 ink=#1F2937 accent=#0EA5E9
 
-### Ghost in the Shell / Major
-- ID: `ghost-in-the-shell`
+### Cybernetic Major
+- ID: `cybernetic-major`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=ghost-in-the-shell
+- Deep link: https://dexthemes.com/cybernetic-major/dark
+- Summary: Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.
 - Dark: surface=#0B1220 ink=#E5F4FF accent=#00B8D9
 - Light: surface=#F2FCFF ink=#0F1E2E accent=#38BDF8
 
-### Gundam / RX-78-2
-- ID: `gundam-rx-78-2`
+### White Orbital Prototype
+- ID: `white-orbital-prototype`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=gundam-rx-78-2
+- Deep link: https://dexthemes.com/white-orbital-prototype/dark
+- Summary: Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.
 - Dark: surface=#0B1020 ink=#F4F7FB accent=#2F6FE4
 - Light: surface=#F6F8FC ink=#182132 accent=#2457C5
 
-### Gundam SEED / Strike
-- ID: `gundam-seed-strike`
+### Cosmic Strikeframe
+- ID: `cosmic-strikeframe`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=gundam-seed-strike
+- Deep link: https://dexthemes.com/cosmic-strikeframe/dark
+- Summary: Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.
 - Dark: surface=#080D17 ink=#F8FAFC accent=#1D4ED8
 - Light: surface=#FBFCFF ink=#172033 accent=#1E40AF
 
-### Gundam 00 / Exia Trans-Am
-- ID: `gundam-00-exia-trans-am`
+### Azure Translight
+- ID: `azure-translight`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=gundam-00-exia-trans-am
+- Deep link: https://dexthemes.com/azure-translight/dark
+- Summary: Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.
 - Dark: surface=#130913 ink=#FFEAF2 accent=#F43F5E
 - Light: surface=#FFF3F7 ink=#231522 accent=#E11D48
 
-### Luffy / Gear Five
-- ID: `luffy-gear-five`
+### Sunlit Rubber Myth
+- ID: `sunlit-rubber-myth`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=luffy-gear-five
+- Deep link: https://dexthemes.com/sunlit-rubber-myth/dark
+- Summary: Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.
 - Dark: surface=#0F172A ink=#F8F1DC accent=#F87171
 - Light: surface=#F7F9FF ink=#20293A accent=#F3F4F6
 
 ### Shonen Sunset
 - ID: `shonen-sunset`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=shonen-sunset
+- Deep link: https://dexthemes.com/shonen-sunset/dark
 - Dark: surface=#111827 ink=#FFF7ED accent=#FB923C
 - Light: surface=#FFF7E8 ink=#161616 accent=#EA580C
 
-### Liger Zero / Base
-- ID: `liger-zero-base`
+### Zero Mechcat
+- ID: `zero-mechcat`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=liger-zero-base
+- Deep link: https://dexthemes.com/zero-mechcat/dark
+- Summary: Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.
 - Dark: surface=#1A1A22 ink=#E8E8F0 accent=#00E060
 - Light: surface=#F2F2F6 ink=#1E1E28 accent=#00945A
 
-### Liger Zero / Schneider
-- ID: `liger-zero-schneider`
+### Zero Bladecat
+- ID: `zero-bladecat`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=liger-zero-schneider
+- Deep link: https://dexthemes.com/zero-bladecat/dark
+- Summary: Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.
 - Dark: surface=#1E1410 ink=#F0DCD0 accent=#E06828
 - Light: surface=#FDF4EE ink=#2A1410 accent=#C04A10
 
-### Liger Zero / Jager
-- ID: `liger-zero-jager`
+### Zero Swiftcat
+- ID: `zero-swiftcat`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=liger-zero-jager
+- Deep link: https://dexthemes.com/zero-swiftcat/dark
+- Summary: Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.
 - Dark: surface=#0C1020 ink=#D0DCF0 accent=#00C8FF
 - Light: surface=#EEF2FA ink=#0C1030 accent=#1840A0
 
-### Liger Zero / Panzer
-- ID: `liger-zero-panzer`
+### Zero Siegecat
+- ID: `zero-siegecat`
 - Category: dexthemes / anime
-- Deep link: https://dexthemes.com/?theme=liger-zero-panzer
+- Deep link: https://dexthemes.com/zero-siegecat/dark
+- Summary: Forest green, heavy graphite, and artillery gold for patient power built to hold the line.
 - Dark: surface=#141810 ink=#D0D8C0 accent=#A0E030
 - Light: surface=#F0F2EA ink=#1A2010 accent=#4A5A30
 
-### Master Chief / Mjolnir
-- ID: `master-chief`
+### Emerald Spartan
+- ID: `emerald-spartan`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=master-chief
+- Deep link: https://dexthemes.com/emerald-spartan/dark
+- Summary: Armored olive, amber optics, and deep-space black for calm focus against impossible odds.
 - Dark: surface=#0F1410 ink=#E8F3DD accent=#7FB069
 - Light: surface=#EAF0DE ink=#1F2A20 accent=#5E8C31
 
-### Aloy / Horizon
-- ID: `aloy-horizon`
+### Sunset Machine Huntress
+- ID: `sunset-machine-huntress`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=aloy-horizon
+- Deep link: https://dexthemes.com/sunset-machine-huntress/dark
+- Summary: Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.
 - Dark: surface=#111926 ink=#E9F1F8 accent=#F97316
 - Light: surface=#F5E7D2 ink=#2A2A2A accent=#EA580C
 
-### Kratos / Olympus
-- ID: `kratos-olympus`
+### Ashen Godslayer
+- ID: `ashen-godslayer`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=kratos-olympus
+- Deep link: https://dexthemes.com/ashen-godslayer/dark
+- Summary: Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.
 - Dark: surface=#121010 ink=#F7F2EE accent=#B91C1C
 - Light: surface=#F6F1EB ink=#2B2321 accent=#9A3412
 
-### Xbox / Neon
-- ID: `xbox-neon`
+### Neon Console Green
+- ID: `neon-console-green`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=xbox-neon
+- Deep link: https://dexthemes.com/neon-console-green/dark
+- Summary: Electric green on carbon black for a fast, high-contrast console glow.
 - Dark: surface=#0A0F0A ink=#E9FFE9 accent=#22C55E
 - Light: surface=#F4FFF5 ink=#12301A accent=#16A34A
 
-### PlayStation / Cosmos
-- ID: `playstation-cosmos`
+### Cosmic Controller
+- ID: `cosmic-controller`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=playstation-cosmos
+- Deep link: https://dexthemes.com/cosmic-controller/dark
+- Summary: Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.
 - Dark: surface=#0C1124 ink=#EAF0FF accent=#2563EB
 - Light: surface=#F4F7FF ink=#1B2A4A accent=#1D4ED8
 
-### Nintendo / Switch Split
-- ID: `nintendo-switch`
+### Split-Screen Neon
+- ID: `split-screen-neon`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=nintendo-switch
+- Deep link: https://dexthemes.com/split-screen-neon/dark
+- Summary: Split cyan and coral over graphite for playful motion and handheld energy.
 - Dark: surface=#11131A ink=#F8FAFC accent=#22D3EE
 - Light: surface=#FFF4F5 ink=#141414 accent=#E11D48
 
-### Mario / Mushroom Kingdom
-- ID: `mario-mushroom`
+### Scarlet Mushroom Run
+- ID: `scarlet-mushroom-run`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=mario-mushroom
+- Deep link: https://dexthemes.com/scarlet-mushroom-run/dark
+- Summary: Scarlet red, sky blue, and bright gold for buoyant momentum through every level.
 - Dark: surface=#15151A ink=#FFF8F4 accent=#EF4444
 - Light: surface=#FFF5E8 ink=#2A1810 accent=#F59E0B
 
-### Sonic / Boost
-- ID: `sonic-boost`
+### Cobalt Speedline
+- ID: `cobalt-speedline`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=sonic-boost
+- Deep link: https://dexthemes.com/cobalt-speedline/dark
+- Summary: Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.
 - Dark: surface=#0A1326 ink=#ECF4FF accent=#3B82F6
 - Light: surface=#F5FBFF ink=#17304F accent=#0EA5E9
 
-### Jet Set Radio Future
-- ID: `jet-set-radio`
+### Future Graffiti Radio
+- ID: `future-graffiti-radio`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=jet-set-radio
+- Deep link: https://dexthemes.com/future-graffiti-radio/dark
+- Summary: Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.
 - Dark: surface=#12121A ink=#F7FFFB accent=#22C55E
 - Light: surface=#F9FFE8 ink=#18231A accent=#84CC16
 
-### Samus / Metroid
-- ID: `samus-metroid`
+### Orange Star Bounty
+- ID: `orange-star-bounty`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=samus-metroid
+- Deep link: https://dexthemes.com/orange-star-bounty/dark
+- Summary: Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.
 - Dark: surface=#120E19 ink=#FFF2D8 accent=#F59E0B
 - Light: surface=#F7EEE1 ink=#2A1F1A accent=#EA580C
 
-### Pikachu / Voltage
-- ID: `pikachu-voltage`
+### Pocket Voltage
+- ID: `pocket-voltage`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=pikachu-voltage
+- Deep link: https://dexthemes.com/pocket-voltage/dark
+- Summary: Bright yellow, coal black, and spark-red accents for compact energy that never sits still.
 - Dark: surface=#171412 ink=#FFF7D6 accent=#FACC15
 - Light: surface=#FFFBE8 ink=#2A2412 accent=#EAB308
 
-### Ash / Indigo
-- ID: `ash-indigo`
+### Indigo Field Trainer
+- ID: `indigo-field-trainer`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=ash-indigo
+- Deep link: https://dexthemes.com/indigo-field-trainer/dark
+- Summary: Indigo, field green, and warm cap-red for curious exploration and steady growth.
 - Dark: surface=#111827 ink=#EFF6FF accent=#EF4444
 - Light: surface=#F5F7FF ink=#1E293B accent=#2563EB
 
-### Zelda / Hyrule
-- ID: `zelda-hyrule`
+### Emerald Kingdom Legend
+- ID: `emerald-kingdom-legend`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=zelda-hyrule
+- Deep link: https://dexthemes.com/emerald-kingdom-legend/dark
+- Summary: Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.
 - Dark: surface=#0F1712 ink=#ECF9F0 accent=#10B981
 - Light: surface=#F4F0D7 ink=#223127 accent=#0F766E
 
-### Doom / Slayer
-- ID: `doom-slayer`
+### Infernal Slayer
+- ID: `infernal-slayer`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=doom-slayer
+- Deep link: https://dexthemes.com/infernal-slayer/dark
+- Summary: Hellfire orange, scorched black, and warning red for relentless forward motion.
 - Dark: surface=#0B0D0B ink=#E8F5E9 accent=#22C55E
 - Light: surface=#E9EFE6 ink=#1A261A accent=#15803D
 
-### Mega Man / Cobalt
-- ID: `mega-man-cobalt`
+### Cobalt Arm Cannon
+- ID: `cobalt-arm-cannon`
 - Category: dexthemes / video-games
-- Deep link: https://dexthemes.com/?theme=mega-man-cobalt
+- Deep link: https://dexthemes.com/cobalt-arm-cannon/dark
+- Summary: Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.
 - Dark: surface=#0C1326 ink=#EAF2FF accent=#2563EB
 - Light: surface=#F5FAFF ink=#1B2A4A accent=#3B82F6
 
-### Terminator / Future War
-- ID: `terminator-future-war`
+### Chrome Future Hunter
+- ID: `chrome-future-hunter`
 - Category: dexthemes / movies
-- Deep link: https://dexthemes.com/?theme=terminator-future-war
+- Deep link: https://dexthemes.com/chrome-future-hunter/dark
+- Summary: Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.
 - Dark: surface=#111111 ink=#F5F5F5 accent=#DC2626
 - Light: surface=#E7E5E4 ink=#1C1917 accent=#78716C
 
-### Avatar / Pandora
-- ID: `avatar-pandora`
+### Bioluminescent Moon
+- ID: `bioluminescent-moon`
 - Category: dexthemes / movies
-- Deep link: https://dexthemes.com/?theme=avatar-pandora
+- Deep link: https://dexthemes.com/bioluminescent-moon/dark
+- Summary: Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.
 - Dark: surface=#0B1224 ink=#E0F2FE accent=#0EA5E9
 - Light: surface=#ECFEFF ink=#123047 accent=#14B8A6
 
-### Kill Bill / Bride
-- ID: `kill-bill-bride`
+### Golden Bride
+- ID: `golden-bride`
 - Category: dexthemes / movies
-- Deep link: https://dexthemes.com/?theme=kill-bill-bride
+- Deep link: https://dexthemes.com/golden-bride/dark
+- Summary: Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.
 - Dark: surface=#121212 ink=#FFF8CC accent=#FACC15
 - Light: surface=#FFFBEA ink=#1F1A10 accent=#EAB308
 
-### Batman / Knight
-- ID: `batman-knight`
+### Nocturnal Vigil
+- ID: `nocturnal-vigil`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=batman-knight
+- Deep link: https://dexthemes.com/nocturnal-vigil/dark
+- Summary: Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.
 - Dark: surface=#0D1117 ink=#E5E7EB accent=#FACC15
 - Light: surface=#F4F1E6 ink=#1F2937 accent=#111827
 
-### Superman / Krypton
-- ID: `superman-krypton`
+### Solar Sentinel
+- ID: `solar-sentinel`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=superman-krypton
+- Deep link: https://dexthemes.com/solar-sentinel/dark
+- Summary: Primary blue, solar red, and warm gold for optimistic strength under an open sky.
 - Dark: surface=#111827 ink=#F8FAFC accent=#DC2626
 - Light: surface=#F5F9FF ink=#14213D accent=#2563EB
 
-### Wonder Woman / Amazon
-- ID: `wonder-woman`
+### Amazonian Truth
+- ID: `amazonian-truth`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=wonder-woman
+- Deep link: https://dexthemes.com/amazonian-truth/dark
+- Summary: Crimson, antique gold, and midnight blue for principled strength carried with grace.
 - Dark: surface=#16111A ink=#FFF7ED accent=#E11D48
 - Light: surface=#FFF7E8 ink=#2D1B24 accent=#CA8A04
 
-### Spider-Man / Webline
-- ID: `spider-man`
+### Scarlet Webline
+- ID: `scarlet-webline`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=spider-man
+- Deep link: https://dexthemes.com/scarlet-webline/dark
+- Summary: Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.
 - Dark: surface=#111827 ink=#EFF6FF accent=#DC2626
 - Light: surface=#F8FBFF ink=#1E293B accent=#2563EB
 
-### Black Panther / Vibranium
-- ID: `black-panther`
+### Violet Panther Guard
+- ID: `violet-panther-guard`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=black-panther
+- Deep link: https://dexthemes.com/violet-panther-guard/dark
+- Summary: Royal violet, polished silver, and deep black for quiet precision and protected power.
 - Dark: surface=#0E0B12 ink=#F7F3FB accent=#7C3AED
 - Light: surface=#F5F3FF ink=#251B2F accent=#6D28D9
 
-### Iron Man / Arc Reactor
-- ID: `iron-man`
+### Crimson Arc Armor
+- ID: `crimson-arc-armor`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=iron-man
+- Deep link: https://dexthemes.com/crimson-arc-armor/dark
+- Summary: Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.
 - Dark: surface=#18100F ink=#FFF7ED accent=#0EA5E9
 - Light: surface=#FFF6EE ink=#2A1915 accent=#EA580C
 
-### Daredevil / Elektra
-- ID: `daredevil-elektra`
+### Scarlet Rooftop Duel
+- ID: `scarlet-rooftop-duel`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=daredevil-elektra
+- Deep link: https://dexthemes.com/scarlet-rooftop-duel/dark
+- Summary: Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.
 - Dark: surface=#120C10 ink=#F8F4F5 accent=#B91C1C
 - Light: surface=#FFF4F4 ink=#2B1A1C accent=#E11D48
 
-### Avengers / Assemble
-- ID: `avengers-assemble`
+### United Hero Signal
+- ID: `united-hero-signal`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=avengers-assemble
+- Deep link: https://dexthemes.com/united-hero-signal/dark
+- Summary: Signal blue, heroic red, and bright gold for coordinated momentum across a full team.
 - Dark: surface=#111827 ink=#F8FAFC accent=#3B82F6
 - Light: surface=#F5F7FF ink=#1E293B accent=#2563EB
 
-### Justice League / Watchtower
-- ID: `justice-league`
+### Worldwatch Alliance
+- ID: `worldwatch-alliance`
 - Category: dexthemes / comics
-- Deep link: https://dexthemes.com/?theme=justice-league
+- Deep link: https://dexthemes.com/worldwatch-alliance/dark
+- Summary: Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.
 - Dark: surface=#0F172A ink=#EAF2FF accent=#60A5FA
 - Light: surface=#F7FBFF ink=#1B2A4A accent=#2563EB
 
 ### Aquarius / Waterbearer
 - ID: `aquarius-waterbearer`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=aquarius-waterbearer
+- Deep link: https://dexthemes.com/aquarius-waterbearer/dark
 - Dark: surface=#101A26 ink=#EDF7FF accent=#38BDF8
 - Light: surface=#F3FBFF ink=#183246 accent=#0EA5E9
 
 ### Pisces / Dreamtide
 - ID: `pisces-dreamtide`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=pisces-dreamtide
+- Deep link: https://dexthemes.com/pisces-dreamtide/dark
 - Dark: surface=#111726 ink=#EEF2FF accent=#7C3AED
 - Light: surface=#F7F4FF ink=#251F3A accent=#A78BFA
 
 ### Aries / Ember Horn
 - ID: `aries-ember-horn`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=aries-ember-horn
+- Deep link: https://dexthemes.com/aries-ember-horn/dark
 - Dark: surface=#1A1110 ink=#FFF1EC accent=#F97316
 - Light: surface=#FFF5EE ink=#2B1B16 accent=#EA580C
 
 ### Taurus / Verdant Bronze
 - ID: `taurus-verdant-bronze`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=taurus-verdant-bronze
+- Deep link: https://dexthemes.com/taurus-verdant-bronze/dark
 - Dark: surface=#131712 ink=#EEF6EA accent=#65A30D
 - Light: surface=#F4F0E1 ink=#29261E accent=#A16207
 
 ### Gemini / Split Signal
 - ID: `gemini-split-signal`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=gemini-split-signal
+- Deep link: https://dexthemes.com/gemini-split-signal/dark
 - Dark: surface=#111522 ink=#F1F5FF accent=#22C55E
 - Light: surface=#FFF8EF ink=#2A211B accent=#F59E0B
 
 ### Cancer / Moontide
 - ID: `cancer-moontide`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=cancer-moontide
+- Deep link: https://dexthemes.com/cancer-moontide/dark
 - Dark: surface=#101827 ink=#EEF4FF accent=#7DD3FC
 - Light: surface=#FFF2F6 ink=#2A1E28 accent=#F472B6
 
 ### Leo / Goldflare
 - ID: `leo-goldflare`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=leo-goldflare
+- Deep link: https://dexthemes.com/leo-goldflare/dark
 - Dark: surface=#1A130F ink=#FFF5E9 accent=#F59E0B
 - Light: surface=#FFF7E6 ink=#2B1F13 accent=#D97706
 
 ### Virgo / Garden Script
 - ID: `virgo-garden-script`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=virgo-garden-script
+- Deep link: https://dexthemes.com/virgo-garden-script/dark
 - Dark: surface=#111713 ink=#EDF8EF accent=#84CC16
 - Light: surface=#F6F4E8 ink=#27261F accent=#65A30D
 
 ### Libra / Rose Scale
 - ID: `libra-rose-scale`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=libra-rose-scale
+- Deep link: https://dexthemes.com/libra-rose-scale/dark
 - Dark: surface=#15111A ink=#FAF3F8 accent=#F472B6
 - Light: surface=#FFF4F8 ink=#2B1D27 accent=#EC4899
 
 ### Scorpio / Midnight Venom
 - ID: `scorpio-midnight-venom`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=scorpio-midnight-venom
+- Deep link: https://dexthemes.com/scorpio-midnight-venom/dark
 - Dark: surface=#120E15 ink=#F7F2FA accent=#A855F7
 - Light: surface=#F7F2FB ink=#251F2D accent=#7C3AED
 
 ### Sagittarius / Stararrow
 - ID: `sagittarius-stararrow`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=sagittarius-stararrow
+- Deep link: https://dexthemes.com/sagittarius-stararrow/dark
 - Dark: surface=#101521 ink=#EEF2FF accent=#60A5FA
 - Light: surface=#FFF7EC ink=#2A2219 accent=#FB923C
 
 ### Capricorn / Stone Summit
 - ID: `capricorn-stone-summit`
 - Category: dexthemes / zodiacs
-- Deep link: https://dexthemes.com/?theme=capricorn-stone-summit
+- Deep link: https://dexthemes.com/capricorn-stone-summit/dark
 - Dark: surface=#131518 ink=#F1F3F5 accent=#94A3B8
 - Light: surface=#F2EDE4 ink=#2B251F accent=#A16207
 
 ### Rat / Streetwire
 - ID: `rat-streetwire`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=rat-streetwire
+- Deep link: https://dexthemes.com/rat-streetwire/dark
 - Dark: surface=#121317 ink=#F1F5F9 accent=#94A3B8
 - Light: surface=#F5F6F8 ink=#23262B accent=#64748B
 
 ### Ox / Iron Field
 - ID: `ox-iron-field`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=ox-iron-field
+- Deep link: https://dexthemes.com/ox-iron-field/dark
 - Dark: surface=#141612 ink=#F5F4ED accent=#A3A3A3
 - Light: surface=#F3EBDD ink=#28231D accent=#78716C
 
 ### Tiger / Ember Claw
 - ID: `tiger-ember-claw`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=tiger-ember-claw
+- Deep link: https://dexthemes.com/tiger-ember-claw/dark
 - Dark: surface=#1A110E ink=#FFF2EB accent=#F97316
 - Light: surface=#FFF4E9 ink=#2B1C15 accent=#EA580C
 
 ### Rabbit / Moonburrow
 - ID: `rabbit-moonburrow`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=rabbit-moonburrow
+- Deep link: https://dexthemes.com/rabbit-moonburrow/dark
 - Dark: surface=#15111A ink=#FAF4FA accent=#F9A8D4
 - Light: surface=#FFF3F8 ink=#2A1F28 accent=#F472B6
 
 ### Dragon / Celestial Forge
 - ID: `dragon-celestial-forge`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=dragon-celestial-forge
+- Deep link: https://dexthemes.com/dragon-celestial-forge/dark
 - Dark: surface=#0F1422 ink=#EEF2FF accent=#38BDF8
 - Light: surface=#F7F9FF ink=#1E2740 accent=#2563EB
 
 ### Snake / Jade Venom
 - ID: `snake-jade-venom`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=snake-jade-venom
+- Deep link: https://dexthemes.com/snake-jade-venom/dark
 - Dark: surface=#101713 ink=#EEF7F1 accent=#10B981
 - Light: surface=#F2F7F1 ink=#1E2A22 accent=#059669
 
 ### Horse / Sunrunner
 - ID: `horse-sunrunner`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=horse-sunrunner
+- Deep link: https://dexthemes.com/horse-sunrunner/dark
 - Dark: surface=#16120F ink=#FFF3E8 accent=#FB923C
 - Light: surface=#FFF5E8 ink=#2A1E15 accent=#EA580C
 
 ### Goat / Cloud Fleece
 - ID: `goat-cloud-fleece`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=goat-cloud-fleece
+- Deep link: https://dexthemes.com/goat-cloud-fleece/dark
 - Dark: surface=#14141A ink=#F6F5FA accent=#A78BFA
 - Light: surface=#F8F7FC ink=#242233 accent=#8B5CF6
 
 ### Monkey / Neon Trickster
 - ID: `monkey-neon-trickster`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=monkey-neon-trickster
+- Deep link: https://dexthemes.com/monkey-neon-trickster/dark
 - Dark: surface=#111620 ink=#EEF8FF accent=#22C55E
 - Light: surface=#FFF8EE ink=#2A2319 accent=#EAB308
 
 ### Rooster / Dawn Brass
 - ID: `rooster-dawn-brass`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=rooster-dawn-brass
+- Deep link: https://dexthemes.com/rooster-dawn-brass/dark
 - Dark: surface=#181210 ink=#FFF5ED accent=#D97706
 - Light: surface=#FFF7EA ink=#2B1E16 accent=#B45309
 
 ### Dog / Hearthguard
 - ID: `dog-hearthguard`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=dog-hearthguard
+- Deep link: https://dexthemes.com/dog-hearthguard/dark
 - Dark: surface=#151313 ink=#F8F4F0 accent=#A16207
 - Light: surface=#F4ECE4 ink=#2A231E accent=#92400E
 
 ### Pig / Velvet Orchard
 - ID: `pig-velvet-orchard`
 - Category: dexthemes / lunar-animals
-- Deep link: https://dexthemes.com/?theme=pig-velvet-orchard
+- Deep link: https://dexthemes.com/pig-velvet-orchard/dark
 - Dark: surface=#151118 ink=#FAF4F8 accent=#EC4899
 - Light: surface=#FFF3F8 ink=#2A1F27 accent=#DB2777
 
-### Liquid Glass / Apple
-- ID: `liquid-glass`
+### Orchard Glass
+- ID: `orchard-glass`
 - Category: dexthemes / companies
-- Deep link: https://dexthemes.com/?theme=liquid-glass
+- Deep link: https://dexthemes.com/orchard-glass/dark
+- Summary: Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.
 - Dark: surface=#1a1d24 ink=#e4e8ef accent=#5ac8fa
 - Light: surface=#f2f4f8 ink=#1c1e24 accent=#007aff
 
 ### Meridian Bloom
 - ID: `current-valentine`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=current-valentine
+- Deep link: https://dexthemes.com/current-valentine/dark
 - Dark: surface=#12131D ink=#F3F6FF accent=#4F7CFF
 - Light: surface=#FFF4F7 ink=#201A26 accent=#7C3AED
 
 ### Tideglass
 - ID: `second-tide`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=second-tide
+- Deep link: https://dexthemes.com/second-tide/dark
 - Dark: surface=#101A24 ink=#EAF8FF accent=#4CC9F0
 - Light: surface=#FFF8F0 ink=#2A1F1B accent=#FF8A5B
 
 ### Keepsake Halo
 - ID: `keepsake-gold`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=keepsake-gold
+- Deep link: https://dexthemes.com/keepsake-gold/dark
 - Dark: surface=#151112 ink=#FFF7E8 accent=#D4A017
 - Light: surface=#F8F1E3 ink=#2B241C accent=#B45309
 
 ### North Current
 - ID: `north-current`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=north-current
+- Deep link: https://dexthemes.com/north-current/dark
 - Dark: surface=#101A28 ink=#EEF6FF accent=#3B82F6
 - Light: surface=#F4FAFF ink=#1A2940 accent=#0EA5E9
 
 ### Quiet Orbit
 - ID: `quiet-orbit`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=quiet-orbit
+- Deep link: https://dexthemes.com/quiet-orbit/dark
 - Dark: surface=#11121A ink=#F4F4FA accent=#8B7CF6
 - Light: surface=#F7F3FB ink=#251F2D accent=#A78BFA
 
 ### Lantern Echo
 - ID: `lantern-echo`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=lantern-echo
+- Deep link: https://dexthemes.com/lantern-echo/dark
 - Dark: surface=#151015 ink=#FAF3F7 accent=#EAB308
 - Light: surface=#FFF5EA ink=#2B211D accent=#CA8A04
 
 ### Harvest Relay
 - ID: `harvest-theory`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=harvest-theory
+- Deep link: https://dexthemes.com/harvest-theory/dark
 - Dark: surface=#141814 ink=#EEF6EA accent=#7A8F3B
 - Light: surface=#F3F0E1 ink=#2A2921 accent=#6B8E23
 
 ### Blue Halo
 - ID: `blue-halo`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=blue-halo
+- Deep link: https://dexthemes.com/blue-halo/dark
 - Dark: surface=#101827 ink=#EEF4FF accent=#60A5FA
 - Light: surface=#F4FBFF ink=#1A2840 accent=#38BDF8
 
 ### Vernal Mosaic
 - ID: `may-mosaic`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=may-mosaic
+- Deep link: https://dexthemes.com/may-mosaic/dark
 - Dark: surface=#121714 ink=#F1F8EE accent=#84CC16
 - Light: surface=#FFF6E8 ink=#2C221B accent=#F59E0B
 
 ### Solar Frequency
 - ID: `solar-frequency`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=solar-frequency
+- Deep link: https://dexthemes.com/solar-frequency/dark
 - Dark: surface=#1A1210 ink=#FFF4EC accent=#F97316
 - Light: surface=#FFF7E7 ink=#2A1C14 accent=#EA580C
 
 ### Harbor Lace
 - ID: `harbor-lace`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=harbor-lace
+- Deep link: https://dexthemes.com/harbor-lace/dark
 - Dark: surface=#11161F ink=#EFF7FF accent=#7DD3FC
 - Light: surface=#FFF3F6 ink=#2A1E28 accent=#F472B6
 
 ### August Alloy
 - ID: `late-summer-steel`
 - Category: dexthemes / originals
-- Deep link: https://dexthemes.com/?theme=late-summer-steel
+- Deep link: https://dexthemes.com/late-summer-steel/dark
 - Dark: surface=#131619 ink=#EEF2F4 accent=#94A3B8
 - Light: surface=#F5EEE4 ink=#2D261E accent=#A16207

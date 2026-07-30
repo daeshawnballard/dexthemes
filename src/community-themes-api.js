@@ -8,6 +8,7 @@ import { CONVEX_SITE_URL } from './config.js';
 import { renderSidebar } from './sidebar.js';
 import { renderRightPanel } from './preview-shell.js';
 import { showToast } from './toasts.js';
+import { presentThemeForWebsite } from '../shared/plugin-public-policy.js';
 
 export async function loadCommunityThemes() {
   const isLocalPreview =
@@ -55,7 +56,9 @@ export async function loadCommunityThemes() {
         _authorIsSupporter: !!theme.authorIsSupporter,
         _authorIsAgent: !!theme.authorIsAgent,
         _summary: theme.summary,
-      }));
+      }))
+      .map((theme) => presentThemeForWebsite(theme))
+      .filter(Boolean);
 
     if (communityThemes.length > 0) {
       THEMES.push(...communityThemes);
