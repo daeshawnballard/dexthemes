@@ -23,6 +23,14 @@ function createResponse() {
   };
 }
 
+function readCssCustomProperty(source, property) {
+  return source.match(new RegExp(`${property}\\s*:\\s*([^;]+);`))?.[1]?.trim();
+}
+
+function normalizeFontStack(value) {
+  return value?.replaceAll(/["']/g, '').replaceAll(/\s+/g, ' ').trim();
+}
+
 function installCommunityFetch(t) {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (input) => {
@@ -120,4 +128,22 @@ test('the dynamic sitemap is not shadowed by a generated root asset', async () =
     access(new URL('../sitemap.xml', import.meta.url)),
     (error) => error?.code === 'ENOENT',
   );
+});
+
+test('public page headings use the app font stack', async () => {
+  const [appTokens, publicStyles] = await Promise.all([
+    readFile(new URL('../styles/tokens.css', import.meta.url), 'utf8'),
+    readFile(new URL('../public/public-pages.css', import.meta.url), 'utf8'),
+  ]);
+
+  const appFont = readCssCustomProperty(appTokens, '--font');
+  const publicDisplayFont = readCssCustomProperty(publicStyles, '--display');
+
+  assert.ok(appFont);
+  assert.ok(publicDisplayFont);
+  assert.equal(
+    normalizeFontStack(publicDisplayFont),
+    normalizeFontStack(appFont),
+  );
+  assert.doesNotMatch(publicDisplayFont, /Avenir|Condensed/i);
 });

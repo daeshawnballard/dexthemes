@@ -10,7 +10,7 @@
   --line-strong: rgba(255, 255, 255, 0.18);
   --page-accent: #47adff;
   --theme-surface: #0d0f12;
-  --display: "Avenir Next Condensed", "Avenir Next", "Helvetica Neue", sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --body: "Avenir Next", "Helvetica Neue", sans-serif;
   --mono: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
   --max: 1240px;
@@ -219,9 +219,9 @@ button {
   margin: 18px 0 0;
   font-family: var(--display);
   font-size: clamp(58px, 7vw, 108px);
-  font-weight: 750;
-  letter-spacing: -.075em;
-  line-height: .9;
+  font-weight: 720;
+  letter-spacing: -.055em;
+  line-height: .96;
 }
 
 .hero-copy {
