@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#11110f">
+  <title>DexThemes indexable page concepts</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#page-content">Skip to page content</a>
+
+  <header class="concept-bar" aria-label="Prototype controls">
+    <div class="concept-bar__status">
+      <span class="concept-dot" aria-hidden="true"></span>
+      <span><strong>Page concepts</strong> · isolated from production</span>
+    </div>
+    <nav class="concept-nav" aria-label="Choose a mock page">
+      <a href="#app-shell" data-page-link="app-shell">App shell</a>
+      <a href="#theme-github-dark" data-page-link="theme-github-dark">Public theme page</a>
+      <a href="#guide-install" data-page-link="guide-install">Install guide</a>
+      <a href="#guide-create" data-page-link="guide-create">Create guide</a>
+      <a href="#guide-troubleshoot" data-page-link="guide-troubleshoot">Troubleshooting</a>
+      <a href="#category-dark" data-page-link="category-dark">Dark</a>
+      <a href="#category-light" data-page-link="category-light">Light</a>
+      <a href="#category-classics" data-page-link="category-classics">Classics</a>
+      <a href="#category-community" data-page-link="category-community">Community</a>
+    </nav>
+  </header>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#app-shell" aria-label="DexThemes app concept">
+        <img src="../../logos/logo.png" alt="" width="38" height="38">
+        <span>
+          <strong>DexThemes</strong>
+          <small>Make Codex yours</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="DexThemes">
+        <a href="#collection-hub">Collections</a>
+        <a href="#category-community">Community</a>
+        <a href="#guide-hub">Guides</a>
+      </nav>
+
+      <a class="header-cta" href="../../">
+        Open DexThemes
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M6 14 14 6M8 6h6v6"/>
+        </svg>
+      </a>
+    </header>
+
+    <main id="page-content" tabindex="-1">
+      <div class="loading-state">
+        <span></span>
+        <p>Preparing the page concept…</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-mark" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </div>
+      <div>
+        <strong>DexThemes</strong>
+        <p>Discover, preview, and create themes for Codex.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#guide-hub">Guides</a>
+        <a href="#collection-hub">Theme collections</a>
+        <a href="https://github.com/daeshawnballard/dexthemes">GitHub</a>
+      </div>
+      <p class="footer-note">Free and open source. Community-built and not affiliated with OpenAI.</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

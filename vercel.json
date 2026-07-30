@@ -1,5 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": ".",
+  "trailingSlash": false,
   "crons": [
     {
       "path": "/api/warm-cache",
@@ -7,6 +9,26 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/guides",
+      "destination": "/api/content-page?section=guides"
+    },
+    {
+      "source": "/guides/:slug",
+      "destination": "/api/content-page?section=guides&slug=:slug"
+    },
+    {
+      "source": "/collections",
+      "destination": "/api/content-page?section=collections"
+    },
+    {
+      "source": "/collections/:slug",
+      "destination": "/api/content-page?section=collections&slug=:slug"
+    },
     {
       "source": "/auth/:path*",
       "destination": "https://acrobatic-corgi-867.convex.site/auth/:path*"
@@ -85,6 +107,24 @@
     },
     {
       "source": "/api/share",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/api/content-page",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/api/sitemap",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/public-pages.css",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800" }
       ]

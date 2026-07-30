@@ -126,4 +126,4 @@ Copy it, then go to **Settings → Appearance → Import theme** and paste to ap
 
 ## API Reference
 
-See [API.md](API.md) for the full API documentation and [llms.txt](https://dexthemes.com/llms.txt) for the published agent-facing surface.
+See [API.md](API.md) for the full API documentation and [llms.txt](https://www.dexthemes.com/llms.txt) for the published agent-facing surface.

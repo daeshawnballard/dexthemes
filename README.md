@@ -3,13 +3,13 @@
 > The theme gallery for [Codex](https://openai.com/codex). Browse, preview, and hand off beautiful themes to Codex in a couple of clicks.
 
 <p align="center">
-  <a href="https://dexthemes.com">
+  <a href="https://www.dexthemes.com">
     <img src="logos/logo-github-transparent.png" alt="DexThemes" width="200">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://dexthemes.com">dexthemes.com</a> · <a href="https://x.com/DexThemes">@DexThemes</a> · <a href="https://buymeacoffee.com/daeshawn">Support the project</a>
+  <a href="https://www.dexthemes.com">dexthemes.com</a> · <a href="https://www.dexthemes.com/collections">Theme collections</a> · <a href="https://www.dexthemes.com/guides">Guides</a> · <a href="https://x.com/DexThemes">@DexThemes</a>
 </p>
 
 ---
@@ -18,6 +18,8 @@
 
 - **Browse 100+ themes** across anime, video games, movies, comics, zodiacs, and more
 - **Live preview** — see how each theme looks with real code, dark and light variants side by side
+- **Theme details** — switch the center workspace from the faux chat to a complete palette, source, and import view
+- **Indexable public pages** — every valid theme variant has a canonical details page with a rendered preview and related themes
 - **Codex handoff** — copies the import string and opens Codex Settings for you
 - **Create your own** — the built-in theme builder lets you design and share custom themes
 - **Color Me Lucky** — random theme generator with 6 color harmonies and ~5000+ name combos
@@ -50,6 +52,9 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
 - [Codex plugin guide](docs/PLUGIN.md)
+- [Indexable pages design concept](docs/INDEXABLE-PAGES-DESIGN-CONCEPT.md)
+- [Reusable design prompts](docs/INDEXABLE-PAGES-DESIGN-PROMPTS.md)
+- [Implementation prompt](docs/INDEXABLE-PAGES-IMPLEMENTATION-PROMPT.md)
 - [OpenAI Build Week 2026 notes](docs/BUILD-WEEK-2026.md)
 
 ## Project structure
@@ -64,7 +69,8 @@ styles/                    → CSS split by domain (tokens, layout, sidebar, pre
 public/                    → Source-of-truth static files emitted to the deploy root during build
   manifest.json            → PWA manifest source
   robots.txt               → Search crawler directives
-  sitemap.xml              → Sitemap source
+  sitemap.xml              → Generated static sitemap fallback; /sitemap.xml is live at runtime
+  public-pages.css         → Server-rendered theme, guide, and collection page styles
   llms.txt                 → Agent-facing summary docs source
   llms-full.txt            → Full agent-facing docs source
   favicon.svg              → Root favicon source
@@ -76,6 +82,7 @@ src/                       → Frontend source modules
   preview-actions.js       → Preview-side effects, unlock actions, and external handoffs
   preview-chat.js          → Preview delighters, handoff cards, system prompts
   preview-attribution.js   → Theme attribution and reporting UI
+  theme-details.js         → In-app Chat preview / Theme details workspace switch
   theme-contracts.js       → Pure theme-shape helpers and import-string builder
   theme-attribution-model.js → Pure author attribution rules
   api.js                   → Frontend API client compatibility barrel
@@ -92,13 +99,17 @@ theme-data/dexthemes/      → Theme packs organized by category
   originals.js             → Original DexThemes designs
   liger-zero.js            → Liger Zero pack (Zoids)
   supporter.js             → Unlockable themes
-convex/                    → Backend (Convex) — auth, likes, community themes
+convex/                    → Backend (Convex) — auth, likes, community themes, IndexNow
   schema.ts                → Database schema
   users.ts                 → User management and sessions
   likes.ts                 → Like/unlike system
-  themes.ts                → Community theme submissions
+  themes.ts                → Community theme submissions and publication scheduling
+  indexNow.ts              → IndexNow publication notification action
   http.ts                  → HTTP route composition entrypoint
-api/                       → Vercel edge/serverless endpoints (`/api/themes`, OG, share, warm-cache)
+api/                       → Vercel edge/serverless endpoints (catalog, public pages, OG, sitemap)
+  share.js                 → Server-rendered canonical theme pages with real 404 handling
+  content-page.js          → Answer-first guide and collection pages
+  sitemap.js               → Live static + community catalog sitemap
   mcp.js                   → Stateless MCP endpoint for the DexThemes plugin
 server/                    → MCP tools, theme creation/validation, generated app resource
 mcp-app/                   → Interactive Apps SDK theme cards and previews
@@ -130,6 +141,7 @@ The backend runs on [Convex](https://convex.dev) and handles:
 - OAuth 2.1 resource-server support for the plugin, with GitHub as the upstream login
 - Browser session management (HttpOnly same-site cookies in production, token handoff only for localhost/dev)
 - Community theme submissions and moderation
+- IndexNow notification after a community theme is published
 - Like/unlike with canonical theme resolution and optimistic UI
 - Apply tracking
 - Color Me Lucky API endpoints
@@ -181,6 +193,8 @@ For visible-flow browser coverage, run:
 ```sh
 npm run smoke:browser
 ```
+
+The app records theme-page referrals, Theme details views, canonical shares, and import handoffs as separate analytics events so discovery can be measured independently from conversion.
 
 ## Support
 

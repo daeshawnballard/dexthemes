@@ -246,6 +246,17 @@
     margin-left: auto;
   }
 
+  .theme-view-switch {
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .theme-view-option {
+    min-height: 25px;
+    padding: 3px 7px;
+    font-size: 9px;
+  }
+
   /* On create: show share, hide like */
   .mobile-create-mode .header-social-actions .like-btn {
     display: none !important;
@@ -913,6 +924,60 @@
     font-size: 13px;
   }
 
+  .mobile-explore {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    margin: 8px 0 4px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--border);
+  }
+
+  .mobile-explore > div,
+  .mobile-explore > a {
+    background: var(--surface);
+  }
+
+  .mobile-explore > div {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 3px;
+    padding: 11px 12px;
+  }
+
+  .mobile-explore > div span {
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .mobile-explore > div strong {
+    color: var(--text-primary);
+    font-size: 12px;
+  }
+
+  .mobile-explore > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    min-width: 0;
+    padding: 9px 10px;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .mobile-explore > a span {
+    color: var(--accent);
+  }
+
   /* P1: Subgroup pills for DexThemes */
   .mobile-sub-pills {
     display: flex;
@@ -1010,6 +1075,35 @@
   /* Tighter preview area padding */
   .preview-area {
     padding: 0 8px 4px;
+  }
+
+  .preview-area.preview-area--theme-details {
+    min-height: 0;
+    padding: 4px 8px;
+  }
+
+  .theme-details-view {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .theme-details-hero,
+  .theme-details-palette,
+  .theme-details-facts {
+    padding: 22px 18px;
+  }
+
+  .theme-details-hero h2 {
+    font-size: 34px;
+  }
+
+  .theme-details-swatches,
+  .theme-details-facts dl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .theme-details-footer {
+    padding: 18px;
   }
 
   /* Smaller preview window border radius */

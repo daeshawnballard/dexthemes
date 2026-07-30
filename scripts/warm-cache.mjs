@@ -13,7 +13,7 @@ const themeMap = JSON.parse(
   readFileSync(join(__dirname, '..', 'api', 'theme-map.json'), 'utf-8')
 );
 
-const BASE = process.env.BASE_URL || 'https://dexthemes.com';
+const BASE = process.env.BASE_URL || 'https://www.dexthemes.com';
 const CONCURRENCY = 6; // parallel fetches at a time
 const themeIds = Object.keys(themeMap);
 

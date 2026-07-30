@@ -3,6 +3,11 @@
     "id": "codex",
     "sourceId": "codex",
     "name": "Codex",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#111111",
       "ink": "#fcfcfc",
@@ -24,12 +29,20 @@
       "skill": "#751ED9",
       "sidebar": "#f5f5f5",
       "codeBg": "#f0f0f0"
-    }
+    },
+    "accents": [
+      "#0169cc"
+    ]
   },
   "codex-disco-cloud": {
     "id": "codex-disco-cloud",
     "sourceId": "codex-disco-cloud",
     "name": "Codex / Disco Cloud",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-05-17",
     "dark": {
       "surface": "#080922",
       "ink": "#F1EDFF",
@@ -51,12 +64,22 @@
       "skill": "#7C3AED",
       "sidebar": "#E7E2FF",
       "codeBg": "#ECE7FF"
-    }
+    },
+    "accents": [
+      "#6D5DFF",
+      "#8F4FE7",
+      "#7487F2"
+    ]
   },
   "absolutely": {
     "id": "absolutely",
     "sourceId": "absolutely",
     "name": "Absolutely",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "absolutely",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#2d2d2b",
       "ink": "#f9f9f7",
@@ -78,12 +101,20 @@
       "skill": "#924ff7",
       "sidebar": "#f0f0ee",
       "codeBg": "#ededed"
-    }
+    },
+    "accents": [
+      "#cc7d5e"
+    ]
   },
   "ayu": {
     "id": "ayu",
     "sourceId": "ayu",
     "name": "Ayu",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "ayu",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#0b0e14",
       "ink": "#bfbdb6",
@@ -95,12 +126,20 @@
       "sidebar": "#070a0f",
       "codeBg": "#060810"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#e6b450"
+    ]
   },
   "catppuccin": {
     "id": "catppuccin",
     "sourceId": "catppuccin",
     "name": "Catppuccin",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "catppuccin",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#1e1e2e",
       "ink": "#cdd6f4",
@@ -122,12 +161,21 @@
       "skill": "#8839ef",
       "sidebar": "#e6e9ef",
       "codeBg": "#dce0e8"
-    }
+    },
+    "accents": [
+      "#cba6f7",
+      "#8839ef"
+    ]
   },
   "dracula": {
     "id": "dracula",
     "sourceId": "dracula",
     "name": "Dracula",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "dracula",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#282A36",
       "ink": "#F8F8F2",
@@ -139,12 +187,20 @@
       "sidebar": "#21222C",
       "codeBg": "#1d1e28"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#FF79C6"
+    ]
   },
   "everforest": {
     "id": "everforest",
     "sourceId": "everforest",
     "name": "Everforest",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "everforest",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#2d353b",
       "ink": "#d3c6aa",
@@ -166,12 +222,18 @@
       "skill": "#df69ba",
       "sidebar": "#fdf6e3",
       "codeBg": "#fdf6e3"
-    }
+    },
+    "accents": []
   },
   "github-dark": {
     "id": "github-dark",
     "sourceId": "github-dark",
     "name": "GitHub Dark",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "github",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#0d1117",
       "ink": "#e6edf3",
@@ -183,12 +245,20 @@
       "sidebar": "#090c10",
       "codeBg": "#070a0f"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#58a6ff"
+    ]
   },
   "github-light": {
     "id": "github-light",
     "sourceId": "github-light",
     "name": "GitHub Light",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "github",
+    "dateAdded": "2025-05-01",
     "dark": null,
     "light": {
       "surface": "#ffffff",
@@ -200,12 +270,20 @@
       "skill": "#8250df",
       "sidebar": "#f6f8fa",
       "codeBg": "#f0f2f4"
-    }
+    },
+    "accents": [
+      "#0969da"
+    ]
   },
   "gruvbox": {
     "id": "gruvbox",
     "sourceId": "gruvbox",
     "name": "Gruvbox",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "gruvbox",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#1d2021",
       "ink": "#ebdbb2",
@@ -217,12 +295,20 @@
       "sidebar": "#171819",
       "codeBg": "#131415"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#fe8019"
+    ]
   },
   "linear": {
     "id": "linear",
     "sourceId": "linear",
     "name": "Linear",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "linear",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#0f0f11",
       "ink": "#e3e4e6",
@@ -252,12 +338,18 @@
         "ui": "Inter"
       },
       "opaqueWindows": true
-    }
+    },
+    "accents": []
   },
   "lobster": {
     "id": "lobster",
     "sourceId": "lobster",
     "name": "Lobster",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "lobster",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#111827",
       "ink": "#e4e4e7",
@@ -272,12 +364,18 @@
         "ui": "Satoshi"
       }
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "material": {
     "id": "material",
     "sourceId": "material",
     "name": "Material",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "material",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#212121",
       "ink": "#eeffff",
@@ -289,12 +387,18 @@
       "sidebar": "#212121",
       "codeBg": "#212121"
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "matrix": {
     "id": "matrix",
     "sourceId": "matrix",
     "name": "Matrix",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "matrix",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#040805",
       "ink": "#b8ffca",
@@ -311,12 +415,18 @@
       },
       "opaqueWindows": true
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "monokai": {
     "id": "monokai",
     "sourceId": "monokai",
     "name": "Monokai",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "monokai",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#272822",
       "ink": "#F8F8F2",
@@ -328,12 +438,22 @@
       "sidebar": "#1f201b",
       "codeBg": "#1b1c17"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#F92672",
+      "#A6E22E",
+      "#66D9EF"
+    ]
   },
   "night-owl": {
     "id": "night-owl",
     "sourceId": "night-owl",
     "name": "Night Owl",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "night-owl",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#011627",
       "ink": "#d6deeb",
@@ -345,12 +465,18 @@
       "sidebar": "#011627",
       "codeBg": "#011627"
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "nord": {
     "id": "nord",
     "sourceId": "nord",
     "name": "Nord",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "nord",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#2E3440",
       "ink": "#ECEFF4",
@@ -362,12 +488,20 @@
       "sidebar": "#272c36",
       "codeBg": "#242830"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#88C0D0"
+    ]
   },
   "notion": {
     "id": "notion",
     "sourceId": "notion",
     "name": "Notion",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "notion",
+    "dateAdded": "2026-07-03",
     "dark": {
       "surface": "#191919",
       "ink": "#d9d9d8",
@@ -389,12 +523,20 @@
       "skill": "#924ff7",
       "sidebar": "#f7f6f3",
       "codeBg": "#ffffff"
-    }
+    },
+    "accents": [
+      "#3183d8"
+    ]
   },
   "oscurange": {
     "id": "oscurange",
     "sourceId": "oscurange",
     "name": "Oscurange",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "oscurange",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#0b0b0f",
       "ink": "#e6e6e6",
@@ -406,12 +548,18 @@
       "sidebar": "#0b0b0f",
       "codeBg": "#0b0b0f"
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "one-dark": {
     "id": "one-dark",
     "sourceId": "one-dark",
     "name": "One Dark",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "one",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#282c34",
       "ink": "#abb2bf",
@@ -423,12 +571,20 @@
       "sidebar": "#21252b",
       "codeBg": "#1d2025"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#61afef"
+    ]
   },
   "proof": {
     "id": "proof",
     "sourceId": "proof",
     "name": "Proof",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "proof",
+    "dateAdded": "2026-07-11",
     "dark": null,
     "light": {
       "surface": "#f5f3ed",
@@ -445,12 +601,18 @@
         "ui": null
       },
       "opaqueWindows": false
-    }
+    },
+    "accents": []
   },
   "raycast": {
     "id": "raycast",
     "sourceId": "raycast",
     "name": "Raycast",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "raycast",
+    "dateAdded": "2026-03-27",
     "dark": {
       "surface": "#101010",
       "ink": "#fefefe",
@@ -474,12 +636,20 @@
       "sidebar": "#fcfcfc",
       "codeBg": "#ffffff",
       "opaqueWindows": false
-    }
+    },
+    "accents": [
+      "#FF6363"
+    ]
   },
   "rose-pine": {
     "id": "rose-pine",
     "sourceId": "rose-pine",
     "name": "Rosé Pine",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "rose-pine",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#191724",
       "ink": "#e0def4",
@@ -491,12 +661,21 @@
       "sidebar": "#13111e",
       "codeBg": "#100e19"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#c4a7e7",
+      "#ebbcba"
+    ]
   },
   "sentry": {
     "id": "sentry",
     "sourceId": "sentry",
     "name": "Sentry",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "sentry",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#2d2935",
       "ink": "#e6dff9",
@@ -512,12 +691,18 @@
         "ui": null
       }
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "solarized": {
     "id": "solarized",
     "sourceId": "solarized",
     "name": "Solarized",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "solarized",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#002b36",
       "ink": "#839496",
@@ -539,12 +724,20 @@
       "skill": "#6c71c4",
       "sidebar": "#f5eedb",
       "codeBg": "#eee8d5"
-    }
+    },
+    "accents": [
+      "#268bd2"
+    ]
   },
   "temple": {
     "id": "temple",
     "sourceId": "temple",
     "name": "Temple",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "temple",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#02120c",
       "ink": "#c7e6da",
@@ -556,12 +749,18 @@
       "sidebar": "#1d2d0f",
       "codeBg": "#02120c"
     },
-    "light": null
+    "light": null,
+    "accents": []
   },
   "tokyo-night": {
     "id": "tokyo-night",
     "sourceId": "tokyo-night",
     "name": "Tokyo Night",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "tokyo-night",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#1a1b26",
       "ink": "#c0caf5",
@@ -573,12 +772,20 @@
       "sidebar": "#13141d",
       "codeBg": "#101018"
     },
-    "light": null
+    "light": null,
+    "accents": [
+      "#7aa2f7"
+    ]
   },
   "vercel": {
     "id": "vercel",
     "sourceId": "vercel",
     "name": "Vercel",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "vercel",
+    "dateAdded": "2026-07-03",
     "dark": {
       "surface": "#000000",
       "ink": "#ededed",
@@ -608,12 +815,18 @@
         "code": "\"Geist Mono\", ui-monospace, \"SFMono-Regular\"",
         "ui": "Geist, Inter"
       }
-    }
+    },
+    "accents": []
   },
   "vscode-plus": {
     "id": "vscode-plus",
     "sourceId": "vscode-plus",
     "name": "VS Code+",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "vscode-plus",
+    "dateAdded": "2025-05-01",
     "dark": {
       "surface": "#1E1E1E",
       "ink": "#D4D4D4",
@@ -635,12 +848,20 @@
       "skill": "#924ff7",
       "sidebar": "#f3f3f3",
       "codeBg": "#ececec"
-    }
+    },
+    "accents": [
+      "#007ACC"
+    ]
   },
   "xcode": {
     "id": "xcode",
     "sourceId": "xcode",
     "name": "Xcode",
+    "summary": null,
+    "category": "codex",
+    "subgroup": null,
+    "codeThemeId": "xcode",
+    "dateAdded": "2026-07-11",
     "dark": {
       "surface": "#1f1f24",
       "ink": "#ffffff",
@@ -668,12 +889,18 @@
       "fonts": {
         "code": "\"SFMono-Regular\""
       }
-    }
+    },
+    "accents": []
   },
   "crimson-soulblade": {
     "id": "crimson-soulblade",
     "sourceId": "ichigo-bankai",
     "name": "Crimson Soulblade",
+    "summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2025-12-01",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -695,12 +922,21 @@
       "accent": "#F97316",
       "sidebar": "#f5ede8",
       "codeBg": "#f1e9e4"
-    }
+    },
+    "accents": [
+      "#FF7A1A",
+      "#F97316"
+    ]
   },
   "ivory-mask-soulblade": {
     "id": "ivory-mask-soulblade",
     "sourceId": "ichigo-hollow",
     "name": "Ivory Mask Soulblade",
+    "summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -722,12 +958,21 @@
       "accent": "#111827",
       "sidebar": "#ece8ed",
       "codeBg": "#e8e4e9"
-    }
+    },
+    "accents": [
+      "#E11D48",
+      "#111827"
+    ]
   },
   "seventh-fire-shadow": {
     "id": "seventh-fire-shadow",
     "sourceId": "naruto-hidden-leaf",
     "name": "Seventh Fire Shadow",
+    "summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2025-12-01",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -749,12 +994,21 @@
       "accent": "#F59E0B",
       "sidebar": "#f5eee3",
       "codeBg": "#f1eadf"
-    }
+    },
+    "accents": [
+      "#FF9F1C",
+      "#F59E0B"
+    ]
   },
   "groundbound-scavenger": {
     "id": "groundbound-scavenger",
     "sourceId": "gachiakuta-rudo",
     "name": "Groundbound Scavenger",
+    "summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -776,12 +1030,21 @@
       "accent": "#4B5563",
       "sidebar": "#e4ddce",
       "codeBg": "#e0d9ca"
-    }
+    },
+    "accents": [
+      "#78C6A3",
+      "#4B5563"
+    ]
   },
   "fallen-colossus": {
     "id": "fallen-colossus",
     "sourceId": "eren-titan-fall",
     "name": "Fallen Colossus",
+    "summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -803,12 +1066,21 @@
       "accent": "#3B5C74",
       "sidebar": "#ede8e0",
       "codeBg": "#e9e4dc"
-    }
+    },
+    "accents": [
+      "#8B1E1E",
+      "#3B5C74"
+    ]
   },
   "silver-instinct": {
     "id": "silver-instinct",
     "sourceId": "goku-ultra-instinct",
     "name": "Silver Instinct",
+    "summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -830,12 +1102,21 @@
       "accent": "#A5B4FC",
       "sidebar": "#ebeff5",
       "codeBg": "#e7ebf1"
-    }
+    },
+    "accents": [
+      "#7C3AED",
+      "#A5B4FC"
+    ]
   },
   "primal-crimson-ascent": {
     "id": "primal-crimson-ascent",
     "sourceId": "goku-ssj4",
     "name": "Primal Crimson Ascent",
+    "summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -857,12 +1138,21 @@
       "accent": "#E76F51",
       "sidebar": "#eee8e3",
       "codeBg": "#eae4df"
-    }
+    },
+    "accents": [
+      "#D9465F",
+      "#E76F51"
+    ]
   },
   "cursed-twin-vessel": {
     "id": "cursed-twin-vessel",
     "sourceId": "yuji-sukuna",
     "name": "Cursed Twin Vessel",
+    "summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -884,12 +1174,21 @@
       "accent": "#F97316",
       "sidebar": "#f5edeb",
       "codeBg": "#f1e9e7"
-    }
+    },
+    "accents": [
+      "#D62839",
+      "#F97316"
+    ]
   },
   "infinite-azure": {
     "id": "infinite-azure",
     "sourceId": "gojo-limitless",
     "name": "Infinite Azure",
+    "summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -911,12 +1210,21 @@
       "accent": "#BFDBFE",
       "sidebar": "#ebf0f5",
       "codeBg": "#e7ecf1"
-    }
+    },
+    "accents": [
+      "#60A5FA",
+      "#BFDBFE"
+    ]
   },
   "golden-timebreaker": {
     "id": "golden-timebreaker",
     "sourceId": "jojo-dio",
     "name": "Golden Timebreaker",
+    "summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -938,12 +1246,21 @@
       "accent": "#7C3AED",
       "sidebar": "#f5edcc",
       "codeBg": "#f1e9c8"
-    }
+    },
+    "accents": [
+      "#D4AF37",
+      "#7C3AED"
+    ]
   },
   "solo-shadow-ascent": {
     "id": "solo-shadow-ascent",
     "sourceId": "solo-leveling",
     "name": "Solo Shadow Ascent",
+    "summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -965,12 +1282,21 @@
       "accent": "#94A3FF",
       "sidebar": "#eaedf5",
       "codeBg": "#e6e9f1"
-    }
+    },
+    "accents": [
+      "#4C6FFF",
+      "#94A3FF"
+    ]
   },
   "scarlet-gunsmoke": {
     "id": "scarlet-gunsmoke",
     "sourceId": "trigun-gunsmoke",
     "name": "Scarlet Gunsmoke",
+    "summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -992,12 +1318,21 @@
       "accent": "#B45309",
       "sidebar": "#ebdcbe",
       "codeBg": "#e7d8ba"
-    }
+    },
+    "accents": [
+      "#D97706",
+      "#B45309"
+    ]
   },
   "blue-space-jazz": {
     "id": "blue-space-jazz",
     "sourceId": "cowboy-bebop",
     "name": "Blue Space Jazz",
+    "summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1019,12 +1354,21 @@
       "accent": "#0EA5E9",
       "sidebar": "#ecdebd",
       "codeBg": "#e8dab9"
-    }
+    },
+    "accents": [
+      "#38BDF8",
+      "#0EA5E9"
+    ]
   },
   "cybernetic-major": {
     "id": "cybernetic-major",
     "sourceId": "ghost-in-the-shell",
     "name": "Cybernetic Major",
+    "summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#2DD4BF",
@@ -1046,12 +1390,21 @@
       "accent": "#38BDF8",
       "sidebar": "#e8f2f5",
       "codeBg": "#e4eef1"
-    }
+    },
+    "accents": [
+      "#00B8D9",
+      "#38BDF8"
+    ]
   },
   "white-orbital-prototype": {
     "id": "white-orbital-prototype",
     "sourceId": "gundam-rx-78-2",
     "name": "White Orbital Prototype",
+    "summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-05-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1073,12 +1426,22 @@
       "accent": "#2457C5",
       "sidebar": "#E8ECF5",
       "codeBg": "#EEF2F8"
-    }
+    },
+    "accents": [
+      "#2F6FE4",
+      "#EF3340",
+      "#FACC15"
+    ]
   },
   "cosmic-strikeframe": {
     "id": "cosmic-strikeframe",
     "sourceId": "gundam-seed-strike",
     "name": "Cosmic Strikeframe",
+    "summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-05-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1100,12 +1463,22 @@
       "accent": "#1E40AF",
       "sidebar": "#EEF2F8",
       "codeBg": "#F4F7FB"
-    }
+    },
+    "accents": [
+      "#1D4ED8",
+      "#E11D48",
+      "#FACC15"
+    ]
   },
   "azure-translight": {
     "id": "azure-translight",
     "sourceId": "gundam-00-exia-trans-am",
     "name": "Azure Translight",
+    "summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-05-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#2DD4BF",
@@ -1127,12 +1500,22 @@
       "accent": "#E11D48",
       "sidebar": "#F6E7ED",
       "codeBg": "#FBEAF0"
-    }
+    },
+    "accents": [
+      "#F43F5E",
+      "#22D3EE",
+      "#A78BFA"
+    ]
   },
   "sunlit-rubber-myth": {
     "id": "sunlit-rubber-myth",
     "sourceId": "luffy-gear-five",
     "name": "Sunlit Rubber Myth",
+    "summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1154,12 +1537,21 @@
       "accent": "#F3F4F6",
       "sidebar": "#EEF2FF",
       "codeBg": "#E6EDFF"
-    }
+    },
+    "accents": [
+      "#F87171",
+      "#F3F4F6"
+    ]
   },
   "shonen-sunset": {
     "id": "shonen-sunset",
     "sourceId": "shonen-sunset",
     "name": "Shonen Sunset",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-01-10",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1181,12 +1573,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5edde",
       "codeBg": "#f1e9da"
-    }
+    },
+    "accents": [
+      "#FB923C",
+      "#EA580C"
+    ]
   },
   "zero-mechcat": {
     "id": "zero-mechcat",
     "sourceId": "liger-zero-base",
     "name": "Zero Mechcat",
+    "summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#22C55E",
@@ -1208,12 +1609,21 @@
       "accent": "#00945A",
       "sidebar": "#E4E4EC",
       "codeBg": "#EAEAF0"
-    }
+    },
+    "accents": [
+      "#00E060",
+      "#00945A"
+    ]
   },
   "zero-bladecat": {
     "id": "zero-bladecat",
     "sourceId": "liger-zero-schneider",
     "name": "Zero Bladecat",
+    "summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1235,12 +1645,21 @@
       "accent": "#C04A10",
       "sidebar": "#F0E0D4",
       "codeBg": "#F6ECDF"
-    }
+    },
+    "accents": [
+      "#E06828",
+      "#C04A10"
+    ]
   },
   "zero-swiftcat": {
     "id": "zero-swiftcat",
     "sourceId": "liger-zero-jager",
     "name": "Zero Swiftcat",
+    "summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1262,12 +1681,21 @@
       "accent": "#1840A0",
       "sidebar": "#DEE6F4",
       "codeBg": "#E4EAF5"
-    }
+    },
+    "accents": [
+      "#00C8FF",
+      "#1840A0"
+    ]
   },
   "zero-siegecat": {
     "id": "zero-siegecat",
     "sourceId": "liger-zero-panzer",
     "name": "Zero Siegecat",
+    "summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line.",
+    "category": "dexthemes",
+    "subgroup": "anime",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-15",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1289,12 +1717,21 @@
       "accent": "#4A5A30",
       "sidebar": "#E2E6D8",
       "codeBg": "#E8ECD8"
-    }
+    },
+    "accents": [
+      "#A0E030",
+      "#4A5A30"
+    ]
   },
   "emerald-spartan": {
     "id": "emerald-spartan",
     "sourceId": "master-chief",
     "name": "Emerald Spartan",
+    "summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1316,12 +1753,21 @@
       "accent": "#5E8C31",
       "sidebar": "#e0e6d4",
       "codeBg": "#dce2d0"
-    }
+    },
+    "accents": [
+      "#7FB069",
+      "#5E8C31"
+    ]
   },
   "sunset-machine-huntress": {
     "id": "sunset-machine-huntress",
     "sourceId": "aloy-horizon",
     "name": "Sunset Machine Huntress",
+    "summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1343,12 +1789,21 @@
       "accent": "#EA580C",
       "sidebar": "#ebddc8",
       "codeBg": "#e7d9c4"
-    }
+    },
+    "accents": [
+      "#F97316",
+      "#EA580C"
+    ]
   },
   "ashen-godslayer": {
     "id": "ashen-godslayer",
     "sourceId": "kratos-olympus",
     "name": "Ashen Godslayer",
+    "summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1370,12 +1825,21 @@
       "accent": "#9A3412",
       "sidebar": "#ece7e1",
       "codeBg": "#e8e3dd"
-    }
+    },
+    "accents": [
+      "#B91C1C",
+      "#9A3412"
+    ]
   },
   "neon-console-green": {
     "id": "neon-console-green",
     "sourceId": "xbox-neon",
     "name": "Neon Console Green",
+    "summary": "Electric green on carbon black for a fast, high-contrast console glow.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1397,12 +1861,21 @@
       "accent": "#16A34A",
       "sidebar": "#eaf5eb",
       "codeBg": "#e6f1e7"
-    }
+    },
+    "accents": [
+      "#22C55E",
+      "#16A34A"
+    ]
   },
   "cosmic-controller": {
     "id": "cosmic-controller",
     "sourceId": "playstation-cosmos",
     "name": "Cosmic Controller",
+    "summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1424,12 +1897,21 @@
       "accent": "#1D4ED8",
       "sidebar": "#eaedf5",
       "codeBg": "#e6e9f1"
-    }
+    },
+    "accents": [
+      "#2563EB",
+      "#1D4ED8"
+    ]
   },
   "split-screen-neon": {
     "id": "split-screen-neon",
     "sourceId": "nintendo-switch",
     "name": "Split-Screen Neon",
+    "summary": "Split cyan and coral over graphite for playful motion and handheld energy.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#14B8A6",
@@ -1451,12 +1933,21 @@
       "accent": "#E11D48",
       "sidebar": "#f5eaeb",
       "codeBg": "#f1e6e7"
-    }
+    },
+    "accents": [
+      "#22D3EE",
+      "#E11D48"
+    ]
   },
   "scarlet-mushroom-run": {
     "id": "scarlet-mushroom-run",
     "sourceId": "mario-mushroom",
     "name": "Scarlet Mushroom Run",
+    "summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1478,12 +1969,21 @@
       "accent": "#F59E0B",
       "sidebar": "#f5ebde",
       "codeBg": "#f1e7da"
-    }
+    },
+    "accents": [
+      "#EF4444",
+      "#F59E0B"
+    ]
   },
   "cobalt-speedline": {
     "id": "cobalt-speedline",
     "sourceId": "sonic-boost",
     "name": "Cobalt Speedline",
+    "summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1505,12 +2005,21 @@
       "accent": "#0EA5E9",
       "sidebar": "#ebf1f5",
       "codeBg": "#e7edf1"
-    }
+    },
+    "accents": [
+      "#3B82F6",
+      "#0EA5E9"
+    ]
   },
   "future-graffiti-radio": {
     "id": "future-graffiti-radio",
     "sourceId": "jet-set-radio",
     "name": "Future Graffiti Radio",
+    "summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1532,12 +2041,21 @@
       "accent": "#84CC16",
       "sidebar": "#eff5de",
       "codeBg": "#ebf1da"
-    }
+    },
+    "accents": [
+      "#22C55E",
+      "#84CC16"
+    ]
   },
   "orange-star-bounty": {
     "id": "orange-star-bounty",
     "sourceId": "samus-metroid",
     "name": "Orange Star Bounty",
+    "summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1559,12 +2077,21 @@
       "accent": "#EA580C",
       "sidebar": "#ede4d7",
       "codeBg": "#e9e0d3"
-    }
+    },
+    "accents": [
+      "#F59E0B",
+      "#EA580C"
+    ]
   },
   "pocket-voltage": {
     "id": "pocket-voltage",
     "sourceId": "pikachu-voltage",
     "name": "Pocket Voltage",
+    "summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1586,12 +2113,21 @@
       "accent": "#EAB308",
       "sidebar": "#f5f1de",
       "codeBg": "#f1edda"
-    }
+    },
+    "accents": [
+      "#FACC15",
+      "#EAB308"
+    ]
   },
   "indigo-field-trainer": {
     "id": "indigo-field-trainer",
     "sourceId": "ash-indigo",
     "name": "Indigo Field Trainer",
+    "summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1613,12 +2149,21 @@
       "accent": "#2563EB",
       "sidebar": "#ebedf5",
       "codeBg": "#e7e9f1"
-    }
+    },
+    "accents": [
+      "#EF4444",
+      "#2563EB"
+    ]
   },
   "emerald-kingdom-legend": {
     "id": "emerald-kingdom-legend",
     "sourceId": "zelda-hyrule",
     "name": "Emerald Kingdom Legend",
+    "summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1640,12 +2185,21 @@
       "accent": "#0F766E",
       "sidebar": "#eae6cd",
       "codeBg": "#e6e2c9"
-    }
+    },
+    "accents": [
+      "#10B981",
+      "#0F766E"
+    ]
   },
   "infernal-slayer": {
     "id": "infernal-slayer",
     "sourceId": "doom-slayer",
     "name": "Infernal Slayer",
+    "summary": "Hellfire orange, scorched black, and warning red for relentless forward motion.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1667,12 +2221,21 @@
       "accent": "#15803D",
       "sidebar": "#dfe5dc",
       "codeBg": "#dbe1d8"
-    }
+    },
+    "accents": [
+      "#22C55E",
+      "#15803D"
+    ]
   },
   "cobalt-arm-cannon": {
     "id": "cobalt-arm-cannon",
     "sourceId": "mega-man-cobalt",
     "name": "Cobalt Arm Cannon",
+    "summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.",
+    "category": "dexthemes",
+    "subgroup": "video-games",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1694,12 +2257,21 @@
       "accent": "#3B82F6",
       "sidebar": "#ebf0f5",
       "codeBg": "#e7ecf1"
-    }
+    },
+    "accents": [
+      "#2563EB",
+      "#3B82F6"
+    ]
   },
   "chrome-future-hunter": {
     "id": "chrome-future-hunter",
     "sourceId": "terminator-future-war",
     "name": "Chrome Future Hunter",
+    "summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.",
+    "category": "dexthemes",
+    "subgroup": "movies",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1721,12 +2293,21 @@
       "accent": "#78716C",
       "sidebar": "#dddbda",
       "codeBg": "#d9d7d6"
-    }
+    },
+    "accents": [
+      "#DC2626",
+      "#78716C"
+    ]
   },
   "bioluminescent-moon": {
     "id": "bioluminescent-moon",
     "sourceId": "avatar-pandora",
     "name": "Bioluminescent Moon",
+    "summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.",
+    "category": "dexthemes",
+    "subgroup": "movies",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1748,12 +2329,21 @@
       "accent": "#14B8A6",
       "sidebar": "#e2f4f5",
       "codeBg": "#def0f1"
-    }
+    },
+    "accents": [
+      "#0EA5E9",
+      "#14B8A6"
+    ]
   },
   "golden-bride": {
     "id": "golden-bride",
     "sourceId": "kill-bill-bride",
     "name": "Golden Bride",
+    "summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.",
+    "category": "dexthemes",
+    "subgroup": "movies",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1775,12 +2365,21 @@
       "accent": "#EAB308",
       "sidebar": "#f5f1e0",
       "codeBg": "#f1eddc"
-    }
+    },
+    "accents": [
+      "#FACC15",
+      "#EAB308"
+    ]
   },
   "nocturnal-vigil": {
     "id": "nocturnal-vigil",
     "sourceId": "batman-knight",
     "name": "Nocturnal Vigil",
+    "summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1802,12 +2401,21 @@
       "accent": "#111827",
       "sidebar": "#eae7dc",
       "codeBg": "#e6e3d8"
-    }
+    },
+    "accents": [
+      "#FACC15",
+      "#111827"
+    ]
   },
   "solar-sentinel": {
     "id": "solar-sentinel",
     "sourceId": "superman-krypton",
     "name": "Solar Sentinel",
+    "summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -1829,12 +2437,21 @@
       "accent": "#2563EB",
       "sidebar": "#ebeff5",
       "codeBg": "#e7ebf1"
-    }
+    },
+    "accents": [
+      "#DC2626",
+      "#2563EB"
+    ]
   },
   "amazonian-truth": {
     "id": "amazonian-truth",
     "sourceId": "wonder-woman",
     "name": "Amazonian Truth",
+    "summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1856,12 +2473,21 @@
       "accent": "#CA8A04",
       "sidebar": "#f5edde",
       "codeBg": "#f1e9da"
-    }
+    },
+    "accents": [
+      "#E11D48",
+      "#CA8A04"
+    ]
   },
   "scarlet-webline": {
     "id": "scarlet-webline",
     "sourceId": "spider-man",
     "name": "Scarlet Webline",
+    "summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1883,12 +2509,21 @@
       "accent": "#2563EB",
       "sidebar": "#eef1f5",
       "codeBg": "#eaedf1"
-    }
+    },
+    "accents": [
+      "#DC2626",
+      "#2563EB"
+    ]
   },
   "violet-panther-guard": {
     "id": "violet-panther-guard",
     "sourceId": "black-panther",
     "name": "Violet Panther Guard",
+    "summary": "Royal violet, polished silver, and deep black for quiet precision and protected power.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1910,12 +2545,21 @@
       "accent": "#6D28D9",
       "sidebar": "#ebe9f5",
       "codeBg": "#e7e5f1"
-    }
+    },
+    "accents": [
+      "#7C3AED",
+      "#6D28D9"
+    ]
   },
   "crimson-arc-armor": {
     "id": "crimson-arc-armor",
     "sourceId": "iron-man",
     "name": "Crimson Arc Armor",
+    "summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1937,12 +2581,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5ece4",
       "codeBg": "#f1e8e0"
-    }
+    },
+    "accents": [
+      "#0EA5E9",
+      "#EA580C"
+    ]
   },
   "scarlet-rooftop-duel": {
     "id": "scarlet-rooftop-duel",
     "sourceId": "daredevil-elektra",
     "name": "Scarlet Rooftop Duel",
+    "summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1964,12 +2617,21 @@
       "accent": "#E11D48",
       "sidebar": "#f5eaea",
       "codeBg": "#f1e6e6"
-    }
+    },
+    "accents": [
+      "#B91C1C",
+      "#E11D48"
+    ]
   },
   "united-hero-signal": {
     "id": "united-hero-signal",
     "sourceId": "avengers-assemble",
     "name": "United Hero Signal",
+    "summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -1991,12 +2653,21 @@
       "accent": "#2563EB",
       "sidebar": "#ebedf5",
       "codeBg": "#e7e9f1"
-    }
+    },
+    "accents": [
+      "#3B82F6",
+      "#2563EB"
+    ]
   },
   "worldwatch-alliance": {
     "id": "worldwatch-alliance",
     "sourceId": "justice-league",
     "name": "Worldwatch Alliance",
+    "summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.",
+    "category": "dexthemes",
+    "subgroup": "comics",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2018,12 +2689,21 @@
       "accent": "#2563EB",
       "sidebar": "#edf1f5",
       "codeBg": "#e9edf1"
-    }
+    },
+    "accents": [
+      "#60A5FA",
+      "#2563EB"
+    ]
   },
   "aquarius-waterbearer": {
     "id": "aquarius-waterbearer",
     "sourceId": "aquarius-waterbearer",
     "name": "Aquarius / Waterbearer",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2045,12 +2725,21 @@
       "accent": "#0EA5E9",
       "sidebar": "#e9f1f5",
       "codeBg": "#e5edf1"
-    }
+    },
+    "accents": [
+      "#38BDF8",
+      "#0EA5E9"
+    ]
   },
   "pisces-dreamtide": {
     "id": "pisces-dreamtide",
     "sourceId": "pisces-dreamtide",
     "name": "Pisces / Dreamtide",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2072,12 +2761,21 @@
       "accent": "#A78BFA",
       "sidebar": "#edeaf5",
       "codeBg": "#e9e6f1"
-    }
+    },
+    "accents": [
+      "#7C3AED",
+      "#A78BFA"
+    ]
   },
   "aries-ember-horn": {
     "id": "aries-ember-horn",
     "sourceId": "aries-ember-horn",
     "name": "Aries / Ember Horn",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2099,12 +2797,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5ebe4",
       "codeBg": "#f1e7e0"
-    }
+    },
+    "accents": [
+      "#F97316",
+      "#EA580C"
+    ]
   },
   "taurus-verdant-bronze": {
     "id": "taurus-verdant-bronze",
     "sourceId": "taurus-verdant-bronze",
     "name": "Taurus / Verdant Bronze",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2126,12 +2833,21 @@
       "accent": "#A16207",
       "sidebar": "#eae6d7",
       "codeBg": "#e6e2d3"
-    }
+    },
+    "accents": [
+      "#65A30D",
+      "#A16207"
+    ]
   },
   "gemini-split-signal": {
     "id": "gemini-split-signal",
     "sourceId": "gemini-split-signal",
     "name": "Gemini / Split Signal",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2153,12 +2869,21 @@
       "accent": "#F59E0B",
       "sidebar": "#f5eee5",
       "codeBg": "#f1eae1"
-    }
+    },
+    "accents": [
+      "#22C55E",
+      "#F59E0B"
+    ]
   },
   "cancer-moontide": {
     "id": "cancer-moontide",
     "sourceId": "cancer-moontide",
     "name": "Cancer / Moontide",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2180,12 +2905,21 @@
       "accent": "#F472B6",
       "sidebar": "#f5e8ec",
       "codeBg": "#f1e4e8"
-    }
+    },
+    "accents": [
+      "#7DD3FC",
+      "#F472B6"
+    ]
   },
   "leo-goldflare": {
     "id": "leo-goldflare",
     "sourceId": "leo-goldflare",
     "name": "Leo / Goldflare",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2207,12 +2941,21 @@
       "accent": "#D97706",
       "sidebar": "#f5eddc",
       "codeBg": "#f1e9d8"
-    }
+    },
+    "accents": [
+      "#F59E0B",
+      "#D97706"
+    ]
   },
   "virgo-garden-script": {
     "id": "virgo-garden-script",
     "sourceId": "virgo-garden-script",
     "name": "Virgo / Garden Script",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2234,12 +2977,21 @@
       "accent": "#65A30D",
       "sidebar": "#eceade",
       "codeBg": "#e8e6da"
-    }
+    },
+    "accents": [
+      "#84CC16",
+      "#65A30D"
+    ]
   },
   "libra-rose-scale": {
     "id": "libra-rose-scale",
     "sourceId": "libra-rose-scale",
     "name": "Libra / Rose Scale",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2261,12 +3013,21 @@
       "accent": "#EC4899",
       "sidebar": "#f5eaee",
       "codeBg": "#f1e6ea"
-    }
+    },
+    "accents": [
+      "#F472B6",
+      "#EC4899"
+    ]
   },
   "scorpio-midnight-venom": {
     "id": "scorpio-midnight-venom",
     "sourceId": "scorpio-midnight-venom",
     "name": "Scorpio / Midnight Venom",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2288,12 +3049,21 @@
       "accent": "#7C3AED",
       "sidebar": "#ede8f1",
       "codeBg": "#e9e4ed"
-    }
+    },
+    "accents": [
+      "#A855F7",
+      "#7C3AED"
+    ]
   },
   "sagittarius-stararrow": {
     "id": "sagittarius-stararrow",
     "sourceId": "sagittarius-stararrow",
     "name": "Sagittarius / Stararrow",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2315,12 +3085,21 @@
       "accent": "#FB923C",
       "sidebar": "#f5ede2",
       "codeBg": "#f1e9de"
-    }
+    },
+    "accents": [
+      "#60A5FA",
+      "#FB923C"
+    ]
   },
   "capricorn-stone-summit": {
     "id": "capricorn-stone-summit",
     "sourceId": "capricorn-stone-summit",
     "name": "Capricorn / Stone Summit",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "zodiacs",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2342,12 +3121,21 @@
       "accent": "#A16207",
       "sidebar": "#e8e3da",
       "codeBg": "#e4dfd6"
-    }
+    },
+    "accents": [
+      "#94A3B8",
+      "#A16207"
+    ]
   },
   "rat-streetwire": {
     "id": "rat-streetwire",
     "sourceId": "rat-streetwire",
     "name": "Rat / Streetwire",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2369,12 +3157,21 @@
       "accent": "#64748B",
       "sidebar": "#ebecee",
       "codeBg": "#e7e8ea"
-    }
+    },
+    "accents": [
+      "#94A3B8",
+      "#64748B"
+    ]
   },
   "ox-iron-field": {
     "id": "ox-iron-field",
     "sourceId": "ox-iron-field",
     "name": "Ox / Iron Field",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2396,12 +3193,21 @@
       "accent": "#78716C",
       "sidebar": "#e9e1d3",
       "codeBg": "#e5ddcf"
-    }
+    },
+    "accents": [
+      "#A3A3A3",
+      "#78716C"
+    ]
   },
   "tiger-ember-claw": {
     "id": "tiger-ember-claw",
     "sourceId": "tiger-ember-claw",
     "name": "Tiger / Ember Claw",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2423,12 +3229,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5eadf",
       "codeBg": "#f1e6db"
-    }
+    },
+    "accents": [
+      "#F97316",
+      "#EA580C"
+    ]
   },
   "rabbit-moonburrow": {
     "id": "rabbit-moonburrow",
     "sourceId": "rabbit-moonburrow",
     "name": "Rabbit / Moonburrow",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2450,12 +3265,21 @@
       "accent": "#F472B6",
       "sidebar": "#f5e9ee",
       "codeBg": "#f1e5ea"
-    }
+    },
+    "accents": [
+      "#F9A8D4",
+      "#F472B6"
+    ]
   },
   "dragon-celestial-forge": {
     "id": "dragon-celestial-forge",
     "sourceId": "dragon-celestial-forge",
     "name": "Dragon / Celestial Forge",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2477,12 +3301,21 @@
       "accent": "#2563EB",
       "sidebar": "#edeff5",
       "codeBg": "#e9ebf1"
-    }
+    },
+    "accents": [
+      "#38BDF8",
+      "#2563EB"
+    ]
   },
   "snake-jade-venom": {
     "id": "snake-jade-venom",
     "sourceId": "snake-jade-venom",
     "name": "Snake / Jade Venom",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2504,12 +3337,21 @@
       "accent": "#059669",
       "sidebar": "#e8ede7",
       "codeBg": "#e4e9e3"
-    }
+    },
+    "accents": [
+      "#10B981",
+      "#059669"
+    ]
   },
   "horse-sunrunner": {
     "id": "horse-sunrunner",
     "sourceId": "horse-sunrunner",
     "name": "Horse / Sunrunner",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2531,12 +3373,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5ebde",
       "codeBg": "#f1e7da"
-    }
+    },
+    "accents": [
+      "#FB923C",
+      "#EA580C"
+    ]
   },
   "goat-cloud-fleece": {
     "id": "goat-cloud-fleece",
     "sourceId": "goat-cloud-fleece",
     "name": "Goat / Cloud Fleece",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2558,12 +3409,21 @@
       "accent": "#8B5CF6",
       "sidebar": "#eeedf2",
       "codeBg": "#eae9ee"
-    }
+    },
+    "accents": [
+      "#A78BFA",
+      "#8B5CF6"
+    ]
   },
   "monkey-neon-trickster": {
     "id": "monkey-neon-trickster",
     "sourceId": "monkey-neon-trickster",
     "name": "Monkey / Neon Trickster",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2585,12 +3445,21 @@
       "accent": "#EAB308",
       "sidebar": "#f5eee4",
       "codeBg": "#f1eae0"
-    }
+    },
+    "accents": [
+      "#22C55E",
+      "#EAB308"
+    ]
   },
   "rooster-dawn-brass": {
     "id": "rooster-dawn-brass",
     "sourceId": "rooster-dawn-brass",
     "name": "Rooster / Dawn Brass",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2612,12 +3481,21 @@
       "accent": "#B45309",
       "sidebar": "#f5ede0",
       "codeBg": "#f1e9dc"
-    }
+    },
+    "accents": [
+      "#D97706",
+      "#B45309"
+    ]
   },
   "dog-hearthguard": {
     "id": "dog-hearthguard",
     "sourceId": "dog-hearthguard",
     "name": "Dog / Hearthguard",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2639,12 +3517,21 @@
       "accent": "#92400E",
       "sidebar": "#eae2da",
       "codeBg": "#e6ded6"
-    }
+    },
+    "accents": [
+      "#A16207",
+      "#92400E"
+    ]
   },
   "pig-velvet-orchard": {
     "id": "pig-velvet-orchard",
     "sourceId": "pig-velvet-orchard",
     "name": "Pig / Velvet Orchard",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "lunar-animals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2666,12 +3553,21 @@
       "accent": "#DB2777",
       "sidebar": "#f5e9ee",
       "codeBg": "#f1e5ea"
-    }
+    },
+    "accents": [
+      "#EC4899",
+      "#DB2777"
+    ]
   },
   "orchard-glass": {
     "id": "orchard-glass",
     "sourceId": "liquid-glass",
     "name": "Orchard Glass",
+    "summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.",
+    "category": "dexthemes",
+    "subgroup": "companies",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#40c977",
@@ -2693,12 +3589,21 @@
       "accent": "#007aff",
       "sidebar": "#e8ecf2",
       "codeBg": "#e2e6ee"
-    }
+    },
+    "accents": [
+      "#5ac8fa",
+      "#007aff"
+    ]
   },
   "current-valentine": {
     "id": "current-valentine",
     "sourceId": "current-valentine",
     "name": "Meridian Bloom",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2720,12 +3625,21 @@
       "accent": "#7C3AED",
       "sidebar": "#f5eaed",
       "codeBg": "#f1e6e9"
-    }
+    },
+    "accents": [
+      "#4F7CFF",
+      "#7C3AED"
+    ]
   },
   "second-tide": {
     "id": "second-tide",
     "sourceId": "second-tide",
     "name": "Tideglass",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#2DD4BF",
@@ -2747,12 +3661,21 @@
       "accent": "#FF8A5B",
       "sidebar": "#f5eee6",
       "codeBg": "#f1eae2"
-    }
+    },
+    "accents": [
+      "#4CC9F0",
+      "#FF8A5B"
+    ]
   },
   "keepsake-gold": {
     "id": "keepsake-gold",
     "sourceId": "keepsake-gold",
     "name": "Keepsake Halo",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2774,12 +3697,21 @@
       "accent": "#B45309",
       "sidebar": "#eee7d9",
       "codeBg": "#eae3d5"
-    }
+    },
+    "accents": [
+      "#D4A017",
+      "#B45309"
+    ]
   },
   "north-current": {
     "id": "north-current",
     "sourceId": "north-current",
     "name": "North Current",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2801,12 +3733,21 @@
       "accent": "#0EA5E9",
       "sidebar": "#eaf0f5",
       "codeBg": "#e6ecf1"
-    }
+    },
+    "accents": [
+      "#3B82F6",
+      "#0EA5E9"
+    ]
   },
   "quiet-orbit": {
     "id": "quiet-orbit",
     "sourceId": "quiet-orbit",
     "name": "Quiet Orbit",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2828,12 +3769,21 @@
       "accent": "#A78BFA",
       "sidebar": "#ede9f1",
       "codeBg": "#e9e5ed"
-    }
+    },
+    "accents": [
+      "#8B7CF6",
+      "#A78BFA"
+    ]
   },
   "lantern-echo": {
     "id": "lantern-echo",
     "sourceId": "lantern-echo",
     "name": "Lantern Echo",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2855,12 +3805,21 @@
       "accent": "#CA8A04",
       "sidebar": "#f5ebe0",
       "codeBg": "#f1e7dc"
-    }
+    },
+    "accents": [
+      "#EAB308",
+      "#CA8A04"
+    ]
   },
   "harvest-theory": {
     "id": "harvest-theory",
     "sourceId": "harvest-theory",
     "name": "Harvest Relay",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2882,12 +3841,21 @@
       "accent": "#6B8E23",
       "sidebar": "#e9e6d7",
       "codeBg": "#e5e2d3"
-    }
+    },
+    "accents": [
+      "#7A8F3B",
+      "#6B8E23"
+    ]
   },
   "blue-halo": {
     "id": "blue-halo",
     "sourceId": "blue-halo",
     "name": "Blue Halo",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2909,12 +3877,21 @@
       "accent": "#38BDF8",
       "sidebar": "#eaf1f5",
       "codeBg": "#e6edf1"
-    }
+    },
+    "accents": [
+      "#60A5FA",
+      "#38BDF8"
+    ]
   },
   "may-mosaic": {
     "id": "may-mosaic",
     "sourceId": "may-mosaic",
     "name": "Vernal Mosaic",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2936,12 +3913,21 @@
       "accent": "#F59E0B",
       "sidebar": "#f5ecde",
       "codeBg": "#f1e8da"
-    }
+    },
+    "accents": [
+      "#84CC16",
+      "#F59E0B"
+    ]
   },
   "solar-frequency": {
     "id": "solar-frequency",
     "sourceId": "solar-frequency",
     "name": "Solar Frequency",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -2963,12 +3949,21 @@
       "accent": "#EA580C",
       "sidebar": "#f5eddd",
       "codeBg": "#f1e9d9"
-    }
+    },
+    "accents": [
+      "#F97316",
+      "#EA580C"
+    ]
   },
   "harbor-lace": {
     "id": "harbor-lace",
     "sourceId": "harbor-lace",
     "name": "Harbor Lace",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#34D399",
@@ -2990,12 +3985,21 @@
       "accent": "#F472B6",
       "sidebar": "#f5e9ec",
       "codeBg": "#f1e5e8"
-    }
+    },
+    "accents": [
+      "#7DD3FC",
+      "#F472B6"
+    ]
   },
   "late-summer-steel": {
     "id": "late-summer-steel",
     "sourceId": "late-summer-steel",
     "name": "August Alloy",
+    "summary": null,
+    "category": "dexthemes",
+    "subgroup": "originals",
+    "codeThemeId": "codex",
+    "dateAdded": "2026-03-14",
     "dark": {
       "contrast": 64,
       "diffAdded": "#4ADE80",
@@ -3017,6 +4021,10 @@
       "accent": "#A16207",
       "sidebar": "#ebe4da",
       "codeBg": "#e7e0d6"
-    }
+    },
+    "accents": [
+      "#94A3B8",
+      "#A16207"
+    ]
   }
 }

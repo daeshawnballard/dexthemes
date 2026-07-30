@@ -14,11 +14,13 @@ const stylesPath = path.join(root, "styles", "index.css");
 const themeBundlePath = path.join(root, "theme-data", "dexthemes", "bundle.js");
 const isWatch = process.argv.includes("--watch");
 const staticPublicFiles = [
+  "3f8d2c5a9e7146b0ac29f45d81e7c663.txt",
   "manifest.json",
   "robots.txt",
   "sitemap.xml",
   "llms.txt",
   "llms-full.txt",
+  "public-pages.css",
   "apple-touch-icon.png",
   "favicon.svg",
   "icon-192.png",

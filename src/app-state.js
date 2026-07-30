@@ -10,6 +10,28 @@ import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-
 // URL state takes priority over localStorage. Query deep links are canonicalized
 // to copyable paths such as /mancity/dark after their values are read.
 const _themeRoute = readThemeRoute(window.location);
+const _landingParams = new URLSearchParams(window.location.search);
+const _landingSourceValue = String(_landingParams.get('source') || '').toLowerCase();
+const _knownLandingSources = new Set(['theme_page', 'collection_page', 'guide_page']);
+const _referrerHost = (() => {
+  try {
+    return document.referrer ? new URL(document.referrer).hostname.toLowerCase() : '';
+  } catch {
+    return '';
+  }
+})();
+const _referralChannel = (() => {
+  if (!_referrerHost) return 'direct';
+  if (_referrerHost === window.location.hostname.toLowerCase()) return 'internal';
+  if (/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$/.test(_referrerHost)) return 'chatgpt';
+  if (/(^|\.)google\.|(^|\.)bing\.com$|(^|\.)duckduckgo\.com$/.test(_referrerHost)) return 'search';
+  if (/(^|\.)x\.com$|(^|\.)twitter\.com$|(^|\.)reddit\.com$/.test(_referrerHost)) return 'social';
+  return 'referral';
+})();
+export const landingContext = Object.freeze({
+  source: _knownLandingSources.has(_landingSourceValue) ? _landingSourceValue : 'app',
+  referralChannel: _referralChannel,
+});
 const _routeThemeId = _themeRoute.themeId;
 const _urlThemeId = _routeThemeId ? resolvePluginThemeSourceId(_routeThemeId) : null;
 const _urlVariant = _themeRoute.variant;
@@ -54,6 +76,7 @@ export let windowState = 'normal';
 export let activeFilter = 'all';
 export let activeSort = 'default';
 export let panelMode = 'preview';
+export let themeView = 'preview';
 export let builderColors = null;
 export let openDropdown = null;
 export let leaderboardVisible = false;
@@ -99,6 +122,7 @@ export function setWindowState(nextState) { windowState = nextState; }
 export function setActiveFilter(filter) { activeFilter = filter; }
 export function setActiveSort(sort) { activeSort = sort; }
 export function setPanelMode(mode) { panelMode = mode; }
+export function setThemeView(view) { themeView = view === 'details' ? 'details' : 'preview'; }
 export function setBuilderColors(colors) { builderColors = colors; }
 export function setOpenDropdown(dropdown) { openDropdown = dropdown; }
 export function setLeaderboardVisible(value) { leaderboardVisible = value; }

@@ -1,4 +1,5 @@
 import { internalMutation, internalQuery } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { moderateText } from "./moderation";
 import { checkThemeProtection, isProtectedThemeId } from "./protectedThemes";
@@ -290,6 +291,12 @@ export const submit = internalMutation({
       copies: 0,
       createdAt: Date.now(),
       protected: false,
+    });
+
+    await ctx.scheduler.runAfter(0, internal.indexNow.notifyThemePublished, {
+      themeId: args.themeId,
+      hasDark: Boolean(args.dark),
+      hasLight: Boolean(args.light),
     });
 
     await grantUnlockForUser(ctx, user._id, "create_theme");

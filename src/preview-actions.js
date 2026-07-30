@@ -88,6 +88,9 @@ export async function selectThemeById(id) {
 
     await hideLeaderboardIfVisible();
     if (state.profileVisible) hideProfileView();
+    const details = await import('./theme-details.js');
+    details.showThemePreview({ track: false });
+    details.syncThemeDetailsView();
 
     const win = document.getElementById('preview-window');
     if (win && win.style.display === 'none') {
@@ -144,6 +147,8 @@ export async function selectThemeById(id) {
   applyShellTheme(state.selectedTheme, state.selectedVariant);
   applyPreview(state.selectedTheme, state.selectedVariant);
   renderRightPanel();
+  const details = await import('./theme-details.js');
+  details.syncThemeDetailsView();
   renderSidebar();
   maybeAdvanceMobilePreview();
   syncAttributionOverlay(theme);
@@ -361,7 +366,7 @@ export async function runAgentUnlockFlow(actionKey) {
     track('agent_registered', { agent_id: data.agentId });
     showAgentKeyModal({
       apiKey: data.apiKey,
-      docs: data.docs || 'https://dexthemes.com/llms.txt',
+      docs: data.docs || 'https://www.dexthemes.com/llms.txt',
       copied,
     });
   } catch (error) {

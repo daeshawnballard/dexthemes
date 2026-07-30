@@ -1,23 +1,39 @@
 # DexThemes
 
-> Discover & create Codex themes — browse, preview, and apply 100+ community-built themes.
+> Discover, preview, create, and import themes for Codex.
 
-DexThemes is a free, open source theme platform for [Codex](https://openai.com/codex) by OpenAI. Users can discover themes, preview them in a live chat mockup, create their own, and hand them off to Codex with guided import steps.
+## Direct answers
+
+- **What is DexThemes?** A free, open source catalog, preview, and theme-creation tool for Codex.
+- **Is DexThemes official?** No. DexThemes is community-built and is not affiliated with OpenAI.
+- **How does import work?** DexThemes copies a complete `codex-theme-v1` import string. The user opens Codex Settings, chooses Appearance, selects Import theme, pastes the string, and approves the change.
+- **Does DexThemes modify Codex files?** No. DexThemes prepares the import payload; Codex owns the final import.
+- **What are the catalog sources?** Codex catalog themes are built-in palettes, DexThemes themes are curated by this project, and Community themes are original palettes published by creators.
+- **Can a user inspect a theme before importing it?** Yes. Every public theme variant has a server-rendered details page and the app provides both a faux chat preview and an in-app Theme details view.
 
 ## Domains
 
-- **Website**: https://dexthemes.com (frontend, deep links, docs)
-- **Public theme catalog**: https://dexthemes.com/api/themes
-- **Published agent docs**: https://dexthemes.com/llms.txt and https://dexthemes.com/.well-known/openapi.json
+- **Website**: https://www.dexthemes.com (frontend, public pages, docs)
+- **Public theme catalog**: https://www.dexthemes.com/api/themes
+- **Published agent docs**: https://www.dexthemes.com/llms.txt and https://www.dexthemes.com/.well-known/openapi.json
 - **Direct API base**: https://acrobatic-corgi-867.convex.site (authenticated + generator endpoints)
 
-Use `https://dexthemes.com/api/themes` for public browsing examples. Use the published LLM/OpenAPI docs for discovery. Use the direct Convex base URL when you need authenticated or generator HTTP access.
+Use `https://www.dexthemes.com/api/themes` for public browsing examples. Use the published LLM/OpenAPI docs for discovery. Use the direct Convex base URL when you need authenticated or generator HTTP access.
+
+## Public discovery pages
+
+- Install guide: https://www.dexthemes.com/guides/how-to-install-a-codex-theme
+- Custom theme guide: https://www.dexthemes.com/guides/create-a-custom-codex-theme
+- Import troubleshooting: https://www.dexthemes.com/guides/codex-theme-import-troubleshooting
+- Collections: https://www.dexthemes.com/collections
+- Community themes: https://www.dexthemes.com/collections/community
+- Exact theme variant: `https://www.dexthemes.com/{id}/dark|light`
 
 ## Authentication
 
 DexThemes has three auth modes:
 
-1. **Browser session cookie** — used automatically on `dexthemes.com` after GitHub OAuth sign-in.
+1. **Browser session cookie** — used automatically on `www.dexthemes.com` after GitHub OAuth sign-in.
 2. **API keys** — prefixed with `dxt_`. A GitHub-authenticated user can create one for an agent or CLI and send it in `Authorization: Bearer <token>`.
 3. **Plugin OAuth** — the Codex/ChatGPT MCP app uses a signed OAuth 2.1 access token with GitHub as the upstream identity and `themes:read` or `themes:write` scopes.
 
@@ -82,14 +98,14 @@ Returns: name, variant, harmony type, colors object, and a ready-to-paste `impor
 
 #### Deep link to a theme
 ```
-https://dexthemes.com/?theme={id}&variant=dark|light
+https://www.dexthemes.com/{id}/dark|light
 ```
 
 ---
 
 ### Authenticated endpoints
 
-Browser use on `dexthemes.com` relies on the session cookie. Scripted use relies on a Bearer `dxt_...` API key issued to a GitHub-authenticated account.
+Browser use on `www.dexthemes.com` relies on the session cookie. Scripted use relies on a Bearer `dxt_...` API key issued to a GitHub-authenticated account.
 
 #### GET /auth/me
 Get the current authenticated user profile.
@@ -199,7 +215,7 @@ Copy the `importString` from any API response, open Codex, go to Settings, then 
 
 ## Links
 
-- Website: https://dexthemes.com
-- OpenAPI: https://dexthemes.com/.well-known/openapi.json
+- Website: https://www.dexthemes.com
+- OpenAPI: https://www.dexthemes.com/.well-known/openapi.json
 - GitHub: https://github.com/daeshawnballard/dexthemes
-- Full theme data for LLMs: https://dexthemes.com/llms-full.txt
+- Full theme data for LLMs: https://www.dexthemes.com/llms-full.txt

@@ -116,9 +116,9 @@ Each tied to a specific user action — creates a collection incentive loop:
 ## Technical Platform
 
 ### API
-- **Public theme catalog API** at `https://dexthemes.com/api/themes`
+- **Public theme catalog API** at `https://www.dexthemes.com/api/themes`
 - **Authenticated/Convex API** at `https://acrobatic-corgi-867.convex.site/`
-- **Preferred public docs surface**: `https://dexthemes.com/api/themes`, `https://dexthemes.com/llms.txt`, `https://dexthemes.com/.well-known/openapi.json`
+- **Preferred public docs surface**: `https://www.dexthemes.com/api/themes`, `https://www.dexthemes.com/llms.txt`, `https://www.dexthemes.com/.well-known/openapi.json`
 - **Endpoints**: `/themes` (all themes + create on POST), `/themes/community`, `/themes/codex`, `/themes/dexthemes`, `/themes/dexthemes/:subgroup`, `/themes/likes/counts`, `/themes/flag`, `/themes/request-variant`, `/themes/add-variant`, `/leaderboard`, `/auth/agent`, `/api/color-me-lucky`
 - **API key auth** for programmatic access (`dxt_` prefixed keys)
 - **Rate limiting**: Sliding window per IP and per user
@@ -138,9 +138,13 @@ Each tied to a specific user action — creates a collection incentive loop:
 - **Mobile submit flow**
 
 ### SEO & Discoverability
-- **Structured data** (JSON-LD) in index.html
-- **Dynamic meta tags** per theme via `/api/share` endpoint
-- **Vanity URLs**: `dexthemes.com/:themeId/:variant`
+- **Truthful structured data** (JSON-LD) for the app, theme pages, guides, breadcrumbs, images, and collections
+- **Server-rendered theme pages** with visible content, rendered previews, accurate import steps, and related themes
+- **Real route status**: unknown themes and unavailable variants return 404
+- **Canonical URLs**: `www.dexthemes.com/:themeId/:variant`
+- **Answer-first guides and collections** under `/guides` and `/collections`
+- **Live sitemap** combines the checked-in catalog with published community themes
+- **IndexNow publication hook** announces new community theme pages
 - **llms.txt** and **llms-full.txt** for AI agent discovery
 - **OpenAPI specification** at `/.well-known/openapi.json`
 

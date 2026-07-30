@@ -4,6 +4,8 @@ import { readFile, stat } from 'node:fs/promises';
 import http from 'node:http';
 import path from 'node:path';
 import { chromium, webkit } from 'playwright';
+import shareHandler from '../api/share.js';
+import contentPageHandler from '../api/content-page.js';
 
 const root = process.cwd();
 const host = '127.0.0.1';
@@ -47,9 +49,6 @@ function contentTypeFor(filePath) {
 async function resolveRequestPath(urlPath) {
   const cleanPath = decodeURIComponent(urlPath.split('?')[0]);
   if (cleanPath === '/' || cleanPath === '') return path.join(root, 'index.html');
-  if (/^\/[a-z0-9]+(?:-[a-z0-9]+)*\/(?:dark|light)$/.test(cleanPath)) {
-    return path.join(root, 'index.html');
-  }
   const absolute = path.join(root, cleanPath.replace(/^\/+/, ''));
   const fileInfo = await stat(absolute).catch(() => null);
   if (fileInfo?.isFile()) return absolute;
@@ -62,6 +61,26 @@ async function startStaticServer() {
     if (requestPath === '/themes/community') {
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify([COMMUNITY_THEME_FIXTURE]));
+      return;
+    }
+
+    attachVercelResponseHelpers(res);
+    if (requestPath === '/guides' || requestPath.startsWith('/guides/')) {
+      const slug = requestPath.split('/')[2] || '';
+      req.url = `/api/content-page?section=guides${slug ? `&slug=${encodeURIComponent(slug)}` : ''}`;
+      await contentPageHandler(req, res);
+      return;
+    }
+    if (requestPath === '/collections' || requestPath.startsWith('/collections/')) {
+      const slug = requestPath.split('/')[2] || '';
+      req.url = `/api/content-page?section=collections${slug ? `&slug=${encodeURIComponent(slug)}` : ''}`;
+      await contentPageHandler(req, res);
+      return;
+    }
+    const themeMatch = /^\/([a-z0-9]+(?:-[a-z0-9]+)*)\/(dark|light)$/.exec(requestPath);
+    if (themeMatch) {
+      req.url = `/api/share?theme=${encodeURIComponent(themeMatch[1])}&variant=${themeMatch[2]}`;
+      await shareHandler(req, res);
       return;
     }
 
@@ -87,6 +106,17 @@ async function startStaticServer() {
     baseUrl: `http://${host}:${port}`,
     communityBaseUrl: `http://dexthemes.localhost:${port}`,
     close: () => new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve())),
+  };
+}
+
+function attachVercelResponseHelpers(res) {
+  res.status = (statusCode) => {
+    res.statusCode = statusCode;
+    return res;
+  };
+  res.send = (body) => {
+    res.end(body);
+    return res;
   };
 }
 
@@ -200,6 +230,8 @@ try {
     await page.waitForSelector('.locked-theme-shell-card');
     const lockedTitle = await page.locator('.locked-theme-shell-title').textContent();
     assert.match(lockedTitle || '', /Patron/i);
+    assert.equal(await page.locator('[data-action="show-theme-details"]').isDisabled(), true);
+    assert.equal(await page.locator('#theme-details-view').isHidden(), true);
     await page.close();
   });
 
@@ -221,12 +253,56 @@ try {
     await page.close();
   });
 
-  await runTest('desktop canonical path boot restores its theme and variant', async () => {
-    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/solarized/light`);
-    await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
-    const title = await page.locator('#preview-theme-name').textContent();
-    assert.equal(title, 'Solarized');
-    assert.equal(new URL(page.url()).pathname, '/solarized/light');
+  await runTest('desktop canonical path renders a complete public theme page', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+    const response = await page.goto(`${server.baseUrl}/github-dark/dark`, { waitUntil: 'networkidle' });
+    assert.equal(response?.status(), 200);
+    assert.equal(await page.locator('h1').textContent(), 'GitHub Dark');
+    assert.equal(await page.locator('.palette-sample').count(), 6);
+    assert.match(await page.locator('.action-note').textContent() || '', /Nothing is applied/);
+    assert.equal(await page.locator('meta[http-equiv="refresh"]').count(), 0);
+    await page.close();
+  });
+
+  await runTest('desktop workspace switches between chat preview and theme details', async () => {
+    const page = await bootDesktopPage(browser, server.baseUrl);
+    await page.click('[data-action="show-theme-details"]');
+    await page.waitForSelector('#theme-details-view:not([hidden])');
+    assert.equal(await page.locator('.theme-details-hero h2').textContent(), await page.locator('#preview-theme-name').textContent());
+    assert.equal(await page.locator('.theme-details-swatch').count(), 8);
+    assert.equal(await page.locator('.theme-details-actions [data-action="share-theme"]').count(), 1);
+    await page.click('[data-action="show-theme-preview"]');
+    await page.waitForFunction(() => document.getElementById('theme-details-view')?.hidden === true);
+    assert.equal(await page.locator('#preview-window').isVisible(), true);
+    await page.close();
+  });
+
+  await runTest('guides render as answer-first public pages', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+    const response = await page.goto(
+      `${server.baseUrl}/guides/how-to-install-a-codex-theme`,
+      { waitUntil: 'networkidle' },
+    );
+    assert.equal(response?.status(), 200);
+    assert.equal(await page.locator('h1').textContent(), 'How to install a Codex theme');
+    assert.match(await page.locator('.answer-first').textContent() || '', /Appearance/);
+    await page.close();
+  });
+
+  await runTest('collection routes take precedence over generic theme routes', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+    const response = await page.goto(`${server.baseUrl}/collections/dark`, { waitUntil: 'networkidle' });
+    assert.equal(response?.status(), 200);
+    assert.equal(await page.locator('h1').textContent(), 'Dark Codex themes');
+    assert.ok(await page.locator('.theme-card').count() > 0);
+    await page.close();
+  });
+
+  await runTest('unavailable theme variants render a real 404', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    const response = await page.goto(`${server.baseUrl}/github-dark/light`, { waitUntil: 'networkidle' });
+    assert.equal(response?.status(), 404);
+    assert.match(await page.locator('h1').textContent() || '', /Variant not found/);
     await page.close();
   });
 
@@ -250,6 +326,9 @@ try {
     const page = await bootMobilePage(browser, server.baseUrl);
     await page.locator('.theme-card').first().click();
     await page.waitForSelector('.panel.mobile-active');
+    await page.click('[data-action="show-theme-details"]');
+    await page.waitForSelector('#theme-details-view:not([hidden])');
+    assert.equal(await page.locator('.theme-details-swatches').isVisible(), true);
     await page.close();
   });
 

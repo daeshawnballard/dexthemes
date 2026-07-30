@@ -10,15 +10,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="DexThemes — Discover & create Codex themes">
 <meta property="og:description" content="Discover and create beautiful themes for Codex. Community-built theme gallery with 100+ themes.">
-<meta property="og:image" content="https://dexthemes.com/logos/logo-github-transparent.png">
-<meta property="og:url" content="https://dexthemes.com">
+<meta property="og:image" content="https://www.dexthemes.com/logos/logo-github-transparent.png">
+<meta property="og:url" content="https://www.dexthemes.com/">
 <meta property="og:site_name" content="DexThemes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DexThemes — Discover & create Codex themes">
 <meta name="twitter:description" content="Discover and create beautiful themes for Codex.">
-<meta name="twitter:image" content="https://dexthemes.com/logos/logo-github-transparent.png">
+<meta name="twitter:image" content="https://www.dexthemes.com/logos/logo-github-transparent.png">
 
-<link rel="canonical" href="https://dexthemes.com/">
+<link rel="canonical" href="https://www.dexthemes.com/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
@@ -27,7 +27,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DexThemes">
 <meta name="theme-color" content="#0d0d0d">
-<link rel="stylesheet" href="/dist/assets/styles-0d23fe0574.css">
+<link rel="stylesheet" href="/dist/assets/styles-0030ff1867.css">
 
 <!-- Prevent theme flash: apply saved theme CSS vars before first paint -->
 <script>
@@ -64,28 +64,41 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "DexThemes",
-  "url": "https://dexthemes.com",
-  "description": "Browse, preview, and apply beautiful themes for Codex. Community-built theme gallery with 100+ themes.",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "Daeshawn Ballard",
-    "url": "https://x.com/daeshawn"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "ratingCount": "111",
-    "bestRating": "5"
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.dexthemes.com/#website",
+      "url": "https://www.dexthemes.com/",
+      "name": "DexThemes",
+      "description": "Discover, preview, create, and import community-built themes for Codex.",
+      "sameAs": [
+        "https://github.com/daeshawnballard/dexthemes",
+        "https://x.com/DexThemes"
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://www.dexthemes.com/#app",
+      "name": "DexThemes",
+      "url": "https://www.dexthemes.com/",
+      "description": "Discover, preview, create, and copy import strings for Codex themes.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "isPartOf": {
+        "@id": "https://www.dexthemes.com/#website"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Daeshawn Ballard",
+        "url": "https://x.com/daeshawn"
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -153,6 +166,18 @@
     <div class="category-list" id="category-list"></div>
 
     <div class="sidebar-footer">
+      <nav class="sidebar-explore" aria-label="Explore DexThemes">
+        <span class="sidebar-explore-label">Explore</span>
+        <a href="/collections">
+          <span>Theme collections</span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="/guides">
+          <span>Guides</span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="/collections/community">
+          <span>Community themes</span><span aria-hidden="true">↗</span>
+        </a>
+      </nav>
       <div class="sidebar-auth-row" id="auth-area"></div>
       <div class="sidebar-meta">Made with love by <a href="https://x.com/daeshawn" target="_blank" class="footer-credit-link">@Daeshawn</a></div>
       <div class="sidebar-footer-disclaimer">Community-built. Not affiliated with OpenAI.</div>
@@ -166,12 +191,17 @@
         <div class="main-title" id="preview-theme-name">Codex</div>
         <p class="main-summary" id="preview-theme-summary" hidden></p>
       </div>
+      <div class="theme-view-switch" id="theme-view-switch" role="group" aria-label="Theme view">
+        <button class="theme-view-option active" type="button" data-action="show-theme-preview" aria-pressed="true">
+          Chat preview
+        </button>
+        <button class="theme-view-option" type="button" data-action="show-theme-details" aria-pressed="false">
+          Theme details
+        </button>
+      </div>
       <div class="header-social-actions" id="header-social-actions">
         <button class="header-icon-btn like-btn" id="like-btn" data-action="like-theme" aria-label="Like theme" title="Like theme">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
-        <button class="header-icon-btn share-icon-btn" data-action="share-theme" aria-label="Share theme on X" title="Share theme on X">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </button>
       </div>
       <div class="main-header-actions">
@@ -199,6 +229,7 @@
           </div>
         </div>
       </div>
+      <section class="theme-details-view" id="theme-details-view" aria-label="Theme details" hidden></section>
       <div class="profile-view" id="profile-view" style="display:none;"></div>
       <div class="leaderboard-view" id="leaderboard-view" style="display:none;"></div>
     </div>
@@ -263,7 +294,7 @@
   </nav>
 </div>
 <script src="/dist/assets/dexthemes-bundle-921a073d5d.js" defer></script>
-<script src="/dist/assets/boot-5887e6868e.js" defer></script>
+<script src="/dist/assets/boot-13f10441df.js" defer></script>
 <script>
 (function () {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;

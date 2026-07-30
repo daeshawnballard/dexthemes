@@ -11,6 +11,7 @@
     "build:theme-bundle": "node scripts/build-theme-bundle.mjs",
     "test": "node --test test/*.test.js",
     "smoke:browser": "node scripts/browser-smoke.mjs",
+    "preview:site": "node scripts/preview-site.mjs",
     "qa:mcp-app": "node scripts/visual-qa-mcp-app.mjs",
     "check:docs": "node scripts/check-docs.mjs",
     "validate": "npm run test && npm run check:docs && npm run build",

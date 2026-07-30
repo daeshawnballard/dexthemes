@@ -8,6 +8,7 @@ let mobileBrowseModulePromise;
 let mobileSubmitModulePromise;
 let previewShellModulePromise;
 let previewActionsModulePromise;
+let themeDetailsModulePromise;
 
 export function loadBuilderModule() {
   builderModulePromise ||= import('./builder.js');
@@ -57,4 +58,9 @@ export function loadPreviewShellModule() {
 export function loadPreviewActionsModule() {
   previewActionsModulePromise ||= import('./preview-actions.js');
   return previewActionsModulePromise;
+}
+
+export function loadThemeDetailsModule() {
+  themeDetailsModulePromise ||= import('./theme-details.js');
+  return themeDetailsModulePromise;
 }

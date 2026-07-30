@@ -173,6 +173,15 @@ export function renderMobileBrowse() {
     <div class="mobile-browse">
       <div class="mobile-cat-pills">${pills}</div>
       ${subgroupPills}
+      <nav class="mobile-explore" aria-label="Explore DexThemes">
+        <div>
+          <span>Explore beyond the app</span>
+          <strong>Guides and curated collections</strong>
+        </div>
+        <a href="/collections">Theme collections <span aria-hidden="true">↗</span></a>
+        <a href="/guides">Guides <span aria-hidden="true">↗</span></a>
+        <a href="/collections/community">Community themes <span aria-hidden="true">↗</span></a>
+      </nav>
       <div class="mobile-card-grid">${cards}${emptyState}</div>
     </div>
   `;

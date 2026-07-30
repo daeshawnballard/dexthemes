@@ -46,7 +46,11 @@ export async function initStatsig() {
     statsigInitPromise = statsigClient.initializeAsync()
       .then(() => {
         statsigReady = true;
-        trackEvent('site_loaded', null, { surface: 'gallery' });
+        trackEvent('site_loaded', null, {
+          surface: 'gallery',
+          landing_source: state.landingContext.source,
+          referral_channel: state.landingContext.referralChannel,
+        });
       })
       .catch((error) => {
         console.warn('Statsig init failed:', error);

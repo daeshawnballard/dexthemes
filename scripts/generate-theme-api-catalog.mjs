@@ -4,6 +4,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { buildThemeBundle } from "./build-theme-bundle.mjs";
 import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
 import { getWebsiteThemeId } from "../shared/plugin-public-policy.js";
+import { CANONICAL_ORIGIN, buildSitemapXml } from "../shared/seo.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -89,7 +90,7 @@ function buildLlmsFullCatalog(themes) {
     `### ${theme.name}`,
     `- ID: \`${publicThemeId}\``,
     `- Category: ${theme.category}${theme.subgroup ? ` / ${theme.subgroup}` : ""}`,
-    `- Deep link: https://dexthemes.com/${encodeURIComponent(publicThemeId)}/${preferredVariant}`,
+    `- Public page: ${CANONICAL_ORIGIN}/${encodeURIComponent(publicThemeId)}/${preferredVariant}`,
     theme._summary ? `- Summary: ${theme._summary}` : null,
     formatVariant("Dark", theme.dark),
     formatVariant("Light", theme.light),
@@ -105,54 +106,17 @@ Total public static themes: ${visibleThemes.length}
 
 ## API Endpoints
 
-- Browse all themes: GET https://dexthemes.com/api/themes
-- MCP plugin: https://www.dexthemes.com/api/mcp
-- Published docs: https://dexthemes.com/llms.txt and https://dexthemes.com/.well-known/openapi.json
+- Browse all themes: GET ${CANONICAL_ORIGIN}/api/themes
+- MCP plugin: ${CANONICAL_ORIGIN}/api/mcp
+- Published docs: ${CANONICAL_ORIGIN}/llms.txt and ${CANONICAL_ORIGIN}/.well-known/openapi.json
 - Generate random: GET https://acrobatic-corgi-867.convex.site/api/color-me-lucky?variant=dark|light
-- Deep link: https://dexthemes.com/?theme={id}&variant=dark|light
+- Public theme page: ${CANONICAL_ORIGIN}/{id}/dark|light
+- Install guide: ${CANONICAL_ORIGIN}/guides/how-to-install-a-codex-theme
+- Theme collections: ${CANONICAL_ORIGIN}/collections
 
 ## Theme Catalog
 
 ${entries}
-`;
-}
-
-function escapeXml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
-}
-
-function buildSitemap(themes) {
-  const policyEntries = [
-    { url: "https://dexthemes.com/", changefreq: "daily", priority: "1.0", lastmod: "2026-07-16" },
-    { url: "https://dexthemes.com/privacy.html", changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
-    { url: "https://dexthemes.com/terms.html", changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
-    { url: "https://dexthemes.com/support.html", changefreq: "monthly", priority: "0.4", lastmod: "2026-07-16" },
-  ];
-  const themeEntries = themes
-    .filter(isPublicCatalogTheme)
-    .flatMap((theme) => ["dark", "light"]
-      .filter((variant) => Boolean(theme[variant]))
-      .map((variant) => ({
-        url: `https://dexthemes.com/${encodeURIComponent(getWebsiteThemeId(theme))}/${variant}`,
-        changefreq: "weekly",
-        priority: "0.7",
-        lastmod: theme.dateAdded || "2026-03-15",
-      })));
-  const entries = [...policyEntries, ...themeEntries].map((entry) => `  <url>
-    <loc>${escapeXml(entry.url)}</loc>
-    <changefreq>${entry.changefreq}</changefreq>
-    <priority>${entry.priority}</priority>
-    <lastmod>${entry.lastmod}</lastmod>
-  </url>`).join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${entries}
-</urlset>
 `;
 }
 
@@ -195,15 +159,24 @@ export function normalizeDexThemesSubgroup(segment) {
           id: publicThemeId,
           sourceId: theme.id,
           name: theme.name,
+          summary: theme._summary,
+          category: theme.category,
+          subgroup: theme.subgroup,
+          codeThemeId: theme.codeThemeId,
+          dateAdded: theme.dateAdded,
           dark: theme.dark,
           light: theme.light,
+          accents: theme.accents,
         };
         return [[publicThemeId, publicTheme]];
       }),
   );
   await writeFile(themeMapOutputPath, `${JSON.stringify(themeMap, null, 2)}\n`);
   await writeFile(llmsFullOutputPath, buildLlmsFullCatalog(staticThemes));
-  await writeFile(sitemapOutputPath, buildSitemap(staticThemes));
+  await writeFile(
+    sitemapOutputPath,
+    buildSitemapXml(staticThemes.filter(isPublicCatalogTheme), []),
+  );
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

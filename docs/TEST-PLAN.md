@@ -294,20 +294,35 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ## 8. Sharing
 
-### 8.1 Share on X
-- [ ] Click Share on X button
+### 8.1 Contextual share and X achievement
+- [ ] Open Theme details and click Share theme
+- [ ] **Expected**: Native share opens when supported; otherwise the canonical theme-page link is copied
+- [ ] Start the explicit Share on X achievement
 - [ ] **Expected**: Twitter intent window opens with theme name and vanity URL
 - [ ] **Expected**: `share_x` unlock triggers → Mint Condition theme unlocked
 
-### 8.2 OG card renders
-- [ ] Open a share URL directly: `https://dexthemes.com/codex/dark`
-- [ ] **Expected**: Page shows meta tags, then redirects to app with theme selected
+### 8.2 Public theme page and OG card render
+- [ ] Open a theme URL directly: `https://www.dexthemes.com/codex/dark`
+- [ ] **Expected**: A complete server-rendered landing page appears without a meta refresh
+- [ ] **Expected**: H1, summary, preview image, palette, import steps, source, and related themes are visible
+- [ ] Click Open interactive preview
+- [ ] **Expected**: The existing app loads with Codex dark selected
 - [ ] Paste URL in Twitter/Slack/Discord
 - [ ] **Expected**: Rich preview card shows with theme name, code preview, color palette
 
 ### 8.3 Vanity URL routing
-- [ ] Visit `https://dexthemes.com/terminator-future-war/dark`
-- [ ] **Expected**: Redirects to app with Terminator Future War dark theme selected
+- [ ] Visit `https://www.dexthemes.com/chrome-future-hunter/dark`
+- [ ] **Expected**: A canonical public page loads
+- [ ] Visit an unknown theme or unavailable variant
+- [ ] **Expected**: HTTP 404 with a noindex error page
+
+### 8.4 In-app Theme details
+- [ ] Click Theme details in the main header
+- [ ] **Expected**: The center workspace becomes a complete palette/source/import view without leaving the app
+- [ ] Switch theme, variant, and accent
+- [ ] **Expected**: Details update in place and protected reward palettes remain hidden
+- [ ] Click Chat preview
+- [ ] **Expected**: The faux chat workspace returns with the selected theme unchanged
 
 ---
 
@@ -452,7 +467,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 ## 14. API
 
 ### 14.1 GET /api/themes (public)
-- [ ] `curl https://dexthemes.com/api/themes`
+- [ ] `curl https://www.dexthemes.com/api/themes`
 - [ ] **Expected**: JSON object with `count` and `themes`, covering Codex, DexThemes, and Community categories
 
 ### 14.2 GET /themes/likes/counts
@@ -480,12 +495,12 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] **Expected**: Script fetches all ~200 OG image URLs, shows progress with cache hit/miss status
 
 ### 15.2 API warm-up endpoint
-- [ ] `curl "https://dexthemes.com/api/warm-cache?secret=$WARM_CACHE_SECRET"`
+- [ ] `curl "https://www.dexthemes.com/api/warm-cache?secret=$WARM_CACHE_SECRET"`
 - [ ] **Expected**: JSON response with `warmed`, `failed`, `total` counts when the secret is valid
 - [ ] **Expected**: Missing/invalid secret returns an error response and does not warm cache
 
 ### 15.3 Verify cached images
-- [ ] After warm-up, visit `https://dexthemes.com/api/og?theme=codex&variant=dark`
+- [ ] After warm-up, visit `https://www.dexthemes.com/api/og?theme=codex&variant=dark`
 - [ ] **Expected**: Image loads quickly, `x-vercel-cache: HIT` header present
 
 ---

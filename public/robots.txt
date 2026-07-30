@@ -1,7 +1,13 @@
 # DexThemes — Theme gallery for Codex
-# https://dexthemes.com
+# https://www.dexthemes.com
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
 
 User-agent: *
 Allow: /
 
-Sitemap: https://dexthemes.com/sitemap.xml
+Sitemap: https://www.dexthemes.com/sitemap.xml

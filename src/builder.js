@@ -318,9 +318,15 @@ export function toggleBuilderMode() {
     applyPreview(state.selectedTheme, state.selectedVariant);
     syncAttributionOverlay();
     renderRightPanel();
+    const viewSwitch = document.getElementById('theme-view-switch');
+    if (viewSwitch) viewSwitch.hidden = false;
   } else {
     trackEvent('builder_opened', null, { source: 'toggle' });
     state.setPanelMode('builder');
+    state.setThemeView('preview');
+    const viewSwitch = document.getElementById('theme-view-switch');
+    if (viewSwitch) viewSwitch.hidden = true;
+    void import('./theme-details.js').then((m) => m.showThemePreview({ track: false }));
     state.setBuilderColors(loadBuilderState() || getDefaultBuilderColors());
     resetBuilderCreationTracking();
     localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
@@ -355,6 +361,10 @@ export async function openBuilderForVariant(themeId, variant) {
   };
 
   state.setPanelMode('builder');
+  state.setThemeView('preview');
+  const viewSwitch = document.getElementById('theme-view-switch');
+  if (viewSwitch) viewSwitch.hidden = true;
+  void import('./theme-details.js').then((m) => m.showThemePreview({ track: false }));
   state.setBuilderColors(normalizeBuilderState({
     name: theme.name,
     variant,

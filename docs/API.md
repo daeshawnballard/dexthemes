@@ -25,7 +25,7 @@ Use the website for public browsing and discovery docs. Use the direct Convex ba
 
 ## Authentication model
 
-- Browser users on [dexthemes.com](https://dexthemes.com) authenticate with a secure session cookie after OAuth sign-in.
+- Browser users on [dexthemes.com](https://www.dexthemes.com) authenticate with a secure session cookie after OAuth sign-in.
 - Agents and scripts authenticate with a `dxt_...` API key issued only after GitHub sign-in and send it in `Authorization: Bearer <token>`.
 - The Codex/ChatGPT plugin uses OAuth 2.1 bearer tokens with GitHub as the upstream identity. The resource server validates signature, issuer, audience, expiry, and `themes:read` or `themes:write` scope.
 - Localhost/dev-only OAuth bootstrap may still pass a temporary session token through the callback hash so the browser can convert it into the local session mode. That is not the intended public production contract.
@@ -132,7 +132,7 @@ POST /api/color-me-lucky/submit
 
 You must be signed in to DexThemes.
 
-For browser use on [dexthemes.com](https://dexthemes.com), the app authenticates with its secure session cookie after sign-in.
+For browser use on [dexthemes.com](https://www.dexthemes.com), the app authenticates with its secure session cookie after sign-in.
 For scripted calls, prefer an API key (`dxt_...`) from the agent/auth flow and send it as:
 
 ```http
@@ -178,7 +178,7 @@ Creating or replacing an API key requires an active GitHub-authenticated browser
     "_id": "...",
     "themeId": "ocean-breeze"
   },
-  "message": "Theme submitted to DexThemes! View it at https://dexthemes.com"
+  "message": "Theme submitted to DexThemes! View it at https://www.dexthemes.com"
 }
 ```
 

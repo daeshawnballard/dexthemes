@@ -16,6 +16,7 @@ import {
   loadMobileModule,
   loadPreviewActionsModule,
   loadPreviewShellModule,
+  loadThemeDetailsModule,
 } from './lazy-modules.js';
 
 function isCompactViewport() {
@@ -55,7 +56,11 @@ async function dispatchAction(action, element, event) {
     case 'like-theme':
       return loadPreviewShellModule().then((m) => m.likeTheme());
     case 'share-theme':
-      return loadPreviewShellModule().then((m) => m.shareOnX());
+      return loadPreviewShellModule().then((m) => m.shareTheme(element));
+    case 'show-theme-preview':
+      return loadThemeDetailsModule().then((m) => m.showThemePreview());
+    case 'show-theme-details':
+      return loadThemeDetailsModule().then((m) => m.showThemeDetails());
     case 'reopen-preview-window':
       return loadPreviewShellModule().then((m) => m.reopenPreviewWindow());
     case 'request-missing-variant':
@@ -80,6 +85,8 @@ async function dispatchAction(action, element, event) {
       return loadAuthModule().then((m) => m.logout());
     case 'open-profile-view':
       return (async () => {
+        const details = await loadThemeDetailsModule();
+        details.showThemePreview({ track: false });
         if (isCompactViewport()) {
           const mobile = await loadMobileModule();
           await mobile.mobileSetView('preview');
@@ -91,6 +98,8 @@ async function dispatchAction(action, element, event) {
       return loadAuthModule().then((m) => m.closeAchievements());
     case 'open-leaderboard':
       return (async () => {
+        const details = await loadThemeDetailsModule();
+        details.showThemePreview({ track: false });
         if (isCompactViewport()) {
           const mobile = await loadMobileModule();
           await mobile.mobileSetView('preview');

@@ -19,6 +19,10 @@ export default async function handler(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const themeId = url.searchParams.get('theme') || 'codex';
   const variantKey = url.searchParams.get('variant') || 'dark';
+  if (!['dark', 'light'].includes(variantKey)) {
+    res.status(404).send('Variant not found');
+    return;
+  }
 
   let theme;
   try {
@@ -34,7 +38,7 @@ export default async function handler(req, res) {
   }
   if (!theme) { res.status(404).send('Theme not found'); return; }
 
-  const v = theme[variantKey] || theme.dark || theme.light;
+  const v = theme[variantKey];
   if (!v) { res.status(404).send('Variant not found'); return; }
 
   let likes = 0;

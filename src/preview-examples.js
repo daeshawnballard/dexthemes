@@ -31,7 +31,7 @@ export const EXAMPLES = [
     comment: '// scripts/fetchThemes.ts',
     code: [
       { type: 'kw', text: 'const' }, ' res = ', { type: 'kw', text: 'await' }, ' ', { type: 'fn', text: 'fetch' }, '(\n',
-      '  ', { type: 'str', text: "'https://dexthemes.com/api/themes'" }, '\n',
+      '  ', { type: 'str', text: "'https://www.dexthemes.com/api/themes'" }, '\n',
       ');\n',
       { type: 'kw', text: 'const' }, ' payload = ', { type: 'kw', text: 'await' }, ' res.', { type: 'fn', text: 'json' }, '();\n',
       { type: 'kw', text: 'const' }, ' themes = payload.themes;\n',
@@ -116,7 +116,7 @@ export const EXAMPLES = [
     comment: '// scripts/trending.ts',
     code: [
       { type: 'kw', text: 'const' }, ' res = ', { type: 'kw', text: 'await' }, ' ', { type: 'fn', text: 'fetch' }, '(\n',
-      '  ', { type: 'str', text: "'https://dexthemes.com/api/themes'" }, '\n',
+      '  ', { type: 'str', text: "'https://www.dexthemes.com/api/themes'" }, '\n',
       ');\n',
       { type: 'kw', text: 'const' }, ' payload = ', { type: 'kw', text: 'await' }, ' res.', { type: 'fn', text: 'json' }, '();\n',
       { type: 'kw', text: 'const' }, ' themes = payload.themes;\n',
@@ -161,7 +161,7 @@ export const EXAMPLES = [
       { type: 'kw', text: 'const' }, ' themeId = ', { type: 'str', text: "'midnight-bloom'" }, ';\n',
       '\n',
       { type: 'kw', text: 'const' }, ' res = ', { type: 'kw', text: 'await' }, ' ', { type: 'fn', text: 'fetch' }, '(\n',
-      '  ', { type: 'str', text: '`https://dexthemes.com/themes/like`' }, ',\n',
+      '  ', { type: 'str', text: '`https://www.dexthemes.com/themes/like`' }, ',\n',
       '  {\n',
       '    method: ', { type: 'str', text: "'POST'" }, ',\n',
       '    headers: {\n',
@@ -202,7 +202,7 @@ export const EXAMPLES = [
     comment: '// scripts/importString.ts',
     code: [
       { type: 'kw', text: 'const' }, ' res = ', { type: 'kw', text: 'await' }, ' ', { type: 'fn', text: 'fetch' }, '(\n',
-      '  ', { type: 'str', text: "'https://dexthemes.com/api/themes'" }, '\n',
+      '  ', { type: 'str', text: "'https://www.dexthemes.com/api/themes'" }, '\n',
       ');\n',
       { type: 'kw', text: 'const' }, ' payload = ', { type: 'kw', text: 'await' }, ' res.', { type: 'fn', text: 'json' }, '();\n',
       { type: 'kw', text: 'const' }, ' themes = payload.themes;\n',

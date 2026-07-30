@@ -13,6 +13,7 @@ import { fetchMyUnlocks, grantUnlockAction, recordSecretInteraction } from './un
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
 import { buildThemePath } from './theme-url.js';
+import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -86,6 +87,7 @@ export function selectAccent(idx) {
   applyPreview(state.selectedTheme, state.selectedVariant);
   syncAttributionOverlay();
   renderRightPanel();
+  void import('./theme-details.js').then((m) => m.syncThemeDetailsView());
 }
 
 export function selectVariant(variant) {
@@ -95,6 +97,7 @@ export function selectVariant(variant) {
   applyPreview(state.selectedTheme, state.selectedVariant);
   syncAttributionOverlay();
   updateVariantCards();
+  void import('./theme-details.js').then((m) => m.syncThemeDetailsView());
   track('variant_selected', {
     theme_id: state.selectedTheme.id,
     variant,
@@ -301,9 +304,6 @@ export function renderRightPanel() {
         <button class="panel-icon-btn like-btn" id="like-btn" data-action="like-theme" aria-label="Like theme" title="Like theme">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </button>
-        <button class="panel-icon-btn share-icon-btn" data-action="share-theme" aria-label="Share theme on X" title="Share theme on X">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </button>
       `;
       mainHeader.appendChild(headerActions);
     }
@@ -332,6 +332,8 @@ export function applyToCodex() {
       variant: state.selectedVariant,
       source: 'preview',
       mobile: compact,
+      landing_source: state.landingContext.source,
+      referral_channel: state.landingContext.referralChannel,
     });
     if (textEl) textEl.textContent = applyCopy.successLabel;
     btn?.classList.add('copied');
@@ -357,7 +359,7 @@ export function applyToCodex() {
 export function shareOnX() {
   const themeName = state.selectedTheme.name || 'a theme';
   const variant = state.selectedVariant === 'dark' ? 'dark' : 'light';
-  const themeId = state.selectedTheme.id || 'codex';
+  const themeId = getWebsiteThemeId(state.selectedTheme.id || 'codex');
   const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
   const text = `"${themeName}" — my new Codex theme\n\n${shareUrl}`;
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
@@ -366,8 +368,65 @@ export function shareOnX() {
     theme_id: themeId,
     theme_name: themeName,
     variant,
-    surface: 'x',
+      surface: 'x',
+      landing_source: state.landingContext.source,
+      referral_channel: state.landingContext.referralChannel,
   });
+}
+
+export async function shareTheme(button) {
+  const themeName = state.selectedTheme.name || 'Codex theme';
+  const variant = state.selectedVariant === 'light' ? 'light' : 'dark';
+  const themeId = getWebsiteThemeId(state.selectedTheme.id || 'codex');
+  const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
+  const originalLabel = button?.textContent;
+
+  const markCopied = () => {
+    if (button) button.textContent = 'Link copied';
+    void showSystemMessage(`Link copied for ${themeName}.`, 'success');
+    track('theme_shared', {
+      theme_id: themeId,
+      theme_name: themeName,
+      variant,
+      surface: 'clipboard',
+      landing_source: state.landingContext.source,
+      referral_channel: state.landingContext.referralChannel,
+    });
+    if (button && originalLabel) {
+      setTimeout(() => { button.textContent = originalLabel; }, 1800);
+    }
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: `${themeName} Codex theme`,
+        text: `Preview the ${variant} ${themeName} theme on DexThemes.`,
+        url: shareUrl,
+      });
+      track('theme_shared', {
+        theme_id: themeId,
+        theme_name: themeName,
+        variant,
+        surface: 'native',
+        landing_source: state.landingContext.source,
+        referral_channel: state.landingContext.referralChannel,
+      });
+      return;
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+    }
+  }
+
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      markCopied();
+      return;
+    } catch {}
+  }
+
+  fallbackCopy(shareUrl, markCopied);
 }
 
 export async function likeTheme() {
