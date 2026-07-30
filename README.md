@@ -52,6 +52,7 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
 - [Codex plugin guide](docs/PLUGIN.md)
+- [Content authoring guide](docs/CONTENT.md)
 - [Indexable pages design concept](docs/INDEXABLE-PAGES-DESIGN-CONCEPT.md)
 - [Reusable design prompts](docs/INDEXABLE-PAGES-DESIGN-PROMPTS.md)
 - [Implementation prompt](docs/INDEXABLE-PAGES-IMPLEMENTATION-PROMPT.md)
@@ -76,6 +77,11 @@ public/                    → Source-of-truth static files emitted to the deplo
   favicon.svg              → Root favicon source
   apple-touch-icon.png     → iOS home-screen icon source
   icon-192.png             → PWA icon source
+content/                   → Markdown source for public guides, features, articles, and reference
+  guides/                  → Task and troubleshooting guides
+  features/                → Shipped product capability pages
+  articles/                → Comparisons and editorial methodology
+  reference/               → Stable technical contracts
 src/                       → Frontend source modules
   main.js                  → App entry point
   preview-shell.js         → Preview rendering, shell, and window controls
@@ -88,6 +94,7 @@ src/                       → Frontend source modules
   api.js                   → Frontend API client compatibility barrel
 dist/assets/               → Generated hashed frontend build output served in production (not committed)
 scripts/build.mjs          → Build pipeline for hashed assets + shell generation
+scripts/generate-content.mjs → Validates Markdown and builds the shared content catalog
 theme-data/dexthemes/      → Theme packs organized by category
   helpers.js               → createDexTheme() and registerDexThemesPack()
   anime.js                 → Anime-inspired themes (Bleach, Naruto, JJK, etc.)
@@ -108,7 +115,7 @@ convex/                    → Backend (Convex) — auth, likes, community theme
   http.ts                  → HTTP route composition entrypoint
 api/                       → Vercel edge/serverless endpoints (catalog, public pages, OG, sitemap)
   share.js                 → Server-rendered canonical theme pages with real 404 handling
-  content-page.js          → Answer-first guide and collection pages
+  content-page.js          → Answer-first editorial, reference, and collection pages
   sitemap.js               → Live static + community catalog sitemap
   mcp.js                   → Stateless MCP endpoint for the DexThemes plugin
 server/                    → MCP tools, theme creation/validation, generated app resource

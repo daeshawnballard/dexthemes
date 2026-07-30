@@ -1,17 +1,27 @@
+import {
+  CONTENT_ITEMS,
+  CONTENT_LAST_MODIFIED as GENERATED_CONTENT_LAST_MODIFIED,
+  CONTENT_ROUTES_BY_SECTION,
+} from "./generated-content.js";
+
 export const CANONICAL_ORIGIN = "https://www.dexthemes.com";
 export const CANONICAL_HOST = "www.dexthemes.com";
-export const CONTENT_LAST_MODIFIED = "2026-07-29";
+export const CONTENT_LAST_MODIFIED = GENERATED_CONTENT_LAST_MODIFIED;
 
 // IndexNow verification keys are intentionally public and must be available as
 // a same-origin text file for ownership verification.
 export const INDEXNOW_KEY = "3f8d2c5a9e7146b0ac29f45d81e7c663";
 export const INDEXNOW_KEY_PATH = `/${INDEXNOW_KEY}.txt`;
 
-export const GUIDE_ROUTES = Object.freeze([
-  "/guides",
-  "/guides/how-to-install-a-codex-theme",
-  "/guides/create-a-custom-codex-theme",
-  "/guides/codex-theme-import-troubleshooting",
+export const GUIDE_ROUTES = CONTENT_ROUTES_BY_SECTION.guides;
+export const FEATURE_ROUTES = CONTENT_ROUTES_BY_SECTION.features;
+export const ARTICLE_ROUTES = CONTENT_ROUTES_BY_SECTION.articles;
+export const REFERENCE_ROUTES = CONTENT_ROUTES_BY_SECTION.reference;
+export const EDITORIAL_ROUTES = Object.freeze([
+  ...GUIDE_ROUTES,
+  ...FEATURE_ROUTES,
+  ...ARTICLE_ROUTES,
+  ...REFERENCE_ROUTES,
 ]);
 
 export const COLLECTION_ROUTES = Object.freeze([
@@ -71,16 +81,19 @@ export function getIndexNowUrlsForTheme(theme) {
 }
 
 export function buildSitemapEntries(staticThemes = [], communityThemes = []) {
+  const modifiedByPath = new Map(
+    CONTENT_ITEMS.map((item) => [item.path, item.dateModified]),
+  );
   const fixedEntries = [
     { url: `${CANONICAL_ORIGIN}/`, changefreq: "daily", priority: "1.0", lastmod: CONTENT_LAST_MODIFIED },
     { url: `${CANONICAL_ORIGIN}/privacy.html`, changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
     { url: `${CANONICAL_ORIGIN}/terms.html`, changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
     { url: `${CANONICAL_ORIGIN}/support.html`, changefreq: "monthly", priority: "0.4", lastmod: "2026-07-16" },
-    ...GUIDE_ROUTES.map((path) => ({
+    ...EDITORIAL_ROUTES.map((path) => ({
       url: `${CANONICAL_ORIGIN}${path}`,
       changefreq: "monthly",
-      priority: path === "/guides" ? "0.8" : "0.7",
-      lastmod: CONTENT_LAST_MODIFIED,
+      priority: path.split("/").filter(Boolean).length === 1 ? "0.8" : "0.7",
+      lastmod: modifiedByPath.get(path) || CONTENT_LAST_MODIFIED,
     })),
     ...COLLECTION_ROUTES.map((path) => ({
       url: `${CANONICAL_ORIGIN}${path}`,

@@ -2,28 +2,35 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fetchCommunityThemes } from "./theme-data.js";
 import {
-  GUIDE_PAGES,
+  getContentItem,
   renderCollectionPage,
   renderCollectionsHub,
-  renderGuidePage,
-  renderGuidesHub,
+  renderContentHub,
+  renderContentPage,
   renderNotFoundPage,
 } from "../shared/public-pages.js";
+import { CANONICAL_ORIGIN } from "../shared/seo.js";
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), "api", "theme-map.json"), "utf-8"),
 );
 const COLLECTION_SLUGS = new Set(["dark", "light", "editor-classics", "community"]);
+const EDITORIAL_SECTIONS = new Set(["guides", "features", "articles", "reference"]);
 
 export default async function handler(req, res) {
   const url = new URL(req.url, "http://localhost");
   const section = String(url.searchParams.get("section") || "").toLowerCase();
   const slug = String(url.searchParams.get("slug") || "").toLowerCase();
+  const format = String(url.searchParams.get("format") || "").toLowerCase();
 
-  if (section === "guides") {
-    if (!slug) return sendHtml(res, 200, renderGuidesHub());
-    if (!Object.hasOwn(GUIDE_PAGES, slug)) return sendNotFound(res, "Guide not found");
-    return sendHtml(res, 200, renderGuidePage(slug));
+  if (EDITORIAL_SECTIONS.has(section)) {
+    if (!slug) return sendHtml(res, 200, renderContentHub(section));
+    const item = getContentItem(section, slug);
+    if (!item) return sendNotFound(res, `${singularTitle(section)} not found`);
+    if (format === "markdown") {
+      return sendMarkdown(res, item.markdown, `${CANONICAL_ORIGIN}${item.path}`);
+    }
+    return sendHtml(res, 200, renderContentPage(section, slug));
   }
 
   if (section === "collections") {
@@ -64,6 +71,11 @@ export default async function handler(req, res) {
   return sendNotFound(res, "Page not found");
 }
 
+function singularTitle(section) {
+  const singular = section === "reference" ? "reference" : section.replace(/s$/, "");
+  return singular.charAt(0).toUpperCase() + singular.slice(1);
+}
+
 function sendNotFound(res, title) {
   return sendHtml(
     res,
@@ -85,4 +97,17 @@ function sendHtml(
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", cacheControl);
   return res.status(status).send(html);
+}
+
+function sendMarkdown(
+  res,
+  markdown,
+  canonicalUrl,
+  cacheControl = "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+) {
+  res.setHeader("Content-Type", "text/markdown; charset=utf-8");
+  res.setHeader("Cache-Control", cacheControl);
+  res.setHeader("X-Robots-Tag", "noindex");
+  res.setHeader("Link", `<${canonicalUrl}>; rel="canonical"`);
+  return res.status(200).send(markdown);
 }

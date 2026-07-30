@@ -10,6 +10,8 @@
 - **Does DexThemes modify Codex files?** No. DexThemes prepares the import payload; Codex owns the final import.
 - **What are the catalog sources?** Codex catalog themes are built-in palettes, DexThemes themes are curated by this project, and Community themes are original palettes published by creators.
 - **Can a user inspect a theme before importing it?** Yes. Every public theme variant has a server-rendered details page and the app provides both a faux chat preview and an in-app Theme details view.
+- **Who writes the DexThemes guides and articles?** Daeshawn Ballard. The visible byline links to https://x.com/daeshawn and matches the page's structured author data.
+- **Are the guides agent-readable?** Yes. Every guide, feature, article, and reference page is server-rendered HTML with a canonical `.md` representation.
 
 ## Domains
 
@@ -25,9 +27,14 @@ Use `https://www.dexthemes.com/api/themes` for public browsing examples. Use the
 - Install guide: https://www.dexthemes.com/guides/how-to-install-a-codex-theme
 - Custom theme guide: https://www.dexthemes.com/guides/create-a-custom-codex-theme
 - Import troubleshooting: https://www.dexthemes.com/guides/codex-theme-import-troubleshooting
+- All guides: https://www.dexthemes.com/guides
+- Feature documentation: https://www.dexthemes.com/features
+- Articles: https://www.dexthemes.com/articles
+- Theme format reference: https://www.dexthemes.com/reference
 - Collections: https://www.dexthemes.com/collections
 - Community themes: https://www.dexthemes.com/collections/community
 - Exact theme variant: `https://www.dexthemes.com/{id}/dark|light`
+- Markdown representation: append `.md` to an individual guide, feature, article, or reference URL
 
 ## Authentication
 

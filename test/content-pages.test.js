@@ -68,11 +68,51 @@ test('guides render answer-first indexable pages', async () => {
   }, res);
 
   assert.equal(res.statusCode, 200);
-  assert.match(res.body, /<h1>How to install a Codex theme<\/h1>/);
+  assert.match(res.body, /<h1>How to Install a Codex Theme<\/h1>/);
   assert.match(res.body, /open Codex Settings/i);
   assert.match(res.body, /Appearance/);
-  assert.match(res.body, /"@type":"HowTo"/);
+  assert.match(res.body, /Written by <a href="https:\/\/x\.com\/daeshawn"/);
+  assert.match(res.body, /"@type":"TechArticle"/);
+  assert.match(res.body, /"name":"Daeshawn Ballard"/);
+  assert.match(res.body, /"publisher":\{"@id":"https:\/\/www\.dexthemes\.com\/#daeshawn-ballard"\}/);
+  assert.match(res.body, /<meta property="og:type" content="article">/);
+  assert.match(res.body, /rel="alternate" type="text\/markdown"/);
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/guides\/how-to-install-a-codex-theme/);
+});
+
+test('feature and article hubs expose the full content catalog', async () => {
+  const featureRes = createResponse();
+  await contentPageHandler({
+    url: '/api/content-page?section=features',
+  }, featureRes);
+  assert.equal(featureRes.statusCode, 200);
+  assert.match(featureRes.body, /Everything DexThemes can do/);
+  assert.match(featureRes.body, /\/features\/leaderboard/);
+
+  const articleRes = createResponse();
+  await contentPageHandler({
+    url: '/api/content-page?section=articles',
+  }, articleRes);
+  assert.equal(articleRes.statusCode, 200);
+  assert.match(articleRes.body, /\/articles\/how-we-test-codex-themes/);
+});
+
+test('canonical Markdown representations are agent-readable and non-indexable', async () => {
+  const res = createResponse();
+  await contentPageHandler({
+    url: '/api/content-page?section=features&slug=leaderboard&format=markdown',
+  }, res);
+
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.headers['content-type'], 'text/markdown; charset=utf-8');
+  assert.equal(res.headers['x-robots-tag'], 'noindex');
+  assert.equal(
+    res.headers.link,
+    '<https://www.dexthemes.com/features/leaderboard>; rel="canonical"',
+  );
+  assert.match(res.body, /^---\n/);
+  assert.match(res.body, /author: Daeshawn Ballard/);
+  assert.match(res.body, /## /);
 });
 
 test('collection pages combine static and live community themes', async (t) => {
@@ -109,6 +149,10 @@ test('Vercel gives editorial routes precedence over the generic theme route', as
   const themeRouteIndex = sources.indexOf('/:theme/:variant');
 
   assert.ok(sources.indexOf('/guides/:slug') < themeRouteIndex);
+  assert.ok(sources.indexOf('/features/:slug') < themeRouteIndex);
+  assert.ok(sources.indexOf('/articles/:slug') < themeRouteIndex);
+  assert.ok(sources.indexOf('/reference/:slug') < themeRouteIndex);
+  assert.ok(sources.indexOf('/features/:slug.md') < sources.indexOf('/features/:slug'));
   assert.ok(sources.indexOf('/collections/:slug') < themeRouteIndex);
   assert.ok(sources.indexOf('/sitemap.xml') < themeRouteIndex);
 });

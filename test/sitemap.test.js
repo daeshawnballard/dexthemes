@@ -50,6 +50,9 @@ test('dynamic sitemap includes community variants and the fixed canonical host',
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/night-operator\/dark/);
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/night-operator\/light/);
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/guides/);
+  assert.match(res.body, /https:\/\/www\.dexthemes\.com\/features\/leaderboard/);
+  assert.match(res.body, /https:\/\/www\.dexthemes\.com\/articles\/how-we-test-codex-themes/);
+  assert.match(res.body, /https:\/\/www\.dexthemes\.com\/reference\/codex-theme-format/);
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/collections\/community/);
   assert.doesNotMatch(res.body, /https:\/\/dexthemes\.com/);
 });

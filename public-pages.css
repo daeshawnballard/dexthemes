@@ -192,13 +192,15 @@ button {
 }
 
 .theme-page,
-.guide-page {
+.guide-page,
+.content-page {
   width: min(var(--max), calc(100% - 40px));
   margin: 0 auto;
 }
 
 .theme-page > .breadcrumbs,
-.guide-page > .breadcrumbs {
+.guide-page > .breadcrumbs,
+.content-page > .breadcrumbs {
   padding-top: 54px;
 }
 
@@ -214,6 +216,7 @@ button {
 .hub-hero h1,
 .collection-hero h1,
 .guide-hero h1,
+.content-hero h1,
 .error-page h1 {
   max-width: 10em;
   margin: 18px 0 0;
@@ -829,7 +832,8 @@ code {
   padding: 70px 0 80px;
 }
 
-.guide-hero h1 {
+.guide-hero h1,
+.content-hero h1 {
   max-width: 9em;
 }
 
@@ -906,6 +910,162 @@ code {
 .related-links a:hover {
   border-color: var(--page-accent);
   color: var(--ink);
+}
+
+.content-hero {
+  max-width: 980px;
+  padding: 70px 0 72px;
+}
+
+.content-hero h1 {
+  margin: 18px 0 0;
+  font-family: var(--display);
+  font-size: clamp(54px, 6.7vw, 100px);
+  font-weight: 720;
+  letter-spacing: -.055em;
+  line-height: .96;
+}
+
+.content-byline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 18px;
+  margin-top: 26px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9px;
+}
+
+.content-byline a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--page-accent) 50%, transparent);
+  text-underline-offset: 3px;
+}
+
+.content-layout {
+  display: grid;
+  align-items: start;
+  gap: clamp(38px, 7vw, 100px);
+  padding: 70px 0 76px;
+  grid-template-columns: minmax(170px, 230px) minmax(0, 760px);
+  border-top: 1px solid var(--line);
+}
+
+.content-context {
+  position: sticky;
+  top: 28px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255,255,255,.018);
+}
+
+.content-context p:not(.section-kicker) {
+  margin: 12px 0 0;
+  color: var(--ink-faint);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.content-context a {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--page-accent);
+  font-size: 10px;
+}
+
+.prose {
+  min-width: 0;
+}
+
+.prose h2 {
+  margin: 68px 0 0;
+  font-family: var(--display);
+  font-size: clamp(34px, 4vw, 54px);
+  font-weight: 720;
+  letter-spacing: -.052em;
+  line-height: 1;
+}
+
+.prose h2:first-child {
+  margin-top: 0;
+}
+
+.prose h3 {
+  margin: 42px 0 0;
+  font-family: var(--display);
+  font-size: clamp(22px, 2.5vw, 31px);
+  letter-spacing: -.035em;
+  line-height: 1.15;
+}
+
+.prose p,
+.prose li {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.82;
+}
+
+.prose p {
+  margin: 19px 0 0;
+}
+
+.prose ul,
+.prose ol {
+  display: grid;
+  gap: 11px;
+  margin: 22px 0 0;
+  padding-left: 24px;
+}
+
+.prose li::marker {
+  color: var(--page-accent);
+  font-family: var(--mono);
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 680;
+}
+
+.prose a {
+  color: var(--page-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--page-accent) 45%, transparent);
+  text-underline-offset: 3px;
+}
+
+.prose code {
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: rgba(255,255,255,.035);
+  color: color-mix(in srgb, var(--page-accent) 70%, white);
+  font-size: .88em;
+}
+
+.prose pre {
+  max-width: 100%;
+  margin: 24px 0 0;
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #080908;
+}
+
+.prose pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.content-page > .related-links {
+  border-top: 1px solid var(--line);
 }
 
 .error-page {
@@ -1005,6 +1165,7 @@ code {
   .public-header,
   .theme-page,
   .guide-page,
+  .content-page,
   .hub-hero,
   .collection-hero,
   .hub-content,
@@ -1028,12 +1189,14 @@ code {
   }
 
   .theme-page > .breadcrumbs,
-  .guide-page > .breadcrumbs {
+  .guide-page > .breadcrumbs,
+  .content-page > .breadcrumbs {
     padding-top: 34px;
   }
 
   .theme-hero,
-  .guide-hero {
+  .guide-hero,
+  .content-hero {
     padding: 48px 0 58px;
   }
 
@@ -1041,6 +1204,7 @@ code {
   .hub-hero h1,
   .collection-hero h1,
   .guide-hero h1,
+  .content-hero h1,
   .error-page h1 {
     font-size: clamp(48px, 16vw, 72px);
   }
@@ -1117,6 +1281,21 @@ code {
   .hub-card-grid,
   .collection-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .content-layout {
+    gap: 42px;
+    padding: 52px 0 58px;
+    grid-template-columns: 1fr;
+  }
+
+  .content-context {
+    position: static;
+  }
+
+  .prose p,
+  .prose li {
+    font-size: 14px;
   }
 
   .theme-card,
