@@ -17,7 +17,6 @@ const staticPublicFiles = [
   "3f8d2c5a9e7146b0ac29f45d81e7c663.txt",
   "manifest.json",
   "robots.txt",
-  "sitemap.xml",
   "llms.txt",
   "llms-full.txt",
   "public-pages.css",

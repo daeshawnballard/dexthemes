@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 
 import contentPageHandler from '../api/content-page.js';
 
@@ -103,4 +103,21 @@ test('Vercel gives editorial routes precedence over the generic theme route', as
   assert.ok(sources.indexOf('/guides/:slug') < themeRouteIndex);
   assert.ok(sources.indexOf('/collections/:slug') < themeRouteIndex);
   assert.ok(sources.indexOf('/sitemap.xml') < themeRouteIndex);
+});
+
+test('the dynamic sitemap is not shadowed by a generated root asset', async () => {
+  const buildSource = await readFile(
+    new URL('../scripts/build.mjs', import.meta.url),
+    'utf8',
+  );
+  const publicFiles = buildSource.match(
+    /const staticPublicFiles = \[([\s\S]*?)\];/,
+  )?.[1];
+
+  assert.ok(publicFiles);
+  assert.doesNotMatch(publicFiles, /"sitemap\.xml"/);
+  await assert.rejects(
+    access(new URL('../sitemap.xml', import.meta.url)),
+    (error) => error?.code === 'ENOENT',
+  );
 });
