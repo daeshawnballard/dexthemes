@@ -132,11 +132,16 @@ async function dismissWelcomeIfPresent(page) {
   }
 }
 
+async function waitForOnboarding(page) {
+  await page.waitForFunction(() => window.localStorage.getItem('dexthemes-onboarded') === '1');
+}
+
 async function bootDesktopPage(browser, baseUrl) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
   await page.addInitScript(() => window.localStorage.clear());
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.waitForSelector('#preview-window');
+  await waitForOnboarding(page);
   await dismissWelcomeIfPresent(page);
   return page;
 }
@@ -146,6 +151,7 @@ async function bootDesktopPageAt(browser, url) {
   await page.addInitScript(() => window.localStorage.clear());
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.waitForSelector('#preview-window');
+  await waitForOnboarding(page);
   await dismissWelcomeIfPresent(page);
   return page;
 }
@@ -155,6 +161,7 @@ async function bootMobilePage(browser, baseUrl) {
   await page.addInitScript(() => window.localStorage.clear());
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.waitForSelector('#mobile-nav');
+  await page.waitForSelector('.mobile-cat-pills');
   await dismissWelcomeIfPresent(page);
   return page;
 }

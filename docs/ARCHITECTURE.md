@@ -46,8 +46,8 @@ Core fields:
 
 Useful model helpers live in:
 
-- [`src/theme-contracts.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/theme-contracts.js)
-- [`src/theme-engine.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/theme-engine.js)
+- [`src/theme-contracts.js`](../src/theme-contracts.js)
+- [`src/theme-engine.js`](../src/theme-engine.js)
 
 Rule of thumb:
 
@@ -60,12 +60,12 @@ The frontend is deliberately split into four layers.
 
 ### 1. State, catalog, and config
 
-- [`src/state.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/state.js)
-- [`src/theme-catalog.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/theme-catalog.js)
-- [`src/preview-examples.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/preview-examples.js)
-- [`src/unlocks.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/unlocks.js)
-- [`src/config.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/config.js)
-- [`src/app-state.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/app-state.js)
+- [`src/state.js`](../src/state.js)
+- [`src/theme-catalog.js`](../src/theme-catalog.js)
+- [`src/preview-examples.js`](../src/preview-examples.js)
+- [`src/unlocks.js`](../src/unlocks.js)
+- [`src/config.js`](../src/config.js)
+- [`src/app-state.js`](../src/app-state.js)
 
 Ownership is now split intentionally:
 
@@ -82,35 +82,35 @@ Do not add DOM behavior to these modules.
 
 View modules render UI and should avoid network and auth logic where possible.
 
-- [`src/sidebar.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/sidebar.js)
-- [`src/preview-shell.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/preview-shell.js)
-- [`src/preview-chat.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/preview-chat.js)
-- [`src/preview-attribution.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/preview-attribution.js)
-- [`src/leaderboard-view.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/leaderboard-view.js)
-- [`src/mobile-browse.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/mobile-browse.js)
+- [`src/sidebar.js`](../src/sidebar.js)
+- [`src/preview-shell.js`](../src/preview-shell.js)
+- [`src/preview-chat.js`](../src/preview-chat.js)
+- [`src/preview-attribution.js`](../src/preview-attribution.js)
+- [`src/leaderboard-view.js`](../src/leaderboard-view.js)
+- [`src/mobile-browse.js`](../src/mobile-browse.js)
 
 The shared delegated click/input router now lives in:
 
-- [`src/delegated-actions.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/delegated-actions.js)
+- [`src/delegated-actions.js`](../src/delegated-actions.js)
 
 ### 3. Side effects and network/auth
 
 These modules own HTTP calls, auth, write flows, and external handoffs.
 
-- [`src/api.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/api.js)
-- [`src/toasts.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/toasts.js)
-- [`src/community-themes-api.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/community-themes-api.js)
-- [`src/theme-submission-api.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/theme-submission-api.js)
-- [`src/moderation-api.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/moderation-api.js)
-- [`src/unlock-api.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/unlock-api.js)
-- [`src/auth.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/auth.js)
-- [`src/preview-actions.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/preview-actions.js)
-- [`src/locked-themes.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/locked-themes.js)
+- [`src/api.js`](../src/api.js)
+- [`src/toasts.js`](../src/toasts.js)
+- [`src/community-themes-api.js`](../src/community-themes-api.js)
+- [`src/theme-submission-api.js`](../src/theme-submission-api.js)
+- [`src/moderation-api.js`](../src/moderation-api.js)
+- [`src/unlock-api.js`](../src/unlock-api.js)
+- [`src/auth.js`](../src/auth.js)
+- [`src/preview-actions.js`](../src/preview-actions.js)
+- [`src/locked-themes.js`](../src/locked-themes.js)
 
 ### 4. Orchestration and startup
 
-- [`src/main.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/main.js)
-- [`src/lazy-modules.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/lazy-modules.js)
+- [`src/main.js`](../src/main.js)
+- [`src/lazy-modules.js`](../src/lazy-modules.js)
 
 `main.js` should stay focused on boot order, global wiring, and viewport branching. If a feature needs its own business logic, it should not be implemented inline in `main.js`.
 
@@ -131,7 +131,7 @@ Public docs live on the website:
 
 - [`/llms.txt`](https://www.dexthemes.com/llms.txt)
 - [`/.well-known/openapi.json`](https://www.dexthemes.com/.well-known/openapi.json)
-- the repo API guide at [`docs/API.md`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/docs/API.md)
+- the repo API guide at [`docs/API.md`](../docs/API.md)
 
 Runtime routes are split between:
 
@@ -140,7 +140,7 @@ Runtime routes are split between:
 
 Main backend entry:
 
-- [`convex/http.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http.ts)
+- [`convex/http.ts`](../convex/http.ts)
 
 Plugin entry points:
 
@@ -157,11 +157,11 @@ The MCP server can perform public discovery and local computation without authen
 
 Route families now live in:
 
-- [`convex/http_auth_routes.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http_auth_routes.ts)
-- [`convex/http_theme_routes.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http_theme_routes.ts)
-- [`convex/http_unlock_routes.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http_unlock_routes.ts)
-- [`convex/http_color_me_lucky_routes.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http_color_me_lucky_routes.ts)
-- [`convex/http_helpers.ts`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/convex/http_helpers.ts)
+- [`convex/http_auth_routes.ts`](../convex/http_auth_routes.ts)
+- [`convex/http_theme_routes.ts`](../convex/http_theme_routes.ts)
+- [`convex/http_unlock_routes.ts`](../convex/http_unlock_routes.ts)
+- [`convex/http_color_me_lucky_routes.ts`](../convex/http_color_me_lucky_routes.ts)
+- [`convex/http_helpers.ts`](../convex/http_helpers.ts)
 
 Important backend domains:
 
@@ -173,7 +173,7 @@ Important backend domains:
 
 ## Unlocks
 
-Unlock definitions are declared in [`src/unlocks.js`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/src/unlocks.js) as `UNLOCK_THEMES`.
+Unlock definitions are declared in [`src/unlocks.js`](../src/unlocks.js) as `UNLOCK_THEMES`.
 
 The frontend uses those definitions for:
 
@@ -205,15 +205,15 @@ There is still a separate performance follow-up track for deeper desktop chunk c
 
 The stylesheet is now split by domain behind a manifest entry:
 
-- [`styles/index.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/index.css): import manifest used by the build
-- [`styles/tokens.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/tokens.css): variables and design tokens
-- [`styles/base.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/base.css): reset and shared primitives
-- [`styles/layout.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/layout.css): shell, main area, and panel layout
-- [`styles/sidebar.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/sidebar.css): sidebar, search, categories, auth chrome
-- [`styles/preview.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/preview.css): preview window and attribution surfaces
-- [`styles/builder.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/builder.css): builder panel and submission surfaces
-- [`styles/mobile.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/mobile.css): responsive and compact/mobile flows
-- [`styles/overlays.css`](/Users/daeshawnballard/.codex/worktrees/706f/dexthemes/styles/overlays.css): overlays, leaderboard, profile, toasts, modals
+- [`styles/index.css`](../styles/index.css): import manifest used by the build
+- [`styles/tokens.css`](../styles/tokens.css): variables and design tokens
+- [`styles/base.css`](../styles/base.css): reset and shared primitives
+- [`styles/layout.css`](../styles/layout.css): shell, main area, and panel layout
+- [`styles/sidebar.css`](../styles/sidebar.css): sidebar, search, categories, auth chrome
+- [`styles/preview.css`](../styles/preview.css): preview window and attribution surfaces
+- [`styles/builder.css`](../styles/builder.css): builder panel and submission surfaces
+- [`styles/mobile.css`](../styles/mobile.css): responsive and compact/mobile flows
+- [`styles/overlays.css`](../styles/overlays.css): overlays, leaderboard, profile, toasts, modals
 
 ## Safe Next Refactors
 

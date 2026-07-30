@@ -61,13 +61,13 @@ test('prepareGitHubIssue creates a best-effort redacted review draft without a U
   const issue = prepareGitHubIssue({
     title: 'Plugin bug',
     description: 'Preview failed for me@example.com with token ghp_1234567890abcdefghijkl.',
-    context: '/Users/daeshawn/private/project',
+    context: '/home/example/private/project',
   });
   assert.equal('url' in issue, false);
   assert.equal(issue.reviewRequired, true);
   assert.match(issue.redactionNotice, /Best-effort redaction/);
   assert.match(issue.body, /Review this content before submitting/);
-  assert.doesNotMatch(issue.body, /me@example\.com|ghp_1234567890|\/Users\/daeshawn/);
+  assert.doesNotMatch(issue.body, /me@example\.com|ghp_1234567890|\/home\/example/);
   assert.deepEqual(issue.redactions.sort(), ['access token', 'email', 'home path', 'private path']);
 });
 
