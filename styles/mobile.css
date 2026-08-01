@@ -19,6 +19,10 @@
   display: none;
 }
 
+.tablet-explore-nav {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .shell {
     --mobile-browse-header-top: 0px;
@@ -980,6 +984,132 @@
 
   .mobile-explore > a:last-child {
     grid-column: 1 / -1;
+  }
+
+  /* Move secondary discovery links into the tablet header chrome. */
+  @media (min-width: 769px) {
+    .sidebar-header {
+      justify-content: flex-start;
+      gap: 0;
+      overflow: visible;
+    }
+
+    .sidebar-brand {
+      flex-shrink: 0;
+      gap: 10px;
+    }
+
+    .sidebar-brand-sub {
+      display: none;
+    }
+
+    .tablet-explore-nav {
+      display: flex;
+      align-items: center;
+      align-self: stretch;
+      gap: 2px;
+      min-width: 0;
+      margin-left: 18px;
+      padding-left: 18px;
+      border-left: 1px solid var(--border);
+    }
+
+    .tablet-explore-nav > a,
+    .tablet-explore-more > summary {
+      display: flex;
+      min-height: 44px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 550;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .tablet-explore-nav > a:hover,
+    .tablet-explore-nav > a:focus-visible,
+    .tablet-explore-more > summary:hover,
+    .tablet-explore-more > summary:focus-visible,
+    .tablet-explore-more[open] > summary {
+      background: var(--surface);
+      color: var(--text-primary);
+    }
+
+    .tablet-explore-more {
+      position: relative;
+    }
+
+    .tablet-explore-more > summary {
+      gap: 5px;
+      list-style: none;
+    }
+
+    .tablet-explore-more > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .tablet-explore-more > summary span {
+      color: var(--text-muted);
+      font-size: 9px;
+      transition: transform 0.15s;
+    }
+
+    .tablet-explore-more[open] > summary span {
+      transform: rotate(180deg);
+    }
+
+    .tablet-explore-menu {
+      position: absolute;
+      top: calc(100% + 7px);
+      right: 0;
+      z-index: 50;
+      display: grid;
+      width: 218px;
+      gap: 3px;
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.34);
+    }
+
+    .tablet-explore-menu a {
+      display: grid;
+      gap: 3px;
+      padding: 10px;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .tablet-explore-menu a:hover,
+    .tablet-explore-menu a:focus-visible {
+      background: var(--surface-raised);
+      color: var(--text-primary);
+    }
+
+    .tablet-explore-menu span {
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .tablet-explore-menu small {
+      color: var(--text-muted);
+      font-size: 9px;
+      font-weight: 450;
+    }
+
+    .mobile-header-profile {
+      margin-left: auto;
+    }
+
+    .mobile-explore {
+      display: none;
+    }
   }
 
   /* P1: Subgroup pills for DexThemes */

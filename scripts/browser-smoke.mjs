@@ -166,6 +166,16 @@ async function bootMobilePage(browser, baseUrl) {
   return page;
 }
 
+async function bootTabletPage(browser, baseUrl) {
+  const page = await browser.newPage({ viewport: { width: 820, height: 1180 } });
+  await page.addInitScript(() => window.localStorage.clear());
+  await page.goto(baseUrl, { waitUntil: 'networkidle' });
+  await page.waitForSelector('.mobile-cat-pills');
+  await page.waitForSelector('.tablet-explore-nav');
+  await dismissWelcomeIfPresent(page);
+  return page;
+}
+
 const server = await startStaticServer();
 const browserType = process.env.PLAYWRIGHT_BROWSER === 'webkit' ? webkit : chromium;
 let browser;
@@ -348,6 +358,47 @@ try {
         await page.locator(`.mobile-explore a[href="${href}"]`).count(),
         1,
         `expected mobile Explore to link ${href}`,
+      );
+    }
+    await page.close();
+  });
+
+  await runTest('tablet resources live in header navigation instead of catalog', async () => {
+    const page = await bootTabletPage(browser, server.baseUrl);
+    const header = page.locator('.sidebar-header');
+    const brand = page.locator('.sidebar-brand');
+    const nav = page.locator('.tablet-explore-nav');
+    const headerBox = await header.boundingBox();
+    const brandBox = await brand.boundingBox();
+    const navBox = await nav.boundingBox();
+    assert.ok(headerBox && brandBox && navBox, 'expected tablet header navigation bounds');
+    assert.ok(navBox.x > brandBox.x + brandBox.width, 'expected navigation after the DexThemes brand');
+    assert.ok(headerBox.height <= 72, `expected a compact tablet header, got ${headerBox.height}px`);
+    assert.equal(await page.locator('.mobile-explore').isVisible(), false);
+
+    for (const width of [769, 820, 1024]) {
+      await page.setViewportSize({ width, height: 1180 });
+      assert.equal(await nav.isVisible(), true, `expected tablet navigation at ${width}px`);
+      const overflow = await header.evaluate((element) => element.scrollWidth - element.clientWidth);
+      assert.ok(overflow <= 0, `expected no tablet header overflow at ${width}px, got ${overflow}px`);
+    }
+
+    for (const href of ['/features', '/guides', '/articles']) {
+      assert.equal(
+        await nav.locator(`:scope > a[href="${href}"]`).count(),
+        1,
+        `expected tablet header to link ${href}`,
+      );
+    }
+
+    await page.locator('.tablet-explore-more > summary').click();
+    const menu = page.locator('.tablet-explore-more[open] .tablet-explore-menu');
+    await menu.waitFor({ state: 'visible' });
+    for (const href of ['/collections', '/collections/community']) {
+      assert.equal(
+        await menu.locator(`a[href="${href}"]`).count(),
+        1,
+        `expected tablet More menu to link ${href}`,
       );
     }
     await page.close();

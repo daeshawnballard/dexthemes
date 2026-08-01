@@ -1,10 +1,10 @@
-const PRECACHE = "dexthemes-precache-8ea60a5c93";
-const RUNTIME = "dexthemes-runtime-8ea60a5c93";
+const PRECACHE = "dexthemes-precache-a0f592f700";
+const RUNTIME = "dexthemes-runtime-a0f592f700";
 const PRECACHE_URLS = [
   "/",
   "/dist/assets/app-G6JKCV4E.js",
   "/dist/assets/boot-364c02506f.js",
-  "/dist/assets/styles-4189b4df95.css",
+  "/dist/assets/styles-57081005f5.css",
   "/dist/assets/dexthemes-bundle-921a073d5d.js",
   "/manifest.json",
   "/favicon.svg",
