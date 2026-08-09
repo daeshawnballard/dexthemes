@@ -1,93 +1,104 @@
 ---
-title: Create a Custom Codex Theme
-description: Build and preview a focused dark or light Codex palette with the DexThemes theme builder.
+title: Codex Theme Generator: Create a Custom Theme
+description: Use the DexThemes Codex theme generator to build and preview dark or light palettes, then explicitly import the selected variant in Codex Appearance.
 slug: create-a-custom-codex-theme
 kind: guide
 section: Guides
-answer: Open the DexThemes builder, choose a dark or light variant, tune the surface, text, accent, code, diff, and skill colors, then copy the generated import string and approve it in Codex Appearance.
+answer: To create a custom Codex theme, use the DexThemes theme generator to edit a dark or light palette, preview it locally, copy that variant's complete codex-theme-v1 string, and explicitly review and import it in Codex Appearance.
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: DexThemes current theme builder and installed Codex desktop 26.721.81911 build 5973 appearance registry
-related: /guides/share-a-custom-codex-theme, /guides/create-dark-and-light-codex-themes, /guides/codex-theme-accessibility
+dateModified: 2026-08-09
+testedWith: DexThemes theme builder and import-contract source, ChatGPT desktop 26.803.41515 build 6321, and official OpenAI Appearance documentation reviewed 2026-08-09.
+related: /features/theme-builder, /features/codex-theme-import, /guides/create-dark-and-light-codex-themes, /guides/codex-theme-accessibility
 ---
 
-The fastest way to make a custom Codex theme is to start with one variant, establish readable surface and text colors, then tune accents and semantic colors in the DexThemes preview. Copying a custom theme does not require an account. Sign-in is only needed when you choose to submit a theme to the community.
+The [DexThemes](/) Codex theme generator helps you create a custom Codex theme without editing app files or configuration by hand. Build one palette, inspect it in a live DexThemes preview, then copy a single dark or light import string. Copying does not require an account. Codex—not DexThemes—decides whether to accept and render that string.
 
-DexThemes is a community-built project and is not affiliated with OpenAI. Its builder prepares the current `codex-theme-v1` import format; Codex controls whether the payload is accepted and how it is rendered.
+The final change is always explicit. After DexThemes copies a theme, you choose **Appearance**, select the matching import action in Codex, paste the complete string, review it, and approve the import. DexThemes can open generic Codex Settings on desktop after copying, but it cannot silently apply a theme or jump directly to Appearance.
 
-## Build the first variant
+DexThemes is community-built and is not affiliated with OpenAI.
 
-1. Open DexThemes and choose **Create a theme**.
-2. Give the theme a useful name. A name helps you identify and share the design, although the generated Codex import itself does not contain a display-name field.
-3. Choose **Dark** or **Light** as the active variant.
-4. Set **Surface** and **Text** first. These establish the main reading relationship.
-5. Choose an **Accent** that remains distinct on the surface without competing with body text.
-6. Adjust **Sidebar** and **Code Background** to separate regions subtly.
-7. Set **Diff Added**, **Diff Removed**, and **Functions / Skill** colors.
-8. Tune the contrast control and inspect the live workspace preview.
-9. Copy the generated theme string.
-10. In Codex, open Settings, choose Appearance, choose Import theme, paste the full string, and approve it.
+## What the Codex theme generator can edit
 
-The builder accepts exact six-digit hex colors such as `#1A1A2E`. It keeps the active contrast value between `0` and `100`. That contrast control is a DexThemes theme parameter, not a WCAG contrast ratio. Measure actual foreground and background pairs separately when accessibility matters.
+Start the builder with **Create a theme**. Give the draft a recognizable name, then choose **Dark** or **Light**. The builder keeps separate local working drafts for the two variants, so switching does not discard the other palette.
 
-## Design in a useful order
+For the active variant, you can enter exact six-digit hex colors for:
 
-Color decisions become easier when you work from broad surfaces toward rare signals.
+- **Surface** and **Text**, the primary background and foreground;
+- **Accent**, for emphasized and selected interface elements;
+- **Sidebar** and **Code background**, to shape the DexThemes preview;
+- **Strings / Added** and **Errors / Removed**, the semantic diff colors; and
+- **Functions / Skill**, for the remaining syntax or skill highlight.
 
-### Start with surface and ink
+The browser preview updates as you enter valid values. **Color Me Lucky** generates a palette and name for the active variant. **Reset** clears the current builder working state and restores both variant drafts to their defaults. Neither action installs anything in Codex.
 
-`surface` is the main background and `ink` is the primary foreground. Test paragraphs, filenames, timestamps, and long assistant responses. A palette that looks dramatic in a swatch can become tiring across a full task.
+## Start with the colors people read most
 
-### Separate regions without over-layering
+Build from broad, repeated surfaces toward infrequent semantic signals:
 
-The builder previews sidebar and code-background colors so you can judge hierarchy. Those fields help the DexThemes preview, but they are not emitted as separate fields in the current Codex import payload. The final import carries the main `surface`, `ink`, and other supported appearance values. Treat the installed result as authoritative.
+1. Choose **Surface** and **Text** first. Read a full response, filename, timestamp, and small label in the preview—not just a large heading.
+2. Add an **Accent** that is easy to distinguish from body text and works on both the main surface and nearby panels.
+3. Separate the sidebar and code area gently. Large brightness jumps can make a workspace feel fragmented.
+4. Set added and removed colors that remain distinct without relying only on green versus red. Check the colors against the surfaces where a diff will appear.
+5. Set the function or skill color last, making sure it does not look like an error or destructive state.
 
-### Reserve accent for interaction
+Use `#RRGGBB` values such as `#1A1A2E`. The builder accepts six-digit hex colors; it does not accept short hex, CSS color names, gradients, or variables.
 
-Use the accent for selected and emphasized elements, not as a substitute for readable text. Test it on both the main surface and nearby panels. Highly saturated colors can appear to vibrate against near-black backgrounds.
+## Design dark and light as two separate themes
 
-### Make semantic colors distinguishable
+Dark and light are separate designs, not simple inversions. A dark palette can need softer bright accents to avoid glare; a light palette usually needs darker semantic colors and restrained surface tints to preserve hierarchy.
 
-Added and removed diffs communicate opposite meanings. Give each enough contrast against the surfaces where diffs appear, and do not rely only on a red-versus-green distinction. The skill color should be recognizable without being confused with errors, destructive actions, or the primary accent.
+Switch to the second variant only after the first has a coherent reading relationship. The builder retains the other draft in the current browser profile, but each variant becomes its own `codex-theme-v1` string. Copy, import, and verify the dark and light themes one at a time. For a paired workflow, read [Create paired dark and light themes](/guides/create-dark-and-light-codex-themes).
 
-## Use the preview as a design tool
+## Know what reaches Codex and what stays in the preview
 
-DexThemes renders a Codex-like workspace so you can compare text, code, diffs, and controls while editing. It is not a promise that every Codex version, operating system, display profile, or font will render identically.
+The builder preview is deliberately richer than the serialized import. For the selected variant, DexThemes validates and emits the main surface, primary text, accent, semantic colors, a code-theme family, and its current contrast parameter. The current builder defaults that parameter to `60` for dark and `45` for light; it does not expose a contrast slider.
 
-Before keeping the theme:
+Two builder controls are preview-only at the import boundary: **Sidebar** and **Code background** do not become separate fields in the current `codex-theme-v1` payload. Theme name, catalog data, and authorship also stay out of that payload.
 
-- Read a full paragraph, not only a title.
-- Inspect punctuation and comments in code.
-- Compare added and removed diff content.
-- Check selected, inactive, and focus states.
-- Reduce screen brightness and check the palette again.
-- Import it into Codex and repeat the review there.
+The builder does not provide UI-font or code-font controls. The generated builder payload leaves those font fields unset, so it does not install fonts or guarantee a font choice. OpenAI’s current [desktop Appearance documentation](https://learn.chatgpt.com/docs/reference/settings) describes base-theme, color, UI-font, and code-font settings; make those font choices in the app itself when needed.
 
-The actual Codex import is the acceptance test. A valid preview and a valid string do not prove that a particular installed build will persist the theme.
+## Preview first, then import and verify
 
-## Create the second variant intentionally
+DexThemes renders a Codex-like workspace to help you judge hierarchy, code, and diffs before importing. It is a design preview, not proof of installed behavior. Codex version, operating system, display profile, available fonts, and the app’s import parser can all affect the final result.
 
-Switching the builder between dark and light preserves separate variant drafts in the current browser. Design the second palette rather than mechanically inverting the first. Light themes usually need restrained tinted surfaces and darker semantic colors; dark themes often need less-saturated bright accents to avoid glare.
+Use the preview to catch obvious problems, then make the installed app the acceptance test:
 
-Once both are ready, copy and import them one at a time. Read [Create dark and light Codex themes](/guides/create-dark-and-light-codex-themes) for a paired workflow.
+- Read a long response and small text in Codex.
+- Inspect code, comments, and both diff states.
+- Check selected and inactive controls.
+- Revisit the palette at normal screen brightness.
+- Switch away and back to confirm the variant remains as expected.
 
-## Understand current builder limits
+A valid preview or a copied string does not establish that every Codex build will accept, retain, or render the theme identically.
 
-The current builder focuses on color and contrast. It does not expose UI-font or code-font fields, even though Codex Appearance supports changing those fonts according to the [official settings documentation](https://learn.chatgpt.com/docs/reference/settings). Use Codex Appearance for font changes and read [Change Codex UI and code fonts](/guides/change-codex-ui-and-code-fonts).
+## Import the selected variant with approval
 
-Builder drafts are saved in browser storage for convenience. Do not treat that as a portable backup or guaranteed cross-device sync. Copy each finished import string into a plain-text file if the theme matters to you.
+1. In the builder, select the exact **Dark** or **Light** variant you want.
+2. On desktop, choose **Apply in Codex**. DexThemes copies the import string and can open generic Codex Settings. On a compact layout, choose **Copy Theme** and open Codex later.
+3. Confirm that the clipboard begins with `codex-theme-v1:`. Copy the complete string; do not copy only the JSON after the prefix.
+4. In Codex, open **Settings** → **Appearance**.
+5. In the matching Dark or Light section, choose **Import**, paste the string into the **Import theme** dialog, review the string, and approve the import.
+6. Inspect the installed result before treating the theme as complete.
 
-## Share or submit
+This handoff is intentionally visible and reversible. Copying a theme does not write a Codex configuration file, change a global setting, or prove that Codex accepted it. For more detail, see [Codex theme import handoff](/features/codex-theme-import) and the [Codex theme format reference](/reference/codex-theme-format).
 
-Use **Share theme** in the builder to copy the current variant's import string. You can send that text directly to someone you trust. A recipient still approves the import in their own Codex Appearance settings.
+## Keep the current limits in view
 
-If you want the theme considered for the community catalog, sign in and choose the community submission flow. A submission is subject to the current validation, name checks, protected-palette rules, moderation, and publication state. Do not describe a submitted theme as published until it is actually visible in the public community catalog.
+Builder drafts are stored in the current browser profile for convenience. They are not a portable backup or guaranteed cross-device sync, so save a finished import string in a plain-text file if the design matters to you.
+
+The generator cannot guarantee universal compatibility, set every Appearance preference, or make an import approval disappear. If Codex rejects a copied theme, regenerate the string, make sure the variant and import action match, preserve the full prefix, and test again in the installed app. See [Codex theme import troubleshooting](/guides/codex-theme-import-troubleshooting) for a focused checklist.
+
+## Share or publish separately
+
+To share a draft, copy the currently selected variant’s import string and send it as plain text. The recipient still imports and approves it in their own Codex settings. To share both variants, copy each one separately.
+
+Community publication is a different action from creating or copying a theme. It requires sign-in and server-side validation, including public-text and palette-protection checks. Treat a submission as published only after DexThemes confirms success and the theme is available in the public community catalog.
 
 ## Related guides
 
-- [Share a custom Codex theme](/guides/share-a-custom-codex-theme)
-- [Create paired dark and light themes](/guides/create-dark-and-light-codex-themes)
+- [Explore the Custom Codex Theme Builder](/features/theme-builder)
+- [Create paired dark and light Codex themes](/guides/create-dark-and-light-codex-themes)
 - [Design an accessible Codex theme](/guides/codex-theme-accessibility)
-- [Read the theme format reference](/reference/codex-theme-format)
+- [Share a custom Codex theme](/guides/share-a-custom-codex-theme)
