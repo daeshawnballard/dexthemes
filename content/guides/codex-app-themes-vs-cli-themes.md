@@ -1,109 +1,96 @@
 ---
 title: Codex App Themes vs CLI Themes
-description: Understand why Codex desktop Appearance imports and Codex CLI syntax themes use different formats and settings.
+description: Compare Codex app themes and Codex CLI themes, including desktop Appearance imports, .tmTheme files, and IDE-extension boundaries.
 slug: codex-app-themes-vs-cli-themes
 kind: guide
 section: Guides
-answer: DexThemes codex-theme-v1 strings target Codex desktop Appearance, while the Codex CLI uses the /theme picker and optional .tmTheme files for terminal syntax highlighting.
+answer: Codex app themes and Codex CLI themes are separate. Use a DexThemes codex-theme-v1 import for the Codex view's desktop Appearance controls and /theme with a .tmTheme file for Codex CLI syntax highlighting. Neither is a documented Codex IDE-extension theme import.
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: Official Codex documentation retrieved 2026-07-30 and DexThemes current source
+dateModified: 2026-08-09
+testedWith: Official OpenAI desktop, CLI, and IDE documentation, DexThemes theme-contract source, and ChatGPT desktop 26.803.41515 build 6321 reviewed 2026-08-09.
 related: /guides/how-to-install-a-codex-theme, /reference/codex-theme-format, /guides/change-codex-ui-and-code-fonts
 ---
 
-Codex desktop themes and Codex CLI themes are separate customization systems. A DexThemes `codex-theme-v1:` string changes the desktop app's Appearance after you import it. The CLI `/theme` command changes syntax highlighting in the terminal UI and can load a TextMate `.tmTheme` file.
+Codex app themes and Codex CLI themes can share a visual idea, but they are different customization systems. Use a DexThemes `codex-theme-v1:` value for **the Codex view in the ChatGPT desktop app** and a `.tmTheme` file for **Codex CLI** syntax highlighting. Do not paste either artifact into the other surface.
 
-Do not paste one format into the other. DexThemes is community-built and is not affiliated with OpenAI.
+The [official CLI customization guide](https://learn.chatgpt.com/docs/cli-customization) and [desktop settings reference](https://learn.chatgpt.com/docs/reference/settings) describe separate controls and persistence paths. OpenAI also describes Codex as a [separate view in the ChatGPT desktop app](https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex). DexThemes is community-built and is not affiliated with OpenAI.
 
-## Codex desktop Appearance themes
+## Codex app themes vs Codex CLI themes: what changes?
 
-A DexThemes app import carries a small appearance payload:
+The surface you want to change determines the theme artifact.
 
-- A `dark` or `light` variant.
-- Main surface and foreground colors.
-- An accent color.
-- Added, removed, and skill semantic colors.
-- A contrast parameter.
-- UI and code font names or `null`.
-- A registered code-theme family ID.
-- An opaque-windows preference.
+- **Codex view in the ChatGPT desktop app:** Appearance controls the app’s base theme, accent, background, foreground, and UI and code fonts. DexThemes builds its `codex-theme-v1:` payload for this desktop Appearance import flow.
+- **Codex CLI:** the terminal UI syntax-highlights fenced Markdown code blocks and file diffs. Its `/theme` picker selects the CLI theme and saves the choice to `tui.theme` in `$CODEX_HOME/config.toml`.
+- **Codex IDE extension:** this is a Codex integration inside an editor. It is neither the desktop app’s Appearance importer nor the CLI terminal UI, so treat its visual settings as an editor concern.
 
-The copied value begins with `codex-theme-v1:`. To use it, open Codex Settings, choose Appearance, choose Import theme, paste, review, and approve. The [official desktop settings documentation](https://learn.chatgpt.com/docs/reference/settings) says Appearance can change the base theme, accent, background, foreground, and UI and code fonts, and can share a custom theme.
+The same theme name, a similar palette, or a shared account does not make these settings interchangeable.
 
-This theme affects the graphical Codex workspace. DexThemes can prepare and copy the payload, but it does not claim a verified public route that silently applies it.
+## Codex app themes use `codex-theme-v1`
 
-## Codex CLI syntax themes
+A DexThemes app-theme import is one text payload beginning with the literal `codex-theme-v1:` prefix followed by JSON. It represents one selected dark or light desktop Appearance variant and can carry app colors, font preferences, semantic colors, and a `codeThemeId` selection.
 
-The CLI theme controls syntax highlighting for fenced Markdown code blocks and file diffs in the terminal UI. According to OpenAI's [official CLI customization guide](https://learn.chatgpt.com/docs/cli-customization):
+That payload is an explicit handoff, not a command that silently changes a running app. Codex owns the review and approval step. For the exact copy-and-import path, use [How to install a Codex theme](/guides/how-to-install-a-codex-theme); for the payload fields and their current DexThemes validation rules, use the [Codex theme format reference](/reference/codex-theme-format).
 
-1. Run `/theme` in an interactive Codex CLI session.
-2. Preview a theme in the picker.
-3. Confirm it to save the selection to `tui.theme` in `$CODEX_HOME/config.toml`.
+`codeThemeId` is especially easy to misread. Inside a `codex-theme-v1` payload, it names a registered desktop code-theme family. It is not a custom CLI theme file, a `.tmTheme` filename, or a path you should place in `$CODEX_HOME/themes`.
 
-For a custom CLI theme, place a `.tmTheme` file in `$CODEX_HOME/themes`, then choose it from `/theme`.
+## Codex CLI themes use `/theme` and `.tmTheme`
 
-A `.tmTheme` file is a TextMate-style syntax-highlighting definition. It can describe many token scopes and editor colors. It is not a `codex-theme-v1` string, and the CLI customization documentation does not describe the desktop Appearance import as a CLI theme source.
+The Codex CLI has its own theme picker. In an interactive CLI session, run `/theme` to preview a choice and save it. OpenAI’s current documentation says that selection is stored as `tui.theme` in `$CODEX_HOME/config.toml`.
 
-## Why direct conversion is incomplete
+For a custom CLI theme, place a `.tmTheme` file in `$CODEX_HOME/themes`, then select it from the `/theme` picker. The CLI guide documents this file-based workflow for terminal syntax highlighting; it does not describe a desktop `codex-theme-v1:` payload as a CLI theme source.
 
-The two formats express different things.
+This boundary matters: the CLI guide documents terminal UI syntax highlighting for code blocks and file diffs, not a way to set the ChatGPT desktop app’s Appearance controls.
 
-The desktop import has broad application colors plus a `codeThemeId` that chooses an existing syntax-theme family. It carries only three named semantic colors beyond the main surface, foreground, and accent.
+## Why `codex-theme-v1` is not a `.tmTheme`
 
-A `.tmTheme` can assign colors to many token scopes, such as comments, strings, keywords, types, and functions. It does not inherently describe every piece of graphical app chrome represented by a desktop custom theme.
+The formats solve different problems and have different delivery paths.
 
-As a result:
+- A `codex-theme-v1:` value is an inline desktop Appearance import payload. It carries a compact set of desktop appearance choices for one variant and is reviewed in the app.
+- A `.tmTheme` value is a custom theme file placed in the Codex CLI themes directory and selected from the terminal’s `/theme` picker.
 
-- Converting a desktop import to `.tmTheme` requires designing or mapping token scopes that are absent from the source payload.
-- Converting a `.tmTheme` to a desktop import requires selecting a small set of representative app colors and a code-theme family.
-- A mechanical conversion may preserve a general mood but cannot guarantee visual equivalence.
+They can express related color intent, but OpenAI does not document a one-to-one conversion between them. A desktop import has app-level colors and a desktop `codeThemeId`; a custom CLI theme is used by the terminal highlighting flow. A mechanical conversion could omit values, make different choices, or produce a result that looks different on the two surfaces.
 
-If you build a companion theme, treat it as a coordinated design pair and test each surface independently.
+If you create a companion pair, treat the desktop import and the CLI file as two independently testable artifacts. Choosing a CLI theme does not demonstrate that the desktop app changed, and importing a desktop payload does not establish a CLI selection.
+
+## The IDE extension is a third boundary
+
+The [official Codex IDE guide](https://learn.chatgpt.com/docs/codex/ide) describes Codex working beside your code in VS Code-compatible editors, Xcode, and JetBrains IDEs. That is an editor integration, not the desktop Appearance system or the CLI theme picker.
+
+Use the host editor’s own theme and appearance controls for the editor workbench. Some editors may support TextMate-compatible themes through their own mechanisms, but that does not make the CLI’s `$CODEX_HOME/themes` folder an IDE-extension configuration path. The official Codex IDE documentation used here does not define either `codex-theme-v1` or a CLI `.tmTheme` file as a Codex IDE-extension theme import.
 
 ## Choose the right workflow
 
-Use a DexThemes app import when you want to change the graphical Codex workspace, including its main surface, foreground, accent, semantic colors, and optional fonts.
+1. **You want to change the ChatGPT desktop app’s Codex workspace.** Choose a DexThemes desktop variant and follow the [app-theme import guide](/guides/how-to-install-a-codex-theme). Keep the complete `codex-theme-v1:` string intact and approve the import in Codex.
+2. **You want to change Codex CLI syntax highlighting.** Run `/theme`; use a built-in picker choice or add a custom `.tmTheme` file to `$CODEX_HOME/themes`.
+3. **You want to change your IDE’s colors.** Use the editor’s native theme workflow. Do not use the CLI directory or a desktop import string as a shortcut unless the editor itself documents that format and installation method.
 
-Use `/theme` when you want to change syntax highlighting in the Codex CLI without redesigning the desktop app.
-
-Use a custom `.tmTheme` when the CLI picker does not provide the token palette you need and you are comfortable authoring TextMate scopes.
-
-Use both systems when you work in both the app and CLI. Choose visually related palettes, but save and move their artifacts separately.
+For a coordinated look across all three, start with matching palette intent, then inspect a real desktop conversation, CLI diff, and editor file separately. Matching colors by eye is a design choice, not evidence of mechanical visual equivalence.
 
 ## Common mistakes
 
-### Putting the import string in the CLI themes folder
+### Pasting a desktop import into the CLI
 
-The CLI looks for `.tmTheme` files there. A plain `codex-theme-v1:` string is not that format. Keep the string in a text note or import it through desktop Appearance.
+The CLI expects a picker selection or a `.tmTheme` file in its themes directory. A `codex-theme-v1:` string is not a CLI theme file and should not be pasted into an interactive terminal as a theme command.
 
-### Pasting a .tmTheme file into Appearance
+### Treating a `.tmTheme` file as a desktop Appearance import
 
-The Appearance importer expects the Codex theme import contract, not an XML or property-list TextMate document. Select the `.tmTheme` through the CLI `/theme` picker instead.
+The desktop import flow expects the `codex-theme-v1:` contract, not a CLI file. Keep the file on the CLI path and use the desktop import only through Appearance.
 
-### Assuming settings automatically mirror
+### Assuming a change automatically mirrors elsewhere
 
-The official CLI guide says its choice persists to `tui.theme`. The desktop guide describes Appearance controls. These are different settings surfaces. Verify each after moving computers, changing `$CODEX_HOME`, or updating Codex.
+The current desktop and CLI documentation describe separate controls: Appearance for the app and `tui.theme` for the CLI. Recheck each surface after a Codex update, a new computer, or a `$CODEX_HOME` change instead of assuming that one preference migrated the other.
 
-### Treating a codeThemeId as a .tmTheme filename
+## Sources and limits
 
-The app import's `codeThemeId` is a registered family ID. It is not necessarily the filename of a bundled syntax definition. Use a DexThemes-generated string or a canonical ID from the [format reference](/reference/codex-theme-format).
+This guide relies on OpenAI’s current [CLI customization documentation](https://learn.chatgpt.com/docs/cli-customization), [desktop settings documentation](https://learn.chatgpt.com/docs/reference/settings), and [Codex IDE documentation](https://learn.chatgpt.com/docs/codex/ide), plus the current [DexThemes format reference](/reference/codex-theme-format). Product controls and accepted formats can change with a Codex release.
 
-## Keep a portable pair
-
-For a theme you use in both surfaces, archive:
-
-- One desktop import string for each app variant.
-- The custom CLI `.tmTheme` file, if you created one.
-- A short note naming the CLI picker selection when you use a built-in theme.
-- Screenshots or color notes only as supporting references, not as installable artifacts.
-
-Never include account tokens, private paths, repository details, or other secrets in the theme files or sharing notes.
+DexThemes can prepare a desktop import, but it does not guarantee an installed app will accept it, make an app and CLI pair visually identical, or apply a theme without your approval. Verify the result in the actual surface you use.
 
 ## Related guides
 
 - [Install a Codex app theme](/guides/how-to-install-a-codex-theme)
-- [Read the desktop import format](/reference/codex-theme-format)
+- [Inspect the Codex theme v1 format](/reference/codex-theme-format)
 - [Change Codex UI and code fonts](/guides/change-codex-ui-and-code-fonts)
 - [Move a desktop theme to another computer](/guides/move-a-codex-theme-to-another-computer)

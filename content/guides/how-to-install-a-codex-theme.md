@@ -1,80 +1,87 @@
 ---
 title: How to Install a Codex Theme
-description: Copy a validated Codex theme string from DexThemes and import it through Codex Appearance settings.
+description: Install a Codex desktop theme through an explicit review: choose a DexThemes variant, copy its complete codex-theme-v1 string, then import it in Appearance.
 slug: how-to-install-a-codex-theme
 kind: guide
 section: Guides
-answer: Choose a theme and variant in DexThemes, copy its complete codex-theme-v1 import string, open Codex Settings, choose Appearance, then use Import theme to paste and approve it.
+answer: To install a Codex theme in the ChatGPT desktop app, choose a DexThemes dark or light variant, copy the complete codex-theme-v1 string, then open Settings > Appearance. Use Import for the matching variant, paste the string, review it, and approve the import.
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: DexThemes current source and installed Codex desktop 26.721.81911 build 5973 appearance registry
-related: /guides/codex-theme-import-troubleshooting, /reference/codex-theme-format, /guides/is-dexthemes-safe
+dateModified: 2026-08-09
+testedWith: DexThemes import handoff source, ChatGPT desktop 26.803.41515 build 6321, and official OpenAI documentation reviewed 2026-08-09.
+related: /features/codex-theme-import, /guides/codex-theme-import-troubleshooting, /guides/codex-app-themes-vs-cli-themes
 ---
 
-Installing a DexThemes theme is a copy-and-import handoff. DexThemes prepares the appearance data, but Codex owns the final import and asks you to approve it. DexThemes does not silently apply a theme.
+To install a Codex theme in the desktop app, choose a dark or light variant in [DexThemes](/), copy its complete `codex-theme-v1:` string, then open **Settings → Appearance**. In the matching Dark or Light section, choose **Import**, paste the string into the **Import theme** dialog, review it, and approve the import. DexThemes prepares the payload; Codex owns the final change. It does not silently apply a theme.
 
-DexThemes is community-built and is not affiliated with OpenAI. OpenAI's [Codex desktop settings documentation](https://learn.chatgpt.com/docs/reference/settings) confirms that Appearance controls the base theme, accent, background, foreground, and UI and code fonts. The exact controls can change as Codex evolves.
+This is the DexThemes workflow for the Codex desktop experience, not a universal theme file for every OpenAI or editor surface. OpenAI currently describes Codex as a separate view in the [ChatGPT desktop app](https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex), and its [desktop settings documentation](https://learn.chatgpt.com/docs/reference/settings) says Appearance can change the base theme, colors, and UI and code fonts. DexThemes is community-built and is not affiliated with OpenAI.
 
-## Install a theme
+## Install a Codex theme step by step
 
-1. Open DexThemes and choose the theme you want.
-2. Select the dark or light variant. A theme may offer one variant or both.
-3. Use the theme's copy or apply control. The complete copied text should begin with `codex-theme-v1:`.
-4. Open Codex Settings. On desktop, DexThemes may open the general Settings screen after copying. You can also open Settings from the app menu or use `Cmd+,` on macOS and `Ctrl+,` on Windows.
-5. Choose **Appearance** yourself.
-6. Choose **Import theme**. Depending on the Codex build and selected mode, the control may be labeled **Import Dark Theme** or **Import Light Theme**.
-7. Paste the entire import string, including the `codex-theme-v1:` prefix.
-8. Review the result and choose **Import** to approve the change.
-9. Return to a task with text, code, and a diff so you can verify the theme under real working conditions.
+1. Open the [DexThemes catalog](/) and choose a theme.
+2. Select the **dark** or **light** variant you want to install. If a theme offers both, import each one separately.
+3. Use the theme's copy or apply control. It should give you one complete string that begins with `codex-theme-v1:`.
+4. Open Codex Settings. DexThemes may open the general Settings screen after copying; choose **Appearance** yourself.
+5. In the matching Dark or Light section, choose **Import**.
+6. Paste the entire string into the **Import theme** dialog, including the `codex-theme-v1:` prefix. Do not add quotation marks or paste only the JSON portion.
+7. Review the string and choose **Import theme** to approve the change.
+8. Return to a task with prose, code, and a diff, then check the result in the app you actually use.
 
-The safe flow is always copy, open Settings, choose Appearance, and import. DexThemes currently uses the general Codex Settings handoff; it does not claim a verified direct link to Appearance or a public silent-apply API.
+The exact control names and layout can change with a desktop-app update. Follow the labels in your installed app if they differ from this guide.
 
-## Import dark and light variants separately
+Import only a string from a source you trust. The expected DexThemes artifact is the prefix followed by appearance JSON. If the copied material includes commands, credentials, unrelated URLs, or instructions to change app files, stop and recopy it from the canonical DexThemes page.
 
-A Codex import string contains one top-level `variant` value: either `dark` or `light`. If a theme offers both, repeat the process for each variant:
+## Start with a DexThemes variant, not a hand-edited payload
 
-1. Select dark in DexThemes, copy its string, and import it into the dark slot in Codex.
-2. Return to DexThemes, select light, copy that string, and import it into the light slot.
-3. Switch Codex between its light and dark appearance modes and inspect both.
+The quickest path is to use a catalog theme's selected variant and copy control. DexThemes serializes one dark or light appearance payload at a time, so the copied value represents the exact variant you chose. A theme with both variants needs two copy-and-import passes: one for dark and one for light.
 
-Importing a dark payload does not install the light palette at the same time. Keeping the two imports separate also makes it easier to replace only one side later.
+Keep the string intact. A valid DexThemes import begins with `codex-theme-v1:` followed by compact JSON. Hand-editing the string can introduce a malformed color, font, code-theme ID, or variant. If you need to inspect the payload, see the [Codex theme format reference](/reference/codex-theme-format); if you just want to change the look, recopy the selected variant from the catalog.
 
-## Check the string before pasting
+Copying is not acceptance. Even when DexThemes prepares a string successfully, your installed Codex version decides whether it accepts and persists the import. That is why the final review and **Import** action remain in Codex.
 
-A DexThemes-generated import is plain text with a prefix followed by compact JSON. It should resemble:
+## Do not mix desktop, CLI, and IDE theme workflows
 
-```text
-codex-theme-v1:{"codeThemeId":"codex","theme":{"accent":"#0169cc","contrast":60,"fonts":{"code":null,"ui":null},"ink":"#fcfcfc","opaqueWindows":true,"semanticColors":{"diffAdded":"#00a240","diffRemoved":"#e02e2a","skill":"#b06dff"},"surface":"#111111"},"variant":"dark"}
-```
+The word “Codex” covers several surfaces with different customization paths. Use the one that matches where you work.
 
-Do not add quotation marks around the full string. Do not remove the prefix, paste only the JSON portion, or combine two variants into one payload. If you want to audit every field, use the [Codex theme format reference](/reference/codex-theme-format).
+### Codex in the ChatGPT desktop app
 
-## Verify the result
+This is the workflow covered by this guide: copy a DexThemes `codex-theme-v1:` string, then use **Settings → Appearance** and the Import control for the matching variant.
 
-The DexThemes preview is a useful design preview, not a byte-for-byte screenshot of every Codex surface. After importing, inspect:
+### Codex CLI
 
-- Body text against the main surface.
-- Code and syntax highlighting.
-- Added and removed diff lines.
-- Skill or function accents.
-- Focus, selection, and disabled states.
-- Both bright and dim display conditions.
+For the CLI, OpenAI's current [CLI customization guide](https://learn.chatgpt.com/docs/cli-customization) documents `/theme`, the `tui.theme` setting, and custom `.tmTheme` files. A desktop `codex-theme-v1:` string is not a CLI `.tmTheme` file, so do not paste it into the terminal or save it in the CLI themes directory.
 
-If the import succeeds but the result is uncomfortable, restore a built-in appearance or adjust the theme in Codex Appearance. An import is a preference change, not a reason to keep a palette that reduces readability.
+### Codex IDE extension
 
-## Know the boundaries
+For the IDE extension, OpenAI's [IDE guide](https://learn.chatgpt.com/docs/codex/ide) covers Codex integrations for VS Code-compatible editors, Xcode, and JetBrains. That integration is separate from this desktop Appearance import flow. Change the editor's colors with the editor's own theme controls rather than treating a DexThemes import string as an IDE theme.
 
-DexThemes validates and serializes its current theme format, but it does not control the Codex parser. A future Codex release can change accepted theme families or import behavior. Passing DexThemes validation proves that the string matches the project's current contract; the successful, persisted import in your installed Codex build is the final check.
+## Verify the theme after importing
 
-The app theme format is also different from a Codex CLI theme. The CLI uses `/theme` and custom `.tmTheme` files, while DexThemes produces a desktop Appearance import. See [Codex app themes versus CLI themes](/guides/codex-app-themes-vs-cli-themes) before trying to move one format into the other.
+The DexThemes preview helps you select a palette, but it is not a promise that every element will render identically in every Codex version or on every computer. After importing, check:
 
-If nothing changes, the string is rejected, or only one mode updates, follow [Codex theme import troubleshooting](/guides/codex-theme-import-troubleshooting).
+- Body text, code, and small interface labels against their backgrounds.
+- Added and removed lines in a real diff.
+- Focus, selection, disabled, and hover states you use often.
+- UI and code fonts, especially if the payload names a font that is unavailable locally.
+- The other appearance mode if you imported a dark-and-light pair.
+
+If the result is difficult to read, return to Appearance and choose a comfortable built-in look or import a different DexThemes variant. An appearance import is a preference change; it should stay easy to review and reverse in the app.
+
+## If Codex does not import the theme
+
+Start with a clean copy-and-import pass before changing anything by hand:
+
+1. Reopen the theme in DexThemes and select the intended variant.
+2. Copy it again and confirm the text begins with `codex-theme-v1:`.
+3. Open **Settings → Appearance** manually.
+4. Choose **Import** for the matching variant, paste the untouched string into the dialog, and approve it.
+
+If it is still rejected, only one mode changes, or the result differs sharply from the preview, use [Codex theme import troubleshooting](/guides/codex-theme-import-troubleshooting). The guide separates clipboard and variant problems from Codex-owned compatibility or rendering behavior.
 
 ## Related guides
 
-- [Fix a Codex theme import](/guides/codex-theme-import-troubleshooting)
-- [Understand the Codex theme format](/reference/codex-theme-format)
-- [Check whether DexThemes is safe to use](/guides/is-dexthemes-safe)
-- [Move a theme to another computer](/guides/move-a-codex-theme-to-another-computer)
+- [Understand the DexThemes import handoff](/features/codex-theme-import)
+- [Troubleshoot a Codex theme import](/guides/codex-theme-import-troubleshooting)
+- [Compare Codex desktop and CLI themes](/guides/codex-app-themes-vs-cli-themes)
+- [Inspect the Codex theme format](/reference/codex-theme-format)

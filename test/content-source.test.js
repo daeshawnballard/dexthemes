@@ -9,14 +9,17 @@ import {
 } from "../shared/generated-content.js";
 
 const EXPECTED_COUNTS = Object.freeze({
-  guides: 11,
+  guides: 19,
   features: 13,
-  articles: 7,
+  articles: 9,
   reference: 1,
 });
 
 test("Markdown is the single authoring source for the complete content cluster", async () => {
-  assert.equal(CONTENT_ITEMS.length, 32);
+  assert.equal(
+    CONTENT_ITEMS.length,
+    Object.values(EXPECTED_COUNTS).reduce((total, count) => total + count, 0),
+  );
   assert.equal(new Set(CONTENT_ITEMS.map((item) => item.path)).size, CONTENT_ITEMS.length);
 
   for (const [section, expectedCount] of Object.entries(EXPECTED_COUNTS)) {
