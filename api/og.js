@@ -1,8 +1,18 @@
 import { ImageResponse } from '@vercel/og';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { resolveTheme } from './theme-data.js';
+import { fetchCommunityThemes, resolveTheme } from './theme-data.js';
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
+import { CONTENT_ITEMS } from '../shared/generated-content.js';
+import { EDITOR_CLASSIC_THEME_IDS, getCatalogThemeId } from '../shared/seo.js';
+import {
+  buildCollectionSocialCard,
+  buildContentSocialCard,
+  buildHomeSocialCard,
+  buildStaticPageSocialCard,
+  buildThemeFallbackSocialCard,
+  getContentSocialCardConfig,
+} from '../server/social-preview-cards.js';
 
 const themeMap = JSON.parse(
   readFileSync(join(process.cwd(), 'api', 'theme-map.json'), 'utf-8')
@@ -11,12 +21,77 @@ const dexThemesLogo = `data:image/svg+xml;base64,${Buffer.from(
   readFileSync(join(process.cwd(), 'public', 'favicon.svg'), 'utf-8')
 ).toString('base64')}`;
 
+const COLLECTION_CARDS = Object.freeze({
+  dark: {
+    label: 'Dark themes',
+    title: 'Dark Codex themes',
+    description: 'Low-glare palettes for focused work, from true-black minimalism to warm editor classics.',
+    accent: '#47adff',
+    filter: (theme) => Boolean(theme?.dark),
+    variant: 'dark',
+  },
+  light: {
+    label: 'Light themes',
+    title: 'Light Codex themes',
+    description: 'Bright workspaces with measured contrast, clear hierarchy, and confident accent colors.',
+    accent: '#f4b942',
+    filter: (theme) => Boolean(theme?.light),
+    variant: 'light',
+  },
+  'editor-classics': {
+    label: 'Editor classics',
+    title: 'Editor classic themes',
+    description: 'Familiar coding palettes translated across the full Codex workspace.',
+    accent: '#8b5cf6',
+    filter: (theme) => EDITOR_CLASSIC_THEME_IDS.includes(getCatalogThemeId(theme)),
+    variant: null,
+  },
+  community: {
+    label: 'Community',
+    title: 'Community Codex themes',
+    description: 'Original palettes published by DexThemes creators, ready to preview and share.',
+    accent: '#f15bb5',
+    filter: (theme) => theme?.category === 'community',
+    variant: null,
+  },
+});
+
+const STATIC_PAGE_CARDS = Object.freeze({
+  privacy: {
+    label: 'Privacy',
+    title: 'DexThemes Privacy Policy',
+    description: 'How DexThemes handles account, theme, plugin, and community data.',
+    accent: '#8ee3c8',
+  },
+  terms: {
+    label: 'Terms',
+    title: 'DexThemes Terms of Service',
+    description: 'Terms for the DexThemes website, API, community, and plugin.',
+    accent: '#f4b942',
+  },
+  support: {
+    label: 'Support',
+    title: 'Get help with DexThemes',
+    description: 'Report a bug, request a feature, or find the right path for product and account support.',
+    accent: '#47adff',
+  },
+});
+
 function h(type, props, ...children) {
   return { type, props: { ...props, children: children.length === 1 ? children[0] : children.length ? children : undefined } };
 }
 
 export default async function handler(req, res) {
-  const url = new URL(req.url, `http://${req.headers.host}`);
+  const url = new URL(req.url, `http://${req.headers?.host || 'www.dexthemes.com'}`);
+  const card = String(url.searchParams.get('card') || '').toLowerCase();
+
+  if (card) {
+    const element = await resolveSocialCard(card, url, res);
+    if (!element) return;
+    await sendImageResponse(res, url, element);
+    return;
+  }
+
   const themeId = url.searchParams.get('theme') || 'codex';
   const variantKey = url.searchParams.get('variant') || 'dark';
   if (!['dark', 'light'].includes(variantKey)) {
@@ -32,8 +107,8 @@ export default async function handler(req, res) {
     );
   } catch (error) {
     console.warn(`Unable to resolve OG image theme "${themeId}":`, error);
-    res.setHeader('Cache-Control', 'no-store');
-    res.status(503).send('Theme data unavailable');
+    res.dexthemesSocialPreviewFallback = true;
+    await sendImageResponse(res, url, buildThemeFallbackSocialCard({ logo: dexThemesLogo }));
     return;
   }
   if (!theme) { res.status(404).send('Theme not found'); return; }
@@ -430,10 +505,124 @@ export default async function handler(req, res) {
     ),
   );
 
+  await sendImageResponse(res, url, element);
+}
+
+async function resolveSocialCard(card, url, res) {
+  if (card === 'home') return buildHomeSocialCard({ logo: dexThemesLogo });
+
+  if (card === 'content') {
+    const section = String(url.searchParams.get('section') || '').toLowerCase();
+    const slug = String(url.searchParams.get('slug') || '').toLowerCase();
+    if (!getContentSocialCardConfig(section)) return sendNotFoundImage(res, 'Content section not found');
+    const items = CONTENT_ITEMS.filter((item) => item.routeSection === section);
+    const item = slug ? items.find((candidate) => candidate.slug === slug) : null;
+    if (slug && !item) return sendNotFoundImage(res, 'Content page not found');
+    return buildContentSocialCard({ logo: dexThemesLogo, section, item, count: items.length });
+  }
+
+  if (card === 'collection') {
+    const slug = String(url.searchParams.get('slug') || '').toLowerCase();
+    if (!slug) {
+      return buildCollectionSocialCard({
+        logo: dexThemesLogo,
+        title: 'Find your corner\nof the catalog.',
+        description: 'Browse low-glare dark palettes, bright themes, editor classics, and original community work.',
+        label: 'Collections',
+        accent: '#f15bb5',
+        count: 4,
+        hub: true,
+      });
+    }
+
+    const config = COLLECTION_CARDS[slug];
+    if (!config) return sendNotFoundImage(res, 'Collection not found');
+    let communityThemes = [];
+    let catalogAvailable = true;
+    try {
+      communityThemes = await fetchCommunityThemes();
+    } catch (error) {
+      if (slug === 'community') {
+        console.warn('Unable to resolve community collection OG image:', error);
+        catalogAvailable = false;
+        res.dexthemesSocialPreviewFallback = true;
+      }
+    }
+    const themes = [...Object.values(themeMap), ...communityThemes]
+      .filter((theme) => getCatalogThemeId(theme) && config.filter(theme));
+    const ordered = slug === 'community'
+      ? themes.sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0) || safeText(a.name).localeCompare(safeText(b.name)))
+      : themes.sort((a, b) => safeText(a.name).localeCompare(safeText(b.name)));
+    const previews = ordered.map((theme) => prepareCollectionTheme(theme, config.variant));
+    return buildCollectionSocialCard({
+      logo: dexThemesLogo,
+      title: config.title,
+      description: config.description,
+      label: config.label,
+      accent: config.accent,
+      count: catalogAvailable ? previews.length : null,
+      themes: previews,
+    });
+  }
+
+  if (card === 'page') {
+    const page = String(url.searchParams.get('page') || '').toLowerCase();
+    const config = STATIC_PAGE_CARDS[page];
+    if (!config) return sendNotFoundImage(res, 'Page not found');
+    return buildStaticPageSocialCard({ logo: dexThemesLogo, ...config });
+  }
+
+  return sendNotFoundImage(res, 'Card not found');
+}
+
+function prepareCollectionTheme(theme, requestedVariant) {
+  const variant = requestedVariant || (theme.dark ? 'dark' : 'light');
+  const palette = theme[variant] || {};
+  const surface = safeHex(palette.surface, variant === 'light' ? '#f4f1ea' : '#0d1016');
+  const ink = safeHex(palette.ink, variant === 'light' ? '#15171c' : '#f7f8fb');
+  return {
+    name: safeText(theme.name, 'Untitled theme'),
+    variant,
+    surface,
+    ink,
+    colors: [
+      surface,
+      safeHex(palette.accent, '#47adff'),
+      safeHex(palette.skill, '#8b5cf6'),
+      safeHex(palette.diffAdded, '#2bd576'),
+    ],
+  };
+}
+
+function safeText(value, fallback = '') {
+  return (String(value || '').replace(/[\u0000-\u001f\u007f]/g, '').trim() || fallback).slice(0, 48);
+}
+
+function safeHex(value, fallback) {
+  return /^#[0-9a-f]{6}$/i.test(String(value || '')) ? String(value) : fallback;
+}
+
+function sendNotFoundImage(res, message) {
+  res.status(404).send(message);
+  return null;
+}
+
+async function sendImageResponse(res, url, element) {
   const imageResponse = new ImageResponse(element, { width: 1200, height: 630 });
   const buffer = await imageResponse.arrayBuffer();
+  const versioned = url.searchParams.has('v');
+  const transientFallback = res.dexthemesSocialPreviewFallback === true;
   res.setHeader('Content-Type', 'image/png');
-  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+  res.setHeader(
+    'Cache-Control',
+    transientFallback
+      ? 'public, max-age=60, s-maxage=300, stale-while-revalidate=3600'
+      : versioned ? 'public, max-age=31536000, immutable' : 'public, max-age=3600',
+  );
+  res.setHeader(
+    'Vercel-CDN-Cache-Control',
+    `public, max-age=${transientFallback ? 300 : versioned ? 31536000 : 86400}`,
+  );
   res.send(Buffer.from(buffer));
 }
 

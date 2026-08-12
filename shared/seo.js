@@ -7,6 +7,53 @@ import {
 export const CANONICAL_ORIGIN = "https://www.dexthemes.com";
 export const CANONICAL_HOST = "www.dexthemes.com";
 export const CONTENT_LAST_MODIFIED = GENERATED_CONTENT_LAST_MODIFIED;
+export const SOCIAL_IMAGE_WIDTH = 1200;
+export const SOCIAL_IMAGE_HEIGHT = 630;
+export const SOCIAL_IMAGE_VERSION = "2";
+export const HOME_SOCIAL_IMAGE_URL = `${CANONICAL_ORIGIN}/api/og?card=home&v=${SOCIAL_IMAGE_VERSION}`;
+export const HOME_SOCIAL_IMAGE_ALT = "DexThemes — make Codex yours with community-built themes";
+
+export function buildContentSocialImageUrl(section, slug = "", contentVersion = "") {
+  const url = new URL(`${CANONICAL_ORIGIN}/api/og`);
+  url.searchParams.set("card", "content");
+  url.searchParams.set("section", section);
+  if (slug) url.searchParams.set("slug", slug);
+  url.searchParams.set("v", [SOCIAL_IMAGE_VERSION, contentVersion].filter(Boolean).join("-"));
+  return url.toString();
+}
+
+export function buildCollectionSocialImageUrl(slug = "", catalogVersion = "") {
+  const url = new URL(`${CANONICAL_ORIGIN}/api/og`);
+  url.searchParams.set("card", "collection");
+  if (slug) url.searchParams.set("slug", slug);
+  url.searchParams.set("v", [SOCIAL_IMAGE_VERSION, catalogVersion].filter(Boolean).join("-"));
+  return url.toString();
+}
+
+export function buildStaticPageSocialImageUrl(page) {
+  const url = new URL(`${CANONICAL_ORIGIN}/api/og`);
+  url.searchParams.set("card", "page");
+  url.searchParams.set("page", page);
+  url.searchParams.set("v", SOCIAL_IMAGE_VERSION);
+  return url.toString();
+}
+
+export function buildCatalogSocialImageVersion(themes = []) {
+  const source = themes.map((theme) => {
+    const id = getCatalogThemeId(theme) || "";
+    const variants = getCatalogThemeVariants(theme).map((variant) => {
+      const palette = theme[variant] || {};
+      return [variant, palette.surface, palette.ink, palette.accent, palette.skill].join(":");
+    });
+    return [id, theme?.name || "", ...variants].join("|");
+  }).sort().join("\n");
+  let hash = 2166136261;
+  for (let index = 0; index < source.length; index += 1) {
+    hash ^= source.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36);
+}
 
 // IndexNow verification keys are intentionally public and must be available as
 // a same-origin text file for ownership verification.
