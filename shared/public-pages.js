@@ -1,8 +1,16 @@
 import {
   CANONICAL_ORIGIN,
   COLLECTION_ROUTES,
+  CONTENT_LAST_MODIFIED,
   EDITORIAL_ROUTES,
   EDITOR_CLASSIC_THEME_IDS,
+  HOME_SOCIAL_IMAGE_ALT,
+  HOME_SOCIAL_IMAGE_URL,
+  SOCIAL_IMAGE_HEIGHT,
+  SOCIAL_IMAGE_WIDTH,
+  buildCatalogSocialImageVersion,
+  buildCollectionSocialImageUrl,
+  buildContentSocialImageUrl,
   getCatalogThemeId,
   getCatalogThemeVariants,
 } from "./seo.js";
@@ -11,7 +19,6 @@ import {
 } from "./generated-content.js";
 
 const SITE_NAME = "DexThemes";
-const DEFAULT_OG_IMAGE = `${CANONICAL_ORIGIN}/logos/logo-github-transparent.png`;
 const AUTHOR_NAME = "Daeshawn Ballard";
 const AUTHOR_URL = "https://x.com/daeshawn";
 const SAME_AS = [
@@ -271,6 +278,7 @@ export function renderThemePage({ theme, variant, relatedThemes = [], imageVersi
     description,
     canonicalUrl,
     ogImageUrl,
+    ogImageAlt: `${name} ${variant} Codex theme preview`,
     accent,
     surface: palette.surface,
     body,
@@ -332,6 +340,8 @@ export function renderContentHub(section) {
     title: `DexThemes ${config.label} | Codex Theme Resources`,
     description: config.description,
     canonicalUrl,
+    ogImageUrl: buildContentSocialImageUrl(section, "", CONTENT_LAST_MODIFIED),
+    ogImageAlt: `${config.label}: ${config.description}`,
     accent: config.accent,
     body: `
       <main id="main-content">
@@ -414,6 +424,8 @@ export function renderContentPage(section, slug) {
     description: item.description,
     canonicalUrl,
     markdownUrl,
+    ogImageUrl: buildContentSocialImageUrl(section, slug, item.dateModified),
+    ogImageAlt: `${item.section}: ${item.title}`,
     accent: config.accent,
     body: `
       <main id="main-content">
@@ -474,6 +486,8 @@ export function renderCollectionsHub() {
     title: "Codex Theme Collections | DexThemes",
     description: "Browse dark, light, editor-classic, and community Codex theme collections.",
     canonicalUrl,
+    ogImageUrl: buildCollectionSocialImageUrl(),
+    ogImageAlt: "DexThemes Codex theme collections",
     accent: "#f15bb5",
     body: `
       <main id="main-content">
@@ -550,6 +564,8 @@ export function renderCollectionPage(slug, themes) {
     title: `${definition.title} | DexThemes`,
     description: definition.description,
     canonicalUrl,
+    ogImageUrl: buildCollectionSocialImageUrl(slug, buildCatalogSocialImageVersion(filtered)),
+    ogImageAlt: `${definition.title} on DexThemes`,
     accent: slug === "light" ? "#f0b429" : slug === "community" ? "#f15bb5" : "#47adff",
     body: `
       <main id="main-content">
@@ -633,7 +649,8 @@ function renderDocument({
   structuredData,
   accent = "#47adff",
   surface = "#0d0f12",
-  ogImageUrl = DEFAULT_OG_IMAGE,
+  ogImageUrl = HOME_SOCIAL_IMAGE_URL,
+  ogImageAlt = HOME_SOCIAL_IMAGE_ALT,
   noindex = false,
   pageType = "page",
   shareUrl = "",
@@ -688,14 +705,18 @@ function renderDocument({
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:image" content="${escapeHtml(ogImageUrl)}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image:secure_url" content="${escapeHtml(ogImageUrl)}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="${SOCIAL_IMAGE_WIDTH}">
+  <meta property="og:image:height" content="${SOCIAL_IMAGE_HEIGHT}">
+  <meta property="og:image:alt" content="${escapeHtml(ogImageAlt)}">
   <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
   <meta property="og:site_name" content="DexThemes">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${escapeHtml(ogImageUrl)}">
+  <meta name="twitter:image:alt" content="${escapeHtml(ogImageAlt)}">
   ${schema}
 </head>
 <body class="public-site public-site--${escapeHtml(pageType)}" style="--page-accent:${escapeHtml(accent)};--theme-surface:${escapeHtml(surface)}">
