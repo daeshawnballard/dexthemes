@@ -2,6 +2,8 @@
 // DexThemes — Preview Conversation Examples
 // ================================================
 
+import { getPlatform } from '../shared/platform-registry.js';
+
 export const EXAMPLES = [
   {
     user: 'Spawn a subagent to fix lint errors',
@@ -221,3 +223,122 @@ export const EXAMPLES = [
     followUp: 'Paste that into my Codex settings'
   }
 ];
+
+const DEEPSEEK_EXAMPLES = Object.freeze([
+  {
+    user: 'Find a calm dark theme for DeepSeek Harness',
+    intro: 'Browse matching palettes in Settings → Plugins → DexThemes, then preview both modes before applying.',
+    comment: '// Installed Harness plugin',
+    code: [
+      { type: 'kw', text: 'const' }, ' handoff = {\n',
+      '  location: ', { type: 'str', text: "'Settings > Plugins > DexThemes'" }, ',\n',
+      '  preview: ', { type: 'str', text: "'light + dark'" }, ',\n',
+      '  action: ', { type: 'str', text: "'Apply'" }, ',\n',
+      '  reversible: ', { type: 'kw', text: 'true' }, ',\n',
+      '};',
+    ],
+    followUp: 'Show me the light version before I apply it',
+  },
+  {
+    user: 'Color me lucky',
+    intro: 'In an installed Harness session, Creator mode can draft a paired palette without reading your workspace.',
+    comment: '// DexThemes Creator mode',
+    code: [
+      { type: 'kw', text: 'const' }, ' request = {\n',
+      '  mode: ', { type: 'str', text: "'Creator'" }, ',\n',
+      '  variants: [', { type: 'str', text: "'dark'" }, ', ', { type: 'str', text: "'light'" }, '],\n',
+      '  prompt: ', { type: 'str', text: "'Color me lucky'" }, ',\n',
+      '};',
+    ],
+    followUp: 'Preview the pair and keep fonts unchanged',
+  },
+  {
+    user: 'Apply this palette in Harness',
+    intro: 'One-click Apply is available inside the installed DexThemes plugin through Harness’s supported theme service.',
+    comment: '// User-initiated and reversible',
+    code: [
+      { type: 'kw', text: 'const' }, ' lifecycle = {\n',
+      '  apply: ', { type: 'str', text: "'Apply to DeepSeek'" }, ',\n',
+      '  restore: ', { type: 'str', text: "'Revert'" }, ',\n',
+      '  fonts: ', { type: 'str', text: "'unchanged'" }, ',\n',
+      '};',
+    ],
+    followUp: 'Revert to the Harness default',
+  },
+  {
+    user: 'Browse community themes without connecting an account',
+    intro: 'Public discovery and preview stay available anonymously; connecting DexThemes is optional for account-bound features.',
+    comment: '// Public catalog',
+    code: [
+      { type: 'kw', text: 'const' }, ' access = {\n',
+      '  browse: ', { type: 'kw', text: 'true' }, ',\n',
+      '  preview: ', { type: 'kw', text: 'true' }, ',\n',
+      '  account: ', { type: 'str', text: "'optional'" }, ',\n',
+      '};',
+    ],
+    followUp: 'Filter to paired light and dark palettes',
+  },
+]);
+
+function getGenericExamples(platformId) {
+  const platform = getPlatform(platformId);
+  return Object.freeze([
+    {
+      user: `Preview this palette for ${platform.displayName}`,
+      intro: `DexThemes can preview the palette here. Use ${platform.shortName}’s supported setup to finish the handoff.`,
+      comment: '// Preview before setup',
+      code: [
+        { type: 'kw', text: 'const' }, ' preview = {\n',
+        '  platform: ', { type: 'str', text: `'${platform.id}'` }, ',\n',
+        '  variants: [', { type: 'str', text: "'dark'" }, ', ', { type: 'str', text: "'light'" }, '],\n',
+        '  effectFallback: ', { type: 'str', text: "'solid colors'" }, ',\n',
+        '};',
+      ],
+      followUp: 'Show me the other variant',
+    },
+    {
+      user: 'Find a high-contrast community theme',
+      intro: `Search is shared across every source collection; choosing ${platform.shortName} changes the preview and handoff, not the catalog.`,
+      comment: '// Theme source stays independent',
+      code: [
+        { type: 'kw', text: 'const' }, ' filters = {\n',
+        '  source: ', { type: 'str', text: "'all'" }, ',\n',
+        '  contrast: ', { type: 'str', text: "'high'" }, ',\n',
+        '  platform: ', { type: 'str', text: `'${platform.id}'` }, ',\n',
+        '};',
+      ],
+      followUp: 'Open the theme details',
+    },
+    {
+      user: 'Create a paired palette',
+      intro: 'The DexThemes creator keeps one portable color model and validates each supported handoff separately.',
+      comment: '// Portable DexThemes palette',
+      code: [
+        { type: 'kw', text: 'const' }, ' draft = {\n',
+        '  dark: { surface: ', { type: 'str', text: "'#101216'" }, ' },\n',
+        '  light: { surface: ', { type: 'str', text: "'#f7f8fa'" }, ' },\n',
+        '  fonts: ', { type: 'str', text: "'unchanged'" }, ',\n',
+        '};',
+      ],
+      followUp: `Preview it for ${platform.shortName}`,
+    },
+    {
+      user: `How do I use this with ${platform.shortName}?`,
+      intro: platform.capabilityMessage,
+      comment: '// Supported handoff only',
+      code: [
+        { type: 'kw', text: 'const' }, ' nextStep = {\n',
+        '  action: ', { type: 'str', text: `'${platform.actions.website.ctaLabel}'` }, ',\n',
+        '  automatic: ', { type: 'kw', text: 'false' }, ',\n',
+        '};',
+      ],
+      followUp: 'Keep browsing before I decide',
+    },
+  ]);
+}
+
+export function getPreviewExamples(platformId = 'codex') {
+  if (platformId === 'codex') return EXAMPLES;
+  if (platformId === 'deepseek') return DEEPSEEK_EXAMPLES;
+  return getGenericExamples(platformId);
+}

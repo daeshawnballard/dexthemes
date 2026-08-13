@@ -138,6 +138,7 @@ Total public static themes: ${visibleThemes.length}
 ## API Endpoints
 
 - Browse all themes: GET ${CANONICAL_ORIGIN}/api/themes
+- Generate an unapproved paired draft: POST ${CANONICAL_ORIGIN}/api/generate-theme
 - DeepSeek Harness apply-preparation payload: GET ${CANONICAL_ORIGIN}/api/deepseek-theme?theme={id}
 - DeepSeek Harness restricted MCP profile: ${CANONICAL_ORIGIN}/api/deepseek-mcp
 - MCP plugin: ${CANONICAL_ORIGIN}/api/mcp
@@ -164,7 +165,11 @@ function buildDeepSeekPluginCatalog(themes) {
   const sharedThemes = themes
     .filter(isPublicCatalogTheme)
     .filter((theme) => theme.integrations.deepseek.eligible)
-    .filter((theme) => theme.category !== "codex")
+    // The website catalog now includes the canonical DeepSeek source pack.
+    // The default plus twelve tributes are prepended below with their plugin-only metadata,
+    // so the shared slice must remain DexThemes-only to keep generation
+    // idempotent and avoid bundling the collection twice.
+    .filter((theme) => theme.category === "dexthemes")
     .map((theme) => ({
       id: getWebsiteThemeId(theme),
       name: theme.name,

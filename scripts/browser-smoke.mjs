@@ -195,6 +195,64 @@ try {
     const page = await bootDesktopPage(browser, server.baseUrl);
     const title = await page.locator('#preview-theme-name').textContent();
     assert.ok(title?.trim().length, 'expected a preview title');
+    assert.equal(await page.locator('#preview-platform-select').inputValue(), 'codex');
+    assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
+    assert.match(await page.locator('#platform-affiliation').textContent() || '', /OpenAI/);
+    assert.match(await page.locator('#apply-btn-text').textContent() || '', /Copy for Codex/);
+    assert.equal(await page.locator('#sidebar-create-label').textContent(), 'Create a Theme');
+    assert.equal(await page.locator('#submit-btn-text').textContent(), 'Create Theme');
+    assert.equal(await page.locator('.sidebar-explore').getAttribute('open'), null);
+    assert.equal(await page.locator('.sidebar > .sidebar-divider').count(), 2);
+    await page.close();
+  });
+
+  await runTest('desktop harness context changes preview copy without changing theme sources', async () => {
+    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?platform=deepseek`);
+    assert.equal(await page.locator('#preview-platform-select').inputValue(), 'deepseek');
+    assert.equal(await page.locator('#preview-platform-select option:checked').textContent(), 'DeepSeek');
+    assert.equal(await page.locator('#preview-theme-name').textContent(), 'DeepSeek');
+    assert.equal(await page.locator('#platform-descriptor').textContent(), 'DeepSeek themes.');
+    assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /Apply and Revert inside Harness/);
+    assert.match(await page.locator('#platform-setup-message-link').getAttribute('href') || '', /npmjs\.com\/package\/@dexthemes\/deepseek-harness-plugin/);
+    assert.match(await page.locator('#platform-affiliation').textContent() || '', /DeepSeek/);
+    assert.equal(await page.locator('#preview-input-text').getAttribute('aria-label'), 'Preview a DeepSeek prompt');
+    assert.equal(await page.locator('[data-action="apply-deepseek"]').count(), 0);
+
+    const setup = page.locator('.panel-actions .platform-setup-btn');
+    assert.match(await setup.textContent() || '', /Install for DeepSeek/);
+    assert.match(await setup.getAttribute('href') || '', /npmjs\.com\/package\/@dexthemes\/deepseek-harness-plugin/);
+    assert.equal(await setup.locator('.apply-icon-platform').count(), 1);
+    const themeCount = await page.locator('.thread-item').count();
+    const sourceHeadings = await page.locator('.category-header').allTextContents();
+
+    await page.selectOption('#preview-platform-select', 'codex');
+    await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'Codex');
+    await page.selectOption('#preview-platform-select', 'deepseek');
+    await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
+
+    await page.evaluate(() => {
+      Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async (value) => { window.__dexthemesSharedUrl = value; } },
+      });
+    });
+    await page.click('[data-action="show-theme-details"]');
+    await page.click('.theme-details-actions [data-action="share-theme"]');
+    await page.waitForFunction(() => Boolean(window.__dexthemesSharedUrl));
+    const sharedUrl = await page.evaluate(() => window.__dexthemesSharedUrl);
+    assert.equal(new URL(sharedUrl).searchParams.get('platform'), 'deepseek');
+    await page.click('[data-action="show-theme-preview"]');
+
+    await page.selectOption('#preview-platform-select', 't3code');
+    await page.waitForFunction(() => new URL(window.location.href).searchParams.get('platform') === 't3code');
+    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
+    assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
+    assert.equal(await page.locator('.thread-item').count(), themeCount);
+    assert.deepEqual(await page.locator('.category-header').allTextContents(), sourceHeadings);
+
+    const actionOverflow = await page.locator('.panel-actions').evaluate((element) => element.scrollWidth - element.clientWidth);
+    assert.ok(actionOverflow <= 0, `expected no right-panel helper overflow, got ${actionOverflow}px`);
     await page.close();
   });
 
@@ -225,7 +283,7 @@ try {
     await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
     assert.equal(new URL(page.url()).pathname, `/${activeThemeId}/light`);
     const applyText = await page.locator('.apply-codex-btn').first().textContent();
-    assert.match(applyText || '', /Copy theme/);
+    assert.match(applyText || '', /Copy for Codex/);
     await page.click('#apply-codex-btn');
     await page.waitForFunction(() => document.getElementById('apply-btn-text')?.textContent === 'Theme copied to clipboard');
     assert.equal(await page.locator('.apply-handoff-status').textContent(), 'Copied to clipboard');
@@ -241,6 +299,57 @@ try {
     assert.equal(value, 'Smoke Theme');
     await page.click('.builder-apply-btn');
     await page.waitForFunction(() => document.querySelector('.builder-apply-btn-text')?.textContent === 'Theme copied to clipboard');
+    await page.close();
+  });
+
+  await runTest('DexThemes AI fills the editable pair without applying or submitting', async () => {
+    const page = await bootDesktopPage(browser, server.baseUrl);
+    const lunaTheme = {
+      id: 'harbor-lantern',
+      themeId: 'harbor-lantern',
+      name: 'Harbor Lantern',
+      summary: 'Deep harbor blues with a warm guiding accent.',
+      category: 'community',
+      codeThemeId: { dark: 'codex', light: 'codex' },
+      dark: {
+        surface: '#0B1622', ink: '#F4F7FA', accent: '#FFB347', sidebar: '#08111B', codeBg: '#101E2B',
+        diffAdded: '#57C785', diffRemoved: '#FF6B6B', skill: '#8CB4FF', contrast: 64,
+      },
+      light: {
+        surface: '#F5F8FB', ink: '#17212B', accent: '#B45F06', sidebar: '#E8EEF4', codeBg: '#FFFFFF',
+        diffAdded: '#16794B', diffRemoved: '#C73535', skill: '#365FA0', contrast: 48,
+      },
+      accents: ['#FFB347', '#B45F06'],
+    };
+    await page.route('**/api/generate-theme', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        theme: lunaTheme,
+        validation: { valid: true, errors: [], warnings: [] },
+        model: 'gpt-5.6-luna',
+        requestId: 'smoke-luna-1',
+      }),
+    }));
+
+    await page.click('#submit-btn');
+    await page.fill('#builder-name', 'Manual Base');
+    await page.fill('#builder-luna-prompt', 'A quiet harbor at night with one warm guiding lantern');
+    const manualSurface = await page.locator('#builder-color-surface').inputValue();
+    const storedBeforeGenerate = await page.evaluate(() => localStorage.getItem('dexthemes-builder'));
+
+    await page.click('[data-action="builder-generate-luna"]');
+    await page.waitForFunction(() => document.getElementById('builder-name')?.value === 'Harbor Lantern');
+    assert.equal(await page.locator('#builder-color-surface').inputValue(), '#0B1622');
+    assert.notEqual(await page.evaluate(() => localStorage.getItem('dexthemes-builder')), storedBeforeGenerate);
+    assert.match(await page.locator('#builder-luna-status').textContent() || '', /Nothing has been applied or submitted/i);
+    assert.equal(await page.locator('.builder-apply-btn').evaluate((element) => element.classList.contains('copied')), false);
+
+    await page.click('[data-action="builder-undo-ai"]');
+    assert.equal(await page.locator('#builder-name').inputValue(), 'Manual Base');
+    assert.equal(await page.locator('#builder-color-surface').inputValue(), manualSurface);
+    assert.equal(await page.evaluate(() => localStorage.getItem('dexthemes-builder')), storedBeforeGenerate);
+    assert.match(await page.locator('#builder-luna-status').textContent() || '', /Previous manual draft restored/i);
     await page.close();
   });
 
@@ -365,6 +474,7 @@ try {
         `expected mobile Explore to link ${href}`,
       );
     }
+    assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /OpenAI/);
     await page.close();
   });
 
@@ -388,24 +498,14 @@ try {
       assert.ok(overflow <= 0, `expected no tablet header overflow at ${width}px, got ${overflow}px`);
     }
 
-    for (const href of ['/features', '/guides', '/articles']) {
+    for (const href of ['/collections', '/guides', '/features', '/articles', '/collections/community']) {
       assert.equal(
         await nav.locator(`:scope > a[href="${href}"]`).count(),
         1,
         `expected tablet header to link ${href}`,
       );
     }
-
-    await page.locator('.tablet-explore-more > summary').click();
-    const menu = page.locator('.tablet-explore-more[open] .tablet-explore-menu');
-    await menu.waitFor({ state: 'visible' });
-    for (const href of ['/collections', '/collections/community']) {
-      assert.equal(
-        await menu.locator(`a[href="${href}"]`).count(),
-        1,
-        `expected tablet More menu to link ${href}`,
-      );
-    }
+    assert.equal(await page.locator('.tablet-explore-more').count(), 0);
     await page.close();
   });
 

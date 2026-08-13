@@ -3,11 +3,12 @@
 > Generated from the checked-in theme catalog for LLM and agent consumption.
 > For product, authentication, and plugin guidance, see /llms.txt.
 
-Total public static themes: 117
+Total public static themes: 130
 
 ## API Endpoints
 
 - Browse all themes: GET https://www.dexthemes.com/api/themes
+- Generate an unapproved paired draft: POST https://www.dexthemes.com/api/generate-theme
 - DeepSeek Harness apply-preparation payload: GET https://www.dexthemes.com/api/deepseek-theme?theme={id}
 - DeepSeek Harness restricted MCP profile: https://www.dexthemes.com/api/deepseek-mcp
 - MCP plugin: https://www.dexthemes.com/api/mcp
@@ -295,6 +296,110 @@ Total public static themes: 117
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=xcode
 - Dark: surface=#1f1f24 ink=#ffffff accent=#5482ff
 - Light: surface=#ffffff ink=#000000 accent=#0e0eff
+
+### DeepSeek
+- ID: `deepseek-default`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-default/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-default
+- Dark: surface=#151517 ink=#F9FAFB accent=#5686FE
+- Light: surface=#FFFFFF ink=#0F1115 accent=#4176E6
+
+### Huawei
+- ID: `deepseek-huawei`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-huawei/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-huawei
+- Dark: surface=#130C10 ink=#FFF3F5 accent=#E51A3C
+- Light: surface=#FFF7F8 ink=#261317 accent=#CF0A2C
+
+### Tencent
+- ID: `deepseek-tencent`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-tencent/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-tencent
+- Dark: surface=#07131F ink=#EAF7FF accent=#00A4FF
+- Light: surface=#F3FAFF ink=#102538 accent=#006EFF
+
+### Alibaba
+- ID: `deepseek-alibaba`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-alibaba/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-alibaba
+- Dark: surface=#17100B ink=#FFF6ED accent=#FF6A00
+- Light: surface=#FFF9F4 ink=#2B1A10 accent=#D95300
+
+### Ant Group
+- ID: `deepseek-ant-group`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-ant-group/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-ant-group
+- Dark: surface=#091321 ink=#EEF6FF accent=#1677FF
+- Light: surface=#F4F8FF ink=#13243A accent=#0958D9
+
+### ByteDance
+- ID: `deepseek-bytedance`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-bytedance/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-bytedance
+- Dark: surface=#0A1018 ink=#F2F7FC accent=#2F88FF
+- Light: surface=#F7FAFD ink=#162331 accent=#1769E0
+
+### Baidu
+- ID: `deepseek-baidu`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-baidu/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-baidu
+- Dark: surface=#0E0E21 ink=#F2F1FF accent=#6262FF
+- Light: surface=#F7F7FF ink=#1E1E3A accent=#2932E1
+
+### SiliconFlow
+- ID: `deepseek-siliconflow`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-siliconflow/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-siliconflow
+- Dark: surface=#071410 ink=#ECFFF8 accent=#21D99A
+- Light: surface=#F2FCF8 ink=#123027 accent=#087C59
+
+### JD.com
+- ID: `deepseek-jd-cloud`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-jd-cloud/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-jd-cloud
+- Dark: surface=#151011 ink=#FFF4F4 accent=#E1251B
+- Light: surface=#FFF8F7 ink=#291718 accent=#C81623
+
+### China Telecom
+- ID: `deepseek-china-telecom`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-china-telecom/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-china-telecom
+- Dark: surface=#09131C ink=#EDF8FF accent=#1B8DCE
+- Light: surface=#F4FAFD ink=#163044 accent=#0066A6
+
+### China Mobile
+- ID: `deepseek-china-mobile`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-china-mobile/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-china-mobile
+- Dark: surface=#071719 ink=#ECFCFD accent=#00A8A8
+- Light: surface=#F2FBFB ink=#143336 accent=#008B86
+
+### HONOR
+- ID: `deepseek-honor`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-honor/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-honor
+- Dark: surface=#0D1020 ink=#F4F4FF accent=#7A6CFF
+- Light: surface=#F7F7FF ink=#20223C accent=#5146C8
+
+### Lenovo
+- ID: `deepseek-lenovo`
+- Category: deepseek
+- Public page: https://www.dexthemes.com/deepseek-lenovo/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-lenovo
+- Dark: surface=#121212 ink=#F6F6F6 accent=#E2231A
+- Light: surface=#FAFAFA ink=#242424 accent=#C51D16
 
 ### Crimson Soulblade
 - ID: `crimson-soulblade`

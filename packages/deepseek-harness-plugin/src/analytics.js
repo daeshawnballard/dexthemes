@@ -7,6 +7,9 @@ const ALLOWED_EVENTS = new Set([
   'deepseek_theme_apply_started',
   'deepseek_theme_apply_succeeded',
   'deepseek_theme_apply_failed',
+  'deepseek_theme_revert_started',
+  'deepseek_theme_revert_succeeded',
+  'deepseek_theme_revert_failed',
   'deepseek_theme_reverted',
 ]);
 const ALLOWED_FIELDS = new Set([

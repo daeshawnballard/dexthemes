@@ -5,6 +5,7 @@
 import * as state from './state.js';
 import { escapeHtml, isDark, hexToRgb, blendColor, isSixDigitHexColor } from './utils.js';
 import { getThemeVariants, themeHasVariant, buildThemeImportString } from './theme-contracts.js';
+import { getPreviewExamples } from './preview-examples.js';
 
 const PREVIEW_REQUIRED_COLOR_KEYS = ['surface', 'ink', 'accent', 'diffAdded', 'diffRemoved', 'skill'];
 
@@ -85,13 +86,14 @@ export function applyPreview(theme, variant) {
   const inputInner = document.getElementById('preview-input-inner');
   const inputText = document.getElementById('preview-input-text');
   const sendBtn = document.getElementById('preview-send-btn');
-  const winTitle = win.querySelector('.preview-window-title');
+  const setupMessage = document.getElementById('platform-setup-message');
+  const platformContext = win.querySelector('.preview-platform-context');
 
   win.style.background = v.surface;
   win.style.borderColor = borderColor;
   titlebar.style.background = v.sidebar;
   titlebar.style.borderBottomColor = borderColor;
-  winTitle.style.color = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
+  if (platformContext) platformContext.style.color = dark ? 'rgba(255,255,255,0.62)' : 'rgba(0,0,0,0.62)';
   win.querySelectorAll('.preview-dot').forEach(d => {
     d.style.background = dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
   });
@@ -104,6 +106,7 @@ export function applyPreview(theme, variant) {
   inputText.style.setProperty('--placeholder-color', dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)');
   sendBtn.style.background = acc;
   sendBtn.querySelector('svg').style.color = '#fff';
+  if (setupMessage) setupMessage.style.color = v.ink;
 
   syncThemeHeader(theme);
   renderChatContent(v, acc, 'preview-chat', theme);
@@ -116,7 +119,8 @@ export function renderChatContent(v, acc, containerId, theme = null) {
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const mutedColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
   const c = document.getElementById(containerId);
-  const ex = state.EXAMPLES[state.currentExampleIdx];
+  const examples = getPreviewExamples(state.selectedPlatformId);
+  const ex = examples[state.currentExampleIdx % examples.length];
   const summary = getThemeSummary(theme);
   const summaryHtml = summary
     ? `<p class="preview-theme-summary"><span class="preview-theme-summary-label">Palette direction</span>${escapeHtml(summary)}</p>`
@@ -159,23 +163,26 @@ export function renderMiniPreview(containerId, theme, variant) {
   const borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const summary = getThemeSummary(theme);
   const summaryHtml = summary ? `<div class="mini-theme-summary">${escapeHtml(summary)}</div>` : '';
+  const platformName = state.selectedPlatform.shortName;
+  const examples = getPreviewExamples(state.selectedPlatformId);
+  const example = examples[state.currentExampleIdx % examples.length];
 
   const el = document.getElementById(containerId);
   el.style.background = v.surface;
 
   el.innerHTML = `
-    <div class="mini-user" style="background:${acc}22;color:${v.ink};">Spawn a subagent to fix lint errors</div>
+    <div class="mini-user" style="background:${acc}22;color:${v.ink};">${escapeHtml(example.user)}</div>
     <div class="mini-assistant" style="color:${v.ink};">
       ${summaryHtml}
-      Here's a Codex API call to spawn it:
+      ${escapeHtml(`A ${platformName} conversation in this palette:`)}
       <div class="mini-code" style="background:${v.codeBg};border:1px solid ${borderColor};">
         <div class="semantic-legend semantic-legend--mini">
           <span class="semantic-chip" style="color:${v.diffAdded};border-color:${borderColor};">+ Added</span>
           <span class="semantic-chip" style="color:${v.skill};border-color:${borderColor};">ƒ Function</span>
         </div>
-        <span style="color:${acc}">const</span> <span style="color:${v.ink}">res</span> = <span style="color:${acc}">await</span><br>
-        <span style="color:${v.skill}">client.responses.create</span>({<br>
-        &nbsp;&nbsp;model: <span style="color:${v.diffAdded}">'codex-mini-latest'</span> })
+        <span style="color:${acc}">const</span> <span style="color:${v.ink}">preview</span> = {<br>
+        &nbsp;&nbsp;platform: <span style="color:${v.diffAdded}">'${escapeHtml(state.selectedPlatformId)}'</span>,<br>
+        &nbsp;&nbsp;variant: <span style="color:${v.diffAdded}">'${escapeHtml(variant)}'</span> }
       </div>
     </div>
   `;

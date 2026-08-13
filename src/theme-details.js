@@ -4,11 +4,9 @@ import { isThemeLockedForUser } from './unlocks.js';
 import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
 import { buildThemePath } from './theme-url.js';
 import { trackEvent } from './analytics-client.js';
-import { getDeepSeekApplyState } from './deepseek-handoff.js';
-import {
-  DEEPSEEK_ANALYTICS_EVENTS,
-  trackDeepSeekEvent,
-} from './deepseek-analytics.js';
+import { PLATFORM_APPLY_MODES } from '../shared/platform-registry.js';
+import { getWebsitePlatformAction } from './platform-context.js';
+import { trackPlatformEvent } from './platform-analytics.js';
 
 const COLOR_ROWS = [
   ['Surface', 'surface'],
@@ -41,11 +39,77 @@ function getSourceCopy(theme) {
       answer: 'A curated DexThemes palette, separate from the built-in Codex catalog.',
     };
   }
+  if (theme.category === 'deepseek') {
+    if (theme.unofficial === false) {
+      return {
+        label: 'DeepSeek default',
+        detail: 'Matched to published Harness theme tokens',
+        answer: 'A DexThemes palette matched to DeepSeek Harness’s published semantic light and dark defaults.',
+      };
+    }
+    return {
+      label: 'DeepSeek collection',
+      detail: 'Unofficial DeepSeek-inspired palette',
+      answer: 'An unofficial color tribute in the DeepSeek collection. No partnership or endorsement is implied.',
+    };
+  }
   return {
     label: 'Codex catalog',
     detail: 'Built-in palette',
     answer: 'A built-in Codex catalog palette, presented here with a preview and import handoff.',
   };
+}
+
+function getHandoffCopy(action, platform) {
+  if (action.mode === PLATFORM_APPLY_MODES.COPY_IMPORT) {
+    return {
+      fact: 'Copy, then approve in Codex',
+      answer: 'Copy the import string, open Codex Settings, choose Appearance → Import theme, then approve the change.',
+      boundary: 'DexThemes copies a theme payload. Codex owns the final import.',
+    };
+  }
+  if (action.mode === PLATFORM_APPLY_MODES.SETUP) {
+    return {
+      fact: action.ctaLabel,
+      answer: action.helperText,
+      boundary: `The website opens ${platform.shortName} setup guidance. It does not apply a theme to another process.`,
+    };
+  }
+  return {
+    fact: 'Not yet available',
+    answer: action.helperText,
+    boundary: `DexThemes does not claim an unsupported ${platform.shortName} handoff.`,
+  };
+}
+
+function renderDetailsPlatformAction(action) {
+  const label = escapeHtml(action.ctaLabel);
+  if (action.mode === PLATFORM_APPLY_MODES.COPY_IMPORT) {
+    return `<button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex">
+      <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="theme-copy-label" aria-live="polite">${label}</span>
+    </button>`;
+  }
+  if (action.mode === PLATFORM_APPLY_MODES.SETUP && action.destination?.kind === 'url') {
+    return `<a
+      class="theme-details-button theme-details-button--primary"
+      href="${escapeHtml(action.destination.value)}"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-action="open-platform-setup"
+      data-platform-id="${escapeHtml(state.selectedPlatformId)}"
+      data-source-surface="theme_details"
+    >
+      <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span>${label}</span>
+      <span aria-hidden="true">↗</span>
+    </a>`;
+  }
+  return `<button class="theme-details-button theme-details-button--secondary" type="button" disabled>
+    <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <span>${label}</span>
+  </button>`;
 }
 
 function renderLockedDetails(container) {
@@ -72,6 +136,9 @@ export function renderThemeDetails() {
   const variant = theme[state.selectedVariant] || theme.dark || theme.light;
   if (!variant) return;
   const source = getSourceCopy(theme);
+  const platform = state.selectedPlatform;
+  const platformAction = getWebsitePlatformAction();
+  const handoff = getHandoffCopy(platformAction, platform);
   const availableVariants = ['dark', 'light'].filter((key) => Boolean(theme[key]));
   const accent = theme.accents?.[state.selectedAccentIdx] || variant.accent;
   const publicThemeId = getWebsiteThemeId(theme.id);
@@ -79,10 +146,9 @@ export function renderThemeDetails() {
   const summary = String(
     theme.summary
     || theme._summary
-    || `${theme.name} pairs ${variant.surface} surfaces with ${accent} accents for a focused Codex workspace.`,
+    || `${theme.name} pairs ${variant.surface} surfaces with ${accent} accents for a focused ${platform.shortName} preview.`,
   ).trim();
   const normalizedPalette = { ...variant, accent };
-  const deepSeekApply = getDeepSeekApplyState(theme);
 
   container.innerHTML = `
     <article class="theme-details-shell">
@@ -128,31 +194,21 @@ export function renderThemeDetails() {
         <dl>
           <div><dt>Source</dt><dd>${escapeHtml(source.detail)}</dd></div>
           <div><dt>Available</dt><dd>${escapeHtml(availableVariants.join(' + '))}</dd></div>
-          <div><dt>Import</dt><dd>Copy, then approve in Codex</dd></div>
-          <div><dt>DeepSeek</dt><dd>${deepSeekApply.eligible ? 'Live Harness token override' : 'Needs dark + light palettes'}</dd></div>
-          <div><dt>Affiliation</dt><dd>Community-built, not OpenAI</dd></div>
+          <div><dt>Preview for</dt><dd>${escapeHtml(platform.displayName)}</dd></div>
+          <div><dt>Handoff</dt><dd>${escapeHtml(handoff.fact)}</dd></div>
+          <div><dt>Affiliation</dt><dd>${escapeHtml(platform.footerAffiliationCopy)}</dd></div>
         </dl>
         <div class="theme-details-answer-grid">
-          <article><h4>How is it installed?</h4><p>Copy the import string, open Codex Settings, choose Appearance → Import theme, then approve the change.</p></article>
+          <article><h4>How is it used?</h4><p>${escapeHtml(handoff.answer)}</p></article>
           <article><h4>Where did it come from?</h4><p>${escapeHtml(source.answer)}</p></article>
-          <article><h4>Does DexThemes edit files?</h4><p>No. DexThemes prepares the payload; Codex owns the final import.</p></article>
+          <article><h4>What happens on this website?</h4><p>${escapeHtml(handoff.boundary)}</p></article>
         </div>
       </section>
 
       <footer class="theme-details-footer">
-        <div><strong>Ready to use it?</strong><span>Copies this theme to your clipboard. Paste it in Codex → Appearance → Import theme.</span></div>
+        <div><strong>Ready to use it?</strong><span>${escapeHtml(platformAction.helperText)}</span></div>
         <div class="theme-details-apply-actions">
-          <button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex"><span class="theme-copy-label" aria-live="polite">Copy theme</span></button>
-          ${deepSeekApply.eligible ? `
-            <button
-              class="theme-details-button theme-details-button--deepseek"
-              type="button"
-              data-action="${deepSeekApply.applied ? 'revert-deepseek' : 'apply-deepseek'}"
-              ${deepSeekApply.enabled ? '' : 'disabled'}
-              title="${escapeHtml(deepSeekApply.hint)}"
-              ${deepSeekApply.applied ? 'data-apply-state="applied"' : ''}
-            >${deepSeekApply.applied ? 'Remove from DeepSeek' : 'Apply to DeepSeek'}</button>
-          ` : ''}
+          ${renderDetailsPlatformAction(platformAction)}
         </div>
       </footer>
     </article>
@@ -222,13 +278,12 @@ export function showThemeDetails({ track = true } = {}) {
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
     });
-    if (getDeepSeekApplyState(state.selectedTheme).eligible) {
-      void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.PREVIEWED, {
-        sourceSurface: 'website_theme_details',
-        themeId: state.selectedTheme?.id,
-        variant: state.selectedVariant,
-      });
-    }
+    trackPlatformEvent('theme_previewed', state.selectedPlatformId, {
+      source_surface: 'theme_details',
+      theme_id: state.selectedTheme?.id,
+      variant: state.selectedVariant,
+      theme_source: state.selectedTheme?.category,
+    });
   }
 }
 

@@ -1,13 +1,14 @@
 /**
  * DeepSeek Harness collection.
  *
- * These are unofficial color tributes based on public company identities. The
- * evidence links explain the documented DeepSeek integration or deployment
- * that motivated inclusion; they do not establish partnership or endorsement.
- * No company logos, fonts, or other brand assets are bundled.
+ * The first palette mirrors DeepSeek Harness's published semantic defaults.
+ * The remaining palettes are unofficial color tributes based on public company
+ * identities. Their evidence links explain the documented DeepSeek integration
+ * or deployment that motivated inclusion; they do not establish partnership or
+ * endorsement. No company logos, fonts, or other brand assets are bundled.
  */
 
-function pairedTheme({ id, name, summary, sourceLabel, evidenceUrl, dark, light }) {
+function pairedTheme({ id, name, summary, sourceLabel, evidenceUrl, unofficial = true, dark, light }) {
   return Object.freeze({
     id,
     name,
@@ -16,13 +17,29 @@ function pairedTheme({ id, name, summary, sourceLabel, evidenceUrl, dark, light 
     subgroup: 'ecosystem',
     sourceLabel,
     evidenceUrl,
-    unofficial: true,
+    unofficial,
     dark: Object.freeze({ contrast: 64, ...dark }),
     light: Object.freeze({ contrast: 46, ...light }),
   });
 }
 
 export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
+  pairedTheme({
+    id: 'deepseek-default',
+    name: 'DeepSeek',
+    summary: 'DeepSeek Harness’s default light and dark palette, matched to its published semantic tokens.',
+    sourceLabel: 'DeepSeek Harness semantic theme tokens',
+    evidenceUrl: 'https://github.com/deepseek-ai/deepseek-harness/blob/main/packages/client/ui-theme/src/styles/design-platform.css',
+    unofficial: false,
+    dark: {
+      surface: '#151517', ink: '#F9FAFB', accent: '#5686FE', sidebar: '#1B1B1C', codeBg: '#0F0F0F',
+      diffAdded: '#22C55E', diffRemoved: '#F25A5A', skill: '#679EFE',
+    },
+    light: {
+      surface: '#FFFFFF', ink: '#0F1115', accent: '#4176E6', sidebar: '#F9FAFB', codeBg: '#F9FAFB',
+      diffAdded: '#22C55E', diffRemoved: '#EC1313', skill: '#4176E6',
+    },
+  }),
   pairedTheme({
     id: 'deepseek-huawei',
     name: 'Huawei',

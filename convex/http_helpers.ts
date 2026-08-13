@@ -182,6 +182,8 @@ export const RATE_LIMITS = {
   pluginAuthNetwork: { maxRequests: 240, windowMs: 60 * 1000 },
   pluginDevicePollCode: { maxRequests: 1, windowMs: 5 * 1000 },
   pluginDevicePollGlobal: { maxRequests: 1200, windowMs: 60 * 1000 },
+  lunaGenerateNetwork: { maxRequests: 5, windowMs: 10 * 60 * 1000 },
+  lunaGenerateGlobal: { maxRequests: 100, windowMs: 60 * 1000 },
 } as const;
 
 export function isApiKey(token: string): boolean {

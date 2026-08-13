@@ -23,6 +23,8 @@
 - **Codex handoff** — copies the import string and opens Codex Settings for you
 - **DeepSeek Harness plugin** — browse and one-click apply paired palettes through Harness's guarded theme service, or create/search/validate them through a restricted public MCP tool profile
 - **Create your own** — the built-in theme builder lets you design and share custom themes
+- **Create from a description** — a bounded server-side DexThemes AI draft becomes an editable light/dark theme and never applies without a separate user action
+- **Harness context** — preview for Codex, DeepSeek Harness, and documented future adapters without forking the canonical theme library
 - **Color Me Lucky** — random theme generator with 6 color harmonies and ~5000+ name combos
 - **Community themes** — sign in with GitHub and submit your creations
 - **Leaderboard** — daily, weekly, monthly, and all-time creator rankings
@@ -53,6 +55,8 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
 - [DeepSeek Harness integration](docs/DEEPSEEK-HARNESS.md)
+- [Multi-harness architecture and compatibility](docs/MULTI-HARNESS.md)
+- [Harness effect evidence matrix](docs/HARNESS-EFFECTS.md)
 - [Codex plugin guide](docs/PLUGIN.md)
 - [Content authoring guide](docs/CONTENT.md)
 - [Indexable pages design concept](docs/INDEXABLE-PAGES-DESIGN-CONCEPT.md)

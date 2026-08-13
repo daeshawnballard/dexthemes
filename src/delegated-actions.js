@@ -29,8 +29,23 @@ function isKeyboardActivation(event) {
 
 async function dispatchAction(action, element, event) {
   switch (action) {
+    case 'open-builder':
+      return loadBuilderModule().then((m) => m.openBuilder({ source: element.dataset.source || 'website' }));
+    case 'close-builder':
+      return loadBuilderModule().then((m) => m.closeBuilder({ source: element.dataset.source || 'website' }));
     case 'toggle-builder':
       return loadBuilderModule().then((m) => m.toggleBuilderMode());
+    case 'set-platform':
+      return import('./platform-context.js').then((m) => m.selectPlatformContext(element.value || element.dataset.platformId || 'codex'));
+    case 'open-platform-setup':
+      return import('./platform-analytics.js').then((m) => m.trackPlatformEvent(
+        'apply_attempted',
+        element.dataset.platformId || 'codex',
+        {
+          source_surface: element.dataset.sourceSurface || 'website',
+          apply_mode: 'setup',
+        },
+      ));
     case 'toggle-filter-dropdown':
       return toggleFilterDropdown(event);
     case 'toggle-sort-dropdown':
@@ -142,6 +157,10 @@ async function dispatchAction(action, element, event) {
       return loadBuilderModule().then((m) => m.colorMeLucky());
     case 'builder-color-lucky-variant':
       return loadBuilderModule().then((m) => m.colorMeLuckyVariant(element.dataset.variant || 'dark'));
+    case 'builder-generate-luna':
+      return loadBuilderModule().then((m) => m.generateBuilderDraftFromPrompt());
+    case 'builder-undo-ai':
+      return loadBuilderModule().then((m) => m.undoBuilderAiDraft());
     case 'builder-reset':
       return loadBuilderModule().then((m) => m.resetBuilder());
     case 'builder-apply-codex':

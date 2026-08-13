@@ -3,7 +3,7 @@
 // ================================================
 
 import * as state from './state.js';
-import { fallbackCopy } from './utils.js';
+import { escapeHtml, fallbackCopy } from './utils.js';
 import { getVariants, hasVariant, applyShellTheme, applyPreview, renderMiniPreview, buildImportString } from './theme-engine.js';
 import { renderSidebar } from './sidebar.js';
 import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from './codex-handoff.js';
@@ -12,8 +12,12 @@ import { loadBuilderModule } from './lazy-modules.js';
 import { fetchMyUnlocks, grantUnlockAction, recordSecretInteraction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
-import { buildThemePath } from './theme-url.js';
 import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
+import { PLATFORM_APPLY_MODES } from '../shared/platform-registry.js';
+import {
+  buildContextualThemePath,
+  getWebsitePlatformAction,
+} from './platform-context.js';
 import {
   getDeepSeekApplyState,
   handleDeepSeekApplyClick,
@@ -40,6 +44,52 @@ function recordThemeCopy(themeId) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ themeId }),
   }).catch(() => {});
+}
+
+function renderWebsitePlatformAction(compact) {
+  const action = getWebsitePlatformAction();
+  if (!action) return '';
+  const label = escapeHtml(action.ctaLabel);
+  const helper = escapeHtml(action.helperText);
+
+  if (action.mode === PLATFORM_APPLY_MODES.COPY_IMPORT) {
+    return `
+      <button class="apply-codex-btn" id="apply-codex-btn" data-action="apply-codex" aria-describedby="import-hint">
+        <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span class="theme-copy-label" id="apply-btn-text" aria-live="polite">${label}</span>
+      </button>
+      <div class="import-hint" id="import-hint">${helper}</div>
+    `;
+  }
+
+  if (action.mode === PLATFORM_APPLY_MODES.SETUP && action.destination?.kind === 'url') {
+    return `
+      <a
+        class="apply-codex-btn platform-setup-btn"
+        href="${escapeHtml(action.destination.value)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-action="open-platform-setup"
+        data-platform-id="${escapeHtml(state.selectedPlatformId)}"
+        data-source-surface="website"
+        aria-describedby="import-hint"
+      >
+        <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>${label}</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <div class="import-hint" id="import-hint">${helper}</div>
+    `;
+  }
+
+  return `
+    <button class="apply-codex-btn platform-unavailable-btn" type="button" disabled aria-describedby="import-hint">
+      <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span>${label}</span>
+    </button>
+    <div class="import-hint" id="import-hint">${helper}</div>
+  `;
 }
 
 async function showInlineSignInPrompt(type, message) {
@@ -244,8 +294,6 @@ export function renderRightPanel() {
   if (!panel) return;
 
   const compact = isCompactViewport();
-  const applyCopy = getApplyButtonCopy(compact);
-  const deepSeekApply = getDeepSeekApplyState(state.selectedTheme);
   panel.innerHTML = `
     <div class="panel-header">
       <div class="panel-title">Variants</div>
@@ -276,23 +324,7 @@ export function renderRightPanel() {
         <span class="detail-label">Accent color</span>
       </div>
       <div class="accent-dots" id="accent-dots"></div>
-      <button class="apply-codex-btn" id="apply-codex-btn" data-action="apply-codex" aria-describedby="import-hint">
-        <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span class="theme-copy-label" id="apply-btn-text" aria-live="polite">${applyCopy.defaultLabel}</span>
-      </button>
-      <div class="import-hint" id="import-hint">${applyCopy.hintText}</div>
-      ${deepSeekApply.eligible ? `
-        <button
-          class="apply-deepseek-btn"
-          id="apply-deepseek-btn"
-          data-action="${deepSeekApply.applied ? 'revert-deepseek' : 'apply-deepseek'}"
-          ${deepSeekApply.enabled ? '' : 'disabled'}
-          title="${deepSeekApply.hint}"
-          ${deepSeekApply.applied ? 'data-apply-state="applied"' : ''}
-        >${deepSeekApply.applied ? 'Remove from DeepSeek' : 'Apply to DeepSeek'}</button>
-        <div class="deepseek-apply-hint" id="deepseek-apply-hint">${deepSeekApply.hint}</div>
-      ` : ''}
+      ${renderWebsitePlatformAction(compact)}
     </div>
   `;
 
@@ -344,6 +376,7 @@ export function applyToCodex() {
   const hint = document.getElementById('import-hint');
   const compact = isCompactViewport();
   const applyCopy = getApplyButtonCopy(compact);
+  const defaultLabel = getWebsitePlatformAction('codex')?.ctaLabel || applyCopy.defaultLabel;
   const setButtonState = (label, copied) => {
     buttons.forEach((button) => {
       const textEl = button.querySelector('.theme-copy-label');
@@ -370,7 +403,7 @@ export function applyToCodex() {
     }
     showApplyHandoffMessage({ themeName: state.selectedTheme.name, variant: state.selectedVariant });
     setTimeout(() => {
-      setButtonState(applyCopy.defaultLabel, false);
+      setButtonState(defaultLabel, false);
       if (hint) hint.textContent = applyCopy.hintText;
     }, 2000);
   };
@@ -448,8 +481,8 @@ export function shareOnX() {
   const themeName = state.selectedTheme.name || 'a theme';
   const variant = state.selectedVariant === 'dark' ? 'dark' : 'light';
   const themeId = getWebsiteThemeId(state.selectedTheme.id || 'codex');
-  const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
-  const text = `"${themeName}" — my new Codex theme\n\n${shareUrl}`;
+  const shareUrl = `${window.location.origin}${buildContextualThemePath(themeId, variant)}`;
+  const text = `"${themeName}" — previewed for ${state.selectedPlatform.displayName} on DexThemes\n\n${shareUrl}`;
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
   grantUnlockAction('share_x');
   track('theme_shared', {
@@ -459,14 +492,15 @@ export function shareOnX() {
       surface: 'x',
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
+      platform_id: state.selectedPlatformId,
   });
 }
 
 export async function shareTheme(button) {
-  const themeName = state.selectedTheme.name || 'Codex theme';
+  const themeName = state.selectedTheme.name || 'DexThemes palette';
   const variant = state.selectedVariant === 'light' ? 'light' : 'dark';
   const themeId = getWebsiteThemeId(state.selectedTheme.id || 'codex');
-  const shareUrl = `${window.location.origin}${buildThemePath(themeId, variant)}`;
+  const shareUrl = `${window.location.origin}${buildContextualThemePath(themeId, variant)}`;
   const originalLabel = button?.textContent;
 
   const markCopied = () => {
@@ -479,6 +513,7 @@ export async function shareTheme(button) {
       surface: 'clipboard',
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
+      platform_id: state.selectedPlatformId,
     });
     if (button && originalLabel) {
       setTimeout(() => { button.textContent = originalLabel; }, 1800);
@@ -488,8 +523,8 @@ export async function shareTheme(button) {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: `${themeName} Codex theme`,
-        text: `Preview the ${variant} ${themeName} theme on DexThemes.`,
+        title: `${themeName} for ${state.selectedPlatform.displayName}`,
+        text: `Preview the ${variant} ${themeName} palette for ${state.selectedPlatform.displayName} on DexThemes.`,
         url: shareUrl,
       });
       track('theme_shared', {
@@ -499,6 +534,7 @@ export async function shareTheme(button) {
         surface: 'native',
         landing_source: state.landingContext.source,
         referral_channel: state.landingContext.referralChannel,
+        platform_id: state.selectedPlatformId,
       });
       return;
     } catch (error) {
@@ -590,15 +626,34 @@ const EASTER_EGGS = [
   { emoji: '🔥', text: 'The most popular Codex themes? Dracula, Catppuccin, and Tokyo Night — in that order.' },
 ];
 
+const GENERIC_EASTER_EGGS = [
+  { emoji: '🎨', text: 'DexThemes keeps one portable palette model, then adapts the handoff to the selected coding harness.' },
+  { emoji: '🌗', text: 'Light and dark stay paired so you can preview both modes before choosing a supported handoff.' },
+  { emoji: '✨', text: 'DexThemes is community-built and open source. Your palette can become part of the shared catalog.' },
+  { emoji: '🎲', text: 'Color me lucky can start a paired draft; you still review and approve every change.' },
+];
+
+const PLATFORM_EASTER_EGGS = Object.freeze({
+  deepseek: [
+    { emoji: '🌊', text: 'Inside the installed DexThemes plugin, Apply and Revert use DeepSeek Harness’s supported theme service.' },
+    { emoji: '🔌', text: 'The website can open the plugin setup page, while one-click Apply stays inside the running Harness UI.' },
+    { emoji: '🛡️', text: 'DexThemes theme tools do not need prompts, workspace contents, or credentials to preview a palette.' },
+  ],
+});
+
 let lastEasterEggIndex = -1;
 
 function getRandomEasterEgg() {
+  const namespace = state.selectedPlatform?.easterEggNamespace || 'codex';
+  const pool = namespace === 'codex'
+    ? EASTER_EGGS
+    : [...GENERIC_EASTER_EGGS, ...(PLATFORM_EASTER_EGGS[namespace] || [])];
   let idx;
   do {
-    idx = Math.floor(Math.random() * EASTER_EGGS.length);
-  } while (idx === lastEasterEggIndex && EASTER_EGGS.length > 1);
+    idx = Math.floor(Math.random() * pool.length);
+  } while (idx === lastEasterEggIndex && pool.length > 1);
   lastEasterEggIndex = idx;
-  return EASTER_EGGS[idx];
+  return pool[idx];
 }
 
 export function initWindowDots() {
@@ -695,7 +750,7 @@ export async function checkOnboarding() {
     return;
   }
 
-  if (window.innerWidth > 1024) {
+  if (window.innerWidth > 1024 && state.selectedPlatformId === 'codex') {
     const showcase = state.THEMES.find((theme) => theme.id === 'current-valentine') || state.THEMES.find((theme) => theme.category === 'dexthemes');
     if (showcase) {
       const actions = await import('./preview-actions.js');

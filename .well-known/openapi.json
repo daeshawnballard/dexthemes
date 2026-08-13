@@ -3,7 +3,7 @@
   "info": {
     "title": "DexThemes API",
     "description": "Browse, generate, and submit themes for Codex, and prepare paired themes for the supported DeepSeek Harness Cordis theme service. Browser users authenticate with the DexThemes session cookie after GitHub OAuth sign-in; agents and scripts use a dxt_ API key issued to a GitHub-authenticated account.",
-    "version": "1.4.0"
+    "version": "1.5.0"
   },
   "servers": [
     {
@@ -461,6 +461,46 @@
         }
       }
     },
+    "/api/generate-theme": {
+      "post": {
+        "operationId": "generateThemeFromDescription",
+        "summary": "Generate an unapproved paired theme draft",
+        "description": "DexThemes AI sends only a bounded theme description and platform constraint to its server-side gpt-5.6-luna integration. Returns a validated editable light/dark draft. It does not persist, publish, copy, apply, or submit the theme.",
+        "servers": [{ "url": "https://www.dexthemes.com" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["prompt", "platformId"],
+                "properties": {
+                  "prompt": { "type": "string", "minLength": 2, "maxLength": 800 },
+                  "platformId": { "type": "string", "description": "A prompt-capable ID from the DexThemes platform registry." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Private validated draft requiring explicit approval",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LunaThemeDraftResponse" }
+              }
+            }
+          },
+          "400": { "description": "Invalid bounded request" },
+          "413": { "description": "Request body exceeds the bounded limit" },
+          "422": { "description": "Model output failed canonical or platform validation" },
+          "429": { "description": "Instance abuse backstop rejected the request" },
+          "503": { "description": "Generation is unavailable; manual creation remains available" },
+          "504": { "description": "Generation timed out" }
+        }
+      }
+    },
     "/api/deepseek-theme": {
       "get": {
         "operationId": "prepareDeepSeekHarnessTheme",
@@ -682,6 +722,30 @@
         "properties": {
           "light": { "type": "string", "pattern": "^#[0-9A-F]{6}$" },
           "dark": { "type": "string", "pattern": "^#[0-9A-F]{6}$" }
+        }
+      },
+      "LunaThemeDraftResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["theme", "validation", "model", "requiresApproval", "persisted", "applied", "published"],
+        "properties": {
+          "theme": { "$ref": "#/components/schemas/Theme" },
+          "validation": {
+            "type": "object",
+            "required": ["valid", "errors", "warnings", "platformId", "adapterVersion"],
+            "properties": {
+              "valid": { "type": "boolean", "const": true },
+              "errors": { "type": "array", "items": { "type": "string" } },
+              "warnings": { "type": "array", "items": { "type": "string" } },
+              "platformId": { "type": "string" },
+              "adapterVersion": { "type": "string" }
+            }
+          },
+          "model": { "type": "string", "const": "gpt-5.6-luna" },
+          "requiresApproval": { "type": "boolean", "const": true },
+          "persisted": { "type": "boolean", "const": false },
+          "applied": { "type": "boolean", "const": false },
+          "published": { "type": "boolean", "const": false }
         }
       },
       "DeepSeekThemePayload": {

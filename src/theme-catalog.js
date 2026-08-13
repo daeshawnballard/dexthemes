@@ -3,6 +3,7 @@
 // ================================================
 
 import { presentThemeForWebsite } from '../shared/plugin-public-policy.js';
+import { DEEPSEEK_HARNESS_THEMES } from '../packages/deepseek-harness-plugin/src/deepseek-themes.js';
 
 // Default semantic colors used when a Codex theme doesn't define them
 export const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
@@ -175,6 +176,18 @@ export const THEMES = [
   },
 
   // ==============================
+  // DEEPSEEK HARNESS COLLECTION
+  // One canonical source is shared with the installed plugin package.
+  // ==============================
+  ...DEEPSEEK_HARNESS_THEMES.map((theme) => ({
+    ...theme,
+    codeThemeId: 'codex',
+    accents: [theme.dark?.accent, theme.light?.accent].filter(Boolean),
+    copies: 0,
+    dateAdded: '2026-08-13',
+  })),
+
+  // ==============================
   // DEXTHEMES (loaded from theme-data/dexthemes/*)
   // ==============================
   ...Object.values((window.DEXTHEMES_PACKS && window.DEXTHEMES_PACKS.dexthemes) || {})
@@ -189,6 +202,7 @@ export const THEMES = [
 
 export const CATEGORIES = [
   { id: 'official', name: 'Codex', icon: 'shield' },
+  { id: 'deepseek', name: 'DeepSeek', icon: 'waves' },
   {
     id: 'dexthemes',
     name: 'DexThemes',

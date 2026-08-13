@@ -20,7 +20,7 @@ return {
 
 The installed package retains that disposer. Applying another theme installs the next validated layer and disposes the previous one; **Revert** disposes the current layer and restores the Harness default. Package teardown also disposes its layer. Applying is user-initiated, and no DeepSeek Harness source change is required.
 
-The installed package has its own additive **DeepSeek** collection. Version 0.4 contains twelve paired, unofficial company-color tributes selected from documented DeepSeek integrations or deployments: Huawei, Tencent, Alibaba, Ant Group, ByteDance, Baidu, SiliconFlow, JD.com, China Telecom, China Mobile, HONOR, and Lenovo. Each entry links to the public evidence that motivated inclusion. The UI explicitly disclaims partnership and endorsement, and the package includes no company logos, fonts, or other brand assets.
+The installed package has its own additive **DeepSeek** collection. Version 0.6 contains a paired palette matched to Harness's published semantic defaults plus twelve unofficial company-color tributes selected from documented DeepSeek integrations or deployments: Huawei, Tencent, Alibaba, Ant Group, ByteDance, Baidu, SiliconFlow, JD.com, China Telecom, China Mobile, HONOR, and Lenovo. Each tribute links to the public evidence that motivated inclusion. The UI explicitly disclaims partnership and endorsement, and the package includes no company logos, fonts, or other brand assets.
 
 This collection is package-owned delivery metadata, not a duplicate theme database or a backend schema migration. Shared compatible DexThemes and community palettes continue to use the existing catalog. Codex-origin themes remain in the Codex channel and are filtered out of the DeepSeek plugin.
 
@@ -66,7 +66,7 @@ The generic Harness MCP connection remains anonymous. Device authorization requi
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.5.0
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
 
@@ -130,11 +130,14 @@ DeepSeek events use an additive namespace so existing Codex dashboards and store
 | `deepseek_theme_apply_started` | User clicks the connected Apply action | source surface, theme ID, variant, versions |
 | `deepseek_theme_apply_succeeded` | `overrideTokens` returns its disposer | source surface, theme ID, variant, versions |
 | `deepseek_theme_apply_failed` | The guarded service rejects or is unavailable | source surface, theme ID, variant, versions, bounded failure code |
+| `deepseek_theme_revert_started` | User initiates removal of the owned layer | source surface, theme ID, variant, versions |
+| `deepseek_theme_revert_succeeded` | The retained disposer removes the layer | source surface, theme ID, variant, versions |
+| `deepseek_theme_revert_failed` | The retained disposer rejects removal | source surface, theme ID, variant, versions, bounded failure code |
 | `deepseek_theme_reverted` | The retained disposer removes the layer | source surface, theme ID, variant, versions |
 
 Every event receives fixed `platform: deepseek_harness` and `mechanism: cordis_theme_override`. The remaining values are short allowlisted identifiers only. Do not send prompts, theme-generation prose, workspace contents or paths, file names, credentials, tokens, user-entered error messages, account identity, or other sensitive/free-form data. Raw exceptions are converted to a bounded failure code.
 
-The website source emits apply start/success/failure and revert only when a real guarded service has connected. The installed package now sends preview, apply start/success/failure, and revert through a package-owned Statsig client. It uses a fixed non-account user key, disables SDK storage and page-URL attachment, sanitizes every field, and shuts down with the plugin lifecycle. Installation events belong to a future registry/marketplace installer and are not fabricated on module load. The plugin version is allowlisted; an authoritative Harness version is omitted until Harness provides it to the client package.
+The website source emits apply start/success/failure and revert only when a real guarded service has connected. The installed package sends preview, apply start/success/failure, and revert attempt/success/failure through a package-owned Statsig client. The original `deepseek_theme_reverted` success event remains additive for dashboard compatibility. It uses a fixed non-account user key, disables SDK storage and page-URL attachment, sanitizes every field, and shuts down with the plugin lifecycle. Installation events belong to a future registry/marketplace installer and are not fabricated on module load. The plugin version is allowlisted; an authoritative Harness version is omitted until Harness provides it to the client package.
 
 ## Installed plugin information architecture
 
@@ -154,7 +157,7 @@ An upstream **Appearance** integration can be considered later if Harness expose
 
 - Existing Codex imports, analytics names, `themeCopyEvents`, stored theme records, and `codeThemeId` values are unchanged.
 - `use_deepseek_harness` is an additive unlock action. Its paired reward needs no data migration or backfill, but adding it intentionally increases visible achievement progress denominators.
-- The twelve company-color tributes currently ship only with the separate Harness package. Adding multi-harness website navigation and exposing these themes through the web catalog is a separate additive follow-up; no browser-origin detection or unsupported cross-tab control is claimed here.
+- The default palette and twelve company-color tributes share one checked-in source consumed by both the website and the separate Harness package. No browser-origin detection or unsupported cross-tab control is claimed.
 - `Harness default` is not a static DexThemes palette. Revert removes the owned override and returns control to Harness's native light/dark/system theme runtime.
 - New integration metadata is optional and additive for catalog consumers. Consumers that ignore unknown fields continue to work.
 - Single-variant themes and invalid color pairs fail closed for DeepSeek without changing their Codex eligibility.

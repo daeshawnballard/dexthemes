@@ -123,6 +123,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   min-height: 36px;
   padding: 8px 13px;
   border: 1px solid var(--border);
@@ -133,6 +134,12 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.15s, background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.theme-details-button svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
 }
 
 .theme-details-button:hover,

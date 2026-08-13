@@ -1,7 +1,7 @@
 import { tokensForHarnessTheme } from './catalog.js';
 
 export const INSTALLED_THEME_SOURCE = 'dexthemes-installed-plugin';
-export const PLUGIN_VERSION = '0.5.0';
+export const PLUGIN_VERSION = '0.6.0';
 
 function freezeState(state) {
   return Object.freeze({ ...state });
@@ -51,15 +51,16 @@ export function createHarnessThemeController(themeRuntime, {
     apply(theme) {
       const themeId = String(theme?.id || '');
       report('deepseek_theme_apply_started', themeId);
+      let nextDisposer = null;
       try {
         const tokens = tokensForHarnessTheme(theme);
-        const nextDisposer = themeRuntime.overrideTokens(source, tokens);
+        nextDisposer = themeRuntime.overrideTokens(source, tokens);
         if (typeof nextDisposer !== 'function') {
           throw new TypeError('Harness theme override did not return a disposer');
         }
         const previousDisposer = disposer;
-        disposer = nextDisposer;
         previousDisposer?.();
+        disposer = nextDisposer;
         publish({ activeThemeId: themeId, status: 'active', error: null });
         report('deepseek_theme_apply_succeeded', themeId);
         try {
@@ -69,10 +70,18 @@ export function createHarnessThemeController(themeRuntime, {
         }
         return true;
       } catch (error) {
+        if (nextDisposer && nextDisposer !== disposer) {
+          try {
+            nextDisposer();
+          } catch {
+            // The runtime owns the disposer implementation. Keep the previous
+            // known layer/state and expose a bounded failure to the user.
+          }
+        }
         publish({
           activeThemeId: state.activeThemeId,
           status: 'error',
-          error: error instanceof Error ? error.message : 'Theme application failed',
+          error: 'Theme application failed. The previous theme remains selected.',
         });
         report('deepseek_theme_apply_failed', themeId, 'runtime_contract_rejected');
         return false;
@@ -80,10 +89,25 @@ export function createHarnessThemeController(themeRuntime, {
     },
     revert() {
       const previousThemeId = state.activeThemeId;
-      disposer?.();
-      disposer = null;
-      publish({ activeThemeId: null, status: 'idle', error: null });
-      report('deepseek_theme_reverted', previousThemeId);
+      if (!disposer) return true;
+      report('deepseek_theme_revert_started', previousThemeId);
+      try {
+        disposer();
+        disposer = null;
+        publish({ activeThemeId: null, status: 'idle', error: null });
+        report('deepseek_theme_revert_succeeded', previousThemeId);
+        // Preserve the original success event for existing dashboards.
+        report('deepseek_theme_reverted', previousThemeId);
+        return true;
+      } catch {
+        publish({
+          activeThemeId: previousThemeId,
+          status: 'error',
+          error: 'Theme removal failed. Try Revert again.',
+        });
+        report('deepseek_theme_revert_failed', previousThemeId, 'runtime_contract_rejected');
+        return false;
+      }
     },
     destroy() {
       disposer?.();

@@ -104,8 +104,8 @@ export async function mobileSetView(view) {
     case 'preview':
       // Switch back from builder to preview mode if needed
       if (transition.shouldExitBuilder) {
-        const { toggleBuilderMode } = await loadBuilderModule();
-        toggleBuilderMode();
+        const { closeBuilder } = await loadBuilderModule();
+        closeBuilder({ source: 'mobile_preview' });
       }
       if (transition.mainActive) main.classList.add('mobile-active');
       if (transition.panelActive) panel.classList.add('mobile-active');
@@ -117,7 +117,9 @@ export async function mobileSetView(view) {
           if (applyBtn && !panel.querySelector('.mobile-onboarding-hint')) {
             const hint = document.createElement('div');
             hint.className = 'mobile-onboarding-hint';
-            hint.textContent = 'Tap Copy theme to save it to your clipboard';
+            hint.textContent = state.selectedPlatformId === 'codex'
+              ? 'Tap Copy for Codex to save it to your clipboard'
+              : state.selectedPlatform.actions.website.helperText;
             hint.onclick = () => { hint.remove(); localStorage.setItem('dexthemes-onboarded', '1'); };
             applyBtn.parentElement.insertBefore(hint, applyBtn.nextSibling);
           }
@@ -134,8 +136,8 @@ export async function mobileSetView(view) {
         }
       }
       if (transition.shouldEnterBuilder) {
-        const { toggleBuilderMode } = await loadBuilderModule();
-        toggleBuilderMode();
+        const { openBuilder } = await loadBuilderModule();
+        openBuilder({ source: 'mobile_nav' });
       }
       // Show preview window + panel — same structure as preview page
       if (transition.mainActive) main.classList.add('mobile-active');
@@ -237,7 +239,7 @@ export function initMobileResize() {
       const submitBtn = document.getElementById('submit-btn');
       if (submitBtn) submitBtn.style.display = '';
       const submitText = document.getElementById('submit-btn-text');
-      if (submitText) submitText.textContent = state.panelMode === 'builder' ? 'Back to browsing' : 'Create a theme';
+      if (submitText) submitText.textContent = state.panelMode === 'builder' ? 'Back to Browse' : 'Create Theme';
       const submitIcon = submitBtn?.querySelector('svg');
       if (submitIcon) {
         submitIcon.innerHTML = state.panelMode === 'builder'

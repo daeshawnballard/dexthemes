@@ -22,6 +22,7 @@ import { grantUnlockAction } from './unlock-api.js';
 import { initStatsig } from './analytics-client.js';
 import { trackEvent } from './analytics-client.js';
 import { clearDeferredInstallPrompt, setDeferredInstallPrompt } from './install-prompt.js';
+import { syncPlatformContext } from './platform-context.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -118,11 +119,13 @@ syncInstalledState();
 // Init
 // ================================================
 state.expandedCategories['dexthemes'] = true;
+state.expandedCategories[state.selectedTheme.category] = true;
 
 initDelegatedActions();
 renderFilterDropdown();
 renderSortDropdown();
 applyShellTheme(state.selectedTheme, state.selectedVariant);
+syncPlatformContext();
 initDropdownClose();
 primePreviewChatOnInteraction();
 
