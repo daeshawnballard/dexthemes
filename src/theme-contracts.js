@@ -12,6 +12,15 @@ export function themeHasVariant(theme, variant) {
   return getThemeVariants(theme).includes(variant);
 }
 
+export function getThemeAccentOptions(theme, variant) {
+  if (Array.isArray(theme?.accents) && theme.accents.length > 0) {
+    return theme.accents;
+  }
+
+  const paletteAccent = theme?.[variant]?.accent;
+  return paletteAccent ? [paletteAccent] : [];
+}
+
 export function isThemeVisibleInCatalog(theme, unlockedThemeIds = new Set()) {
   if (!theme?._hiddenUntilUnlocked) return true;
   return unlockedThemeIds.has(theme.id);
