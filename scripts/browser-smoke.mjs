@@ -441,6 +441,12 @@ try {
     assert.equal(await page.locator('.theme-details-hero h2').textContent(), await page.locator('#preview-theme-name').textContent());
     assert.equal(await page.locator('.theme-details-swatch').count(), 8);
     assert.equal(await page.locator('.theme-details-actions [data-action="share-theme"]').count(), 1);
+    const detailsApply = page.locator('.theme-details-button[data-action="apply-codex"]');
+    const [detailsLabelColor, detailsIconColor] = await Promise.all([
+      detailsApply.locator('.theme-copy-label').evaluate((element) => getComputedStyle(element).color),
+      detailsApply.locator('.apply-icon-bolt').evaluate((element) => getComputedStyle(element).color),
+    ]);
+    assert.equal(detailsLabelColor, detailsIconColor);
     await page.click('[data-action="show-theme-preview"]');
     await page.waitForFunction(() => document.getElementById('theme-details-view')?.hidden === true);
     assert.equal(await page.locator('#preview-window').isVisible(), true);
