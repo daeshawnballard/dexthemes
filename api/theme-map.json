@@ -1677,7 +1677,7 @@
   "deepseek-jd-cloud": {
     "id": "deepseek-jd-cloud",
     "sourceId": "deepseek-jd-cloud",
-    "name": "JD.com",
+    "name": "JD Cloud",
     "summary": null,
     "category": "deepseek",
     "subgroup": null,

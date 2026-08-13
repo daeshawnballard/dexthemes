@@ -361,7 +361,7 @@ Total public static themes: 130
 - Dark: surface=#071410 ink=#ECFFF8 accent=#21D99A
 - Light: surface=#F2FCF8 ink=#123027 accent=#087C59
 
-### JD.com
+### JD Cloud
 - ID: `deepseek-jd-cloud`
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-jd-cloud/dark

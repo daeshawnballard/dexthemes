@@ -62,7 +62,7 @@ test('bundled plugin catalog replaces Codex origins with a default and twelve pa
   assert.equal(BUNDLED_HARNESS_THEMES.some((theme) => theme.category === 'codex'), false);
   assert.deepEqual(
     BUNDLED_HARNESS_THEMES.filter((theme) => theme.category === 'deepseek').map((theme) => theme.name),
-    ['DeepSeek', 'Huawei', 'Tencent', 'Alibaba', 'Ant Group', 'ByteDance', 'Baidu', 'SiliconFlow', 'JD.com', 'China Telecom', 'China Mobile', 'HONOR', 'Lenovo'],
+    ['DeepSeek', 'Huawei', 'Tencent', 'Alibaba', 'Ant Group', 'ByteDance', 'Baidu', 'SiliconFlow', 'JD Cloud', 'China Telecom', 'China Mobile', 'HONOR', 'Lenovo'],
   );
   assert.ok(BUNDLED_HARNESS_THEMES.every((theme) => theme.dark && theme.light));
   assert.equal(BUNDLED_HARNESS_THEMES.some((theme) => theme.subgroup === 'unlockables'), false);
@@ -70,6 +70,8 @@ test('bundled plugin catalog replaces Codex origins with a default and twelve pa
   assert.ok(BUNDLED_HARNESS_THEMES
     .filter((theme) => theme.category === 'deepseek' && theme.unofficial)
     .every((theme) => theme.unofficial && theme.summary.startsWith('Unofficial') && theme.evidenceUrl.startsWith('https://')));
+  assert.ok(DEEPSEEK_HARNESS_THEMES.every((theme) => theme.summary.length <= 70));
+  assert.equal(DEEPSEEK_HARNESS_THEMES.find((theme) => theme.id === 'deepseek-jd-cloud')?.name, 'JD Cloud');
   assert.equal(normalizeHarnessTheme({ id: 'dark-only', name: 'Nope', dark: {} }), null);
   assert.equal(normalizeHarnessTheme({ ...DEEPSEEK_HARNESS_THEMES[0], category: 'codex' }), null);
   assert.equal(normalizeHarnessTheme({ ...DEEPSEEK_HARNESS_THEMES[0], subgroup: 'unlockables' }), null);
