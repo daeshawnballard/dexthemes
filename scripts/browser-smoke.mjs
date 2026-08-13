@@ -423,6 +423,20 @@ try {
     await page.close();
   });
 
+  await runTest('desktop accent control falls back to the active palette accent', async () => {
+    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?theme=xcode&variant=dark`);
+    const accentDot = page.locator('#accent-dots .accent-dot');
+    await accentDot.waitFor();
+    assert.equal(await accentDot.count(), 1);
+    assert.equal(await accentDot.getAttribute('title'), '#5482ff');
+    assert.equal(await accentDot.getAttribute('class'), 'accent-dot selected');
+
+    await page.click('#card-light');
+    await page.waitForFunction(() => document.querySelector('#accent-dots .accent-dot')?.getAttribute('title') === '#0e0eff');
+    assert.equal(await page.locator('#accent-dots .accent-dot').count(), 1);
+    await page.close();
+  });
+
   await runTest('desktop canonical path renders a complete public theme page', async () => {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
     const response = await page.goto(`${server.baseUrl}/github-dark/dark`, { waitUntil: 'networkidle' });

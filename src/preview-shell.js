@@ -28,6 +28,7 @@ import {
   classifyDeepSeekApplyFailure,
   trackDeepSeekEvent,
 } from './deepseek-analytics.js';
+import { getThemeAccentOptions } from './theme-contracts.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -104,10 +105,11 @@ async function showSystemMessage(message, className) {
 
 export function renderAccentDots() {
   const theme = state.selectedTheme;
-  if (!theme?.accents) return;
+  if (!theme) return;
+  const accents = getThemeAccentOptions(theme, state.selectedVariant);
   const populate = (container) => {
     if (!container) return;
-    const dots = theme.accents.flatMap((accent, idx) => {
+    const dots = accents.flatMap((accent, idx) => {
       if (!/^#[0-9A-Fa-f]{6}$/.test(accent)) return [];
       const dot = document.createElement('div');
       dot.className = `accent-dot${idx === state.selectedAccentIdx ? ' selected' : ''}`;

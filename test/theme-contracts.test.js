@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   getThemeVariants,
   themeHasVariant,
+  getThemeAccentOptions,
   buildThemeImportString,
 } from '../src/theme-contracts.js';
 import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
@@ -23,6 +24,21 @@ test('themeHasVariant checks membership correctly', () => {
   const theme = { dark: {} };
   assert.equal(themeHasVariant(theme, 'dark'), true);
   assert.equal(themeHasVariant(theme, 'light'), false);
+});
+
+test('getThemeAccentOptions preserves configured accent choices', () => {
+  const accents = ['#FF0000', '#00FF00'];
+  assert.deepEqual(getThemeAccentOptions({ accents, dark: { accent: '#0000FF' } }, 'dark'), accents);
+});
+
+test('getThemeAccentOptions falls back to the active palette accent', () => {
+  const theme = {
+    accents: [],
+    dark: { accent: '#FF5A5F' },
+    light: { accent: '#FF7A1A' },
+  };
+  assert.deepEqual(getThemeAccentOptions(theme, 'dark'), ['#FF5A5F']);
+  assert.deepEqual(getThemeAccentOptions(theme, 'light'), ['#FF7A1A']);
 });
 
 test('buildThemeImportString produces Codex import payload with variant-specific code theme', () => {
