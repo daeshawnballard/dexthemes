@@ -226,7 +226,7 @@
     gap: 5px;
   }
 
-  #preview-platform-select {
+  .preview-platform-trigger {
     max-width: 150px;
     height: 25px;
     font-size: 10px;
@@ -1142,7 +1142,7 @@
     justify-self: start;
   }
 
-  .preview-platform-context label {
+  .preview-platform-label {
     display: none;
   }
 
@@ -1150,7 +1150,7 @@
     max-width: calc(100% - 72px);
   }
 
-  #preview-platform-select {
+  .preview-platform-trigger {
     max-width: 138px;
   }
   .shell {

@@ -21,6 +21,7 @@ function setMeta(selector, content) {
 export function getPlatformPreviewCopy(platformId = DEFAULT_PLATFORM_ID) {
   const platform = getPlatform(platformId);
   return Object.freeze({
+    brandDescriptor: `Create & Discover\nThemes for ${platform.shortName}`,
     descriptor: platform.descriptorCopy,
     affiliation: platform.footerAffiliationCopy,
     capability: platform.capabilityMessage,
@@ -44,22 +45,90 @@ export function getWebsitePlatformAction(platformId = state.selectedPlatformId) 
   return getPlatformAction(platformId, 'website');
 }
 
-function syncPlatformSelect() {
-  const select = document.getElementById('preview-platform-select');
-  if (!select) return;
+function bindPlatformPickerEvents(picker) {
+  if (picker.dataset.eventsBound === 'true') return;
+  picker.dataset.eventsBound = 'true';
+
+  const trigger = document.getElementById('preview-platform-trigger');
+  const menu = document.getElementById('preview-platform-menu');
+
+  picker.addEventListener('toggle', () => {
+    trigger?.setAttribute('aria-expanded', String(picker.open));
+    if (picker.open) {
+      requestAnimationFrame(() => {
+        menu?.querySelector('[role="menuitemradio"][aria-checked="true"]')?.focus({ preventScroll: true });
+      });
+    }
+  });
+
+  menu?.addEventListener('keydown', (event) => {
+    const items = [...menu.querySelectorAll('[role="menuitemradio"]')];
+    const currentIndex = items.indexOf(document.activeElement);
+    let nextIndex = null;
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+      nextIndex = (currentIndex + 1 + items.length) % items.length;
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+      nextIndex = (currentIndex - 1 + items.length) % items.length;
+    } else if (event.key === 'Home') {
+      nextIndex = 0;
+    } else if (event.key === 'End') {
+      nextIndex = items.length - 1;
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      picker.open = false;
+      trigger?.focus({ preventScroll: true });
+      return;
+    }
+
+    if (nextIndex !== null && items[nextIndex]) {
+      event.preventDefault();
+      items[nextIndex].focus({ preventScroll: true });
+    }
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (picker.open && !picker.contains(event.target)) picker.open = false;
+  });
+}
+
+function syncPlatformPicker() {
+  const picker = document.getElementById('preview-platform-picker');
+  const trigger = document.getElementById('preview-platform-trigger');
+  const current = document.getElementById('preview-platform-current');
+  const menu = document.getElementById('preview-platform-menu');
+  if (!picker || !trigger || !current || !menu) return;
 
   const expectedIds = PLATFORM_IDS.join(',');
-  if (select.dataset.platformIds !== expectedIds) {
-    select.replaceChildren(...PLATFORM_IDS.map((id) => {
+  if (menu.dataset.platformIds !== expectedIds) {
+    menu.replaceChildren(...PLATFORM_IDS.map((id) => {
       const platform = getPlatform(id);
-      const option = document.createElement('option');
-      option.value = platform.id;
-      option.textContent = platform.shortName;
-      return option;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.action = 'set-platform';
+      button.dataset.platformId = platform.id;
+      button.setAttribute('role', 'menuitemradio');
+
+      const label = document.createElement('span');
+      label.textContent = platform.shortName;
+      const check = document.createElement('span');
+      check.className = 'preview-platform-check';
+      check.setAttribute('aria-hidden', 'true');
+      check.textContent = '✓';
+      button.append(label, check);
+      return button;
     }));
-    select.dataset.platformIds = expectedIds;
+    menu.dataset.platformIds = expectedIds;
   }
-  select.value = state.selectedPlatformId;
+
+  const platform = state.selectedPlatform;
+  current.textContent = platform.shortName;
+  trigger.dataset.platformId = platform.id;
+  trigger.setAttribute('aria-label', `Preview product: ${platform.shortName}`);
+  menu.querySelectorAll('[role="menuitemradio"]').forEach((button) => {
+    button.setAttribute('aria-checked', String(button.dataset.platformId === platform.id));
+  });
+  bindPlatformPickerEvents(picker);
 }
 
 function syncPlatformSetupMessage() {
@@ -98,8 +167,8 @@ export function syncPlatformContext() {
   const root = document.documentElement;
   root.dataset.platform = platform.id;
 
-  syncPlatformSelect();
-  setText('platform-descriptor', copy.descriptor);
+  syncPlatformPicker();
+  setText('platform-descriptor', copy.brandDescriptor);
   setText('platform-affiliation', copy.affiliation);
   setText('mobile-platform-affiliation', copy.affiliation);
   syncPlatformSetupMessage();
