@@ -16,6 +16,7 @@ import type * as http from "../http.js";
 import type * as http_auth_routes from "../http_auth_routes.js";
 import type * as http_color_me_lucky_routes from "../http_color_me_lucky_routes.js";
 import type * as http_helpers from "../http_helpers.js";
+import type * as http_luna_rate_limit_routes from "../http_luna_rate_limit_routes.js";
 import type * as http_plugin_routes from "../http_plugin_routes.js";
 import type * as http_theme_routes from "../http_theme_routes.js";
 import type * as http_unlock_routes from "../http_unlock_routes.js";
@@ -49,6 +50,7 @@ declare const fullApi: ApiFromModules<{
   http_auth_routes: typeof http_auth_routes;
   http_color_me_lucky_routes: typeof http_color_me_lucky_routes;
   http_helpers: typeof http_helpers;
+  http_luna_rate_limit_routes: typeof http_luna_rate_limit_routes;
   http_plugin_routes: typeof http_plugin_routes;
   http_theme_routes: typeof http_theme_routes;
   http_unlock_routes: typeof http_unlock_routes;
