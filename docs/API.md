@@ -10,6 +10,8 @@ Use the website for public browsing and discovery docs. Use the direct Convex ba
 ## Public discovery surface
 
 - Theme catalog: `https://www.dexthemes.com/api/themes`
+- DeepSeek Harness apply-preparation payload: `https://www.dexthemes.com/api/deepseek-theme?theme={id}`
+- DeepSeek Harness restricted MCP profile: `https://www.dexthemes.com/api/deepseek-mcp`
 - Category routes:
   - `https://acrobatic-corgi-867.convex.site/themes`
   - `https://acrobatic-corgi-867.convex.site/themes/community`
@@ -31,6 +33,25 @@ Use the website for public browsing and discovery docs. Use the direct Convex ba
 - Localhost/dev-only OAuth bootstrap may still pass a temporary session token through the callback hash so the browser can convert it into the local session mode. That is not the intended public production contract.
 
 Account identity is derived by the server. No authenticated endpoint or MCP tool accepts `userId`, `ownerId`, author identity, an email address, or a token in its JSON arguments.
+
+## DeepSeek Harness theme payload
+
+```http
+GET /api/deepseek-theme?theme={public-theme-id}
+```
+
+This public read returns a validated client-only Cordis Package definition for themes with both dark and light palettes. It uses Harness `theme.overrideTokens(source, tokens)` with `{ light, dark }` string pairs and declares `cordis_stop` as the reversible removal path. It does not return a clipboard import, mutate Harness configuration, or claim font support.
+
+The endpoint is an agentic apply-preparation artifact, not an external Harness installation API. In the inspected Harness checkout, `cordis_define` and `cordis_run` are in-process model tools without a public wire face. Human one-click apply lives in the separately installed `@dexthemes/deepseek-harness-plugin` package under **Settings → Plugins → DexThemes**; the standalone website cannot control an unrelated Harness tab. See [DeepSeek Harness integration](DEEPSEEK-HARNESS.md) for the exact boundary.
+
+The installed package connects Harness to `/api/deepseek-mcp`, a fail-closed anonymous profile containing only `search`, `fetch`, `draft_theme`, `color_me_lucky`, `validate_theme`, `render_theme_preview`, `prepare_deepseek_apply`, and `get_leaderboard`. It excludes the Codex apply, OAuth account, submission, publication, and feedback tools because Harness's generic MCP bridge does not enforce their security/app metadata. Harness receives complete JSON in text blocks so drafts and apply payloads remain model-visible.
+
+Responses:
+
+- `200`: a validated `dexthemes-deepseek-theme-v1` payload
+- `400`: missing `theme` query parameter
+- `404`: unknown or unavailable theme
+- `422`: the theme lacks a valid light/dark pair
 
 ---
 
@@ -211,6 +232,17 @@ DexThemes applies IP and user-based rate limiting on sensitive routes. Public re
 - OAuth `themes:write`: confirmed public theme submission
 
 `submit_theme` is the only plugin tool that creates public state. It is app-only and accepts a short-lived confirmation token bound to the exact reviewed payload and current OAuth token; only the review app receives that token in model-hidden metadata. It re-validates server-side, publishes under the GitHub identity derived from the signed token, and cannot edit or delete another theme.
+
+## DeepSeek Harness account milestone
+
+The installed Harness settings package uses these bearer-only, wildcard-CORS routes; none accepts cookies or caller-supplied identity:
+
+- `POST /plugin/deepseek-harness/auth/start` requests a bounded OAuth device/user code through the configured public Native Application.
+- `POST /plugin/deepseek-harness/auth/poll` accepts only the opaque device code, proxies the standard device grant, and returns a short-lived `themes:read` access token after authorization.
+- `GET /plugin/me/stats` and `GET /plugin/me/unlocks` return the verified account's sanitized creator data and reward themes.
+- `POST /plugin/deepseek-harness/use` accepts no action, user, platform, prompt, workspace, or theme payload and idempotently awards `use_deepseek_harness` (`Harnessed`, reward `Deep Current`) to the bearer identity.
+
+The plugin keeps the access and device tokens in memory only, requests no refresh/offline scope, and clears them on disconnect or unload. The restricted Harness MCP profile stays anonymous; anonymous applies do not award the milestone.
 
 ## License
 

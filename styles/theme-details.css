@@ -151,6 +151,12 @@
   color: var(--text-primary);
 }
 
+.theme-details-button--deepseek {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-raised));
+  color: var(--text-primary);
+}
+
 .theme-details-palette,
 .theme-details-facts {
   padding: clamp(24px, 3vw, 38px) clamp(28px, 4vw, 52px);
@@ -293,6 +299,13 @@
   gap: 3px;
 }
 
+.theme-details-footer .theme-details-apply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .theme-details-footer strong {
   font-size: 12px;
 }
@@ -358,5 +371,9 @@
   .theme-details-footer {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .theme-details-footer .theme-details-apply-actions {
+    justify-content: flex-start;
   }
 }

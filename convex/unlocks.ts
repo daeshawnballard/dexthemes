@@ -32,6 +32,7 @@ export const UNLOCK_MAP: Record<string, { themeId: string; themeName: string }> 
   complete_pair: { themeId: "yin-yang", themeName: "Yin & Yang" },
   use_plugin: { themeId: "plugged-in", themeName: "Plugged In" },
   create_theme_with_plugin: { themeId: "voiceprint", themeName: "Voiceprint" },
+  use_deepseek_harness: { themeId: "deep-current", themeName: "Deep Current" },
   openai_employee: { themeId: "builder-of-agi", themeName: "Human Spark" },
   theme_of_day: { themeId: "golden-hour", themeName: "Golden Hour" },
   theme_of_week: { themeId: "headliner", themeName: "Headliner" },
@@ -70,6 +71,18 @@ export async function grantUnlockForUser(
 
   return { unlocked: true, themeId: mapping.themeId, themeName: mapping.themeName };
 }
+
+export const recordDeepSeekHarnessUse = internalMutation({
+  args: { authToken: v.string() },
+  handler: async (ctx, args) => {
+    const user = await getUserByAuthToken(ctx, args.authToken);
+    if (!user) throw new Error("Unauthorized");
+    return {
+      action: "use_deepseek_harness",
+      ...(await grantUnlockForUser(ctx, user._id, "use_deepseek_harness")),
+    };
+  },
+});
 
 export async function syncOpenAIEmployeeUnlock(
   ctx: any,

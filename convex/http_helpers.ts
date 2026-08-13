@@ -42,6 +42,35 @@ export function corsResponse(origin?: string | null, status = 204) {
   return new Response(null, { status, headers: corsHeaders(origin) });
 }
 
+/**
+ * Bearer-only plugin routes are callable from installed clients on arbitrary
+ * localhost ports. They never use cookies, so wildcard CORS is safe and keeps
+ * the OAuth access token as the only authority.
+ */
+export function pluginCorsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Authorization, Content-Type",
+    "Access-Control-Max-Age": "86400",
+  };
+}
+
+export function pluginCorsResponse(status = 204) {
+  return new Response(null, { status, headers: pluginCorsHeaders() });
+}
+
+export function pluginJsonResponse(data: any, status = 200, extraHeaders: Record<string, string> = {}) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      "Content-Type": "application/json",
+      ...pluginCorsHeaders(),
+      ...extraHeaders,
+    },
+  });
+}
+
 export function jsonResponse(data: any, origin?: string | null, status = 200, extraHeaders: Record<string, string> = {}) {
   return new Response(JSON.stringify(data), {
     status,
@@ -169,6 +198,16 @@ export const optionsHandler = httpAction(async (_, request) => {
 export function registerOptionsRoutes(http: DexHttpRouter, paths: string[]) {
   for (const path of paths) {
     http.route({ path, method: "OPTIONS", handler: optionsHandler });
+  }
+}
+
+export function registerPluginOptionsRoutes(http: DexHttpRouter, paths: string[]) {
+  for (const path of paths) {
+    http.route({
+      path,
+      method: "OPTIONS",
+      handler: httpAction(async () => pluginCorsResponse()),
+    });
   }
 }
 

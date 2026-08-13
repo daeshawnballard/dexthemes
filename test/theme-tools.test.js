@@ -1,12 +1,29 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  colorMeLucky,
   draftTheme,
   getUnlockedThemeDetails,
   prepareGitHubIssue,
+  prepareDeepSeekThemeApply,
   prepareThemeApply,
   validateTheme,
 } from '../server/theme-tools.js';
+
+test('Color Me Lucky produces a deterministic valid paired draft when seeded', () => {
+  const first = colorMeLucky({ seed: 'deepseek-test' });
+  const second = colorMeLucky({ seed: 'deepseek-test' });
+  assert.deepEqual(first, second);
+  assert.equal(first.lucky, true);
+  assert.ok(first.theme.dark && first.theme.light);
+  assert.equal(validateTheme(first.theme).valid, true);
+  assert.equal(first.needsNameConfirmation, true);
+
+  const named = colorMeLucky({ seed: 'deepseek-test', name: 'My Current' });
+  assert.equal(named.theme.name, 'My Current');
+  assert.equal(named.usedCustomName, true);
+  assert.equal(named.needsNameConfirmation, false);
+});
 
 test('draftTheme preserves a user-selected custom name', () => {
   const draft = draftTheme({ inspiration: 'Argentina football at night', name: 'Argentina Afterglow' });
@@ -48,6 +65,16 @@ test('prepareThemeApply returns a valid Codex import payload', () => {
   const payload = JSON.parse(apply.importString.slice('codex-theme-v1:'.length));
   assert.equal(payload.variant, 'dark');
   assert.equal(payload.theme.accent, theme.dark.accent);
+});
+
+test('prepareDeepSeekThemeApply returns a reversible Cordis payload without changing Codex apply', () => {
+  const { theme } = draftTheme({ inspiration: 'focused indigo', name: 'Focus Signal' });
+  const apply = prepareDeepSeekThemeApply(theme);
+  assert.equal(apply.target, 'deepseek-harness');
+  assert.equal(apply.activation.tool, 'cordis_run');
+  assert.equal(apply.reversal.tool, 'cordis_stop');
+  assert.match(apply.cordisDefine.code.client, /theme\.overrideTokens/);
+  assert.equal('importString' in apply, false);
 });
 
 test('unlocked theme details can be exposed only from authenticated achievement tools', () => {

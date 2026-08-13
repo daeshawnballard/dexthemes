@@ -202,6 +202,7 @@ export async function showAchievements() {
     complete_pair: '☯️',
     use_plugin:    '🔌',
     create_theme_with_plugin: '🎙️',
+    use_deepseek_harness: '🌊',
     openai_employee: '🧠',
     theme_of_day: '☀️',
     theme_of_week: '⭐',

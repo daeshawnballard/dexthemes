@@ -38,6 +38,8 @@ The implemented DexThemes MCP app adds two plugin milestones:
 - The first authenticated plugin use can unlock **Plugged In**.
 - Creating and publishing a theme through the plugin can unlock **Voiceprint**.
 
+The additive **Harnessed** milestone has a paired **Deep Current** reward and an OAuth-protected DeepSeek Harness completion route. The installed settings plugin uses an optional OAuth device connection that keeps the access token in memory and awards the milestone only after a successful connected apply. The generic Harness MCP connector remains anonymous, and anonymous theme applies never claim the reward.
+
 An optional verified eligibility claim can unlock the **Human Spark** reward. The implementation stores the eligibility boolean rather than retaining or returning the work email used to establish it. The palette is original, and the achievement is not an OpenAI endorsement.
 
 Plugin rewards depend on a functioning OAuth connection and the required scope. Anonymous theme discovery, drafting, validation, previews, apply handoff, and leaderboards do not create these account records by themselves.

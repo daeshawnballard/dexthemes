@@ -1170,6 +1170,39 @@ registerDexThemesPack('supporter', [
     accents: ['#EF62D6', '#62D9F1', '#B834A0'],
   }),
 
+  // ── Deep Current ─────────────────────────────────────────────────────
+  // Awarded only after authenticated DeepSeek Harness use can be verified.
+  createDexTheme({
+    id: 'deep-current',
+    name: 'Deep Current',
+    dateAdded: '2026-08-13',
+    copies: 0,
+    _summary: 'Abyssal cobalt and clear cyan for creators shaping their workspace through DeepSeek Harness.',
+    dark: {
+      surface: '#07111E',
+      ink: '#ECF7FF',
+      accent: '#2E8BFF',
+      contrast: 67,
+      diffAdded: '#35CF91',
+      diffRemoved: '#FF6378',
+      skill: '#50D5E8',
+      sidebar: '#040B14',
+      codeBg: '#02070D',
+    },
+    light: {
+      surface: '#F3F9FF',
+      ink: '#14283B',
+      accent: '#0967C7',
+      contrast: 49,
+      diffAdded: '#137E50',
+      diffRemoved: '#BD3048',
+      skill: '#087D91',
+      sidebar: '#E7F1FA',
+      codeBg: '#EAF4FC',
+    },
+    accents: ['#2E8BFF', '#50D5E8', '#0967C7'],
+  }),
+
   // ── Human Spark ───────────────────────────────────────────────────────
   // Original, non-logo palette for verified @openai.com GitHub identities.
   createDexTheme({

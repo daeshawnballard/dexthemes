@@ -57,7 +57,10 @@ async function verifyAuthorization(req) {
   };
 }
 
-export default async function handler(req, res) {
+export async function handleMcpRequest(req, res, {
+  profile = "full",
+  allowAuthorization = true,
+} = {}) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, MCP-Protocol-Version, MCP-Session-Id, Last-Event-ID");
@@ -72,14 +75,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    req.auth = await verifyAuthorization(req);
+    req.auth = allowAuthorization ? await verifyAuthorization(req) : undefined;
   } catch {
     return sendJson(res, 401, { error: "invalid_token" }, {
       "WWW-Authenticate": `Bearer resource_metadata="https://www.dexthemes.com/.well-known/oauth-protected-resource", error="invalid_token", error_description="The DexThemes access token could not be verified"`,
     });
   }
 
-  const server = createDexThemesMcpServer();
+  const server = createDexThemesMcpServer({ profile });
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -94,4 +97,8 @@ export default async function handler(req, res) {
     await transport.close().catch(() => {});
     await server.close().catch(() => {});
   }
+}
+
+export default async function handler(req, res) {
+  return handleMcpRequest(req, res);
 }

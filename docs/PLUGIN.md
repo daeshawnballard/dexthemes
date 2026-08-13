@@ -9,6 +9,7 @@ DexThemes is packaged as an MCP-backed interactive app plus a bundled Codex skil
 - Preserve a user-supplied custom name; if no name is supplied, suggest one and require a naming decision before publication.
 - Validate theme IDs, names, summaries, color fields, contrast, protected palettes, and original public-facing wording.
 - Render dark/light previews as full Codex workspace mockups, not color swatches alone, and prepare the exact `codex-theme-v1` import string.
+- Prepare paired themes for DeepSeek Harness as validated, client-only Cordis payloads using the guarded public theme service; stopping the Plugin reverses the token layer.
 - Keep search, leaderboard selection, reward-theme inspection, and created-theme comparison inside the conversation.
 - Show daily, weekly, monthly, and all-time public leaderboards plus an authenticated creator dashboard with ranks, win history, unlocks, and achievement reward previews.
 - Publish a confirmed community theme under the verified GitHub identity.
@@ -83,6 +84,8 @@ Every qualifying daily or weekly result is stored in creator history, including 
 ## Apply handoff
 
 The current Codex desktop build supports `codex-theme-v1` imports and the generic `codex://settings` route, but does not expose a documented Appearance deep link or public silent theme-apply API. The app therefore requests clipboard-write permission, feature-detects clipboard support, and uses an explicit **Copy theme** control with helper text explaining that Codex Settings opens after the copy. A successful copy is confirmed as **Theme copied to clipboard**. If clipboard access is blocked, the exact import string remains selectable and a separate Settings button is offered. The user then chooses **Appearance → Import theme** and pastes; the plugin never claims that a theme was silently applied.
+
+DeepSeek Harness is a separate channel. `prepare_deepseek_apply` returns an exact `cordis_define` client Package for a paired theme. Inside a running Harness integration, the supported guarded theme service applies the tokens immediately and its retained disposer or `cordis_stop` removes them. Payload preparation is not installation proof, and the standalone website cannot contact an unrelated local Harness instance. See [DeepSeek Harness integration](DEEPSEEK-HARNESS.md) for the compatibility, analytics, privacy, and distribution boundaries.
 
 ## Publication safety
 

@@ -2,14 +2,25 @@
   "openapi": "3.1.0",
   "info": {
     "title": "DexThemes API",
-    "description": "Browse, generate, and submit themes for Codex. Browser users authenticate with the DexThemes session cookie after GitHub OAuth sign-in; agents and scripts use a dxt_ API key issued to a GitHub-authenticated account.",
-    "version": "1.2.0"
+    "description": "Browse, generate, and submit themes for Codex, and prepare paired themes for the supported DeepSeek Harness Cordis theme service. Browser users authenticate with the DexThemes session cookie after GitHub OAuth sign-in; agents and scripts use a dxt_ API key issued to a GitHub-authenticated account.",
+    "version": "1.4.0"
   },
   "servers": [
     {
       "url": "https://acrobatic-corgi-867.convex.site"
     }
   ],
+  "x-dexthemes-mcp-profiles": {
+    "full": {
+      "url": "https://www.dexthemes.com/api/mcp",
+      "description": "Full MCP App surface with anonymous, OAuth account, and app-only tools."
+    },
+    "deepseek_harness": {
+      "url": "https://www.dexthemes.com/api/deepseek-mcp",
+      "description": "Anonymous read-only profile for Harness's generic MCP bridge.",
+      "tools": ["search", "fetch", "draft_theme", "color_me_lucky", "validate_theme", "render_theme_preview", "prepare_deepseek_apply", "get_leaderboard"]
+    }
+  },
   "paths": {
     "/themes": {
       "get": {
@@ -450,6 +461,36 @@
         }
       }
     },
+    "/api/deepseek-theme": {
+      "get": {
+        "operationId": "prepareDeepSeekHarnessTheme",
+        "summary": "Prepare a paired theme for DeepSeek Harness",
+        "description": "Returns validated light/dark semantic token pairs plus a client-only cordis_define input. This is a distribution artifact, not an external Harness installer; the running Harness must already have a supported Cordis execution surface. cordis_stop is the reversible removal path and fonts are unsupported.",
+        "servers": [{ "url": "https://www.dexthemes.com" }],
+        "parameters": [
+          {
+            "name": "theme",
+            "in": "query",
+            "required": true,
+            "description": "Public DexThemes theme ID with both light and dark variants",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated reversible Cordis theme payload",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DeepSeekThemePayload" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "description": "Theme not found" },
+          "422": { "description": "Theme is not eligible because it lacks a valid light/dark pair" }
+        }
+      }
+    },
     "/api/color-me-lucky": {
       "get": {
         "operationId": "generateRandomTheme",
@@ -632,6 +673,68 @@
           },
           "copies": { "type": "integer" },
           "dateAdded": { "type": "string", "format": "date" }
+        }
+      },
+      "DeepSeekThemeTokenPair": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["light", "dark"],
+        "properties": {
+          "light": { "type": "string", "pattern": "^#[0-9A-F]{6}$" },
+          "dark": { "type": "string", "pattern": "^#[0-9A-F]{6}$" }
+        }
+      },
+      "DeepSeekThemePayload": {
+        "type": "object",
+        "required": ["schemaVersion", "target", "theme", "tokens", "cordisDefine", "activation", "reversal", "fonts"],
+        "properties": {
+          "schemaVersion": { "type": "string", "const": "dexthemes-deepseek-theme-v1" },
+          "target": { "type": "string", "const": "deepseek-harness" },
+          "theme": {
+            "type": "object",
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" }
+            }
+          },
+          "tokens": {
+            "type": "object",
+            "description": "Exactly the advertised Harness semantic token names, each containing a light/dark pair.",
+            "additionalProperties": { "$ref": "#/components/schemas/DeepSeekThemeTokenPair" }
+          },
+          "cordisDefine": {
+            "type": "object",
+            "required": ["plugin", "name", "purpose", "code"],
+            "properties": {
+              "plugin": {
+                "type": "object",
+                "properties": {
+                  "kind": { "type": "string", "const": "new" },
+                  "idPrefix": { "type": "string", "const": "dext" }
+                }
+              },
+              "name": { "type": "string" },
+              "purpose": { "type": "string" },
+              "code": {
+                "type": "object",
+                "required": ["client"],
+                "properties": { "client": { "type": "string" } }
+              }
+            }
+          },
+          "activation": {
+            "type": "object",
+            "properties": { "tool": { "type": "string", "const": "cordis_run" } }
+          },
+          "reversal": {
+            "type": "object",
+            "properties": { "tool": { "type": "string", "const": "cordis_stop" } }
+          },
+          "fonts": {
+            "type": "object",
+            "properties": { "supported": { "type": "boolean", "const": false } }
+          }
         }
       },
       "User": {

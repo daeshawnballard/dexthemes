@@ -56,3 +56,12 @@ test('daily and weekly winner achievements unlock distinct one-time reward theme
   assert.ok(dailyTheme?.dark && dailyTheme?.light);
   assert.ok(weeklyTheme?.dark && weeklyTheme?.light);
 });
+
+test('DeepSeek Harness achievement has a paired protected reward and an explicit identity-bridge gate', () => {
+  const unlock = UNLOCK_THEMES.use_deepseek_harness;
+  const theme = STATIC_THEME_CATALOG.find((candidate) => candidate.id === unlock.themeId);
+  assert.equal(unlock.achievement, 'Harnessed');
+  assert.equal(unlock.name, 'Deep Current');
+  assert.equal(unlock.availability, 'device_oauth_required');
+  assert.ok(theme?.dark && theme?.light);
+});

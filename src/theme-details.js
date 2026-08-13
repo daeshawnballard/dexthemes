@@ -4,6 +4,11 @@ import { isThemeLockedForUser } from './unlocks.js';
 import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
 import { buildThemePath } from './theme-url.js';
 import { trackEvent } from './analytics-client.js';
+import { getDeepSeekApplyState } from './deepseek-handoff.js';
+import {
+  DEEPSEEK_ANALYTICS_EVENTS,
+  trackDeepSeekEvent,
+} from './deepseek-analytics.js';
 
 const COLOR_ROWS = [
   ['Surface', 'surface'],
@@ -77,6 +82,7 @@ export function renderThemeDetails() {
     || `${theme.name} pairs ${variant.surface} surfaces with ${accent} accents for a focused Codex workspace.`,
   ).trim();
   const normalizedPalette = { ...variant, accent };
+  const deepSeekApply = getDeepSeekApplyState(theme);
 
   container.innerHTML = `
     <article class="theme-details-shell">
@@ -123,6 +129,7 @@ export function renderThemeDetails() {
           <div><dt>Source</dt><dd>${escapeHtml(source.detail)}</dd></div>
           <div><dt>Available</dt><dd>${escapeHtml(availableVariants.join(' + '))}</dd></div>
           <div><dt>Import</dt><dd>Copy, then approve in Codex</dd></div>
+          <div><dt>DeepSeek</dt><dd>${deepSeekApply.eligible ? 'Live Harness token override' : 'Needs dark + light palettes'}</dd></div>
           <div><dt>Affiliation</dt><dd>Community-built, not OpenAI</dd></div>
         </dl>
         <div class="theme-details-answer-grid">
@@ -134,7 +141,19 @@ export function renderThemeDetails() {
 
       <footer class="theme-details-footer">
         <div><strong>Ready to use it?</strong><span>Copies this theme to your clipboard. Paste it in Codex → Appearance → Import theme.</span></div>
-        <button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex"><span class="theme-copy-label" aria-live="polite">Copy theme</span></button>
+        <div class="theme-details-apply-actions">
+          <button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex"><span class="theme-copy-label" aria-live="polite">Copy theme</span></button>
+          ${deepSeekApply.eligible ? `
+            <button
+              class="theme-details-button theme-details-button--deepseek"
+              type="button"
+              data-action="${deepSeekApply.applied ? 'revert-deepseek' : 'apply-deepseek'}"
+              ${deepSeekApply.enabled ? '' : 'disabled'}
+              title="${escapeHtml(deepSeekApply.hint)}"
+              ${deepSeekApply.applied ? 'data-apply-state="applied"' : ''}
+            >${deepSeekApply.applied ? 'Remove from DeepSeek' : 'Apply to DeepSeek'}</button>
+          ` : ''}
+        </div>
       </footer>
     </article>
   `;
@@ -203,6 +222,13 @@ export function showThemeDetails({ track = true } = {}) {
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
     });
+    if (getDeepSeekApplyState(state.selectedTheme).eligible) {
+      void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.PREVIEWED, {
+        sourceSurface: 'website_theme_details',
+        themeId: state.selectedTheme?.id,
+        variant: state.selectedVariant,
+      });
+    }
   }
 }
 

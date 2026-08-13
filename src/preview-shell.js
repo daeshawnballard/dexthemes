@@ -14,6 +14,16 @@ import { trackEvent } from './analytics-client.js';
 import { authFetch } from './session-auth.js';
 import { buildThemePath } from './theme-url.js';
 import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
+import {
+  getDeepSeekApplyState,
+  handleDeepSeekApplyClick,
+  resetDeepSeekTheme,
+} from './deepseek-handoff.js';
+import {
+  DEEPSEEK_ANALYTICS_EVENTS,
+  classifyDeepSeekApplyFailure,
+  trackDeepSeekEvent,
+} from './deepseek-analytics.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -235,6 +245,7 @@ export function renderRightPanel() {
 
   const compact = isCompactViewport();
   const applyCopy = getApplyButtonCopy(compact);
+  const deepSeekApply = getDeepSeekApplyState(state.selectedTheme);
   panel.innerHTML = `
     <div class="panel-header">
       <div class="panel-title">Variants</div>
@@ -271,6 +282,17 @@ export function renderRightPanel() {
         <span class="theme-copy-label" id="apply-btn-text" aria-live="polite">${applyCopy.defaultLabel}</span>
       </button>
       <div class="import-hint" id="import-hint">${applyCopy.hintText}</div>
+      ${deepSeekApply.eligible ? `
+        <button
+          class="apply-deepseek-btn"
+          id="apply-deepseek-btn"
+          data-action="${deepSeekApply.applied ? 'revert-deepseek' : 'apply-deepseek'}"
+          ${deepSeekApply.enabled ? '' : 'disabled'}
+          title="${deepSeekApply.hint}"
+          ${deepSeekApply.applied ? 'data-apply-state="applied"' : ''}
+        >${deepSeekApply.applied ? 'Remove from DeepSeek' : 'Apply to DeepSeek'}</button>
+        <div class="deepseek-apply-hint" id="deepseek-apply-hint">${deepSeekApply.hint}</div>
+      ` : ''}
     </div>
   `;
 
@@ -358,6 +380,68 @@ export function applyToCodex() {
   } else {
     fallbackCopy(importString, afterCopy);
   }
+}
+
+export async function applyToDeepSeek(button = document.getElementById('apply-deepseek-btn')) {
+  const accent = state.selectedTheme?.accents?.[state.selectedAccentIdx];
+  const analytics = {
+    sourceSurface: state.themeView === 'details' ? 'website_theme_details' : 'website_preview',
+    themeId: state.selectedTheme?.id,
+    variant: state.selectedVariant,
+  };
+  void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.APPLY_STARTED, analytics);
+  try {
+    const result = await handleDeepSeekApplyClick({
+      theme: state.selectedTheme,
+      accent,
+      button,
+      onApplied: async () => {
+        void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.APPLY_SUCCEEDED, analytics);
+        await showSystemMessage(
+          `${state.selectedTheme.name} is active in DeepSeek Harness. Stop the DexThemes Cordis plugin to restore the previous palette.`,
+          'success',
+        );
+      },
+      onError: async (error) => {
+        void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.APPLY_FAILED, {
+          ...analytics,
+          failureCode: classifyDeepSeekApplyFailure(error),
+        });
+        await showSystemMessage(
+          error instanceof Error ? error.message : 'DeepSeek Harness could not apply this theme.',
+          'error',
+        );
+      },
+    });
+    if (button) {
+      button.dataset.action = 'revert-deepseek';
+      button.textContent = 'Remove from DeepSeek';
+      button.dataset.applyState = 'applied';
+    }
+    return result;
+  } catch {
+    return null;
+  }
+}
+
+export async function revertFromDeepSeek(button = document.getElementById('apply-deepseek-btn')) {
+  const removed = resetDeepSeekTheme();
+  if (!removed) return false;
+  void trackDeepSeekEvent(DEEPSEEK_ANALYTICS_EVENTS.REVERTED, {
+    sourceSurface: state.themeView === 'details' ? 'website_theme_details' : 'website_preview',
+    themeId: state.selectedTheme?.id,
+    variant: state.selectedVariant,
+  });
+  if (button) {
+    button.dataset.action = 'apply-deepseek';
+    button.textContent = 'Apply to DeepSeek';
+    delete button.dataset.applyState;
+  }
+  await showSystemMessage(
+    'The DexThemes override was removed. DeepSeek Harness restored the previous composed palette.',
+    'success',
+  );
+  return true;
 }
 
 export function shareOnX() {
