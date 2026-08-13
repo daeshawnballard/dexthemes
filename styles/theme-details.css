@@ -317,9 +317,14 @@
   font-size: 12px;
 }
 
-.theme-details-footer span {
+.theme-details-footer > div:not(.theme-details-apply-actions) > span {
   color: var(--text-muted);
   font-size: 10px;
+}
+
+.theme-details-button > span {
+  color: currentColor;
+  font-size: inherit;
 }
 
 .theme-details-shell--locked {
