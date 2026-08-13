@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { resolveMcpProfile } from '../api/mcp.js';
 
 test('generic unlock endpoint excludes server-verifiable achievements', async () => {
   const source = await readFile(new URL('../convex/http_unlock_routes.ts', import.meta.url), 'utf8');
@@ -59,17 +60,43 @@ test('DeepSeek device OAuth is public-client, bearer-only, rate-limited, and ori
   assert.match(account, /accessToken = ''/);
 });
 
-test('DeepSeek Harness uses a distinct fail-closed MCP endpoint and public-key-only config CORS', async () => {
-  const [endpoint, config] = await Promise.all([
-    readFile(new URL('../api/deepseek-mcp.js', import.meta.url), 'utf8'),
+test('DeepSeek Harness uses a distinct fail-closed MCP route without adding a Vercel function', async () => {
+  const [endpoint, config, vercelSource] = await Promise.all([
+    readFile(new URL('../api/mcp.js', import.meta.url), 'utf8'),
     readFile(new URL('../api/config.js', import.meta.url), 'utf8'),
+    readFile(new URL('../vercel.json', import.meta.url), 'utf8'),
   ]);
-  assert.match(endpoint, /profile: "deepseek_harness"/);
-  assert.match(endpoint, /allowAuthorization: false/);
-  assert.doesNotMatch(endpoint, /req\.query|req\.body|headers\.authorization/);
+  const vercel = JSON.parse(vercelSource);
+  const rewrite = vercel.rewrites.find((entry) => entry.source === '/api/deepseek-mcp');
+  assert.deepEqual(rewrite, {
+    source: '/api/deepseek-mcp',
+    destination: '/api/mcp?profile=deepseek_harness',
+  });
+  assert.match(endpoint, /requestedProfile === "deepseek_harness"/);
+  assert.match(endpoint, /profile: "deepseek_harness", allowAuthorization: false/);
+  assert.match(endpoint, /unsupported_mcp_profile/);
+  assert.doesNotMatch(endpoint, /profile = requestedProfile|allowAuthorization = requestedProfile/);
   assert.match(config, /Access-Control-Allow-Origin', '\*'/);
   assert.match(config, /req\.method !== 'GET'/);
   assert.doesNotMatch(config, /secret|serverKey|authorization/i);
+});
+
+test('MCP route selection preserves full OAuth behavior and fails closed for unknown profiles', () => {
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp' }), {
+    profile: 'full',
+    allowAuthorization: true,
+  });
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp?profile=deepseek_harness' }), {
+    profile: 'deepseek_harness',
+    allowAuthorization: false,
+  });
+  assert.deepEqual(resolveMcpProfile({ query: { profile: 'deepseek_harness' } }), {
+    profile: 'deepseek_harness',
+    allowAuthorization: false,
+  });
+  assert.equal(resolveMcpProfile({ url: '/api/mcp?profile=full' }), null);
+  assert.equal(resolveMcpProfile({ query: { profile: ['deepseek_harness', 'full'] } }), null);
+  assert.equal(resolveMcpProfile({ url: 'http://%' }), null);
 });
 
 test('API achievement flow uses the authenticated server-observed endpoint', async () => {

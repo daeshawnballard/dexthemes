@@ -99,6 +99,31 @@ export async function handleMcpRequest(req, res, {
   }
 }
 
+export function resolveMcpProfile(req) {
+  let requestedProfile = req.query?.profile;
+  if (requestedProfile === undefined) {
+    try {
+      requestedProfile = new URL(req.url || "/api/mcp", "https://www.dexthemes.com").searchParams.get("profile");
+    } catch {
+      return null;
+    }
+  }
+
+  if (requestedProfile === undefined || requestedProfile === null || requestedProfile === "") {
+    return Object.freeze({ profile: "full", allowAuthorization: true });
+  }
+  if (requestedProfile === "deepseek_harness") {
+    return Object.freeze({ profile: "deepseek_harness", allowAuthorization: false });
+  }
+  return null;
+}
+
 export default async function handler(req, res) {
-  return handleMcpRequest(req, res);
+  const profile = resolveMcpProfile(req);
+  if (!profile) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cache-Control", "no-store");
+    return sendJson(res, 400, { error: "unsupported_mcp_profile" });
+  }
+  return handleMcpRequest(req, res, profile);
 }
