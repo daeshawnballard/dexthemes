@@ -1,7 +1,7 @@
 import { ImageResponse } from '@vercel/og';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fetchCommunityThemes, resolveTheme } from './theme-data.js';
+import { fetchCommunityThemes, resolveTheme } from '../server/theme-data.js';
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
 import { CONTENT_ITEMS } from '../shared/generated-content.js';
 import { EDITOR_CLASSIC_THEME_IDS, getCatalogThemeId } from '../shared/seo.js';

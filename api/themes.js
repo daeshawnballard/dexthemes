@@ -64,12 +64,34 @@ export default async function handler(req) {
   const variant = url.searchParams.get('variant');
   const category = url.searchParams.get('category');
   const subgroup = url.searchParams.get('subgroup');
+  const subgroupResponse = url.searchParams.get('response') === 'subgroup';
 
   const communityThemes = await fetchCommunityThemes();
   const allThemes = [...visibleStaticThemes(), ...communityThemes];
   const results = filterThemes(allThemes, { id, search, variant, category, subgroup })
     .map((theme) => presentThemeForPublicApi(theme))
     .filter(Boolean);
+
+  if (subgroupResponse) {
+    if (!normalizeDexThemesSubgroup(subgroup || '')) {
+      return new Response(JSON.stringify({ error: 'Unknown DexThemes subgroup' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+    }
+    return new Response(JSON.stringify(results), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Cache-Control': 'public, max-age=300, s-maxage=3600',
+      },
+    });
+  }
 
   return new Response(
     JSON.stringify({

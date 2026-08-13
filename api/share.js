@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { buildThemeImageVersion, fetchCommunityThemes } from "./theme-data.js";
+import { buildThemeImageVersion, fetchCommunityThemes } from "../server/theme-data.js";
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from "../shared/plugin-public-policy.js";
 import { renderNotFoundPage, renderThemePage, getRelatedThemes } from "../shared/public-pages.js";
 import { CANONICAL_ORIGIN } from "../shared/seo.js";

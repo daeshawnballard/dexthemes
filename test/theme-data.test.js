@@ -5,7 +5,7 @@ import {
   buildThemeImageVersion,
   fetchCommunityThemes,
   resolveTheme,
-} from '../api/theme-data.js';
+} from '../server/theme-data.js';
 
 const COMMUNITY_THEME = {
   id: 'mancity',

@@ -1,4 +1,4 @@
-import { MCP_RESOURCE } from "../server/dexthemes-mcp.js";
+import { MCP_RESOURCE } from "./dexthemes-mcp.js";
 
 export default function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });

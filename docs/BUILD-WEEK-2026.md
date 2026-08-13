@@ -58,7 +58,7 @@ The July 17, 2026 production probe confirms the public release is deployed:
 
 The anonymous discovery, drafting, validation, preview, apply-handoff, leaderboard, and GitHub Issue tools are ready for live host testing. The authenticated judge path is **not live yet**:
 
-- `DEXTHEMES_AUTH_ISSUER` is not configured in the production build, so no literal `/.well-known/oauth-protected-resource` file is emitted and `/api/oauth-protected-resource` returns `503`;
+- `DEXTHEMES_AUTH_ISSUER` is not configured in the production build, so no literal `/.well-known/oauth-protected-resource` file is emitted and OAuth discovery remains unavailable;
 - `OPENAI_APPS_CHALLENGE` is still waiting for the portal-provided token, so no literal `/.well-known/openai-apps-challenge` file is emitted;
 - the matching Auth0 and Convex configuration, reviewer account, and end-to-end GitHub linking flow still require verification.
 
