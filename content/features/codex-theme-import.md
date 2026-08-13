@@ -20,14 +20,14 @@ DexThemes uses an explicit handoff for Codex theme import. It generates a comple
 For a catalog theme or builder draft:
 
 1. Select the exact dark or light variant you want.
-2. Use the DexThemes copy or apply control.
+2. Choose **Copy theme**.
 3. Open Codex Settings if it did not open automatically.
 4. Choose **Appearance**.
 5. Choose **Import theme** for the intended variant.
 6. Paste the full string beginning with `codex-theme-v1:`.
 7. Review and import it in Codex.
 
-On compact layouts, DexThemes prioritizes copying so you can paste later on a device running Codex. In the MCP app, the apply card exposes the exact string and a **Copy & open Settings** control. If clipboard permission is blocked, the string remains selectable and the Settings action is kept separate.
+On compact layouts, DexThemes prioritizes copying so you can paste later on a device running Codex. In the MCP app, the handoff card exposes the exact string and a **Copy theme** control, then confirms **Theme copied to clipboard** before opening Settings. If clipboard permission is blocked, the string remains selectable and the Settings action is kept separate.
 
 ## What DexThemes validates
 

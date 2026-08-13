@@ -535,8 +535,9 @@ function renderApply(data) {
   const code = element("code", "apply-code", data.importString);
   code.tabIndex = 0;
   handoff.append(code);
-  const status = element("p", "handoff-status", "No account or community data changes are made by applying a theme.");
-  const button = makeButton("primary-button", "Copy & open Settings", async () => {
+  const status = element("p", "handoff-status", "Copies the theme to your clipboard, then opens Codex Settings. No account or community data changes are made.");
+  status.setAttribute("aria-live", "polite");
+  const button = makeButton("primary-button", "Copy theme", async () => {
     button.disabled = true;
     const copied = await copyToClipboard(data.importString);
     if (!copied) {
@@ -550,12 +551,12 @@ function renderApply(data) {
       }
       return;
     }
-    status.textContent = "Copied. Opening Codex Settings — choose Appearance, then Import theme.";
-    button.textContent = "Copied — opening Settings…";
+    status.textContent = "Theme copied to clipboard. Opening Codex Settings — choose Appearance, then Import theme.";
+    button.textContent = "Theme copied to clipboard";
     app.openLink({ url: data.settingsUrl });
     window.setTimeout(() => {
       button.disabled = false;
-      button.textContent = "Copy & open Settings";
+      button.textContent = "Copy theme";
     }, 1200);
   });
   handoff.append(status, button);

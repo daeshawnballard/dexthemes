@@ -117,7 +117,7 @@ export async function mobileSetView(view) {
           if (applyBtn && !panel.querySelector('.mobile-onboarding-hint')) {
             const hint = document.createElement('div');
             hint.className = 'mobile-onboarding-hint';
-            hint.textContent = 'Tap Copy Theme, then paste it into Codex later';
+            hint.textContent = 'Tap Copy theme to save it to your clipboard';
             hint.onclick = () => { hint.remove(); localStorage.setItem('dexthemes-onboarded', '1'); };
             applyBtn.parentElement.insertBefore(hint, applyBtn.nextSibling);
           }

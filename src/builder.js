@@ -490,7 +490,7 @@ export function renderBuilderPanel() {
       <button class="apply-codex-btn builder-apply-btn" data-action="builder-apply-codex">
         <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span class="builder-apply-btn-text">${applyCopy.defaultLabel}</span>
+        <span class="builder-apply-btn-text" aria-live="polite">${applyCopy.defaultLabel}</span>
       </button>
       ${isCompactBuilder ? '' : `<div class="import-hint builder-import-hint">${applyCopy.hintText}</div>`}
     </div>
@@ -595,7 +595,7 @@ export function applyBuilderToCodex() {
     });
     if (textEl) textEl.textContent = applyCopy.successLabel;
     if (btn) btn.classList.add('copied');
-    if (hint) hint.textContent = compact ? 'Paste it into Codex later.' : applyCopy.hintText;
+    if (hint) hint.textContent = applyCopy.successHintText;
     if (!compact) {
       setTimeout(openCodexSettings, 300);
     }

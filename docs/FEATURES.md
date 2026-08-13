@@ -18,7 +18,7 @@
 - **Fullscreen, minimize, close, reopen** window controls
 - **Animated onboarding chat** that walks new users through the app on first visit
 
-### Apply in Codex (Primary KPI)
+### Copy theme (Primary KPI)
 - **One-click copy** of `codex-theme-v1:` import string to clipboard
 - **Validated format**: `codeThemeId` uses base theme name (e.g., `"codex"`), `variant` field handles dark/light — confirmed working in Codex's Import Theme dialog
 - **Works for all themes**: Official, DexThemes packs, community submissions, and builder-created themes
@@ -30,7 +30,7 @@
 - **Live preview** updates in real-time as you adjust colors
 - **Color Me Lucky** — randomize all colors with one click (three-star icon)
 - **Reset** to defaults
-- **Copy theme code** or **Apply in Codex** directly from builder
+- **Copy theme** directly from the builder, with explicit clipboard confirmation
 - **Submit to community** with name validation, content moderation, and color protection
 - **Code of Conduct prompt** — shown once on first builder visit after sign-in
 - **Add variant for existing theme** — author can open builder pre-filled to add the missing dark/light variant

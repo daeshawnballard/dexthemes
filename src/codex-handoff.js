@@ -2,11 +2,14 @@ import { escapeHtml } from './utils.js';
 
 export function getApplyButtonCopy(compact) {
   return {
-    defaultLabel: compact ? 'Copy Theme' : 'Apply in Codex',
-    successLabel: compact ? 'Theme Copied' : 'Codex Opened',
+    defaultLabel: 'Copy theme',
+    successLabel: 'Theme copied to clipboard',
     hintText: compact
-      ? 'Copies theme to paste into Codex later.'
-      : 'Copies theme + opens Codex Settings.',
+      ? 'Copies the theme to your clipboard.'
+      : 'Copies the theme to your clipboard and opens Codex Settings.',
+    successHintText: compact
+      ? 'Theme copied to your clipboard. Paste it into Codex when ready.'
+      : 'Theme copied to your clipboard. Codex Settings is opening.',
   };
 }
 
@@ -64,10 +67,10 @@ export function showApplyHandoffMessage({ themeName, variant }) {
             <span></span><span></span><span></span>
           </div>
           <div class="apply-handoff-title">Codex</div>
-          <div class="apply-handoff-status">Settings opened</div>
+          <div class="apply-handoff-status">Copied to clipboard</div>
         </div>
         <div class="apply-handoff-body">
-          <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme copied.</div>
+          <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme copied to your clipboard.</div>
           <div class="apply-handoff-subtitle">Next in Codex:</div>
           <div class="apply-handoff-code">
             <div>Appearance</div>
@@ -82,8 +85,8 @@ export function showApplyHandoffMessage({ themeName, variant }) {
   } else if (isTablet) {
     message.innerHTML = `
       <div class="apply-handoff-card apply-handoff-card--tablet">
-        <div class="apply-handoff-mini-badge">Theme copied</div>
-        <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme is ready.</div>
+        <div class="apply-handoff-mini-badge">Copied to clipboard</div>
+        <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme copied to your clipboard.</div>
         <div class="apply-handoff-subtitle">Next in Codex:</div>
         <div class="apply-handoff-inline-steps">
           Appearance → ${importLabel} → Paste → Import
@@ -94,8 +97,8 @@ export function showApplyHandoffMessage({ themeName, variant }) {
   } else {
     message.innerHTML = `
       <div class="apply-handoff-card apply-handoff-card--phone">
-        <div class="apply-handoff-mini-badge">Theme copied</div>
-        <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme copied.</div>
+        <div class="apply-handoff-mini-badge">Copied to clipboard</div>
+        <div class="apply-handoff-heading">"${escapeHtml(themeName)}" ${variantLabel.toLowerCase()} theme copied to your clipboard.</div>
         <div class="apply-handoff-note">Later in Codex: Appearance → ${importLabel} → Paste → Import.</div>
       </div>
     `;

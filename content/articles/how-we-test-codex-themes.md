@@ -78,7 +78,7 @@ Theme authors control semantic color tokens, but not every icon, prefix, gutter,
 
 ## 6. Verify the copy and Settings handoff
 
-When a user chooses Apply in Codex on a desktop layout, DexThemes copies the complete import string and opens general Codex Settings. Compact layouts copy the string for later use. The user then chooses Appearance, selects the matching dark or light import control, pastes, and approves the import.
+When a user chooses **Copy theme**, DexThemes copies the complete import string and confirms **Theme copied to clipboard**. Desktop layouts then open general Codex Settings; compact layouts leave the string ready for later use. The user chooses Appearance, selects the matching dark or light import control, pastes, and approves the import.
 
 We verify that the selected variant produces a nonempty payload and that the handoff instructions match the implemented behavior. We do not describe this as silent application or a direct Appearance deep link. If clipboard access fails, the product needs a visible manual-copy path.
 
@@ -91,7 +91,7 @@ We use explicit evidence labels:
 - **Catalog verified:** the exact theme and variant exist in current source surfaces.
 - **Preview reviewed:** the simulated workspace was visually inspected.
 - **Payload generated:** validation returned a complete import string.
-- **Handoff completed:** the string was copied and Settings opened as intended.
+- **Handoff completed:** the clipboard confirmation appeared and Settings opened as intended.
 - **Loaded in Codex:** a user completed the import and observed the theme in the application.
 
 Only the last label is runtime proof. These editorial articles use the first two layers and source inspection of the import flow; they do not claim that every recommended theme received a fresh long-duration runtime test on every display.

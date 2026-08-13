@@ -24,7 +24,7 @@ Developer tools are deeply personal, but changing their feel is usually a scaven
 
 DexThemes for Codex lets a user describe a mood, team, game, event, or personality and receive an original dark/light theme with a name, validation, and visual preview. A custom name is always honored; if the user did not choose one, the plugin suggests a name and asks for a decision before publication.
 
-Users can search official, DexThemes, and community catalogs and inspect results without leaving the conversation. Every theme is rendered as a dark/light Codex workspace mockup rather than a row of swatches. The plugin prepares the exact Codex import string, uses an explicit Copy & open Settings handoff, shows daily, weekly, monthly, and all-time leaderboards, exposes personal ranks and repeat-win history, previews unlocked achievement themes, and publishes a confirmed theme under the user's GitHub identity. It can also prepare a best-effort redacted GitHub Issue; the exact draft and a review warning are shown first, and nothing is silently posted.
+Users can search official, DexThemes, and community catalogs and inspect results without leaving the conversation. Every theme is rendered as a dark/light Codex workspace mockup rather than a row of swatches. The plugin prepares the exact Codex import string, uses an explicit Copy theme handoff with clipboard confirmation, shows daily, weekly, monthly, and all-time leaderboards, exposes personal ranks and repeat-win history, previews unlocked achievement themes, and publishes a confirmed theme under the user's GitHub identity. It can also prepare a best-effort redacted GitHub Issue; the exact draft and a review warning are shown first, and nothing is silently posted.
 
 ## How it was built
 
