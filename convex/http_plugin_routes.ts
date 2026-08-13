@@ -3,16 +3,89 @@ import { internal } from "./_generated/api";
 import { verifyPluginBearer } from "./pluginAuth";
 import {
   isPluginUnlockVisible,
+  sanitizeThemeForPlugin,
   sanitizeCreatorStatsForPlugin,
 } from "../shared/plugin-public-policy.js";
+import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 import {
   RATE_LIMITS,
   getClientIP,
-  jsonResponse,
-  registerOptionsRoutes,
+  pluginJsonResponse,
+  registerPluginOptionsRoutes,
   sha256Hex,
   type DexHttpRouter,
 } from "./http_helpers";
+
+const DEVICE_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:device_code";
+
+function normalizeIssuer(value: string | undefined) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  const parsed = new URL(trimmed);
+  if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.search || parsed.hash) {
+    throw new Error("DeepSeek OAuth issuer must be an HTTPS origin");
+  }
+  parsed.pathname = parsed.pathname.endsWith("/") ? parsed.pathname : `${parsed.pathname}/`;
+  return parsed.href;
+}
+
+function deviceOauthConfig() {
+  const issuer = normalizeIssuer(process.env.DEXTHEMES_AUTH_ISSUER);
+  const clientId = String(process.env.DEXTHEMES_DEEPSEEK_OAUTH_CLIENT_ID || "").trim();
+  const audience = String(
+    process.env.DEXTHEMES_AUTH_AUDIENCE || "https://www.dexthemes.com/api/mcp",
+  ).trim();
+  if (!issuer || !clientId || !audience) throw new Error("DeepSeek Harness OAuth is not configured");
+  return { issuer, clientId, audience };
+}
+
+async function rateLimitDeviceAuth(ctx: any, request: Request, action: string) {
+  const ip = await getClientIP(ctx, request);
+  const result = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+    key: `plugin:deepseek-oauth:${action}:network:${ip}`,
+    ...(action === "start" ? RATE_LIMITS.oauthStartNetwork : RATE_LIMITS.pluginAuthNetwork),
+  });
+  if (!result.allowed) {
+    return pluginJsonResponse(
+      { error: "rate_limited", retryAfter: result.retryAfter },
+      429,
+      { "Retry-After": String(Math.max(1, Math.ceil((result.retryAfter || 1000) / 1000))) },
+    );
+  }
+  return null;
+}
+
+function boundedDeviceResponse(payload: any) {
+  const deviceCode = typeof payload?.device_code === "string" ? payload.device_code.trim() : "";
+  const userCode = typeof payload?.user_code === "string" ? payload.user_code.trim() : "";
+  const verificationUri = typeof payload?.verification_uri === "string" ? payload.verification_uri.trim() : "";
+  const verificationUriComplete = typeof payload?.verification_uri_complete === "string"
+    ? payload.verification_uri_complete.trim()
+    : verificationUri;
+  const expiresIn = Math.min(1800, Math.max(60, Number(payload?.expires_in) || 900));
+  const interval = Math.min(30, Math.max(5, Number(payload?.interval) || 5));
+  if (
+    !deviceCode || deviceCode.length > 2048 ||
+    !userCode || userCode.length > 32 ||
+    !verificationUri.startsWith("https://") || verificationUri.length > 1000 ||
+    !verificationUriComplete.startsWith("https://") || verificationUriComplete.length > 1200
+  ) {
+    throw new Error("OAuth provider returned an invalid device authorization response");
+  }
+  return { deviceCode, userCode, verificationUri, verificationUriComplete, expiresIn, interval };
+}
+
+function enrichUnlocks(unlocks: any[]) {
+  return unlocks.filter(isPluginUnlockVisible).map((unlock) => {
+    const source = STATIC_THEME_CATALOG.find((theme: any) =>
+      theme.subgroup === "unlockables" && theme.id === unlock.themeId,
+    );
+    return {
+      ...unlock,
+      theme: source ? sanitizeThemeForPlugin(source) : null,
+    };
+  });
+}
 
 async function authorizePlugin(ctx: any, request: Request, scope: string) {
   const ip = await getClientIP(ctx, request);
@@ -46,22 +119,118 @@ async function authorizePlugin(ctx: any, request: Request, scope: string) {
   return ctx.runMutation(internal.pluginUsers.upsertPluginUser, identity);
 }
 
-function errorResponse(error: any, origin: string | null) {
+function errorResponse(error: any) {
   const status = error?.status || (
     error?.message === "Insufficient scope" ? 403 :
     error?.message === "Plugin OAuth is not configured" ? 503 : 401
   );
-  return jsonResponse({ error: error?.message || "Unauthorized", retryAfter: error?.retryAfter }, origin, status);
+  return pluginJsonResponse({ error: error?.message || "Unauthorized", retryAfter: error?.retryAfter }, status);
 }
 
 export function registerPluginRoutes(http: DexHttpRouter) {
-  registerOptionsRoutes(http, ["/plugin/me/stats", "/plugin/me/unlocks", "/plugin/themes"]);
+  registerPluginOptionsRoutes(http, [
+    "/plugin/me/stats",
+    "/plugin/me/unlocks",
+    "/plugin/themes",
+    "/plugin/deepseek-harness/use",
+    "/plugin/deepseek-harness/auth/start",
+    "/plugin/deepseek-harness/auth/poll",
+  ]);
+
+  http.route({
+    path: "/plugin/deepseek-harness/auth/start",
+    method: "POST",
+    handler: httpAction(async (ctx, request) => {
+      const limited = await rateLimitDeviceAuth(ctx, request, "start");
+      if (limited) return limited;
+      try {
+        const { issuer, clientId, audience } = deviceOauthConfig();
+        const upstream = await fetch(`${issuer}oauth/device/code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ client_id: clientId, audience, scope: "themes:read" }),
+        });
+        if (!upstream.ok) return pluginJsonResponse({ error: "device_authorization_unavailable" }, 502);
+        return pluginJsonResponse(boundedDeviceResponse(await upstream.json()));
+      } catch (error: any) {
+        const status = error?.message === "DeepSeek Harness OAuth is not configured" ? 503 : 502;
+        return pluginJsonResponse({ error: error?.message || "device_authorization_unavailable" }, status);
+      }
+    }),
+  });
+
+  http.route({
+    path: "/plugin/deepseek-harness/auth/poll",
+    method: "POST",
+    handler: httpAction(async (ctx, request) => {
+      const limited = await rateLimitDeviceAuth(ctx, request, "poll");
+      if (limited) return limited;
+      try {
+        const body = await request.json();
+        const deviceCode = typeof body?.deviceCode === "string" ? body.deviceCode.trim() : "";
+        if (!deviceCode || deviceCode.length > 2048) {
+          return pluginJsonResponse({ error: "invalid_device_code" }, 400);
+        }
+        const { issuer, clientId } = deviceOauthConfig();
+        const upstream = await fetch(`${issuer}oauth/token`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            grant_type: DEVICE_GRANT_TYPE,
+            device_code: deviceCode,
+            client_id: clientId,
+          }),
+        });
+        const payload: any = await upstream.json().catch(() => ({}));
+        if (upstream.ok) {
+          const accessToken = typeof payload?.access_token === "string" ? payload.access_token.trim() : "";
+          const expiresIn = Math.min(86400, Math.max(60, Number(payload?.expires_in) || 3600));
+          if (!accessToken || accessToken.length > 12000 || payload?.token_type !== "Bearer") {
+            return pluginJsonResponse({ error: "invalid_token_response" }, 502);
+          }
+          return pluginJsonResponse({
+            accessToken,
+            tokenType: "Bearer",
+            expiresIn,
+            scope: String(payload?.scope || "themes:read").slice(0, 240),
+          });
+        }
+        const knownErrors: Record<string, number> = {
+          authorization_pending: 202,
+          slow_down: 429,
+          expired_token: 410,
+          access_denied: 403,
+        };
+        const error = typeof payload?.error === "string" && knownErrors[payload.error]
+          ? payload.error
+          : "device_authorization_failed";
+        return pluginJsonResponse({ error }, knownErrors[error] || 502);
+      } catch {
+        return pluginJsonResponse({ error: "device_authorization_failed" }, 502);
+      }
+    }),
+  });
+
+  http.route({
+    path: "/plugin/deepseek-harness/use",
+    method: "POST",
+    handler: httpAction(async (ctx, request) => {
+      try {
+        const session = await authorizePlugin(ctx, request, "themes:read");
+        const achievement = await ctx.runMutation(internal.unlocks.recordDeepSeekHarnessUse, {
+          authToken: session.pluginAuthToken,
+        });
+        return pluginJsonResponse({ achievement });
+      } catch (error) {
+        return errorResponse(error);
+      }
+    }),
+  });
 
   http.route({
     path: "/plugin/me/stats",
     method: "GET",
     handler: httpAction(async (ctx, request) => {
-      const origin = request.headers.get("Origin");
       try {
         const session = await authorizePlugin(ctx, request, "themes:read");
         const stats = sanitizeCreatorStatsForPlugin(await ctx.runQuery(internal.themes.getMySubmissionStats, {
@@ -70,12 +239,12 @@ export function registerPluginRoutes(http: DexHttpRouter) {
         const achievements = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: session.pluginAuthToken,
         });
-        return jsonResponse({
+        return pluginJsonResponse({
           ...stats,
-          achievements: achievements.filter(isPluginUnlockVisible),
-        }, origin);
+          achievements: enrichUnlocks(achievements),
+        });
       } catch (error) {
-        return errorResponse(error, origin);
+        return errorResponse(error);
       }
     }),
   });
@@ -84,15 +253,14 @@ export function registerPluginRoutes(http: DexHttpRouter) {
     path: "/plugin/me/unlocks",
     method: "GET",
     handler: httpAction(async (ctx, request) => {
-      const origin = request.headers.get("Origin");
       try {
         const session = await authorizePlugin(ctx, request, "themes:read");
         const unlocks = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: session.pluginAuthToken,
         });
-        return jsonResponse({ unlocks: unlocks.filter(isPluginUnlockVisible) }, origin);
+        return pluginJsonResponse({ unlocks: enrichUnlocks(unlocks) });
       } catch (error) {
-        return errorResponse(error, origin);
+        return errorResponse(error);
       }
     }),
   });
@@ -101,7 +269,6 @@ export function registerPluginRoutes(http: DexHttpRouter) {
     path: "/plugin/themes",
     method: "POST",
     handler: httpAction(async (ctx, request) => {
-      const origin = request.headers.get("Origin");
       try {
         const session = await authorizePlugin(ctx, request, "themes:write");
         const body = await request.json();
@@ -120,17 +287,17 @@ export function registerPluginRoutes(http: DexHttpRouter) {
         const unlocks = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: session.pluginAuthToken,
         });
-        return jsonResponse({
+        return pluginJsonResponse({
           theme: { ...result, name: theme.name },
           achievements: unlocks.filter((unlock: any) =>
-            ["use_plugin", "create_theme_with_plugin", "openai_employee"].includes(unlock.action),
+            ["use_plugin", "create_theme_with_plugin", "use_deepseek_harness", "openai_employee"].includes(unlock.action),
           ),
-        }, origin, 201);
+        }, 201);
       } catch (error: any) {
         if (error?.message && !["Unauthorized", "Insufficient scope", "DexThemes sign-in required"].includes(error.message)) {
           error.status ||= 400;
         }
-        return errorResponse(error, origin);
+        return errorResponse(error);
       }
     }),
   });

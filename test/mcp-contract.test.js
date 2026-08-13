@@ -16,7 +16,7 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   });
 
   const { tools } = await client.listTools();
-  assert.equal(tools.length, 12);
+  assert.equal(tools.length, 14);
   for (const tool of tools) {
     assert.equal(typeof tool.annotations?.readOnlyHint, 'boolean', tool.name);
     assert.equal(typeof tool.annotations?.openWorldHint, 'boolean', tool.name);
@@ -65,6 +65,14 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.equal(draft.structuredContent.theme.name, 'Argentina Afterglow');
   assert.equal(draft.structuredContent.needsNameConfirmation, false);
 
+  const lucky = await client.callTool({
+    name: 'color_me_lucky',
+    arguments: { seed: 'harness-contract' },
+  });
+  assert.equal(lucky.structuredContent.kind, 'theme-draft');
+  assert.equal(lucky.structuredContent.lucky, true);
+  assert.ok(lucky.structuredContent.theme.dark && lucky.structuredContent.theme.light);
+
   const argentinaPublication = await client.callTool({
     name: 'validate_theme',
     arguments: { theme: draft.structuredContent.theme, forPublication: true },
@@ -106,6 +114,14 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   });
   assert.equal(unknownCodeTheme.isError, true);
 
+  const deepSeekApply = await client.callTool({
+    name: 'prepare_deepseek_apply',
+    arguments: { theme: draft.structuredContent.theme },
+  });
+  assert.equal(deepSeekApply.structuredContent.kind, 'deepseek-theme-apply');
+  assert.equal(deepSeekApply.structuredContent.payload.target, 'deepseek-harness');
+  assert.equal('importString' in deepSeekApply.structuredContent.payload, false);
+
   const { resources } = await client.listResources();
   const view = resources.find((resource) => resource.uri === 'ui://dexthemes/theme-studio-v2.html');
   assert.equal(view.mimeType, 'text/html;profile=mcp-app');
@@ -132,4 +148,49 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   });
   assert.equal(publicationAuth.isError, true);
   assert.match(publicationAuth._meta['mcp/www_authenticate'][0], /scope="themes:write"/);
+});
+
+test('DeepSeek Harness MCP profile exposes only safe anonymous tools with model-visible JSON', async (t) => {
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+  const server = createDexThemesMcpServer({ profile: 'deepseek_harness' });
+  const client = new Client({ name: 'deepseek-harness-test', version: '1.0.0' });
+  await server.connect(serverTransport);
+  await client.connect(clientTransport);
+  t.after(async () => {
+    await client.close();
+    await server.close();
+  });
+
+  const { tools } = await client.listTools();
+  assert.deepEqual(tools.map((tool) => tool.name).sort(), [
+    'color_me_lucky',
+    'draft_theme',
+    'fetch',
+    'get_leaderboard',
+    'prepare_deepseek_apply',
+    'render_theme_preview',
+    'search',
+    'validate_theme',
+  ]);
+  assert.ok(tools.every((tool) => tool.annotations.readOnlyHint && !tool.annotations.openWorldHint && !tool.annotations.destructiveHint));
+  assert.ok(tools.every((tool) => JSON.stringify(tool._meta.securitySchemes) === JSON.stringify([{ type: 'noauth' }])));
+  for (const forbidden of ['prepare_theme_apply', 'get_my_stats', 'get_my_unlocks', 'prepare_theme_submission', 'submit_theme', 'prepare_github_issue']) {
+    assert.equal(tools.some((tool) => tool.name === forbidden), false, forbidden);
+  }
+
+  const draft = await client.callTool({
+    name: 'color_me_lucky',
+    arguments: { seed: 'deepseek-text-contract' },
+  });
+  const draftText = JSON.parse(draft.content[0].text);
+  assert.deepEqual(draftText.theme, draft.structuredContent.theme);
+  assert.ok(draftText.theme.dark && draftText.theme.light);
+
+  const prepared = await client.callTool({
+    name: 'prepare_deepseek_apply',
+    arguments: { theme: draftText.theme },
+  });
+  const preparedText = JSON.parse(prepared.content[0].text);
+  assert.equal(preparedText.payload.target, 'deepseek-harness');
+  assert.match(preparedText.payload.cordisDefine.code.client, /theme\.overrideTokens/);
 });

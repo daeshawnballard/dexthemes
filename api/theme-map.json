@@ -32,7 +32,20 @@
     },
     "accents": [
       "#0169cc"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=codex",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=codex",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "codex-disco-cloud": {
     "id": "codex-disco-cloud",
@@ -69,7 +82,20 @@
       "#6D5DFF",
       "#8F4FE7",
       "#7487F2"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=codex-disco-cloud",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=codex-disco-cloud",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "absolutely": {
     "id": "absolutely",
@@ -104,7 +130,20 @@
     },
     "accents": [
       "#cc7d5e"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=absolutely",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=absolutely",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "ayu": {
     "id": "ayu",
@@ -129,7 +168,20 @@
     "light": null,
     "accents": [
       "#e6b450"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "catppuccin": {
     "id": "catppuccin",
@@ -165,7 +217,20 @@
     "accents": [
       "#cba6f7",
       "#8839ef"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=catppuccin",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=catppuccin",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "dracula": {
     "id": "dracula",
@@ -190,7 +255,20 @@
     "light": null,
     "accents": [
       "#FF79C6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "everforest": {
     "id": "everforest",
@@ -223,7 +301,20 @@
       "sidebar": "#fdf6e3",
       "codeBg": "#fdf6e3"
     },
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=everforest",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=everforest",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "github-dark": {
     "id": "github-dark",
@@ -248,7 +339,20 @@
     "light": null,
     "accents": [
       "#58a6ff"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "github-light": {
     "id": "github-light",
@@ -273,7 +377,20 @@
     },
     "accents": [
       "#0969da"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "gruvbox": {
     "id": "gruvbox",
@@ -298,7 +415,20 @@
     "light": null,
     "accents": [
       "#fe8019"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "linear": {
     "id": "linear",
@@ -339,7 +469,20 @@
       },
       "opaqueWindows": true
     },
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=linear",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=linear",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "lobster": {
     "id": "lobster",
@@ -365,7 +508,20 @@
       }
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "material": {
     "id": "material",
@@ -388,7 +544,20 @@
       "codeBg": "#212121"
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "matrix": {
     "id": "matrix",
@@ -416,7 +585,20 @@
       "opaqueWindows": true
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "monokai": {
     "id": "monokai",
@@ -443,7 +625,20 @@
       "#F92672",
       "#A6E22E",
       "#66D9EF"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "night-owl": {
     "id": "night-owl",
@@ -466,7 +661,20 @@
       "codeBg": "#011627"
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "nord": {
     "id": "nord",
@@ -491,7 +699,20 @@
     "light": null,
     "accents": [
       "#88C0D0"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "notion": {
     "id": "notion",
@@ -526,7 +747,20 @@
     },
     "accents": [
       "#3183d8"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=notion",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=notion",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "oscurange": {
     "id": "oscurange",
@@ -549,7 +783,20 @@
       "codeBg": "#0b0b0f"
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "one-dark": {
     "id": "one-dark",
@@ -574,7 +821,20 @@
     "light": null,
     "accents": [
       "#61afef"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "proof": {
     "id": "proof",
@@ -602,7 +862,20 @@
       },
       "opaqueWindows": false
     },
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "raycast": {
     "id": "raycast",
@@ -639,7 +912,20 @@
     },
     "accents": [
       "#FF6363"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=raycast",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=raycast",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "rose-pine": {
     "id": "rose-pine",
@@ -665,7 +951,20 @@
     "accents": [
       "#c4a7e7",
       "#ebbcba"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "sentry": {
     "id": "sentry",
@@ -692,7 +991,20 @@
       }
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "solarized": {
     "id": "solarized",
@@ -727,7 +1039,20 @@
     },
     "accents": [
       "#268bd2"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solarized",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solarized",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "temple": {
     "id": "temple",
@@ -750,7 +1075,20 @@
       "codeBg": "#02120c"
     },
     "light": null,
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "tokyo-night": {
     "id": "tokyo-night",
@@ -775,7 +1113,20 @@
     "light": null,
     "accents": [
       "#7aa2f7"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "vercel": {
     "id": "vercel",
@@ -816,7 +1167,20 @@
         "ui": "Geist, Inter"
       }
     },
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vercel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vercel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "vscode-plus": {
     "id": "vscode-plus",
@@ -851,7 +1215,20 @@
     },
     "accents": [
       "#007ACC"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vscode-plus",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vscode-plus",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "xcode": {
     "id": "xcode",
@@ -890,7 +1267,20 @@
         "code": "\"SFMono-Regular\""
       }
     },
-    "accents": []
+    "accents": [],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=xcode",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=xcode",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "crimson-soulblade": {
     "id": "crimson-soulblade",
@@ -926,7 +1316,20 @@
     "accents": [
       "#FF7A1A",
       "#F97316"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=crimson-soulblade",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=crimson-soulblade",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "ivory-mask-soulblade": {
     "id": "ivory-mask-soulblade",
@@ -962,7 +1365,20 @@
     "accents": [
       "#E11D48",
       "#111827"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ivory-mask-soulblade",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ivory-mask-soulblade",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "seventh-fire-shadow": {
     "id": "seventh-fire-shadow",
@@ -998,7 +1414,20 @@
     "accents": [
       "#FF9F1C",
       "#F59E0B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=seventh-fire-shadow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=seventh-fire-shadow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "groundbound-scavenger": {
     "id": "groundbound-scavenger",
@@ -1034,7 +1463,20 @@
     "accents": [
       "#78C6A3",
       "#4B5563"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=groundbound-scavenger",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=groundbound-scavenger",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "fallen-colossus": {
     "id": "fallen-colossus",
@@ -1070,7 +1512,20 @@
     "accents": [
       "#8B1E1E",
       "#3B5C74"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=fallen-colossus",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=fallen-colossus",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "silver-instinct": {
     "id": "silver-instinct",
@@ -1106,7 +1561,20 @@
     "accents": [
       "#7C3AED",
       "#A5B4FC"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=silver-instinct",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=silver-instinct",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "primal-crimson-ascent": {
     "id": "primal-crimson-ascent",
@@ -1142,7 +1610,20 @@
     "accents": [
       "#D9465F",
       "#E76F51"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=primal-crimson-ascent",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=primal-crimson-ascent",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cursed-twin-vessel": {
     "id": "cursed-twin-vessel",
@@ -1178,7 +1659,20 @@
     "accents": [
       "#D62839",
       "#F97316"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cursed-twin-vessel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cursed-twin-vessel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "infinite-azure": {
     "id": "infinite-azure",
@@ -1214,7 +1708,20 @@
     "accents": [
       "#60A5FA",
       "#BFDBFE"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=infinite-azure",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=infinite-azure",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "golden-timebreaker": {
     "id": "golden-timebreaker",
@@ -1250,7 +1757,20 @@
     "accents": [
       "#D4AF37",
       "#7C3AED"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=golden-timebreaker",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=golden-timebreaker",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "solo-shadow-ascent": {
     "id": "solo-shadow-ascent",
@@ -1286,7 +1806,20 @@
     "accents": [
       "#4C6FFF",
       "#94A3FF"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solo-shadow-ascent",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solo-shadow-ascent",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "scarlet-gunsmoke": {
     "id": "scarlet-gunsmoke",
@@ -1322,7 +1855,20 @@
     "accents": [
       "#D97706",
       "#B45309"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-gunsmoke",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-gunsmoke",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "blue-space-jazz": {
     "id": "blue-space-jazz",
@@ -1358,7 +1904,20 @@
     "accents": [
       "#38BDF8",
       "#0EA5E9"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=blue-space-jazz",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=blue-space-jazz",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cybernetic-major": {
     "id": "cybernetic-major",
@@ -1394,7 +1953,20 @@
     "accents": [
       "#00B8D9",
       "#38BDF8"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cybernetic-major",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cybernetic-major",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "white-orbital-prototype": {
     "id": "white-orbital-prototype",
@@ -1431,7 +2003,20 @@
       "#2F6FE4",
       "#EF3340",
       "#FACC15"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=white-orbital-prototype",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=white-orbital-prototype",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cosmic-strikeframe": {
     "id": "cosmic-strikeframe",
@@ -1468,7 +2053,20 @@
       "#1D4ED8",
       "#E11D48",
       "#FACC15"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cosmic-strikeframe",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cosmic-strikeframe",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "azure-translight": {
     "id": "azure-translight",
@@ -1505,7 +2103,20 @@
       "#F43F5E",
       "#22D3EE",
       "#A78BFA"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=azure-translight",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=azure-translight",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "sunlit-rubber-myth": {
     "id": "sunlit-rubber-myth",
@@ -1541,7 +2152,20 @@
     "accents": [
       "#F87171",
       "#F3F4F6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunlit-rubber-myth",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunlit-rubber-myth",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "shonen-sunset": {
     "id": "shonen-sunset",
@@ -1577,7 +2201,20 @@
     "accents": [
       "#FB923C",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=shonen-sunset",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=shonen-sunset",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "zero-mechcat": {
     "id": "zero-mechcat",
@@ -1613,7 +2250,20 @@
     "accents": [
       "#00E060",
       "#00945A"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-mechcat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-mechcat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "zero-bladecat": {
     "id": "zero-bladecat",
@@ -1649,7 +2299,20 @@
     "accents": [
       "#E06828",
       "#C04A10"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-bladecat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-bladecat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "zero-swiftcat": {
     "id": "zero-swiftcat",
@@ -1685,7 +2348,20 @@
     "accents": [
       "#00C8FF",
       "#1840A0"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-swiftcat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-swiftcat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "zero-siegecat": {
     "id": "zero-siegecat",
@@ -1721,7 +2397,20 @@
     "accents": [
       "#A0E030",
       "#4A5A30"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-siegecat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-siegecat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "emerald-spartan": {
     "id": "emerald-spartan",
@@ -1757,7 +2446,20 @@
     "accents": [
       "#7FB069",
       "#5E8C31"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=emerald-spartan",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=emerald-spartan",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "sunset-machine-huntress": {
     "id": "sunset-machine-huntress",
@@ -1793,7 +2495,20 @@
     "accents": [
       "#F97316",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunset-machine-huntress",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunset-machine-huntress",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "ashen-godslayer": {
     "id": "ashen-godslayer",
@@ -1829,7 +2544,20 @@
     "accents": [
       "#B91C1C",
       "#9A3412"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ashen-godslayer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ashen-godslayer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "neon-console-green": {
     "id": "neon-console-green",
@@ -1865,7 +2593,20 @@
     "accents": [
       "#22C55E",
       "#16A34A"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=neon-console-green",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=neon-console-green",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cosmic-controller": {
     "id": "cosmic-controller",
@@ -1901,7 +2642,20 @@
     "accents": [
       "#2563EB",
       "#1D4ED8"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cosmic-controller",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cosmic-controller",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "split-screen-neon": {
     "id": "split-screen-neon",
@@ -1937,7 +2691,20 @@
     "accents": [
       "#22D3EE",
       "#E11D48"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=split-screen-neon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=split-screen-neon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "scarlet-mushroom-run": {
     "id": "scarlet-mushroom-run",
@@ -1973,7 +2740,20 @@
     "accents": [
       "#EF4444",
       "#F59E0B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-mushroom-run",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-mushroom-run",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cobalt-speedline": {
     "id": "cobalt-speedline",
@@ -2009,7 +2789,20 @@
     "accents": [
       "#3B82F6",
       "#0EA5E9"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cobalt-speedline",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cobalt-speedline",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "future-graffiti-radio": {
     "id": "future-graffiti-radio",
@@ -2045,7 +2838,20 @@
     "accents": [
       "#22C55E",
       "#84CC16"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=future-graffiti-radio",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=future-graffiti-radio",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "orange-star-bounty": {
     "id": "orange-star-bounty",
@@ -2081,7 +2887,20 @@
     "accents": [
       "#F59E0B",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orange-star-bounty",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orange-star-bounty",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "pocket-voltage": {
     "id": "pocket-voltage",
@@ -2117,7 +2936,20 @@
     "accents": [
       "#FACC15",
       "#EAB308"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pocket-voltage",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pocket-voltage",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "indigo-field-trainer": {
     "id": "indigo-field-trainer",
@@ -2153,7 +2985,20 @@
     "accents": [
       "#EF4444",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=indigo-field-trainer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=indigo-field-trainer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "emerald-kingdom-legend": {
     "id": "emerald-kingdom-legend",
@@ -2189,7 +3034,20 @@
     "accents": [
       "#10B981",
       "#0F766E"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=emerald-kingdom-legend",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=emerald-kingdom-legend",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "infernal-slayer": {
     "id": "infernal-slayer",
@@ -2225,7 +3083,20 @@
     "accents": [
       "#22C55E",
       "#15803D"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=infernal-slayer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=infernal-slayer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cobalt-arm-cannon": {
     "id": "cobalt-arm-cannon",
@@ -2261,7 +3132,20 @@
     "accents": [
       "#2563EB",
       "#3B82F6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cobalt-arm-cannon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cobalt-arm-cannon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "chrome-future-hunter": {
     "id": "chrome-future-hunter",
@@ -2297,7 +3181,20 @@
     "accents": [
       "#DC2626",
       "#78716C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=chrome-future-hunter",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=chrome-future-hunter",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "bioluminescent-moon": {
     "id": "bioluminescent-moon",
@@ -2333,7 +3230,20 @@
     "accents": [
       "#0EA5E9",
       "#14B8A6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=bioluminescent-moon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=bioluminescent-moon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "golden-bride": {
     "id": "golden-bride",
@@ -2369,7 +3279,20 @@
     "accents": [
       "#FACC15",
       "#EAB308"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=golden-bride",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=golden-bride",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "nocturnal-vigil": {
     "id": "nocturnal-vigil",
@@ -2405,7 +3328,20 @@
     "accents": [
       "#FACC15",
       "#111827"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=nocturnal-vigil",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=nocturnal-vigil",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "solar-sentinel": {
     "id": "solar-sentinel",
@@ -2441,7 +3377,20 @@
     "accents": [
       "#DC2626",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solar-sentinel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solar-sentinel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "amazonian-truth": {
     "id": "amazonian-truth",
@@ -2477,7 +3426,20 @@
     "accents": [
       "#E11D48",
       "#CA8A04"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=amazonian-truth",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=amazonian-truth",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "scarlet-webline": {
     "id": "scarlet-webline",
@@ -2513,7 +3475,20 @@
     "accents": [
       "#DC2626",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-webline",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-webline",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "violet-panther-guard": {
     "id": "violet-panther-guard",
@@ -2549,7 +3524,20 @@
     "accents": [
       "#7C3AED",
       "#6D28D9"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=violet-panther-guard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=violet-panther-guard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "crimson-arc-armor": {
     "id": "crimson-arc-armor",
@@ -2585,7 +3573,20 @@
     "accents": [
       "#0EA5E9",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=crimson-arc-armor",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=crimson-arc-armor",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "scarlet-rooftop-duel": {
     "id": "scarlet-rooftop-duel",
@@ -2621,7 +3622,20 @@
     "accents": [
       "#B91C1C",
       "#E11D48"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-rooftop-duel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-rooftop-duel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "united-hero-signal": {
     "id": "united-hero-signal",
@@ -2657,7 +3671,20 @@
     "accents": [
       "#3B82F6",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=united-hero-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=united-hero-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "worldwatch-alliance": {
     "id": "worldwatch-alliance",
@@ -2693,7 +3720,20 @@
     "accents": [
       "#60A5FA",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=worldwatch-alliance",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=worldwatch-alliance",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "aquarius-waterbearer": {
     "id": "aquarius-waterbearer",
@@ -2729,7 +3769,20 @@
     "accents": [
       "#38BDF8",
       "#0EA5E9"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=aquarius-waterbearer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=aquarius-waterbearer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "pisces-dreamtide": {
     "id": "pisces-dreamtide",
@@ -2765,7 +3818,20 @@
     "accents": [
       "#7C3AED",
       "#A78BFA"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pisces-dreamtide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pisces-dreamtide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "aries-ember-horn": {
     "id": "aries-ember-horn",
@@ -2801,7 +3867,20 @@
     "accents": [
       "#F97316",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=aries-ember-horn",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=aries-ember-horn",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "taurus-verdant-bronze": {
     "id": "taurus-verdant-bronze",
@@ -2837,7 +3916,20 @@
     "accents": [
       "#65A30D",
       "#A16207"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=taurus-verdant-bronze",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=taurus-verdant-bronze",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "gemini-split-signal": {
     "id": "gemini-split-signal",
@@ -2873,7 +3965,20 @@
     "accents": [
       "#22C55E",
       "#F59E0B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=gemini-split-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=gemini-split-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "cancer-moontide": {
     "id": "cancer-moontide",
@@ -2909,7 +4014,20 @@
     "accents": [
       "#7DD3FC",
       "#F472B6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cancer-moontide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cancer-moontide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "leo-goldflare": {
     "id": "leo-goldflare",
@@ -2945,7 +4063,20 @@
     "accents": [
       "#F59E0B",
       "#D97706"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=leo-goldflare",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=leo-goldflare",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "virgo-garden-script": {
     "id": "virgo-garden-script",
@@ -2981,7 +4112,20 @@
     "accents": [
       "#84CC16",
       "#65A30D"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=virgo-garden-script",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=virgo-garden-script",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "libra-rose-scale": {
     "id": "libra-rose-scale",
@@ -3017,7 +4161,20 @@
     "accents": [
       "#F472B6",
       "#EC4899"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=libra-rose-scale",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=libra-rose-scale",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "scorpio-midnight-venom": {
     "id": "scorpio-midnight-venom",
@@ -3053,7 +4210,20 @@
     "accents": [
       "#A855F7",
       "#7C3AED"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scorpio-midnight-venom",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scorpio-midnight-venom",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "sagittarius-stararrow": {
     "id": "sagittarius-stararrow",
@@ -3089,7 +4259,20 @@
     "accents": [
       "#60A5FA",
       "#FB923C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sagittarius-stararrow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sagittarius-stararrow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "capricorn-stone-summit": {
     "id": "capricorn-stone-summit",
@@ -3125,7 +4308,20 @@
     "accents": [
       "#94A3B8",
       "#A16207"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=capricorn-stone-summit",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=capricorn-stone-summit",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "rat-streetwire": {
     "id": "rat-streetwire",
@@ -3161,7 +4357,20 @@
     "accents": [
       "#94A3B8",
       "#64748B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rat-streetwire",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rat-streetwire",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "ox-iron-field": {
     "id": "ox-iron-field",
@@ -3197,7 +4406,20 @@
     "accents": [
       "#A3A3A3",
       "#78716C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ox-iron-field",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ox-iron-field",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "tiger-ember-claw": {
     "id": "tiger-ember-claw",
@@ -3233,7 +4455,20 @@
     "accents": [
       "#F97316",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=tiger-ember-claw",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=tiger-ember-claw",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "rabbit-moonburrow": {
     "id": "rabbit-moonburrow",
@@ -3269,7 +4504,20 @@
     "accents": [
       "#F9A8D4",
       "#F472B6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rabbit-moonburrow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rabbit-moonburrow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "dragon-celestial-forge": {
     "id": "dragon-celestial-forge",
@@ -3305,7 +4553,20 @@
     "accents": [
       "#38BDF8",
       "#2563EB"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=dragon-celestial-forge",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=dragon-celestial-forge",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "snake-jade-venom": {
     "id": "snake-jade-venom",
@@ -3341,7 +4602,20 @@
     "accents": [
       "#10B981",
       "#059669"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=snake-jade-venom",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=snake-jade-venom",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "horse-sunrunner": {
     "id": "horse-sunrunner",
@@ -3377,7 +4651,20 @@
     "accents": [
       "#FB923C",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=horse-sunrunner",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=horse-sunrunner",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "goat-cloud-fleece": {
     "id": "goat-cloud-fleece",
@@ -3413,7 +4700,20 @@
     "accents": [
       "#A78BFA",
       "#8B5CF6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=goat-cloud-fleece",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=goat-cloud-fleece",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "monkey-neon-trickster": {
     "id": "monkey-neon-trickster",
@@ -3449,7 +4749,20 @@
     "accents": [
       "#22C55E",
       "#EAB308"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=monkey-neon-trickster",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=monkey-neon-trickster",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "rooster-dawn-brass": {
     "id": "rooster-dawn-brass",
@@ -3485,7 +4798,20 @@
     "accents": [
       "#D97706",
       "#B45309"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rooster-dawn-brass",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rooster-dawn-brass",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "dog-hearthguard": {
     "id": "dog-hearthguard",
@@ -3521,7 +4847,20 @@
     "accents": [
       "#A16207",
       "#92400E"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=dog-hearthguard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=dog-hearthguard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "pig-velvet-orchard": {
     "id": "pig-velvet-orchard",
@@ -3557,7 +4896,20 @@
     "accents": [
       "#EC4899",
       "#DB2777"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pig-velvet-orchard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pig-velvet-orchard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "orchard-glass": {
     "id": "orchard-glass",
@@ -3593,7 +4945,20 @@
     "accents": [
       "#5ac8fa",
       "#007aff"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orchard-glass",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orchard-glass",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "current-valentine": {
     "id": "current-valentine",
@@ -3629,7 +4994,20 @@
     "accents": [
       "#4F7CFF",
       "#7C3AED"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=current-valentine",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=current-valentine",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "second-tide": {
     "id": "second-tide",
@@ -3665,7 +5043,20 @@
     "accents": [
       "#4CC9F0",
       "#FF8A5B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=second-tide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=second-tide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "keepsake-gold": {
     "id": "keepsake-gold",
@@ -3701,7 +5092,20 @@
     "accents": [
       "#D4A017",
       "#B45309"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=keepsake-gold",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=keepsake-gold",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "north-current": {
     "id": "north-current",
@@ -3737,7 +5141,20 @@
     "accents": [
       "#3B82F6",
       "#0EA5E9"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=north-current",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=north-current",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "quiet-orbit": {
     "id": "quiet-orbit",
@@ -3773,7 +5190,20 @@
     "accents": [
       "#8B7CF6",
       "#A78BFA"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=quiet-orbit",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=quiet-orbit",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "lantern-echo": {
     "id": "lantern-echo",
@@ -3809,7 +5239,20 @@
     "accents": [
       "#EAB308",
       "#CA8A04"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=lantern-echo",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=lantern-echo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "harvest-theory": {
     "id": "harvest-theory",
@@ -3845,7 +5288,20 @@
     "accents": [
       "#7A8F3B",
       "#6B8E23"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=harvest-theory",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=harvest-theory",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "blue-halo": {
     "id": "blue-halo",
@@ -3881,7 +5337,20 @@
     "accents": [
       "#60A5FA",
       "#38BDF8"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=blue-halo",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=blue-halo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "may-mosaic": {
     "id": "may-mosaic",
@@ -3917,7 +5386,20 @@
     "accents": [
       "#84CC16",
       "#F59E0B"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=may-mosaic",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=may-mosaic",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "solar-frequency": {
     "id": "solar-frequency",
@@ -3953,7 +5435,20 @@
     "accents": [
       "#F97316",
       "#EA580C"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solar-frequency",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solar-frequency",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "harbor-lace": {
     "id": "harbor-lace",
@@ -3989,7 +5484,20 @@
     "accents": [
       "#7DD3FC",
       "#F472B6"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=harbor-lace",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=harbor-lace",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   "late-summer-steel": {
     "id": "late-summer-steel",
@@ -4025,6 +5533,19 @@
     "accents": [
       "#94A3B8",
       "#A16207"
-    ]
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=late-summer-steel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=late-summer-steel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   }
 }

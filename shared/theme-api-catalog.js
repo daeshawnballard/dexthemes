@@ -65,7 +65,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=codex",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=codex",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "codex-disco-cloud",
@@ -107,7 +120,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=codex-disco-cloud",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=codex-disco-cloud",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "absolutely",
@@ -147,7 +173,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=absolutely",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=absolutely",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ayu",
@@ -179,7 +218,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "catppuccin",
@@ -220,7 +272,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=catppuccin",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=catppuccin",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "dracula",
@@ -252,7 +317,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "everforest",
@@ -290,7 +368,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=everforest",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=everforest",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "github-dark",
@@ -322,7 +413,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "github-light",
@@ -354,7 +458,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gruvbox",
@@ -386,7 +503,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "linear",
@@ -432,7 +562,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=linear",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=linear",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "lobster",
@@ -465,7 +608,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "material",
@@ -495,7 +651,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "matrix",
@@ -530,7 +699,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "monokai",
@@ -564,7 +746,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "night-owl",
@@ -594,7 +789,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "nord",
@@ -626,7 +834,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "notion",
@@ -666,7 +887,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=notion",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=notion",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "oscurange",
@@ -696,7 +930,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "one-dark",
@@ -728,7 +975,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "proof",
@@ -763,7 +1023,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "raycast",
@@ -805,7 +1078,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=raycast",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=raycast",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "rose-pine",
@@ -838,7 +1124,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "sentry",
@@ -872,7 +1171,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "solarized",
@@ -912,7 +1224,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solarized",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solarized",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "temple",
@@ -942,7 +1267,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "tokyo-night",
@@ -974,7 +1312,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": false,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": null,
+        "applyPreparationUrl": null,
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "vercel",
@@ -1020,7 +1371,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vercel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vercel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "vscode-plus",
@@ -1060,7 +1424,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vscode-plus",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vscode-plus",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "xcode",
@@ -1104,7 +1481,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=xcode",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=xcode",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ichigo-bankai",
@@ -1145,7 +1535,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure."
+    "_summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=crimson-soulblade",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=crimson-soulblade",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ichigo-hollow",
@@ -1186,7 +1589,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge."
+    "_summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ivory-mask-soulblade",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ivory-mask-soulblade",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "naruto-hidden-leaf",
@@ -1227,7 +1643,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward."
+    "_summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=seventh-fire-shadow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=seventh-fire-shadow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gachiakuta-rudo",
@@ -1268,7 +1697,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps."
+    "_summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=groundbound-scavenger",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=groundbound-scavenger",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "eren-titan-fall",
@@ -1309,7 +1751,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale."
+    "_summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=fallen-colossus",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=fallen-colossus",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "goku-ultra-instinct",
@@ -1350,7 +1805,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus."
+    "_summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=silver-instinct",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=silver-instinct",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "goku-ssj4",
@@ -1391,7 +1859,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher."
+    "_summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=primal-crimson-ascent",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=primal-crimson-ascent",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "yuji-sukuna",
@@ -1432,7 +1913,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame."
+    "_summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cursed-twin-vessel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cursed-twin-vessel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gojo-limitless",
@@ -1473,7 +1967,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach."
+    "_summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=infinite-azure",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=infinite-azure",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "jojo-dio",
@@ -1514,7 +2021,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock."
+    "_summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=golden-timebreaker",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=golden-timebreaker",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "solo-leveling",
@@ -1555,7 +2075,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows."
+    "_summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solo-shadow-ascent",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solo-shadow-ascent",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "trigun-gunsmoke",
@@ -1596,7 +2129,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier."
+    "_summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-gunsmoke",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-gunsmoke",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "cowboy-bebop",
@@ -1637,7 +2183,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm."
+    "_summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=blue-space-jazz",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=blue-space-jazz",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ghost-in-the-shell",
@@ -1678,7 +2237,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine."
+    "_summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cybernetic-major",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cybernetic-major",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gundam-rx-78-2",
@@ -1720,7 +2292,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace."
+    "_summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=white-orbital-prototype",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=white-orbital-prototype",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gundam-seed-strike",
@@ -1762,7 +2347,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work."
+    "_summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cosmic-strikeframe",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cosmic-strikeframe",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gundam-00-exia-trans-am",
@@ -1804,7 +2402,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive."
+    "_summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=azure-translight",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=azure-translight",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "luffy-gear-five",
@@ -1845,7 +2456,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum."
+    "_summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunlit-rubber-myth",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunlit-rubber-myth",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "shonen-sunset",
@@ -1886,7 +2510,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=shonen-sunset",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=shonen-sunset",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "liger-zero-base",
@@ -1927,7 +2564,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit."
+    "_summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-mechcat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-mechcat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "liger-zero-schneider",
@@ -1968,7 +2618,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge."
+    "_summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-bladecat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-bladecat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "liger-zero-jager",
@@ -2009,7 +2672,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity."
+    "_summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-swiftcat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-swiftcat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "liger-zero-panzer",
@@ -2050,7 +2726,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line."
+    "_summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=zero-siegecat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=zero-siegecat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "master-chief",
@@ -2091,7 +2780,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds."
+    "_summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=emerald-spartan",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=emerald-spartan",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "aloy-horizon",
@@ -2132,7 +2834,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world."
+    "_summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunset-machine-huntress",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunset-machine-huntress",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "kratos-olympus",
@@ -2173,7 +2888,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences."
+    "_summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ashen-godslayer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ashen-godslayer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "xbox-neon",
@@ -2214,7 +2942,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Electric green on carbon black for a fast, high-contrast console glow."
+    "_summary": "Electric green on carbon black for a fast, high-contrast console glow.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=neon-console-green",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=neon-console-green",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "playstation-cosmos",
@@ -2255,7 +2996,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace."
+    "_summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cosmic-controller",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cosmic-controller",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "nintendo-switch",
@@ -2296,7 +3050,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Split cyan and coral over graphite for playful motion and handheld energy."
+    "_summary": "Split cyan and coral over graphite for playful motion and handheld energy.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=split-screen-neon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=split-screen-neon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "mario-mushroom",
@@ -2337,7 +3104,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level."
+    "_summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-mushroom-run",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-mushroom-run",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "sonic-boost",
@@ -2378,7 +3158,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up."
+    "_summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cobalt-speedline",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cobalt-speedline",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "jet-set-radio",
@@ -2419,7 +3212,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum."
+    "_summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=future-graffiti-radio",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=future-graffiti-radio",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "samus-metroid",
@@ -2460,7 +3266,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds."
+    "_summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orange-star-bounty",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orange-star-bounty",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "pikachu-voltage",
@@ -2501,7 +3320,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still."
+    "_summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pocket-voltage",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pocket-voltage",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ash-indigo",
@@ -2542,7 +3374,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth."
+    "_summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=indigo-field-trainer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=indigo-field-trainer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "zelda-hyrule",
@@ -2583,7 +3428,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom."
+    "_summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=emerald-kingdom-legend",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=emerald-kingdom-legend",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "doom-slayer",
@@ -2624,7 +3482,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Hellfire orange, scorched black, and warning red for relentless forward motion."
+    "_summary": "Hellfire orange, scorched black, and warning red for relentless forward motion.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=infernal-slayer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=infernal-slayer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "mega-man-cobalt",
@@ -2665,7 +3536,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving."
+    "_summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cobalt-arm-cannon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cobalt-arm-cannon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "terminator-future-war",
@@ -2706,7 +3590,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow."
+    "_summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=chrome-future-hunter",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=chrome-future-hunter",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "avatar-pandora",
@@ -2747,7 +3644,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness."
+    "_summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=bioluminescent-moon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=bioluminescent-moon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "kill-bill-bride",
@@ -2788,7 +3698,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge."
+    "_summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=golden-bride",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=golden-bride",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "batman-knight",
@@ -2829,7 +3752,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark."
+    "_summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=nocturnal-vigil",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=nocturnal-vigil",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "superman-krypton",
@@ -2870,7 +3806,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky."
+    "_summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solar-sentinel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solar-sentinel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "wonder-woman",
@@ -2911,7 +3860,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace."
+    "_summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=amazonian-truth",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=amazonian-truth",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "spider-man",
@@ -2952,7 +3914,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline."
+    "_summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-webline",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-webline",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "black-panther",
@@ -2993,7 +3968,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Royal violet, polished silver, and deep black for quiet precision and protected power."
+    "_summary": "Royal violet, polished silver, and deep black for quiet precision and protected power.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=violet-panther-guard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=violet-panther-guard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "iron-man",
@@ -3034,7 +4022,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell."
+    "_summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=crimson-arc-armor",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=crimson-arc-armor",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "daredevil-elektra",
@@ -3075,7 +4076,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city."
+    "_summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scarlet-rooftop-duel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scarlet-rooftop-duel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "avengers-assemble",
@@ -3116,7 +4130,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team."
+    "_summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=united-hero-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=united-hero-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "justice-league",
@@ -3157,7 +4184,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale."
+    "_summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=worldwatch-alliance",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=worldwatch-alliance",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "aquarius-waterbearer",
@@ -3198,7 +4238,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=aquarius-waterbearer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=aquarius-waterbearer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "pisces-dreamtide",
@@ -3239,7 +4292,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pisces-dreamtide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pisces-dreamtide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "aries-ember-horn",
@@ -3280,7 +4346,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=aries-ember-horn",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=aries-ember-horn",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "taurus-verdant-bronze",
@@ -3321,7 +4400,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=taurus-verdant-bronze",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=taurus-verdant-bronze",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "gemini-split-signal",
@@ -3362,7 +4454,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=gemini-split-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=gemini-split-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "cancer-moontide",
@@ -3403,7 +4508,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cancer-moontide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cancer-moontide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "leo-goldflare",
@@ -3444,7 +4562,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=leo-goldflare",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=leo-goldflare",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "virgo-garden-script",
@@ -3485,7 +4616,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=virgo-garden-script",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=virgo-garden-script",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "libra-rose-scale",
@@ -3526,7 +4670,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=libra-rose-scale",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=libra-rose-scale",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "scorpio-midnight-venom",
@@ -3567,7 +4724,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=scorpio-midnight-venom",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=scorpio-midnight-venom",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "sagittarius-stararrow",
@@ -3608,7 +4778,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sagittarius-stararrow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sagittarius-stararrow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "capricorn-stone-summit",
@@ -3649,7 +4832,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=capricorn-stone-summit",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=capricorn-stone-summit",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "rat-streetwire",
@@ -3690,7 +4886,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rat-streetwire",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rat-streetwire",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "ox-iron-field",
@@ -3731,7 +4940,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ox-iron-field",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ox-iron-field",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "tiger-ember-claw",
@@ -3772,7 +4994,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=tiger-ember-claw",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=tiger-ember-claw",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "rabbit-moonburrow",
@@ -3813,7 +5048,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rabbit-moonburrow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rabbit-moonburrow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "dragon-celestial-forge",
@@ -3854,7 +5102,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=dragon-celestial-forge",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=dragon-celestial-forge",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "snake-jade-venom",
@@ -3895,7 +5156,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=snake-jade-venom",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=snake-jade-venom",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "horse-sunrunner",
@@ -3936,7 +5210,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=horse-sunrunner",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=horse-sunrunner",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "goat-cloud-fleece",
@@ -3977,7 +5264,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=goat-cloud-fleece",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=goat-cloud-fleece",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "monkey-neon-trickster",
@@ -4018,7 +5318,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=monkey-neon-trickster",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=monkey-neon-trickster",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "rooster-dawn-brass",
@@ -4059,7 +5372,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=rooster-dawn-brass",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=rooster-dawn-brass",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "dog-hearthguard",
@@ -4100,7 +5426,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=dog-hearthguard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=dog-hearthguard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "pig-velvet-orchard",
@@ -4141,7 +5480,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=pig-velvet-orchard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=pig-velvet-orchard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "liquid-glass",
@@ -4182,7 +5534,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": "Apple",
     "_hiddenUntilUnlocked": null,
     "_locked": true,
-    "_summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace."
+    "_summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orchard-glass",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orchard-glass",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "current-valentine",
@@ -4223,7 +5588,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=current-valentine",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=current-valentine",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "second-tide",
@@ -4264,7 +5642,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=second-tide",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=second-tide",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "keepsake-gold",
@@ -4305,7 +5696,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=keepsake-gold",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=keepsake-gold",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "north-current",
@@ -4346,7 +5750,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=north-current",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=north-current",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "quiet-orbit",
@@ -4387,7 +5804,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=quiet-orbit",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=quiet-orbit",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "lantern-echo",
@@ -4428,7 +5858,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=lantern-echo",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=lantern-echo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "harvest-theory",
@@ -4469,7 +5912,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=harvest-theory",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=harvest-theory",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "blue-halo",
@@ -4510,7 +5966,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=blue-halo",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=blue-halo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "may-mosaic",
@@ -4551,7 +6020,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=may-mosaic",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=may-mosaic",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "solar-frequency",
@@ -4592,7 +6074,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=solar-frequency",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=solar-frequency",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "harbor-lace",
@@ -4633,7 +6128,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=harbor-lace",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=harbor-lace",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "late-summer-steel",
@@ -4674,7 +6182,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=late-summer-steel",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=late-summer-steel",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "patron",
@@ -4715,7 +6236,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Opulent gold and warm marble for a quiet, supporter-only lounge."
+    "_summary": "Opulent gold and warm marble for a quiet, supporter-only lounge.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=patron",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=patron",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "seraphim",
@@ -4756,7 +6290,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Celestial blue light and cathedral calm with a soft, angelic glow."
+    "_summary": "Celestial blue light and cathedral calm with a soft, angelic glow.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=seraphim",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=seraphim",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "mint-condition",
@@ -4797,7 +6344,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Vault greens and crisp paper whites with polished prosperity energy."
+    "_summary": "Vault greens and crisp paper whites with polished prosperity energy.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=mint-condition",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=mint-condition",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "cupids-code",
@@ -4838,7 +6398,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Romantic rose warmth and velvet reds written like a love letter."
+    "_summary": "Romantic rose warmth and velvet reds written like a love letter.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=cupids-code",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=cupids-code",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "heartbeat",
@@ -4879,7 +6452,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "A pulsing cherry red palette with bright warmth and steady momentum."
+    "_summary": "A pulsing cherry red palette with bright warmth and steady momentum.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=heartbeat",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=heartbeat",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "summit",
@@ -4920,7 +6506,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Alpine slate and gold peak accents for a sharp, high-altitude focus."
+    "_summary": "Alpine slate and gold peak accents for a sharp, high-altitude focus.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=summit",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=summit",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "the-builder",
@@ -4961,7 +6560,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Dark steel and workshop orange with the energy of making something real."
+    "_summary": "Dark steel and workshop orange with the energy of making something real.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=the-builder",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=the-builder",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "kaleidoscope",
@@ -5004,7 +6616,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "A prismatic burst of neon color that turns every pane into confetti."
+    "_summary": "A prismatic burst of neon color that turns every pane into confetti.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=kaleidoscope",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=kaleidoscope",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "agent-claw",
@@ -5045,7 +6670,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Circuit-board greens and luminous traces for a tool-built, agentic feel."
+    "_summary": "Circuit-board greens and luminous traces for a tool-built, agentic feel.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=agent-claw",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=agent-claw",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "homebase",
@@ -5086,7 +6724,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Warm amber wood, soft evening light, and the comfort of being back home."
+    "_summary": "Warm amber wood, soft evening light, and the comfort of being back home.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=homebase",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=homebase",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "yin-yang",
@@ -5127,7 +6778,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Pure black and white duality balanced into a calm, minimal pair."
+    "_summary": "Pure black and white duality balanced into a calm, minimal pair.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=yin-yang",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=yin-yang",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "plugged-in",
@@ -5169,7 +6833,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Electric indigo and bright cyan for creators working directly through the DexThemes plugin."
+    "_summary": "Electric indigo and bright cyan for creators working directly through the DexThemes plugin.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=plugged-in",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=plugged-in",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "voiceprint",
@@ -5211,7 +6888,75 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "A vivid waveform palette for turning a spoken or written idea into a personal theme."
+    "_summary": "A vivid waveform palette for turning a spoken or written idea into a personal theme.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=voiceprint",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=voiceprint",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deep-current",
+    "themeId": "deep-current",
+    "name": "Deep Current",
+    "category": "dexthemes",
+    "subgroup": "unlockables",
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 67,
+      "diffAdded": "#35CF91",
+      "diffRemoved": "#FF6378",
+      "skill": "#50D5E8",
+      "surface": "#07111E",
+      "ink": "#ECF7FF",
+      "accent": "#2E8BFF",
+      "sidebar": "#040B14",
+      "codeBg": "#02070D"
+    },
+    "light": {
+      "contrast": 49,
+      "diffAdded": "#137E50",
+      "diffRemoved": "#BD3048",
+      "skill": "#087D91",
+      "surface": "#F3F9FF",
+      "ink": "#14283B",
+      "accent": "#0967C7",
+      "sidebar": "#E7F1FA",
+      "codeBg": "#EAF4FC"
+    },
+    "accents": [
+      "#2E8BFF",
+      "#50D5E8",
+      "#0967C7"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Abyssal cobalt and clear cyan for creators shaping their workspace through DeepSeek Harness.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deep-current",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deep-current",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "builder-of-agi",
@@ -5253,7 +6998,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders."
+    "_summary": "People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=builder-of-agi",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=builder-of-agi",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "golden-hour",
@@ -5295,7 +7053,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Sunrise gold and vivid coral for a theme that owned the day."
+    "_summary": "Sunrise gold and vivid coral for a theme that owned the day.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=golden-hour",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=golden-hour",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "headliner",
@@ -5337,7 +7108,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": "Electric blue and spotlight gold for a theme that topped the week."
+    "_summary": "Electric blue and spotlight gold for a theme that topped the week.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=headliner",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=headliner",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   },
   {
     "id": "triple-dot",
@@ -5380,7 +7164,20 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": true,
     "_locked": null,
-    "_summary": "Smoked glass chrome and candy-button accents for people who click everything."
+    "_summary": "Smoked glass chrome and candy-button accents for people who click everything.",
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=triple-dot",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=triple-dot",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
   }
 ];
 

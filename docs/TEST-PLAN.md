@@ -34,26 +34,60 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
-### 1.5 Community theme import
+### 1.5 DeepSeek Harness theme application
+
+- [ ] Open a theme that includes both light and dark palettes
+- [ ] Confirm **Apply to DeepSeek** is enabled only when the DexThemes Cordis integration has connected the Harness theme service
+- [ ] Click **Apply to DeepSeek** once
+- [ ] **Expected**: the running Harness UI updates immediately through `theme.overrideTokens`; no clipboard or import instructions appear
+- [ ] Stop the DexThemes Cordis Plugin
+- [ ] **Expected**: the override layer is removed and the previous Harness palette returns
+- [ ] Open a single-variant theme
+- [ ] **Expected**: no DeepSeek apply action is offered
+
+### 1.6 DeepSeek Harness agent tools and privacy
+
+- [ ] Confirm the installed bundle contains a second `@deepseek-ai/dsh-mcp-client` row targeting only `/api/deepseek-mcp`
+- [ ] Confirm Harness lists the eight `mcp__dexthemes__*` public tools and no Codex apply, account, submission, publishing, or feedback tools
+- [ ] Ask “Color me lucky,” validate the returned paired draft, and prepare it for DeepSeek
+- [ ] Confirm the tool result text contains the complete bounded JSON needed for the next call
+- [ ] Confirm calls send only explicit tool arguments—not transcript, workspace paths, credentials, or account identity
+- [ ] Preview, apply, and revert once, then confirm Statsig metadata contains only the event/source/theme/variant/plugin-version/failure-code allowlist
+- [ ] Confirm Standard mode can discover, draft, validate, preview, and prepare, while Creator mode additionally completes explicit `cordis_define` → approved `cordis_run` → `cordis_stop`
+- [ ] **Expected**: no install event or `harness_version` is fabricated, and no account achievement is granted without OAuth
+
+### 1.7 DeepSeek Harness optional account flow
+
+- [ ] Configure an OAuth Native Application with Device Code enabled, token endpoint authentication `None`, the DexThemes API audience, and `themes:read`
+- [ ] In **Settings → Plugins → DexThemes**, choose **Connect DexThemes**
+- [ ] **Expected**: the plugin shows a bounded user code and HTTPS provider link; no API key or token is requested or displayed
+- [ ] Complete provider authorization and return to Harness
+- [ ] **Expected**: creator stats and verified unlock count appear; the access token is absent from browser storage, URL, Harness configuration, prompts, workspace, and analytics
+- [ ] Apply a theme while connected
+- [ ] **Expected**: `Harnessed` is granted idempotently and `Deep Current` appears from the bearer unlock response
+- [ ] Disconnect and refresh
+- [ ] **Expected**: the token and account-only reward leave the running session; anonymous browse/apply still work
+
+### 1.8 Community theme import
 - [ ] Select a community-submitted theme
 - [ ] Click "Copy theme"
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
-### 1.6 Builder-created theme import
+### 1.9 Builder-created theme import
 - [ ] Open Builder, customize colors
 - [ ] Click "Copy theme" from builder
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
-### 1.7 Import string format validation
+### 1.10 Import string format validation
 - [ ] Copy any theme code and inspect in a text editor
 - [ ] **Expected**: Format is `codex-theme-v1:{"codeThemeId":"codex","theme":{...},"variant":"dark"|"light"}`
 - [ ] **Expected**: `codeThemeId` is a simple string (never `"codex-dark"` or object format)
 - [ ] **Expected**: `variant` matches the selected variant
 - [ ] **Expected**: All color values are valid hex (e.g., `#DC2626`)
 
-### 1.8 Accent color applied correctly
+### 1.11 Accent color applied correctly
 - [ ] Select a theme with multiple accents (e.g., Monokai has 3)
 - [ ] Click different accent dots
 - [ ] Copy theme code after each accent change

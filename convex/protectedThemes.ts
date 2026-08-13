@@ -187,6 +187,11 @@ const SUPPORTER: ProtectedTheme[] = [
     light: { surface: '#FFF6FD', ink: '#2C152D', accent: '#B834A0' },
   },
   {
+    id: 'deep-current',
+    dark: { surface: '#07111E', ink: '#ECF7FF', accent: '#2E8BFF' },
+    light: { surface: '#F3F9FF', ink: '#14283B', accent: '#0967C7' },
+  },
+  {
     id: 'builder-of-agi',
     dark: { surface: '#101414', ink: '#F2F7F5', accent: '#35C995' },
     light: { surface: '#F7FAF9', ink: '#17201D', accent: '#14845F' },

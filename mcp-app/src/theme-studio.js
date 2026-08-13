@@ -21,6 +21,7 @@ const ACHIEVEMENTS = {
   complete_pair: { icon: "☯", label: "Complete Pair", reward: "Yin & Yang" },
   use_plugin: { icon: "⌁", label: "Plugin Connected", reward: "Plugged In" },
   create_theme_with_plugin: { icon: "◉", label: "Plugin Creator", reward: "Voiceprint" },
+  use_deepseek_harness: { icon: "〰", label: "Harnessed", reward: "Deep Current" },
   openai_employee: { icon: "◎", label: "OpenAI is nothing without its people", reward: "Human Spark" },
   theme_of_day: { icon: "☀", label: "Theme of the Day", reward: "Golden Hour" },
   theme_of_week: { icon: "★", label: "Theme of the Week", reward: "Headliner" },
@@ -564,6 +565,32 @@ function renderApply(data) {
   return shell;
 }
 
+function renderDeepSeekApply(data) {
+  const shell = renderTheme(data.theme, {
+    brand: "READY FOR DEEPSEEK HARNESS",
+    hideActions: true,
+    hideExternal: true,
+  });
+  const handoff = element("section", "apply-handoff");
+  handoff.append(element("span", "brand", "CORDIS APPLY PACKAGE"));
+  handoff.append(element("h3", "section-title", "Prepared for the guarded Harness theme service"));
+  const steps = element("ol", "apply-steps");
+  steps.append(element("li", "", "Define this validated client Package with cordis_define."));
+  steps.append(element("li", "", "Run it with cordis_run to apply both light and dark token pairs."));
+  steps.append(element("li", "", "Use cordis_stop to remove the override and restore the previous palette."));
+  handoff.append(steps);
+  handoff.append(element(
+    "p",
+    "handoff-status",
+    "This is apply preparation, not proof that a Harness Package is installed. No clipboard import, workspace data, credentials, or font settings are included.",
+  ));
+  const payload = element("pre", "apply-code", JSON.stringify(data.payload?.cordisDefine || {}, null, 2));
+  payload.tabIndex = 0;
+  handoff.append(payload);
+  shell.append(handoff);
+  return shell;
+}
+
 function renderSubmitted(data) {
   const shell = element("main", "shell success-shell");
   shell.append(element("span", "success-mark", "✓"));
@@ -595,6 +622,8 @@ function renderResult(params, options = {}) {
     view = renderSubmissionReview(data, params?._meta);
   } else if (data.kind === "theme-apply") {
     view = renderApply(data);
+  } else if (data.kind === "deepseek-theme-apply") {
+    view = renderDeepSeekApply(data);
   } else if (data.kind === "theme-list") {
     view = renderThemeList(data);
   } else if (data.metadata?.dark || data.metadata?.light) {

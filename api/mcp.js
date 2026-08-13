@@ -57,7 +57,10 @@ async function verifyAuthorization(req) {
   };
 }
 
-export default async function handler(req, res) {
+export async function handleMcpRequest(req, res, {
+  profile = "full",
+  allowAuthorization = true,
+} = {}) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, MCP-Protocol-Version, MCP-Session-Id, Last-Event-ID");
@@ -72,14 +75,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    req.auth = await verifyAuthorization(req);
+    req.auth = allowAuthorization ? await verifyAuthorization(req) : undefined;
   } catch {
     return sendJson(res, 401, { error: "invalid_token" }, {
       "WWW-Authenticate": `Bearer resource_metadata="https://www.dexthemes.com/.well-known/oauth-protected-resource", error="invalid_token", error_description="The DexThemes access token could not be verified"`,
     });
   }
 
-  const server = createDexThemesMcpServer();
+  const server = createDexThemesMcpServer({ profile });
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -94,4 +97,33 @@ export default async function handler(req, res) {
     await transport.close().catch(() => {});
     await server.close().catch(() => {});
   }
+}
+
+export function resolveMcpProfile(req) {
+  let requestedProfile = req.query?.profile;
+  if (requestedProfile === undefined) {
+    try {
+      requestedProfile = new URL(req.url || "/api/mcp", "https://www.dexthemes.com").searchParams.get("profile");
+    } catch {
+      return null;
+    }
+  }
+
+  if (requestedProfile === undefined || requestedProfile === null || requestedProfile === "") {
+    return Object.freeze({ profile: "full", allowAuthorization: true });
+  }
+  if (requestedProfile === "deepseek_harness") {
+    return Object.freeze({ profile: "deepseek_harness", allowAuthorization: false });
+  }
+  return null;
+}
+
+export default async function handler(req, res) {
+  const profile = resolveMcpProfile(req);
+  if (!profile) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cache-Control", "no-store");
+    return sendJson(res, 400, { error: "unsupported_mcp_profile" });
+  }
+  return handleMcpRequest(req, res, profile);
 }

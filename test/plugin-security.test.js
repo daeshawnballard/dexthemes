@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { resolveMcpProfile } from '../api/mcp.js';
 
 test('generic unlock endpoint excludes server-verifiable achievements', async () => {
   const source = await readFile(new URL('../convex/http_unlock_routes.ts', import.meta.url), 'utf8');
@@ -17,12 +18,85 @@ test('generic unlock endpoint excludes server-verifiable achievements', async ()
     'complete_pair',
     'use_plugin',
     'create_theme_with_plugin',
+    'use_deepseek_harness',
     'openai_employee',
     'theme_of_day',
     'theme_of_week',
   ]) {
     assert.doesNotMatch(publicActions, new RegExp(`\"${action}\"`));
   }
+});
+
+test('DeepSeek Harness achievement uses only verified plugin identity and accepts no caller identity or action', async () => {
+  const [routes, unlocks] = await Promise.all([
+    readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/unlocks.ts', import.meta.url), 'utf8'),
+  ]);
+  const route = routes.match(/path: "\/plugin\/deepseek-harness\/use"[\s\S]*?\n  \}\);/)?.[0] || '';
+  assert.match(route, /authorizePlugin\(ctx, request, "themes:read"\)/);
+  assert.match(route, /recordDeepSeekHarnessUse/);
+  assert.doesNotMatch(route, /request\.json|userId|action:|platform:/);
+  assert.match(unlocks, /recordDeepSeekHarnessUse = internalMutation/);
+  assert.match(unlocks, /getUserByAuthToken\(ctx, args\.authToken\)/);
+});
+
+test('DeepSeek device OAuth is public-client, bearer-only, rate-limited, and origin-independent', async () => {
+  const [routes, helpers, account] = await Promise.all([
+    readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/http_helpers.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../packages/deepseek-harness-plugin/src/account.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(routes, /\/plugin\/deepseek-harness\/auth\/start/);
+  assert.match(routes, /\/plugin\/deepseek-harness\/auth\/poll/);
+  assert.match(routes, /DEXTHEMES_DEEPSEEK_OAUTH_CLIENT_ID/);
+  assert.match(routes, /urn:ietf:params:oauth:grant-type:device_code/);
+  assert.match(routes, /RATE_LIMITS\.oauthStartNetwork/);
+  assert.match(routes, /RATE_LIMITS\.pluginAuthNetwork/);
+  assert.doesNotMatch(routes, /client_secret|offline_access|refresh_token/);
+  assert.match(helpers, /"Access-Control-Allow-Origin": "\*"/);
+  assert.doesNotMatch(helpers.match(/export function pluginCorsHeaders\(\) \{[\s\S]*?\n\}/)?.[0] || '', /Allow-Credentials/);
+  assert.doesNotMatch(account, /localStorage|sessionStorage|document\.cookie/);
+  assert.match(account, /Authorization: `Bearer \$\{accessToken\}`/);
+  assert.match(account, /accessToken = ''/);
+});
+
+test('DeepSeek Harness uses a distinct fail-closed MCP route without adding a Vercel function', async () => {
+  const [endpoint, config, vercelSource] = await Promise.all([
+    readFile(new URL('../api/mcp.js', import.meta.url), 'utf8'),
+    readFile(new URL('../api/config.js', import.meta.url), 'utf8'),
+    readFile(new URL('../vercel.json', import.meta.url), 'utf8'),
+  ]);
+  const vercel = JSON.parse(vercelSource);
+  const rewrite = vercel.rewrites.find((entry) => entry.source === '/api/deepseek-mcp');
+  assert.deepEqual(rewrite, {
+    source: '/api/deepseek-mcp',
+    destination: '/api/mcp?profile=deepseek_harness',
+  });
+  assert.match(endpoint, /requestedProfile === "deepseek_harness"/);
+  assert.match(endpoint, /profile: "deepseek_harness", allowAuthorization: false/);
+  assert.match(endpoint, /unsupported_mcp_profile/);
+  assert.doesNotMatch(endpoint, /profile = requestedProfile|allowAuthorization = requestedProfile/);
+  assert.match(config, /Access-Control-Allow-Origin', '\*'/);
+  assert.match(config, /req\.method !== 'GET'/);
+  assert.doesNotMatch(config, /secret|serverKey|authorization/i);
+});
+
+test('MCP route selection preserves full OAuth behavior and fails closed for unknown profiles', () => {
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp' }), {
+    profile: 'full',
+    allowAuthorization: true,
+  });
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp?profile=deepseek_harness' }), {
+    profile: 'deepseek_harness',
+    allowAuthorization: false,
+  });
+  assert.deepEqual(resolveMcpProfile({ query: { profile: 'deepseek_harness' } }), {
+    profile: 'deepseek_harness',
+    allowAuthorization: false,
+  });
+  assert.equal(resolveMcpProfile({ url: '/api/mcp?profile=full' }), null);
+  assert.equal(resolveMcpProfile({ query: { profile: ['deepseek_harness', 'full'] } }), null);
+  assert.equal(resolveMcpProfile({ url: 'http://%' }), null);
 });
 
 test('API achievement flow uses the authenticated server-observed endpoint', async () => {
@@ -242,14 +316,30 @@ test('plugin visual studio uses full Codex mockups and an explicit copy-and-sett
   assert.doesNotMatch(source, /innerHTML/);
 });
 
+test('plugin visual studio keeps DeepSeek preparation separate from the Codex clipboard handoff', async () => {
+  const source = await readFile(new URL('../mcp-app/src/theme-studio.js', import.meta.url), 'utf8');
+  const deepSeekView = source.slice(
+    source.indexOf('function renderDeepSeekApply'),
+    source.indexOf('function renderSubmitted'),
+  );
+  assert.match(deepSeekView, /READY FOR DEEPSEEK HARNESS/);
+  assert.match(deepSeekView, /cordis_define/);
+  assert.match(deepSeekView, /cordis_run/);
+  assert.match(deepSeekView, /cordis_stop/);
+  assert.match(deepSeekView, /apply preparation, not proof/);
+  assert.doesNotMatch(deepSeekView, /copyToClipboard|app\.openLink|Codex Settings/);
+});
+
 test('plugin account routes hide Patron and public submissions enforce original identity wording server-side', async () => {
   const [routes, themes, mcp] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/themes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../server/dexthemes-mcp.js', import.meta.url), 'utf8'),
   ]);
-  assert.match(routes, /achievements\.filter\(isPluginUnlockVisible\)/);
-  assert.match(routes, /unlocks: unlocks\.filter\(isPluginUnlockVisible\)/);
+  assert.match(routes, /function enrichUnlocks\(unlocks: any\[\]\)/);
+  assert.match(routes, /unlocks\.filter\(isPluginUnlockVisible\)/);
+  assert.match(routes, /achievements: enrichUnlocks\(achievements\)/);
+  assert.match(routes, /unlocks: enrichUnlocks\(unlocks\)/);
   assert.match(themes, /evaluatePublicThemeIdentity\(args\)/);
   assert.match(themes, /server-side gate prevents a client from bypassing the MCP review step/);
   assert.match(mcp, /validatePublicTheme\(theme\)/);

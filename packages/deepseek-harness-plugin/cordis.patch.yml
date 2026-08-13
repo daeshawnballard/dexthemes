@@ -1,0 +1,11 @@
+- insert:
+    - id: dexthemes
+      name: '@dexthemes/deepseek-harness-plugin'
+    - id: dexthemes-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: dexthemes
+        transport: streamable-http
+        url: !!js process.env.DEXTHEMES_MCP_URL || 'https://www.dexthemes.com/api/deepseek-mcp'
+        toolCallTimeoutMs: 60000
+        failOnStartupError: false

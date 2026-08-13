@@ -3,11 +3,13 @@ import { registerAppResource, registerAppTool } from "@modelcontextprotocol/ext-
 import { z } from "zod/v4";
 import { THEME_PREVIEW_HTML } from "./generated/theme-preview-html.js";
 import {
+  colorMeLucky,
   draftTheme,
   fetchThemeById,
   getLeaderboard,
   getUnlockedThemeDetails,
   prepareGitHubIssue,
+  prepareDeepSeekThemeApply,
   prepareThemeApply,
   searchThemes,
   validatePublicTheme,
@@ -122,6 +124,14 @@ function toolResult(structuredContent, text, meta) {
   };
 }
 
+function harnessToolResult(structuredContent, _text, meta) {
+  return {
+    structuredContent,
+    content: [{ type: "text", text: JSON.stringify(structuredContent) }],
+    ...(meta ? { _meta: meta } : {}),
+  };
+}
+
 function authChallenge(requiredScope) {
   return {
     isError: true,
@@ -172,10 +182,33 @@ async function callPluginApi(path, token, options = {}) {
   return data;
 }
 
-export function createDexThemesMcpServer() {
+const DEEPSEEK_HARNESS_TOOLS = new Set([
+  "search",
+  "fetch",
+  "draft_theme",
+  "color_me_lucky",
+  "validate_theme",
+  "render_theme_preview",
+  "prepare_deepseek_apply",
+  "get_leaderboard",
+]);
+
+export function createDexThemesMcpServer({ profile = "full" } = {}) {
+  if (!["full", "deepseek_harness"].includes(profile)) {
+    throw new TypeError(`Unsupported DexThemes MCP profile: ${profile}`);
+  }
+  const isHarness = profile === "deepseek_harness";
+  const result = isHarness ? harnessToolResult : toolResult;
+  const shouldRegister = (name) => !isHarness || DEEPSEEK_HARNESS_TOOLS.has(name);
+  const registerMaybeAppTool = (name, definition, handler) => {
+    if (shouldRegister(name)) registerAppTool(server, name, definition, handler);
+  };
+  const registerMaybeTool = (name, definition, handler) => {
+    if (shouldRegister(name)) server.registerTool(name, definition, handler);
+  };
   const server = new McpServer({ name: "DexThemes", version: "1.0.0" });
 
-  registerAppResource(
+  if (!isHarness) registerAppResource(
     server,
     "DexThemes Theme Studio",
     VIEW_URI,
@@ -193,7 +226,7 @@ export function createDexThemesMcpServer() {
     }),
   );
 
-  registerAppTool(server, "search", {
+  registerMaybeAppTool("search", {
     title: "Search DexThemes",
     description: "Search built-in Codex, DexThemes, and community themes by name, creator, category, mood, or color idea.",
     inputSchema: {
@@ -211,10 +244,10 @@ export function createDexThemesMcpServer() {
   }, async ({ query, limit }) => {
     const results = await searchThemes(query, limit);
     const payload = { kind: "theme-list", count: results.length, results };
-    return toolResult(payload, JSON.stringify(results));
+    return result(payload, JSON.stringify(results));
   });
 
-  registerAppTool(server, "fetch", {
+  registerMaybeAppTool("fetch", {
     title: "Fetch a DexTheme",
     description: "Fetch one exact theme by the stable ID returned from search.",
     inputSchema: { id: z.string().min(1).max(80).describe("Stable DexThemes theme ID.") },
@@ -236,10 +269,10 @@ export function createDexThemesMcpServer() {
       text: `${theme.name}\n${theme.summary || "DexThemes theme"}\n${theme.dark ? "Dark" : ""}${theme.dark && theme.light ? " + " : ""}${theme.light ? "Light" : ""}`,
       metadata: theme,
     };
-    return toolResult(payload, JSON.stringify(payload));
+    return result(payload, JSON.stringify(payload));
   });
 
-  registerAppTool(server, "draft_theme", {
+  registerMaybeAppTool("draft_theme", {
     title: "Create a DexTheme draft",
     description: "Create a private personalized Codex theme draft from an idea, voice request, story or game atmosphere, event, or user personality. Honor a supplied custom name exactly; public submissions require original public-facing wording.",
     inputSchema: {
@@ -268,11 +301,40 @@ export function createDexThemesMcpServer() {
   }, async (input) => {
     const draft = draftTheme(input);
     const validation = validateTheme(draft.theme);
-    return toolResult({ kind: "theme-draft", ...draft, ...validation },
+    return result({ kind: "theme-draft", ...draft, ...validation },
       `${draft.theme.name} is ready to preview.${draft.needsNameConfirmation ? " Confirm or replace the suggested name before publishing." : ""}`);
   });
 
-  server.registerTool("validate_theme", {
+  registerMaybeAppTool("color_me_lucky", {
+    title: "Color Me Lucky",
+    description: "Generate a surprising private light-and-dark DexTheme draft. This does not publish, apply, or change account state.",
+    inputSchema: {
+      seed: z.string().max(120).optional().describe("Optional repeatable seed; omit it for a fresh surprise."),
+      name: z.string().min(1).max(80).optional().describe("Optional custom name."),
+    },
+    outputSchema: z.object({
+      kind: z.literal("theme-draft"),
+      theme: themeInputSchema,
+      valid: z.boolean(),
+      errors: z.array(z.string()),
+      warnings: z.array(z.string()),
+      lucky: z.literal(true),
+      usedCustomName: z.boolean(),
+      needsNameConfirmation: z.boolean(),
+    }),
+    annotations: annotations(true, false, false, false),
+    securitySchemes: NOAUTH,
+    _meta: withSecurityMeta(NOAUTH, viewMeta),
+  }, async (input) => {
+    const draft = colorMeLucky(input);
+    const validation = validateTheme(draft.theme);
+    return result(
+      { kind: "theme-draft", ...draft, ...validation },
+      `${draft.theme.name} is ready to preview.`,
+    );
+  });
+
+  registerMaybeTool("validate_theme", {
     title: "Validate a DexTheme",
     description: "Validate a private theme's structure, colors, contrast, and protected palette. Set forPublication to also check that its public name, ID, and summary use original wording.",
     inputSchema: {
@@ -292,7 +354,7 @@ export function createDexThemesMcpServer() {
     _meta: withSecurityMeta(NOAUTH),
   }, async ({ theme, forPublication }) => {
     const validation = forPublication ? validatePublicTheme(theme) : validateTheme(theme);
-    return toolResult({
+    return result({
       kind: "theme-validation",
       suggestedNames: [],
       suggestedSummary: null,
@@ -300,7 +362,7 @@ export function createDexThemesMcpServer() {
     });
   });
 
-  registerAppTool(server, "render_theme_preview", {
+  registerMaybeAppTool("render_theme_preview", {
     title: "Preview a DexTheme",
     description: "Render dark and light theme variants as a visual Codex-style preview.",
     inputSchema: { theme: themeInputSchema },
@@ -314,10 +376,10 @@ export function createDexThemesMcpServer() {
     if (unsafe.length) {
       return { isError: true, content: [{ type: "text", text: `Theme preview rejected: ${unsafe.join(" ")}` }] };
     }
-    return toolResult({ kind: "theme", theme }, `Previewing ${theme.name}.`);
+    return result({ kind: "theme", theme }, `Previewing ${theme.name}.`);
   });
 
-  registerAppTool(server, "prepare_theme_apply", {
+  registerMaybeAppTool("prepare_theme_apply", {
     title: "Apply a DexTheme in Codex",
     description: "Prepare the exact Codex theme import string for a chosen dark or light variant. The visual app can copy it and open the supported generic Codex Settings route, where the user selects Appearance and imports it. This does not publish or modify community data.",
     inputSchema: {
@@ -337,11 +399,31 @@ export function createDexThemesMcpServer() {
   }, async ({ theme, variant }) => {
     const apply = prepareThemeApply(theme, variant);
     const normalizedTheme = { ...theme, codeThemeId: normalizeThemeCodeThemeId(theme) };
-    return toolResult({ kind: "theme-apply", theme: normalizedTheme, ...apply },
+    return result({ kind: "theme-apply", theme: normalizedTheme, ...apply },
       `Copy this import string, open Codex Settings, choose Appearance, then import it for ${theme.name} (${variant}):\n${apply.importString}`);
   });
 
-  registerAppTool(server, "get_leaderboard", {
+  registerMaybeAppTool("prepare_deepseek_apply", {
+    title: "Prepare a DexTheme for DeepSeek Harness",
+    description: "Prepare a validated client-only Cordis Package payload for a theme with light and dark palettes. The running Harness must define and run the Package; its guarded theme service applies the token layer immediately and cordis_stop reverses it. This is not a clipboard or import flow.",
+    inputSchema: {
+      theme: themeInputSchema,
+    },
+    outputSchema: z.object({
+      kind: z.literal("deepseek-theme-apply"),
+      theme: themeInputSchema,
+      payload: genericRecord,
+    }),
+    annotations: annotations(true, false, false),
+    securitySchemes: NOAUTH,
+    _meta: withSecurityMeta(NOAUTH, viewMeta),
+  }, async ({ theme }) => {
+    const payload = prepareDeepSeekThemeApply(theme);
+    return result({ kind: "deepseek-theme-apply", theme, payload },
+      `Use payload.cordisDefine with cordis_define, then call cordis_run with the returned pluginId and packageId. Stopping that Plugin reverses ${theme.name}.`);
+  });
+
+  registerMaybeAppTool("get_leaderboard", {
     title: "Get the DexThemes leaderboard",
     description: "Show current UTC-day, UTC-week, monthly, and all-time community theme rankings with inline palette data for visual previews.",
     inputSchema: {},
@@ -356,9 +438,9 @@ export function createDexThemesMcpServer() {
     annotations: annotations(true, false, false),
     securitySchemes: NOAUTH,
     _meta: withSecurityMeta(NOAUTH, viewMeta),
-  }, async () => toolResult({ kind: "leaderboard", ...(await getLeaderboard()) }));
+  }, async () => result({ kind: "leaderboard", ...(await getLeaderboard()) }));
 
-  registerAppTool(server, "get_my_stats", {
+  registerMaybeAppTool("get_my_stats", {
     title: "Get my DexThemes stats",
     description: "Show the signed-in creator dashboard: themes, copies, likes, daily/weekly/monthly/all-time ranks, repeat daily/weekly win history, finalized monthly Top 10 placements, and achievements. Requires DexThemes sign-in.",
     inputSchema: {},
@@ -371,10 +453,10 @@ export function createDexThemesMcpServer() {
     if (!token) return authChallenge("themes:read");
     const stats = sanitizeCreatorStatsForPlugin(await callPluginApi("/plugin/me/stats", token));
     stats.achievements = enrichAchievements(stats.achievements);
-    return toolResult({ kind: "my-stats", stats });
+    return result({ kind: "my-stats", stats });
   });
 
-  registerAppTool(server, "get_my_unlocks", {
+  registerMaybeAppTool("get_my_unlocks", {
     title: "Get my DexThemes achievements",
     description: "Show the signed-in user's unlocked themes and achievements, including plugin and eligible employee bonuses. Requires DexThemes sign-in.",
     inputSchema: {},
@@ -386,10 +468,10 @@ export function createDexThemesMcpServer() {
     const token = requireAccessToken(extra, "themes:read");
     if (!token) return authChallenge("themes:read");
     const data = await callPluginApi("/plugin/me/unlocks", token);
-    return toolResult({ kind: "my-unlocks", unlocks: enrichAchievements(data.unlocks) });
+    return result({ kind: "my-unlocks", unlocks: enrichAchievements(data.unlocks) });
   });
 
-  registerAppTool(server, "prepare_theme_submission", {
+  registerMaybeAppTool("prepare_theme_submission", {
     title: "Review a public DexTheme submission",
     description: "Validate and show the exact theme that would become public. Requires DexThemes sign-in. This creates no public data; publication is available only from the review app's explicit Publish button.",
     inputSchema: { theme: themeInputSchema },
@@ -417,7 +499,7 @@ export function createDexThemesMcpServer() {
         warnings: validation.warnings,
         publicNotice: "Publishing creates a public community theme attributed to your verified DexThemes identity.",
       };
-      return toolResult(
+      return result(
         payload,
         `Review ${theme.name} in the app. Nothing has been published.`,
         { "dexthemes/confirmationToken": confirmationToken },
@@ -427,7 +509,7 @@ export function createDexThemesMcpServer() {
     }
   });
 
-  registerAppTool(server, "submit_theme", {
+  registerMaybeAppTool("submit_theme", {
     title: "Publish a community DexTheme",
     description: "App-only public write. Publish the exact reviewed theme only when the user presses Publish in the DexThemes review app. Identity is derived only from the verified OAuth token; never request or accept a user ID.",
     inputSchema: {
@@ -459,10 +541,10 @@ export function createDexThemesMcpServer() {
       theme: data.theme || theme,
       achievements: data.achievements || [],
     };
-    return toolResult(payload, `${theme.name} is now published to the DexThemes community.`);
+    return result(payload, `${theme.name} is now published to the DexThemes community.`);
   });
 
-  registerAppTool(server, "prepare_github_issue", {
+  registerMaybeAppTool("prepare_github_issue", {
     title: "Prepare DexThemes GitHub feedback",
     description: "Prepare—but do not submit—a best-effort redacted, prefilled GitHub Issue for a DexThemes bug or feedback report. Redaction can miss sensitive context, so the user must review every character before opening GitHub.",
     inputSchema: {
@@ -486,7 +568,7 @@ export function createDexThemesMcpServer() {
     _meta: withSecurityMeta(NOAUTH, viewMeta),
   }, async (input) => {
     const issue = prepareGitHubIssue(input);
-    return toolResult({ kind: "github-issue", ...issue, posted: false }, "A best-effort redacted GitHub issue draft is ready. Review every character before opening GitHub; nothing has been posted.");
+    return result({ kind: "github-issue", ...issue, posted: false }, "A best-effort redacted GitHub issue draft is ready. Review every character before opening GitHub; nothing has been posted.");
   });
 
   return server;

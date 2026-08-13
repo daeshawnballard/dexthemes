@@ -435,7 +435,7 @@
 }
 
 /* Apply to Codex button */
-.apply-codex-btn, .share-x-btn {
+.apply-codex-btn, .apply-deepseek-btn, .share-x-btn {
   --btn-icon-size: 16px;
   display: flex;
   align-items: center;
@@ -450,7 +450,7 @@
   transition: all 0.15s;
 }
 
-.apply-codex-btn svg, .share-x-btn svg {
+.apply-codex-btn svg, .apply-deepseek-btn svg, .share-x-btn svg {
   width: var(--btn-icon-size);
   height: var(--btn-icon-size);
   flex-shrink: 0;
@@ -472,6 +472,37 @@
 
 .apply-codex-btn.copied {
   background: var(--green, #22c55e);
+}
+
+.apply-deepseek-btn {
+  margin-top: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-raised));
+  color: var(--text-primary);
+}
+
+.apply-deepseek-btn:not(:disabled):hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface-raised));
+}
+
+.apply-deepseek-btn:disabled,
+.theme-details-button--deepseek:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.apply-deepseek-btn[data-apply-state="applied"] {
+  border-color: var(--green, #22c55e);
+  color: var(--green, #22c55e);
+}
+
+.deepseek-apply-hint {
+  margin-top: 7px;
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: center;
 }
 
 /* svg sizing handled by shared .apply-codex-btn, .share-x-btn rule above */

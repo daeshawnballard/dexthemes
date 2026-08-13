@@ -1,6 +1,6 @@
 # DexThemes
 
-> The theme gallery for [Codex](https://openai.com/codex). Browse, preview, and hand off beautiful themes to Codex in a couple of clicks.
+> Browse, preview, and safely apply developer-tool themes through supported Codex and DeepSeek Harness paths.
 
 <p align="center">
   <a href="https://www.dexthemes.com">
@@ -21,6 +21,7 @@
 - **Theme details** — switch the center workspace from the faux chat to a complete palette, source, and import view
 - **Indexable public pages** — every valid theme variant has a canonical details page with a rendered preview and related themes
 - **Codex handoff** — copies the import string and opens Codex Settings for you
+- **DeepSeek Harness plugin** — browse and one-click apply paired palettes through Harness's guarded theme service, or create/search/validate them through a restricted public MCP tool profile
 - **Create your own** — the built-in theme builder lets you design and share custom themes
 - **Color Me Lucky** — random theme generator with 6 color harmonies and ~5000+ name combos
 - **Community themes** — sign in with GitHub and submit your creations
@@ -51,6 +52,7 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Contributing guide](CONTRIBUTING.md)
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
+- [DeepSeek Harness integration](docs/DEEPSEEK-HARNESS.md)
 - [Codex plugin guide](docs/PLUGIN.md)
 - [Content authoring guide](docs/CONTENT.md)
 - [Indexable pages design concept](docs/INDEXABLE-PAGES-DESIGN-CONCEPT.md)
@@ -118,9 +120,11 @@ api/                       → Vercel edge/serverless endpoints (catalog, public
   content-page.js          → Answer-first editorial, reference, and collection pages
   sitemap.js               → Live static + community catalog sitemap
   mcp.js                   → Stateless MCP endpoint for the DexThemes plugin
+  deepseek-mcp.js          → Restricted anonymous MCP profile for DeepSeek Harness
 server/                    → MCP tools, theme creation/validation, generated app resource
 mcp-app/                   → Interactive Apps SDK theme cards and previews
 plugins/dexthemes/         → Installable Codex plugin manifest, MCP config, assets, and skill
+packages/deepseek-harness-plugin/ → Installed Harness package and Settings → Plugins → DexThemes UI
 docs/themes.schema.json    → JSON schema for theme submissions
 docs/theme-submission-example.json → Example contribution payload
 ```
@@ -146,6 +150,7 @@ The backend runs on [Convex](https://convex.dev) and handles:
 - GitHub OAuth with one-time browser-bound state and PKCE S256
 - GitHub-authenticated agent/API key issuance with SHA-256 hash-at-rest
 - OAuth 2.1 resource-server support for the plugin, with GitHub as the upstream login
+- Optional DeepSeek Harness device authorization through a public OAuth Native Application; access tokens stay in plugin memory
 - Browser session management (HttpOnly same-site cookies in production, token handoff only for localhost/dev)
 - Community theme submissions and moderation
 - IndexNow notification after a community theme is published
@@ -172,7 +177,7 @@ DexThemes is built on top of Codex theme import and settings behavior that this 
 - Daily and weekly #1 results are finalized on closed UTC periods. Repeat winners keep every win in their stats, while the Golden Hour and Headliner reward themes unlock only once per account.
 - Supporter-wall listing is explicit opt-in and independent from Patron access
 - Public achievement claims are limited to client-observable actions; account, theme, leaderboard, plugin, and employee unlocks are derived server-side
-- Credentialed account CORS is origin-gated; public and explicit Bearer-token routes are separated from cookie-backed writes
+- Cookie-backed account CORS is origin-gated; explicit bearer-only installed-plugin routes use credential-free wildcard CORS and still require verified issuer, audience, signature, scope, expiry, and identity
 - User-controlled strings in HTML templates are escaped, while the MCP app renders tool data through DOM `textContent`
 - No secrets in the codebase — environment variables only
 

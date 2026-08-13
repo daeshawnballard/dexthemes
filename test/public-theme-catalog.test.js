@@ -44,3 +44,52 @@ test('public subgroup API uses the same original presentation', async () => {
   assert.equal(match.name, 'Seventh Fire Shadow');
   assert.doesNotMatch(JSON.stringify(match), /Naruto|Hidden Leaf/i);
 });
+test('public API keeps website IDs while exposing canonical Codex code theme IDs', async (t) => {
+  installEmptyCommunityCatalog(t);
+
+  const expected = {
+    'github-dark': 'github',
+    'github-light': 'github',
+    gruvbox: 'gruvbox',
+    'one-dark': 'one',
+  };
+  for (const [id, codeThemeId] of Object.entries(expected)) {
+    const response = await themesHandler(
+      new Request(`https://www.dexthemes.com/api/themes?id=${id}`),
+    );
+    const payload = await response.json();
+    assert.equal(payload.count, 1);
+    assert.equal(payload.themes[0].id, id);
+    assert.equal(payload.themes[0].themeId, id);
+    assert.equal(payload.themes[0].codeThemeId, codeThemeId);
+  }
+});
+
+test('public API adds derived DeepSeek compatibility without changing stored theme identity', async (t) => {
+  installEmptyCommunityCatalog(t);
+
+  const pairedResponse = await themesHandler(
+    new Request('https://www.dexthemes.com/api/themes?id=codex'),
+  );
+  const paired = (await pairedResponse.json()).themes[0];
+  assert.equal(paired.id, 'codex');
+  assert.deepEqual(paired.integrations.deepseek, {
+    eligible: true,
+    mechanism: 'cordis-theme-override',
+    packageUrl: '/api/deepseek-theme?theme=codex',
+    applyPreparationUrl: '/api/deepseek-theme?theme=codex',
+    requiresInstalledCordisSurface: true,
+    installedPluginPackage: '@dexthemes/deepseek-harness-plugin',
+    installedPluginSurface: 'settings.plugins.dexthemes',
+    oneClickScope: 'installed-plugin',
+    fontsSupported: false,
+  });
+
+  const singleResponse = await themesHandler(
+    new Request('https://www.dexthemes.com/api/themes?id=ayu'),
+  );
+  const single = (await singleResponse.json()).themes[0];
+  assert.equal(single.integrations.deepseek.eligible, false);
+  assert.equal(single.integrations.deepseek.packageUrl, null);
+  assert.equal(single.integrations.deepseek.oneClickScope, 'installed-plugin');
+});

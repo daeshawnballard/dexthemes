@@ -1,4 +1,5 @@
 import { normalizeThemeCodeThemeId } from "./codex-theme-contract.js";
+import { buildDeepSeekIntegrationMetadata } from "./deepseek-theme-contract.js";
 
 const PLUGIN_HIDDEN_UNLOCK_ACTIONS = new Set(["buy_coffee"]);
 
@@ -495,6 +496,10 @@ export function presentThemeForPublicApi(theme) {
     ...presented,
     id: publicThemeId,
     themeId: publicThemeId,
+    integrations: {
+      ...(presented.integrations || {}),
+      deepseek: buildDeepSeekIntegrationMetadata(presented, publicThemeId),
+    },
   };
 }
 

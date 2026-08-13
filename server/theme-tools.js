@@ -11,6 +11,7 @@ import {
   normalizeThemeCodeThemeId,
   validateCodexThemeImport,
 } from "../shared/codex-theme-contract.js";
+import { buildDeepSeekCordisPayload } from "../shared/deepseek-theme-contract.js";
 
 const COMMUNITY_THEMES_URL =
   process.env.DEXTHEMES_COMMUNITY_THEMES_URL ||
@@ -217,6 +218,38 @@ function generatedName(inspiration) {
   return `${base} Signal`.slice(0, 80);
 }
 
+const LUCKY_ADJECTIVES = Object.freeze([
+  "Electric", "Velvet", "Midnight", "Solar", "Prismatic", "Quiet",
+  "Neon", "Lunar", "Golden", "Cosmic", "Jade", "Crimson",
+]);
+const LUCKY_NOUNS = Object.freeze([
+  "Orchard", "Comet", "Signal", "Lagoon", "Circuit", "Bloom",
+  "Mirage", "Current", "Ember", "Canopy", "Pulse", "Horizon",
+]);
+
+/** Create an original paired palette without publishing or mutating account state. */
+export function colorMeLucky({ seed, name } = {}) {
+  const entropy = String(seed || `${Date.now()}:${Math.random()}`).slice(0, 120);
+  const hash = hash32(entropy);
+  const generated = `${LUCKY_ADJECTIVES[hash % LUCKY_ADJECTIVES.length]} ${LUCKY_NOUNS[Math.floor(hash / LUCKY_ADJECTIVES.length) % LUCKY_NOUNS.length]}`;
+  const customName = typeof name === "string" && name.trim().length > 0;
+  const selectedName = customName ? name.trim() : generated;
+  const inspiration = `a surprising ${hash % 360}-degree color atmosphere`;
+  const draft = draftTheme({
+    inspiration,
+    name: selectedName,
+    themeId: `${slugifyThemeName(selectedName).slice(0, 59)}-${(hash % 0xffff).toString(16).padStart(4, "0")}`,
+    summary: `A one-of-a-kind paired palette drawn from ${inspiration}.`,
+    variant: "both",
+  });
+  return {
+    ...draft,
+    lucky: true,
+    usedCustomName: customName,
+    needsNameConfirmation: !customName,
+  };
+}
+
 export function draftTheme(input) {
   const inspiration = String(input.inspiration || "personal focus").trim();
   const customName = typeof input.name === "string" && input.name.trim().length > 0;
@@ -333,6 +366,10 @@ export function prepareThemeApply(theme, variant) {
     }
   }
   return { importString: result.importString, settingsUrl: "codex://settings", variant };
+}
+
+export function prepareDeepSeekThemeApply(theme) {
+  return buildDeepSeekCordisPayload(theme);
 }
 
 export async function getLeaderboard() {

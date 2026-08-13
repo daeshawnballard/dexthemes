@@ -53,6 +53,10 @@ async function dispatchAction(action, element, event) {
       return loadPreviewShellModule().then((m) => m.selectVariant(element.dataset.variant || 'dark'));
     case 'apply-codex':
       return loadPreviewShellModule().then((m) => m.applyToCodex());
+    case 'apply-deepseek':
+      return loadPreviewShellModule().then((m) => m.applyToDeepSeek(element));
+    case 'revert-deepseek':
+      return loadPreviewShellModule().then((m) => m.revertFromDeepSeek(element));
     case 'like-theme':
       return loadPreviewShellModule().then((m) => m.likeTheme());
     case 'share-theme':
