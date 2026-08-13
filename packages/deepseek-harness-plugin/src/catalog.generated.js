@@ -3,7 +3,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-default",
     "name": "DeepSeek",
-    "summary": "DeepSeek Harness’s default light and dark palette, matched to its published semantic tokens.",
+    "summary": "DeepSeek Harness’s published light and dark semantic palette.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "DeepSeek Harness semantic theme tokens",
@@ -35,7 +35,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-huawei",
     "name": "Huawei",
-    "summary": "Unofficial crimson palette nod to Huawei Ascend’s documented DeepSeek inference support.",
+    "summary": "Unofficial crimson tribute to Huawei Ascend’s DeepSeek support.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Recommended Ascend inference support",
@@ -67,7 +67,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-tencent",
     "name": "Tencent",
-    "summary": "Unofficial blue-cyan palette nod to Tencent Cloud’s documented DeepSeek integrations.",
+    "summary": "Unofficial blue-cyan tribute to Tencent Cloud’s DeepSeek integration.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Tencent Cloud integration documentation",
@@ -99,7 +99,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-alibaba",
     "name": "Alibaba",
-    "summary": "Unofficial warm-orange palette nod to Alibaba Cloud’s documented DeepSeek model service.",
+    "summary": "Unofficial warm-orange tribute to Alibaba Cloud’s DeepSeek service.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Alibaba Cloud Model Studio support",
@@ -131,7 +131,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-ant-group",
     "name": "Ant Group",
-    "summary": "Unofficial electric-blue palette nod to agentUniverse’s documented DeepSeek support.",
+    "summary": "Unofficial electric-blue tribute to Ant Group’s DeepSeek tooling.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "agentUniverse integration listed by DeepSeek",
@@ -163,7 +163,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-bytedance",
     "name": "ByteDance",
-    "summary": "Unofficial cyan-red palette nod to Volcano Engine’s documented DeepSeek model service.",
+    "summary": "Unofficial cyan-red tribute to Volcano Engine’s DeepSeek service.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Volcano Engine model integration",
@@ -195,7 +195,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-baidu",
     "name": "Baidu",
-    "summary": "Unofficial indigo palette nod to Baidu AI Gateway’s documented DeepSeek routing.",
+    "summary": "Unofficial indigo tribute to Baidu AI Gateway’s DeepSeek routing.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Baidu AI Gateway model routing",
@@ -227,7 +227,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-siliconflow",
     "name": "SiliconFlow",
-    "summary": "Unofficial neon-mint palette nod to SiliconFlow’s documented DeepSeek inference service.",
+    "summary": "Unofficial neon-mint tribute to SiliconFlow’s DeepSeek inference.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "DeepSeek inference on Huawei Ascend",
@@ -258,8 +258,8 @@ export const BUNDLED_THEME_CATALOG = [
   },
   {
     "id": "deepseek-jd-cloud",
-    "name": "JD.com",
-    "summary": "Unofficial red-and-ink palette nod to JD Cloud’s documented DeepSeek deployment path.",
+    "name": "JD Cloud",
+    "summary": "Unofficial red-and-ink tribute to JD Cloud’s DeepSeek deployment.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "JD Cloud deployment documentation",
@@ -291,7 +291,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-china-telecom",
     "name": "China Telecom",
-    "summary": "Unofficial sky-blue palette nod to China Telecom’s documented DeepSeek deployments.",
+    "summary": "Unofficial sky-blue tribute to China Telecom’s DeepSeek deployments.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "China Telecom DeepSeek deployment report",
@@ -323,7 +323,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-china-mobile",
     "name": "China Mobile",
-    "summary": "Unofficial blue-green palette nod to China Mobile’s documented DeepSeek AI ecosystem.",
+    "summary": "Unofficial blue-green tribute to China Mobile’s DeepSeek ecosystem.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "China Mobile AI ecosystem disclosure",
@@ -355,7 +355,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-honor",
     "name": "HONOR",
-    "summary": "Unofficial violet-cyan palette nod to HONOR’s documented DeepSeek integrations in MagicOS.",
+    "summary": "Unofficial violet-cyan tribute to HONOR’s DeepSeek integration.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "HONOR MagicOS product integration",
@@ -387,7 +387,7 @@ export const BUNDLED_THEME_CATALOG = [
   {
     "id": "deepseek-lenovo",
     "name": "Lenovo",
-    "summary": "Unofficial red-and-carbon palette nod to Lenovo’s documented enterprise DeepSeek deployments.",
+    "summary": "Unofficial red-and-carbon tribute to Lenovo’s DeepSeek deployments.",
     "category": "deepseek",
     "subgroup": "ecosystem",
     "sourceLabel": "Lenovo enterprise deployment case study",

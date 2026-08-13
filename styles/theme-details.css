@@ -105,11 +105,18 @@
 }
 
 .theme-details-summary {
-  max-width: 660px;
+  max-width: 100%;
   margin: 18px 0 0;
+  overflow: hidden;
   color: var(--text-secondary);
   font-size: clamp(13px, 1.4vw, 16px);
   line-height: 1.65;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-details-hero > div:first-child {
+  min-width: 0;
 }
 
 .theme-details-actions {

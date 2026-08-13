@@ -1931,7 +1931,7 @@ export const STATIC_THEME_CATALOG = [
   {
     "id": "deepseek-jd-cloud",
     "themeId": "deepseek-jd-cloud",
-    "name": "JD.com",
+    "name": "JD Cloud",
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",

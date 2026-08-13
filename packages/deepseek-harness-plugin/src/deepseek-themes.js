@@ -27,7 +27,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-default',
     name: 'DeepSeek',
-    summary: 'DeepSeek Harness’s default light and dark palette, matched to its published semantic tokens.',
+    summary: 'DeepSeek Harness’s published light and dark semantic palette.',
     sourceLabel: 'DeepSeek Harness semantic theme tokens',
     evidenceUrl: 'https://github.com/deepseek-ai/deepseek-harness/blob/main/packages/client/ui-theme/src/styles/design-platform.css',
     unofficial: false,
@@ -43,7 +43,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-huawei',
     name: 'Huawei',
-    summary: 'Unofficial crimson palette nod to Huawei Ascend’s documented DeepSeek inference support.',
+    summary: 'Unofficial crimson tribute to Huawei Ascend’s DeepSeek support.',
     sourceLabel: 'Recommended Ascend inference support',
     evidenceUrl: 'https://github.com/deepseek-ai/DeepSeek-V3#68-recommended-inference-functionality-with-huawei-ascend-npus',
     dark: {
@@ -58,7 +58,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-tencent',
     name: 'Tencent',
-    summary: 'Unofficial blue-cyan palette nod to Tencent Cloud’s documented DeepSeek integrations.',
+    summary: 'Unofficial blue-cyan tribute to Tencent Cloud’s DeepSeek integration.',
     sourceLabel: 'Tencent Cloud integration documentation',
     evidenceUrl: 'https://cloud.tencent.com/document/product/679/116187',
     dark: {
@@ -73,7 +73,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-alibaba',
     name: 'Alibaba',
-    summary: 'Unofficial warm-orange palette nod to Alibaba Cloud’s documented DeepSeek model service.',
+    summary: 'Unofficial warm-orange tribute to Alibaba Cloud’s DeepSeek service.',
     sourceLabel: 'Alibaba Cloud Model Studio support',
     evidenceUrl: 'https://www.alibabacloud.com/help/en/model-studio/deepseek-api',
     dark: {
@@ -88,7 +88,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-ant-group',
     name: 'Ant Group',
-    summary: 'Unofficial electric-blue palette nod to agentUniverse’s documented DeepSeek support.',
+    summary: 'Unofficial electric-blue tribute to Ant Group’s DeepSeek tooling.',
     sourceLabel: 'agentUniverse integration listed by DeepSeek',
     evidenceUrl: 'https://github.com/deepseek-ai/awesome-deepseek-integration#rag-frameworks',
     dark: {
@@ -103,7 +103,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-bytedance',
     name: 'ByteDance',
-    summary: 'Unofficial cyan-red palette nod to Volcano Engine’s documented DeepSeek model service.',
+    summary: 'Unofficial cyan-red tribute to Volcano Engine’s DeepSeek service.',
     sourceLabel: 'Volcano Engine model integration',
     evidenceUrl: 'https://developer.volcengine.com/articles/7487815637083914252',
     dark: {
@@ -118,7 +118,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-baidu',
     name: 'Baidu',
-    summary: 'Unofficial indigo palette nod to Baidu AI Gateway’s documented DeepSeek routing.',
+    summary: 'Unofficial indigo tribute to Baidu AI Gateway’s DeepSeek routing.',
     sourceLabel: 'Baidu AI Gateway model routing',
     evidenceUrl: 'https://cloud.baidu.com/product/aigw.html',
     dark: {
@@ -133,7 +133,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-siliconflow',
     name: 'SiliconFlow',
-    summary: 'Unofficial neon-mint palette nod to SiliconFlow’s documented DeepSeek inference service.',
+    summary: 'Unofficial neon-mint tribute to SiliconFlow’s DeepSeek inference.',
     sourceLabel: 'DeepSeek inference on Huawei Ascend',
     evidenceUrl: 'https://siliconflow.cn/news/q6wyoxhvpn06vlh1xsrbov7x',
     dark: {
@@ -147,8 +147,8 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   }),
   pairedTheme({
     id: 'deepseek-jd-cloud',
-    name: 'JD.com',
-    summary: 'Unofficial red-and-ink palette nod to JD Cloud’s documented DeepSeek deployment path.',
+    name: 'JD Cloud',
+    summary: 'Unofficial red-and-ink tribute to JD Cloud’s DeepSeek deployment.',
     sourceLabel: 'JD Cloud deployment documentation',
     evidenceUrl: 'https://docs.jdcloud.com/cn/gcs/deploy-deepseek',
     dark: {
@@ -163,7 +163,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-china-telecom',
     name: 'China Telecom',
-    summary: 'Unofficial sky-blue palette nod to China Telecom’s documented DeepSeek deployments.',
+    summary: 'Unofficial sky-blue tribute to China Telecom’s DeepSeek deployments.',
     sourceLabel: 'China Telecom DeepSeek deployment report',
     evidenceUrl: 'https://www.chinatelecom-h.com/en/ir/report/annual2024/annual2024_07.pdf',
     dark: {
@@ -178,7 +178,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-china-mobile',
     name: 'China Mobile',
-    summary: 'Unofficial blue-green palette nod to China Mobile’s documented DeepSeek AI ecosystem.',
+    summary: 'Unofficial blue-green tribute to China Mobile’s DeepSeek ecosystem.',
     sourceLabel: 'China Mobile AI ecosystem disclosure',
     evidenceUrl: 'https://www.chinamobileltd.com/en/ir/webcasts/pre250320.pdf',
     dark: {
@@ -193,7 +193,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-honor',
     name: 'HONOR',
-    summary: 'Unofficial violet-cyan palette nod to HONOR’s documented DeepSeek integrations in MagicOS.',
+    summary: 'Unofficial violet-cyan tribute to HONOR’s DeepSeek integration.',
     sourceLabel: 'HONOR MagicOS product integration',
     evidenceUrl: 'https://club.honor.com/cn/thread-29284638-1-1.html',
     dark: {
@@ -208,7 +208,7 @@ export const DEEPSEEK_HARNESS_THEMES = Object.freeze([
   pairedTheme({
     id: 'deepseek-lenovo',
     name: 'Lenovo',
-    summary: 'Unofficial red-and-carbon palette nod to Lenovo’s documented enterprise DeepSeek deployments.',
+    summary: 'Unofficial red-and-carbon tribute to Lenovo’s DeepSeek deployments.',
     sourceLabel: 'Lenovo enterprise deployment case study',
     evidenceUrl: 'https://www.lenovo.com/content/dam/lenovo/iso/customer-references-coe/global/en/case-studies/huatai-insurance/Huatai%20Insurance%20final%20case%20study.pdf',
     dark: {
