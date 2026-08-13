@@ -76,7 +76,7 @@ A valid preview or a copied string does not establish that every Codex build wil
 ## Import the selected variant with approval
 
 1. In the builder, select the exact **Dark** or **Light** variant you want.
-2. On desktop, choose **Apply in Codex**. DexThemes copies the import string and can open generic Codex Settings. On a compact layout, choose **Copy Theme** and open Codex later.
+2. Choose **Copy theme**. DexThemes confirms **Theme copied to clipboard** and can open generic Codex Settings on desktop; on a compact layout, open Codex later.
 3. Confirm that the clipboard begins with `codex-theme-v1:`. Copy the complete string; do not copy only the JSON after the prefix.
 4. In Codex, open **Settings** → **Appearance**.
 5. In the matching Dark or Light section, choose **Import**, paste the string into the **Import theme** dialog, review the string, and approve the import.

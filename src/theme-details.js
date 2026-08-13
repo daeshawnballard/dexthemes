@@ -133,8 +133,8 @@ export function renderThemeDetails() {
       </section>
 
       <footer class="theme-details-footer">
-        <div><strong>Ready to use it?</strong><span>The right panel keeps the variant and accent controls visible.</span></div>
-        <button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex">Copy theme &amp; open Settings</button>
+        <div><strong>Ready to use it?</strong><span>Copies this theme to your clipboard. Paste it in Codex → Appearance → Import theme.</span></div>
+        <button class="theme-details-button theme-details-button--primary" type="button" data-action="apply-codex"><span class="theme-copy-label" aria-live="polite">Copy theme</span></button>
       </footer>
     </article>
   `;

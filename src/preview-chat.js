@@ -12,7 +12,7 @@ const LIMIT_MESSAGES = [
   "Message limit exceeded. But hey, your theme looks amazing.",
   "You've sent too many requests. Please wait 42 years before trying again.",
   "Rate limit hit. While you wait, did you know Codex stores themes in ~/.codex/?",
-  "Limit exceeded. Friendly reminder: the 'Apply in Codex' button works way better than this chat.",
+  "Limit exceeded. Friendly reminder: the 'Copy theme' button works way better than this chat.",
 ];
 
 let lastLimitIdx = -1;

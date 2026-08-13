@@ -9,7 +9,8 @@ Use this checklist to verify all features are working correctly. Tests are group
 ### 1.1 DexThemes dark theme imports into Codex
 - [ ] Browse to any DexThemes theme (e.g., Terminator Future War)
 - [ ] Select dark variant
-- [ ] Click "Apply in Codex" button
+- [ ] Click "Copy theme" button
+- [ ] **Expected**: Button confirms "Theme copied to clipboard"
 - [ ] Open Codex → Settings → Appearance → Import Dark Theme
 - [ ] Paste the copied string
 - [ ] **Expected**: Import button is active (not grayed out), theme applies successfully
@@ -17,7 +18,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 ### 1.2 DexThemes light theme imports into Codex
 - [ ] Select a theme with a light variant
 - [ ] Switch to light variant
-- [ ] Click "Apply in Codex"
+- [ ] Click "Copy theme"
 - [ ] Open Codex → Settings → Appearance → Import Light Theme
 - [ ] Paste the copied string
 - [ ] **Expected**: Import button is active, theme applies
@@ -29,19 +30,19 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 1.4 Official Codex theme import
 - [ ] Select an official theme (e.g., Codex, Dracula, Nord)
-- [ ] Click "Apply in Codex"
+- [ ] Click "Copy theme"
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
 ### 1.5 Community theme import
 - [ ] Select a community-submitted theme
-- [ ] Click "Apply in Codex"
+- [ ] Click "Copy theme"
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
 ### 1.6 Builder-created theme import
 - [ ] Open Builder, customize colors
-- [ ] Click "Apply in Codex" from builder
+- [ ] Click "Copy theme" from builder
 - [ ] Paste into Codex Import
 - [ ] **Expected**: Works correctly
 
@@ -129,7 +130,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 3.1 Preview loads on theme select
 - [ ] Click any theme in sidebar
-- [ ] **Expected**: Right panel shows theme name, variant cards, accent dots, "Apply in Codex" button
+- [ ] **Expected**: Right panel shows theme name, variant cards, accent dots, "Copy theme" button
 - [ ] **Expected**: Preview window updates with theme colors
 
 ### 3.2 Variant switching
@@ -202,7 +203,8 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 4.8 Copy theme code from builder
 - [ ] Enter a name, customize colors
-- [ ] Click "Apply in Codex" from builder
+- [ ] Click "Copy theme" from builder
+- [ ] **Expected**: Button confirms "Theme copied to clipboard"
 - [ ] **Expected**: Valid `codex-theme-v1:` string copied to clipboard with `codeThemeId: "codex"`
 
 ### 4.9 Code of Conduct prompt

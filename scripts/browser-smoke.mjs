@@ -225,7 +225,10 @@ try {
     await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
     assert.equal(new URL(page.url()).pathname, `/${activeThemeId}/light`);
     const applyText = await page.locator('.apply-codex-btn').first().textContent();
-    assert.match(applyText || '', /Apply in Codex/);
+    assert.match(applyText || '', /Copy theme/);
+    await page.click('#apply-codex-btn');
+    await page.waitForFunction(() => document.getElementById('apply-btn-text')?.textContent === 'Theme copied to clipboard');
+    assert.equal(await page.locator('.apply-handoff-status').textContent(), 'Copied to clipboard');
     await page.close();
   });
 
@@ -236,6 +239,8 @@ try {
     await page.fill('#builder-name', 'Smoke Theme');
     const value = await page.locator('#builder-name').inputValue();
     assert.equal(value, 'Smoke Theme');
+    await page.click('.builder-apply-btn');
+    await page.waitForFunction(() => document.querySelector('.builder-apply-btn-text')?.textContent === 'Theme copied to clipboard');
     await page.close();
   });
 
@@ -411,6 +416,8 @@ try {
     await page.click('[data-action="show-theme-details"]');
     await page.waitForSelector('#theme-details-view:not([hidden])');
     assert.equal(await page.locator('.theme-details-swatches').isVisible(), true);
+    await page.click('.theme-details-button[data-action="apply-codex"]');
+    await page.waitForFunction(() => document.querySelector('.theme-details-button .theme-copy-label')?.textContent === 'Theme copied to clipboard');
     await page.close();
   });
 
@@ -419,7 +426,7 @@ try {
     await page.click('.mobile-nav-btn[data-view="create"]');
     await page.waitForSelector('.builder-panel');
     const applyText = await page.locator('.builder-apply-btn .builder-apply-btn-text').textContent();
-    assert.match(applyText || '', /Copy Theme|Apply in Codex/);
+    assert.match(applyText || '', /Copy theme/);
     await page.close();
   });
 

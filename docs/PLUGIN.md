@@ -82,7 +82,7 @@ Every qualifying daily or weekly result is stored in creator history, including 
 
 ## Apply handoff
 
-The current Codex desktop build supports `codex-theme-v1` imports and the generic `codex://settings` route, but does not expose a documented Appearance deep link or public silent theme-apply API. The app therefore requests clipboard-write permission, feature-detects clipboard support, and uses an explicit **Copy & open Settings** control. If clipboard access is blocked, it leaves the exact import string selectable and offers a separate Settings button. The user then chooses **Appearance → Import theme** and pastes; the plugin never claims that a theme was silently applied.
+The current Codex desktop build supports `codex-theme-v1` imports and the generic `codex://settings` route, but does not expose a documented Appearance deep link or public silent theme-apply API. The app therefore requests clipboard-write permission, feature-detects clipboard support, and uses an explicit **Copy theme** control with helper text explaining that Codex Settings opens after the copy. A successful copy is confirmed as **Theme copied to clipboard**. If clipboard access is blocked, the exact import string remains selectable and a separate Settings button is offered. The user then chooses **Appearance → Import theme** and pastes; the plugin never claims that a theme was silently applied.
 
 ## Publication safety
 

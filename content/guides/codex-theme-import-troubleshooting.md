@@ -32,9 +32,9 @@ DexThemes is community-built and is not affiliated with OpenAI. It validates its
 
 DexThemes may open general Codex Settings after copying. That is the expected handoff. It does not currently claim a verified direct Appearance deep link or a public route that applies the theme without your approval.
 
-## Nothing happened after choosing Apply in Codex
+## Nothing happened after choosing Copy theme
 
-On desktop, the DexThemes control means “copy the theme and open Settings.” It does not mean that Codex silently applied the payload.
+On desktop, **Copy theme** copies the theme to your clipboard and then opens Settings. It does not mean that Codex silently applied the payload.
 
 Check the clipboard in a plain-text editor. If the string is present, return to Codex and continue through Appearance and Import theme. If no string is present, the browser may have denied clipboard access. Use the selectable import text when the interface offers it, or copy again after allowing clipboard access for the action you initiated.
 

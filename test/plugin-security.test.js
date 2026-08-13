@@ -234,7 +234,9 @@ test('plugin visual studio uses full Codex mockups and an explicit copy-and-sett
   assert.match(source, /function codexMock/);
   assert.match(source, /theme\.config\.json/);
   assert.match(source, /callToolAndRender\("fetch"/);
-  assert.match(source, /Copy & open Settings/);
+  assert.match(source, /Copy theme/);
+  assert.match(source, /Theme copied to clipboard/);
+  assert.match(source, /aria-live/);
   assert.match(source, /choose Appearance/);
   assert.doesNotMatch(source, /buy_coffee|Patron|Open on DexThemes/);
   assert.doesNotMatch(source, /innerHTML/);

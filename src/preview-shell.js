@@ -265,10 +265,10 @@ export function renderRightPanel() {
         <span class="detail-label">Accent color</span>
       </div>
       <div class="accent-dots" id="accent-dots"></div>
-      <button class="apply-codex-btn" id="apply-codex-btn" data-action="apply-codex">
+      <button class="apply-codex-btn" id="apply-codex-btn" data-action="apply-codex" aria-describedby="import-hint">
         <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span id="apply-btn-text">${applyCopy.defaultLabel}</span>
+        <span class="theme-copy-label" id="apply-btn-text" aria-live="polite">${applyCopy.defaultLabel}</span>
       </button>
       <div class="import-hint" id="import-hint">${applyCopy.hintText}</div>
     </div>
@@ -318,11 +318,17 @@ export function applyToCodex() {
   const importString = buildImportString(state.selectedTheme, state.selectedVariant, state.selectedAccentIdx);
   if (!importString) return;
 
-  const btn = document.getElementById('apply-codex-btn');
-  const textEl = document.getElementById('apply-btn-text');
+  const buttons = [...document.querySelectorAll('[data-action="apply-codex"]')];
   const hint = document.getElementById('import-hint');
   const compact = isCompactViewport();
   const applyCopy = getApplyButtonCopy(compact);
+  const setButtonState = (label, copied) => {
+    buttons.forEach((button) => {
+      const textEl = button.querySelector('.theme-copy-label');
+      if (textEl) textEl.textContent = label;
+      button.classList.toggle('copied', copied);
+    });
+  };
 
   const afterCopy = () => {
     recordThemeCopy(state.selectedTheme.id);
@@ -335,16 +341,14 @@ export function applyToCodex() {
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
     });
-    if (textEl) textEl.textContent = applyCopy.successLabel;
-    btn?.classList.add('copied');
-    if (hint) hint.textContent = compact ? 'Paste it into Codex later.' : applyCopy.hintText;
+    setButtonState(applyCopy.successLabel, true);
+    if (hint) hint.textContent = applyCopy.successHintText;
     if (!compact) {
       setTimeout(openCodexSettings, 300);
     }
     showApplyHandoffMessage({ themeName: state.selectedTheme.name, variant: state.selectedVariant });
     setTimeout(() => {
-      if (textEl) textEl.textContent = applyCopy.defaultLabel;
-      btn?.classList.remove('copied');
+      setButtonState(applyCopy.defaultLabel, false);
       if (hint) hint.textContent = applyCopy.hintText;
     }, 2000);
   };
