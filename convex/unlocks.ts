@@ -84,6 +84,14 @@ export const recordDeepSeekHarnessUse = internalMutation({
   },
 });
 
+export const recordDeepSeekHarnessUseForUser = internalMutation({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => ({
+    action: "use_deepseek_harness",
+    ...(await grantUnlockForUser(ctx, args.userId, "use_deepseek_harness")),
+  }),
+});
+
 export async function syncOpenAIEmployeeUnlock(
   ctx: any,
   userId: Id<"users">,
@@ -169,6 +177,19 @@ export const getMyUnlocks = internalQuery({
       .withIndex("by_user", (q) => q.eq("userId", user._id))
       .collect();
 
+    return unlocks.filter(isActiveUnlock);
+  },
+});
+
+export const getUnlocksForUser = internalQuery({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    if (!user) throw new Error("Unauthorized");
+    const unlocks = await ctx.db
+      .query("unlocks")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
     return unlocks.filter(isActiveUnlock);
   },
 });
@@ -375,7 +396,7 @@ export const getLeaderboard = internalQuery({
       weeklyPeriod.start,
       weeklyPeriod.end,
     );
-    const dailyRanked = rankPopularityEntries({
+    const dailyRanked = (rankPopularityEntries as any)({
       themes: allThemes,
       copyEvents,
       qualifiedAdoptions,
@@ -384,7 +405,7 @@ export const getLeaderboard = internalQuery({
       end: dailyPeriod.end,
       limit: 10,
     });
-    const weeklyRanked = rankPopularityEntries({
+    const weeklyRanked = (rankPopularityEntries as any)({
       themes: allThemes,
       copyEvents,
       qualifiedAdoptions,

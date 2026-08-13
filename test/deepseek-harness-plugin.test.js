@@ -192,13 +192,13 @@ test('device authorization uses bounded public codes and respects provider polli
   const responses = [
     { ok: true, status: 200, json: async () => ({
       deviceCode: 'device-secret', userCode: 'ABCD-EFGH',
-      verificationUri: 'https://login.example/device',
-      verificationUriComplete: 'https://login.example/device?user_code=ABCD-EFGH',
+      verificationUri: 'https://github.com/login/device',
+      verificationUriComplete: 'https://github.com/login/device?user_code=ABCD-EFGH',
       expiresIn: 900, interval: 5,
     }) },
     { ok: false, status: 202, json: async () => ({ error: 'authorization_pending' }) },
     { ok: false, status: 429, json: async () => ({ error: 'slow_down' }) },
-    { ok: true, status: 200, json: async () => ({ accessToken: 'access-secret', tokenType: 'Bearer' }) },
+    { ok: true, status: 200, json: async () => ({ accessToken: 'dxd_access-secret', tokenType: 'Bearer' }) },
   ];
   const fetchImpl = async (url, options) => {
     requests.push({ url, options });
@@ -206,13 +206,13 @@ test('device authorization uses bounded public codes and respects provider polli
   };
   const device = await requestDeviceAuthorization({ fetchImpl, apiBaseUrl: 'https://api.example' });
   assert.equal(device.userCode, 'ABCD-EFGH');
-  assert.equal(device.verificationUrl, 'https://login.example/device?user_code=ABCD-EFGH');
-  const token = await pollDeviceAuthorization(device, {
+  assert.equal(device.verificationUrl, 'https://github.com/login/device?user_code=ABCD-EFGH');
+  const session = await pollDeviceAuthorization(device, {
     fetchImpl,
     apiBaseUrl: 'https://api.example',
     waitImpl: async () => {},
   });
-  assert.equal(token, 'access-secret');
+  assert.deepEqual(session, { accessToken: 'dxd_access-secret', expiresIn: 3600 });
   assert.equal(requests.filter((request) => request.url.endsWith('/auth/poll')).length, 3);
   assert.ok(requests.slice(1).every((request) => JSON.parse(request.options.body).deviceCode === 'device-secret'));
 });
@@ -223,11 +223,12 @@ test('installed account client keeps bearer credentials in memory and awards Har
     requests.push({ url, options });
     if (url.endsWith('/auth/start')) return { ok: true, status: 200, json: async () => ({
       deviceCode: 'device-code', userCode: 'JOIN-NOW',
-      verificationUri: 'https://login.example/device',
-      verificationUriComplete: 'https://login.example/device?user_code=JOIN-NOW',
+      verificationUri: 'https://github.com/login/device',
+      verificationUriComplete: 'https://github.com/login/device?user_code=JOIN-NOW',
       expiresIn: 900, interval: 5,
     }) };
-    if (url.endsWith('/auth/poll')) return { ok: true, status: 200, json: async () => ({ accessToken: 'memory-only-token', tokenType: 'Bearer' }) };
+    if (url.endsWith('/auth/poll')) return { ok: true, status: 200, json: async () => ({ accessToken: 'dxd_memory-only-token', tokenType: 'Bearer' }) };
+    if (url.endsWith('/deepseek-harness/session')) return { ok: true, status: 200, json: async () => ({ revoked: true }) };
     if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [], totalCopies: 0 }) };
     if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [{ action: 'use_deepseek_harness', themeId: 'deep-current', theme: null }] }) };
     if (url.endsWith('/plugin/deepseek-harness/use')) return { ok: true, status: 200, json: async () => ({ achievement: { action: 'use_deepseek_harness', themeId: 'deep-current' } }) };
@@ -239,19 +240,133 @@ test('installed account client keeps bearer credentials in memory and awards Har
     waitImpl: async () => {},
   });
   const handoff = await account.connect();
-  assert.deepEqual(handoff, { userCode: 'JOIN-NOW', verificationUrl: 'https://login.example/device?user_code=JOIN-NOW' });
+  assert.deepEqual(handoff, { userCode: 'JOIN-NOW', verificationUrl: 'https://github.com/login/device?user_code=JOIN-NOW' });
   for (let attempt = 0; attempt < 10 && account.getSnapshot().status !== 'connected'; attempt += 1) {
     await new Promise((resolve) => setImmediate(resolve));
   }
   assert.equal(account.getSnapshot().status, 'connected');
-  assert.equal(JSON.stringify(account.getSnapshot()).includes('memory-only-token'), false);
+  assert.equal(JSON.stringify(account.getSnapshot()).includes('dxd_memory-only-token'), false);
   const achievement = await account.recordHarnessUse();
   assert.equal(achievement.themeId, 'deep-current');
   const protectedRequests = requests.filter((request) => /plugin\/(me|deepseek-harness\/use)/.test(request.url));
-  assert.ok(protectedRequests.every((request) => request.options.headers.Authorization === 'Bearer memory-only-token'));
-  assert.equal(requests.some((request) => String(request.options.body || '').includes('memory-only-token')), false);
-  account.disconnect();
+  assert.ok(protectedRequests.every((request) => request.options.headers.Authorization === 'Bearer dxd_memory-only-token'));
+  assert.equal(requests.some((request) => String(request.options.body || '').includes('dxd_memory-only-token')), false);
+  await account.disconnect();
   assert.equal(account.getSnapshot().status, 'idle');
+  const revoke = requests.find((request) => request.url.endsWith('/deepseek-harness/session'));
+  assert.equal(revoke.options.method, 'DELETE');
+  assert.equal(revoke.options.headers.Authorization, 'Bearer dxd_memory-only-token');
+});
+
+test('a superseded device connection cannot overwrite the current in-memory account', async () => {
+  const polls = new Map();
+  const protectedTokens = [];
+  let startCount = 0;
+  const fetchImpl = async (url, options = {}) => {
+    if (url.endsWith('/auth/start')) {
+      startCount += 1;
+      return { ok: true, status: 200, json: async () => ({
+        deviceCode: `device-${startCount}`,
+        userCode: `JOIN-${startCount}`,
+        verificationUri: 'https://github.com/login/device',
+        verificationUriComplete: `https://github.com/login/device?user_code=JOIN-${startCount}`,
+        expiresIn: 900,
+        interval: 5,
+      }) };
+    }
+    if (url.endsWith('/auth/poll')) {
+      const code = JSON.parse(options.body).deviceCode;
+      return new Promise((resolve) => polls.set(code, resolve));
+    }
+    if (url.endsWith('/plugin/me/stats')) {
+      protectedTokens.push(options.headers.Authorization);
+      return { ok: true, status: 200, json: async () => ({ themes: [] }) };
+    }
+    if (url.endsWith('/plugin/me/unlocks')) {
+      protectedTokens.push(options.headers.Authorization);
+      return { ok: true, status: 200, json: async () => ({ unlocks: [] }) };
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const account = createHarnessAccountClient({ fetchImpl, apiBaseUrl: 'https://api.example', waitImpl: async () => {} });
+  await account.connect();
+  await account.connect();
+  for (let attempt = 0; attempt < 10 && polls.size < 2; attempt += 1) await new Promise((resolve) => setImmediate(resolve));
+  polls.get('device-2')({ ok: true, status: 200, json: async () => ({
+    accessToken: 'dxd_current-token', tokenType: 'Bearer', expiresIn: 3600,
+  }) });
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  polls.get('device-1')({ ok: true, status: 200, json: async () => ({
+    accessToken: 'dxd_stale-token', tokenType: 'Bearer', expiresIn: 3600,
+  }) });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(account.getSnapshot().status, 'connected');
+  assert.deepEqual(protectedTokens, ['Bearer dxd_current-token', 'Bearer dxd_current-token']);
+  account.destroy();
+});
+
+test('a protected-route 401 clears the in-memory account and requires reconnection', async () => {
+  let rejectUse = false;
+  const fetchImpl = async (url) => {
+    if (url.endsWith('/auth/start')) return { ok: true, status: 200, json: async () => ({
+      deviceCode: 'device-code', userCode: 'JOIN-NOW',
+      verificationUri: 'https://github.com/login/device',
+      expiresIn: 900, interval: 5,
+    }) };
+    if (url.endsWith('/auth/poll')) return { ok: true, status: 200, json: async () => ({
+      accessToken: 'dxd_expiring-token', tokenType: 'Bearer', expiresIn: 3600,
+    }) };
+    if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [] }) };
+    if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [] }) };
+    if (url.endsWith('/plugin/deepseek-harness/use') && rejectUse) {
+      return { ok: false, status: 401, json: async () => ({ error: 'Unauthorized' }) };
+    }
+    if (url.endsWith('/plugin/deepseek-harness/use')) {
+      return { ok: true, status: 200, json: async () => ({ achievement: null }) };
+    }
+    if (url.endsWith('/deepseek-harness/session')) return { ok: true, status: 200, json: async () => ({ revoked: true }) };
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const account = createHarnessAccountClient({ fetchImpl, apiBaseUrl: 'https://api.example', waitImpl: async () => {} });
+  await account.connect();
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  rejectUse = true;
+  await assert.rejects(account.recordHarnessUse(), /Unauthorized/);
+  assert.equal(account.getSnapshot().status, 'error');
+  assert.match(account.getSnapshot().error, /Connect again/);
+  assert.equal(await account.recordHarnessUse(), null);
+  account.destroy();
+});
+
+test('installed account client accepts only GitHub verification and DexThemes session tokens', async () => {
+  await assert.rejects(
+    requestDeviceAuthorization({
+      apiBaseUrl: 'https://api.example',
+      fetchImpl: async () => ({ ok: true, json: async () => ({
+        deviceCode: 'device-code',
+        userCode: 'JOIN-NOW',
+        verificationUri: 'https://lookalike.example/login/device',
+        expiresIn: 900,
+        interval: 5,
+      }) }),
+    }),
+    /invalid response/,
+  );
+  await assert.rejects(
+    pollDeviceAuthorization({ deviceCode: 'device-code', expiresIn: 900, interval: 5 }, {
+      apiBaseUrl: 'https://api.example',
+      waitImpl: async () => {},
+      fetchImpl: async () => ({ ok: true, json: async () => ({
+        accessToken: 'gho_must-never-reach-harness',
+        tokenType: 'Bearer',
+      }) }),
+    }),
+    /invalid token response/,
+  );
 });
 
 test('built client is a Harness module factory and exposes the DexThemes settings tab', async () => {
@@ -268,7 +383,7 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(built, /Color me lucky/);
   assert.match(built, /Choose Creator mode to apply and revert from chat/);
   assert.match(built, /Connect DexThemes/);
-  assert.match(built, /Continue secure sign-in/);
+  assert.match(built, /Continue with GitHub/);
   assert.doesNotMatch(source, /clipboard|localStorage|querySelector\([^)]*Harness/i);
 });
 

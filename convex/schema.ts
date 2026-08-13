@@ -157,6 +157,9 @@ export default defineSchema({
   pluginSessions: defineTable({
     tokenHash: v.string(),
     userId: v.id("users"),
+    scopes: v.optional(v.array(v.string())),
+    source: v.optional(v.string()),
+    clientUsable: v.optional(v.boolean()),
     expiresAt: v.number(),
     createdAt: v.number(),
   })

@@ -34,30 +34,80 @@ test('DeepSeek Harness achievement uses only verified plugin identity and accept
   ]);
   const route = routes.match(/path: "\/plugin\/deepseek-harness\/use"[\s\S]*?\n  \}\);/)?.[0] || '';
   assert.match(route, /authorizePlugin\(ctx, request, "themes:read"\)/);
-  assert.match(route, /recordDeepSeekHarnessUse/);
-  assert.doesNotMatch(route, /request\.json|userId|action:|platform:/);
-  assert.match(unlocks, /recordDeepSeekHarnessUse = internalMutation/);
-  assert.match(unlocks, /getUserByAuthToken\(ctx, args\.authToken\)/);
+  assert.match(route, /recordDeepSeekHarnessUseForUser/);
+  assert.match(route, /userId: session\.userId/);
+  assert.doesNotMatch(route, /request\.json|body\.|action:|platform:/);
+  assert.match(unlocks, /recordDeepSeekHarnessUseForUser = internalMutation/);
+  assert.match(unlocks, /grantUnlockForUser\(ctx, args\.userId, "use_deepseek_harness"\)/);
 });
 
-test('DeepSeek device OAuth is public-client, bearer-only, rate-limited, and origin-independent', async () => {
-  const [routes, helpers, account] = await Promise.all([
+test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and origin-independent', async () => {
+  const [routes, helpers, account, sessions, schema] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/http_helpers.ts', import.meta.url), 'utf8'),
     readFile(new URL('../packages/deepseek-harness-plugin/src/account.js', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/pluginUsers.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/schema.ts', import.meta.url), 'utf8'),
   ]);
   assert.match(routes, /\/plugin\/deepseek-harness\/auth\/start/);
   assert.match(routes, /\/plugin\/deepseek-harness\/auth\/poll/);
-  assert.match(routes, /DEXTHEMES_DEEPSEEK_OAUTH_CLIENT_ID/);
+  assert.match(routes, /DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID/);
+  assert.match(routes, /DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET/);
+  assert.match(routes, /https:\/\/github\.com\/login\/device\/code/);
+  assert.match(routes, /https:\/\/github\.com\/login\/oauth\/access_token/);
+  assert.match(routes, /https:\/\/api\.github\.com\/user/);
+  assert.match(routes, /new URLSearchParams\(\{ client_id: clientId \}\)/);
   assert.match(routes, /urn:ietf:params:oauth:grant-type:device_code/);
   assert.match(routes, /RATE_LIMITS\.oauthStartNetwork/);
   assert.match(routes, /RATE_LIMITS\.pluginAuthNetwork/);
-  assert.doesNotMatch(routes, /client_secret|offline_access|refresh_token/);
+  assert.match(routes, /upsertDeepSeekDeviceUser/);
+  assert.match(routes, /accessToken: session\.pluginAuthToken/);
+  assert.match(routes, /GITHUB_TOKEN_API_BASE/);
+  assert.match(routes, /access_token: githubAccessToken/);
+  assert.match(routes, /github_token_cleanup_failed/);
+  assert.doesNotMatch(routes, /accessToken: githubAccessToken|offline_access|refresh_token/);
+  assert.doesNotMatch(routes, /DEXTHEMES_DEEPSEEK_OAUTH_CLIENT_ID|audience/);
+  assert.match(routes, /resolveClientPluginSession/);
+  assert.match(routes, /requiredScope: scope/);
+  assert.match(routes, /getSubmissionStatsForPluginUser/);
+  assert.match(routes, /getUnlocksForUser/);
+  assert.match(routes, /recordDeepSeekHarnessUseForUser/);
+  assert.match(routes, /\/plugin\/deepseek-harness\/session/);
+  assert.match(routes, /revokeClientPluginSession/);
+  assert.match(sessions, /DEEPSEEK_SESSION_TTL_MS = 60 \* 60 \* 1000/);
+  assert.match(sessions, /scopes: \["themes:read"\]/);
+  assert.match(sessions, /source: "deepseek_github_device"/);
+  assert.match(sessions, /clientUsable: true/);
+  assert.match(sessions, /session\.clientUsable !== true/);
+  assert.match(sessions, /!session\.scopes\?\.includes\(args\.requiredScope\)/);
+  assert.match(schema, /pluginSessions:[\s\S]*?scopes: v\.optional\(v\.array\(v\.string\(\)\)\)/);
+  assert.match(schema, /pluginSessions:[\s\S]*?clientUsable: v\.optional\(v\.boolean\(\)\)/);
   assert.match(helpers, /"Access-Control-Allow-Origin": "\*"/);
   assert.doesNotMatch(helpers.match(/export function pluginCorsHeaders\(\) \{[\s\S]*?\n\}/)?.[0] || '', /Allow-Credentials/);
   assert.doesNotMatch(account, /localStorage|sessionStorage|document\.cookie/);
-  assert.match(account, /Authorization: `Bearer \$\{accessToken\}`/);
+  assert.match(account, /Authorization: `Bearer \$\{token\}`/);
   assert.match(account, /accessToken = ''/);
+  assert.match(account, /hostname === 'github\.com'/);
+  assert.match(account, /accessToken\.startsWith\('dxd_'\)/);
+  assert.match(sessions, /prefix: "dxd_"/);
+  assert.doesNotMatch(sessions, /deepseek_internal_bridge/);
+  assert.doesNotMatch(sessions, /bridgeClientPluginSession/);
+  assert.match(helpers, /"Cache-Control": "no-store"/);
+  assert.match(helpers, /Pragma: "no-cache"/);
+  const globalAuth = await readFile(new URL('../convex/auth.ts', import.meta.url), 'utf8');
+  assert.doesNotMatch(globalAuth, /dxd_/);
+});
+
+test('Codex MCP OAuth verifier remains separate from the DeepSeek GitHub device bridge', async () => {
+  const [routes, verifier] = await Promise.all([
+    readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/pluginAuth.ts', import.meta.url), 'utf8'),
+  ]);
+  assert.match(routes, /verifyPluginBearer\(request, scope\)/);
+  assert.match(verifier, /DEXTHEMES_AUTH_ISSUER/);
+  assert.match(verifier, /DEXTHEMES_AUTH_AUDIENCE/);
+  assert.match(verifier, /jwtVerify/);
+  assert.match(verifier, /algorithms: \["RS256"\]/);
 });
 
 test('DeepSeek Harness uses a distinct fail-closed MCP route without adding a Vercel function', async () => {
@@ -104,6 +154,13 @@ test('API achievement flow uses the authenticated server-observed endpoint', asy
   const flow = source.match(/export async function runApiUnlockFlow[\s\S]*?\n}\n/)?.[0] || '';
   assert.match(flow, /authFetch\(state\.CONVEX_SITE_URL \+ '\/me\/api-demo'/);
   assert.doesNotMatch(flow, /grantUnlockAction\(/);
+});
+
+test('Color Me Lucky submission forwards the verified bearer through the current theme contract', async () => {
+  const source = await readFile(new URL('../convex/http_color_me_lucky_routes.ts', import.meta.url), 'utf8');
+  const submit = source.slice(source.indexOf('path: "/api/color-me-lucky/submit"'));
+  assert.match(submit, /internal\.themes\.submit, \{\s*authToken: token,/);
+  assert.doesNotMatch(submit, /internal\.themes\.submit, \{\s*sessionToken:/);
 });
 
 test('employee achievement requires a signed verified exact-domain claim', async () => {

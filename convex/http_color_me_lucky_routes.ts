@@ -220,7 +220,7 @@ export function registerColorMeLuckyRoutes(http: DexHttpRouter) {
         }
 
         const result = await ctx.runMutation(internal.themes.submit, {
-          sessionToken: token,
+          authToken: token,
           themeId,
           name: name.trim(),
           summary: body.summary || `Generated with Color Me Lucky`,

@@ -177,7 +177,7 @@ function AccountPanel({ account }) {
     </div>
     <div style={ui.accountActions}>
       {waiting && state.verificationUrl
-        ? <a style={ui.link} href={state.verificationUrl} target="_blank" rel="noreferrer">Continue secure sign-in</a>
+        ? <a style={ui.link} href={state.verificationUrl} target="_blank" rel="noreferrer">Continue with GitHub</a>
         : null}
       {connected
         ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Disconnect</button>

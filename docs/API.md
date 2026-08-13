@@ -237,12 +237,13 @@ DexThemes applies IP and user-based rate limiting on sensitive routes. Public re
 
 The installed Harness settings package uses these bearer-only, wildcard-CORS routes; none accepts cookies or caller-supplied identity:
 
-- `POST /plugin/deepseek-harness/auth/start` requests a bounded OAuth device/user code through the configured public Native Application.
-- `POST /plugin/deepseek-harness/auth/poll` accepts only the opaque device code, proxies the standard device grant, and returns a short-lived `themes:read` access token after authorization.
+- `POST /plugin/deepseek-harness/auth/start` requests a bounded code from GitHub Device Flow through Convex using a separate DexThemes-for-DeepSeek OAuth application and no requested OAuth scope.
+- `POST /plugin/deepseek-harness/auth/poll` accepts only the opaque device code. Convex exchanges it with GitHub, verifies `/user` server-side, revokes that exact GitHub token, and returns a one-hour, read-only `dxd_…` DexThemes session whose hash is stored at rest.
+- `DELETE /plugin/deepseek-harness/session` revokes that client-usable DexThemes session on disconnect.
 - `GET /plugin/me/stats` and `GET /plugin/me/unlocks` return the verified account's sanitized creator data and reward themes.
 - `POST /plugin/deepseek-harness/use` accepts no action, user, platform, prompt, workspace, or theme payload and idempotently awards `use_deepseek_harness` (`Harnessed`, reward `Deep Current`) to the bearer identity.
 
-The plugin keeps the access and device tokens in memory only, requests no refresh/offline scope, and clears them on disconnect or unload. The restricted Harness MCP profile stays anonymous; anonymous applies do not award the milestone.
+The plugin keeps the device code and DexThemes session in memory only and accepts only GitHub's exact device verification origin. It never receives a GitHub access token, requests no refresh/offline scope, and clears local authority on disconnect or unload. The restricted Harness MCP profile stays anonymous; anonymous applies do not award the milestone. The standards-compliant Codex/ChatGPT MCP OAuth verifier remains a separate unchanged contract.
 
 ## License
 

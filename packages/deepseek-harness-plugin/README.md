@@ -2,14 +2,14 @@
 
 Installed DeepSeek Harness plugin for browsing, previewing, applying, and reverting paired palettes through Harness's public client-side theme service.
 
-Version 0.4 includes twelve unofficial DeepSeek ecosystem color tributes, a privacy-bounded Statsig event sink, a supported Harness MCP connection for public DexThemes agent tools, and an optional DexThemes account connection. Inclusion is based on linked public documentation for a DeepSeek integration, deployment, or inference path. The package does not bundle logos, fonts, or other company assets and does not claim partnership, authorization, or endorsement.
+Version 0.5 includes twelve unofficial DeepSeek ecosystem color tributes, a privacy-bounded Statsig event sink, a supported Harness MCP connection for public DexThemes agent tools, and an optional GitHub-backed DexThemes account connection through the existing Convex backend. Inclusion is based on linked public documentation for a DeepSeek integration, deployment, or inference path. The package does not bundle logos, fonts, or other company assets and does not claim partnership, authorization, or endorsement.
 
 ## Install
 
 From the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.5.0
 pnpm dsh web
 ```
 
@@ -29,9 +29,9 @@ After Harness starts, refresh its browser tab once so the new client package is 
 3. Choose **Preview**, then **Apply to DeepSeek**, or apply directly from a card.
 4. Apply another card to switch themes. Choose **Revert** to restore the Harness default.
 
-Browsing, chat creation, preview, apply, and revert never require an account. To add creator stats, achievements, and unlocked reward palettes, choose **Connect DexThemes**. The plugin requests a short-lived OAuth device code, sends the user to the provider's HTTPS verification page, and polls through the rate-limited DexThemes API. The access token stays only in the running plugin's memory: it is never placed in a prompt, URL, browser storage, analytics event, workspace, or Harness configuration. Disconnecting or unloading the plugin clears it.
+Browsing, chat creation, preview, apply, and revert never require an account. To add creator stats, achievements, and unlocked reward palettes, choose **Connect DexThemes**. Convex requests a short-lived code from GitHub's official Device Flow, and the plugin sends the user only to `https://github.com/login/device`. The opaque device code remains in memory while Convex polls GitHub. GitHub's token is used only inside that Convex request to verify `/user`; it is never returned to Harness or stored by DexThemes. Convex instead returns a one-hour, `themes:read` DexThemes session whose hash is stored server-side and whose credential stays only in the running plugin closure. It is never placed in a prompt, URL, browser storage, analytics event, workspace, or Harness configuration. Disconnecting clears it locally and asks Convex to revoke it; unload clears it locally, with server expiry as the fallback.
 
-After a connected user successfully applies a theme, the plugin calls the bearer-only `/plugin/deepseek-harness/use` route. The server derives the account from the verified token and idempotently awards **Harnessed** with the paired **Deep Current** reward. Anonymous applies never claim it. The device flow requires a configured OAuth Native Application with Device Code enabled, token endpoint authentication set to `None`, the DexThemes API audience, and the `themes:read` scope.
+After a connected user successfully applies a theme, the plugin calls the bearer-only `/plugin/deepseek-harness/use` route. The server derives the account from the hashed DexThemes session and idempotently awards **Harnessed** with the paired **Deep Current** reward. Anonymous applies never claim it. The device flow uses a separate DexThemes-owned GitHub OAuth application with **Enable Device Flow** turned on. It requests no OAuth scope, which GitHub defines as read-only public profile access. Convex verifies `/user`, revokes that exact GitHub token through the app's server-held secret, and only then issues the distinct `dxd_…` session. Normal website and publication routes do not recognize that credential family. Auth0, refresh tokens, and offline access are not part of the DeepSeek flow. The separate Codex/ChatGPT MCP OAuth 2.1 contract remains unchanged.
 
 The package also loads Harness's shipped `@deepseek-ai/dsh-mcp-client` against the restricted `https://www.dexthemes.com/api/deepseek-mcp` surface. In any chat mode, ask for a theme by idea, ask **Color me lucky**, search the catalog, validate a draft, preview its paired palette data, or prepare a reversible DeepSeek apply Package. Choose Harness's shipped **Creator mode** when the chat should also call `cordis_define`, `cordis_run`, and `cordis_stop` to apply and revert that Package. Standard mode deliberately omits those self-modification tools. Only the selected tool name and arguments are sent; the connector does not attach the conversation, workspace, paths, or credentials. Disable or remove the DexThemes plugin to dispose both the theme UI and its tool connection.
 

@@ -1,6 +1,6 @@
 {
   "name": "@dexthemes/deepseek-harness-plugin",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Installed DexThemes browser plugin for DeepSeek Harness",
   "type": "module",
   "main": "./lib/index.js",
