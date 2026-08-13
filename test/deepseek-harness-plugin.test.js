@@ -55,19 +55,20 @@ test('installed Harness package declares a real bundle, client export, and suppo
   assert.equal(manifest.dependencies['@statsig/js-client'], '^3.32.2');
 });
 
-test('bundled plugin catalog replaces Codex origins with twelve paired DeepSeek collection themes', () => {
+test('bundled plugin catalog replaces Codex origins with a default and twelve paired DeepSeek tributes', () => {
   assert.ok(BUNDLED_HARNESS_THEMES.length > 90);
-  assert.equal(DEEPSEEK_HARNESS_THEMES.length, 12);
-  assert.equal(BUNDLED_HARNESS_THEMES.filter((theme) => theme.category === 'deepseek').length, 12);
+  assert.equal(DEEPSEEK_HARNESS_THEMES.length, 13);
+  assert.equal(BUNDLED_HARNESS_THEMES.filter((theme) => theme.category === 'deepseek').length, 13);
   assert.equal(BUNDLED_HARNESS_THEMES.some((theme) => theme.category === 'codex'), false);
   assert.deepEqual(
     BUNDLED_HARNESS_THEMES.filter((theme) => theme.category === 'deepseek').map((theme) => theme.name),
-    ['Huawei', 'Tencent', 'Alibaba', 'Ant Group', 'ByteDance', 'Baidu', 'SiliconFlow', 'JD.com', 'China Telecom', 'China Mobile', 'HONOR', 'Lenovo'],
+    ['DeepSeek', 'Huawei', 'Tencent', 'Alibaba', 'Ant Group', 'ByteDance', 'Baidu', 'SiliconFlow', 'JD.com', 'China Telecom', 'China Mobile', 'HONOR', 'Lenovo'],
   );
   assert.ok(BUNDLED_HARNESS_THEMES.every((theme) => theme.dark && theme.light));
   assert.equal(BUNDLED_HARNESS_THEMES.some((theme) => theme.subgroup === 'unlockables'), false);
+  assert.equal(BUNDLED_HARNESS_THEMES.find((theme) => theme.id === 'deepseek-default')?.unofficial, false);
   assert.ok(BUNDLED_HARNESS_THEMES
-    .filter((theme) => theme.category === 'deepseek')
+    .filter((theme) => theme.category === 'deepseek' && theme.unofficial)
     .every((theme) => theme.unofficial && theme.summary.startsWith('Unofficial') && theme.evidenceUrl.startsWith('https://')));
   assert.equal(normalizeHarnessTheme({ id: 'dark-only', name: 'Nope', dark: {} }), null);
   assert.equal(normalizeHarnessTheme({ ...DEEPSEEK_HARNESS_THEMES[0], category: 'codex' }), null);
@@ -162,9 +163,43 @@ test('one-click controller replaces its owned layer and reversible removal calls
     'deepseek_theme_apply_succeeded',
     'deepseek_theme_apply_started',
     'deepseek_theme_apply_succeeded',
+    'deepseek_theme_revert_started',
+    'deepseek_theme_revert_succeeded',
     'deepseek_theme_reverted',
   ]);
   assert.ok(events.every((event) => !('prompt' in event) && !('workspace' in event) && !('credential' in event)));
+});
+
+test('replacement and revert failures remain bounded, observable, and retryable', () => {
+  const events = [];
+  let failFirstDisposer = true;
+  const runtime = {
+    overrideTokens() {
+      const isFirst = events.filter((event) => event.name === 'deepseek_theme_apply_started').length === 1;
+      return () => {
+        if (isFirst && failFirstDisposer) throw new Error('raw disposer failure');
+      };
+    },
+  };
+  const controller = createHarnessThemeController(runtime, { onEvent: (event) => events.push(event) });
+  const first = BUNDLED_HARNESS_THEMES[0];
+  const second = BUNDLED_HARNESS_THEMES[1];
+
+  assert.equal(controller.apply(first), true);
+  assert.equal(controller.apply(second), false);
+  assert.equal(controller.getSnapshot().activeThemeId, first.id);
+  assert.equal(controller.getSnapshot().status, 'error');
+  assert.doesNotMatch(controller.getSnapshot().error, /raw disposer failure/);
+
+  assert.equal(controller.revert(), false);
+  assert.equal(controller.getSnapshot().activeThemeId, first.id);
+  assert.equal(controller.getSnapshot().error, 'Theme removal failed. Try Revert again.');
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_revert_failed'));
+
+  failFirstDisposer = false;
+  assert.equal(controller.revert(), true);
+  assert.equal(controller.getSnapshot().activeThemeId, null);
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_revert_succeeded'));
 });
 
 test('successful one-click apply reports authenticated Harness use without coupling account failure to the theme', async () => {
@@ -428,6 +463,7 @@ test('installed plugin analytics sends only allowlisted metadata and owns Statsi
   });
   assert.ok(calls.some((call) => call.type === 'shutdown'));
   assert.equal(sanitizePluginAnalyticsEvent({ name: 'deepseek_plugin_install_succeeded' }), null);
+  assert.equal(sanitizePluginAnalyticsEvent({ name: 'deepseek_theme_revert_failed', failure_code: 'runtime_contract_rejected' }).name, 'deepseek_theme_revert_failed');
   assert.equal(sanitizePluginAnalyticsEvent({ name: 'deepseek_theme_previewed', theme_id: 'unsafe id' }).metadata.theme_id, undefined);
 });
 

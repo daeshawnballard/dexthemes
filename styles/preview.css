@@ -56,13 +56,111 @@
   background: rgba(0,0,0,0.15);
 }
 
-.preview-window-title {
+.preview-platform-context {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 12px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: calc(100% - 110px);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
   transition: color 0.3s;
+}
+
+.preview-platform-context label {
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.preview-platform-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.preview-platform-select-wrap svg {
+  position: absolute;
+  right: 8px;
+  pointer-events: none;
+}
+
+#preview-platform-select {
+  min-width: 0;
+  max-width: 190px;
+  height: 26px;
+  appearance: none;
+  padding: 0 26px 0 9px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+}
+
+#preview-platform-select:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent);
+  border-color: var(--accent);
+}
+
+.platform-setup-message {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 20px 0;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  color: inherit;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.platform-setup-message[hidden] {
+  display: none;
+}
+
+.platform-setup-message-icon {
+  color: var(--accent);
+}
+
+.platform-setup-message-copy {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.platform-setup-message-copy strong {
+  color: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.platform-setup-message-copy span {
+  opacity: 0.68;
+  overflow-wrap: anywhere;
+}
+
+.platform-setup-message-link {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.platform-setup-message-link:hover {
+  text-decoration: underline;
 }
 
 .preview-chat {

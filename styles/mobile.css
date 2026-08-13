@@ -72,8 +72,8 @@
     backdrop-filter: blur(14px);
   }
 
-  /* Hide Create button on mobile */
-  .sidebar-header .new-chat-btn {
+  /* Create lives in the persistent bottom navigation on compact screens. */
+  .sidebar-create-section {
     display: none !important;
   }
 
@@ -219,6 +219,17 @@
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  .preview-platform-context {
+    max-width: calc(100% - 86px);
+    gap: 5px;
+  }
+
+  #preview-platform-select {
+    max-width: 150px;
+    height: 25px;
+    font-size: 10px;
   }
 
   .mobile-back-btn {
@@ -480,6 +491,78 @@
     transition: transform 0.15s;
   }
 
+  .mobile-nav-explore {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-nav-explore > summary {
+    width: 100%;
+    list-style: none;
+  }
+
+  .mobile-nav-explore > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-nav-explore[open] > summary {
+    color: var(--accent);
+  }
+
+  .mobile-nav-explore-menu {
+    position: absolute;
+    right: 8px;
+    bottom: calc(100% + 10px);
+    display: grid;
+    width: min(290px, calc(100vw - 24px));
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--sidebar-bg);
+    box-shadow: 0 18px 48px rgb(0 0 0 / 0.32);
+  }
+
+  .mobile-nav-explore-heading {
+    padding: 13px 14px 9px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-nav-explore-menu > a {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 14px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .mobile-nav-explore-menu > a:active,
+  .mobile-nav-explore-menu > a:focus-visible {
+    background: var(--surface);
+    color: var(--text-primary);
+  }
+
+  .mobile-nav-explore-menu > a span {
+    color: var(--accent);
+  }
+
+  .mobile-nav-explore-menu .mobile-platform-affiliation {
+    margin: 0;
+    padding: 10px 14px 12px;
+    border-top: 1px solid var(--border);
+    text-align: left;
+  }
+
   /* Hide sidebar footer disclaimer on mobile — save space */
   .sidebar-footer-disclaimer {
     font-size: 9px;
@@ -518,42 +601,7 @@
     display: none;
   }
 
-  /* Hide hex color pickers on mobile — just use Color Me Lucky */
-  .builder-section {
-    display: none;
-  }
-
-  .builder-mobile-lucky-row {
-    display: flex;
-    gap: 8px;
-    margin: 0 0 12px;
-  }
-
-  /* Color Me Dark / Color Me Light — compact tray controls */
-  .builder-lucky-btn {
-    flex: 1;
-    min-height: 42px;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 12px;
-  }
-
-  .builder-lucky-light {
-    background: rgba(255,255,255,0.06);
-    color: var(--text-primary);
-    border-color: var(--border);
-  }
-
   .builder-fun-row {
-    display: none;
-  }
-
-  /* Hide variant toggle and controls row on mobile (merged into lucky buttons) */
-  .builder-controls-row {
-    display: none;
-  }
-  .builder-variant-toggle {
     display: none;
   }
 
@@ -928,62 +976,11 @@
     font-size: 13px;
   }
 
-  .mobile-explore {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
-    overflow: hidden;
-    margin: 8px 0 4px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--border);
-  }
-
-  .mobile-explore > div,
-  .mobile-explore > a {
-    background: var(--surface);
-  }
-
-  .mobile-explore > div {
-    grid-column: 1 / -1;
-    display: grid;
-    gap: 3px;
-    padding: 11px 12px;
-  }
-
-  .mobile-explore > div span {
-    color: var(--accent);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  .mobile-explore > div strong {
-    color: var(--text-primary);
-    font-size: 12px;
-  }
-
-  .mobile-explore > a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-    min-width: 0;
-    padding: 9px 10px;
-    color: var(--text-secondary);
+  .mobile-platform-affiliation {
+    color: var(--text-muted);
     font-size: 10px;
-    font-weight: 600;
-    line-height: 1.25;
-    text-decoration: none;
-  }
-
-  .mobile-explore > a span {
-    color: var(--accent);
-  }
-
-  .mobile-explore > a:last-child {
-    grid-column: 1 / -1;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
   }
 
   /* Move secondary discovery links into the tablet header chrome. */
@@ -1007,23 +1004,24 @@
       display: flex;
       align-items: center;
       align-self: stretch;
-      gap: 2px;
+      gap: 1px;
       min-width: 0;
-      margin-left: 18px;
-      padding-left: 18px;
+      margin-left: 10px;
+      padding-left: 10px;
       border-left: 1px solid var(--border);
     }
 
-    .tablet-explore-nav > a,
-    .tablet-explore-more > summary {
+    .tablet-explore-nav > a {
       display: flex;
       min-height: 44px;
       align-items: center;
-      padding: 0 10px;
+      padding: 0 6px;
       border-radius: 8px;
       color: var(--text-secondary);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 550;
+      line-height: 1.15;
+      text-align: center;
       text-decoration: none;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
@@ -1031,83 +1029,16 @@
     }
 
     .tablet-explore-nav > a:hover,
-    .tablet-explore-nav > a:focus-visible,
-    .tablet-explore-more > summary:hover,
-    .tablet-explore-more > summary:focus-visible,
-    .tablet-explore-more[open] > summary {
+    .tablet-explore-nav > a:focus-visible {
       background: var(--surface);
       color: var(--text-primary);
-    }
-
-    .tablet-explore-more {
-      position: relative;
-    }
-
-    .tablet-explore-more > summary {
-      gap: 5px;
-      list-style: none;
-    }
-
-    .tablet-explore-more > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .tablet-explore-more > summary span {
-      color: var(--text-muted);
-      font-size: 9px;
-      transition: transform 0.15s;
-    }
-
-    .tablet-explore-more[open] > summary span {
-      transform: rotate(180deg);
-    }
-
-    .tablet-explore-menu {
-      position: absolute;
-      top: calc(100% + 7px);
-      right: 0;
-      z-index: 50;
-      display: grid;
-      width: 218px;
-      gap: 3px;
-      padding: 6px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--surface);
-      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.34);
-    }
-
-    .tablet-explore-menu a {
-      display: grid;
-      gap: 3px;
-      padding: 10px;
-      border-radius: 8px;
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
-
-    .tablet-explore-menu a:hover,
-    .tablet-explore-menu a:focus-visible {
-      background: var(--surface-raised);
-      color: var(--text-primary);
-    }
-
-    .tablet-explore-menu span {
-      font-size: 11px;
-      font-weight: 650;
-    }
-
-    .tablet-explore-menu small {
-      color: var(--text-muted);
-      font-size: 9px;
-      font-weight: 450;
     }
 
     .mobile-header-profile {
       margin-left: auto;
     }
 
-    .mobile-explore {
+    .mobile-nav-explore {
       display: none;
     }
   }
@@ -1199,7 +1130,29 @@
    for small tablets and large phones.
    ================================================ */
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .platform-setup-message {
+    grid-template-columns: auto minmax(0, 1fr);
+    margin: 10px 12px 0;
+    padding: 9px 10px;
+  }
+
+  .platform-setup-message-link {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .preview-platform-context label {
+    display: none;
+  }
+
+  .preview-platform-context {
+    max-width: calc(100% - 72px);
+  }
+
+  #preview-platform-select {
+    max-width: 138px;
+  }
   .shell {
     --mobile-browse-search-top: 56px;
     --mobile-browse-pills-top: 6px;

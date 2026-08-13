@@ -4,8 +4,10 @@
 
 import { THEMES } from './theme-catalog.js';
 import { SUPPORTER_THEME_ID, getUnlockActionForThemeId } from './unlocks.js';
-import { normalizeThemeVariant, readThemeRoute, syncThemeUrl } from './theme-url.js';
+import { normalizeThemeVariant, readPlatformParam, readThemeRoute, syncThemeUrl } from './theme-url.js';
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
+import { DEFAULT_PLATFORM_ID, getPlatform, normalizePlatformId } from '../shared/platform-registry.js';
+import { resolveSelectedPlatformId } from './platform-selection.js';
 
 // URL state takes priority over localStorage. Query deep links are canonicalized
 // to copyable paths such as /mancity/dark after their values are read.
@@ -35,7 +37,21 @@ export const landingContext = Object.freeze({
 const _routeThemeId = _themeRoute.themeId;
 const _urlThemeId = _routeThemeId ? resolvePluginThemeSourceId(_routeThemeId) : null;
 const _urlVariant = _themeRoute.variant;
-const _savedThemeId = _urlThemeId || localStorage.getItem('dexthemes-selected');
+const _urlPlatformId = normalizePlatformId(readPlatformParam(window.location));
+const _savedPlatformId = normalizePlatformId(localStorage.getItem('dexthemes-platform'));
+export let selectedPlatformId = resolveSelectedPlatformId({
+  urlPlatformId: _urlPlatformId,
+  hasUrlPlatform: _landingParams.has('platform'),
+  storedPlatformId: _savedPlatformId,
+});
+export let selectedPlatform = getPlatform(selectedPlatformId);
+const _storedThemeId = localStorage.getItem('dexthemes-selected');
+const _platformDefaultThemeId = selectedPlatform.defaultThemeId || null;
+const _savedThemeId = _urlThemeId || (
+  _landingParams.has('platform')
+    ? _platformDefaultThemeId
+    : (_storedThemeId || _platformDefaultThemeId)
+);
 const _requestedTheme = _savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId);
 const _requestedThemeIsProtected = Boolean(_requestedTheme && getUnlockActionForThemeId(_requestedTheme.id));
 
@@ -51,15 +67,16 @@ export const deepLinkThemeId = _urlThemeId;
 
 // Keep the address bar aligned with what the preview is actually showing.
 if (_routeThemeId) {
-  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
-} else if (_savedThemeId && selectedTheme.id === _savedThemeId) {
-  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant, { platformId: selectedPlatformId });
+} else if (_storedThemeId && selectedTheme.id === _storedThemeId) {
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant, { platformId: selectedPlatformId });
 }
 
 export let selectedAccentIdx = 0;
-export let expandedCategories = { official: false, dexthemes: false, community: false };
+export let expandedCategories = { official: false, deepseek: false, dexthemes: false, community: false };
 export let expandedSubgroups = {
   official: {},
+  deepseek: {},
   dexthemes: {
     anime: false, games: false, movies: false,
     comics: false, zodiacs: false, lunar: false, companies: false, originals: false, supporter: false,
@@ -68,6 +85,7 @@ export let expandedSubgroups = {
 };
 export let pinnedSubgroups = {
   official: {},
+  deepseek: {},
   dexthemes: {},
   community: {},
 };
@@ -113,7 +131,26 @@ export function setSelectedVariant(variant) {
 }
 
 export function syncSelectedThemeUrl() {
-  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant);
+  syncThemeUrl(getWebsiteThemeId(selectedTheme), selectedVariant, { platformId: selectedPlatformId });
+}
+
+export function setSelectedPlatform(platformId) {
+  const normalized = normalizePlatformId(platformId);
+  if (!normalized) return false;
+  const changed = normalized !== selectedPlatformId;
+  selectedPlatformId = normalized;
+  selectedPlatform = getPlatform(normalized);
+  try { localStorage.setItem('dexthemes-platform', normalized); } catch {}
+  const defaultTheme = changed && selectedPlatform.defaultThemeId
+    ? THEMES.find((theme) => theme.id === selectedPlatform.defaultThemeId)
+    : null;
+  if (defaultTheme && selectedTheme.id !== defaultTheme.id) {
+    selectedAccentIdx = 0;
+    setSelectedTheme(defaultTheme);
+    return true;
+  }
+  syncSelectedThemeUrl();
+  return true;
 }
 
 export function setSelectedAccentIdx(index) { selectedAccentIdx = index; }

@@ -1497,6 +1497,708 @@ export const STATIC_THEME_CATALOG = [
     }
   },
   {
+    "id": "deepseek-default",
+    "themeId": "deepseek-default",
+    "name": "DeepSeek",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#151517",
+      "ink": "#F9FAFB",
+      "accent": "#5686FE",
+      "sidebar": "#1B1B1C",
+      "codeBg": "#0F0F0F",
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#F25A5A",
+      "skill": "#679EFE"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#FFFFFF",
+      "ink": "#0F1115",
+      "accent": "#4176E6",
+      "sidebar": "#F9FAFB",
+      "codeBg": "#F9FAFB",
+      "diffAdded": "#22C55E",
+      "diffRemoved": "#EC1313",
+      "skill": "#4176E6"
+    },
+    "accents": [
+      "#5686FE",
+      "#4176E6"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-default",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-default",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-huawei",
+    "themeId": "deepseek-huawei",
+    "name": "Huawei",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#130C10",
+      "ink": "#FFF3F5",
+      "accent": "#E51A3C",
+      "sidebar": "#0D080B",
+      "codeBg": "#090609",
+      "diffAdded": "#35C97A",
+      "diffRemoved": "#FF526D",
+      "skill": "#F2B84B"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#FFF7F8",
+      "ink": "#261317",
+      "accent": "#CF0A2C",
+      "sidebar": "#F8E9EC",
+      "codeBg": "#FCEFF1",
+      "diffAdded": "#16834B",
+      "diffRemoved": "#B80727",
+      "skill": "#9B6100"
+    },
+    "accents": [
+      "#E51A3C",
+      "#CF0A2C"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-huawei",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-huawei",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-tencent",
+    "themeId": "deepseek-tencent",
+    "name": "Tencent",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#07131F",
+      "ink": "#EAF7FF",
+      "accent": "#00A4FF",
+      "sidebar": "#050E17",
+      "codeBg": "#030A11",
+      "diffAdded": "#2FD69A",
+      "diffRemoved": "#FF647C",
+      "skill": "#5CC8FF"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F3FAFF",
+      "ink": "#102538",
+      "accent": "#006EFF",
+      "sidebar": "#E7F4FC",
+      "codeBg": "#ECF7FD",
+      "diffAdded": "#087C55",
+      "diffRemoved": "#C92E49",
+      "skill": "#0052D9"
+    },
+    "accents": [
+      "#00A4FF",
+      "#006EFF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-tencent",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-tencent",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-alibaba",
+    "themeId": "deepseek-alibaba",
+    "name": "Alibaba",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#17100B",
+      "ink": "#FFF6ED",
+      "accent": "#FF6A00",
+      "sidebar": "#100B08",
+      "codeBg": "#0C0806",
+      "diffAdded": "#39C77F",
+      "diffRemoved": "#FF5D55",
+      "skill": "#FFB347"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#FFF9F4",
+      "ink": "#2B1A10",
+      "accent": "#D95300",
+      "sidebar": "#F9EEE5",
+      "codeBg": "#FCF2E9",
+      "diffAdded": "#187D4E",
+      "diffRemoved": "#B9332C",
+      "skill": "#9C5600"
+    },
+    "accents": [
+      "#FF6A00",
+      "#D95300"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-alibaba",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-alibaba",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-ant-group",
+    "themeId": "deepseek-ant-group",
+    "name": "Ant Group",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#091321",
+      "ink": "#EEF6FF",
+      "accent": "#1677FF",
+      "sidebar": "#060D17",
+      "codeBg": "#040A12",
+      "diffAdded": "#33D49D",
+      "diffRemoved": "#FF6482",
+      "skill": "#6FB1FF"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F4F8FF",
+      "ink": "#13243A",
+      "accent": "#0958D9",
+      "sidebar": "#EAF1FC",
+      "codeBg": "#EDF4FE",
+      "diffAdded": "#087F59",
+      "diffRemoved": "#C62F50",
+      "skill": "#004FBA"
+    },
+    "accents": [
+      "#1677FF",
+      "#0958D9"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-ant-group",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-ant-group",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-bytedance",
+    "themeId": "deepseek-bytedance",
+    "name": "ByteDance",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#0A1018",
+      "ink": "#F2F7FC",
+      "accent": "#2F88FF",
+      "sidebar": "#070B11",
+      "codeBg": "#04070B",
+      "diffAdded": "#2FD0A2",
+      "diffRemoved": "#FE2C55",
+      "skill": "#25D4E9"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F7FAFD",
+      "ink": "#162331",
+      "accent": "#1769E0",
+      "sidebar": "#EBF1F6",
+      "codeBg": "#F0F5F9",
+      "diffAdded": "#087F5E",
+      "diffRemoved": "#C5143B",
+      "skill": "#087F96"
+    },
+    "accents": [
+      "#2F88FF",
+      "#1769E0"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-bytedance",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-bytedance",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-baidu",
+    "themeId": "deepseek-baidu",
+    "name": "Baidu",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#0E0E21",
+      "ink": "#F2F1FF",
+      "accent": "#6262FF",
+      "sidebar": "#090918",
+      "codeBg": "#060611",
+      "diffAdded": "#39CE8A",
+      "diffRemoved": "#FF5B74",
+      "skill": "#8E8CFF"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F7F7FF",
+      "ink": "#1E1E3A",
+      "accent": "#2932E1",
+      "sidebar": "#ECECFA",
+      "codeBg": "#F0F0FC",
+      "diffAdded": "#157D51",
+      "diffRemoved": "#C72B45",
+      "skill": "#3C43B8"
+    },
+    "accents": [
+      "#6262FF",
+      "#2932E1"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-baidu",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-baidu",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-siliconflow",
+    "themeId": "deepseek-siliconflow",
+    "name": "SiliconFlow",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#071410",
+      "ink": "#ECFFF8",
+      "accent": "#21D99A",
+      "sidebar": "#050E0B",
+      "codeBg": "#030A08",
+      "diffAdded": "#31E2A3",
+      "diffRemoved": "#FF6577",
+      "skill": "#6BE6C0"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F2FCF8",
+      "ink": "#123027",
+      "accent": "#087C59",
+      "sidebar": "#E7F5EF",
+      "codeBg": "#EBF8F3",
+      "diffAdded": "#087A55",
+      "diffRemoved": "#C73349",
+      "skill": "#006B52"
+    },
+    "accents": [
+      "#21D99A",
+      "#087C59"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-siliconflow",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-siliconflow",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-jd-cloud",
+    "themeId": "deepseek-jd-cloud",
+    "name": "JD.com",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#151011",
+      "ink": "#FFF4F4",
+      "accent": "#E1251B",
+      "sidebar": "#0E0B0B",
+      "codeBg": "#0A0808",
+      "diffAdded": "#36C67B",
+      "diffRemoved": "#FF5A52",
+      "skill": "#F1A441"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#FFF8F7",
+      "ink": "#291718",
+      "accent": "#C81623",
+      "sidebar": "#F7EBEA",
+      "codeBg": "#FBEFEE",
+      "diffAdded": "#187E4D",
+      "diffRemoved": "#AE1020",
+      "skill": "#965C00"
+    },
+    "accents": [
+      "#E1251B",
+      "#C81623"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-jd-cloud",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-jd-cloud",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-china-telecom",
+    "themeId": "deepseek-china-telecom",
+    "name": "China Telecom",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#09131C",
+      "ink": "#EDF8FF",
+      "accent": "#1B8DCE",
+      "sidebar": "#060D13",
+      "codeBg": "#04090D",
+      "diffAdded": "#31CB8B",
+      "diffRemoved": "#F66470",
+      "skill": "#65BCEB"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F4FAFD",
+      "ink": "#163044",
+      "accent": "#0066A6",
+      "sidebar": "#E8F3F8",
+      "codeBg": "#EDF6FA",
+      "diffAdded": "#117B52",
+      "diffRemoved": "#BE3040",
+      "skill": "#00588F"
+    },
+    "accents": [
+      "#1B8DCE",
+      "#0066A6"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-china-telecom",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-china-telecom",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-china-mobile",
+    "themeId": "deepseek-china-mobile",
+    "name": "China Mobile",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#071719",
+      "ink": "#ECFCFD",
+      "accent": "#00A8A8",
+      "sidebar": "#050F11",
+      "codeBg": "#030B0C",
+      "diffAdded": "#36D296",
+      "diffRemoved": "#FF6874",
+      "skill": "#42C8E8"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F2FBFB",
+      "ink": "#143336",
+      "accent": "#008B86",
+      "sidebar": "#E5F5F5",
+      "codeBg": "#EAF8F8",
+      "diffAdded": "#0B7B52",
+      "diffRemoved": "#BF3440",
+      "skill": "#00759A"
+    },
+    "accents": [
+      "#00A8A8",
+      "#008B86"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-china-mobile",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-china-mobile",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-honor",
+    "themeId": "deepseek-honor",
+    "name": "HONOR",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#0D1020",
+      "ink": "#F4F4FF",
+      "accent": "#7A6CFF",
+      "sidebar": "#080B17",
+      "codeBg": "#060812",
+      "diffAdded": "#36D3A0",
+      "diffRemoved": "#FF6687",
+      "skill": "#42D8E8"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#F7F7FF",
+      "ink": "#20223C",
+      "accent": "#5146C8",
+      "sidebar": "#ECECF8",
+      "codeBg": "#F0F0FC",
+      "diffAdded": "#0E7D59",
+      "diffRemoved": "#C42F52",
+      "skill": "#087D91"
+    },
+    "accents": [
+      "#7A6CFF",
+      "#5146C8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-honor",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-honor",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "deepseek-lenovo",
+    "themeId": "deepseek-lenovo",
+    "name": "Lenovo",
+    "category": "deepseek",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-13",
+    "dark": {
+      "contrast": 64,
+      "surface": "#121212",
+      "ink": "#F6F6F6",
+      "accent": "#E2231A",
+      "sidebar": "#0B0B0B",
+      "codeBg": "#080808",
+      "diffAdded": "#3AC77C",
+      "diffRemoved": "#FF5B52",
+      "skill": "#F1AD45"
+    },
+    "light": {
+      "contrast": 46,
+      "surface": "#FAFAFA",
+      "ink": "#242424",
+      "accent": "#C51D16",
+      "sidebar": "#EEEEEE",
+      "codeBg": "#F2F2F2",
+      "diffAdded": "#197D4E",
+      "diffRemoved": "#AA1813",
+      "skill": "#925A00"
+    },
+    "accents": [
+      "#E2231A",
+      "#C51D16"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=deepseek-lenovo",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-lenovo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
     "id": "ichigo-bankai",
     "themeId": "ichigo-bankai",
     "name": "Crimson Soulblade",

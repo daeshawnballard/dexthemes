@@ -13,8 +13,14 @@ import { trackEvent } from './analytics.js';
 import { signInWith } from './auth.js';
 import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from './codex-handoff.js';
 import { grantUnlockAction } from './unlock-api.js';
+import { getPlatform, getPlatformAction } from '../shared/platform-registry.js';
+import { trackPlatformEvent } from './platform-analytics.js';
+import { showToast } from './toasts.js';
 
 let builderCreationTracked = false;
+let lunaPromptValue = '';
+let lunaStatusMessage = '';
+let builderBeforeAiGeneration = null;
 const BUILDER_VARIANT_KEYS = ['surface', 'ink', 'accent', 'sidebar', 'codeBg', 'diffAdded', 'diffRemoved', 'skill', 'contrast'];
 const BUILDER_COLOR_KEYS = BUILDER_VARIANT_KEYS.filter((key) => key !== 'contrast');
 
@@ -75,22 +81,17 @@ function isSafeBuilderDraft(draft) {
 }
 
 function buildBuilderTheme(builder) {
+  const activeVariant = builder.variant === 'light' ? 'light' : 'dark';
+  const activeDraft = extractVariantDraft(builder);
+  const dark = activeVariant === 'dark' ? activeDraft : builder._variantDrafts?.dark;
+  const light = activeVariant === 'light' ? activeDraft : builder._variantDrafts?.light;
   return {
     id: '_builder',
-    name: builder.name,
+    name: builder.name?.trim() || 'Theme Builder',
     category: 'custom',
     codeThemeId: 'codex',
-    [builder.variant]: {
-      surface: builder.surface,
-      ink: builder.ink,
-      accent: builder.accent,
-      contrast: builder.contrast,
-      sidebar: builder.sidebar,
-      codeBg: builder.codeBg,
-      diffAdded: builder.diffAdded,
-      diffRemoved: builder.diffRemoved,
-      skill: builder.skill,
-    },
+    ...(dark ? { dark: { ...dark } } : {}),
+    ...(light ? { light: { ...light } } : {}),
     accents: [builder.accent],
   };
 }
@@ -135,6 +136,7 @@ function normalizeBuilderState(saved) {
   return {
     name: typeof saved?.name === 'string' ? saved.name.slice(0, 80) : '',
     variant,
+    _creationMode: saved?._creationMode === 'luna' ? 'luna' : 'manual',
     _addVariantFor: saved?._addVariantFor,
     _variantDrafts: drafts,
     _variantTouched: touched,
@@ -163,6 +165,10 @@ function saveBuilderState() {
   localStorage.setItem('dexthemes-builder', JSON.stringify(state.builderColors));
 }
 
+function cloneBuilderState(builder) {
+  return normalizeBuilderState(JSON.parse(JSON.stringify(builder)));
+}
+
 function loadBuilderState() {
   try {
     const saved = localStorage.getItem('dexthemes-builder');
@@ -183,6 +189,13 @@ function maybeTrackThemeCreated(method) {
     method,
     variant: state.builderColors?.variant || 'dark',
   });
+  if (state.builderColors?._creationMode !== 'luna') {
+    trackPlatformEvent('manual_creation_started', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: 'manual',
+      variant: state.builderColors?.variant || 'dark',
+    });
+  }
 }
 
 async function maybeShowBuilderSubmitPrompt() {
@@ -215,6 +228,8 @@ export async function startBuilderSubmit() {
 
 export function resetBuilder() {
   trackEvent('builder_reset');
+  builderBeforeAiGeneration = null;
+  lunaStatusMessage = '';
   state.setBuilderColors(getDefaultBuilderColors());
   resetBuilderCreationTracking();
   localStorage.removeItem('dexthemes-builder');
@@ -305,37 +320,60 @@ export function colorMeLuckyVariant(variant) {
   }, 50);
 }
 
-export function toggleBuilderMode() {
+function syncBuilderNavigationButton(isOpen) {
   const btn = document.getElementById('submit-btn');
   const textEl = document.getElementById('submit-btn-text');
-  const iconEl = btn.querySelector('svg');
-  if (state.panelMode === 'builder') {
-    trackEvent('builder_closed', null, { source: 'toggle' });
-    state.setPanelMode('preview');
-    textEl.textContent = 'Create a theme';
-    iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
-    applyShellTheme(state.selectedTheme, state.selectedVariant);
-    applyPreview(state.selectedTheme, state.selectedVariant);
-    syncAttributionOverlay();
-    renderRightPanel();
-    const viewSwitch = document.getElementById('theme-view-switch');
-    if (viewSwitch) viewSwitch.hidden = false;
-  } else {
-    trackEvent('builder_opened', null, { source: 'toggle' });
-    state.setPanelMode('builder');
-    state.setThemeView('preview');
-    const viewSwitch = document.getElementById('theme-view-switch');
-    if (viewSwitch) viewSwitch.hidden = true;
-    void import('./theme-details.js').then((m) => m.showThemePreview({ track: false }));
-    state.setBuilderColors(loadBuilderState() || getDefaultBuilderColors());
-    resetBuilderCreationTracking();
-    localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
-    textEl.textContent = 'Back to browsing';
-    iconEl.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
-    renderBuilderPanel();
-    applyBuilderPreview();
-    showBuilderCoc();
-  }
+  const iconEl = btn?.querySelector('svg');
+  if (btn) btn.dataset.action = isOpen ? 'close-builder' : 'open-builder';
+  if (textEl) textEl.textContent = isOpen ? 'Back to Browse' : 'Create Theme';
+  if (iconEl) iconEl.innerHTML = isOpen
+    ? '<polyline points="15 18 9 12 15 6"/>'
+    : '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
+}
+
+export function closeBuilder({ source = 'unknown' } = {}) {
+  if (state.panelMode !== 'builder') return false;
+  builderBeforeAiGeneration = null;
+  trackEvent('builder_closed', null, { source });
+  state.setPanelMode('preview');
+  syncBuilderNavigationButton(false);
+  applyShellTheme(state.selectedTheme, state.selectedVariant);
+  applyPreview(state.selectedTheme, state.selectedVariant);
+  syncAttributionOverlay();
+  renderRightPanel();
+  const viewSwitch = document.getElementById('theme-view-switch');
+  if (viewSwitch) viewSwitch.hidden = false;
+  return true;
+}
+
+export function openBuilder({ source = 'unknown' } = {}) {
+  if (state.panelMode === 'builder') return false;
+  trackEvent('builder_opened', null, { source, platform_id: state.selectedPlatformId });
+  trackPlatformEvent('creator_opened', state.selectedPlatformId, {
+    source_surface: 'website',
+    creation_mode: 'manual',
+  });
+  state.setPanelMode('builder');
+  state.setThemeView('preview');
+  const viewSwitch = document.getElementById('theme-view-switch');
+  if (viewSwitch) viewSwitch.hidden = true;
+  void import('./theme-details.js').then((m) => m.showThemePreview({ track: false }));
+  state.setBuilderColors(loadBuilderState() || getDefaultBuilderColors());
+  builderBeforeAiGeneration = null;
+  lunaStatusMessage = '';
+  resetBuilderCreationTracking();
+  localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
+  syncBuilderNavigationButton(true);
+  renderBuilderPanel();
+  applyBuilderPreview();
+  showBuilderCoc();
+  return true;
+}
+
+export function toggleBuilderMode() {
+  return state.panelMode === 'builder'
+    ? closeBuilder({ source: 'toggle' })
+    : openBuilder({ source: 'toggle' });
 }
 
 export async function openBuilderForVariant(themeId, variant) {
@@ -378,13 +416,15 @@ export async function openBuilderForVariant(themeId, variant) {
       [opposite]: false,
     },
   }));
+  builderBeforeAiGeneration = null;
+  lunaStatusMessage = '';
   resetBuilderCreationTracking();
   localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
 
   const btn = document.getElementById('submit-btn');
   const textEl = document.getElementById('submit-btn-text');
   const iconEl = btn?.querySelector('svg');
-  if (textEl) textEl.textContent = 'Back to browsing';
+  if (textEl) textEl.textContent = 'Back to Browse';
   if (iconEl) iconEl.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
 
   renderBuilderPanel();
@@ -413,15 +453,37 @@ export function renderBuilderPanel() {
   const isCompactBuilder = isMobile();
   const panelTitleText = isCompactBuilder ? '' : 'Theme Builder';
   const applyCopy = getApplyButtonCopy(isMobile());
+  const platform = getPlatform(state.selectedPlatformId);
+  const platformAction = getPlatformAction(platform.id, 'website');
+  const canCopyToCodex = platform.id === 'codex';
+  const actionLabel = canCopyToCodex ? applyCopy.defaultLabel : platformAction.ctaLabel;
+  const actionHelper = canCopyToCodex ? applyCopy.hintText : platformAction.helperText;
+  const setupDestination = platformAction.mode === 'setup' && platformAction.destination?.kind === 'url'
+    ? platformAction.destination.value
+    : null;
+  const builderAction = canCopyToCodex
+    ? `<button class="apply-codex-btn builder-apply-btn" data-action="builder-apply-codex">
+        <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span class="builder-apply-btn-text" aria-live="polite">${escapeHtml(actionLabel)}</span>
+      </button>`
+    : setupDestination
+      ? `<a class="apply-codex-btn builder-apply-btn" href="${escapeHtml(setupDestination)}" target="_blank" rel="noopener" data-setup-platform="${escapeHtml(platform.id)}">
+          <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span class="builder-apply-btn-text">${escapeHtml(actionLabel)}</span>
+        </a>`
+      : `<button class="apply-codex-btn builder-apply-btn" type="button" disabled aria-disabled="true">
+          <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span class="builder-apply-btn-text">${escapeHtml(actionLabel)}</span>
+        </button>`;
 
   panel.innerHTML = `
     ${isCompactBuilder ? '' : `
-      <div class="panel-header">
+      <div class="panel-header builder-panel-header">
         <div class="panel-title">${panelTitleText}</div>
       </div>
     `}
     <div class="builder-panel">
-      ${isCompactBuilder ? '' : `<label class="field-label" for="builder-name">Theme name</label>`}
       <input type="text" class="builder-name-input" id="builder-name" value="${escapeHtml(b.name)}" placeholder="Name your theme..." aria-label="Theme name" data-input-action="builder-name-input">
       <div class="builder-name-warning" id="builder-name-warning">Give your theme a name first</div>
 
@@ -456,49 +518,133 @@ export function renderBuilderPanel() {
       </div>
 
       <div class="builder-section">
-        <div class="builder-section-title">Syntax colors</div>
+        <div class="builder-section-title">Syntax Colors</div>
         ${builderColorField('Strings / Added', 'diffAdded', b.diffAdded)}
         ${builderColorField('Errors / Removed', 'diffRemoved', b.diffRemoved)}
         ${builderColorField('Functions / Skill', 'skill', b.skill)}
       </div>
+
+      <div class="builder-mode-divider"><span>DexThemes AI</span></div>
+      <section class="builder-luna" aria-labelledby="builder-luna-title">
+        <div class="builder-section-title" id="builder-luna-title">Create from a Description</div>
+        <textarea class="builder-luna-prompt" id="builder-luna-prompt" maxlength="800" rows="4" placeholder="Cozy forest, moss accents, warm code surfaces, readable amber warnings…" aria-label="Describe your theme">${escapeHtml(lunaPromptValue)}</textarea>
+        <button class="builder-luna-generate" type="button" data-action="builder-generate-luna">Generate into editor</button>
+        <div class="builder-luna-status" id="builder-luna-status" role="status" aria-live="polite">${escapeHtml(lunaStatusMessage)}</div>
+        ${builderBeforeAiGeneration ? `
+          <button class="builder-luna-undo" type="button" data-action="builder-undo-ai">Undo AI draft</button>
+        ` : ''}
+      </section>
     </div>
 
     <div class="builder-actions">
-      ${isCompactBuilder ? '' : `
-        <div class="builder-submit-slot">
-          <button
-            class="builder-submit-btn${state.currentUser ? '' : ' builder-submit-btn--signin'}"
-            type="button"
-            data-action="builder-submit"
-          >
-            Submit to community &rarr;
-          </button>
-        </div>
-      `}
-      ${isCompactBuilder ? `
-        <div class="builder-mobile-lucky-row">
-          <button class="builder-lucky-btn builder-lucky-dark" data-action="builder-color-lucky-variant" data-variant="dark">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-            Color Me Dark
-          </button>
-          <button class="builder-lucky-btn builder-lucky-light" data-action="builder-color-lucky-variant" data-variant="light">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            Color Me Light
-          </button>
-        </div>
-      ` : ''}
-      <button class="apply-codex-btn builder-apply-btn" data-action="builder-apply-codex">
-        <svg class="apply-icon-bolt" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        <svg class="apply-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span class="builder-apply-btn-text" aria-live="polite">${applyCopy.defaultLabel}</span>
-      </button>
-      ${isCompactBuilder ? '' : `<div class="import-hint builder-import-hint">${applyCopy.hintText}</div>`}
+      <div class="builder-submit-slot">
+        <button
+          class="builder-submit-btn${state.currentUser ? '' : ' builder-submit-btn--signin'}"
+          type="button"
+          data-action="builder-submit"
+        >
+          Submit to community &rarr;
+        </button>
+      </div>
+      ${builderAction}
+      ${isCompactBuilder ? '' : `<div class="import-hint builder-import-hint">${escapeHtml(actionHelper)}</div>`}
     </div>
   `;
 
   if (isCompactBuilder) {
     panel.querySelector('.panel-header')?.remove();
   }
+  panel.querySelector('[data-setup-platform]')?.addEventListener('click', () => {
+    trackPlatformEvent('api_setup_opened', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: state.builderColors?._creationMode === 'luna' ? 'luna' : 'manual',
+    });
+  });
+}
+
+export async function generateBuilderDraftFromPrompt() {
+  const promptElement = document.getElementById('builder-luna-prompt');
+  const statusElement = document.getElementById('builder-luna-status');
+  const button = document.querySelector('.builder-luna-generate');
+  const prompt = String(promptElement?.value || '').trim();
+  lunaPromptValue = prompt;
+  if (prompt.length < 10) {
+    lunaStatusMessage = 'Add a little more detail so DexThemes AI can shape both modes.';
+    if (statusElement) statusElement.textContent = lunaStatusMessage;
+    return false;
+  }
+
+  button?.setAttribute('disabled', '');
+  if (builderBeforeAiGeneration) {
+    trackPlatformEvent('generated_draft_revised', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: 'luna',
+    });
+  }
+  lunaStatusMessage = 'Creating an editable paired draft…';
+  if (statusElement) statusElement.textContent = lunaStatusMessage;
+  trackPlatformEvent('prompt_generation_attempted', state.selectedPlatformId, {
+    source_surface: 'creator',
+    creation_mode: 'luna',
+  });
+
+  try {
+    const { generateThemeDraft } = await import('./luna-theme-api.js');
+    const result = await generateThemeDraft({ prompt, platformId: state.selectedPlatformId });
+    const theme = result.theme;
+    if (!theme?.dark || !theme?.light) throw Object.assign(new Error('Incomplete paired draft.'), { code: 'invalid_response' });
+    const previousBuilder = builderBeforeAiGeneration
+      ? cloneBuilderState(builderBeforeAiGeneration)
+      : cloneBuilderState(state.builderColors);
+    state.setBuilderColors(normalizeBuilderState({
+      name: theme.name,
+      variant: state.builderColors?.variant || 'dark',
+      _variantDrafts: { dark: theme.dark, light: theme.light },
+      _variantTouched: { dark: true, light: true },
+      _creationMode: 'luna',
+    }));
+    builderBeforeAiGeneration = previousBuilder;
+    lunaStatusMessage = result.validation?.warnings?.length
+      ? `Both modes filled with ${result.validation.warnings.length} accessibility note${result.validation.warnings.length === 1 ? '' : 's'}. Tweak any hex code or undo this draft.`
+      : 'Both modes filled. Tweak any hex code or undo this draft. Nothing has been applied or submitted.';
+    saveBuilderState();
+    renderBuilderPanel();
+    applyBuilderPreview();
+    trackPlatformEvent('prompt_generation_succeeded', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: 'luna',
+      validation_result: result.validation?.warnings?.length ? 'warning' : 'valid',
+    });
+    trackPlatformEvent('generated_draft_accepted', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: 'luna',
+    });
+    return true;
+  } catch (error) {
+    const category = ['timeout', 'rate_limited', 'unavailable', 'invalid_response', 'invalid_request']
+      .includes(error?.code) ? error.code : 'generation_failed';
+    lunaStatusMessage = 'DexThemes AI is unavailable right now. Your manual draft is still here.';
+    if (statusElement) statusElement.textContent = lunaStatusMessage;
+    trackPlatformEvent('prompt_generation_failed', state.selectedPlatformId, {
+      source_surface: 'creator',
+      creation_mode: 'luna',
+      error_category: category,
+    });
+    return false;
+  } finally {
+    button?.removeAttribute('disabled');
+  }
+}
+
+export function undoBuilderAiDraft() {
+  if (!builderBeforeAiGeneration) return false;
+  state.setBuilderColors(cloneBuilderState(builderBeforeAiGeneration));
+  builderBeforeAiGeneration = null;
+  lunaStatusMessage = 'Previous manual draft restored.';
+  saveBuilderState();
+  renderBuilderPanel();
+  applyBuilderPreview();
+  return true;
 }
 
 export function onBuilderNameInput(val) {

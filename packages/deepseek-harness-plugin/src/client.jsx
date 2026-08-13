@@ -150,7 +150,7 @@ function ThemeDialog({ theme, controller, active, onClose }) {
       <div style={{ ...ui.actions, marginTop: 16 }}>
         <button type="button" style={ui.button} onClick={onClose}>Keep browsing</button>
         {active
-          ? <button type="button" style={{ ...ui.button, ...ui.danger }} onClick={() => { controller.revert(); onClose(); }}>Revert theme</button>
+          ? <button type="button" style={{ ...ui.button, ...ui.danger }} onClick={() => { if (controller.revert()) onClose(); }}>Revert theme</button>
           : <button type="button" style={{ ...ui.button, ...ui.primary }} onClick={() => { if (controller.apply(theme)) onClose(); }}>Apply to DeepSeek</button>}
       </div>
     </section>
@@ -225,7 +225,7 @@ export function DexThemesSettings({ controller, account }) {
       <div>
         <p style={ui.eyebrow}>DexThemes for DeepSeek</p>
         <h2 style={ui.title}>Find your vibe. Stay in flow.</h2>
-        <p style={ui.body}>Explore unofficial DeepSeek-inspired themes, DexThemes originals, and community palettes. Preview light and dark, then apply in one click. No partnerships or endorsements are implied.</p>
+        <p style={ui.body}>Explore the DeepSeek palette, unofficial ecosystem tributes, DexThemes originals, and community themes. Preview light and dark, then apply in one click. No partnerships or endorsements are implied.</p>
       </div>
     </header>
     <div style={ui.featureRow} data-dexthemes-feature-row="true">

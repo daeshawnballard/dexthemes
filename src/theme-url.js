@@ -1,6 +1,14 @@
 const THEME_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const THEME_VARIANTS = new Set(['dark', 'light']);
 
+export function readPlatformParam(locationLike) {
+  const searchParams = new URLSearchParams(locationLike?.search || '');
+  const value = searchParams.get('platform');
+  return typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)
+    ? value
+    : null;
+}
+
 export function normalizeThemeId(value) {
   if (typeof value !== 'string') return null;
   const themeId = value.trim();
@@ -50,6 +58,7 @@ export function syncThemeUrl(
   themeId,
   variant,
   {
+    platformId = 'codex',
     historyImpl = globalThis.history,
     locationImpl = globalThis.location,
   } = {},
@@ -58,7 +67,10 @@ export function syncThemeUrl(
   if (!themePath || !historyImpl?.replaceState || !locationImpl) return false;
 
   const hash = locationImpl.hash || '';
-  const nextUrl = `${themePath}${hash}`;
+  const platformQuery = platformId && platformId !== 'codex'
+    ? `?platform=${encodeURIComponent(platformId)}`
+    : '';
+  const nextUrl = `${themePath}${platformQuery}${hash}`;
   const currentUrl = `${locationImpl.pathname || ''}${locationImpl.search || ''}${hash}`;
   if (currentUrl === nextUrl) return false;
 

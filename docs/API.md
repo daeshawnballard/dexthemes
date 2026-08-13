@@ -12,6 +12,7 @@ Use the website for public browsing and discovery docs. Use the direct Convex ba
 - Theme catalog: `https://www.dexthemes.com/api/themes`
 - DeepSeek Harness apply-preparation payload: `https://www.dexthemes.com/api/deepseek-theme?theme={id}`
 - DeepSeek Harness restricted MCP profile: `https://www.dexthemes.com/api/deepseek-mcp`
+- Natural-language paired draft: `POST https://www.dexthemes.com/api/generate-theme`
 - Category routes:
   - `https://acrobatic-corgi-867.convex.site/themes`
   - `https://acrobatic-corgi-867.convex.site/themes/community`
@@ -52,6 +53,27 @@ Responses:
 - `400`: missing `theme` query parameter
 - `404`: unknown or unavailable theme
 - `422`: the theme lacks a valid light/dark pair
+
+## Natural-language theme draft
+
+```http
+POST /api/generate-theme
+Content-Type: application/json
+
+{"prompt":"A cozy forest theme with moss accents and readable amber warnings","platformId":"deepseek"}
+```
+
+This server-side DexThemes AI route asks `gpt-5.6-luna` for a strict structured draft, rejects unknown or unsafe fields, normalizes six-digit colors deterministically, and runs the existing theme validator. It returns an editable draft; it does not save, publish, copy, apply, or submit anything. Only the bounded prompt and platform constraints are sent to OpenAI. Workspace contents, source files, credentials, account secrets, chat history, and analytics identifiers are excluded. Raw prompts and model output are not logged or placed in analytics.
+
+The creator keeps manual editing available on API failure. `OPENAI_API_KEY` is server-only and production configuration is independent from source/build proof. Production generation also fails closed behind a durable Convex quota backed by the existing `rateLimits` table. The Vercel route and Convex deployment must share `DEXTHEMES_LUNA_RATE_LIMIT_SECRET` (a separately generated printable secret of at least 32 characters), and Vercel must set its HTTPS `CONVEX_SITE_URL`. The quota request contains only a SHA-256 network key and the fixed `luna_theme_generation` action; prompts and generated output never reach the quota route. A bounded per-instance Vercel limiter remains the first abuse-control layer.
+
+Responses:
+
+- `200`: an unapproved, validated paired canonical theme draft
+- `400`, `413`, `415`: invalid or oversized request
+- `422`: refused, incomplete, or invalid generated draft
+- `429`: bounded instance or durable quota reached
+- `503`, `504`: durable quota/provider unavailable or generation timeout; manual editing remains available
 
 ---
 
@@ -221,7 +243,7 @@ The MCP endpoint uses wildcard CORS because protocol clients can run in multiple
 
 ## Rate limits
 
-DexThemes applies IP and user-based rate limiting on sensitive routes. Public reads are intentionally generous; authenticated writes are tighter.
+DexThemes applies IP and user-based rate limiting on sensitive routes. Public reads are intentionally generous; authenticated writes are tighter. DexThemes AI generation uses both a bounded Vercel-instance backstop and a secret-authenticated, durable Convex network/global quota. Missing or unavailable durable quota configuration rejects production generation before the OpenAI provider is called.
 
 ## Codex/ChatGPT plugin
 

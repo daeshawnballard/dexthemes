@@ -139,38 +139,33 @@
         </div>
         <div class="sidebar-brand-copy">
           <div class="sidebar-brand-name">DexThemes</div>
-          <div class="sidebar-brand-sub">Discover & create Codex themes</div>
+          <div class="sidebar-brand-sub" id="platform-descriptor">Codex themes.</div>
         </div>
       </div>
       <nav class="tablet-explore-nav" aria-label="Explore DexThemes">
-        <a href="/features">Features</a>
+        <a href="/collections">Theme collections</a>
         <a href="/guides">Guides</a>
+        <a href="/features">Features</a>
         <a href="/articles">Articles</a>
-        <details class="tablet-explore-more">
-          <summary>More <span aria-hidden="true">⌄</span></summary>
-          <div class="tablet-explore-menu">
-            <a href="/collections">
-              <span>Theme collections</span>
-              <small>Browse curated groups</small>
-            </a>
-            <a href="/collections/community">
-              <span>Community themes</span>
-              <small>Explore creator palettes</small>
-            </a>
-          </div>
-        </details>
+        <a href="/collections/community">Community themes</a>
       </nav>
-      <button class="new-chat-btn" id="submit-btn" data-action="toggle-builder">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span id="submit-btn-text">Create a theme</span>
-      </button>
     </div>
+
+    <div class="sidebar-divider"></div>
+
+    <section class="sidebar-create-section" aria-labelledby="sidebar-create-label">
+      <div class="sidebar-section-label" id="sidebar-create-label">Create a Theme</div>
+      <button class="new-chat-btn" id="submit-btn" data-action="open-builder" data-source="sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span id="submit-btn-text">Create Theme</span>
+      </button>
+    </section>
 
     <div class="sidebar-divider"></div>
 
     <!-- Search + Filter + Sort -->
     <div class="search-bar-wrapper" id="search-bar-wrapper">
-      <label class="field-label" for="sidebar-search">Search themes</label>
+      <label class="field-label" for="sidebar-search">Search Themes</label>
       <div class="search-bar">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input type="text" placeholder="Search themes..." id="sidebar-search" aria-label="Search themes" data-input-action="sidebar-search">
@@ -191,27 +186,32 @@
     <div class="category-list" id="category-list"></div>
 
     <div class="sidebar-footer">
-      <nav class="sidebar-explore" aria-label="Explore DexThemes">
-        <span class="sidebar-explore-label">Explore</span>
-        <a href="/collections">
-          <span>Theme collections</span><span aria-hidden="true">↗</span>
-        </a>
-        <a href="/guides">
-          <span>Guides</span><span aria-hidden="true">↗</span>
-        </a>
-        <a href="/features">
-          <span>Features</span><span aria-hidden="true">↗</span>
-        </a>
-        <a href="/articles">
-          <span>Articles</span><span aria-hidden="true">↗</span>
-        </a>
-        <a href="/collections/community">
-          <span>Community themes</span><span aria-hidden="true">↗</span>
-        </a>
-      </nav>
+      <details class="sidebar-explore">
+        <summary class="sidebar-explore-label">
+          <span>Explore</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <nav class="sidebar-explore-links" aria-label="Explore DexThemes">
+          <a href="/collections">
+            <span>Theme collections</span><span aria-hidden="true">↗</span>
+          </a>
+          <a href="/guides">
+            <span>Guides</span><span aria-hidden="true">↗</span>
+          </a>
+          <a href="/features">
+            <span>Features</span><span aria-hidden="true">↗</span>
+          </a>
+          <a href="/articles">
+            <span>Articles</span><span aria-hidden="true">↗</span>
+          </a>
+          <a href="/collections/community">
+            <span>Community themes</span><span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </details>
       <div class="sidebar-auth-row" id="auth-area"></div>
       <div class="sidebar-meta">Made with love by <a href="https://x.com/daeshawn" target="_blank" class="footer-credit-link">@Daeshawn</a></div>
-      <div class="sidebar-footer-disclaimer">Community-built. Not affiliated with OpenAI.</div>
+      <div class="sidebar-footer-disclaimer" id="platform-affiliation">Not affiliated with OpenAI.</div>
     </div>
   </div>
 
@@ -247,13 +247,29 @@
             <div class="preview-dot"></div>
             <div class="preview-dot"></div>
           </div>
-          <span class="preview-window-title">Codex</span>
+          <div class="preview-platform-context">
+            <label for="preview-platform-select">Preview for</label>
+            <span class="preview-platform-select-wrap">
+              <select id="preview-platform-select" data-change-action="set-platform" aria-label="Preview product">
+                <option value="codex">Codex</option>
+              </select>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </div>
         </div>
+      <aside class="platform-setup-message" id="platform-setup-message" aria-live="polite" hidden>
+        <svg class="platform-setup-message-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div class="platform-setup-message-copy">
+          <strong id="platform-setup-message-title">Install for DeepSeek</strong>
+          <span id="platform-setup-message-text">Install the plugin once, then apply and revert themes inside DeepSeek.</span>
+        </div>
+        <a class="platform-setup-message-link" id="platform-setup-message-link" href="https://www.npmjs.com/package/@dexthemes/deepseek-harness-plugin" target="_blank" rel="noopener">View plugin <span aria-hidden="true">↗</span></a>
+      </aside>
       <div class="preview-chat" id="preview-chat" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Preview assistant messages"></div>
       <div class="preview-input-bar" id="preview-input-bar">
         <label class="field-label field-label--preview" for="preview-input-text">Prompt</label>
         <div class="preview-input-inner" id="preview-input-inner">
-          <input type="text" class="preview-input-text" id="preview-input-text" placeholder="Ask anything..." aria-label="Preview prompt" autocomplete="off" spellcheck="false">
+          <input type="text" class="preview-input-text" id="preview-input-text" placeholder="Ask Codex anything..." aria-label="Preview a Codex prompt" autocomplete="off" spellcheck="false">
             <div class="preview-send-btn" id="preview-send-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
             </div>
@@ -301,15 +317,11 @@
         <span class="detail-label">Import string</span>
         <span class="detail-hint" id="variant-hint">dark variant</span>
       </div>
-      <button class="copy-btn" id="copy-btn" data-action="apply-codex">
+      <button class="copy-btn" id="copy-btn" data-action="apply-codex" aria-describedby="import-hint">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        <span class="theme-copy-label">Copy theme</span>
+        <span class="theme-copy-label">Copy for Codex</span>
       </button>
-      <button class="apply-deepseek-btn" data-action="apply-deepseek" disabled title="Requires the DexThemes Cordis integration in the running Harness UI.">
-        Apply to DeepSeek
-      </button>
-      <div class="deepseek-apply-hint">Requires the DexThemes Cordis integration in the running Harness UI.</div>
-      <div class="import-hint">Copies the theme to your clipboard. Then open Codex → Settings → Appearance → Import.</div>
+      <div class="import-hint" id="import-hint">Paste in Settings → Appearance.</div>
     </div>
   </div>
 
@@ -326,6 +338,21 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       <span>Create</span>
     </button>
+    <details class="mobile-nav-explore" id="mobile-nav-explore">
+      <summary class="mobile-nav-btn" aria-label="Explore DexThemes resources">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2z"/></svg>
+        <span>Explore</span>
+      </summary>
+      <div class="mobile-nav-explore-menu" aria-label="Explore DexThemes">
+        <div class="mobile-nav-explore-heading">Explore</div>
+        <a href="/collections">Theme collections <span aria-hidden="true">↗</span></a>
+        <a href="/guides">Guides <span aria-hidden="true">↗</span></a>
+        <a href="/features">Features <span aria-hidden="true">↗</span></a>
+        <a href="/articles">Articles <span aria-hidden="true">↗</span></a>
+        <a href="/collections/community">Community themes <span aria-hidden="true">↗</span></a>
+        <p class="mobile-platform-affiliation" id="mobile-platform-affiliation">Not affiliated with OpenAI.</p>
+      </div>
+    </details>
   </nav>
 </div>
 <script src="__THEME_BUNDLE_HREF__" defer></script>
