@@ -77,6 +77,8 @@ export async function mobileSetView(view) {
   document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === view);
   });
+  const exploreMenu = document.getElementById('mobile-nav-explore');
+  if (exploreMenu && view !== 'browse') exploreMenu.open = false;
 
   // Reset inline display overrides
   sidebar.style.display = '';

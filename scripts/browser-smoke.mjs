@@ -467,11 +467,13 @@ try {
     await page.waitForSelector('.mobile-cat-pills');
     const activeNav = await page.locator('.mobile-nav-btn.active').textContent();
     assert.match(activeNav || '', /Browse/i);
+    await page.locator('.mobile-nav-explore > summary').click();
+    assert.equal(await page.locator('.mobile-nav-explore-menu').isVisible(), true);
     for (const href of ['/features', '/guides', '/articles', '/collections', '/collections/community']) {
       assert.equal(
-        await page.locator(`.mobile-explore a[href="${href}"]`).count(),
+        await page.locator(`.mobile-nav-explore-menu a[href="${href}"]`).count(),
         1,
-        `expected mobile Explore to link ${href}`,
+        `expected mobile navigation Explore to link ${href}`,
       );
     }
     assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /OpenAI/);
@@ -489,7 +491,7 @@ try {
     assert.ok(headerBox && brandBox && navBox, 'expected tablet header navigation bounds');
     assert.ok(navBox.x > brandBox.x + brandBox.width, 'expected navigation after the DexThemes brand');
     assert.ok(headerBox.height <= 72, `expected a compact tablet header, got ${headerBox.height}px`);
-    assert.equal(await page.locator('.mobile-explore').isVisible(), false);
+    assert.equal(await page.locator('.mobile-nav-explore').isVisible(), false);
 
     for (const width of [769, 820, 1024]) {
       await page.setViewportSize({ width, height: 1180 });
