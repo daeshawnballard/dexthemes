@@ -23,6 +23,7 @@ let lunaStatusMessage = '';
 let builderBeforeAiGeneration = null;
 const BUILDER_VARIANT_KEYS = ['surface', 'ink', 'accent', 'sidebar', 'codeBg', 'diffAdded', 'diffRemoved', 'skill', 'contrast'];
 const BUILDER_COLOR_KEYS = BUILDER_VARIANT_KEYS.filter((key) => key !== 'contrast');
+const UNTITLED_BUILDER_NAME = 'Your Theme Name';
 
 const LUCKY_ADJECTIVES = ['Cosmic', 'Neon', 'Velvet', 'Ember', 'Frozen', 'Solar', 'Midnight', 'Crystal', 'Thunder', 'Phantom', 'Ruby', 'Jade', 'Amber', 'Silver', 'Golden', 'Copper', 'Cobalt', 'Crimson', 'Indigo', 'Scarlet'];
 const LUCKY_NOUNS = ['Horizon', 'Circuit', 'Drift', 'Pulse', 'Aurora', 'Nebula', 'Prism', 'Forge', 'Cascade', 'Vertex', 'Bloom', 'Cipher', 'Wave', 'Storm', 'Spark', 'Flame', 'Shade', 'Frost', 'Tide', 'Glow'];
@@ -87,7 +88,7 @@ function buildBuilderTheme(builder) {
   const light = activeVariant === 'light' ? activeDraft : builder._variantDrafts?.light;
   return {
     id: '_builder',
-    name: builder.name?.trim() || 'Theme Builder',
+    name: builder.name?.trim() || UNTITLED_BUILDER_NAME,
     category: 'custom',
     codeThemeId: 'codex',
     ...(dark ? { dark: { ...dark } } : {}),
@@ -657,6 +658,10 @@ export function onBuilderNameInput(val) {
   }
   state.builderColors.name = val;
   saveBuilderState();
+  if (!isMobile()) {
+    const previewName = document.getElementById('preview-theme-name');
+    if (previewName) previewName.textContent = val.trim() || UNTITLED_BUILDER_NAME;
+  }
   if (val.trim()) maybeTrackThemeCreated('name_input');
   const warning = document.getElementById('builder-name-warning');
   const input = document.getElementById('builder-name');

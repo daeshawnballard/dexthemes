@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchCommunityThemes } from "./theme-data.js";
+import { fetchCommunityThemes } from "../server/theme-data.js";
 import {
   getContentItem,
   renderCollectionPage,

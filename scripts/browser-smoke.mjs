@@ -42,6 +42,14 @@ const MIME_TYPES = {
   '.webmanifest': 'application/manifest+json; charset=utf-8',
 };
 
+async function selectPreviewPlatform(page, platformId) {
+  const picker = page.locator('#preview-platform-picker');
+  if ((await picker.getAttribute('open')) === null) {
+    await page.locator('#preview-platform-trigger').click();
+  }
+  await picker.locator(`[data-platform-id="${platformId}"]`).click();
+}
+
 function contentTypeFor(filePath) {
   return MIME_TYPES[path.extname(filePath)] || 'application/octet-stream';
 }
@@ -195,11 +203,18 @@ try {
     const page = await bootDesktopPage(browser, server.baseUrl);
     const title = await page.locator('#preview-theme-name').textContent();
     assert.ok(title?.trim().length, 'expected a preview title');
-    assert.equal(await page.locator('#preview-platform-select').inputValue(), 'codex');
+    assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'codex');
     assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
     assert.match(await page.locator('#platform-affiliation').textContent() || '', /OpenAI/);
     assert.match(await page.locator('#apply-btn-text').textContent() || '', /Copy for Codex/);
     assert.equal(await page.locator('#sidebar-create-label').textContent(), 'Create a Theme');
+    const sidebarLabelTypography = await page.locator('#sidebar-create-label, .search-bar-wrapper > .field-label').evaluateAll((elements) => (
+      elements.map((element) => {
+        const style = getComputedStyle(element);
+        return [style.fontSize, style.fontWeight, style.color, style.letterSpacing];
+      })
+    ));
+    assert.deepEqual(sidebarLabelTypography[0], sidebarLabelTypography[1]);
     assert.equal(await page.locator('#submit-btn-text').textContent(), 'Create Theme');
     assert.equal(await page.locator('.sidebar-explore').getAttribute('open'), null);
     assert.equal(await page.locator('.sidebar > .sidebar-divider').count(), 2);
@@ -208,10 +223,22 @@ try {
 
   await runTest('desktop harness context changes preview copy without changing theme sources', async () => {
     const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?platform=deepseek`);
-    assert.equal(await page.locator('#preview-platform-select').inputValue(), 'deepseek');
-    assert.equal(await page.locator('#preview-platform-select option:checked').textContent(), 'DeepSeek');
+    assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
+    assert.equal(await page.locator('#preview-platform-current').textContent(), 'DeepSeek');
+    await page.locator('#preview-platform-trigger').click();
+    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), 11);
+    assert.equal(await page.locator('#preview-platform-menu [aria-checked="true"]').textContent(), 'DeepSeek✓');
+    assert.equal(
+      await page.locator('#preview-platform-menu').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length),
+      3,
+    );
+    const menuBox = await page.locator('#preview-platform-menu').boundingBox();
+    assert.ok(menuBox && menuBox.height < 260, `expected a compact product menu, got ${menuBox?.height}px`);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('#preview-platform-picker').getAttribute('open'), null);
+    assert.equal(await page.locator('#preview-platform-trigger').evaluate((element) => element === document.activeElement), true);
     assert.equal(await page.locator('#preview-theme-name').textContent(), 'DeepSeek');
-    assert.equal(await page.locator('#platform-descriptor').textContent(), 'DeepSeek themes.');
+    assert.equal(await page.locator('#platform-descriptor').textContent(), 'Create & Discover\nThemes for DeepSeek');
     assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /Apply and Revert inside Harness/);
     assert.match(await page.locator('#platform-setup-message-link').getAttribute('href') || '', /npmjs\.com\/package\/@dexthemes\/deepseek-harness-plugin/);
     assert.match(await page.locator('#platform-affiliation').textContent() || '', /DeepSeek/);
@@ -225,9 +252,9 @@ try {
     const themeCount = await page.locator('.thread-item').count();
     const sourceHeadings = await page.locator('.category-header').allTextContents();
 
-    await page.selectOption('#preview-platform-select', 'codex');
+    await selectPreviewPlatform(page, 'codex');
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'Codex');
-    await page.selectOption('#preview-platform-select', 'deepseek');
+    await selectPreviewPlatform(page, 'deepseek');
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
 
     await page.evaluate(() => {
@@ -244,7 +271,7 @@ try {
     assert.equal(new URL(sharedUrl).searchParams.get('platform'), 'deepseek');
     await page.click('[data-action="show-theme-preview"]');
 
-    await page.selectOption('#preview-platform-select', 't3code');
+    await selectPreviewPlatform(page, 't3code');
     await page.waitForFunction(() => new URL(window.location.href).searchParams.get('platform') === 't3code');
     assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
     assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
@@ -294,9 +321,21 @@ try {
     const page = await bootDesktopPage(browser, server.baseUrl);
     await page.click('#submit-btn');
     await page.waitForSelector('.builder-panel');
+    assert.equal(await page.locator('#preview-theme-name').textContent(), 'Your Theme Name');
+    assert.equal(await page.locator('.builder-panel-header .panel-title').textContent(), 'Theme Builder');
+    const headerBottoms = await Promise.all([
+      page.locator('.sidebar-header').evaluate((element) => element.getBoundingClientRect().bottom),
+      page.locator('.main-header').evaluate((element) => element.getBoundingClientRect().bottom),
+      page.locator('.panel-header').evaluate((element) => element.getBoundingClientRect().bottom),
+    ]);
+    assert.ok(
+      Math.max(...headerBottoms) - Math.min(...headerBottoms) <= 1,
+      `expected desktop header dividers to align, got ${headerBottoms.join(', ')}`,
+    );
     await page.fill('#builder-name', 'Smoke Theme');
     const value = await page.locator('#builder-name').inputValue();
     assert.equal(value, 'Smoke Theme');
+    assert.equal(await page.locator('#preview-theme-name').textContent(), 'Smoke Theme');
     await page.click('.builder-apply-btn');
     await page.waitForFunction(() => document.querySelector('.builder-apply-btn-text')?.textContent === 'Theme copied to clipboard');
     await page.close();
@@ -515,6 +554,12 @@ try {
     const page = await bootMobilePage(browser, server.baseUrl);
     await page.locator('.theme-card').first().click();
     await page.waitForSelector('.panel.mobile-active');
+    await page.locator('#preview-platform-trigger').click();
+    assert.equal(
+      await page.locator('#preview-platform-menu').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length),
+      1,
+    );
+    await page.keyboard.press('Escape');
     await page.click('[data-action="show-theme-details"]');
     await page.waitForSelector('#theme-details-view:not([hidden])');
     assert.equal(await page.locator('.theme-details-swatches').isVisible(), true);

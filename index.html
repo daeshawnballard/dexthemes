@@ -34,7 +34,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DexThemes">
 <meta name="theme-color" content="#0d0d0d">
-<link rel="stylesheet" href="/dist/assets/styles-be0ed13f52.css">
+<link rel="stylesheet" href="/dist/assets/styles-5a67b5efd5.css">
 
 <!-- Prevent theme flash: apply saved theme CSS vars before first paint -->
 <script>
@@ -139,7 +139,8 @@
         </div>
         <div class="sidebar-brand-copy">
           <div class="sidebar-brand-name">DexThemes</div>
-          <div class="sidebar-brand-sub" id="platform-descriptor">Codex themes.</div>
+          <div class="sidebar-brand-sub" id="platform-descriptor">Create &amp; Discover
+Themes for Codex</div>
         </div>
       </div>
       <nav class="tablet-explore-nav" aria-label="Explore DexThemes">
@@ -248,13 +249,18 @@
             <div class="preview-dot"></div>
           </div>
           <div class="preview-platform-context">
-            <label for="preview-platform-select">Preview for</label>
-            <span class="preview-platform-select-wrap">
-              <select id="preview-platform-select" data-change-action="set-platform" aria-label="Preview product">
-                <option value="codex">Codex</option>
-              </select>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
+            <span class="preview-platform-label" id="preview-platform-label">Preview for</span>
+            <details class="preview-platform-picker" id="preview-platform-picker">
+              <summary class="preview-platform-trigger" id="preview-platform-trigger" aria-haspopup="menu" aria-expanded="false" aria-label="Preview product: Codex">
+                <span id="preview-platform-current">Codex</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="preview-platform-menu" id="preview-platform-menu" role="menu" aria-labelledby="preview-platform-label">
+                <button type="button" role="menuitemradio" aria-checked="true" data-action="set-platform" data-platform-id="codex">
+                  <span>Codex</span><span class="preview-platform-check" aria-hidden="true">✓</span>
+                </button>
+              </div>
+            </details>
           </div>
         </div>
       <aside class="platform-setup-message" id="platform-setup-message" aria-live="polite" hidden>
@@ -356,7 +362,7 @@
   </nav>
 </div>
 <script src="/dist/assets/dexthemes-bundle-4df8d99528.js" defer></script>
-<script src="/dist/assets/boot-23d50db22c.js" defer></script>
+<script src="/dist/assets/boot-dc96ca9fcf.js" defer></script>
 <script>
 (function () {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;

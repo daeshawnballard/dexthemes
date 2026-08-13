@@ -5,7 +5,7 @@ import {
   presentThemeForPublicApi,
   resolvePluginThemeSourceId,
 } from '../shared/plugin-public-policy.js';
-import { fetchCommunityThemes } from './theme-data.js';
+import { fetchCommunityThemes } from '../server/theme-data.js';
 
 export const config = { runtime: 'edge' };
 

@@ -83,7 +83,7 @@
     },
     {
       "source": "/themes/dexthemes/:subgroup",
-      "destination": "/api/themes-subgroup?subgroup=:subgroup"
+      "destination": "/api/themes?subgroup=:subgroup&response=subgroup"
     },
     {
       "source": "/themes/:path*",

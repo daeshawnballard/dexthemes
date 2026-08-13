@@ -93,7 +93,14 @@ export function applyPreview(theme, variant) {
   win.style.borderColor = borderColor;
   titlebar.style.background = v.sidebar;
   titlebar.style.borderBottomColor = borderColor;
-  if (platformContext) platformContext.style.color = dark ? 'rgba(255,255,255,0.62)' : 'rgba(0,0,0,0.62)';
+  if (platformContext) {
+    const platformMenuDark = isDark(v.sidebar);
+    platformContext.style.color = platformMenuDark ? 'rgba(255,255,255,0.68)' : 'rgba(0,0,0,0.68)';
+    platformContext.style.setProperty('--platform-menu-bg', v.sidebar);
+    platformContext.style.setProperty('--platform-menu-text', platformMenuDark ? '#F7F7F8' : '#151515');
+    platformContext.style.setProperty('--platform-menu-muted', platformMenuDark ? 'rgba(255,255,255,0.58)' : 'rgba(0,0,0,0.58)');
+    platformContext.style.setProperty('--platform-menu-border', platformMenuDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)');
+  }
   win.querySelectorAll('.preview-dot').forEach(d => {
     d.style.background = dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
   });

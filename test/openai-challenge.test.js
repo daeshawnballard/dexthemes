@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import handler from '../api/openai-apps-challenge.js';
+import handler from '../server/openai-apps-challenge.js';
 
 function responseRecorder() {
   return {

@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import themesHandler from '../api/themes.js';
-import subgroupHandler from '../api/themes-subgroup.js';
 
 function installEmptyCommunityCatalog(t) {
   const originalFetch = globalThis.fetch;
@@ -36,8 +35,9 @@ test('familiar search intent remains discoverable without leaking it into API re
   assert.doesNotMatch(JSON.stringify(payload), /Naruto|Hidden Leaf/i);
 });
 
-test('public subgroup API uses the same original presentation', async () => {
-  const response = subgroupHandler(new Request('https://www.dexthemes.com/api/themes-subgroup?subgroup=anime'));
+test('public subgroup API uses the same original presentation', async (t) => {
+  installEmptyCommunityCatalog(t);
+  const response = await themesHandler(new Request('https://www.dexthemes.com/api/themes?subgroup=anime&response=subgroup'));
   const themes = await response.json();
   const match = themes.find((theme) => theme.id === 'seventh-fire-shadow');
   assert.ok(match);

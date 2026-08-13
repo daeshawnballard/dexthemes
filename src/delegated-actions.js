@@ -35,8 +35,14 @@ async function dispatchAction(action, element, event) {
       return loadBuilderModule().then((m) => m.closeBuilder({ source: element.dataset.source || 'website' }));
     case 'toggle-builder':
       return loadBuilderModule().then((m) => m.toggleBuilderMode());
-    case 'set-platform':
+    case 'set-platform': {
+      const picker = element.closest('.preview-platform-picker');
+      if (picker) {
+        picker.open = false;
+        picker.querySelector('.preview-platform-trigger')?.focus({ preventScroll: true });
+      }
       return import('./platform-context.js').then((m) => m.selectPlatformContext(element.value || element.dataset.platformId || 'codex'));
+    }
     case 'open-platform-setup':
       return import('./platform-analytics.js').then((m) => m.trackPlatformEvent(
         'apply_attempted',

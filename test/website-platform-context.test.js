@@ -30,8 +30,10 @@ test('platform preview copy is derived from the shared registry', () => {
   const deepseek = getPlatformPreviewCopy('deepseek');
 
   assert.equal(codex.inputPlaceholder, 'Ask Codex anything...');
+  assert.equal(codex.brandDescriptor, 'Create & Discover\nThemes for Codex');
   assert.match(codex.affiliation, /OpenAI/);
   assert.equal(deepseek.inputAriaLabel, 'Preview a DeepSeek prompt');
+  assert.equal(deepseek.brandDescriptor, 'Create & Discover\nThemes for DeepSeek');
   assert.equal(deepseek.descriptor, 'DeepSeek themes.');
   assert.equal(deepseek.affiliation, 'Not affiliated with DeepSeek.');
   assert.match(deepseek.capability, /Apply and Revert inside Harness/);
