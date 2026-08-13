@@ -65,6 +65,8 @@ export function pluginJsonResponse(data: any, status = 200, extraHeaders: Record
     status,
     headers: {
       "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+      Pragma: "no-cache",
       ...pluginCorsHeaders(),
       ...extraHeaders,
     },
@@ -178,6 +180,8 @@ export const RATE_LIMITS = {
   pluginWriteIdentity: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
   pluginWriteNetwork: { maxRequests: 40, windowMs: 60 * 60 * 1000 },
   pluginAuthNetwork: { maxRequests: 240, windowMs: 60 * 1000 },
+  pluginDevicePollCode: { maxRequests: 1, windowMs: 5 * 1000 },
+  pluginDevicePollGlobal: { maxRequests: 1200, windowMs: 60 * 1000 },
 } as const;
 
 export function isApiKey(token: string): boolean {

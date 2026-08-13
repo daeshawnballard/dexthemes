@@ -58,15 +58,15 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 1.7 DeepSeek Harness optional account flow
 
-- [ ] Configure an OAuth Native Application with Device Code enabled, token endpoint authentication `None`, the DexThemes API audience, and `themes:read`
+- [ ] Create a separate DexThemes-for-DeepSeek GitHub OAuth application, turn on **Enable Device Flow**, and set its `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex
 - [ ] In **Settings → Plugins → DexThemes**, choose **Connect DexThemes**
-- [ ] **Expected**: the plugin shows a bounded user code and HTTPS provider link; no API key or token is requested or displayed
-- [ ] Complete provider authorization and return to Harness
-- [ ] **Expected**: creator stats and verified unlock count appear; the access token is absent from browser storage, URL, Harness configuration, prompts, workspace, and analytics
+- [ ] **Expected**: the plugin shows a bounded user code and the exact `https://github.com/login/device` link; no API key or token is requested or displayed
+- [ ] Complete GitHub authorization and return to Harness
+- [ ] **Expected**: creator stats and verified unlock count appear; neither the GitHub token nor the short-lived DexThemes session appears in browser storage, URL, Harness configuration, prompts, workspace, or analytics
 - [ ] Apply a theme while connected
 - [ ] **Expected**: `Harnessed` is granted idempotently and `Deep Current` appears from the bearer unlock response
 - [ ] Disconnect and refresh
-- [ ] **Expected**: the token and account-only reward leave the running session; anonymous browse/apply still work
+- [ ] **Expected**: Convex revokes the session, the credential and account-only reward leave the running client, and anonymous browse/apply still work
 
 ### 1.8 Community theme import
 - [ ] Select a community-submitted theme

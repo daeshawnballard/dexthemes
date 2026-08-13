@@ -14,7 +14,6 @@ node_modules/
 output/
 .env.local
 .env.namecheap.local
-convex/_generated/
 .vercel
 .well-known/openai-apps-challenge
 .well-known/oauth-protected-resource

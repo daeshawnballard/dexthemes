@@ -166,7 +166,7 @@ export const revokeSupportFromWebhook = internalMutation({
     const supporterUnlocks = await getSupporterUnlocksForUser(ctx, claim.userId);
     const activeUnlocks = supporterUnlocks.filter(isActiveSupporterUnlock);
 
-    await Promise.all(activeUnlocks.map((unlock) => ctx.db.patch(unlock._id, {
+    await Promise.all(activeUnlocks.map((unlock: any) => ctx.db.patch(unlock._id, {
       revokedAt,
       revokedBySupportId: args.supportId,
       revokedReason: args.reason,

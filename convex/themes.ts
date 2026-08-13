@@ -11,6 +11,8 @@ import {
 } from "../shared/popularity-periods.js";
 import { evaluatePublicThemeIdentity } from "../shared/plugin-public-policy.js";
 import { normalizeThemeCodeThemeId } from "../shared/codex-theme-contract.js";
+import type { Doc } from "./_generated/dataModel";
+import type { QueryCtx } from "./_generated/server";
 
 const isActiveUnlock = (unlock: { revokedAt?: number }) => !unlock.revokedAt;
 const HEX_COLOR = /^#[A-Fa-f0-9]{6}$/;
@@ -371,17 +373,7 @@ export const registerCopy = internalMutation({
   },
 });
 
-/**
- * Return stats for the signed-in user's submitted themes.
- */
-export const getMySubmissionStats = internalQuery({
-  args: { authToken: v.string() },
-  handler: async (ctx, args) => {
-    const user = await getUserByAuthToken(ctx, args.authToken);
-    if (!user) {
-      throw new Error("Unauthorized");
-    }
-
+async function buildSubmissionStats(ctx: QueryCtx, user: Doc<"users">) {
     const themes = await ctx.db
       .query("themes")
       .withIndex("by_author", (q) => q.eq("authorId", user._id))
@@ -464,7 +456,7 @@ export const getMySubmissionStats = internalQuery({
         )
         .collect(),
     ]);
-    const dailyRanked = rankPopularityEntries({
+    const dailyRanked = (rankPopularityEntries as any)({
       themes: allPublishedThemes,
       copyEvents: weeklyCopyEvents,
       qualifiedAdoptions: weeklyQualifiedAdoptions,
@@ -473,7 +465,7 @@ export const getMySubmissionStats = internalQuery({
       end: dailyPeriod.end,
       limit: allPublishedThemes.length,
     });
-    const weeklyRanked = rankPopularityEntries({
+    const weeklyRanked = (rankPopularityEntries as any)({
       themes: allPublishedThemes,
       copyEvents: weeklyCopyEvents,
       qualifiedAdoptions: weeklyQualifiedAdoptions,
@@ -668,6 +660,26 @@ export const getMySubmissionStats = internalQuery({
         light: theme.light,
       })),
     };
+}
+
+/**
+ * Return stats for the signed-in user's submitted themes.
+ */
+export const getMySubmissionStats = internalQuery({
+  args: { authToken: v.string() },
+  handler: async (ctx, args) => {
+    const user = await getUserByAuthToken(ctx, args.authToken);
+    if (!user) throw new Error("Unauthorized");
+    return buildSubmissionStats(ctx, user);
+  },
+});
+
+export const getSubmissionStatsForPluginUser = internalQuery({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    if (!user) throw new Error("Unauthorized");
+    return buildSubmissionStats(ctx, user);
   },
 });
 

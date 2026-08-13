@@ -52,21 +52,21 @@ The full `/api/mcp` endpoint is deliberately not connected. Harness's generic br
 
 Harness does not need to share its identity with DexThemes. The installed settings package owns an optional OAuth Device Authorization flow for account features:
 
-1. **Connect DexThemes** requests a short-lived device and user code from the rate-limited Convex proxy.
-2. The plugin shows only the user code and the provider's HTTPS verification link. The opaque device code remains in memory.
-3. The proxy polls the configured OAuth Native Application using the public client ID, the DexThemes API audience, and `themes:read`.
-4. The returned access token stays only in the running plugin closure. It is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
+1. **Connect DexThemes** requests a short-lived device and user code from GitHub through the rate-limited Convex proxy.
+2. The plugin shows only the user code and GitHub's exact `https://github.com/login/device` verification link. The opaque device code remains in memory.
+3. Convex polls GitHub using a separate DexThemes-for-DeepSeek OAuth application and requests no OAuth scope. The GitHub access token is used only inside that server request to fetch `/user`, then revoked through the server-held app secret; it is neither stored nor returned to Harness.
+4. Convex links the verified GitHub identity to the existing DexThemes user and returns a one-hour, read-only `dxd_…` session. Only its SHA-256 hash is stored; the credential stays in the running plugin closure and is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
 5. Authenticated stats and unlocks use bearer-only wildcard CORS routes; cookie-backed website writes keep their existing origin allowlist.
-6. A successful connected theme apply calls `/plugin/deepseek-harness/use`. The verified bearer identity receives the idempotent **Harnessed** achievement and **Deep Current** reward, which enters only that connected session's catalog.
+6. A successful connected theme apply calls `/plugin/deepseek-harness/use`. The verified bearer identity receives the idempotent **Harnessed** achievement and **Deep Current** reward, which enters only that connected session's catalog. Disconnect asks Convex to revoke the session; expiry is the unload/network-failure fallback.
 
-The generic Harness MCP connection remains anonymous. Device authorization requires a configured OAuth Native Application with Device Code enabled, token endpoint authentication set to `None`, the DexThemes API audience, and no refresh/offline scope. This follows the provider's [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow/call-your-api-using-the-device-authorization-flow) contract without requiring a Harness source change.
+The generic Harness MCP connection remains anonymous. Device authorization requires **Enable Device Flow** on a separate DexThemes-owned GitHub OAuth application plus `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex. This follows GitHub's documented [OAuth App Device Flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow) without requiring a Harness source change. The website's GitHub browser flow and the Auth0/JWT contract used for standards-compliant Codex/ChatGPT MCP OAuth remain separate and unchanged.
 
 ## Installation and one-click boundary
 
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.5.0
 pnpm dsh web
 ```
 
@@ -97,7 +97,7 @@ DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selec
 | DeepSeek apply | Theme palettes | Installed package, `/api/deepseek-theme`, semantic-token adapter, guarded `overrideTokens` click | Immediate inside the running installed plugin; website-to-local is unsupported |
 | Revert | None | Retained installed-plugin disposer; `cordis_stop` for a dynamic Package | Apply replacement and user-initiated revert are locally proven |
 | Public/community themes | Existing publication, moderation, aliases, catalog | Paired public themes receive derived eligibility | No platform-specific duplicate theme rows |
-| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory device connection plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Source/build/test proven; live award requires OAuth Native Application configuration and deployment; anonymous use never grants it |
+| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory device connection plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Source/build/test proven; live award requires the separate GitHub OAuth App configuration and deployment; anonymous use never grants it |
 | Adoption/copy counts | Existing Codex-oriented copy endpoint and leaderboards | None | A DeepSeek apply is not counted as a Codex copy |
 | Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted metadata and lifecycle disposal | Source/build/test proven; hosted delivery is not proven until deployment and a loaded runtime receipt |
 

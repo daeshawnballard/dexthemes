@@ -17,7 +17,8 @@
     "qa:mcp-app": "node scripts/visual-qa-mcp-app.mjs",
     "qa:deepseek-mcp": "node scripts/serve-deepseek-mcp.mjs",
     "check:docs": "node scripts/check-docs.mjs",
-    "validate": "npm run test && npm run check:docs && npm run build",
+    "typecheck:convex": "tsc -p convex/tsconfig.json",
+    "validate": "npm run test && npm run check:docs && npm run typecheck:convex && npm run build",
     "watch": "node scripts/build.mjs --watch",
     "dns:namecheap:vercel": "node scripts/update-namecheap-vercel-dns.mjs",
     "warm-cache": "node scripts/warm-cache.mjs"
@@ -33,11 +34,14 @@
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
-    "playwright": "^1.58.2"
+    "playwright": "^1.58.2",
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "@hono/node-server": "2.0.12",
-    "fast-uri": "3.1.4",
+    "fast-uri": "3.1.5",
+    "hono": "4.12.34",
+    "ip-address": "10.5.0",
     "sharp": "0.35.3"
   }
 }
