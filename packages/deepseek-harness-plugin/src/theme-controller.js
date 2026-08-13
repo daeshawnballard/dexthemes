@@ -1,7 +1,7 @@
 import { tokensForHarnessTheme } from './catalog.js';
 
 export const INSTALLED_THEME_SOURCE = 'dexthemes-installed-plugin';
-export const PLUGIN_VERSION = '0.4.0';
+export const PLUGIN_VERSION = '0.4.1';
 
 function freezeState(state) {
   return Object.freeze({ ...state });
