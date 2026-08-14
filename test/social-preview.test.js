@@ -13,6 +13,7 @@ import {
 import { CONTENT_ITEMS } from '../shared/generated-content.js';
 import {
   CONTENT_LAST_MODIFIED,
+  EDITOR_CLASSIC_THEME_IDS,
   HOME_SOCIAL_IMAGE_ALT,
   HOME_SOCIAL_IMAGE_URL,
   SOCIAL_IMAGE_HEIGHT,
@@ -21,6 +22,7 @@ import {
   buildCollectionSocialImageUrl,
   buildContentSocialImageUrl,
   buildStaticPageSocialImageUrl,
+  getCatalogThemeId,
 } from '../shared/seo.js';
 
 const COMMUNITY_THEME = {
@@ -266,9 +268,10 @@ test('collection routes advertise catalog-specific cards with catalog cache vers
   });
 
   for (const [slug, title, filtered] of [
-    ['dark', 'Dark Codex themes', themes.filter((theme) => theme.dark)],
-    ['light', 'Light Codex themes', themes.filter((theme) => theme.light)],
-    ['community', 'Community Codex themes', themes.filter((theme) => theme.category === 'community')],
+    ['dark', 'Dark Themes', themes.filter((theme) => theme.dark)],
+    ['light', 'Light Themes', themes.filter((theme) => theme.light)],
+    ['editor-classics', 'Editor Classics', themes.filter((theme) => EDITOR_CLASSIC_THEME_IDS.includes(getCatalogThemeId(theme)))],
+    ['community', 'Community Themes', themes.filter((theme) => theme.category === 'community')],
   ]) {
     assertLargeCardMetadata(renderCollectionPage(slug, themes), {
       imageUrl: buildCollectionSocialImageUrl(slug, buildCatalogSocialImageVersion(filtered)),

@@ -80,12 +80,20 @@ test('guides render answer-first indexable pages', async () => {
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/guides\/how-to-install-a-codex-theme/);
 });
 
-test('feature and article hubs expose the full content catalog', async () => {
+test('content hubs expose the full catalog with concise hero copy', async () => {
+  const guideRes = createResponse();
+  await contentPageHandler({
+    url: '/api/content-page?section=guides',
+  }, guideRes);
+  assert.equal(guideRes.statusCode, 200);
+  assert.match(guideRes.body, /Practical guides to choose, create, import, share, and troubleshoot Codex themes\./);
+
   const featureRes = createResponse();
   await contentPageHandler({
     url: '/api/content-page?section=features',
   }, featureRes);
   assert.equal(featureRes.statusCode, 200);
+  assert.match(featureRes.body, /Explore DexThemes from first discovery to a theme ready for Codex, with creation, community, and rewards along the way\./);
   assert.match(featureRes.body, /Everything DexThemes can do/);
   assert.match(featureRes.body, /\/features\/leaderboard/);
 
@@ -124,10 +132,26 @@ test('collection pages combine static and live community themes', async (t) => {
   }, res);
 
   assert.equal(res.statusCode, 200);
-  assert.match(res.body, /<h1>Community Codex themes<\/h1>/);
+  assert.match(res.body, /Made by the community/);
+  assert.match(res.body, /<h1>Community Themes<\/h1>/);
+  assert.match(res.body, /Original Themes from DexThemes users, each with a page worth sharing\./);
   assert.match(res.body, /Night Operator/);
   assert.match(res.body, /\/night-operator\/dark/);
   assert.match(res.body, /"@type":"ItemList"/);
+
+  for (const [slug, heading, description] of [
+    ['dark', 'Dark Themes', 'From true black to warm editor classics, built for focused work.'],
+    ['light', 'Light Themes', 'Bright palettes with clear contrast, clean hierarchy, and confident accents.'],
+    ['editor-classics', 'Editor Classics', 'Familiar coding palettes, adapted across the full Codex workspace.'],
+  ]) {
+    const collectionRes = createResponse();
+    await contentPageHandler({
+      url: `/api/content-page?section=collections&slug=${slug}`,
+    }, collectionRes);
+    assert.equal(collectionRes.statusCode, 200);
+    assert.match(collectionRes.body, new RegExp(`<h1>${heading}<\\/h1>`));
+    assert.match(collectionRes.body, new RegExp(description.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
 });
 
 test('unknown editorial routes return 404 and noindex', async () => {

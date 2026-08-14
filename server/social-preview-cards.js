@@ -10,14 +10,14 @@ const CONTENT_CONFIG = Object.freeze({
     hubLabel: 'DEXTHEMES GUIDES',
     hubTitle: 'Make Codex yours,\nwith confidence.',
     accent: '#47adff',
-    description: 'Answer-first instructions for choosing, creating, importing, sharing, and troubleshooting Codex themes.',
+    description: 'Practical guides to choose, create, import, share, and troubleshoot Codex themes.',
   },
   features: {
     label: 'FEATURE',
     hubLabel: 'DEXTHEMES FEATURES',
     hubTitle: 'One theme system,\nfrom idea to import.',
     accent: '#f15bb5',
-    description: 'See how discovery, previews, creation, community publishing, rankings, rewards, and developer tools fit together.',
+    description: 'Explore DexThemes from first discovery to a theme ready for Codex, with creation, community, and rewards along the way.',
   },
   articles: {
     label: 'ARTICLE',

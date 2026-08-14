@@ -528,7 +528,7 @@ try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
     const response = await page.goto(`${server.baseUrl}/collections/dark`, { waitUntil: 'networkidle' });
     assert.equal(response?.status(), 200);
-    assert.equal(await page.locator('h1').textContent(), 'Dark Codex themes');
+    assert.equal(await page.locator('h1').textContent(), 'Dark Themes');
     assert.ok(await page.locator('.theme-card').count() > 0);
     await page.close();
   });

@@ -31,7 +31,7 @@ const CONTENT_SECTION_CONFIG = Object.freeze({
     label: "Guides",
     eyebrow: "Learn · DexThemes guides",
     title: "Make Codex yours,\nwith confidence.",
-    description: "Answer-first instructions for choosing, creating, importing, sharing, and troubleshooting Codex themes.",
+    description: "Practical guides to choose, create, import, share, and troubleshoot Codex themes.",
     kicker: "Choose a task",
     prompt: "Start with what you need to do.",
     accent: "#47adff",
@@ -41,7 +41,7 @@ const CONTENT_SECTION_CONFIG = Object.freeze({
     label: "Features",
     eyebrow: "Explore · DexThemes features",
     title: "One theme system,\nfrom idea to import.",
-    description: "See how discovery, previews, creation, community publishing, rankings, rewards, and developer tools fit together.",
+    description: "Explore DexThemes from first discovery to a theme ready for Codex, with creation, community, and rewards along the way.",
     kicker: "Explore the product",
     prompt: "Everything DexThemes can do.",
     accent: "#f15bb5",
@@ -72,29 +72,29 @@ const CONTENT_SECTION_CONFIG = Object.freeze({
 const COLLECTION_DEFINITIONS = Object.freeze({
   dark: {
     eyebrow: "Low-glare collection",
-    title: "Dark Codex themes",
-    description: "Dark palettes for focused work, from true-black minimalism to warm editor classics.",
+    title: "Dark Themes",
+    description: "From true black to warm editor classics, built for focused work.",
     filter: (theme) => Boolean(theme.dark),
     variant: "dark",
   },
   light: {
     eyebrow: "Daylight collection",
-    title: "Light Codex themes",
-    description: "Bright workspaces with measured contrast, clear hierarchy, and confident accent colors.",
+    title: "Light Themes",
+    description: "Bright palettes with clear contrast, clean hierarchy, and confident accents.",
     filter: (theme) => Boolean(theme.light),
     variant: "light",
   },
   "editor-classics": {
     eyebrow: "Familiar palettes",
-    title: "Editor classic themes",
-    description: "Recognizable coding palettes translated across the full Codex workspace.",
+    title: "Editor Classics",
+    description: "Familiar coding palettes, adapted across the full Codex workspace.",
     filter: (theme) => EDITOR_CLASSIC_THEME_IDS.includes(getCatalogThemeId(theme)),
     variant: null,
   },
   community: {
-    eyebrow: "Published by creators",
-    title: "Community Codex themes",
-    description: "Original palettes from DexThemes creators, each with a canonical page worth sharing.",
+    eyebrow: "Made by the community",
+    title: "Community Themes",
+    description: "Original Themes from DexThemes users, each with a page worth sharing.",
     filter: (theme) => theme.category === "community",
     variant: null,
   },
@@ -468,10 +468,10 @@ export function renderContentPage(section, slug) {
 export function renderCollectionsHub() {
   const canonicalUrl = `${CANONICAL_ORIGIN}/collections`;
   const cards = [
-    ["01", "Dark themes", "Low-glare Codex palettes ranging from true black minimalism to warm editor classics.", "/collections/dark", ["#58a6ff", "#f15bb5", "#7aa2f7", "#a7c080"]],
-    ["02", "Light themes", "Bright workspaces with measured contrast, clear hierarchy, and confident accents.", "/collections/light", ["#ffffff", "#f5f3ed", "#fdf6e3", "#e7e2ff"]],
-    ["03", "Editor classics", "Familiar palettes from years of coding, now previewed across the full Codex workspace.", "/collections/editor-classics", ["#ff79c6", "#fe8019", "#88c0d0", "#7aa2f7"]],
-    ["04", "Community", "Original palettes published by DexThemes creators, with a page worth sharing.", "/collections/community", ["#2f7480", "#6cb4ee", "#d4a54a", "#bc8cff"]],
+    ["01", "Dark themes", "From true black to warm editor classics, built for focused work.", "/collections/dark", ["#58a6ff", "#f15bb5", "#7aa2f7", "#a7c080"]],
+    ["02", "Light themes", "Bright palettes with clear contrast, clean hierarchy, and confident accents.", "/collections/light", ["#ffffff", "#f5f3ed", "#fdf6e3", "#e7e2ff"]],
+    ["03", "Editor classics", "Familiar coding palettes, adapted across the full Codex workspace.", "/collections/editor-classics", ["#ff79c6", "#fe8019", "#88c0d0", "#7aa2f7"]],
+    ["04", "Community", "Original Themes from DexThemes users, each with a page worth sharing.", "/collections/community", ["#2f7480", "#6cb4ee", "#d4a54a", "#bc8cff"]],
   ].map(([number, title, description, href, colors]) => `
     <a class="collection-card" href="${href}">
       <div class="collection-card-palette">${colors.map((color) => `<i style="--swatch:${color}"></i>`).join("")}</div>
