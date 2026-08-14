@@ -8,14 +8,14 @@ Version 0.6 includes a palette matched to DeepSeek Harness's published semantic 
 
 From the DeepSeek Harness checkout:
 
-Repository source version `0.6.0` is not published to npm. As of 2026-08-14, the verified registry release is `0.4.1`; install it with:
+Install the published `0.6.0` package from npm:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
 
-To exercise the current 0.6.0 source before publication, use the source directory instead:
+For local development against an unpublished checkout, use the source directory instead:
 
 ```sh
 pnpm dsh plugin --profile web add /absolute/path/to/dexthemes/packages/deepseek-harness-plugin
@@ -45,7 +45,7 @@ The bundled catalog works offline. It contains the DeepSeek default palette, twe
 
 Fonts are intentionally unsupported by this integration.
 
-The npm package is the supported distribution path for published releases; the current 0.6.0 source features require the local-package command until that version is actually published. The bundled catalog, preview, apply, and revert work without a DexThemes account. The hosted MCP endpoint, Statsig delivery, device-authorization routes, and achievement call require their production services and OAuth environment configuration. npm publication does not imply a separate Harness marketplace approval, and the standalone DexThemes website cannot apply into an unrelated Harness browser tab.
+The npm package is the supported distribution path for published releases. The bundled catalog, preview, apply, and revert work without a DexThemes account. The hosted MCP endpoint, Statsig delivery, device-authorization routes, and achievement call require their production services and OAuth environment configuration. npm publication does not imply a separate Harness marketplace approval, and the standalone DexThemes website cannot apply into an unrelated Harness browser tab.
 
 ## Distribution boundary
 

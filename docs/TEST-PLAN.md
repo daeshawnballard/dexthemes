@@ -289,6 +289,9 @@ Use this checklist to verify all features are working correctly. Tests are group
 ### 6.1 GitHub sign-in
 - [ ] Click Sign In → GitHub
 - [ ] **Expected**: Redirects to GitHub OAuth, returns with user logged in
+- [ ] **Expected**: Ordinary sign-in requests public-profile access only and does not request email-address permission
+- [ ] Select the locked Human Spark theme and choose its email-verification action
+- [ ] **Expected**: Only this explicit verification path requests read-only email-address permission
 - [ ] **Expected**: `sign_in` unlock triggers
 
 ### 6.2 User menu

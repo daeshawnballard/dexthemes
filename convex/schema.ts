@@ -148,6 +148,7 @@ export default defineSchema({
     origin: v.string(),
     codeVerifier: v.optional(v.string()),
     bindingHash: v.optional(v.string()),
+    requestedEmail: v.optional(v.boolean()),
     expiresAt: v.number(),
     createdAt: v.number(),
   })

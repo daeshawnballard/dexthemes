@@ -255,16 +255,17 @@ test('device authorization uses bounded public codes and respects provider polli
   assert.ok(requests.slice(1).every((request) => JSON.parse(request.options.body).deviceCode === 'device-secret'));
 });
 
-test('install docs distinguish the published registry package from unreleased source', async () => {
+test('install docs identify the published 0.6.0 registry package and local-development path', async () => {
   const [packageReadme, integrationDocs] = await Promise.all([
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
   ]);
 
   for (const source of [packageReadme, integrationDocs]) {
-    assert.match(source, /0\.6\.0[^\n]*not published/i);
-    assert.match(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
-    assert.doesNotMatch(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.0/);
+    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.0/);
+    assert.doesNotMatch(source, /0\.6\.0[^\n]*not published/i);
+    assert.doesNotMatch(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
+    assert.match(source, /local development/i);
   }
 });
 

@@ -34,6 +34,10 @@ import {
   trackDeepSeekEvent,
 } from './deepseek-analytics.js';
 import { getThemeAccentOptions } from './theme-contracts.js';
+import {
+  getPreviewWindowState,
+  PREVIEW_WINDOW_STATE,
+} from './preview-window-state.js';
 
 function isCompactViewport() {
   return window.innerWidth <= 1024;
@@ -673,18 +677,51 @@ function getRandomEasterEgg() {
 }
 
 export function initWindowDots() {
-  const dots = document.querySelectorAll('.preview-dot');
-  if (dots.length < 3) return;
-  dots[0].addEventListener('click', (event) => { event.stopPropagation(); closePreviewWindow(); });
-  dots[1].addEventListener('click', (event) => { event.stopPropagation(); minimizePreviewWindow(); });
-  dots[2].addEventListener('click', (event) => { event.stopPropagation(); toggleFullscreen(); });
+  syncWindowControlState();
+}
+
+function syncWindowControlState() {
+  const minimize = document.querySelector('[data-action="minimize-preview-window"]');
+  const maximize = document.querySelector('[data-action="maximize-preview-window"]');
+  const isMinimized = state.windowState === PREVIEW_WINDOW_STATE.MINIMIZED;
+  const isFullscreen = state.windowState === PREVIEW_WINDOW_STATE.FULLSCREEN;
+
+  if (minimize) {
+    const label = isMinimized ? 'Restore preview' : 'Minimize preview';
+    minimize.setAttribute('aria-label', label);
+    minimize.setAttribute('title', label);
+    minimize.setAttribute('aria-pressed', String(isMinimized));
+  }
+  if (maximize) {
+    const label = isFullscreen ? 'Restore preview size' : 'Maximize preview';
+    maximize.setAttribute('aria-label', label);
+    maximize.setAttribute('title', label);
+    maximize.setAttribute('aria-pressed', String(isFullscreen));
+  }
+}
+
+function applyPreviewWindowState(nextState) {
+  const win = document.getElementById('preview-window');
+  const area = document.querySelector('.preview-area');
+  if (!win || !area) return false;
+
+  win.classList.toggle('fullscreen', nextState === PREVIEW_WINDOW_STATE.FULLSCREEN);
+  win.classList.toggle('minimized', nextState === PREVIEW_WINDOW_STATE.MINIMIZED);
+  area.classList.toggle('fullscreen-area', nextState === PREVIEW_WINDOW_STATE.FULLSCREEN);
+  state.setWindowState(nextState);
+  syncWindowControlState();
+  return true;
 }
 
 export function closePreviewWindow() {
   const win = document.getElementById('preview-window');
   const area = document.querySelector('.preview-area');
   if (!win || !area) return;
-  state.setWindowState('closed');
+  const nextState = getPreviewWindowState(state.windowState, 'close');
+  win.classList.remove('fullscreen', 'minimized');
+  area.classList.remove('fullscreen-area');
+  state.setWindowState(nextState);
+  syncWindowControlState();
   void recordSecretInteraction('dtx.shell.1');
 
   win.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.25s cubic-bezier(0.2, 0.9, 0.3, 1)';
@@ -728,7 +765,7 @@ export function reopenPreviewWindow() {
     void win.offsetWidth;
     win.style.transform = 'scale(1)';
     win.style.opacity = '1';
-    state.setWindowState('normal');
+    applyPreviewWindowState(getPreviewWindowState(state.windowState, 'reopen'));
     setTimeout(() => { win.style.transition = ''; }, 300);
   }, 250);
 }
@@ -738,24 +775,23 @@ export function toggleFullscreen() {
   const area = document.querySelector('.preview-area');
   if (!win || !area) return;
 
-  if (state.windowState === 'fullscreen') {
-    win.classList.remove('fullscreen');
-    area.classList.remove('fullscreen-area');
-    state.setWindowState('normal');
-    return;
+  const nextState = getPreviewWindowState(state.windowState, 'maximize');
+  if (nextState === PREVIEW_WINDOW_STATE.FULLSCREEN) {
+    void recordSecretInteraction('dtx.shell.3');
   }
-
-  void recordSecretInteraction('dtx.shell.3');
-  win.classList.add('fullscreen');
-  area.classList.add('fullscreen-area');
-  state.setWindowState('fullscreen');
+  applyPreviewWindowState(nextState);
 }
 
 export function minimizePreviewWindow() {
-  void recordSecretInteraction('dtx.shell.2');
-  if (state.windowState === 'fullscreen') {
-    toggleFullscreen();
+  const win = document.getElementById('preview-window');
+  const area = document.querySelector('.preview-area');
+  if (!win || !area) return;
+
+  const nextState = getPreviewWindowState(state.windowState, 'minimize');
+  if (nextState === PREVIEW_WINDOW_STATE.MINIMIZED) {
+    void recordSecretInteraction('dtx.shell.2');
   }
+  applyPreviewWindowState(nextState);
 }
 
 export async function checkOnboarding() {
@@ -770,7 +806,7 @@ export async function checkOnboarding() {
     const showcase = state.THEMES.find((theme) => theme.id === 'current-valentine') || state.THEMES.find((theme) => theme.category === 'dexthemes');
     if (showcase) {
       const actions = await import('./preview-actions.js');
-      await actions.selectThemeById(showcase.id);
+      await actions.selectThemeById(showcase.id, { recordInteraction: false });
     }
   }
 

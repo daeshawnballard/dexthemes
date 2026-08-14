@@ -7,7 +7,7 @@ import { getUnlockActionForThemeId, isThemeLockedForUser } from './unlocks.js';
 import { escapeHtml, fallbackCopy } from './utils.js';
 import { getVariants, hasVariant, applyShellTheme, applyPreview } from './theme-engine.js';
 import { renderSidebar } from './sidebar.js';
-import { showToast, createSupporterClaim } from './api.js';
+import { showToast } from './toasts.js';
 import {
   copySupporterClaimToken,
   showSupporterClaimModal,
@@ -17,7 +17,7 @@ import { initPreviewChat, showInlineSignInPrompt } from './preview-chat.js';
 import { activateModalFocusTrap, deactivateModalFocusTrap } from './modal-a11y.js';
 import { loadAuthModule, loadBuilderModule, loadLeaderboardModule, loadMobileModule, loadPreviewShellModule } from './lazy-modules.js';
 import { renderRightPanel } from './preview-shell.js';
-import { grantUnlockAction } from './unlock-api.js';
+import { createSupporterClaim, grantUnlockAction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { clearDeferredInstallPrompt, getDeferredInstallPrompt } from './install-prompt.js';
 import { authFetch } from './session-auth.js';
@@ -38,9 +38,9 @@ async function maybeSetMobileView(view) {
   await mobileSetView(view);
 }
 
-async function signInWithGithub() {
+async function signInWithGithub(options) {
   const auth = await loadAuthModule();
-  return auth.signInWith('github');
+  return auth.signInWith('github', options);
 }
 
 function maybeAdvanceMobilePreview() {
@@ -69,7 +69,7 @@ export function hideProfileView() {
   win.style.display = '';
 }
 
-export async function selectThemeById(id) {
+export async function selectThemeById(id, { recordInteraction = true } = {}) {
   const theme = state.THEMES.find((candidate) => candidate.id === id);
   if (!theme) return;
 
@@ -103,11 +103,13 @@ export async function selectThemeById(id) {
     maybeAdvanceMobilePreview();
     const { showLockedThemeShell } = await import('./preview-chat.js');
     showLockedThemeShell(theme, unlockAction);
-    track('locked_theme_selected', {
-      theme_id: theme.id,
-      theme_name: theme.name,
-      unlock_action: unlockAction,
-    });
+    if (recordInteraction) {
+      track('locked_theme_selected', {
+        theme_id: theme.id,
+        theme_name: theme.name,
+        unlock_action: unlockAction,
+      });
+    }
     return;
   }
 
@@ -142,14 +144,15 @@ export async function selectThemeById(id) {
   renderSidebar();
   maybeAdvanceMobilePreview();
   syncAttributionOverlay(theme);
-  grantUnlockAction('preview_theme');
-
-  track('theme_selected', {
-    theme_id: theme.id,
-    theme_name: theme.name,
-    category: theme.category,
-    variant: state.selectedVariant,
-  });
+  if (recordInteraction) {
+    grantUnlockAction('preview_theme');
+    track('theme_selected', {
+      theme_id: theme.id,
+      theme_name: theme.name,
+      category: theme.category,
+      variant: state.selectedVariant,
+    });
+  }
 }
 
 export function onSupporterDonate() {
@@ -411,8 +414,8 @@ export function runShareUnlockFlow() {
   void loadPreviewShellModule().then((m) => m.shareOnX());
 }
 
-export function runSignInUnlockFlow() {
-  void signInWithGithub();
+export function runSignInUnlockFlow(actionKey = 'sign_in') {
+  void signInWithGithub({ verifyEmail: actionKey === 'openai_employee' });
 }
 
 export async function runLikeUnlockFlow() {

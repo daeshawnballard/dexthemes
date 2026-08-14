@@ -88,6 +88,12 @@ async function dispatchAction(action, element, event) {
       return loadThemeDetailsModule().then((m) => m.showThemeDetails());
     case 'reopen-preview-window':
       return loadPreviewShellModule().then((m) => m.reopenPreviewWindow());
+    case 'close-preview-window':
+      return loadPreviewShellModule().then((m) => m.closePreviewWindow());
+    case 'minimize-preview-window':
+      return loadPreviewShellModule().then((m) => m.minimizePreviewWindow());
+    case 'maximize-preview-window':
+      return loadPreviewShellModule().then((m) => m.toggleFullscreen());
     case 'request-missing-variant':
       return loadPreviewShellModule().then((m) =>
         m.requestMissingVariant(
@@ -206,7 +212,7 @@ async function dispatchAction(action, element, event) {
     case 'run-share-unlock':
       return loadPreviewActionsModule().then((m) => m.runShareUnlockFlow());
     case 'run-signin-unlock':
-      return loadPreviewActionsModule().then((m) => m.runSignInUnlockFlow());
+      return loadPreviewActionsModule().then((m) => m.runSignInUnlockFlow(element.dataset.unlockAction || 'sign_in'));
     case 'run-like-unlock':
       return loadPreviewActionsModule().then((m) => m.runLikeUnlockFlow());
     case 'run-leaderboard-unlock':

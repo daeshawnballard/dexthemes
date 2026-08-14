@@ -8,6 +8,7 @@ export const createOauthState = internalMutation({
     origin: v.string(),
     codeVerifier: v.optional(v.string()),
     bindingHash: v.string(),
+    requestedEmail: v.optional(v.boolean()),
     expiresAt: v.number(),
   },
   handler: async (ctx, args) => {
@@ -17,6 +18,7 @@ export const createOauthState = internalMutation({
       origin: args.origin,
       codeVerifier: args.codeVerifier,
       bindingHash: args.bindingHash,
+      requestedEmail: args.requestedEmail,
       expiresAt: args.expiresAt,
       createdAt: Date.now(),
     });
@@ -51,6 +53,7 @@ export const consumeOauthState = internalMutation({
     return {
       origin: state.origin,
       codeVerifier: state.codeVerifier,
+      requestedEmail: state.requestedEmail ?? false,
       expiresAt: state.expiresAt,
     };
   },

@@ -125,9 +125,10 @@
 }
 
 .builder-field {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
+  column-gap: 12px;
   margin-bottom: 8px;
 }
 

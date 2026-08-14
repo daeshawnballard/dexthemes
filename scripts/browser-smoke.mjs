@@ -221,6 +221,43 @@ try {
     await page.close();
   });
 
+  await runTest('desktop preview window controls minimize, maximize, close, and restore', async () => {
+    const page = await bootDesktopPage(browser, server.baseUrl);
+    const preview = page.locator('#preview-window');
+    const minimize = page.locator('[data-action="minimize-preview-window"]');
+    const maximize = page.locator('[data-action="maximize-preview-window"]');
+
+    await minimize.click();
+    await page.waitForFunction(() => document.getElementById('preview-window')?.classList.contains('minimized'));
+    assert.ok((await preview.boundingBox())?.height <= 42);
+    assert.equal(await minimize.getAttribute('aria-label'), 'Restore preview');
+
+    await minimize.click();
+    await page.waitForFunction(() => !document.getElementById('preview-window')?.classList.contains('minimized'));
+    assert.ok((await preview.boundingBox())?.height > 42);
+
+    await maximize.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.getElementById('preview-window')?.classList.contains('fullscreen'));
+    assert.equal(await page.locator('.preview-area').evaluate((element) => element.classList.contains('fullscreen-area')), true);
+    assert.equal(await maximize.getAttribute('aria-label'), 'Restore preview size');
+
+    await maximize.click();
+    await page.waitForFunction(() => !document.getElementById('preview-window')?.classList.contains('fullscreen'));
+
+    await page.locator('[data-action="close-preview-window"]').click();
+    await page.waitForSelector('#closed-overlay');
+    assert.equal(await preview.isHidden(), true);
+
+    await page.locator('[data-action="reopen-preview-window"]').click();
+    await page.waitForFunction(() => {
+      const element = document.getElementById('preview-window');
+      return element && getComputedStyle(element).display !== 'none' && !document.getElementById('closed-overlay');
+    });
+    assert.equal(await preview.isVisible(), true);
+    await page.close();
+  });
+
   await runTest('desktop harness context changes preview copy without changing theme sources', async () => {
     const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?platform=deepseek`);
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
