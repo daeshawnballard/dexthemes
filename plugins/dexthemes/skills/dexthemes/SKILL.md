@@ -1,6 +1,6 @@
 ---
 name: dexthemes
-description: Discover, create, preview, and prepare DexThemes for Codex or DeepSeek Harness through the DexThemes MCP app. Use for theme browsing, personalized or voice-driven creation, safe platform-specific apply preparation, publication, achievements, creator stats, leaderboards, and GitHub feedback.
+description: Discover, create, preview, and prepare themes for Codex through the DexThemes MCP app. Use for theme browsing, personalized or voice-driven creation, safe Codex import preparation, publication, achievements, creator stats, leaderboards, and GitHub feedback.
 ---
 
 # DexThemes
@@ -24,9 +24,7 @@ Use `color_me_lucky` when the user asks for a surprise. It returns a private pai
 4. If no name was supplied, `draft_theme` returns a suggestion. Present that suggestion and invite a custom name before any publication.
 5. The model may provide a thoughtfully curated dark and/or light palette. If omitted, the tool creates a deterministic starting palette.
 6. Run `validate_theme`, resolve structural errors, and show `render_theme_preview`.
-7. Choose the platform-specific apply path:
-   - **Codex:** once the user chooses a variant, call `prepare_theme_apply`. The app copies the exact import string and opens generic Codex Settings; tell the user to choose **Appearance → Import theme** and paste. Never imply that Codex silently applied the theme.
-   - **DeepSeek Harness:** call `prepare_deepseek_apply` only for a theme with both variants. The result contains the guarded client Package input for `cordis_define`; the running Harness must then use `cordis_run`. `cordis_stop` reverses the override. Never describe this as a clipboard/import path or claim the Package is installed merely because its payload was prepared.
+7. Once the user chooses a Codex variant, call `prepare_theme_apply`. The app copies the exact import string and opens generic Codex Settings; tell the user to choose **Appearance → Import theme** and paste. Never imply that Codex silently applied the theme.
 
 Private themes can be inspired by sports, games, films, places, moods, or personality. Describe inspiration without implying affiliation or copying logos, art, character likenesses, or protected brand assets. Favor an original palette that captures atmosphere. A private draft may retain the user's requested reference; a public community name, ID, and summary must use original descriptive wording.
 
@@ -47,7 +45,6 @@ Private themes can be inspired by sports, games, films, places, moods, or person
 
 ## Auth and errors
 
-- Public discovery, drafting, validation, previews, Codex/DeepSeek apply preparation, leaderboard, and issue preparation work without sign-in.
+- Public discovery, drafting, validation, previews, Codex import preparation, leaderboard, and issue preparation work without sign-in.
 - Account stats, unlocks, and public submission require OAuth with GitHub as the upstream login.
-- The restricted DeepSeek Harness MCP profile stays anonymous. The installed settings plugin can optionally connect a DexThemes account through the OAuth device flow; only a verified connected apply can award Harnessed.
 - If authentication is unavailable or incomplete, continue with public tools and explain that only the account-bound step is gated.

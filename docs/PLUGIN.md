@@ -11,7 +11,7 @@ DexThemes is packaged as an MCP-backed interactive app plus a bundled Codex skil
 - Render dark/light previews as full Codex workspace mockups, not color swatches alone, and prepare the exact `codex-theme-v1` import string.
 - Prepare paired themes for DeepSeek Harness as validated, client-only Cordis payloads using the guarded public theme service; stopping the Plugin reverses the token layer.
 - Keep search, leaderboard selection, reward-theme inspection, and created-theme comparison inside the conversation.
-- Show daily, weekly, monthly, and all-time public leaderboards plus an authenticated creator dashboard with ranks, win history, unlocks, and achievement reward previews.
+- Show daily, weekly, monthly, and all-time public leaderboards, and return authenticated creator stats and unlock details directly in the conversation without mounting an extra UI frame.
 - Publish a confirmed community theme under the verified GitHub identity.
 - Prepare a best-effort redacted GitHub Issue draft, show its exact title/body for review, and construct the GitHub URL only after the user clicks to continue.
 
@@ -92,13 +92,14 @@ DeepSeek Harness is a separate channel. `prepare_deepseek_apply` returns an exac
 `submit_theme` is the only public write tool. It is app-only and:
 
 1. requires `themes:write`;
-2. derives identity only from the verified bearer token;
-3. requires a five-minute token bound to the exact reviewed payload and current OAuth token; the token is returned only in app metadata hidden from the model;
-4. re-runs server-side moderation and protected-palette checks;
-5. requires original wording in every public name, ID, and summary while leaving private drafts flexible;
-6. independently rate-limits writes per verified identity and per network;
-7. is called only by the review app after the user presses Publish;
-8. creates a new theme and cannot edit or delete existing themes.
+2. is callable only from the review app and is not linked to its own output template;
+3. derives identity only from the verified bearer token;
+4. requires a five-minute token bound to the exact reviewed payload and current OAuth token; the token is returned only in app metadata hidden from the model;
+5. re-runs server-side moderation and protected-palette checks;
+6. requires original wording in every public name, ID, and summary while leaving private drafts flexible;
+7. independently rate-limits writes per verified identity and per network;
+8. is called only by the review app after the user presses Publish;
+9. creates a new theme and cannot edit or delete existing themes.
 
 ## Live authentication configuration
 

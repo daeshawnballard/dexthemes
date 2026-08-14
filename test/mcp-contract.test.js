@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { z } from 'zod/v4';
 import { createDexThemesMcpServer } from '../server/dexthemes-mcp.js';
 
 test('MCP tools expose complete safety annotations and output schemas', async (t) => {
@@ -16,7 +17,35 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   });
 
   const { tools } = await client.listTools();
-  assert.equal(tools.length, 14);
+  assert.equal(tools.length, 13);
+  assert.equal(tools.some((tool) => tool.name === 'prepare_deepseek_apply'), false);
+
+  const rawToolsResult = await client.request(
+    { method: 'tools/list', params: {} },
+    z.object({
+      tools: z.array(z.object({
+        name: z.string(),
+        securitySchemes: z.array(z.record(z.string(), z.unknown())),
+      }).passthrough()),
+    }).passthrough(),
+  );
+  const rawTools = rawToolsResult.tools;
+  assert.equal(rawTools.length, 13);
+  for (const tool of rawTools) {
+    assert.deepEqual(tool.securitySchemes, tool._meta.securitySchemes, `${tool.name} top-level auth policy`);
+  }
+
+  const rawStats = rawTools.find((tool) => tool.name === 'get_my_stats');
+  assert.deepEqual(rawStats.securitySchemes, [{ type: 'oauth2', scopes: ['themes:read'] }]);
+  assert.equal(rawStats._meta.ui, undefined);
+  assert.equal(rawStats._meta['ui/resourceUri'], undefined);
+  assert.equal(rawStats._meta['openai/outputTemplate'], undefined);
+
+  const rawUnlocks = rawTools.find((tool) => tool.name === 'get_my_unlocks');
+  assert.equal(rawUnlocks._meta.ui, undefined);
+  assert.equal(rawUnlocks._meta['ui/resourceUri'], undefined);
+  assert.equal(rawUnlocks._meta['openai/outputTemplate'], undefined);
+
   for (const tool of tools) {
     assert.equal(typeof tool.annotations?.readOnlyHint, 'boolean', tool.name);
     assert.equal(typeof tool.annotations?.openWorldHint, 'boolean', tool.name);
@@ -51,6 +80,10 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.equal(submit.inputSchema.properties.confirmation, undefined);
   assert.deepEqual(submit._meta.securitySchemes, [{ type: 'oauth2', scopes: ['themes:write'] }]);
   assert.deepEqual(submit._meta.ui.visibility, ['app']);
+  assert.equal(submit._meta.ui.resourceUri, undefined);
+  assert.equal(submit._meta['ui/resourceUri'], undefined);
+  assert.equal(submit._meta['openai/outputTemplate'], undefined);
+  assert.equal(submit._meta['openai/widgetAccessible'], undefined);
 
   for (const tool of tools.filter((candidate) => candidate.name !== 'submit_theme')) {
     assert.equal(tool.annotations.readOnlyHint, true, tool.name);
@@ -114,16 +147,8 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   });
   assert.equal(unknownCodeTheme.isError, true);
 
-  const deepSeekApply = await client.callTool({
-    name: 'prepare_deepseek_apply',
-    arguments: { theme: draft.structuredContent.theme },
-  });
-  assert.equal(deepSeekApply.structuredContent.kind, 'deepseek-theme-apply');
-  assert.equal(deepSeekApply.structuredContent.payload.target, 'deepseek-harness');
-  assert.equal('importString' in deepSeekApply.structuredContent.payload, false);
-
   const { resources } = await client.listResources();
-  const view = resources.find((resource) => resource.uri === 'ui://dexthemes/theme-studio-v2.html');
+  const view = resources.find((resource) => resource.uri === 'ui://dexthemes/theme-studio-v3.html');
   assert.equal(view.mimeType, 'text/html;profile=mcp-app');
   assert.equal(view._meta.ui.domain, 'https://www.dexthemes.com');
   assert.deepEqual(view._meta.ui.csp.connectDomains, []);

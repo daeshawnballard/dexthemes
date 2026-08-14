@@ -3,6 +3,18 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { resolveMcpProfile } from '../api/mcp.js';
 
+test('OpenAI submission artifacts remain Codex-only', async () => {
+  const [submission, skill, manifest] = await Promise.all([
+    readFile(new URL('../chatgpt-app-submission.json', import.meta.url), 'utf8'),
+    readFile(new URL('../plugins/dexthemes/skills/dexthemes/SKILL.md', import.meta.url), 'utf8'),
+    readFile(new URL('../plugins/dexthemes/.codex-plugin/plugin.json', import.meta.url), 'utf8'),
+  ]);
+
+  for (const artifact of [submission, skill, manifest]) {
+    assert.doesNotMatch(artifact, /deepseek|harness/i);
+  }
+});
+
 test('generic unlock endpoint excludes server-verifiable achievements', async () => {
   const source = await readFile(new URL('../convex/http_unlock_routes.ts', import.meta.url), 'utf8');
   const publicActions = source.match(/const PUBLIC_UNLOCK_ACTIONS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || '';
