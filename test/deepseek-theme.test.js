@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import deepSeekThemeHandler from '../api/deepseek-theme.js';
+import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
 import {
   DEEPSEEK_THEME_TOKENS,
   buildDeepSeekCordisPayload,
@@ -219,6 +220,24 @@ test('DeepSeek payload API returns eligible Cordis definitions and rejects singl
   ));
   assert.equal(optionsResponse.status, 204);
   assert.equal(await optionsResponse.text(), '');
+});
+
+test('DeepSeek payload API excludes every account-only reward palette', async (t) => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => Response.json([]);
+  t.after(() => { globalThis.fetch = originalFetch; });
+
+  const rewardThemeIds = STATIC_THEME_CATALOG
+    .filter((theme) => theme.subgroup === 'unlockables')
+    .map((theme) => theme.id);
+  assert.ok(rewardThemeIds.length > 0);
+
+  for (const themeId of rewardThemeIds) {
+    const response = await deepSeekThemeHandler(new Request(
+      `https://www.dexthemes.com/api/deepseek-theme?theme=${encodeURIComponent(themeId)}`,
+    ));
+    assert.equal(response.status, 404, `${themeId} must require a verified unlock`);
+  }
 });
 
 test('DeepSeek analytics uses a separate allowlisted taxonomy without sensitive free-form data', () => {

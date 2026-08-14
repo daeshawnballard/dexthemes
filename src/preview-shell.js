@@ -6,7 +6,12 @@ import * as state from './state.js';
 import { escapeHtml, fallbackCopy } from './utils.js';
 import { getVariants, hasVariant, applyShellTheme, applyPreview, renderMiniPreview, buildImportString } from './theme-engine.js';
 import { renderSidebar } from './sidebar.js';
-import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from './codex-handoff.js';
+import {
+  getApplyButtonCopy,
+  openCodexSettings,
+  showApplyHandoffMessage,
+  showManualCopyDialog,
+} from './codex-handoff.js';
 import { syncAttributionOverlay } from './preview-attribution.js';
 import { loadBuilderModule } from './lazy-modules.js';
 import { fetchMyUnlocks, grantUnlockAction, recordSecretInteraction } from './unlock-api.js';
@@ -389,7 +394,7 @@ export function applyToCodex() {
 
   const afterCopy = () => {
     recordThemeCopy(state.selectedTheme.id);
-    track('theme_applied', {
+    track('theme_copied', {
       theme_id: state.selectedTheme.id,
       theme_name: state.selectedTheme.name,
       variant: state.selectedVariant,
@@ -410,10 +415,19 @@ export function applyToCodex() {
     }, 2000);
   };
 
+  const onCopyFailure = () => {
+    setButtonState(applyCopy.failureLabel, false);
+    if (hint) hint.textContent = applyCopy.failureHintText;
+    buttons[0]?.focus();
+    showManualCopyDialog(importString);
+  };
+
   if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(importString).then(afterCopy).catch(() => fallbackCopy(importString, afterCopy));
+    navigator.clipboard.writeText(importString)
+      .then(afterCopy)
+      .catch(() => fallbackCopy(importString, afterCopy, onCopyFailure));
   } else {
-    fallbackCopy(importString, afterCopy);
+    fallbackCopy(importString, afterCopy, onCopyFailure);
   }
 }
 

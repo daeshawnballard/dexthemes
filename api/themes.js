@@ -1,5 +1,6 @@
 import { STATIC_THEME_CATALOG, normalizeDexThemesSubgroup } from '../shared/theme-api-catalog.js';
 import {
+  isThemePubliclyDiscoverable,
   presentThemeForPublicApi,
   resolvePluginThemeSourceId,
   websiteThemeMatchesSearch,
@@ -54,7 +55,7 @@ function filterThemes(themes, { id, search, variant, category, subgroup }) {
 }
 
 function visibleStaticThemes() {
-  return STATIC_THEME_CATALOG.filter((theme) => !theme._hiddenUntilUnlocked);
+  return STATIC_THEME_CATALOG.filter(isThemePubliclyDiscoverable);
 }
 
 export default async function handler(req) {

@@ -71,7 +71,7 @@ The existing `use_deepseek_harness` achievement is awarded only after a connecte
 
 ## Analytics compatibility and privacy
 
-New events use additive platform metadata: platform ID, theme ID, source, variant, source surface, apply mode, adapter/plugin/Harness version when authoritative, creation mode, effect kind, validation result, and a bounded error category. Existing Codex `theme_applied` behavior and properties remain intact.
+New events use additive platform metadata: platform ID, theme ID, source, variant, source surface, apply mode, adapter/plugin/Harness version when authoritative, creation mode, effect kind, validation result, and a bounded error category. Codex copy-only handoffs emit `theme_copied`; `theme_applied` is reserved for a host-confirmed runtime application.
 
 The allowlisted lifecycle is: `harness_selected`, `theme_source_opened`, `theme_previewed`, `variant_previewed`, `creator_opened`, `manual_creation_started`, `prompt_generation_attempted`, `prompt_generation_succeeded`, `prompt_generation_failed`, `generated_draft_revised`, `generated_draft_accepted`, `validation_completed`, `apply_attempted`, `apply_succeeded`, `apply_failed`, `revert_attempted`, `revert_succeeded`, `revert_failed`, `mcp_setup_opened`, `mcp_connection_confirmed`, `api_setup_opened`, `effect_previewed`, and `effect_fallback_shown`. A source may emit only what it can observe; for example, the website cannot emit DeepSeek Apply success, and install success requires a real installer receipt.
 

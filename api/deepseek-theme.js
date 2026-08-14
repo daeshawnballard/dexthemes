@@ -2,6 +2,7 @@ import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
 import { buildDeepSeekCordisPayload } from '../shared/deepseek-theme-contract.js';
 import {
   getWebsiteThemeId,
+  isThemePubliclyDiscoverable,
   presentThemeForPublicApi,
   resolvePluginThemeSourceId,
 } from '../shared/plugin-public-policy.js';
@@ -25,17 +26,22 @@ function json(payload, status = 200) {
 async function findTheme(requestedId) {
   const sourceId = resolvePluginThemeSourceId(requestedId);
   const staticTheme = STATIC_THEME_CATALOG.find((theme) => (
-    !theme._hiddenUntilUnlocked
-    && (theme.id === sourceId || getWebsiteThemeId(theme) === requestedId)
+    theme.id === sourceId || getWebsiteThemeId(theme) === requestedId
   ));
-  if (staticTheme) return presentThemeForPublicApi(staticTheme);
+  if (staticTheme) {
+    return isThemePubliclyDiscoverable(staticTheme)
+      ? presentThemeForPublicApi(staticTheme)
+      : null;
+  }
 
   try {
     const communityThemes = await fetchCommunityThemes();
     const communityTheme = communityThemes.find((theme) => (
       theme.id === sourceId || theme.themeId === sourceId
     ));
-    return presentThemeForPublicApi(communityTheme);
+    return isThemePubliclyDiscoverable(communityTheme)
+      ? presentThemeForPublicApi(communityTheme)
+      : null;
   } catch {
     return null;
   }

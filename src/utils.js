@@ -60,12 +60,21 @@ export function slugify(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-export function fallbackCopy(str, cb) {
+export function fallbackCopy(str, onSuccess, onFailure) {
   const ta = document.createElement('textarea');
   ta.value = str;
   ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
   document.body.appendChild(ta);
   ta.select();
-  try { document.execCommand('copy'); cb(); } catch (e) {}
-  document.body.removeChild(ta);
+  let copied = false;
+  try {
+    copied = document.execCommand('copy') === true;
+  } catch {}
+  try {
+    if (copied) onSuccess?.();
+    else onFailure?.();
+  } finally {
+    document.body.removeChild(ta);
+  }
+  return copied;
 }

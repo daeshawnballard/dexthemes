@@ -85,6 +85,7 @@ export async function pollDeviceAuthorization(device, {
       signal,
     });
     const payload = await parseJson(response);
+    if (response.status === 202 && payload.error === 'authorization_pending') continue;
     if (response.ok) {
       const accessToken = String(payload.accessToken || '');
       if (!accessToken.startsWith('dxd_') || accessToken.length > 256 || payload.tokenType !== 'Bearer') {
@@ -93,7 +94,6 @@ export async function pollDeviceAuthorization(device, {
       const expiresIn = Math.min(3600, Math.max(60, Number(payload.expiresIn) || 3600));
       return Object.freeze({ accessToken, expiresIn });
     }
-    if (response.status === 202 && payload.error === 'authorization_pending') continue;
     if (response.status === 429 && ['slow_down', 'rate_limited'].includes(payload.error)) {
       interval = Math.min(30, Math.max(interval + 5, retryAfterSeconds(response)));
       continue;

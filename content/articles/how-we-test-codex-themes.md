@@ -8,8 +8,8 @@ answer: We test Codex themes in distinct layers covering catalog truth, palette 
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: DexThemes catalog and preview/import implementation reviewed 2026-07-30
+dateModified: 2026-08-14
+testedWith: DexThemes catalog, clipboard failure path, and preview/import source tests reviewed 2026-08-14; installed Codex behavior not re-verified for this revision
 related: /articles/what-makes-a-good-codex-theme, /articles/designing-colors-for-code-review-and-diffs, /guides/codex-theme-import-troubleshooting
 ---
 

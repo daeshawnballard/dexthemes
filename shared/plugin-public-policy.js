@@ -488,7 +488,17 @@ export function presentThemeForWebsite(theme) {
   };
 }
 
+export function isThemePubliclyDiscoverable(theme) {
+  return Boolean(
+    theme
+    && typeof theme === "object"
+    && !theme._hiddenUntilUnlocked
+    && String(theme.subgroup || "").trim().toLowerCase() !== "unlockables"
+  );
+}
+
 export function presentThemeForPublicApi(theme) {
+  if (!isThemePubliclyDiscoverable(theme)) return null;
   const presented = presentThemeForWebsite(theme);
   if (!presented) return null;
   const publicThemeId = getWebsiteThemeId(theme);

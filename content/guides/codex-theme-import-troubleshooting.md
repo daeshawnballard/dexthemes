@@ -8,8 +8,8 @@ answer: Recopy the full codex-theme-v1 string, open Codex Settings, choose Appea
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: DexThemes current import validator and installed Codex desktop 26.721.81911 build 5973 appearance registry
+dateModified: 2026-08-14
+testedWith: DexThemes import validator and clipboard failure path reviewed 2026-08-14; installed Codex desktop 26.721.81911 build 5973 appearance registry previously observed 2026-07-30
 related: /guides/how-to-install-a-codex-theme, /reference/codex-theme-format, /guides/codex-app-themes-vs-cli-themes
 ---
 
