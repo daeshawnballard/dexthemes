@@ -54,6 +54,12 @@ async function hideLeaderboardIfVisible() {
   hideLeaderboard();
 }
 
+async function exitBuilderForThemeSelection() {
+  if (state.panelMode !== 'builder') return;
+  const { closeBuilder } = await loadBuilderModule();
+  closeBuilder({ source: 'theme_selection' });
+}
+
 export function hideProfileView() {
   const win = document.getElementById('preview-window');
   const pv = document.getElementById('profile-view');
@@ -71,15 +77,7 @@ export async function selectThemeById(id) {
   if (unlockAction && isThemeLockedForUser(id, state.userUnlocks)) {
     state.setSelectedTheme(theme);
     state.setSelectedAccentIdx(0);
-
-    if (state.panelMode === 'builder') {
-      state.setPanelMode('preview');
-      const submitBtn = document.getElementById('submit-btn');
-      const textEl = document.getElementById('submit-btn-text');
-      const iconEl = submitBtn?.querySelector('svg');
-      if (textEl) textEl.textContent = 'Create Theme';
-      if (iconEl) iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
-    }
+    await exitBuilderForThemeSelection();
 
     const variants = getVariants(theme);
     if (!hasVariant(theme, state.selectedVariant)) {
@@ -115,15 +113,7 @@ export async function selectThemeById(id) {
 
   state.setSelectedTheme(theme);
   state.setSelectedAccentIdx(0);
-
-  if (state.panelMode === 'builder') {
-    state.setPanelMode('preview');
-    const submitBtn = document.getElementById('submit-btn');
-    const textEl = document.getElementById('submit-btn-text');
-    const iconEl = submitBtn?.querySelector('svg');
-    if (textEl) textEl.textContent = 'Create Theme';
-    if (iconEl) iconEl.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>';
-  }
+  await exitBuilderForThemeSelection();
 
   state.setCurrentExampleIdx((state.currentExampleIdx + 1) % state.EXAMPLES.length);
 

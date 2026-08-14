@@ -341,6 +341,24 @@ try {
     await page.close();
   });
 
+  await runTest('desktop Create Theme can reopen after leaving the builder through theme selection', async () => {
+    const page = await bootDesktopPage(browser, server.baseUrl);
+    await page.click('#submit-btn');
+    await page.waitForSelector('.builder-panel');
+    assert.equal(await page.locator('#submit-btn').getAttribute('data-action'), 'close-builder');
+
+    await page.locator('.thread-item:not(.active)').first().click();
+    await page.waitForFunction(() => !document.querySelector('.builder-panel'));
+    assert.equal(await page.locator('#submit-btn-text').textContent(), 'Create Theme');
+    assert.equal(await page.locator('#submit-btn').getAttribute('data-action'), 'open-builder');
+
+    await page.click('#submit-btn');
+    await page.waitForSelector('.builder-panel');
+    assert.equal(await page.locator('#submit-btn-text').textContent(), 'Back to Browse');
+    assert.equal(await page.locator('#submit-btn').getAttribute('data-action'), 'close-builder');
+    await page.close();
+  });
+
   await runTest('DexThemes AI fills the editable pair without applying or submitting', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
     const lunaTheme = {

@@ -421,12 +421,7 @@ export async function openBuilderForVariant(themeId, variant) {
   lunaStatusMessage = '';
   resetBuilderCreationTracking();
   localStorage.removeItem('dexthemes-builder-signin-prompt-seen');
-
-  const btn = document.getElementById('submit-btn');
-  const textEl = document.getElementById('submit-btn-text');
-  const iconEl = btn?.querySelector('svg');
-  if (textEl) textEl.textContent = 'Back to Browse';
-  if (iconEl) iconEl.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
+  syncBuilderNavigationButton(true);
 
   renderBuilderPanel();
   applyBuilderPreview();
