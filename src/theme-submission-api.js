@@ -90,11 +90,12 @@ async function addVariantToExistingTheme(themeId, themeName, variant, variantDat
   showToast(`${variant === 'dark' ? 'Dark' : 'Light'} variant added! You unlocked Yin & Yang 🎉`);
   showSubmitDelighter(themeName, variant, variantData);
 
-  state.setPanelMode('preview');
   if (existing) {
     state.setSelectedTheme(existing);
     state.setSelectedVariant(variant);
   }
+  const { closeBuilder } = await import('./builder.js');
+  closeBuilder({ source: 'variant_submitted' });
   const { renderRightPanel } = await import('./preview-shell.js');
   const { syncAttributionOverlay } = await import('./preview-attribution.js');
   const { applyShellTheme, applyPreview } = await import('./theme-engine.js');
