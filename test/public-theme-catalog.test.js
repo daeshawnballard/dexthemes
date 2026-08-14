@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import themesHandler from '../api/themes.js';
+import { STATIC_THEME_CATALOG } from '../shared/theme-api-catalog.js';
 
 function installEmptyCommunityCatalog(t) {
   const originalFetch = globalThis.fetch;
@@ -92,4 +93,21 @@ test('public API adds derived DeepSeek compatibility without changing stored the
   assert.equal(single.integrations.deepseek.eligible, false);
   assert.equal(single.integrations.deepseek.packageUrl, null);
   assert.equal(single.integrations.deepseek.oneClickScope, 'installed-plugin');
+});
+
+test('public theme API excludes every account-only reward palette', async (t) => {
+  installEmptyCommunityCatalog(t);
+
+  const rewardThemeIds = STATIC_THEME_CATALOG
+    .filter((theme) => theme.subgroup === 'unlockables')
+    .map((theme) => theme.id);
+  assert.ok(rewardThemeIds.length > 0);
+
+  for (const themeId of rewardThemeIds) {
+    const response = await themesHandler(new Request(
+      `https://www.dexthemes.com/api/themes?id=${encodeURIComponent(themeId)}`,
+    ));
+    const payload = await response.json();
+    assert.equal(payload.count, 0, `${themeId} must require a verified unlock`);
+  }
 });

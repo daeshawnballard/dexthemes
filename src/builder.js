@@ -11,7 +11,12 @@ import { syncAttributionOverlay } from './preview-attribution.js';
 import { isMobile } from './mobile.js';
 import { trackEvent } from './analytics.js';
 import { signInWith } from './auth.js';
-import { getApplyButtonCopy, openCodexSettings, showApplyHandoffMessage } from './codex-handoff.js';
+import {
+  getApplyButtonCopy,
+  openCodexSettings,
+  showApplyHandoffMessage,
+  showManualCopyDialog,
+} from './codex-handoff.js';
 import { grantUnlockAction } from './unlock-api.js';
 import { getPlatform, getPlatformAction } from '../shared/platform-registry.js';
 import { trackPlatformEvent } from './platform-analytics.js';
@@ -731,7 +736,7 @@ export function applyBuilderToCodex() {
   const compact = isMobile();
   const applyCopy = getApplyButtonCopy(compact);
   const afterCopy = () => {
-    trackEvent('theme_applied', null, {
+    trackEvent('theme_copied', null, {
       theme_id: '_builder',
       theme_name: displayName,
       variant: b.variant,
@@ -755,10 +760,19 @@ export function applyBuilderToCodex() {
       if (hint) hint.textContent = applyCopy.hintText;
     }, 3000);
   };
+  const onCopyFailure = () => {
+    if (textEl) textEl.textContent = applyCopy.failureLabel;
+    if (btn) btn.classList.remove('copied');
+    if (hint) hint.textContent = applyCopy.failureHintText;
+    btn?.focus();
+    showManualCopyDialog(str);
+  };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(str).then(afterCopy).catch(() => fallbackCopy(str, afterCopy));
+    navigator.clipboard.writeText(str)
+      .then(afterCopy)
+      .catch(() => fallbackCopy(str, afterCopy, onCopyFailure));
   } else {
-    fallbackCopy(str, afterCopy);
+    fallbackCopy(str, afterCopy, onCopyFailure);
   }
 }
 

@@ -8,8 +8,8 @@ answer: To create a custom Codex theme, use the DexThemes theme generator to edi
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-08-09
-testedWith: DexThemes theme builder and import-contract source, ChatGPT desktop 26.803.41515 build 6321, and official OpenAI Appearance documentation reviewed 2026-08-09.
+dateModified: 2026-08-14
+testedWith: DexThemes theme builder, clipboard failure path, and import-contract source reviewed 2026-08-14; ChatGPT desktop 26.803.41515 build 6321 and official OpenAI Appearance documentation previously reviewed 2026-08-09
 related: /features/theme-builder, /features/codex-theme-import, /guides/create-dark-and-light-codex-themes, /guides/codex-theme-accessibility
 ---
 

@@ -226,16 +226,17 @@ test('successful one-click apply reports authenticated Harness use without coupl
 
 test('device authorization uses bounded public codes and respects provider polling responses', async () => {
   const requests = [];
+  const jsonResponse = (payload, status = 200) => Response.json(payload, { status });
   const responses = [
-    { ok: true, status: 200, json: async () => ({
+    jsonResponse({
       deviceCode: 'device-secret', userCode: 'ABCD-EFGH',
       verificationUri: 'https://github.com/login/device',
       verificationUriComplete: 'https://github.com/login/device?user_code=ABCD-EFGH',
       expiresIn: 900, interval: 5,
-    }) },
-    { ok: false, status: 202, json: async () => ({ error: 'authorization_pending' }) },
-    { ok: false, status: 429, json: async () => ({ error: 'slow_down' }) },
-    { ok: true, status: 200, json: async () => ({ accessToken: 'dxd_access-secret', tokenType: 'Bearer' }) },
+    }),
+    jsonResponse({ error: 'authorization_pending' }, 202),
+    jsonResponse({ error: 'slow_down' }, 429),
+    jsonResponse({ accessToken: 'dxd_access-secret', tokenType: 'Bearer' }),
   ];
   const fetchImpl = async (url, options) => {
     requests.push({ url, options });
@@ -252,6 +253,19 @@ test('device authorization uses bounded public codes and respects provider polli
   assert.deepEqual(session, { accessToken: 'dxd_access-secret', expiresIn: 3600 });
   assert.equal(requests.filter((request) => request.url.endsWith('/auth/poll')).length, 3);
   assert.ok(requests.slice(1).every((request) => JSON.parse(request.options.body).deviceCode === 'device-secret'));
+});
+
+test('install docs distinguish the published registry package from unreleased source', async () => {
+  const [packageReadme, integrationDocs] = await Promise.all([
+    readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
+  ]);
+
+  for (const source of [packageReadme, integrationDocs]) {
+    assert.match(source, /0\.6\.0[^\n]*not published/i);
+    assert.match(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
+    assert.doesNotMatch(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.0/);
+  }
 });
 
 test('installed account client keeps bearer credentials in memory and awards Harnessed only after apply', async () => {

@@ -8,12 +8,14 @@ Version 0.6 includes a palette matched to DeepSeek Harness's published semantic 
 
 From the DeepSeek Harness checkout:
 
+Repository source version `0.6.0` is not published to npm. As of 2026-08-14, the verified registry release is `0.4.1`; install it with:
+
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
 pnpm dsh web
 ```
 
-For local package development, use the source directory instead:
+To exercise the current 0.6.0 source before publication, use the source directory instead:
 
 ```sh
 pnpm dsh plugin --profile web add /absolute/path/to/dexthemes/packages/deepseek-harness-plugin
@@ -43,8 +45,8 @@ The bundled catalog works offline. It contains the DeepSeek default palette, twe
 
 Fonts are intentionally unsupported by this integration.
 
-The npm package is the supported distribution path for this release. The bundled catalog, preview, apply, and revert work without a DexThemes account. The hosted MCP endpoint, Statsig delivery, device-authorization routes, and achievement call require their production services and OAuth environment configuration. npm publication does not imply a separate Harness marketplace approval, and the standalone DexThemes website cannot apply into an unrelated Harness browser tab.
+The npm package is the supported distribution path for published releases; the current 0.6.0 source features require the local-package command until that version is actually published. The bundled catalog, preview, apply, and revert work without a DexThemes account. The hosted MCP endpoint, Statsig delivery, device-authorization routes, and achievement call require their production services and OAuth environment configuration. npm publication does not imply a separate Harness marketplace approval, and the standalone DexThemes website cannot apply into an unrelated Harness browser tab.
 
 ## Distribution boundary
 
-Harness's supported CLI accepts a package or Git spec through `dsh plugin --profile <profile> add <package-or-git-spec>`. DexThemes uses the public npm package above. No dedicated Harness marketplace submission surface was found in the inspected checkout, so npm distribution is the current release boundary rather than a claim of Harness marketplace approval.
+Harness's supported CLI accepts a package or Git spec through `dsh plugin --profile <profile> add <package-or-git-spec>`. DexThemes uses npm for published releases and a local source path for unreleased development. No dedicated Harness marketplace submission surface was found in the inspected checkout, so npm distribution is the published-release boundary rather than a claim of Harness marketplace approval.

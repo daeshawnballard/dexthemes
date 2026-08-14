@@ -8,8 +8,8 @@ answer: DexThemes prepares and copies a validated codex-theme-v1 payload, then y
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
-dateModified: 2026-07-30
-testedWith: DexThemes 1.0.0 import contract and installed Codex desktop 26.721.81911 build 5973 appearance registry
+dateModified: 2026-08-14
+testedWith: DexThemes import and clipboard source tests reviewed 2026-08-14; installed Codex desktop 26.721.81911 build 5973 appearance registry previously observed 2026-07-30
 related: /features/interactive-previews, /features/theme-builder, /guides/codex-theme-import-troubleshooting
 ---
 

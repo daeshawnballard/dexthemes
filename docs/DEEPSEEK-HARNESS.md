@@ -65,12 +65,14 @@ The generic Harness MCP connection remains anonymous. Device authorization requi
 
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
+Repository source version `0.6.0` is not published to npm. As of 2026-08-14, the verified registry release is `0.4.1`; the command below installs that published version and does not include the source-only 0.6 collection, MCP, analytics, or account work described above.
+
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
 pnpm dsh web
 ```
 
-For local package development, use the source directory instead:
+To exercise the current 0.6.0 source before publication, use the source directory instead:
 
 ```sh
 pnpm dsh plugin --profile web add /absolute/path/to/dexthemes/packages/deepseek-harness-plugin
@@ -79,7 +81,7 @@ pnpm dsh web
 
 Refresh the Harness browser tab after adding the package, then open **Settings → Plugins → DexThemes**. Version `0.4.1` was installed from the public npm registry into a clean Harness profile dependency, with the lockfile resolving the registry's published SHA-512 integrity. The registry-installed package loaded the live public/community catalog, applied Alibaba through Harness's theme service, followed Harness's light and dark appearance modes, and reverted to the native Harness default. Earlier local-package QA also exercised search, paired preview, and replacement by a second theme.
 
-This proves public npm publication, registry installation, and one-click inside the installed plugin. It does not prove a separate Harness marketplace approval or the standalone DexThemes website contacting an unrelated Harness process.
+This proves public npm publication, registry installation, and one-click inside the installed 0.4.1 plugin. It does not prove 0.6.0 publication, a separate Harness marketplace approval, or the standalone DexThemes website contacting an unrelated Harness process.
 
 The inspected Harness contract exposes `cordis_define` and `cordis_run` as in-process model tools. The Host runner says that `define` has no wire face and that only a model tool call can define a dynamic Package; `run` also has no wire face. No supported custom URL scheme or cross-origin browser bridge was found. Therefore the standalone website's **Apply to DeepSeek** action remains disabled unless a future supported bridge supplies the guarded service. The real one-click path is the installed Harness plugin.
 

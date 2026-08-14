@@ -317,6 +317,58 @@ try {
     await page.close();
   });
 
+  await runTest('blocked clipboard falls back to selectable manual copy without success effects', async () => {
+    const page = await bootDesktopPage(browser, server.baseUrl);
+    let recordedCopies = 0;
+    await page.route('**/themes/copy', async (route) => {
+      recordedCopies += 1;
+      await route.fulfill({ status: 204, body: '' });
+    });
+    await page.evaluate(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async () => { throw new Error('clipboard blocked'); } },
+      });
+      Object.defineProperty(document, 'execCommand', {
+        configurable: true,
+        value: () => false,
+      });
+    });
+
+    await page.click('#apply-codex-btn');
+    await page.waitForSelector('.codex-manual-copy-overlay');
+    assert.equal(await page.locator('#apply-btn-text').textContent(), 'Copy manually');
+    assert.match(await page.locator('#import-hint').textContent() || '', /Clipboard access was blocked/);
+    const manualValue = await page.locator('.codex-manual-copy-value').inputValue();
+    assert.match(manualValue, /^codex-theme-v1:/);
+    await page.waitForFunction(() => {
+      const element = document.querySelector('.codex-manual-copy-value');
+      return element?.selectionStart === 0 && element.selectionEnd === element.value.length;
+    });
+    assert.deepEqual(
+      await page.locator('.codex-manual-copy-value').evaluate((element) => ({
+        selectionStart: element.selectionStart,
+        selectionEnd: element.selectionEnd,
+        length: element.value.length,
+      })),
+      { selectionStart: 0, selectionEnd: manualValue.length, length: manualValue.length },
+    );
+    assert.equal(await page.locator('.apply-handoff-msg').count(), 0);
+    assert.equal(await page.locator('iframe[src="codex://settings"]').count(), 0);
+    assert.equal(recordedCopies, 0);
+
+    await page.click('.codex-manual-copy-dismiss');
+    assert.equal(await page.locator('#apply-codex-btn').evaluate((element) => element === document.activeElement), true);
+    await page.click('#submit-btn');
+    await page.waitForSelector('.builder-panel');
+    await page.click('.builder-apply-btn');
+    await page.waitForSelector('.codex-manual-copy-overlay');
+    assert.equal(await page.locator('.builder-apply-btn-text').textContent(), 'Copy manually');
+    assert.equal(await page.locator('.builder-apply-btn').evaluate((element) => element.classList.contains('copied')), false);
+    assert.equal(await page.locator('iframe[src="codex://settings"]').count(), 0);
+    await page.close();
+  });
+
   await runTest('desktop builder flow opens and edits a theme name', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
     await page.click('#submit-btn');

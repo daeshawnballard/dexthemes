@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 
 import contentPageHandler from '../api/content-page.js';
+import { CONTENT_ITEMS, CONTENT_LAST_MODIFIED } from '../shared/generated-content.js';
 
 function createResponse() {
   return {
@@ -78,6 +79,23 @@ test('guides render answer-first indexable pages', async () => {
   assert.match(res.body, /<meta property="og:type" content="article">/);
   assert.match(res.body, /rel="alternate" type="text\/markdown"/);
   assert.match(res.body, /https:\/\/www\.dexthemes\.com\/guides\/how-to-install-a-codex-theme/);
+});
+
+test('revised Codex handoff content carries current source-review metadata', () => {
+  const revisedPaths = new Set([
+    '/articles/how-we-test-codex-themes',
+    '/features/codex-theme-import',
+    '/guides/codex-theme-import-troubleshooting',
+    '/guides/create-a-custom-codex-theme',
+  ]);
+  const revisedItems = CONTENT_ITEMS.filter((item) => revisedPaths.has(item.path));
+
+  assert.equal(revisedItems.length, revisedPaths.size);
+  for (const item of revisedItems) {
+    assert.equal(item.dateModified, '2026-08-14', item.path);
+    assert.match(item.testedWith, /2026-08-14/, item.path);
+  }
+  assert.equal(CONTENT_LAST_MODIFIED, '2026-08-14');
 });
 
 test('content hubs expose the full catalog with concise hero copy', async () => {

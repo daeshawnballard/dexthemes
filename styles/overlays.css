@@ -710,6 +710,25 @@
   color: var(--text-muted);
 }
 
+.codex-manual-copy-value {
+  width: 100%;
+  min-height: 132px;
+  resize: vertical;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.codex-manual-copy-value:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .agent-key-modal-actions {
   display: flex;
   gap: 10px;
