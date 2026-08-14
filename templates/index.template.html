@@ -61,12 +61,6 @@
 })();
 </script>
 
-<!-- Preconnect to third-party origins -->
-<link rel="preconnect" href="https://acrobatic-corgi-867.convex.site" crossorigin>
-<link rel="preconnect" href="https://acrobatic-corgi-867.convex.cloud" crossorigin>
-<link rel="dns-prefetch" href="https://acrobatic-corgi-867.convex.site">
-<link rel="dns-prefetch" href="https://acrobatic-corgi-867.convex.cloud">
-
 <!-- JSON-LD structured data -->
 <script type="application/ld+json">
 {
@@ -243,10 +237,10 @@ Themes for Codex</div>
       <div class="onboarding-overlay" id="onboarding-overlay" style="display:none;"></div>
       <div class="preview-window" id="preview-window">
         <div class="preview-titlebar" id="preview-titlebar">
-          <div class="preview-dots">
-            <div class="preview-dot"></div>
-            <div class="preview-dot"></div>
-            <div class="preview-dot"></div>
+          <div class="preview-dots" role="group" aria-label="Preview window controls">
+            <button class="preview-dot" type="button" data-action="close-preview-window" data-stop-propagation="true" aria-label="Close preview" title="Close preview"></button>
+            <button class="preview-dot" type="button" data-action="minimize-preview-window" data-stop-propagation="true" aria-label="Minimize preview" title="Minimize preview" aria-pressed="false"></button>
+            <button class="preview-dot" type="button" data-action="maximize-preview-window" data-stop-propagation="true" aria-label="Maximize preview" title="Maximize preview" aria-pressed="false"></button>
           </div>
           <div class="preview-platform-context">
             <span class="preview-platform-label" id="preview-platform-label">Preview for</span>
@@ -376,7 +370,7 @@ Themes for Codex</div>
   const loadTelemetry = () => {
     if (telemetryScheduled) return;
     telemetryScheduled = true;
-    ["/_vercel/insights/script.js", "/_vercel/speed-insights/script.js"].forEach((src) => {
+    ["/_vercel/insights/script.js"].forEach((src) => {
       if (document.querySelector('script[data-telemetry="' + src + '"]')) return;
       const script = document.createElement("script");
       script.src = src;

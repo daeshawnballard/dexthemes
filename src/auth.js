@@ -4,9 +4,10 @@
 
 import * as state from './state.js';
 import { CONVEX_SITE_URL } from './config.js';
+import { buildGithubAuthStartUrl } from './auth-url.js';
 import { escapeHtml, safeImageSrc } from './utils.js';
-import { fetchMyUnlocks, grantUnlockAction } from './api.js';
-import { trackEvent, syncStatsigUser } from './analytics.js';
+import { fetchMyUnlocks, grantUnlockAction } from './unlock-api.js';
+import { trackEvent, syncStatsigUser } from './analytics-client.js';
 import { loadBuilderModule } from './lazy-modules.js';
 import { getUnlockActionForThemeId } from './unlocks.js';
 import {
@@ -72,8 +73,8 @@ export async function initAuth() {
       if (localStorage.getItem('dexthemes-pwa-installed') === '1') {
         grantUnlockAction('install_pwa');
       }
-      await syncStatsigUser();
-      trackEvent('sign_in_completed', null, { provider: data.user.provider, user_id: data.user._id });
+      void syncStatsigUser();
+      void trackEvent('sign_in_completed', null, { provider: data.user.provider, user_id: data.user._id });
     } else {
       clearSessionHint();
       clearStoredSessionToken();
@@ -143,12 +144,16 @@ export function toggleUserMenu(e) {
   }
 }
 
-export function signInWith(provider) {
-  trackEvent('sign_in_started', null, { provider });
-  const origin = encodeURIComponent(window.location.origin);
+export function signInWith(provider, { verifyEmail = false } = {}) {
+  if (provider !== 'github') throw new TypeError('GitHub is the only supported sign-in provider');
+  trackEvent('sign_in_started', null, { provider, email_verification: verifyEmail });
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const base = isLocal ? CONVEX_SITE_URL : '';
-  window.location.href = base + '/auth/' + provider + '?origin=' + origin;
+  window.location.href = buildGithubAuthStartUrl({
+    base,
+    origin: window.location.origin,
+    verifyEmail,
+  });
 }
 
 // ================================================
@@ -368,8 +373,8 @@ export async function logout() {
   clearSessionHint();
   clearStoredSessionToken();
   state.setCurrentUser(null);
-  await syncStatsigUser();
-  trackEvent('signed_out');
+  void syncStatsigUser();
+  void trackEvent('signed_out');
   renderAuthUI();
   if (state.panelMode === 'builder') {
     const { renderBuilderPanel } = await loadBuilderModule();

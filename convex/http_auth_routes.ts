@@ -66,6 +66,7 @@ export function registerAuthRoutes(http: DexHttpRouter) {
         });
       }
       const frontendOrigin = reqUrl.searchParams.get("origin") || "https://dexthemes.com";
+      const requestedEmail = reqUrl.searchParams.get("verify_email") === "1";
       const nonce = buildOauthStateNonce();
       const browserBinding = generateRandomString(64);
       const codeVerifier = generateRandomString(64);
@@ -76,13 +77,14 @@ export function registerAuthRoutes(http: DexHttpRouter) {
         origin: ALLOWED_ORIGINS.includes(frontendOrigin) ? frontendOrigin : "https://www.dexthemes.com",
         codeVerifier,
         bindingHash: await sha256Base64Url(browserBinding),
+        requestedEmail,
         expiresAt: Date.now() + OAUTH_STATE_TTL_MS,
       });
       const redirectUri = "https://www.dexthemes.com/auth/github/callback";
       const params = new URLSearchParams({
         client_id: clientId,
         redirect_uri: redirectUri,
-        scope: "read:user user:email",
+        scope: requestedEmail ? "read:user user:email" : "read:user",
         state: nonce,
         code_challenge: codeChallenge,
         code_challenge_method: "S256",
@@ -152,7 +154,9 @@ export function registerAuthRoutes(http: DexHttpRouter) {
       };
       const [profileRes, emailsRes] = await Promise.all([
         fetch("https://api.github.com/user", { headers: githubHeaders }),
-        fetch("https://api.github.com/user/emails", { headers: githubHeaders }),
+        oauthState.requestedEmail
+          ? fetch("https://api.github.com/user/emails", { headers: githubHeaders })
+          : Promise.resolve(null),
       ]);
       if (!profileRes.ok) {
         return oauthError("Unable to load GitHub profile");
@@ -160,7 +164,7 @@ export function registerAuthRoutes(http: DexHttpRouter) {
       const profile: any = await profileRes.json();
 
       let isOpenAIEmployee: boolean | undefined;
-      if (emailsRes.ok) {
+      if (emailsRes?.ok) {
         const emails: any[] = await emailsRes.json();
         isOpenAIEmployee = emails.some((entry) => {
           if (!entry || entry.verified !== true || typeof entry.email !== "string") return false;

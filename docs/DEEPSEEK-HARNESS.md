@@ -65,23 +65,21 @@ The generic Harness MCP connection remains anonymous. Device authorization requi
 
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
-Repository source version `0.6.0` is not published to npm. As of 2026-08-14, the verified registry release is `0.4.1`; the command below installs that published version and does not include the source-only 0.6 collection, MCP, analytics, or account work described above.
-
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.4.1
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
 
-To exercise the current 0.6.0 source before publication, use the source directory instead:
+For local development against an unpublished checkout, use the source directory instead:
 
 ```sh
 pnpm dsh plugin --profile web add /absolute/path/to/dexthemes/packages/deepseek-harness-plugin
 pnpm dsh web
 ```
 
-Refresh the Harness browser tab after adding the package, then open **Settings → Plugins → DexThemes**. Version `0.4.1` was installed from the public npm registry into a clean Harness profile dependency, with the lockfile resolving the registry's published SHA-512 integrity. The registry-installed package loaded the live public/community catalog, applied Alibaba through Harness's theme service, followed Harness's light and dark appearance modes, and reverted to the native Harness default. Earlier local-package QA also exercised search, paired preview, and replacement by a second theme.
+Refresh the Harness browser tab after adding the package, then open **Settings → Plugins → DexThemes**. Version `0.6.0` was installed from the public npm registry into a clean Harness profile dependency, with the lockfile resolving the registry's published SHA-512 integrity. The loaded package exposed 111 bundled and connected public/community themes, applied Alibaba through Harness's guarded theme service, and reverted to the native Harness default.
 
-This proves public npm publication, registry installation, and one-click inside the installed 0.4.1 plugin. It does not prove 0.6.0 publication, a separate Harness marketplace approval, or the standalone DexThemes website contacting an unrelated Harness process.
+A separate loaded Creator-mode thread completed `color_me_lucky` → validation → paired preview → `prepare_deepseek_apply` → user-approved `cordis_run` → runtime confirmation → `cordis_stop` → stopped/default confirmation without editing files. This proves public npm publication, registry installation, one-click inside the installed plugin, and the reversible supported agentic path. It does not prove a separate Harness marketplace approval or the standalone DexThemes website contacting an unrelated Harness process.
 
 The inspected Harness contract exposes `cordis_define` and `cordis_run` as in-process model tools. The Host runner says that `define` has no wire face and that only a model tool call can define a dynamic Package; `run` also has no wire face. No supported custom URL scheme or cross-origin browser bridge was found. Therefore the standalone website's **Apply to DeepSeek** action remains disabled unless a future supported bridge supplies the guarded service. The real one-click path is the installed Harness plugin.
 
@@ -99,9 +97,9 @@ DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selec
 | DeepSeek apply | Theme palettes | Installed package, `/api/deepseek-theme`, semantic-token adapter, guarded `overrideTokens` click | Immediate inside the running installed plugin; website-to-local is unsupported |
 | Revert | None | Retained installed-plugin disposer; `cordis_stop` for a dynamic Package | Apply replacement and user-initiated revert are locally proven |
 | Public/community themes | Existing publication, moderation, aliases, catalog | Paired public themes receive derived eligibility | No platform-specific duplicate theme rows |
-| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory device connection plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Source/build/test proven; live award requires the separate GitHub OAuth App configuration and deployment; anonymous use never grants it |
+| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory device connection plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Source/build/test proven; live award requires the separate GitHub OAuth App configuration; anonymous use never grants it |
 | Adoption/copy counts | Existing Codex-oriented copy endpoint and leaderboards | None | A DeepSeek apply is not counted as a Codex copy |
-| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted metadata and lifecycle disposal | Source/build/test proven; hosted delivery is not proven until deployment and a loaded runtime receipt |
+| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted metadata and lifecycle disposal | Loaded 0.6.0 runtime delivered bounded Apply/Revert events and received Statsig 202 receipts |
 
 ### Additive discriminator and payload fields
 
@@ -140,6 +138,8 @@ DeepSeek events use an additive namespace so existing Codex dashboards and store
 Every event receives fixed `platform: deepseek_harness` and `mechanism: cordis_theme_override`. The remaining values are short allowlisted identifiers only. Do not send prompts, theme-generation prose, workspace contents or paths, file names, credentials, tokens, user-entered error messages, account identity, or other sensitive/free-form data. Raw exceptions are converted to a bounded failure code.
 
 The website source emits apply start/success/failure and revert only when a real guarded service has connected. The installed package sends preview, apply start/success/failure, and revert attempt/success/failure through a package-owned Statsig client. The original `deepseek_theme_reverted` success event remains additive for dashboard compatibility. It uses a fixed non-account user key, disables SDK storage and page-URL attachment, sanitizes every field, and shuts down with the plugin lifecycle. Installation events belong to a future registry/marketplace installer and are not fabricated on module load. The plugin version is allowlisted; an authoritative Harness version is omitted until Harness provides it to the client package.
+
+The loaded registry-installed `0.6.0` package delivered `deepseek_theme_apply_started`, `deepseek_theme_apply_succeeded`, `deepseek_theme_revert_started`, `deepseek_theme_revert_succeeded`, and `deepseek_theme_reverted` with only the fixed platform/mechanism, Settings source surface, bounded theme ID, paired variant, and plugin version. The Statsig registry accepted the batches with HTTP 202. No prompt, workspace, URL, account, credential, or palette data appeared in the captured event metadata.
 
 ## Installed plugin information architecture
 

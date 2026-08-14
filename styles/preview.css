@@ -37,12 +37,20 @@
 }
 
 .preview-dot {
+  appearance: none;
   width: 10px;
   height: 10px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   transition: background 0.3s;
   cursor: pointer;
   position: relative;
+}
+
+.preview-dot:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 
 .preview-dots:hover .preview-dot:nth-child(1) { background: #ff5f57 !important; }
@@ -850,6 +858,16 @@
   border-radius: 0;
   border: none;
   box-shadow: none;
+}
+
+.preview-window.minimized {
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+}
+
+.preview-window.minimized .preview-titlebar {
+  border-bottom-color: transparent !important;
 }
 
 .preview-area {
