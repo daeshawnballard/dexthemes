@@ -54,12 +54,12 @@ Harness does not need to share its identity with DexThemes. The installed settin
 
 1. **Connect DexThemes** requests a short-lived device and user code from GitHub through the rate-limited Convex proxy.
 2. The plugin shows only the user code and GitHub's exact `https://github.com/login/device` verification link. The opaque device code remains in memory.
-3. Convex polls GitHub using a separate DexThemes-for-DeepSeek OAuth application and requests no OAuth scope. The GitHub access token is used only inside that server request to fetch `/user`, then revoked through the server-held app secret; it is neither stored nor returned to Harness.
+3. Convex polls GitHub using the shared **DexThemes Connect** OAuth application for installed integrations and requests no OAuth scope. The GitHub access token is used only inside that server request to fetch `/user`, then revoked through the server-held app secret; it is neither stored nor returned to Harness.
 4. Convex links the verified GitHub identity to the existing DexThemes user and returns a one-hour, read-only `dxd_…` session. Only its SHA-256 hash is stored; the credential stays in the running plugin closure and is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
 5. Authenticated stats and unlocks use bearer-only wildcard CORS routes; cookie-backed website writes keep their existing origin allowlist.
 6. A successful connected theme apply calls `/plugin/deepseek-harness/use`. The verified bearer identity receives the idempotent **Harnessed** achievement and **Deep Current** reward, which enters only that connected session's catalog. Disconnect asks Convex to revoke the session; expiry is the unload/network-failure fallback.
 
-The generic Harness MCP connection remains anonymous. Device authorization requires **Enable Device Flow** on a separate DexThemes-owned GitHub OAuth application plus `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex. This follows GitHub's documented [OAuth App Device Flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow) without requiring a Harness source change. The website's GitHub browser flow and the Auth0/JWT contract used for standards-compliant Codex/ChatGPT MCP OAuth remain separate and unchanged.
+The generic Harness MCP connection remains anonymous. Device authorization requires **Enable Device Flow** on the DexThemes-owned **DexThemes Connect** GitHub OAuth application plus `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex. DexThemes Connect is the shared entry point for installed integrations; it is not a DeepSeek-specific account or data silo. This follows GitHub's documented [OAuth App Device Flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow) without requiring a Harness source change. The website's GitHub browser flow and the Auth0/JWT contract used for standards-compliant Codex/ChatGPT MCP OAuth remain separate and unchanged.
 
 ## Installation and one-click boundary
 
@@ -70,7 +70,7 @@ pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
 
-For local development against an unpublished checkout, use the source directory instead:
+For local development against a source checkout, use the source directory instead:
 
 ```sh
 pnpm dsh plugin --profile web add /absolute/path/to/dexthemes/packages/deepseek-harness-plugin
@@ -80,6 +80,8 @@ pnpm dsh web
 Refresh the Harness browser tab after adding the package, then open **Settings → Plugins → DexThemes**. Version `0.6.0` was installed from the public npm registry into a clean Harness profile dependency, with the lockfile resolving the registry's published SHA-512 integrity. The loaded package exposed 111 bundled and connected public/community themes, applied Alibaba through Harness's guarded theme service, and reverted to the native Harness default.
 
 A separate loaded Creator-mode thread completed `color_me_lucky` → validation → paired preview → `prepare_deepseek_apply` → user-approved `cordis_run` → runtime confirmation → `cordis_stop` → stopped/default confirmation without editing files. This proves public npm publication, registry installation, one-click inside the installed plugin, and the reversible supported agentic path. It does not prove a separate Harness marketplace approval or the standalone DexThemes website contacting an unrelated Harness process.
+
+The production **DexThemes Connect** Device Flow was also completed from the clean `0.6.0` installation. The connected Settings UI returned the account's six published themes and seven existing achievements without exposing a GitHub token. Applying Alibaba increased the verified achievement count to eight and added the protected **Deep Current** reward to the session catalog, proving the idempotent **Harnessed** milestone path. Revert restored Harness default; Disconnect removed the client session and account-only reward while anonymous browsing and applying remained available.
 
 The inspected Harness contract exposes `cordis_define` and `cordis_run` as in-process model tools. The Host runner says that `define` has no wire face and that only a model tool call can define a dynamic Package; `run` also has no wire face. No supported custom URL scheme or cross-origin browser bridge was found. Therefore the standalone website's **Apply to DeepSeek** action remains disabled unless a future supported bridge supplies the guarded service. The real one-click path is the installed Harness plugin.
 
@@ -97,7 +99,7 @@ DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selec
 | DeepSeek apply | Theme palettes | Installed package, `/api/deepseek-theme`, semantic-token adapter, guarded `overrideTokens` click | Immediate inside the running installed plugin; website-to-local is unsupported |
 | Revert | None | Retained installed-plugin disposer; `cordis_stop` for a dynamic Package | Apply replacement and user-initiated revert are locally proven |
 | Public/community themes | Existing publication, moderation, aliases, catalog | Paired public themes receive derived eligibility | No platform-specific duplicate theme rows |
-| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory device connection plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Source/build/test proven; live award requires the separate GitHub OAuth App configuration; anonymous use never grants it |
+| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory DexThemes Connect session plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Loaded production Device Flow, stats/unlocks, idempotent award, reward insertion, Revert, and Disconnect proven; anonymous use never grants it |
 | Adoption/copy counts | Existing Codex-oriented copy endpoint and leaderboards | None | A DeepSeek apply is not counted as a Codex copy |
 | Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted metadata and lifecycle disposal | Loaded 0.6.0 runtime delivered bounded Apply/Revert events and received Statsig 202 receipts |
 
@@ -164,5 +166,5 @@ An upstream **Appearance** integration can be considered later if Harness expose
 - New integration metadata is optional and additive for catalog consumers. Consumers that ignore unknown fields continue to work.
 - Single-variant themes and invalid color pairs fail closed for DeepSeek without changing their Codex eligibility.
 - Website-to-local one-click is not supported by the inspected Harness contract. One click is real only inside an installed/connected Harness integration.
-- Registry publication or marketplace approval, remote installation, hosted `/api/deepseek-mcp`, installed Statsig receipts, live device authorization/achievement award, authoritative Harness version reporting, and optional Appearance placement remain unproven until release and provider configuration. The supported local-path theme UI behavior and device-flow source contract are proven only for this development checkout.
+- A separate Harness marketplace listing or approval, authoritative Harness version reporting, and optional Appearance placement remain unproven. They are not required for the published Settings plugin path. Public npm installation, hosted `/api/deepseek-mcp`, installed Statsig receipts, and the production DexThemes Connect authorization/achievement path are proven.
 - DeepSeek applies should gain a dedicated server-side adoption model only after product semantics, identity, anti-abuse, and leaderboard policy are defined; they must not silently reuse Codex copy metrics.

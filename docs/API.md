@@ -259,7 +259,7 @@ DexThemes applies IP and user-based rate limiting on sensitive routes. Public re
 
 The installed Harness settings package uses these bearer-only, wildcard-CORS routes; none accepts cookies or caller-supplied identity:
 
-- `POST /plugin/deepseek-harness/auth/start` requests a bounded code from GitHub Device Flow through Convex using a separate DexThemes-for-DeepSeek OAuth application and no requested OAuth scope.
+- `POST /plugin/deepseek-harness/auth/start` requests a bounded code from GitHub Device Flow through Convex using the shared **DexThemes Connect** OAuth application for installed integrations and no requested OAuth scope.
 - `POST /plugin/deepseek-harness/auth/poll` accepts only the opaque device code. Convex exchanges it with GitHub, verifies `/user` server-side, revokes that exact GitHub token, and returns a one-hour, read-only `dxd_…` DexThemes session whose hash is stored at rest.
 - `DELETE /plugin/deepseek-harness/session` revokes that client-usable DexThemes session on disconnect.
 - `GET /plugin/me/stats` and `GET /plugin/me/unlocks` return the verified account's sanitized creator data and reward themes.

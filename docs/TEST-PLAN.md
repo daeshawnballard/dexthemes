@@ -58,7 +58,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 1.7 DeepSeek Harness optional account flow
 
-- [ ] Create a separate DexThemes-for-DeepSeek GitHub OAuth application, turn on **Enable Device Flow**, and set its `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex
+- [ ] Configure the shared **DexThemes Connect** GitHub OAuth application with **Enable Device Flow**, then set its `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex
 - [ ] In **Settings → Plugins → DexThemes**, choose **Connect DexThemes**
 - [ ] **Expected**: the plugin shows a bounded user code and the exact `https://github.com/login/device` link; no API key or token is requested or displayed
 - [ ] Complete GitHub authorization and return to Harness
