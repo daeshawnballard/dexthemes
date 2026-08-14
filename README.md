@@ -154,7 +154,7 @@ The backend runs on [Convex](https://convex.dev) and handles:
 - GitHub OAuth with one-time browser-bound state and PKCE S256
 - GitHub-authenticated agent/API key issuance with SHA-256 hash-at-rest
 - OAuth 2.1 resource-server support for the plugin, with GitHub as the upstream login
-- Optional DeepSeek Harness account authorization through GitHub Device Flow proxied by Convex; GitHub tokens stay server-side and the short-lived DexThemes session stays in plugin memory
+- Optional installed-integration account authorization through the **DexThemes Connect** GitHub Device Flow proxied by Convex; GitHub tokens stay server-side and the short-lived DexThemes session stays in plugin memory
 - Browser session management (HttpOnly same-site cookies in production, token handoff only for localhost/dev)
 - Community theme submissions and moderation
 - IndexNow notification after a community theme is published
