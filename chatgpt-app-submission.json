@@ -4,7 +4,7 @@
   "app_info": {
     "display_name": "DexThemes",
     "subtitle": "Create and discover themes",
-    "description": "DexThemes helps people discover built-in Codex, DexThemes, and community themes, create and name personalized palettes, compare full dark/light Codex workspace previews, use an explicit import handoff, publish confirmed community submissions with original public wording, inspect all-period ranks and achievements, and prepare GitHub feedback for review.",
+    "description": "DexThemes helps people discover built-in Codex, DexThemes, and community themes, create and name personalized palettes, compare full dark/light Codex workspace previews, use an explicit Codex import handoff, publish confirmed community submissions with original public wording, inspect all-period ranks and achievements, and prepare GitHub feedback for review.",
     "category": "DESIGN"
   },
   "tools": {
@@ -30,6 +30,14 @@
         "read_only_justification": "Computes a local theme draft from the supplied inspiration without saving it.",
         "open_world_justification": "The draft remains in the conversation and is not published or sent to a third party.",
         "destructive_justification": "Cannot remove, overwrite, or revoke existing content."
+      }
+    },
+    "color_me_lucky": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Computes a surprising private paired theme draft without saving or applying it.",
+        "open_world_justification": "The generated draft remains in the conversation and is not published or sent to a third party.",
+        "destructive_justification": "Cannot delete, overwrite, revoke, apply, or publish existing content."
       }
     },
     "validate_theme": {
@@ -116,10 +124,10 @@
     },
     {
       "description": "Create, name, validate, preview, and prepare a personal theme for Codex.",
-      "user_prompt": "Create a dark and light DexTheme inspired by Argentina football at night. Name it Argentina Afterglow, preview it, and prepare the dark version for Codex without publishing it.",
+      "user_prompt": "Color me lucky with a dark and light Codex theme named Argentina Afterglow. Preview it and prepare the dark version for Codex without publishing or applying anything.",
       "file_attachment_urls": null,
-      "tools_triggered": "draft_theme, validate_theme, render_theme_preview, prepare_theme_apply",
-      "expected_output": "Preserves the custom name, shows valid dark and light previews, and returns the dark Codex import handoff without publishing.",
+      "tools_triggered": "color_me_lucky, validate_theme, render_theme_preview, prepare_theme_apply",
+      "expected_output": "Preserves the custom name, shows valid dark and light Codex previews, and returns the dark Codex import handoff without publishing or applying anything.",
       "expected_output_url": null
     },
     {
@@ -135,7 +143,7 @@
       "user_prompt": "Show my DexThemes creator dashboard: daily, weekly, monthly, and all-time ranks, repeat popularity wins, and everything I have unlocked.",
       "file_attachment_urls": null,
       "tools_triggered": "get_my_stats, get_my_unlocks",
-      "expected_output": "After GitHub sign-in, renders creator totals, all-period rank details, repeat daily/weekly wins, finalized monthly Top 10 placements, and active reward-theme previews without exposing email addresses or tokens.",
+      "expected_output": "After DexThemes sign-in, returns creator totals, all-period rank details, repeat daily/weekly wins, finalized monthly Top 10 placements, and unlocked achievements directly in the conversation without exposing email addresses or tokens.",
       "expected_output_url": null
     },
     {

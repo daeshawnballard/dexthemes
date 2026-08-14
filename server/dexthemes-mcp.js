@@ -1,4 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { registerAppResource, registerAppTool } from "@modelcontextprotocol/ext-apps/server";
 import { z } from "zod/v4";
 import { THEME_PREVIEW_HTML } from "./generated/theme-preview-html.js";
@@ -31,7 +32,7 @@ import {
 export const MCP_RESOURCE = "https://www.dexthemes.com/api/mcp";
 export const MCP_PROTECTED_RESOURCE_METADATA =
   "https://www.dexthemes.com/.well-known/oauth-protected-resource";
-const VIEW_URI = "ui://dexthemes/theme-studio-v2.html";
+const VIEW_URI = "ui://dexthemes/theme-studio-v3.html";
 const CONVEX_SITE_URL =
   process.env.CONVEX_SITE_URL || "https://acrobatic-corgi-867.convex.site";
 const HEX = /^#[0-9A-Fa-f]{6}$/;
@@ -82,9 +83,8 @@ const viewMeta = {
   "openai/outputTemplate": VIEW_URI,
   "openai/widgetAccessible": true,
 };
-const appOnlyViewMeta = {
-  ...viewMeta,
-  ui: { resourceUri: VIEW_URI, visibility: ["app"] },
+const appOnlyMeta = {
+  ui: { visibility: ["app"] },
 };
 const NOAUTH = [{ type: "noauth" }];
 const READ_AUTH = [{ type: "oauth2", scopes: ["themes:read"] }];
@@ -93,6 +93,55 @@ const withSecurityMeta = (securitySchemes, meta = {}) => ({
   ...meta,
   securitySchemes,
 });
+
+function normalizeToolMeta(meta = {}) {
+  const resourceUri = meta.ui?.resourceUri || meta["ui/resourceUri"];
+  if (!resourceUri) return meta;
+  return {
+    ...meta,
+    ui: { ...(meta.ui || {}), resourceUri },
+    "ui/resourceUri": resourceUri,
+  };
+}
+
+function toolJsonSchema(schema, io) {
+  const normalized = schema?.["~standard"] ? schema : z.object(schema || {});
+  return z.toJSONSchema(normalized, { io, target: "draft-7" });
+}
+
+function registerDexThemesTool(server, toolRegistry, name, config, callback) {
+  const normalizedConfig = {
+    ...config,
+    _meta: normalizeToolMeta(config._meta),
+  };
+  const registered = normalizedConfig._meta.ui?.resourceUri
+    ? registerAppTool(server, name, normalizedConfig, callback)
+    : server.registerTool(name, normalizedConfig, callback);
+  toolRegistry.set(name, { config: normalizedConfig, registered });
+  return registered;
+}
+
+function installSecurityAwareToolsList(server, toolRegistry) {
+  server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    tools: [...toolRegistry.entries()]
+      .filter(([, { registered }]) => registered.enabled)
+      .map(([name, { config }]) => {
+        const tool = {
+          name,
+          title: config.title,
+          description: config.description,
+          inputSchema: toolJsonSchema(config.inputSchema, "input"),
+          annotations: config.annotations,
+          securitySchemes: config.securitySchemes,
+          _meta: config._meta,
+        };
+        if (config.outputSchema) {
+          tool.outputSchema = toolJsonSchema(config.outputSchema, "output");
+        }
+        return tool;
+      }),
+  }));
+}
 const widgetResourceMeta = {
   ui: {
     csp: {
@@ -192,6 +241,9 @@ const DEEPSEEK_HARNESS_TOOLS = new Set([
   "prepare_deepseek_apply",
   "get_leaderboard",
 ]);
+const DEEPSEEK_ONLY_TOOLS = new Set([
+  "prepare_deepseek_apply",
+]);
 
 export function createDexThemesMcpServer({ profile = "full" } = {}) {
   if (!["full", "deepseek_harness"].includes(profile)) {
@@ -199,14 +251,19 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
   }
   const isHarness = profile === "deepseek_harness";
   const result = isHarness ? harnessToolResult : toolResult;
-  const shouldRegister = (name) => !isHarness || DEEPSEEK_HARNESS_TOOLS.has(name);
+  const shouldRegister = (name) => isHarness
+    ? DEEPSEEK_HARNESS_TOOLS.has(name)
+    : !DEEPSEEK_ONLY_TOOLS.has(name);
+  const server = new McpServer({ name: "DexThemes", version: "1.0.0" });
+  const toolRegistry = new Map();
+  const registerTool = (name, config, callback) =>
+    registerDexThemesTool(server, toolRegistry, name, config, callback);
   const registerMaybeAppTool = (name, definition, handler) => {
-    if (shouldRegister(name)) registerAppTool(server, name, definition, handler);
+    if (shouldRegister(name)) registerTool(name, definition, handler);
   };
   const registerMaybeTool = (name, definition, handler) => {
-    if (shouldRegister(name)) server.registerTool(name, definition, handler);
+    if (shouldRegister(name)) registerTool(name, definition, handler);
   };
-  const server = new McpServer({ name: "DexThemes", version: "1.0.0" });
 
   if (!isHarness) registerAppResource(
     server,
@@ -447,7 +504,7 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
     outputSchema: z.object({ kind: z.literal("my-stats"), stats: genericRecord }),
     annotations: annotations(true, false, false),
     securitySchemes: READ_AUTH,
-    _meta: withSecurityMeta(READ_AUTH, viewMeta),
+    _meta: withSecurityMeta(READ_AUTH),
   }, async (_args, extra) => {
     const token = requireAccessToken(extra, "themes:read");
     if (!token) return authChallenge("themes:read");
@@ -463,7 +520,7 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
     outputSchema: z.object({ kind: z.literal("my-unlocks"), unlocks: z.array(genericRecord) }),
     annotations: annotations(true, false, false),
     securitySchemes: READ_AUTH,
-    _meta: withSecurityMeta(READ_AUTH, viewMeta),
+    _meta: withSecurityMeta(READ_AUTH),
   }, async (_args, extra) => {
     const token = requireAccessToken(extra, "themes:read");
     if (!token) return authChallenge("themes:read");
@@ -519,7 +576,7 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
     outputSchema: z.object({ kind: z.literal("theme-submitted"), theme: genericRecord, achievements: z.array(genericRecord) }),
     annotations: annotations(false, true, false, false),
     securitySchemes: WRITE_AUTH,
-    _meta: withSecurityMeta(WRITE_AUTH, appOnlyViewMeta),
+    _meta: withSecurityMeta(WRITE_AUTH, appOnlyMeta),
   }, async ({ theme, confirmationToken }, extra) => {
     const token = requireAccessToken(extra, "themes:write");
     if (!token) return authChallenge("themes:write");
@@ -571,5 +628,6 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
     return result({ kind: "github-issue", ...issue, posted: false }, "A best-effort redacted GitHub issue draft is ready. Review every character before opening GitHub; nothing has been posted.");
   });
 
+  installSecurityAwareToolsList(server, toolRegistry);
   return server;
 }
