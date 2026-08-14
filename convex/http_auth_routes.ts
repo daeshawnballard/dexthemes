@@ -1,5 +1,6 @@
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { hasVerifiedOpenAIEmail } from "../shared/auth-eligibility.js";
 import {
   ALLOWED_ORIGINS,
   OAUTH_STATE_TTL_MS,
@@ -173,14 +174,10 @@ export function registerAuthRoutes(http: DexHttpRouter) {
       }
       const profile: any = await profileRes.json();
 
-      let isOpenAIEmployee: boolean | undefined;
+      let isOpenAIEmployee = false;
       if (emailsRes?.ok) {
         const emails: any[] = await emailsRes.json();
-        isOpenAIEmployee = emails.some((entry) => {
-          if (!entry || entry.verified !== true || typeof entry.email !== "string") return false;
-          const separator = entry.email.lastIndexOf("@");
-          return separator > 0 && entry.email.slice(separator + 1).toLowerCase() === "openai.com";
-        });
+        isOpenAIEmployee = hasVerifiedOpenAIEmail(emails);
       }
 
       const user = await ctx.runMutation(internal.users.getOrCreateUser, {
