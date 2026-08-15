@@ -45,11 +45,13 @@ async function dispatchAction(action, element, event) {
     }
     case 'open-platform-setup':
       return import('./platform-analytics.js').then((m) => m.trackPlatformEvent(
-        'apply_attempted',
+        'platform_setup_opened',
         element.dataset.platformId || 'codex',
         {
           source_surface: element.dataset.sourceSurface || 'website',
           apply_mode: 'setup',
+          theme_id: element.dataset.themeId,
+          variant: element.dataset.variant,
         },
       ));
     case 'toggle-filter-dropdown':

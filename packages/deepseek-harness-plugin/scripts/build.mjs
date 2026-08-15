@@ -29,7 +29,7 @@ await build({
   target: 'es2022',
   minify: true,
   sourcemap: false,
-  external: ['react', 'react/jsx-runtime'],
+  external: ['react', 'react/jsx-runtime', '@deepseek-ai/dsh-client-runtime/client'],
   banner: { js: 'window.__ModuleLoader__.load({ id: "@dexthemes/deepseek-harness-plugin", factory: (require) => { var module = { exports: {} }; var exports = module.exports;' },
   footer: { js: 'return module.exports; } });' },
   logLevel: 'info',

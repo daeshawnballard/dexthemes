@@ -34,6 +34,7 @@ import {
   trackDeepSeekEvent,
 } from './deepseek-analytics.js';
 import { getThemeAccentOptions } from './theme-contracts.js';
+import { trackPlatformEvent } from './platform-analytics.js';
 import {
   getPreviewWindowState,
   PREVIEW_WINDOW_STATE,
@@ -83,6 +84,8 @@ function renderWebsitePlatformAction(compact) {
         data-action="open-platform-setup"
         data-platform-id="${escapeHtml(state.selectedPlatformId)}"
         data-source-surface="website"
+        data-theme-id="${escapeHtml(state.selectedTheme?.id || '')}"
+        data-variant="${escapeHtml(state.selectedVariant || 'unknown')}"
         aria-describedby="import-hint"
       >
         <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -170,6 +173,11 @@ export function selectVariant(variant) {
   updateVariantCards();
   void import('./theme-details.js').then((m) => m.syncThemeDetailsView());
   track('variant_selected', {
+    theme_id: state.selectedTheme.id,
+    variant,
+  });
+  trackPlatformEvent('variant_previewed', state.selectedPlatformId, {
+    source_surface: state.themeView === 'details' ? 'theme_details' : 'website',
     theme_id: state.selectedTheme.id,
     variant,
   });
@@ -388,6 +396,12 @@ export function applyToCodex() {
   const compact = isCompactViewport();
   const applyCopy = getApplyButtonCopy(compact);
   const defaultLabel = getWebsitePlatformAction('codex')?.ctaLabel || applyCopy.defaultLabel;
+  const analytics = {
+    source_surface: state.themeView === 'details' ? 'theme_details' : 'website',
+    theme_id: state.selectedTheme.id,
+    variant: state.selectedVariant,
+  };
+  trackPlatformEvent('copy_attempted', 'codex', analytics);
   const setButtonState = (label, copied) => {
     buttons.forEach((button) => {
       const textEl = button.querySelector('.theme-copy-label');
@@ -407,6 +421,7 @@ export function applyToCodex() {
       landing_source: state.landingContext.source,
       referral_channel: state.landingContext.referralChannel,
     });
+    trackPlatformEvent('copy_succeeded', 'codex', analytics);
     setButtonState(applyCopy.successLabel, true);
     if (hint) hint.textContent = applyCopy.successHintText;
     if (!compact) {
@@ -420,6 +435,10 @@ export function applyToCodex() {
   };
 
   const onCopyFailure = () => {
+    trackPlatformEvent('copy_failed', 'codex', {
+      ...analytics,
+      error_category: 'clipboard_failed',
+    });
     setButtonState(applyCopy.failureLabel, false);
     if (hint) hint.textContent = applyCopy.failureHintText;
     buttons[0]?.focus();

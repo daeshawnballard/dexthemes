@@ -150,10 +150,14 @@ function syncPlatformSetupMessage() {
     link.href = destination;
     link.innerHTML = `${platform.id === 'deepseek' ? 'View plugin' : 'Open setup'} <span aria-hidden="true">↗</span>`;
     link.dataset.platformId = platform.id;
+    link.dataset.themeId = state.selectedTheme?.id || '';
+    link.dataset.variant = state.selectedVariant || 'unknown';
     if (!link.dataset.analyticsBound) {
       link.addEventListener('click', () => {
-        trackPlatformEvent('api_setup_opened', link.dataset.platformId || state.selectedPlatformId, {
+        trackPlatformEvent('platform_setup_opened', link.dataset.platformId || state.selectedPlatformId, {
           source_surface: 'preview_message',
+          theme_id: link.dataset.themeId,
+          variant: link.dataset.variant,
         });
       });
       link.dataset.analyticsBound = 'true';
@@ -216,6 +220,8 @@ export async function selectPlatformContext(platformId, { sourceSurface = 'websi
   if (state.selectedPlatformId !== previousPlatformId) {
     trackPlatformEvent('harness_selected', state.selectedPlatformId, {
       source_surface: sourceSurface,
+      theme_id: state.selectedTheme?.id,
+      variant: state.selectedVariant,
     });
   }
   return true;

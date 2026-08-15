@@ -21,6 +21,7 @@ import { createSupporterClaim, grantUnlockAction } from './unlock-api.js';
 import { trackEvent } from './analytics-client.js';
 import { clearDeferredInstallPrompt, getDeferredInstallPrompt } from './install-prompt.js';
 import { authFetch } from './session-auth.js';
+import { trackPlatformEvent } from './platform-analytics.js';
 
 export { syncAttributionOverlay, reportThemeName, initPreviewChat };
 
@@ -151,6 +152,12 @@ export async function selectThemeById(id, { recordInteraction = true } = {}) {
       theme_name: theme.name,
       category: theme.category,
       variant: state.selectedVariant,
+    });
+    trackPlatformEvent('theme_previewed', state.selectedPlatformId, {
+      source_surface: 'website',
+      theme_id: theme.id,
+      variant: state.selectedVariant,
+      theme_source: theme.category,
     });
   }
 }

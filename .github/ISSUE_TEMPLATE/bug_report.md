@@ -30,10 +30,18 @@ What happened instead?
 - OS:
 - Viewport/device:
 - Signed in or signed out:
+- DeepSeek Harness CLI version (if applicable):
+- DexThemes plugin version:
+- Harness profile (for example `web`):
+- Install source (exact npm version, tarball, or local path):
+- Theme capability alert shown: yes / no / not applicable
+- Reproduces after a full process restart: yes / no / not tested
 
 ## Screenshots or recordings
 
 Add screenshots if this is a visual or interaction issue.
+
+Do not include credentials, OAuth/device/session tokens, cookies, prompts, workspace contents, private paths, or account identifiers.
 
 ## Validation
 

@@ -199,6 +199,7 @@ function maybeTrackThemeCreated(method) {
     trackPlatformEvent('manual_creation_started', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: 'manual',
+      theme_id: 'builder_draft',
       variant: state.builderColors?.variant || 'dark',
     });
   }
@@ -358,6 +359,8 @@ export function openBuilder({ source = 'unknown' } = {}) {
   trackPlatformEvent('creator_opened', state.selectedPlatformId, {
     source_surface: 'website',
     creation_mode: 'manual',
+    theme_id: 'builder_draft',
+    variant: state.selectedVariant || 'unknown',
   });
   state.setPanelMode('builder');
   state.setThemeView('preview');
@@ -556,9 +559,11 @@ export function renderBuilderPanel() {
     panel.querySelector('.panel-header')?.remove();
   }
   panel.querySelector('[data-setup-platform]')?.addEventListener('click', () => {
-    trackPlatformEvent('api_setup_opened', state.selectedPlatformId, {
+    trackPlatformEvent('platform_setup_opened', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: state.builderColors?._creationMode === 'luna' ? 'luna' : 'manual',
+      theme_id: 'builder_draft',
+      variant: state.builderColors?.variant || 'unknown',
     });
   });
 }
@@ -580,6 +585,8 @@ export async function generateBuilderDraftFromPrompt() {
     trackPlatformEvent('generated_draft_revised', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: 'luna',
+      theme_id: 'builder_draft',
+      variant: 'paired',
     });
   }
   lunaStatusMessage = 'Creating an editable paired draft…';
@@ -587,6 +594,8 @@ export async function generateBuilderDraftFromPrompt() {
   trackPlatformEvent('prompt_generation_attempted', state.selectedPlatformId, {
     source_surface: 'creator',
     creation_mode: 'luna',
+    theme_id: 'builder_draft',
+    variant: 'paired',
   });
 
   try {
@@ -614,11 +623,15 @@ export async function generateBuilderDraftFromPrompt() {
     trackPlatformEvent('prompt_generation_succeeded', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: 'luna',
+      theme_id: 'builder_draft',
+      variant: 'paired',
       validation_result: result.validation?.warnings?.length ? 'warning' : 'valid',
     });
     trackPlatformEvent('generated_draft_accepted', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: 'luna',
+      theme_id: 'builder_draft',
+      variant: 'paired',
     });
     return true;
   } catch (error) {
@@ -629,6 +642,8 @@ export async function generateBuilderDraftFromPrompt() {
     trackPlatformEvent('prompt_generation_failed', state.selectedPlatformId, {
       source_surface: 'creator',
       creation_mode: 'luna',
+      theme_id: 'builder_draft',
+      variant: 'paired',
       error_category: category,
     });
     return false;
@@ -735,6 +750,13 @@ export function applyBuilderToCodex() {
   const hint = document.querySelector('.builder-import-hint');
   const compact = isMobile();
   const applyCopy = getApplyButtonCopy(compact);
+  const analytics = {
+    source_surface: 'creator',
+    theme_id: 'builder_draft',
+    variant: b.variant,
+    creation_mode: b._creationMode === 'luna' ? 'luna' : 'manual',
+  };
+  trackPlatformEvent('copy_attempted', 'codex', analytics);
   const afterCopy = () => {
     trackEvent('theme_copied', null, {
       theme_id: '_builder',
@@ -744,6 +766,7 @@ export function applyBuilderToCodex() {
       custom: true,
       mobile: compact,
     });
+    trackPlatformEvent('copy_succeeded', 'codex', analytics);
     if (textEl) textEl.textContent = applyCopy.successLabel;
     if (btn) btn.classList.add('copied');
     if (hint) hint.textContent = applyCopy.successHintText;
@@ -761,6 +784,10 @@ export function applyBuilderToCodex() {
     }, 3000);
   };
   const onCopyFailure = () => {
+    trackPlatformEvent('copy_failed', 'codex', {
+      ...analytics,
+      error_category: 'clipboard_failed',
+    });
     if (textEl) textEl.textContent = applyCopy.failureLabel;
     if (btn) btn.classList.remove('copied');
     if (hint) hint.textContent = applyCopy.failureHintText;

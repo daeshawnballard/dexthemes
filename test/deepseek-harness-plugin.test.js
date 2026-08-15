@@ -16,7 +16,15 @@ import {
   createHarnessThemeController,
   INSTALLED_THEME_SOURCE,
   PLUGIN_VERSION,
+  THEME_CAPABILITY_ERROR,
 } from '../packages/deepseek-harness-plugin/src/theme-controller.js';
+import {
+  THEME_STATE_PERSIST_KEY,
+  createMemoryThemeState,
+  createThemeStateHandle,
+  createThemeStateStore,
+  normalizeThemeState,
+} from '../packages/deepseek-harness-plugin/src/theme-state.js';
 import { DEEPSEEK_HARNESS_THEMES } from '../packages/deepseek-harness-plugin/src/deepseek-themes.js';
 import { getColorContrastRatio } from '../shared/deepseek-theme-contract.js';
 import {
@@ -42,7 +50,6 @@ test('installed Harness package declares a real bundle, client export, and suppo
   assert.deepEqual(manifest.dsh.client.inject, [
     '@deepseek-ai/dsh-client-runtime',
     '@deepseek-ai/dsh-client-ui-settings',
-    '@deepseek-ai/dsh-client-ui-theme',
   ]);
   assert.match(patch, /id: dexthemes/);
   assert.match(patch, /name: '@dexthemes\/deepseek-harness-plugin'/);
@@ -159,8 +166,16 @@ test('one-click controller replaces its owned layer and reversible removal calls
 
   controller.revert();
   assert.deepEqual(disposed, [1, 2]);
-  assert.deepEqual(controller.getSnapshot(), { activeThemeId: null, status: 'idle', error: null });
+  assert.deepEqual(controller.getSnapshot(), {
+    desiredThemeId: null,
+    activeThemeId: null,
+    capability: 'available',
+    status: 'idle',
+    notice: null,
+    error: null,
+  });
   assert.deepEqual(events.map((event) => event.name), [
+    'deepseek_theme_capability_available',
     'deepseek_theme_apply_started',
     'deepseek_theme_apply_succeeded',
     'deepseek_theme_apply_started',
@@ -170,6 +185,156 @@ test('one-click controller replaces its owned layer and reversible removal calls
     'deepseek_theme_reverted',
   ]);
   assert.ok(events.every((event) => !('prompt' in event) && !('workspace' in event) && !('credential' in event)));
+});
+
+test('theme selection survives teardown and restores only after the supported capability is attached', () => {
+  const preferences = createMemoryThemeState();
+  const firstDisposed = [];
+  const theme = BUNDLED_HARNESS_THEMES[0];
+  const first = createHarnessThemeController({
+    overrideTokens: () => () => firstDisposed.push('disposed'),
+  }, { preferences });
+  first.setCatalog(BUNDLED_HARNESS_THEMES);
+  assert.equal(first.apply(theme), true);
+  assert.equal(preferences.getSnapshot().desiredThemeId, theme.id);
+  first.destroy();
+  assert.deepEqual(firstDisposed, ['disposed']);
+
+  const restored = [];
+  const events = [];
+  const second = createHarnessThemeController(null, {
+    preferences,
+    onEvent: (event) => events.push(event),
+  });
+  second.setCatalog(BUNDLED_HARNESS_THEMES);
+  assert.equal(second.getSnapshot().status, 'pending_restore');
+  const detach = second.attach({
+    overrideTokens(source, tokens) {
+      restored.push({ source, tokens });
+      return () => restored.push({ disposed: true });
+    },
+  });
+  assert.equal(second.getSnapshot().activeThemeId, theme.id);
+  assert.equal(second.getSnapshot().status, 'active');
+  assert.equal(restored.length, 1);
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_restore_succeeded'));
+  assert.ok(events.some((event) => event.source_surface === 'startup_restore'));
+
+  detach();
+  assert.equal(second.getSnapshot().capability, 'unavailable');
+  assert.equal(second.getSnapshot().desiredThemeId, theme.id);
+  assert.equal(second.revert(), true);
+  assert.equal(preferences.getSnapshot().desiredThemeId, null);
+});
+
+test('missing or malformed theme capability is visible, nonfatal, and reversible', () => {
+  const theme = BUNDLED_HARNESS_THEMES[0];
+  const preferences = createMemoryThemeState({ desiredThemeId: theme.id });
+  const events = [];
+  const controller = createHarnessThemeController(null, {
+    preferences,
+    onEvent: (event) => events.push(event),
+  });
+  controller.setCatalog(BUNDLED_HARNESS_THEMES);
+  assert.equal(controller.getSnapshot().capability, 'unavailable');
+  assert.equal(controller.getSnapshot().error, THEME_CAPABILITY_ERROR);
+  assert.equal(controller.apply(theme), false);
+  assert.equal(controller.apply({ ...theme, id: 'unsafe id' }), false);
+  controller.attach({ overrideTokens: 'not-a-function' });
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_capability_unavailable'));
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_apply_failed'
+    && event.failure_code === 'capability_unavailable'));
+  assert.ok(events.some((event) => event.name === 'deepseek_theme_apply_failed'
+    && event.failure_code === 'invalid_theme'));
+  assert.equal(controller.revert(), true);
+  assert.equal(controller.getSnapshot().desiredThemeId, null);
+});
+
+test('account-only saved themes wait for explicit reconnect catalog recovery', () => {
+  const reward = {
+    ...BUNDLED_HARNESS_THEMES[0],
+    id: 'deep-current',
+    subgroup: 'unlockables',
+  };
+  const preferences = createMemoryThemeState({
+    desiredThemeId: reward.id,
+    accountProtected: true,
+    reconnectRequired: true,
+  });
+  const calls = [];
+  const controller = createHarnessThemeController({
+    overrideTokens: () => {
+      calls.push('applied');
+      return () => {};
+    },
+  }, { preferences });
+  controller.setCatalog(BUNDLED_HARNESS_THEMES);
+  assert.equal(controller.getSnapshot().status, 'pending_restore');
+  assert.match(controller.getSnapshot().notice, /Reconnect DexThemes/);
+  assert.deepEqual(calls, []);
+  controller.setCatalog([...BUNDLED_HARNESS_THEMES, reward]);
+  assert.deepEqual(calls, ['applied']);
+  assert.equal(controller.getSnapshot().activeThemeId, reward.id);
+});
+
+test('persisted theme state is versioned, bounded, and excludes secrets and account identity', () => {
+  const declaration = createThemeStateHandle((value) => value);
+  assert.equal(declaration.persist, THEME_STATE_PERSIST_KEY);
+  const normalized = normalizeThemeState({
+    desiredThemeId: 'DeepSeek-Huawei',
+    accountProtected: true,
+    reconnectRequired: true,
+    token: 'dxd_secret',
+    workspace: '/private/project',
+    accountId: '1234',
+    palette: { ink: '#fff' },
+  });
+  assert.deepEqual(normalized, {
+    version: 1,
+    desiredThemeId: 'deepseek-huawei',
+    accountProtected: true,
+    reconnectRequired: true,
+  });
+  assert.equal(JSON.stringify(normalized).includes('secret'), false);
+  assert.equal(normalizeThemeState({ desiredThemeId: 'unsafe id' }).desiredThemeId, null);
+});
+
+test('malformed persisted root state is discarded before controller actions can use it', () => {
+  let persisted = 'corrupt-root';
+  let cleared = 0;
+  const fakeDefineStore = (declaration) => ({
+    create() {
+      let state = persisted ?? declaration.init();
+      const actions = Object.fromEntries(Object.entries(declaration.actions).map(([name, mutate]) => [
+        name,
+        (...args) => {
+          if (!state || typeof state !== 'object' || Array.isArray(state)) throw new TypeError('invalid root');
+          const draft = { ...state };
+          mutate(draft, ...args);
+          state = draft;
+          persisted = draft;
+        },
+      ]));
+      return {
+        getSnapshot: () => state,
+        actions,
+        clearPersisted() {
+          cleared += 1;
+          persisted = null;
+        },
+      };
+    },
+  });
+  const store = createThemeStateStore(fakeDefineStore);
+  assert.equal(cleared, 1);
+  assert.deepEqual(store.getSnapshot(), {
+    version: 1,
+    desiredThemeId: null,
+    accountProtected: false,
+    reconnectRequired: false,
+  });
+  store.actions.rememberTheme('deepseek-huawei', false);
+  assert.equal(store.getSnapshot().desiredThemeId, 'deepseek-huawei');
 });
 
 test('replacement and revert failures remain bounded, observable, and retryable', () => {
@@ -269,6 +434,41 @@ test('install docs identify the published 0.6.0 registry package and local-devel
   }
 });
 
+test('package discovery metadata and lifecycle docs expose compatibility, releases, removal, and support', async () => {
+  const [manifestSource, packageReadme, changelog, rootReadme, support, issueTemplate] = await Promise.all([
+    readFile(new URL('package.json', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('CHANGELOG.md', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('../../README.md', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('../../support.html', PACKAGE_ROOT), 'utf8'),
+    readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
+  ]);
+  const manifest = JSON.parse(manifestSource);
+  assert.equal(manifest.version, '0.6.1');
+  assert.ok(manifest.files.includes('CHANGELOG.md'));
+  assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
+  assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);
+  for (const token of [
+    '0.1.0-rc.5',
+    'No broader Harness semver range is claimed',
+    'plugin --profile web why',
+    'plugin --profile web remove',
+    'Restart recovery',
+    'GitHub releases',
+    'support or bug issue',
+  ]) assert.match(packageReadme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.match(changelog, /0\.6\.1 — Unreleased/);
+  assert.match(changelog, /0\.6\.0 — 2026-08-14/);
+  assert.match(rootReadme, /DeepSeek Harness plugin/);
+  assert.match(rootReadme, /support\.html/);
+  for (const source of [support, issueTemplate]) {
+    assert.match(source, /Harness.*version/i);
+    assert.match(source, /plugin version/i);
+    assert.match(source, /install source/i);
+    assert.match(source, /credentials|tokens/i);
+  }
+});
+
 test('installed account client keeps bearer credentials in memory and awards Harnessed only after apply', async () => {
   const requests = [];
   const fetchImpl = async (url, options = {}) => {
@@ -308,6 +508,68 @@ test('installed account client keeps bearer credentials in memory and awards Har
   const revoke = requests.find((request) => request.url.endsWith('/deepseek-harness/session'));
   assert.equal(revoke.options.method, 'DELETE');
   assert.equal(revoke.options.headers.Authorization, 'Bearer dxd_memory-only-token');
+});
+
+test('restart authentication recovery is an explicit Device Flow reconnect and Disconnect clears intent', async () => {
+  const preferences = createMemoryThemeState({ reconnectRequired: true });
+  const requests = [];
+  let tokenSequence = 0;
+  const fetchImpl = async (url, options = {}) => {
+    requests.push({ url, options });
+    if (url.endsWith('/auth/start')) return { ok: true, status: 200, json: async () => ({
+      deviceCode: `device-${tokenSequence + 1}`,
+      userCode: 'JOIN-NOW',
+      verificationUri: 'https://github.com/login/device',
+      expiresIn: 900,
+      interval: 5,
+    }) };
+    if (url.endsWith('/auth/poll')) {
+      tokenSequence += 1;
+      return { ok: true, status: 200, json: async () => ({
+        accessToken: `dxd_restart-token-${tokenSequence}`,
+        tokenType: 'Bearer',
+        expiresIn: 3600,
+      }) };
+    }
+    if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [] }) };
+    if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [] }) };
+    if (url.endsWith('/deepseek-harness/session')) return { ok: true, status: 200, json: async () => ({ revoked: true }) };
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const createAccount = () => createHarnessAccountClient({
+    fetchImpl,
+    apiBaseUrl: 'https://api.example',
+    waitImpl: async () => {},
+    reconnectRequired: preferences.getSnapshot().reconnectRequired,
+    onConnected: () => preferences.actions.rememberAccount(),
+    onDisconnected: () => preferences.actions.forgetAccount(),
+  });
+
+  const first = createAccount();
+  assert.equal(first.getSnapshot().reconnectRequired, true);
+  assert.equal(await first.recordHarnessUse(), null);
+  await first.connect();
+  for (let attempt = 0; attempt < 10 && first.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  assert.equal(first.getSnapshot().status, 'connected');
+  assert.equal(first.getSnapshot().reconnectRequired, false);
+  assert.equal(preferences.getSnapshot().reconnectRequired, true);
+  first.destroy();
+
+  const second = createAccount();
+  assert.equal(second.getSnapshot().reconnectRequired, true);
+  assert.equal(await second.recordHarnessUse(), null);
+  await second.connect();
+  for (let attempt = 0; attempt < 10 && second.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  assert.equal(second.getSnapshot().status, 'connected');
+  await second.disconnect();
+  assert.equal(preferences.getSnapshot().reconnectRequired, false);
+  assert.equal(second.getSnapshot().reconnectRequired, false);
+  assert.ok(requests.filter((request) => request.url.endsWith('/auth/start')).length >= 2);
+  assert.ok(requests.some((request) => request.url.endsWith('/deepseek-harness/session')));
 });
 
 test('a superseded device connection cannot overwrite the current in-memory account', async () => {
@@ -436,6 +698,11 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(built, /Choose Creator mode to apply and revert from chat/);
   assert.match(built, /Connect DexThemes/);
   assert.match(built, /Continue with GitHub/);
+  assert.match(source, /export const inject = \['slots'\]/);
+  assert.match(source, /ctx\.inject\(\['theme'\]/);
+  assert.match(source, /defineStore/);
+  assert.match(source, /Theme service unavailable/);
+  assert.match(source, /Forget saved theme/);
   assert.doesNotMatch(source, /clipboard|localStorage|querySelector\([^)]*Harness/i);
 });
 
@@ -459,9 +726,13 @@ test('installed plugin analytics sends only allowlisted metadata and owns Statsi
     theme_id: 'deepseek-huawei',
     variant: 'paired',
     plugin_version: PLUGIN_VERSION,
+    action: 'caller_must_not_override',
+    outcome: 'failed',
     prompt: 'never send this',
     workspace: '/private/project',
     credential: 'secret',
+    account_id: 'never send this',
+    token: 'dxd_never_send_this',
   });
   await analytics.destroy();
 
@@ -472,11 +743,14 @@ test('installed plugin analytics sends only allowlisted metadata and owns Statsi
   const event = calls.find((call) => call.type === 'event');
   assert.deepEqual(event.metadata, {
     platform: 'deepseek_harness',
+    platform_id: 'deepseek',
     mechanism: 'cordis_theme_override',
     source_surface: 'settings_plugins_dexthemes',
     theme_id: 'deepseek-huawei',
     variant: 'paired',
     plugin_version: PLUGIN_VERSION,
+    action: 'apply',
+    outcome: 'succeeded',
   });
   assert.ok(calls.some((call) => call.type === 'shutdown'));
   assert.equal(sanitizePluginAnalyticsEvent({ name: 'deepseek_plugin_install_succeeded' }), null);

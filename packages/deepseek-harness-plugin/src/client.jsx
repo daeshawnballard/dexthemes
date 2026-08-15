@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { defineStore } from '@deepseek-ai/dsh-client-runtime/client';
 import {
   BUNDLED_HARNESS_THEMES,
   loadPublicHarnessThemes,
@@ -9,8 +10,9 @@ import {
 import { createHarnessThemeController, PLUGIN_VERSION } from './theme-controller.js';
 import { createPluginAnalytics } from './analytics.js';
 import { createHarnessAccountClient } from './account.js';
+import { createThemeStateStore, normalizeThemeState } from './theme-state.js';
 
-export const inject = ['slots', 'theme'];
+export const inject = ['slots'];
 
 const ui = Object.freeze({
   root: { width: '100%', maxWidth: 980, color: 'var(--dsw-alias-label-primary)', display: 'flex', flexDirection: 'column', gap: 16 },
@@ -112,7 +114,7 @@ function PalettePreview({ theme, expanded = false, mode = 'both' }) {
   </div>;
 }
 
-function ThemeDialog({ theme, controller, active, onClose }) {
+function ThemeDialog({ theme, controller, active, capabilityAvailable, onClose }) {
   const [previewMode, setPreviewMode] = useState('both');
   useEffect(() => {
     controller.preview(theme);
@@ -151,7 +153,12 @@ function ThemeDialog({ theme, controller, active, onClose }) {
         <button type="button" style={ui.button} onClick={onClose}>Keep browsing</button>
         {active
           ? <button type="button" style={{ ...ui.button, ...ui.danger }} onClick={() => { if (controller.revert()) onClose(); }}>Revert theme</button>
-          : <button type="button" style={{ ...ui.button, ...ui.primary }} onClick={() => { if (controller.apply(theme)) onClose(); }}>Apply to DeepSeek</button>}
+          : <button
+              type="button"
+              style={{ ...ui.button, ...ui.primary }}
+              disabled={!capabilityAvailable}
+              onClick={() => { if (controller.apply(theme, { sourceSurface: 'settings_plugin_preview' })) onClose(); }}
+            >{capabilityAvailable ? 'Apply to DeepSeek' : 'Theme service unavailable'}</button>}
       </div>
     </section>
   </div>;
@@ -172,7 +179,9 @@ function AccountPanel({ account }) {
         ? `${publishedThemes} published themes · ${unlockCount} achievements`
         : waiting
           ? `Enter code ${state.userCode} to finish connecting.`
-          : 'Optional: connect for creator stats, achievements, and the Harnessed reward.'}</span>
+          : state.reconnectRequired
+            ? 'Reconnect after restart to recover creator stats, achievements, and account-only themes.'
+            : 'Optional: connect for creator stats, achievements, and the Harnessed reward.'}</span>
       {state.error ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{state.error}</span> : null}
     </div>
     <div style={ui.accountActions}>
@@ -183,7 +192,7 @@ function AccountPanel({ account }) {
         ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Disconnect</button>
         : waiting
           ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Cancel</button>
-          : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={busy} onClick={() => { void account.connect(); }}>{busy ? 'Connecting…' : 'Connect DexThemes'}</button>}
+          : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={busy} onClick={() => { void account.connect(); }}>{busy ? 'Connecting…' : state.reconnectRequired ? 'Reconnect DexThemes' : 'Connect DexThemes'}</button>}
     </div>
   </section>;
 }
@@ -219,6 +228,12 @@ export function DexThemesSettings({ controller, account }) {
     [accessibleThemes, query, category],
   );
   const active = accessibleThemes.find((theme) => theme.id === runtime.activeThemeId) || null;
+  const desired = accessibleThemes.find((theme) => theme.id === runtime.desiredThemeId) || null;
+  const capabilityAvailable = runtime.capability === 'available';
+
+  useEffect(() => {
+    controller.setCatalog(accessibleThemes);
+  }, [accessibleThemes, controller]);
 
   return <div style={ui.root} data-dexthemes-harness-plugin={PLUGIN_VERSION}>
     <header style={ui.header}>
@@ -230,9 +245,9 @@ export function DexThemesSettings({ controller, account }) {
     </header>
     <div style={ui.featureRow} data-dexthemes-feature-row="true">
       <aside style={ui.active} aria-live="polite">
-        <span style={ui.activeLabel}>Active theme</span>
-        <strong style={ui.activeName}>{active?.name || 'Harness default'}</strong>
-        {active ? <button type="button" style={{ ...ui.button, ...ui.danger, width: '100%', marginTop: 9 }} onClick={() => controller.revert()}>Revert</button> : null}
+        <span style={ui.activeLabel}>{active ? 'Active theme' : runtime.desiredThemeId ? 'Saved theme' : 'Active theme'}</span>
+        <strong style={ui.activeName}>{active?.name || desired?.name || runtime.desiredThemeId || 'Harness default'}</strong>
+        {runtime.desiredThemeId ? <button type="button" style={{ ...ui.button, ...ui.danger, width: '100%', marginTop: 9 }} onClick={() => controller.revert()}>{active ? 'Revert' : 'Forget saved theme'}</button> : null}
       </aside>
       <div style={ui.createCallout}>
         <strong>Create with chat</strong>
@@ -247,7 +262,8 @@ export function DexThemesSettings({ controller, account }) {
       </div>
     </div>
     <p style={ui.status}>{visible.length} themes · {catalogState === 'live' ? 'Public and community catalog connected' : catalogState === 'offline' ? 'Bundled catalog available offline' : 'Loading current community themes…'}</p>
-    {runtime.error ? <p role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{runtime.error}</p> : null}
+    {runtime.notice ? <p role="status" style={ui.status}>{runtime.notice}</p> : null}
+    {runtime.error ? <p role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{runtime.error} Preview and account controls remain available.</p> : null}
     <div style={ui.grid}>
       {visible.map((theme) => {
         const isActive = runtime.activeThemeId === theme.id;
@@ -260,25 +276,36 @@ export function DexThemesSettings({ controller, account }) {
               <button type="button" style={ui.button} onClick={() => setPreview(theme)}>Preview</button>
               {isActive
                 ? <button type="button" style={{ ...ui.button, ...ui.danger }} onClick={() => controller.revert()}>Revert</button>
-                : <button type="button" style={{ ...ui.button, ...ui.primary }} onClick={() => controller.apply(theme)}>Apply</button>}
+                : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={!capabilityAvailable} onClick={() => controller.apply(theme, { sourceSurface: 'settings_plugin_card' })}>{capabilityAvailable ? 'Apply' : 'Unavailable'}</button>}
             </div>
           </div>
         </article>;
       })}
     </div>
     {visible.length === 0 ? <p style={ui.status}>No themes match this search.</p> : null}
-    {preview ? <ThemeDialog theme={preview} controller={controller} active={runtime.activeThemeId === preview.id} onClose={() => setPreview(null)} /> : null}
+    {preview ? <ThemeDialog theme={preview} controller={controller} active={runtime.activeThemeId === preview.id} capabilityAvailable={capabilityAvailable} onClose={() => setPreview(null)} /> : null}
   </div>;
 }
 
 export function apply(ctx) {
   const analytics = createPluginAnalytics();
-  const account = createHarnessAccountClient();
-  const controller = createHarnessThemeController(ctx.theme, {
+  const preferences = createThemeStateStore(defineStore);
+  const persisted = normalizeThemeState(preferences.getSnapshot());
+  const account = createHarnessAccountClient({
+    reconnectRequired: persisted.reconnectRequired,
+    onConnected: () => preferences.actions.rememberAccount(),
+    onDisconnected: () => preferences.actions.forgetAccount(),
+  });
+  const controller = createHarnessThemeController(null, {
+    preferences,
     onEvent: (event) => analytics.track(event),
     onApplied: () => account.recordHarnessUse(),
   });
   void analytics.start();
+  ctx.inject(['theme'], (themeCtx) => {
+    const detach = controller.attach(themeCtx.theme);
+    themeCtx.effect(() => detach, 'dexthemes: optional theme capability');
+  });
   ctx.effect(() => () => {
     controller.destroy();
     account.destroy();

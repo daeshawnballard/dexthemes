@@ -1,4 +1,5 @@
 import { trackEvent } from './analytics-client.js';
+import { getPlatform } from '../shared/platform-registry.js';
 
 export const DEEPSEEK_ANALYTICS_EVENTS = Object.freeze({
   INSTALL_STARTED: 'deepseek_plugin_install_started',
@@ -13,6 +14,16 @@ export const DEEPSEEK_ANALYTICS_EVENTS = Object.freeze({
 
 const ALLOWED_EVENTS = new Set(Object.values(DEEPSEEK_ANALYTICS_EVENTS));
 const SAFE_VALUE = /^[a-zA-Z0-9._:/-]{1,120}$/;
+const EVENT_ATTRIBUTION = Object.freeze({
+  deepseek_plugin_install_started: ['install_plugin', 'attempted'],
+  deepseek_plugin_install_succeeded: ['install_plugin', 'succeeded'],
+  deepseek_plugin_install_failed: ['install_plugin', 'failed'],
+  deepseek_theme_previewed: ['preview', 'succeeded'],
+  deepseek_theme_apply_started: ['apply', 'attempted'],
+  deepseek_theme_apply_succeeded: ['apply', 'succeeded'],
+  deepseek_theme_apply_failed: ['apply', 'failed'],
+  deepseek_theme_reverted: ['revert', 'succeeded'],
+});
 
 function safeField(value) {
   if (value === undefined || value === null || value === '') return undefined;
@@ -27,22 +38,25 @@ export function buildDeepSeekAnalyticsMetadata({
   harnessVersion,
   pluginVersion,
   failureCode,
-} = {}) {
+} = {}, eventName = null) {
   const safeSourceSurface = safeField(sourceSurface);
   const safeThemeId = safeField(themeId);
   const safeVariant = safeField(variant);
   const safeHarnessVersion = safeField(harnessVersion);
-  const safePluginVersion = safeField(pluginVersion);
+  const safePluginVersion = safeField(pluginVersion || getPlatform('deepseek').pluginVersion);
   const safeFailureCode = safeField(failureCode);
+  const attribution = EVENT_ATTRIBUTION[eventName];
   return Object.freeze({
     platform: 'deepseek_harness',
+    platform_id: 'deepseek',
     mechanism: 'cordis_theme_override',
-    ...(safeSourceSurface ? { source_surface: safeSourceSurface } : {}),
+    source_surface: safeSourceSurface || 'unknown',
     ...(safeThemeId ? { theme_id: safeThemeId } : {}),
     ...(safeVariant ? { variant: safeVariant } : {}),
     ...(safeHarnessVersion ? { harness_version: safeHarnessVersion } : {}),
     ...(safePluginVersion ? { plugin_version: safePluginVersion } : {}),
     ...(safeFailureCode ? { failure_code: safeFailureCode } : {}),
+    ...(attribution ? { action: attribution[0], outcome: attribution[1] } : {}),
   });
 }
 
@@ -56,5 +70,5 @@ export function classifyDeepSeekApplyFailure(error) {
 
 export function trackDeepSeekEvent(name, metadata) {
   if (!ALLOWED_EVENTS.has(name)) throw new TypeError(`Unsupported DeepSeek analytics event: ${name}`);
-  return trackEvent(name, null, buildDeepSeekAnalyticsMetadata(metadata));
+  return trackEvent(name, null, buildDeepSeekAnalyticsMetadata(metadata, name));
 }

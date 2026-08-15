@@ -15,6 +15,8 @@ pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
 
+The current npm release is `0.6.0`. This checkout prepares `0.6.1`; do not use an `@0.6.1` registry spec until `npm view @dexthemes/deepseek-harness-plugin version` reports it. See the [changelog](CHANGELOG.md) and the [0.6.0 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.0).
+
 For local development against a source checkout, use the source directory instead:
 
 ```sh
@@ -23,6 +25,37 @@ pnpm dsh web
 ```
 
 The package contributes a real Loader entry and a **DexThemes** tab under **Settings → Plugins**. It keeps Harness source read-only. Applying a theme calls `theme.overrideTokens(...)`; applying another theme replaces the same owned layer, and **Revert** disposes it.
+
+## Compatibility
+
+The `0.6.1` source contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+
+DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
+
+## Restart recovery
+
+Apply stores only a schema version, bounded theme ID, whether the theme is account-only, and a reconnect-needed boolean through Harness's snapshot-store engine. It never stores palettes, prompts, workspace data, credentials, tokens, or account identifiers. On relaunch, a bundled/public theme restores after the validated catalog and supported theme service are available. An account-only theme waits visibly until the user reconnects DexThemes and the verified unlock catalog returns.
+
+The one-hour `dxd_…` DexThemes session remains memory-only. After restart, **Reconnect DexThemes** starts a new GitHub Device Flow; authentication is not silently recovered from browser storage. **Revert** clears saved theme intent. **Disconnect** clears reconnect intent and asks Convex to revoke the current in-memory session.
+
+## Upgrade, verify, and remove
+
+After a version is published, pin that exact version to upgrade:
+
+```sh
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@<published-version>
+pnpm dsh plugin --profile web why @dexthemes/deepseek-harness-plugin
+pnpm dsh web
+```
+
+Before removal, choose **Revert** (or **Forget saved theme**) and **Disconnect**. Then remove the package and its profile layer:
+
+```sh
+pnpm dsh plugin --profile web remove @dexthemes/deepseek-harness-plugin
+pnpm dsh web
+```
+
+If the tab does not appear after add/upgrade, refresh the browser once and inspect the exact resolved package with `why`. If Apply is unavailable, use the visible capability alert; do not patch Harness source or add DOM selectors.
 
 After Harness starts, refresh its browser tab once so the new client package is included in the boot graph. Then:
 
@@ -39,13 +72,26 @@ The package also loads Harness's shipped `@deepseek-ai/dsh-mcp-client` against t
 
 For local protocol testing before that endpoint is deployed, run `npm run qa:deepseek-mcp` in the DexThemes checkout and start Harness with `DEXTHEMES_MCP_URL=http://127.0.0.1:3099/api/deepseek-mcp`. The production URL remains the default.
 
-The bundled catalog works offline. It contains the DeepSeek default palette, twelve unofficial tribute palettes, and compatible shared DexThemes palettes. When available, the plugin merges the public DexThemes API response to include current community themes. Anonymous catalog input cannot introduce account-only reward palettes; only the verified bearer unlock response can add rewards to a connected user's session. Search runs locally. Analytics is limited to event name, source surface, theme ID, paired variant, plugin version, and bounded failure code; it disables local persistence and page-URL collection. No prompts, workspace contents, paths, palette payloads, credentials, account identity, or sensitive data are sent as analytics. Publishing and likes remain on the existing DexThemes surfaces; the installed package exposes read-only account stats, achievements, and rewards plus the server-verified Harnessed completion call.
+The bundled catalog works offline. It contains the DeepSeek default palette, twelve unofficial tribute palettes, and compatible shared DexThemes palettes. When available, the plugin merges the public DexThemes API response to include current community themes. Anonymous catalog input cannot introduce account-only reward palettes; only the verified bearer unlock response can add rewards to a connected user's session. Search runs locally. Analytics is limited to the bounded event, fixed platform/mechanism, source surface, theme ID when applicable, paired variant, plugin version, event-derived action/outcome, and bounded failure code; it disables local persistence and page-URL collection. No prompts, workspace contents, paths, palette payloads, credentials, account identity, or sensitive data are sent as analytics. Publishing and likes remain on the existing DexThemes surfaces; the installed package exposes read-only account stats, achievements, and rewards plus the server-verified Harnessed completion call.
 
 **Harness default** is native rather than a copied palette. Revert disposes the DexThemes override so Harness continues to own its light, dark, and system appearance as that product evolves.
 
 Fonts are intentionally unsupported by this integration.
 
 The npm package is the supported distribution path for published releases. The bundled catalog, preview, apply, and revert work without a DexThemes account. The hosted MCP endpoint, Statsig delivery, device-authorization routes, and achievement call require their production services and OAuth environment configuration. npm publication does not imply a separate Harness marketplace approval, and the standalone DexThemes website cannot apply into an unrelated Harness browser tab.
+
+## Analytics and privacy
+
+Each bounded lifecycle event includes the platform, source surface, plugin version, paired variant, action, outcome, and theme ID when applicable, plus a bounded failure code on failure. Harness version is included only when the host exposes an authoritative value; this plugin does not fabricate one. Prompts, workspace contents or paths, palettes, credentials, tokens, account identity, page URLs, and raw exceptions are excluded.
+
+## Release notes and support
+
+- [Changelog](CHANGELOG.md)
+- [GitHub releases](https://github.com/daeshawnballard/dexthemes/releases)
+- [DeepSeek Harness integration guide](https://github.com/daeshawnballard/dexthemes/blob/main/docs/DEEPSEEK-HARNESS.md)
+- [Open a support or bug issue](https://github.com/daeshawnballard/dexthemes/issues/new?template=bug_report.md)
+
+Include the Harness CLI version, DexThemes plugin version, `web` profile, install source (npm version, tarball, or local path), whether the theme capability alert appeared, and non-sensitive reproduction steps. Never attach tokens, cookies, workspace content, prompts, or private account data.
 
 ## Distribution boundary
 

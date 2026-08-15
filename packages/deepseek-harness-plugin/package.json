@@ -1,7 +1,7 @@
 {
   "name": "@dexthemes/deepseek-harness-plugin",
-  "version": "0.6.0",
-  "description": "Installed DexThemes browser plugin for DeepSeek Harness",
+  "version": "0.6.1",
+  "description": "Discover, preview, apply, restore, and revert themes in DeepSeek Harness",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
@@ -13,6 +13,7 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
@@ -25,8 +26,7 @@
     "client": {
       "inject": [
         "@deepseek-ai/dsh-client-runtime",
-        "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-client-ui-theme"
+        "@deepseek-ai/dsh-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -40,16 +40,19 @@
     "url": "git+https://github.com/daeshawnballard/dexthemes.git",
     "directory": "packages/deepseek-harness-plugin"
   },
-  "homepage": "https://www.dexthemes.com",
+  "homepage": "https://github.com/daeshawnballard/dexthemes/tree/main/packages/deepseek-harness-plugin#readme",
   "bugs": {
     "url": "https://github.com/daeshawnballard/dexthemes/issues"
   },
   "keywords": [
     "deepseek",
     "deepseek-harness",
+    "deepseek-harness-plugin",
     "dexthemes",
     "theme",
-    "cordis"
+    "cordis",
+    "developer-tools",
+    "color-theme"
   ],
   "engines": {
     "node": ">=20"

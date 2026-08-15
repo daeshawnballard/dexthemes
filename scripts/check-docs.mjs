@@ -16,6 +16,40 @@ const checks = [
     forbidden: [],
     required: ['Daeshawn Ballard', 'https://x.com/daeshawn', 'X-Robots-Tag: noindex'],
   },
+  {
+    file: 'packages/deepseek-harness-plugin/README.md',
+    forbidden: ['@dexthemes/deepseek-harness-plugin@0.4.1'],
+    required: [
+      '@dexthemes/deepseek-harness-plugin@0.6.0',
+      '0.1.0-rc.5',
+      'No broader Harness semver range is claimed',
+      'Restart recovery',
+      'plugin --profile web remove',
+      'CHANGELOG.md',
+      'issues/new?template=bug_report.md',
+    ],
+  },
+  {
+    file: 'packages/deepseek-harness-plugin/CHANGELOG.md',
+    forbidden: [],
+    required: ['0.6.1 — Unreleased', '0.6.0 — 2026-08-14'],
+  },
+  {
+    file: 'docs/DEEPSEEK-HARNESS.md',
+    forbidden: ["inject: ['theme']"],
+    required: [
+      "ctx.inject(['theme']",
+      '0.1.0-rc.5',
+      'explicit post-restart reconnect',
+      'deepseek_theme_restore_succeeded',
+      'deepseek_theme_capability_unavailable',
+    ],
+  },
+  {
+    file: 'public/support.html',
+    forbidden: [],
+    required: ['Harness CLI version', 'DexThemes plugin version', 'install source', 'CHANGELOG.md'],
+  },
 ];
 
 let failed = false;

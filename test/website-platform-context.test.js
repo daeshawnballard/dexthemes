@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFile } from 'node:fs/promises';
 
 const storage = new Map();
 globalThis.localStorage = {
@@ -55,4 +56,18 @@ test('website actions keep DeepSeek on setup and unsupported platforms disabled'
   assert.match(deepseek.destination.value, /npmjs\.com/);
   assert.equal(t3code.mode, 'unavailable');
   assert.equal(t3code.delivered, false);
+});
+
+test('opening platform setup is attributed as setup, never as an Apply attempt', async () => {
+  const [delegated, context, analytics] = await Promise.all([
+    readFile(new URL('../src/delegated-actions.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/platform-context.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/platform-analytics.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(delegated, /case 'open-platform-setup':[\s\S]*'platform_setup_opened'/);
+  assert.doesNotMatch(delegated, /case 'open-platform-setup':[\s\S]{0,260}'apply_attempted'/);
+  assert.match(context, /source_surface: 'preview_message'/);
+  assert.match(context, /theme_id: link\.dataset\.themeId/);
+  assert.match(context, /variant: link\.dataset\.variant/);
+  assert.match(analytics, /source_surface: new Set\([^\n]*'preview_message'/);
 });
