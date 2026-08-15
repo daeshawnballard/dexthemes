@@ -8,14 +8,14 @@ Version 0.6 includes a palette matched to DeepSeek Harness's published semantic 
 
 From the DeepSeek Harness checkout:
 
-Install the published `0.6.0` package from npm:
+Install the published `0.6.1` package from npm:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.1
 pnpm dsh web
 ```
 
-The current npm release is `0.6.0`. This checkout prepares `0.6.1`; do not use an `@0.6.1` registry spec until `npm view @dexthemes/deepseek-harness-plugin version` reports it. See the [changelog](CHANGELOG.md) and the [0.6.0 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.0).
+The current npm release is `0.6.1`. See the [changelog](CHANGELOG.md) and the [0.6.1 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.1).
 
 For local development against a source checkout, use the source directory instead:
 
@@ -28,7 +28,7 @@ The package contributes a real Loader entry and a **DexThemes** tab under **Sett
 
 ## Compatibility
 
-The `0.6.1` source contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+The published `0.6.1` contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
 
 DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
 
