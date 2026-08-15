@@ -8,14 +8,14 @@ Version 0.6 includes a palette matched to DeepSeek Harness's published semantic 
 
 From the DeepSeek Harness checkout:
 
-Install the published `0.6.2` package from npm:
+Install version `0.6.3` after confirming it is available from npm:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.2
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.3
 pnpm dsh web
 ```
 
-The current npm release is `0.6.2`. The source tree prepares an unreleased `0.6.3` receipt fix; keep installing `0.6.2` until that change is reviewed and published. See the [changelog](CHANGELOG.md) and the [0.6.2 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2).
+Version `0.6.3` is the reviewed publication candidate. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior are separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.2 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2) evidence.
 
 For local development against a source checkout, use the source directory instead:
 
@@ -28,7 +28,7 @@ The package contributes a real Loader entry and a **DexThemes** tab under **Sett
 
 ## Compatibility
 
-The published `0.6.2` contract and unreleased `0.6.3` source target the same DeepSeek Harness CLI `0.1.0-rc.5` integration boundary verified for `0.6.1` at commit `47f943859bef60e4160492346772ded9b24f765a`. They require the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+The `0.6.3` publication candidate targets the same DeepSeek Harness CLI `0.1.0-rc.5` integration boundary verified for `0.6.1` at commit `47f943859bef60e4160492346772ded9b24f765a` and exercised by the published `0.6.2` receipts. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
 
 DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
 
