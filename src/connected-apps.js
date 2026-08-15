@@ -63,8 +63,8 @@ export function formatConnectedAppDate(value) {
 }
 
 function renderConnectedAppCard(app) {
-  const applyCount = app.usage.recordedThemeApplies;
-  const applyLabel = `${applyCount} recorded theme ${applyCount === 1 ? 'apply' : 'applies'}`;
+  const applyCount = app.usage.clientReportedThemeApplies;
+  const applyLabel = `${applyCount} client-reported theme ${applyCount === 1 ? 'activity' : 'activities'}`;
   const versionLabel = app.pluginVersion
     ? `Plugin ${escapeHtml(app.pluginVersion)}`
     : 'Plugin version unavailable';

@@ -175,6 +175,7 @@ export default defineSchema({
     connectedAt: v.number(),
     lastUsedAt: v.number(),
     usageCount: v.number(),
+    clientReceiptHashes: v.optional(v.array(v.string())),
     disconnectedAt: v.optional(v.number()),
     updatedAt: v.number(),
   })

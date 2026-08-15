@@ -48,6 +48,20 @@ function retryAfterSeconds(response) {
   return Number.isFinite(value) ? Math.min(30, Math.max(1, value)) : 0;
 }
 
+function createClientUseReceipt() {
+  if (typeof globalThis.crypto?.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID();
+  }
+  if (typeof globalThis.crypto?.getRandomValues !== 'function') {
+    throw new Error('Secure client activity receipts are unavailable');
+  }
+  const bytes = globalThis.crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
 export async function requestDeviceAuthorization({
   fetchImpl = globalThis.fetch,
   apiBaseUrl = DEXTHEMES_ACCOUNT_API_URL,
@@ -169,15 +183,16 @@ export function createHarnessAccountClient({
   };
 
   const revoke = async (token) => {
-    if (!token) return;
-    try {
-      await fetchImpl(`${apiBaseUrl}/plugin/deepseek-harness/session`, {
-        method: 'DELETE',
-        headers: { Accept: 'application/json', Authorization: `Bearer ${token}` },
-      });
-    } catch {
-      // The local credential is cleared first; server expiry remains the fallback.
+    if (!token) return true;
+    const response = await fetchImpl(`${apiBaseUrl}/plugin/deepseek-harness/session`, {
+      method: 'DELETE',
+      headers: { Accept: 'application/json', Authorization: `Bearer ${token}` },
+    });
+    const payload = await parseJson(response);
+    if (!response.ok || payload.revoked !== true) {
+      throw new Error(boundedError(payload.error, 'DexThemes account disconnect failed. Try again.'));
     }
+    return true;
   };
 
   const refresh = async (expectedGeneration = generation) => {
@@ -263,22 +278,42 @@ export function createHarnessAccountClient({
       const result = await authorizedFetch('/plugin/deepseek-harness/use', {
         method: 'POST',
         body: JSON.stringify({
+          receiptId: createClientUseReceipt(),
           ...(reportedPluginVersion ? { pluginVersion: reportedPluginVersion } : {}),
         }),
       });
       await refresh(expectedGeneration);
-      return result.achievement || null;
+      return result.recorded === true;
     },
     async disconnect() {
       generation += 1;
       controller?.abort();
       controller = null;
       const token = accessToken;
+      if (!token) {
+        accessToken = '';
+        expiresAt = 0;
+        publish(emptyState(false));
+        try { onDisconnected(); } catch { /* Persistence must not affect disconnect. */ }
+        return true;
+      }
+      const connectedState = state;
+      publish({ ...connectedState, status: 'disconnecting', error: null });
+      try {
+        await revoke(token);
+      } catch (error) {
+        publish({
+          ...connectedState,
+          status: 'connected',
+          error: boundedError(error?.message, 'DexThemes account disconnect failed. Try again.'),
+        });
+        return false;
+      }
       accessToken = '';
       expiresAt = 0;
       publish(emptyState(false));
       try { onDisconnected(); } catch { /* Persistence must not affect disconnect. */ }
-      await revoke(token);
+      return true;
     },
     destroy() {
       generation += 1;
@@ -289,7 +324,7 @@ export function createHarnessAccountClient({
       expiresAt = 0;
       state = emptyState(state.reconnectRequired);
       listeners.clear();
-      void revoke(token);
+      void revoke(token).catch(() => {});
     },
   });
 }

@@ -2,6 +2,8 @@ export const CONNECTED_APP_IDS = Object.freeze({
   DEEPSEEK_HARNESS: 'deepseek_harness',
 });
 
+export const DEEPSEEK_HARNESS_USE_SCOPE = 'harness:use';
+
 export const CONNECTED_APP_DEFINITIONS = Object.freeze({
   [CONNECTED_APP_IDS.DEEPSEEK_HARNESS]: Object.freeze({
     integrationId: CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
@@ -12,6 +14,7 @@ export const CONNECTED_APP_DEFINITIONS = Object.freeze({
 });
 
 const PLUGIN_VERSION = /^[0-9]+(?:\.[0-9]+){1,3}(?:[-+][0-9A-Za-z.-]+)?$/;
+const CLIENT_USE_RECEIPT = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export function getConnectedAppDefinition(integrationId) {
   return typeof integrationId === 'string'
@@ -25,6 +28,29 @@ export function normalizeConnectedAppPluginVersion(value) {
   return normalized.length <= 40 && PLUGIN_VERSION.test(normalized)
     ? normalized
     : undefined;
+}
+
+export function normalizeClientUseReceiptId(value) {
+  const normalized = typeof value === 'string' ? value.trim() : '';
+  return CLIENT_USE_RECEIPT.test(normalized) ? normalized.toLowerCase() : null;
+}
+
+export function advanceClientUseReceiptHashes(priorValues, receiptHash) {
+  const normalizedHash = typeof receiptHash === 'string' && /^[0-9a-f]{64}$/i.test(receiptHash)
+    ? receiptHash.toLowerCase()
+    : null;
+  if (!normalizedHash) return Object.freeze({ accepted: false, hashes: Object.freeze([]) });
+  const prior = (Array.isArray(priorValues) ? priorValues : [])
+    .filter((value) => typeof value === 'string' && /^[0-9a-f]{64}$/i.test(value))
+    .map((value) => value.toLowerCase())
+    .slice(-32);
+  if (prior.includes(normalizedHash)) {
+    return Object.freeze({ accepted: false, hashes: Object.freeze(prior) });
+  }
+  return Object.freeze({
+    accepted: true,
+    hashes: Object.freeze([...prior.slice(-31), normalizedHash]),
+  });
 }
 
 function boundedTimestamp(value) {
@@ -50,8 +76,8 @@ export function projectConnectedAppRecord(record) {
 
   const connectedAt = boundedTimestamp(record.connectedAt);
   const lastUsedAt = boundedTimestamp(record.lastUsedAt || connectedAt);
-  const recordedThemeApplies = boundedUsageCount(
-    record.usageCount ?? record.usage?.recordedThemeApplies,
+  const clientReportedThemeApplies = boundedUsageCount(
+    record.usageCount ?? record.usage?.clientReportedThemeApplies,
   );
 
   return Object.freeze({
@@ -59,7 +85,10 @@ export function projectConnectedAppRecord(record) {
     pluginVersion: normalizeConnectedAppPluginVersion(record.pluginVersion) || null,
     connectedAt,
     lastUsedAt,
-    usage: Object.freeze({ recordedThemeApplies }),
+    usage: Object.freeze({
+      clientReportedThemeApplies,
+      evidence: 'client_reported',
+    }),
     canDisconnect: record.canDisconnect !== false,
   });
 }

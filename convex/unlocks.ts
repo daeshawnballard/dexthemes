@@ -13,8 +13,6 @@ import {
   previousClosedPopularityPeriod,
   rankPopularityEntries,
 } from "../shared/popularity-periods.js";
-import { CONNECTED_APP_IDS } from "../shared/connected-apps-contract.js";
-import { recordConnectedAppUse } from "./connectedApps";
 
 const SUPPORTER_ACTION = "buy_coffee";
 const isActiveUnlock = (unlock: { revokedAt?: number }) => !unlock.revokedAt;
@@ -73,41 +71,6 @@ export async function grantUnlockForUser(
 
   return { unlocked: true, themeId: mapping.themeId, themeName: mapping.themeName };
 }
-
-export const recordDeepSeekHarnessUse = internalMutation({
-  args: { authToken: v.string() },
-  handler: async (ctx, args) => {
-    const user = await getUserByAuthToken(ctx, args.authToken);
-    if (!user) throw new Error("Unauthorized");
-    return {
-      action: "use_deepseek_harness",
-      ...(await grantUnlockForUser(ctx, user._id, "use_deepseek_harness")),
-    };
-  },
-});
-
-export const recordDeepSeekHarnessUseForUser = internalMutation({
-  args: {
-    userId: v.id("users"),
-    connectedAppId: v.optional(v.string()),
-    pluginVersion: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    const achievement = {
-      action: "use_deepseek_harness",
-      ...(await grantUnlockForUser(ctx, args.userId, "use_deepseek_harness")),
-    };
-    if (args.connectedAppId === CONNECTED_APP_IDS.DEEPSEEK_HARNESS) {
-      await recordConnectedAppUse(
-        ctx,
-        args.userId,
-        args.connectedAppId,
-        args.pluginVersion,
-      );
-    }
-    return achievement;
-  },
-});
 
 export async function syncOpenAIEmployeeUnlock(
   ctx: any,

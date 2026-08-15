@@ -49,11 +49,11 @@ python3 -m http.server 4173
 Install the current published package into Harness's `web` profile, then open **Settings → Plugins → DexThemes**:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.1
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.2
 pnpm dsh web
 ```
 
-The npm package is the supported published distribution path. Version `0.6.1` is current. See the [compatibility, restart, upgrade, and removal guide](packages/deepseek-harness-plugin/README.md), [changelog](packages/deepseek-harness-plugin/CHANGELOG.md), [GitHub releases](https://github.com/daeshawnballard/dexthemes/releases), and [support path](https://www.dexthemes.com/support.html).
+The npm package is the supported published distribution path. Version `0.6.2` is current. See the [compatibility, restart, upgrade, and removal guide](packages/deepseek-harness-plugin/README.md), [changelog](packages/deepseek-harness-plugin/CHANGELOG.md), [GitHub releases](https://github.com/daeshawnballard/dexthemes/releases), and [support path](https://www.dexthemes.com/support.html).
 
 Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 

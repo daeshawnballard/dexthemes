@@ -3,7 +3,9 @@ import { v } from "convex/values";
 import type { Id } from "./_generated/dataModel";
 import {
   CONNECTED_APP_IDS,
+  advanceClientUseReceiptHashes,
   getConnectedAppDefinition,
+  normalizeClientUseReceiptId,
   normalizeConnectedAppPluginVersion,
   projectConnectedAppRecord,
 } from "../shared/connected-apps-contract.js";
@@ -21,6 +23,12 @@ async function findConnectedApp(ctx: any, userId: Id<"users">, integrationId: st
       query.eq("userId", userId).eq("integrationId", integrationId),
     )
     .first();
+}
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 function assertKnownIntegration(integrationId: string) {
@@ -61,37 +69,64 @@ export async function markConnectedApp(
   });
 }
 
-export async function recordConnectedAppUse(
+export async function recordClientReportedConnectedAppUse(
   ctx: any,
   userId: Id<"users">,
   integrationId: string,
+  receiptId: string,
   pluginVersion?: string,
 ) {
   assertKnownIntegration(integrationId);
+  const normalizedReceipt = normalizeClientUseReceiptId(receiptId);
+  if (!normalizedReceipt) throw new Error("Invalid client use receipt");
+  const receiptHash = await sha256Hex(normalizedReceipt);
   const now = Date.now();
   const normalizedVersion = normalizeConnectedAppPluginVersion(pluginVersion);
   const existing = await findConnectedApp(ctx, userId, integrationId);
   if (existing) {
+    const receiptWindow = advanceClientUseReceiptHashes(existing.clientReceiptHashes, receiptHash);
+    if (!receiptWindow.accepted) {
+      return { recorded: false, clientReported: true };
+    }
     await ctx.db.patch(existing._id, {
       ...(normalizedVersion ? { pluginVersion: normalizedVersion } : {}),
       lastUsedAt: now,
       usageCount: Math.max(0, existing.usageCount || 0) + 1,
+      clientReceiptHashes: [...receiptWindow.hashes],
       disconnectedAt: undefined,
       updatedAt: now,
     });
-    return existing._id;
+    return { recorded: true, clientReported: true };
   }
 
-  return await ctx.db.insert("connectedApps", {
+  await ctx.db.insert("connectedApps", {
     userId,
     integrationId,
     pluginVersion: normalizedVersion,
     connectedAt: now,
     lastUsedAt: now,
     usageCount: 1,
+    clientReceiptHashes: [receiptHash],
     updatedAt: now,
   });
+  return { recorded: true, clientReported: true };
 }
+
+export const recordClientReportedUseForUser = internalMutation({
+  args: {
+    userId: v.id("users"),
+    integrationId: v.string(),
+    receiptId: v.string(),
+    pluginVersion: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => recordClientReportedConnectedAppUse(
+    ctx,
+    args.userId,
+    args.integrationId,
+    args.receiptId,
+    args.pluginVersion,
+  ),
+});
 
 export async function markConnectedAppDisconnected(
   ctx: any,

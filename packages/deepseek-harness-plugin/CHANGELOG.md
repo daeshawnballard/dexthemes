@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.2 — 2026-08-14
+
+- Persist Disconnect only after Convex acknowledges server-side session revocation; failed revocation remains connected and retryable.
+- Separate read access from client-reported Harness activity with a dedicated `harness:use` scope and replay-deduped receipt.
+- Grant Harnessed / Deep Current from verified GitHub Device Flow completion rather than from a client-reported theme Apply.
+- Label Connected Apps Apply activity as client-reported telemetry and keep it outside protected entitlement decisions.
+
+Release: https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2
+
 ## 0.6.1 — 2026-08-14
 
 - Detect the supported Harness theme service at runtime, keep the DexThemes Settings tab visible when it is unavailable, and make the unavailable state reversible.
