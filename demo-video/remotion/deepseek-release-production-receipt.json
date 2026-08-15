@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "artifact": "DexThemes for DeepSeek Harness release video",
+  "releaseDate": "2026-08-14",
+  "admission": {
+    "status": "PASS",
+    "packageProvenance": "PUBLIC_NPM_RUNTIME_PASS",
+    "productionAccountAuthorization": "UNPROVEN",
+    "notes": [
+      "Every admitted product clip was captured through genuine Playwright interaction with the running DeepSeek Harness UI.",
+      "The chat clip used Harness's real MCP tool path with a restricted local DexThemes MCP server and deterministic local language-model provider.",
+      "No account credentials, tokens, private identifiers, unrelated browser data, or private workspace contents are admitted."
+    ]
+  },
+  "sourceCheckout": {
+    "gitHead": "235ca99c51c1e4229e46a17f9632314f2af41519",
+    "workingTree": "uncommitted release-video changes only; no stage, commit, push, deployment, upload, or publication performed"
+  },
+  "runtime": {
+    "targetUrl": "http://127.0.0.1:3193/",
+    "harness": {
+      "gitCommit": "47f943859bef60e4160492346772ded9b24f765a",
+      "cliVersion": "0.1.0-rc.5"
+    },
+    "plugin": {
+      "package": "@dexthemes/deepseek-harness-plugin",
+      "version": "0.6.2",
+      "registryTagAtFinalCheck": "latest",
+      "registryTarball": "https://registry.npmjs.org/@dexthemes/deepseek-harness-plugin/-/deepseek-harness-plugin-0.6.2.tgz",
+      "registryIntegrity": "sha512-bx9bGAnHdBR1l3+dWxB5g2eOG1bWbapL/SfzMQlOJPhK4p7O9+7rvHSJZEiTl/Us48MrUpU9aP4TLHqZdv869g==",
+      "registryShasum": "81c419ee9f88680ddf3836ee487d94537710e588",
+      "registryTarballSha256": "bdb7fb6b3bbad773c01dbe27d63dc2d7dc10f1090eb10e361468587bb6aeb611",
+      "installedSpecifier": "0.6.2",
+      "installedPackageJson": {
+        "bytes": 1487,
+        "sha256": "a977489a06a4d68c8b66bd29322d02ff4680e5a2c13757ab8af34ce90b477ae3"
+      },
+      "profileLock": {
+        "bytes": 1028,
+        "sha256": "309e4ef9a914ad8bd6fccbe3a30b41801c9d365e083163c90202c3e478f43eb9"
+      },
+      "loadedClientBundle": {
+        "bytes": 178762,
+        "sha256": "f2fc27e8a61aebe950f20f2a9be1f1e19c4e9c9dd666010657ce4512431fec58",
+        "versionMarker": "0.6.2",
+        "expectedMarkerCount": 1,
+        "staleMarkerCount": 0
+      },
+      "loadedServerBundle": {
+        "bytes": 62,
+        "sha256": "1a1b763bb184e3f986a8fa095f461cc40032829d729386893d28f5a0073fff01"
+      }
+    },
+    "sealedHardeningGate": {
+      "bytes": 9771,
+      "lines": 171,
+      "sha256": "7cf42e021bd56cfd17ea5f255b6d2231a4b2b6fce1c3a975ccd0bd0e9dce2bd6",
+      "outcome": "PUBLIC_NPM_RUNTIME_PASS",
+      "productionAccountAuthorization": "UNPROVEN",
+      "commitAdmission": "external evidence only because it includes machine-local paths"
+    }
+  },
+  "capture": {
+    "browser": "WebKit 26.0",
+    "playwright": "1.58.2",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "genuineInteractionSequence": [
+      "Settings",
+      "Plugins",
+      "DexThemes 0.6.2",
+      "search Alibaba",
+      "side-by-side paired preview",
+      "dark preview",
+      "light preview",
+      "Apply",
+      "global Harness theme change",
+      "Revert",
+      "Color me lucky chat request",
+      "mcp__dexthemes__color_me_lucky tool result"
+    ],
+    "verifiedStates": {
+      "catalogCount": 100,
+      "pluginVersionVisible": "0.6.2",
+      "beforeApply": {
+        "background": "rgb(255, 255, 255)",
+        "brand": "rgb(15, 17, 21)",
+        "label": "rgb(15, 17, 21)"
+      },
+      "afterApply": {
+        "background": "#FFF9F4",
+        "brand": "#D95300",
+        "label": "#2B1A10"
+      },
+      "afterRevert": "matches beforeApply"
+    },
+    "offHappyPathQa": [
+      {
+        "check": "zero-result theme search",
+        "assertion": "100 themes before, zero results with exact empty state, then 100 themes after clearing the query",
+        "status": "PASS"
+      },
+      {
+        "check": "catalog request returns controlled 503",
+        "assertion": "100 bundled themes remain available and the UI reports bundled catalog availability",
+        "status": "PASS"
+      }
+    ],
+    "privacyVerification": {
+      "manualVisualInspection": "PASS",
+      "ocrSampling": "all screenshots plus both admitted videos at 2 frames per second",
+      "excludedPathOrReleaseMarkers": 0,
+      "emailOrPrivateIdentityMarkers": 0,
+      "credentialMarkers": 0
+    }
+  },
+  "sourceAllowlist": [
+    {"path": "README.md", "bytes": 2506, "sha256": "5e74507a7c6b1411c1104c16f27b4b4eb72b665d7a5b89fbb3e6457f9e41e59f"},
+    {"path": "package.json", "bytes": 2607, "sha256": "2de25e336a6dd53961cfcabf03b7a7f0fd197b85ddd1dc20879adcd8cd814e1d"},
+    {"path": "package-lock.json", "bytes": 160011, "sha256": "32b698dc75a9ff35a05a09132e224dd6cf1f7979e28744efde0a840f6873f96a"},
+    {"path": "public/music/LICENSE.md", "bytes": 709, "sha256": "35d0c89b2111f84ddfdedab43a6a23f407fa75d7ffbc220007d817ccc48fc001"},
+    {"path": "src/Root.tsx", "bytes": 291, "sha256": "9598e7eaeb3b837ee7b4611363a01b44c59055fc658df30801dcc0d16656a8f9"},
+    {"path": "src/DeepSeekRelease.tsx", "bytes": 22107, "sha256": "67f0566145e379a101cfe8244b0fa9bf736a9ad5845f005125167b34a230604e"}
+  ],
+  "captureAllowlist": [
+    {"path": "public/deepseek-release/captures/chat-lucky-verified.png", "bytes": 120437, "sha256": "375cd804037fac62cf6cad5c08f10fa7b9281afb05cae3b5139dd5379cf760cf", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/chat-lucky.webm", "bytes": 591478, "sha256": "6d27bd7a719f3b3d893d18608e09238898105018dc708d16cfbb012b6c45fed4", "dimensions": "1920x1080", "durationSeconds": 9.2, "fps": 25},
+    {"path": "public/deepseek-release/captures/qa-empty-search.png", "bytes": 192262, "sha256": "6574ea00e156443555dc1b5c35d01a726580ab4cc4f403fe4a9ae08b3d548333", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/qa-offline-catalog.png", "bytes": 200386, "sha256": "cddb97c001250e01a73bd4da009224ea70f9beae3cc57f17cd411ee82155141d", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/runtime-loaded-registry-verified.png", "bytes": 200386, "sha256": "cddb97c001250e01a73bd4da009224ea70f9beae3cc57f17cd411ee82155141d", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/ui-applied-verified.png", "bytes": 196644, "sha256": "e40c94b267214906b7bf0c5c9c1538e0f0c428b15272f3a7c37418bbf9d5fef2", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/ui-flow.webm", "bytes": 1714190, "sha256": "ba800c7e83ab297d056919a7828fb51cde69e7de7b3cfe0e114ca245285c3063", "dimensions": "1920x1080", "durationSeconds": 19.2, "fps": 25},
+    {"path": "public/deepseek-release/captures/ui-global-applied-verified.png", "bytes": 158319, "sha256": "7c3bf2fd5c502ad7767bcf76d7994c086fc053d49bc294dc7f4c120d29cf3867", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/ui-preview-verified.png", "bytes": 161579, "sha256": "548b3342e6836fd249ac67c02d070bf722077991e6a654e983d2e18f8d7a371c", "dimensions": "1920x1080"},
+    {"path": "public/deepseek-release/captures/ui-reverted-verified.png", "bytes": 200755, "sha256": "a38bef44f0c9b8e53cf2001d8094e5826d8bf938ba03a85f1567fd129c7b8b77", "dimensions": "1920x1080"}
+  ],
+  "receiptAllowlist": [
+    "deepseek-release-production-receipt.json"
+  ],
+  "renders": [
+    {
+      "path": "out/deepseek-release/dexthemes-deepseek-harness-0.6.2-master-1920x1080.mp4",
+      "bytes": 4595395,
+      "sha256": "f00736cd67d62fb2cfc3d226e65fa9f875ddffe9723e9d40ec609d117ce10daa",
+      "video": "H.264 1920x1080 30fps 41.000s",
+      "audio": "AAC 48kHz stereo 41.024s"
+    },
+    {
+      "path": "out/deepseek-release/dexthemes-deepseek-harness-0.6.2-vertical-1080x1920.mp4",
+      "bytes": 4830771,
+      "sha256": "a704cef15e2b34b9f23684984de52785c4a1763db0e657c7580efa8d061eb963",
+      "video": "H.264 1080x1920 30fps 41.000s",
+      "audio": "AAC 48kHz stereo 41.024s"
+    },
+    {
+      "path": "out/deepseek-release/dexthemes-deepseek-harness-0.6.2-square-1080x1080.mp4",
+      "bytes": 3825701,
+      "sha256": "246865b78a9907405d0b2caa8aca3c929d8f539c8990654d902469b1fb574b52",
+      "video": "H.264 1080x1080 30fps 41.000s",
+      "audio": "AAC 48kHz stereo 41.024s"
+    }
+  ],
+  "renderCommands": [
+    "npm run render:deepseek:master",
+    "npm run render:deepseek:vertical",
+    "npm run render:deepseek:square"
+  ],
+  "verification": {
+    "lintAndTypes": "PASS",
+    "compositionEnumeration": "PASS",
+    "fullDecodeAllRenders": "PASS with zero ffmpeg decode errors",
+    "contactSheetReviewEveryFiveSeconds": "PASS for master, vertical, and square",
+    "socialLegibilityReview": "PASS"
+  },
+  "localOnlyPolicy": {
+    "renders": "ignored by Git and not in the commit-ready allowlist",
+    "rawTakes": "stored outside the repository",
+    "supersededAssets": "stored outside the repository",
+    "reviewStills": "stored outside the repository"
+  },
+  "unprovenClaims": [
+    "Production-connected DexThemes authorization, account identity, achievements, and publishing",
+    "Production usage, demand, adoption, conversion, or performance",
+    "Any endorsement, affiliation, or partnership with DeepSeek or ecosystem brands"
+  ],
+  "notPerformed": [
+    "commit",
+    "push",
+    "merge",
+    "upload",
+    "post",
+    "publish",
+    "deploy"
+  ]
+}

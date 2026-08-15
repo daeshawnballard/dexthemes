@@ -50,3 +50,14 @@ The approved stills under `public/captures/` come from the MCP visual-QA flow an
 - Music license record: `public/music/LICENSE.md`
 
 The project source is MIT-licensed with DexThemes. Remotion's own licensing terms still apply to the rendering environment.
+
+## DeepSeek Harness release cut
+
+The `DeepSeekHarnessRelease*` compositions use genuine Playwright recordings from the isolated local Harness runtime. The 41-second edit has master (`1920x1080`), vertical (`1080x1920`), and square (`1080x1080`) variants. The admitted footage was captured after installing `@dexthemes/deepseek-harness-plugin@0.6.2` from the npm registry under `latest` and verifying the loaded `0.6.2` runtime marker.
+
+```console
+npm run render:deepseek:stills
+npm run render:deepseek:all
+```
+
+The admitted recordings and state-verification screenshots live under `public/deepseek-release/captures/`. Public DexThemes endpoints were blocked during capture; the chat segment used Harness's real MCP path against a local restricted DexThemes MCP server and deterministic local LLM transport. The registry integrity, installed bundle hashes, capture assertions, and rendered-output checksums are recorded in the production receipt alongside the final assets.
