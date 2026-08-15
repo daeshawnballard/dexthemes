@@ -73,11 +73,11 @@ After signing into the website with the same GitHub identity, **Connected Apps**
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.1
 pnpm dsh web
 ```
 
-The current npm release is `0.6.0`; this source checkout prepares `0.6.1`. Do not install `@0.6.1` from the registry until npm reports it as published. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
+The current npm release is `0.6.1`. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
 
 For local development against a source checkout, use the source directory instead:
 
@@ -96,7 +96,7 @@ The inspected Harness contract exposes `cordis_define` and `cordis_run` as in-pr
 
 DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selectors, localhost probing, local configuration edits, or invented DeepSeek APIs for this path.
 
-The `0.6.1` source contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. Required client contracts are the Module Loader, `settings.plugins.tab`, persisted `defineStore`, optional Cordis service injection, and `ThemeRuntime.overrideTokens(source, pairedTokens) → disposer`. No broader Harness semver range is claimed. Harness version is not added to analytics unless the client exposes an authoritative value.
+The published `0.6.1` contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. Required client contracts are the Module Loader, `settings.plugins.tab`, persisted `defineStore`, optional Cordis service injection, and `ThemeRuntime.overrideTokens(source, pairedTokens) → disposer`. No broader Harness semver range is claimed. Harness version is not added to analytics unless the client exposes an authoritative value.
 
 ## Compatibility matrix
 
@@ -108,11 +108,11 @@ The `0.6.1` source contract was verified against DeepSeek Harness CLI `0.1.0-rc.
 | Draft and validation | MCP `draft_theme`, `validate_theme`, `render_theme_preview` | Restricted Harness MCP profile plus paired `color_me_lucky` and `prepare_deepseek_apply` | Single-variant themes remain valid DexThemes themes but are DeepSeek-ineligible |
 | Codex apply | `prepare_theme_apply`, `codex-theme-v1`, copy/open Settings | None | Preserved as-is and remains separate |
 | DeepSeek apply | Theme palettes | Installed package, `/api/deepseek-theme`, semantic-token adapter, guarded `overrideTokens` click | Immediate inside the running installed plugin; website-to-local is unsupported |
-| Revert and restart | None | Retained installed-plugin disposer, persisted bounded theme intent, `cordis_stop` for a dynamic Package | Candidate source covers restart restore; published `0.6.0` proves same-process Apply/Revert only |
+| Revert and restart | None | Retained installed-plugin disposer, persisted bounded theme intent, `cordis_stop` for a dynamic Package | Published `0.6.1` includes bounded restart restoration; the earlier registry-loaded `0.6.0` receipt proves same-process Apply/Revert |
 | Public/community themes | Existing publication, moderation, aliases, catalog | Paired public themes receive derived eligibility | No platform-specific duplicate theme rows |
-| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory DexThemes Connect session plus explicit post-restart reconnect, `/plugin/deepseek-harness/use`, and `Harnessed` → `Deep Current` | Published `0.6.0` production flow is proven; candidate restart recovery deliberately requires a new Device Flow and anonymous use never grants it |
+| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory DexThemes Connect session plus explicit post-restart reconnect, `/plugin/deepseek-harness/use`, and `Harnessed` → `Deep Current` | Published `0.6.0` production flow is proven; `0.6.1` restart recovery deliberately requires a new Device Flow and anonymous use never grants it |
 | Adoption/copy counts | Existing Codex-oriented copy endpoint and leaderboards | None | A DeepSeek apply is not counted as a Codex copy |
-| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted platform/source/version/theme/variant/action/outcome metadata and lifecycle disposal | Loaded `0.6.0` receipts remain release evidence; candidate analytics delivery is not production proof |
+| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted platform/source/version/theme/variant/action/outcome metadata and lifecycle disposal | Loaded `0.6.0` receipts remain release evidence; publication of `0.6.1` does not by itself prove production delivery of the additive fields |
 
 ### Additive discriminator and payload fields
 
@@ -157,7 +157,7 @@ Every event receives fixed `platform: deepseek_harness`, `platform_id: deepseek`
 
 The website source emits apply start/success/failure and revert only when a real guarded service has connected. The installed package sends preview, apply start/success/failure, and revert attempt/success/failure through a package-owned Statsig client. The original `deepseek_theme_reverted` success event remains additive for dashboard compatibility. It uses a fixed non-account user key, disables SDK storage and page-URL attachment, sanitizes every field, and shuts down with the plugin lifecycle. Installation events belong to a future registry/marketplace installer and are not fabricated on module load. The plugin version is allowlisted; an authoritative Harness version is omitted until Harness provides it to the client package.
 
-The loaded registry-installed `0.6.0` package delivered the earlier bounded Apply/Revert schema and received Statsig HTTP 202 receipts. The additive action/outcome, restore, and capability fields belong to the unpublished `0.6.1` candidate until a later authorized publication and production receipt. No prompt, workspace, URL, account, credential, or palette data is permitted in either schema.
+The loaded registry-installed `0.6.0` package delivered the earlier bounded Apply/Revert schema and received Statsig HTTP 202 receipts. The published `0.6.1` package adds action/outcome, restore, and capability fields; production delivery of those new fields remains unproven until a production receipt is captured. No prompt, workspace, URL, account, credential, or palette data is permitted in either schema.
 
 ## Installed plugin information architecture
 
