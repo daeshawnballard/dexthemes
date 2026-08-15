@@ -141,6 +141,10 @@ Total public static themes: ${visibleThemes.length}
 - Generate an unapproved paired draft: POST ${CANONICAL_ORIGIN}/api/generate-theme
 - DeepSeek Harness apply-preparation payload: GET ${CANONICAL_ORIGIN}/api/deepseek-theme?theme={id}
 - DeepSeek Harness restricted MCP profile: ${CANONICAL_ORIGIN}/api/deepseek-mcp
+- DeepSeek Harness npm package: https://www.npmjs.com/package/@dexthemes/deepseek-harness-plugin
+- DeepSeek Harness install and compatibility: https://github.com/daeshawnballard/dexthemes/tree/main/packages/deepseek-harness-plugin
+- Plugin releases: https://github.com/daeshawnballard/dexthemes/releases
+- Support: ${CANONICAL_ORIGIN}/support.html
 - MCP plugin: ${CANONICAL_ORIGIN}/api/mcp
 - Published docs: ${CANONICAL_ORIGIN}/llms.txt and ${CANONICAL_ORIGIN}/.well-known/openapi.json
 - Generate random: GET https://acrobatic-corgi-867.convex.site/api/color-me-lucky?variant=dark|light

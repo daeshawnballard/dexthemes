@@ -1,6 +1,12 @@
 import { internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import { grantUnlockForUser, syncOpenAIEmployeeUnlock } from "./unlocks";
+import {
+  DEEPSEEK_SESSION_SOURCE,
+  markConnectedApp,
+  markConnectedAppDisconnected,
+} from "./connectedApps";
+import { CONNECTED_APP_IDS } from "../shared/connected-apps-contract.js";
 
 const INTERNAL_PLUGIN_SESSION_TTL_MS = 2 * 60 * 1000;
 const DEEPSEEK_SESSION_TTL_MS = 60 * 60 * 1000;
@@ -122,16 +128,25 @@ export const upsertPluginUser = internalMutation({
 });
 
 export const upsertDeepSeekDeviceUser = internalMutation({
-  args: pluginIdentityArgs,
+  args: {
+    ...pluginIdentityArgs,
+    pluginVersion: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const user = await upsertUser(ctx, args);
     const session = await issuePluginSession(ctx, user._id, {
       prefix: "dxd_",
       scopes: ["themes:read"],
-      source: "deepseek_github_device",
+      source: DEEPSEEK_SESSION_SOURCE,
       clientUsable: true,
       ttlMs: DEEPSEEK_SESSION_TTL_MS,
     });
+    await markConnectedApp(
+      ctx,
+      user._id,
+      CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
+      args.pluginVersion,
+    );
     return { ...session, userId: user._id };
   },
 });
@@ -174,6 +189,21 @@ export const revokeClientPluginSession = internalMutation({
       .first();
     if (!session || session.clientUsable !== true) return false;
     await ctx.db.delete(session._id);
+    if (session.source === DEEPSEEK_SESSION_SOURCE) {
+      const remainingSessions = await ctx.db
+        .query("pluginSessions")
+        .withIndex("by_user", (query) => query.eq("userId", session.userId))
+        .collect();
+      if (!remainingSessions.some((candidate) =>
+        candidate.clientUsable === true && candidate.source === DEEPSEEK_SESSION_SOURCE
+      )) {
+        await markConnectedAppDisconnected(
+          ctx,
+          session.userId,
+          CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
+        );
+      }
+    }
     return true;
   },
 });

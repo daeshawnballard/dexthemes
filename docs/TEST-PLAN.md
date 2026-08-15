@@ -53,6 +53,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] Confirm the tool result text contains the complete bounded JSON needed for the next call
 - [ ] Confirm calls send only explicit tool arguments—not transcript, workspace paths, credentials, or account identity
 - [ ] Preview, apply, and revert once, then confirm Statsig metadata contains only the event/source/theme/variant/plugin-version/failure-code allowlist
+- [ ] Confirm every platform event includes platform, source surface, plugin version, theme ID/variant when applicable, event-derived action, and attempted/succeeded/failed outcome
 - [ ] Confirm Standard mode can discover, draft, validate, preview, and prepare, while Creator mode additionally completes explicit `cordis_define` → approved `cordis_run` → `cordis_stop`
 - [ ] **Expected**: no install event or `harness_version` is fabricated, and no account achievement is granted without OAuth
 
@@ -64,9 +65,28 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] Complete GitHub authorization and return to Harness
 - [ ] **Expected**: creator stats and verified unlock count appear; neither the GitHub token nor the short-lived DexThemes session appears in browser storage, URL, Harness configuration, prompts, workspace, or analytics
 - [ ] Apply a theme while connected
-- [ ] **Expected**: `Harnessed` is granted idempotently and `Deep Current` appears from the bearer unlock response
+- [ ] **Expected**: `Harnessed` is granted idempotently, `Deep Current` appears from the bearer unlock response, and only the bounded plugin version plus server-observed apply evidence update Connected Apps
+- [ ] Sign into `www.dexthemes.com` with the same GitHub identity and open the account profile
+- [ ] **Expected**: Connected Apps shows DexThemes Connect, DeepSeek Harness, the reported plugin version, last used, and the recorded apply count; no token, prompt, workspace, theme payload, or Statsig identity is present
+- [ ] Choose **Disconnect** on the website, then retry an authenticated plugin account request
+- [ ] **Expected**: only DeepSeek client sessions are revoked, the app leaves the active Connected Apps list, and website GitHub OAuth, API keys, MCP OAuth/Auth0, and Codex behavior remain unchanged
 - [ ] Disconnect and refresh
 - [ ] **Expected**: Convex revokes the session, the credential and account-only reward leave the running client, and anonymous browse/apply still work
+- [ ] Use an existing account that has never completed DexThemes Connect Device Flow
+- [ ] **Expected**: Connected Apps is empty; achievements, Statsig activity, and historical account age do not fabricate a row
+
+### 1.7.1 DeepSeek Harness full restart and unavailable capability
+
+- [ ] Start from a fresh isolated Harness home/profile and install the current published npm package; record the resolved version and integrity separately from candidate proof
+- [ ] Upgrade that isolated profile to the candidate tarball/local package, open **Settings → Plugins → DexThemes**, connect through an approved test Device Flow, and Apply a paired theme
+- [ ] Quit only the isolated Harness process, relaunch the same profile, and reopen DexThemes
+- [ ] **Expected**: no token, prompt, workspace content, palette, or account identifier is persisted; the UI explicitly requests Device Flow reconnect while the validated saved theme restores when its required catalog is available
+- [ ] Complete the approved test reconnect when an account-only theme is under test
+- [ ] **Expected**: the verified unlock catalog returns and the saved theme restores without a second Apply click
+- [ ] Choose **Revert**, then **Disconnect**, quit, and relaunch once more
+- [ ] **Expected**: neither theme intent nor reconnect intent returns
+- [ ] In a separate isolated profile, omit the Harness theme provider while keeping Settings available
+- [ ] **Expected**: the DexThemes tab remains visible, a `role="alert"` explains the missing capability, Preview/account controls work, Apply is disabled, and **Forget saved theme** is safe
 
 ### 1.8 Community theme import
 - [ ] Select a community-submitted theme

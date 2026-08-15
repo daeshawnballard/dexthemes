@@ -106,6 +106,9 @@ test('Codex copy surfaces emit truthful telemetry and expose a manual failure pa
     assert.match(source, /['"]theme_copied['"]/);
     assert.doesNotMatch(source, /track(?:Event)?\(['"]theme_applied['"]/);
     assert.match(source, /showManualCopyDialog/);
+    assert.match(source, /trackPlatformEvent\('copy_attempted', 'codex'/);
+    assert.match(source, /trackPlatformEvent\('copy_succeeded', 'codex'/);
+    assert.match(source, /trackPlatformEvent\('copy_failed', 'codex'/);
   }
   assert.match(handoffSource, /export function showManualCopyDialog/);
   assert.match(multiHarnessDocs, /Codex copy-only handoffs emit `theme_copied`/);

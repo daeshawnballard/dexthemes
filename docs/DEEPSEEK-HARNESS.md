@@ -8,17 +8,20 @@ The primary user-facing seam is the separate `@dexthemes/deepseek-harness-plugin
 
 ```js
 return {
-  inject: ['theme'],
+  inject: ['slots'],
   apply(ctx) {
-    ctx.theme.overrideTokens('dexthemes', {
-      '--dsw-alias-bg-base': { light: '#FFFFFF', dark: '#111111' },
-      // The generated payload includes all supported semantic token pairs.
+    ctx.inject(['theme'], (themeCtx) => {
+      const dispose = themeCtx.theme.overrideTokens('dexthemes', {
+        '--dsw-alias-bg-base': { light: '#FFFFFF', dark: '#111111' },
+        // The generated payload includes all supported semantic token pairs.
+      })
+      themeCtx.effect(() => dispose)
     })
   },
 }
 ```
 
-The installed package retains that disposer. Applying another theme installs the next validated layer and disposes the previous one; **Revert** disposes the current layer and restores the Harness default. Package teardown also disposes its layer. Applying is user-initiated, and no DeepSeek Harness source change is required.
+The theme service is feature-detected rather than hard-required. The Settings tab remains visible if the service is absent or malformed, exposes a visible alert, disables Apply, and lets the user forget a saved selection. When available, the package retains the disposer. Applying another theme installs the next validated layer and disposes the previous one; **Revert** disposes the current layer and restores the Harness default. Package teardown also disposes its layer. Applying is user-initiated, and no DeepSeek Harness source change is required.
 
 The installed package has its own additive **DeepSeek** collection. Version 0.6 contains a paired palette matched to Harness's published semantic defaults plus twelve unofficial company-color tributes selected from documented DeepSeek integrations or deployments: Huawei, Tencent, Alibaba, Ant Group, ByteDance, Baidu, SiliconFlow, JD Cloud, China Telecom, China Mobile, HONOR, and Lenovo. Each tribute links to the public evidence that motivated inclusion. The UI explicitly disclaims partnership and endorsement, and the package includes no company logos, fonts, or other brand assets.
 
@@ -55,11 +58,15 @@ Harness does not need to share its identity with DexThemes. The installed settin
 1. **Connect DexThemes** requests a short-lived device and user code from GitHub through the rate-limited Convex proxy.
 2. The plugin shows only the user code and GitHub's exact `https://github.com/login/device` verification link. The opaque device code remains in memory.
 3. Convex polls GitHub using the shared **DexThemes Connect** OAuth application for installed integrations and requests no OAuth scope. The GitHub access token is used only inside that server request to fetch `/user`, then revoked through the server-held app secret; it is neither stored nor returned to Harness.
-4. Convex links the verified GitHub identity to the existing DexThemes user and returns a one-hour, read-only `dxd_…` session. Only its SHA-256 hash is stored; the credential stays in the running plugin closure and is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
+4. Convex links the verified GitHub identity to the existing DexThemes user, records explicit `DexThemes Connect` / `DeepSeek Harness` connection evidence with the bounded plugin version when available, and returns a one-hour, read-only `dxd_…` session. Only the session's SHA-256 hash is stored; the credential stays in the running plugin closure and is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
 5. Authenticated stats and unlocks use bearer-only wildcard CORS routes; cookie-backed website writes keep their existing origin allowlist.
-6. A successful connected theme apply calls `/plugin/deepseek-harness/use`. The verified bearer identity receives the idempotent **Harnessed** achievement and **Deep Current** reward, which enters only that connected session's catalog. Disconnect asks Convex to revoke the session; expiry is the unload/network-failure fallback.
+6. A successful connected theme apply calls `/plugin/deepseek-harness/use`. The verified bearer identity receives the idempotent **Harnessed** achievement and **Deep Current** reward, which enters only that connected session's catalog. The call also advances the durable last-used time and recorded-apply count for this exact Device Flow integration; no theme, prompt, workspace, or token enters that record. Disconnect asks Convex to revoke the session and marks the integration inactive; expiry is the credential fallback, not fabricated disconnect evidence.
+
+Only a versioned desired theme ID, account-only flag, and reconnect-needed boolean persist through Harness's snapshot-store engine. On restart, bundled/public themes restore when the catalog and optional theme service are ready. Account-only themes wait until the user explicitly completes Device Flow again. The `dxd_…` credential remains memory-only and is never silently restored from browser storage.
 
 The generic Harness MCP connection remains anonymous. Device authorization requires **Enable Device Flow** on the DexThemes-owned **DexThemes Connect** GitHub OAuth application plus `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex. DexThemes Connect is the shared entry point for installed integrations; it is not a DeepSeek-specific account or data silo. This follows GitHub's documented [OAuth App Device Flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow) without requiring a Harness source change. The website's GitHub browser flow and the Auth0/JWT contract used for standards-compliant Codex/ChatGPT MCP OAuth remain separate and unchanged.
+
+After signing into the website with the same GitHub identity, **Connected Apps** shows only explicit active evidence: DexThemes Connect, DeepSeek Harness, plugin version when reported, last observed connection/use, recorded theme applies, and **Disconnect**. It does not reconstruct past installations from achievements or analytics. Website disconnect revokes only DeepSeek client sessions and leaves website GitHub OAuth, MCP OAuth/Auth0, Codex behavior, and API keys unchanged.
 
 ## Installation and one-click boundary
 
@@ -69,6 +76,8 @@ The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified
 pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.0
 pnpm dsh web
 ```
+
+The current npm release is `0.6.0`; this source checkout prepares `0.6.1`. Do not install `@0.6.1` from the registry until npm reports it as published. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
 
 For local development against a source checkout, use the source directory instead:
 
@@ -87,6 +96,8 @@ The inspected Harness contract exposes `cordis_define` and `cordis_run` as in-pr
 
 DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selectors, localhost probing, local configuration edits, or invented DeepSeek APIs for this path.
 
+The `0.6.1` source contract was verified against DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. Required client contracts are the Module Loader, `settings.plugins.tab`, persisted `defineStore`, optional Cordis service injection, and `ThemeRuntime.overrideTokens(source, pairedTokens) → disposer`. No broader Harness semver range is claimed. Harness version is not added to analytics unless the client exposes an authoritative value.
+
 ## Compatibility matrix
 
 | Capability or contract | Reused unchanged | Additive DeepSeek surface | Current boundary |
@@ -97,11 +108,11 @@ DexThemes does not use clipboard/import, DOM injection, hard-coded Harness selec
 | Draft and validation | MCP `draft_theme`, `validate_theme`, `render_theme_preview` | Restricted Harness MCP profile plus paired `color_me_lucky` and `prepare_deepseek_apply` | Single-variant themes remain valid DexThemes themes but are DeepSeek-ineligible |
 | Codex apply | `prepare_theme_apply`, `codex-theme-v1`, copy/open Settings | None | Preserved as-is and remains separate |
 | DeepSeek apply | Theme palettes | Installed package, `/api/deepseek-theme`, semantic-token adapter, guarded `overrideTokens` click | Immediate inside the running installed plugin; website-to-local is unsupported |
-| Revert | None | Retained installed-plugin disposer; `cordis_stop` for a dynamic Package | Apply replacement and user-initiated revert are locally proven |
+| Revert and restart | None | Retained installed-plugin disposer, persisted bounded theme intent, `cordis_stop` for a dynamic Package | Candidate source covers restart restore; published `0.6.0` proves same-process Apply/Revert only |
 | Public/community themes | Existing publication, moderation, aliases, catalog | Paired public themes receive derived eligibility | No platform-specific duplicate theme rows |
-| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory DexThemes Connect session plus `/plugin/deepseek-harness/use` and `Harnessed` → `Deep Current` | Loaded production Device Flow, stats/unlocks, idempotent award, reward insertion, Revert, and Disconnect proven; anonymous use never grants it |
+| Account features | Existing OAuth bearer identity, stats, unlocks, and protected rewards | Optional in-memory DexThemes Connect session plus explicit post-restart reconnect, `/plugin/deepseek-harness/use`, and `Harnessed` → `Deep Current` | Published `0.6.0` production flow is proven; candidate restart recovery deliberately requires a new Device Flow and anonymous use never grants it |
 | Adoption/copy counts | Existing Codex-oriented copy endpoint and leaderboards | None | A DeepSeek apply is not counted as a Codex copy |
-| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted metadata and lifecycle disposal | Loaded 0.6.0 runtime delivered bounded Apply/Revert events and received Statsig 202 receipts |
+| Analytics storage | Existing Statsig project and public client-key config | Package-owned Statsig client with allowlisted platform/source/version/theme/variant/action/outcome metadata and lifecycle disposal | Loaded `0.6.0` receipts remain release evidence; candidate analytics delivery is not production proof |
 
 ### Additive discriminator and payload fields
 
@@ -132,16 +143,21 @@ DeepSeek events use an additive namespace so existing Codex dashboards and store
 | `deepseek_theme_apply_started` | User clicks the connected Apply action | source surface, theme ID, variant, versions |
 | `deepseek_theme_apply_succeeded` | `overrideTokens` returns its disposer | source surface, theme ID, variant, versions |
 | `deepseek_theme_apply_failed` | The guarded service rejects or is unavailable | source surface, theme ID, variant, versions, bounded failure code |
+| `deepseek_theme_restore_started` | A saved validated theme is ready after restart | startup source, theme ID, variant, plugin version |
+| `deepseek_theme_restore_succeeded` | The restored override returns its disposer | startup source, theme ID, variant, plugin version |
+| `deepseek_theme_restore_failed` | The restore contract rejects the layer | startup source, theme ID, variant, plugin version, bounded failure code |
 | `deepseek_theme_revert_started` | User initiates removal of the owned layer | source surface, theme ID, variant, versions |
 | `deepseek_theme_revert_succeeded` | The retained disposer removes the layer | source surface, theme ID, variant, versions |
 | `deepseek_theme_revert_failed` | The retained disposer rejects removal | source surface, theme ID, variant, versions, bounded failure code |
 | `deepseek_theme_reverted` | The retained disposer removes the layer | source surface, theme ID, variant, versions |
+| `deepseek_theme_capability_available` | Optional theme-service detection succeeds | capability source, plugin version |
+| `deepseek_theme_capability_unavailable` | The service is absent, malformed, or collapses | capability source, plugin version, bounded failure code |
 
-Every event receives fixed `platform: deepseek_harness` and `mechanism: cordis_theme_override`. The remaining values are short allowlisted identifiers only. Do not send prompts, theme-generation prose, workspace contents or paths, file names, credentials, tokens, user-entered error messages, account identity, or other sensitive/free-form data. Raw exceptions are converted to a bounded failure code.
+Every event receives fixed `platform: deepseek_harness`, `platform_id: deepseek`, `mechanism: cordis_theme_override`, plugin version, paired variant, and event-derived `action`/`outcome`. Source surface is explicit; theme ID is included when applicable. The remaining values are short allowlisted identifiers only. Do not send prompts, theme-generation prose, workspace contents or paths, file names, credentials, tokens, user-entered error messages, account identity, or other sensitive/free-form data. Raw exceptions are converted to a bounded failure code.
 
 The website source emits apply start/success/failure and revert only when a real guarded service has connected. The installed package sends preview, apply start/success/failure, and revert attempt/success/failure through a package-owned Statsig client. The original `deepseek_theme_reverted` success event remains additive for dashboard compatibility. It uses a fixed non-account user key, disables SDK storage and page-URL attachment, sanitizes every field, and shuts down with the plugin lifecycle. Installation events belong to a future registry/marketplace installer and are not fabricated on module load. The plugin version is allowlisted; an authoritative Harness version is omitted until Harness provides it to the client package.
 
-The loaded registry-installed `0.6.0` package delivered `deepseek_theme_apply_started`, `deepseek_theme_apply_succeeded`, `deepseek_theme_revert_started`, `deepseek_theme_revert_succeeded`, and `deepseek_theme_reverted` with only the fixed platform/mechanism, Settings source surface, bounded theme ID, paired variant, and plugin version. The Statsig registry accepted the batches with HTTP 202. No prompt, workspace, URL, account, credential, or palette data appeared in the captured event metadata.
+The loaded registry-installed `0.6.0` package delivered the earlier bounded Apply/Revert schema and received Statsig HTTP 202 receipts. The additive action/outcome, restore, and capability fields belong to the unpublished `0.6.1` candidate until a later authorized publication and production receipt. No prompt, workspace, URL, account, credential, or palette data is permitted in either schema.
 
 ## Installed plugin information architecture
 

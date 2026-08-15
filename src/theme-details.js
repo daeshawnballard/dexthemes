@@ -100,6 +100,8 @@ function renderDetailsPlatformAction(action) {
       data-action="open-platform-setup"
       data-platform-id="${escapeHtml(state.selectedPlatformId)}"
       data-source-surface="theme_details"
+      data-theme-id="${escapeHtml(state.selectedTheme?.id || '')}"
+      data-variant="${escapeHtml(state.selectedVariant || 'unknown')}"
     >
       <svg class="apply-icon-platform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       <span>${label}</span>

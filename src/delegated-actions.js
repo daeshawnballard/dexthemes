@@ -45,11 +45,13 @@ async function dispatchAction(action, element, event) {
     }
     case 'open-platform-setup':
       return import('./platform-analytics.js').then((m) => m.trackPlatformEvent(
-        'apply_attempted',
+        'platform_setup_opened',
         element.dataset.platformId || 'codex',
         {
           source_surface: element.dataset.sourceSurface || 'website',
           apply_mode: 'setup',
+          theme_id: element.dataset.themeId,
+          variant: element.dataset.variant,
         },
       ));
     case 'toggle-filter-dropdown':
@@ -127,6 +129,11 @@ async function dispatchAction(action, element, event) {
       })();
     case 'close-profile-view':
       return loadAuthModule().then((m) => m.closeAchievements());
+    case 'retry-connected-apps':
+      return loadAuthModule().then((m) => m.retryConnectedApps());
+    case 'disconnect-connected-app':
+      return loadAuthModule().then((m) =>
+        m.disconnectConnectedAppFromProfile(element.dataset.integrationId || '', element));
     case 'open-leaderboard':
       return (async () => {
         const details = await loadThemeDetailsModule();

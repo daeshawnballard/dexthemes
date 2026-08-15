@@ -1,13 +1,18 @@
+import { normalizeConnectedAppPluginVersion } from '../../../shared/connected-apps-contract.js';
+
 export const DEXTHEMES_ACCOUNT_API_URL = 'https://acrobatic-corgi-867.convex.site';
 
-const EMPTY_STATE = Object.freeze({
-  status: 'idle',
-  error: null,
-  userCode: null,
-  verificationUrl: null,
-  stats: null,
-  unlocks: Object.freeze([]),
-});
+function emptyState(reconnectRequired = false) {
+  return Object.freeze({
+    status: 'idle',
+    error: null,
+    userCode: null,
+    verificationUrl: null,
+    stats: null,
+    unlocks: Object.freeze([]),
+    reconnectRequired: reconnectRequired === true,
+  });
+}
 
 function freezeState(state) {
   return Object.freeze({
@@ -71,6 +76,7 @@ export async function pollDeviceAuthorization(device, {
   fetchImpl = globalThis.fetch,
   apiBaseUrl = DEXTHEMES_ACCOUNT_API_URL,
   waitImpl = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
+  pluginVersion,
   signal,
 } = {}) {
   const deadline = Date.now() + (device.expiresIn * 1000);
@@ -81,7 +87,12 @@ export async function pollDeviceAuthorization(device, {
     const response = await fetchImpl(`${apiBaseUrl}/plugin/deepseek-harness/auth/poll`, {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceCode: device.deviceCode }),
+      body: JSON.stringify({
+        deviceCode: device.deviceCode,
+        ...(normalizeConnectedAppPluginVersion(pluginVersion) ? {
+          pluginVersion: normalizeConnectedAppPluginVersion(pluginVersion),
+        } : {}),
+      }),
       signal,
     });
     const payload = await parseJson(response);
@@ -107,12 +118,17 @@ export function createHarnessAccountClient({
   fetchImpl = globalThis.fetch,
   apiBaseUrl = DEXTHEMES_ACCOUNT_API_URL,
   waitImpl,
+  reconnectRequired = false,
+  onConnected = () => {},
+  onDisconnected = () => {},
+  pluginVersion,
 } = {}) {
+  const reportedPluginVersion = normalizeConnectedAppPluginVersion(pluginVersion);
   let accessToken = '';
   let expiresAt = 0;
   let generation = 0;
   let controller = null;
-  let state = EMPTY_STATE;
+  let state = emptyState(reconnectRequired);
   const listeners = new Set();
 
   const publish = (next) => {
@@ -142,7 +158,11 @@ export function createHarnessAccountClient({
       controller = null;
       accessToken = '';
       expiresAt = 0;
-      publish({ ...EMPTY_STATE, status: 'error', error: 'DexThemes account session expired. Connect again.' });
+      publish({
+        ...emptyState(true),
+        status: 'error',
+        error: 'DexThemes account session expired. Connect again.',
+      });
     }
     if (!response.ok) throw new Error(boundedError(payload.error, 'DexThemes account request failed'));
     return payload;
@@ -173,6 +193,7 @@ export function createHarnessAccountClient({
       verificationUrl: null,
       stats: statsPayload,
       unlocks: Array.isArray(unlockPayload.unlocks) ? unlockPayload.unlocks : [],
+      reconnectRequired: false,
     });
     return true;
   };
@@ -190,12 +211,12 @@ export function createHarnessAccountClient({
       controller = attemptController;
       accessToken = '';
       expiresAt = 0;
-      publish({ ...EMPTY_STATE, status: 'connecting' });
+      publish({ ...emptyState(state.reconnectRequired), status: 'connecting' });
       try {
         const device = await requestDeviceAuthorization({ fetchImpl, apiBaseUrl, signal: attemptController.signal });
         if (attempt !== generation || attemptController.signal.aborted) return null;
         publish({
-          ...EMPTY_STATE,
+          ...emptyState(state.reconnectRequired),
           status: 'awaiting_authorization',
           userCode: device.userCode,
           verificationUrl: device.verificationUrl,
@@ -204,31 +225,47 @@ export function createHarnessAccountClient({
           fetchImpl,
           apiBaseUrl,
           waitImpl,
+          pluginVersion: reportedPluginVersion,
           signal: attemptController.signal,
         }).then(async (session) => {
           if (attempt !== generation || attemptController.signal.aborted) return;
           accessToken = session.accessToken;
           expiresAt = Date.now() + (session.expiresIn * 1000);
-          await refresh(attempt);
+          if (await refresh(attempt)) {
+            try { onConnected(); } catch { /* Persistence must not affect connection. */ }
+          }
         }).catch((error) => {
           if (error?.name === 'AbortError' || attempt !== generation) return;
           accessToken = '';
           expiresAt = 0;
-          publish({ ...EMPTY_STATE, status: 'error', error: boundedError(error?.message, 'DexThemes account connection failed') });
+          publish({
+            ...emptyState(state.reconnectRequired),
+            status: 'error',
+            error: boundedError(error?.message, 'DexThemes account connection failed'),
+          });
         });
         return Object.freeze({ userCode: device.userCode, verificationUrl: device.verificationUrl });
       } catch (error) {
         if (error?.name === 'AbortError' || attempt !== generation) return null;
         accessToken = '';
         expiresAt = 0;
-        publish({ ...EMPTY_STATE, status: 'error', error: boundedError(error?.message, 'DexThemes account connection failed') });
+        publish({
+          ...emptyState(state.reconnectRequired),
+          status: 'error',
+          error: boundedError(error?.message, 'DexThemes account connection failed'),
+        });
         return null;
       }
     },
     async recordHarnessUse() {
       if (!accessToken) return null;
       const expectedGeneration = generation;
-      const result = await authorizedFetch('/plugin/deepseek-harness/use', { method: 'POST' });
+      const result = await authorizedFetch('/plugin/deepseek-harness/use', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...(reportedPluginVersion ? { pluginVersion: reportedPluginVersion } : {}),
+        }),
+      });
       await refresh(expectedGeneration);
       return result.achievement || null;
     },
@@ -239,7 +276,8 @@ export function createHarnessAccountClient({
       const token = accessToken;
       accessToken = '';
       expiresAt = 0;
-      publish(EMPTY_STATE);
+      publish(emptyState(false));
+      try { onDisconnected(); } catch { /* Persistence must not affect disconnect. */ }
       await revoke(token);
     },
     destroy() {
@@ -249,7 +287,7 @@ export function createHarnessAccountClient({
       const token = accessToken;
       accessToken = '';
       expiresAt = 0;
-      state = EMPTY_STATE;
+      state = emptyState(state.reconnectRequired);
       listeners.clear();
       void revoke(token);
     },

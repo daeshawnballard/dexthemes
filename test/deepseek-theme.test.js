@@ -255,6 +255,7 @@ test('DeepSeek analytics uses a separate allowlisted taxonomy without sensitive 
 
   assert.deepEqual(metadata, {
     platform: 'deepseek_harness',
+    platform_id: 'deepseek',
     mechanism: 'cordis_theme_override',
     source_surface: 'website_theme_details',
     theme_id: 'test-pair',
@@ -266,7 +267,26 @@ test('DeepSeek analytics uses a separate allowlisted taxonomy without sensitive 
   assert.equal(JSON.stringify(metadata).includes('private'), false);
   assert.deepEqual(buildDeepSeekAnalyticsMetadata({ themeId: 'unsafe id with spaces' }), {
     platform: 'deepseek_harness',
+    platform_id: 'deepseek',
     mechanism: 'cordis_theme_override',
+    source_surface: 'unknown',
+    plugin_version: '0.6.0',
+  });
+  assert.deepEqual(buildDeepSeekAnalyticsMetadata({
+    sourceSurface: 'website_preview',
+    themeId: 'test-pair',
+    variant: 'paired',
+    pluginVersion: '0.6.1',
+  }, DEEPSEEK_ANALYTICS_EVENTS.APPLY_FAILED), {
+    platform: 'deepseek_harness',
+    platform_id: 'deepseek',
+    mechanism: 'cordis_theme_override',
+    source_surface: 'website_preview',
+    theme_id: 'test-pair',
+    variant: 'paired',
+    plugin_version: '0.6.1',
+    action: 'apply',
+    outcome: 'failed',
   });
   assert.equal(classifyDeepSeekApplyFailure(new Error('Harness is not connected')), 'service_unavailable');
   assert.equal(classifyDeepSeekApplyFailure(new Error('overrideTokens must return a disposer')), 'runtime_contract_rejected');

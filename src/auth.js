@@ -11,6 +11,11 @@ import { trackEvent, syncStatsigUser } from './analytics-client.js';
 import { loadBuilderModule } from './lazy-modules.js';
 import { getUnlockActionForThemeId } from './unlocks.js';
 import {
+  disconnectConnectedApp as disconnectConnectedAppRequest,
+  fetchConnectedApps,
+  renderConnectedAppsSection,
+} from './connected-apps.js';
+import {
   authFetch,
   clearSessionHint,
   clearStoredSessionToken,
@@ -179,14 +184,31 @@ export async function showAchievements() {
   win.style.display = 'none';
   pv.style.display = '';
   previewArea?.classList.add('preview-area--detail');
+  pv.innerHTML = `
+    <div class="profile-container">
+      <div class="profile-loading" role="status">Loading account…</div>
+    </div>
+  `;
 
-  let stats = null;
-  try {
-    const res = await authFetch(CONVEX_SITE_URL + '/me/stats');
-    if (res.ok) stats = await res.json();
-  } catch (e) {
-    console.warn('Failed to load profile stats:', e);
+  const [statsResult, connectedAppsResult] = await Promise.allSettled([
+    authFetch(CONVEX_SITE_URL + '/me/stats').then(async (response) =>
+      response.ok ? await response.json() : null),
+    fetchConnectedApps(),
+  ]);
+  const stats = statsResult.status === 'fulfilled' ? statsResult.value : null;
+  if (statsResult.status === 'rejected') {
+    console.warn('Failed to load profile stats:', statsResult.reason);
   }
+  profileConnectedApps = connectedAppsResult.status === 'fulfilled'
+    ? [...connectedAppsResult.value]
+    : [];
+  const connectedAppsState = connectedAppsResult.status === 'fulfilled'
+    ? { status: 'ready', apps: profileConnectedApps }
+    : {
+        status: 'error',
+        apps: profileConnectedApps,
+        error: connectedAppsResult.reason?.message,
+      };
 
   const user = state.currentUser;
   const avatarUrl = safeImageSrc(user.avatarUrl);
@@ -339,6 +361,7 @@ export async function showAchievements() {
           </div>
         </section>
       </div>
+      ${renderConnectedAppsSection(connectedAppsState)}
       <div class="achievements-section">
         <div class="achievements-header">
           <span class="achievements-title">Achievements</span>
@@ -353,6 +376,48 @@ export async function showAchievements() {
       </div>
     </div>
   `;
+}
+
+let profileConnectedApps = [];
+
+function replaceConnectedAppsSection(state) {
+  const section = document.getElementById('connected-apps-section');
+  if (!section) return;
+  section.outerHTML = renderConnectedAppsSection(state);
+}
+
+export async function retryConnectedApps() {
+  replaceConnectedAppsSection({ status: 'loading', apps: profileConnectedApps });
+  try {
+    profileConnectedApps = [...await fetchConnectedApps()];
+    replaceConnectedAppsSection({ status: 'ready', apps: profileConnectedApps });
+  } catch (error) {
+    replaceConnectedAppsSection({
+      status: 'error',
+      apps: profileConnectedApps,
+      error: error?.message,
+    });
+  }
+}
+
+export async function disconnectConnectedAppFromProfile(integrationId, button) {
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Disconnecting…';
+  }
+  try {
+    await disconnectConnectedAppRequest(integrationId);
+    profileConnectedApps = profileConnectedApps.filter((app) =>
+      app.integrationId !== integrationId);
+    replaceConnectedAppsSection({ status: 'ready', apps: profileConnectedApps });
+    await retryConnectedApps();
+  } catch (error) {
+    replaceConnectedAppsSection({
+      status: 'error',
+      apps: profileConnectedApps,
+      error: error?.message || 'Connected app could not be disconnected',
+    });
+  }
 }
 
 export function closeAchievements() {
