@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.3 — Unreleased
+## 0.6.3 — 2026-08-15
 
 - Route card and preview Apply actions through one explicit coordinator that starts the separately scoped Connected Apps receipt only after Harness accepts the theme override.
 - Surface bounded receipt recording, success, and failure states in the account panel; a retry reuses the same in-memory UUID so a lost response cannot double count activity.

@@ -436,15 +436,15 @@ test('device authorization uses bounded public codes and respects provider polli
   }));
 });
 
-test('install docs identify the published 0.6.2 registry package and local-development path', async () => {
+test('install docs identify the 0.6.3 registry candidate and local-development path', async () => {
   const [packageReadme, integrationDocs] = await Promise.all([
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
   ]);
 
   for (const source of [packageReadme, integrationDocs]) {
-    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.2/);
-    assert.doesNotMatch(source, /0\.6\.2[^\n]*not published/i);
+    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.3/);
+    assert.doesNotMatch(source, /0\.6\.3[^\n]*(?:not published|unreleased)/i);
     assert.doesNotMatch(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
     assert.match(source, /local development/i);
   }
@@ -473,7 +473,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     'GitHub releases',
     'support or bug issue',
   ]) assert.match(packageReadme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
-  assert.match(changelog, /0\.6\.3 — Unreleased/);
+  assert.match(changelog, /0\.6\.3 — 2026-08-15/);
   assert.match(changelog, /0\.6\.2 — 2026-08-14/);
   assert.match(changelog, /0\.6\.1 — 2026-08-14/);
   assert.match(changelog, /0\.6\.0 — 2026-08-14/);
