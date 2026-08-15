@@ -77,6 +77,8 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 1.7.1 DeepSeek Harness full restart and unavailable capability
 
+The public-registry `0.6.2` receipt proves fresh exact-package installation, loaded bundle identity, Apply, full process restart with restoration on DexThemes-surface remount, Revert, 100-theme offline fallback, and retryable controlled Disconnect failure. It does not prove production Device Flow, the immediate production `Harnessed` grant, production connected-Apply reporting, or first-paint restoration. See [the runtime receipt](DEEPSEEK-HARNESS-062-RUNTIME-RECEIPT.md).
+
 - [ ] Start from a fresh isolated Harness home/profile and install the current published npm package; record the resolved version and integrity separately from candidate proof
 - [ ] Upgrade that isolated profile to the candidate tarball/local package, open **Settings → Plugins → DexThemes**, connect through an approved test Device Flow, and Apply a paired theme
 - [ ] Quit only the isolated Harness process, relaunch the same profile, and reopen DexThemes
