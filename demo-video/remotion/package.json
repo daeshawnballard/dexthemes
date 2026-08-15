@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@remotion/captions": "4.0.490",
     "@remotion/cli": "4.0.490",
     "@remotion/media": "4.0.490",
     "react": "19.2.3",
@@ -28,6 +29,11 @@
     "render:previs:source": "npm run render:master:source",
     "render:previs": "npm run render:master",
     "render:still": "remotion still BuildWeekDemo out/dexthemes-build-week-review-v10.png --frame=2400 --scale=0.5",
+    "render:deepseek:master": "remotion render DeepSeekHarnessReleaseMaster out/deepseek-release/dexthemes-deepseek-harness-0.6.2-master-1920x1080.mp4 --codec=h264 --crf=18 --audio-codec=aac --audio-bitrate=192k",
+    "render:deepseek:vertical": "remotion render DeepSeekHarnessReleaseVertical out/deepseek-release/dexthemes-deepseek-harness-0.6.2-vertical-1080x1920.mp4 --codec=h264 --crf=18 --audio-codec=aac --audio-bitrate=192k",
+    "render:deepseek:square": "remotion render DeepSeekHarnessReleaseSquare out/deepseek-release/dexthemes-deepseek-harness-0.6.2-square-1080x1080.mp4 --codec=h264 --crf=18 --audio-codec=aac --audio-bitrate=192k",
+    "render:deepseek:all": "npm run render:deepseek:master && npm run render:deepseek:vertical && npm run render:deepseek:square",
+    "render:deepseek:stills": "remotion still DeepSeekHarnessReleaseMaster out/deepseek-release/review-master.png --frame=510 && remotion still DeepSeekHarnessReleaseVertical out/deepseek-release/review-vertical.png --frame=930 && remotion still DeepSeekHarnessReleaseSquare out/deepseek-release/review-square.png --frame=930",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },
