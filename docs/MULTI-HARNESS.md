@@ -67,7 +67,7 @@ Existing theme rows and models are reused unchanged: IDs, names, summaries, ligh
 
 Existing catalog, detail, community, validation, preview, Codex apply-preparation, DeepSeek apply-preparation, MCP, and account endpoints remain reusable. DeepSeek's installed account connection continues to use GitHub Device Flow plus Convex. Codex/ChatGPT standards-based MCP OAuth remains separate. Anonymous MCP profiles cannot publish, overwrite account themes, or award authenticated achievements.
 
-The existing `use_deepseek_harness` achievement is awarded only after a connected plugin Apply. A DexThemes AI or multi-harness achievement remains blocked until the server has an authenticated, non-spoofable acceptance event. Adding a visible unlock prematurely would also change existing achievement completion denominators, so no speculative unlock or migration is included.
+The existing `use_deepseek_harness` achievement is awarded only after Convex verifies the installed integration's GitHub Device Flow identity and revokes GitHub's temporary token. Client-reported Apply activity cannot grant it. A DexThemes AI or multi-harness achievement remains blocked until the server has an authenticated, non-spoofable acceptance event. Adding a visible unlock prematurely would also change existing achievement completion denominators, so no speculative unlock or migration is included.
 
 ## Analytics compatibility and privacy
 

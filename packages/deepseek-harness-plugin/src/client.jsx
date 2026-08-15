@@ -168,6 +168,7 @@ function AccountPanel({ account }) {
   const state = useSyncExternalStore(account.subscribe, account.getSnapshot, account.getSnapshot);
   const busy = state.status === 'connecting';
   const connected = state.status === 'connected';
+  const disconnecting = state.status === 'disconnecting';
   const waiting = state.status === 'awaiting_authorization';
   const publishedThemes = Array.isArray(state.stats?.themes) ? state.stats.themes.length : 0;
   const unlockCount = state.unlocks.length;
@@ -181,15 +182,15 @@ function AccountPanel({ account }) {
           ? `Enter code ${state.userCode} to finish connecting.`
           : state.reconnectRequired
             ? 'Reconnect after restart to recover creator stats, achievements, and account-only themes.'
-            : 'Optional: connect for creator stats, achievements, and the Harnessed reward.'}</span>
+            : 'Optional: connect for creator stats, achievements, and account-only themes.'}</span>
       {state.error ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{state.error}</span> : null}
     </div>
     <div style={ui.accountActions}>
       {waiting && state.verificationUrl
         ? <a style={ui.link} href={state.verificationUrl} target="_blank" rel="noreferrer">Continue with GitHub</a>
         : null}
-      {connected
-        ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Disconnect</button>
+      {connected || disconnecting
+        ? <button type="button" style={ui.button} disabled={disconnecting} onClick={() => account.disconnect()}>{disconnecting ? 'Disconnecting…' : 'Disconnect'}</button>
         : waiting
           ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Cancel</button>
           : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={busy} onClick={() => { void account.connect(); }}>{busy ? 'Connecting…' : state.reconnectRequired ? 'Reconnect DexThemes' : 'Connect DexThemes'}</button>}
@@ -300,7 +301,7 @@ export function apply(ctx) {
   const controller = createHarnessThemeController(null, {
     preferences,
     onEvent: (event) => analytics.track(event),
-    onApplied: () => account.recordHarnessUse(),
+    onApplied: () => { void account.recordHarnessUse().catch(() => {}); },
   });
   void analytics.start();
   ctx.inject(['theme'], (themeCtx) => {

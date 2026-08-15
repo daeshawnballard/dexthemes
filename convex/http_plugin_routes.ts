@@ -9,6 +9,8 @@ import {
 import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 import {
   CONNECTED_APP_IDS,
+  DEEPSEEK_HARNESS_USE_SCOPE,
+  normalizeClientUseReceiptId,
   normalizeConnectedAppPluginVersion,
 } from "../shared/connected-apps-contract.js";
 import { DEEPSEEK_SESSION_SOURCE } from "./connectedApps";
@@ -325,7 +327,7 @@ export function registerPluginRoutes(http: DexHttpRouter) {
             accessToken: session.pluginAuthToken,
             tokenType: "Bearer",
             expiresIn: session.expiresIn,
-            scope: "themes:read",
+            scope: `themes:read ${DEEPSEEK_HARNESS_USE_SCOPE}`,
           });
         }
         return githubDeviceErrorResponse(payload, upstream.ok ? 502 : upstream.status >= 500 ? 502 : 400);
@@ -359,17 +361,27 @@ export function registerPluginRoutes(http: DexHttpRouter) {
     method: "POST",
     handler: httpAction(async (ctx, request) => {
       try {
-        const session = await authorizePlugin(ctx, request, "themes:read");
+        const session = await authorizePlugin(ctx, request, DEEPSEEK_HARNESS_USE_SCOPE);
         const body: any = await request.json().catch(() => ({}));
-        const isConnectedDeepSeekApp = session.source === DEEPSEEK_SESSION_SOURCE;
-        const achievement = await ctx.runMutation(internal.unlocks.recordDeepSeekHarnessUseForUser, {
+        if (session.source !== DEEPSEEK_SESSION_SOURCE) {
+          const error: any = new Error("Insufficient scope");
+          error.status = 403;
+          throw error;
+        }
+        const receiptId = normalizeClientUseReceiptId(body?.receiptId);
+        if (!receiptId) {
+          return pluginJsonResponse({ error: "Invalid client use receipt" }, 400);
+        }
+        const result = await ctx.runMutation(internal.connectedApps.recordClientReportedUseForUser, {
           userId: session.userId,
-          ...(isConnectedDeepSeekApp ? {
-            connectedAppId: CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
-            pluginVersion: normalizeConnectedAppPluginVersion(body?.pluginVersion),
-          } : {}),
+          integrationId: CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
+          receiptId,
+          pluginVersion: normalizeConnectedAppPluginVersion(body?.pluginVersion),
         });
-        return pluginJsonResponse({ achievement });
+        return pluginJsonResponse({
+          recorded: result.recorded === true,
+          evidence: "client_reported",
+        });
       } catch (error) {
         return errorResponse(error);
       }

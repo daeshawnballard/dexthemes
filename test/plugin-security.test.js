@@ -39,20 +39,29 @@ test('generic unlock endpoint excludes server-verifiable achievements', async ()
   }
 });
 
-test('DeepSeek Harness achievement uses only verified plugin identity and accepts only bounded version evidence', async () => {
-  const [routes, unlocks] = await Promise.all([
+test('DeepSeek Harness activity is separately scoped, client-reported, and cannot grant protected rewards', async () => {
+  const [routes, unlocks, users, records] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/unlocks.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/pluginUsers.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/connectedApps.ts', import.meta.url), 'utf8'),
   ]);
   const route = routes.match(/path: "\/plugin\/deepseek-harness\/use"[\s\S]*?\n  \}\);/)?.[0] || '';
-  assert.match(route, /authorizePlugin\(ctx, request, "themes:read"\)/);
-  assert.match(route, /recordDeepSeekHarnessUseForUser/);
+  assert.match(route, /authorizePlugin\(ctx, request, DEEPSEEK_HARNESS_USE_SCOPE\)/);
+  assert.match(route, /recordClientReportedUseForUser/);
   assert.match(route, /userId: session\.userId/);
   assert.match(route, /request\.json\(\)\.catch/);
+  assert.match(route, /normalizeClientUseReceiptId\(body\?\.receiptId\)/);
   assert.match(route, /normalizeConnectedAppPluginVersion\(body\?\.pluginVersion\)/);
+  assert.match(route, /evidence: "client_reported"/);
   assert.doesNotMatch(route, /body\?\.(?:user|identity|token|action|platform|prompt|workspace|theme)/);
-  assert.match(unlocks, /recordDeepSeekHarnessUseForUser = internalMutation/);
-  assert.match(unlocks, /grantUnlockForUser\(ctx, args\.userId, "use_deepseek_harness"\)/);
+  assert.doesNotMatch(route, /grantUnlock|achievement|internal\.unlocks/);
+  assert.doesNotMatch(unlocks, /recordDeepSeekHarnessUse/);
+  assert.match(users, /grantUnlockForUser\(ctx, user\._id, "use_deepseek_harness"\)/);
+  assert.match(users, /scopes: \["themes:read", DEEPSEEK_HARNESS_USE_SCOPE\]/);
+  assert.match(records, /advanceClientUseReceiptHashes\(existing\.clientReceiptHashes, receiptHash\)/);
+  assert.match(records, /!receiptWindow\.accepted/);
+  assert.match(records, /recorded: false, clientReported: true/);
 });
 
 test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and origin-independent', async () => {
@@ -86,11 +95,12 @@ test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and or
   assert.match(routes, /requiredScope: scope/);
   assert.match(routes, /getSubmissionStatsForPluginUser/);
   assert.match(routes, /getUnlocksForUser/);
-  assert.match(routes, /recordDeepSeekHarnessUseForUser/);
+  assert.match(routes, /recordClientReportedUseForUser/);
   assert.match(routes, /\/plugin\/deepseek-harness\/session/);
   assert.match(routes, /revokeClientPluginSession/);
   assert.match(sessions, /DEEPSEEK_SESSION_TTL_MS = 60 \* 60 \* 1000/);
-  assert.match(sessions, /scopes: \["themes:read"\]/);
+  assert.match(sessions, /scopes: \["themes:read", DEEPSEEK_HARNESS_USE_SCOPE\]/);
+  assert.match(routes, /scope: `themes:read \$\{DEEPSEEK_HARNESS_USE_SCOPE\}`/);
   assert.match(connectedApps, /DEEPSEEK_SESSION_SOURCE = "deepseek_github_device"/);
   assert.match(sessions, /source: DEEPSEEK_SESSION_SOURCE/);
   assert.match(sessions, /clientUsable: true/);

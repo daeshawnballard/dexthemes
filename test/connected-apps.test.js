@@ -4,6 +4,9 @@ import test from 'node:test';
 
 import {
   CONNECTED_APP_IDS,
+  DEEPSEEK_HARNESS_USE_SCOPE,
+  advanceClientUseReceiptHashes,
+  normalizeClientUseReceiptId,
   normalizeConnectedAppPluginVersion,
   projectConnectedAppRecord,
 } from '../shared/connected-apps-contract.js';
@@ -48,7 +51,7 @@ test('Connected Apps projection exposes only bounded account evidence', () => {
     pluginVersion: '0.6.0',
     connectedAt: 100,
     lastUsedAt: 200,
-    usage: { recordedThemeApplies: 3 },
+    usage: { clientReportedThemeApplies: 3, evidence: 'client_reported' },
     canDisconnect: true,
   });
   assert.equal(JSON.stringify(projected).includes('secret'), false);
@@ -59,6 +62,26 @@ test('Connected Apps projection exposes only bounded account evidence', () => {
     disconnectedAt: 1,
   }), null);
   assert.equal(normalizeConnectedAppPluginVersion('version 1'), undefined);
+  assert.equal(DEEPSEEK_HARNESS_USE_SCOPE, 'harness:use');
+  assert.equal(normalizeClientUseReceiptId('0194f5e2-0b8e-4c53-9a20-87e7ac48a889'), '0194f5e2-0b8e-4c53-9a20-87e7ac48a889');
+  assert.equal(normalizeClientUseReceiptId('forged'), null);
+});
+
+test('client-reported activity receipts reject replay and stay bounded', () => {
+  const firstHash = 'a'.repeat(64);
+  const first = advanceClientUseReceiptHashes([], firstHash);
+  assert.equal(first.accepted, true);
+  assert.deepEqual(first.hashes, [firstHash]);
+  const replay = advanceClientUseReceiptHashes(first.hashes, firstHash);
+  assert.equal(replay.accepted, false);
+  assert.deepEqual(replay.hashes, [firstHash]);
+  let hashes = first.hashes;
+  for (let index = 1; index <= 40; index += 1) {
+    hashes = advanceClientUseReceiptHashes(hashes, index.toString(16).padStart(64, '0')).hashes;
+  }
+  assert.equal(hashes.length, 32);
+  assert.equal(hashes.includes(firstHash), false);
+  assert.equal(advanceClientUseReceiptHashes([], 'invalid').accepted, false);
 });
 
 test('Connected Apps browser client uses one website-session route and an exact disconnect body', async () => {
@@ -71,7 +94,7 @@ test('Connected Apps browser client uses one website-session route and an exact 
         pluginVersion: '0.6.0',
         connectedAt: 100,
         lastUsedAt: 200,
-        usage: { recordedThemeApplies: 2 },
+        usage: { clientReportedThemeApplies: 2 },
       }] });
     }
     return Response.json({ disconnected: true });
@@ -131,7 +154,7 @@ test('Connected Apps account UI renders loading, empty, error, evidence, and dis
   assert.match(populated, /DexThemes Connect/);
   assert.match(populated, /DeepSeek Harness/);
   assert.match(populated, /Plugin 0\.6\.0/);
-  assert.match(populated, /1 recorded theme apply/);
+  assert.match(populated, /1 client-reported theme activity/);
   assert.match(populated, /data-action="disconnect-connected-app"/);
 });
 
@@ -153,13 +176,18 @@ test('Connected Apps remains durable, additive, session-separated, and evidence-
   assert.match(connectedAppsTable, /integrationId: v\.string\(\)/);
   assert.match(connectedAppsTable, /pluginVersion: v\.optional\(v\.string\(\)\)/);
   assert.match(connectedAppsTable, /usageCount: v\.number\(\)/);
+  assert.match(connectedAppsTable, /clientReceiptHashes: v\.optional\(v\.array\(v\.string\(\)\)\)/);
   assert.doesNotMatch(connectedAppsTable, /token|credential|prompt|workspace|provider/i);
   assert.match(records, /projectConnectedAppRecord/);
   assert.match(records, /disconnectedAt/);
   assert.doesNotMatch(records, /Statsig|trackEvent|analytics/i);
   assert.match(users, /source: DEEPSEEK_SESSION_SOURCE/);
   assert.match(users, /markConnectedApp/);
-  assert.match(useRoute, /session\.source === DEEPSEEK_SESSION_SOURCE/);
+  assert.match(useRoute, /session\.source !== DEEPSEEK_SESSION_SOURCE/);
+  assert.match(useRoute, /DEEPSEEK_HARNESS_USE_SCOPE/);
+  assert.match(useRoute, /normalizeClientUseReceiptId\(body\?\.receiptId\)/);
+  assert.match(useRoute, /evidence: "client_reported"/);
+  assert.match(records, /recordClientReportedUseForUser/);
   assert.match(useRoute, /normalizeConnectedAppPluginVersion\(body\?\.pluginVersion\)/);
   assert.doesNotMatch(useRoute, /body\?\.(?:user|identity|token|prompt|workspace|theme)/);
   assert.match(accountRoute, /Website session required/);

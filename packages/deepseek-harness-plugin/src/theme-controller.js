@@ -2,7 +2,7 @@ import { tokensForHarnessTheme } from './catalog.js';
 import { createMemoryThemeState, normalizeThemeState, safeThemeId } from './theme-state.js';
 
 export const INSTALLED_THEME_SOURCE = 'dexthemes-installed-plugin';
-export const PLUGIN_VERSION = '0.6.1';
+export const PLUGIN_VERSION = '0.6.2';
 export const THEME_CAPABILITY_ERROR = 'Theme controls are unavailable because this Harness build did not provide the supported theme service.';
 
 function freezeState(state) {

@@ -424,15 +424,15 @@ test('device authorization uses bounded public codes and respects provider polli
   }));
 });
 
-test('install docs identify the published 0.6.1 registry package and local-development path', async () => {
+test('install docs identify the published 0.6.2 registry package and local-development path', async () => {
   const [packageReadme, integrationDocs] = await Promise.all([
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
   ]);
 
   for (const source of [packageReadme, integrationDocs]) {
-    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.1/);
-    assert.doesNotMatch(source, /0\.6\.1[^\n]*not published/i);
+    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.2/);
+    assert.doesNotMatch(source, /0\.6\.2[^\n]*not published/i);
     assert.doesNotMatch(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
     assert.match(source, /local development/i);
   }
@@ -448,7 +448,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
   ]);
   const manifest = JSON.parse(manifestSource);
-  assert.equal(manifest.version, '0.6.1');
+  assert.equal(manifest.version, '0.6.2');
   assert.ok(manifest.files.includes('CHANGELOG.md'));
   assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
   assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);
@@ -461,6 +461,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     'GitHub releases',
     'support or bug issue',
   ]) assert.match(packageReadme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.match(changelog, /0\.6\.2 — 2026-08-14/);
   assert.match(changelog, /0\.6\.1 — 2026-08-14/);
   assert.match(changelog, /0\.6\.0 — 2026-08-14/);
   assert.match(rootReadme, /DeepSeek Harness plugin/);
@@ -473,7 +474,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
   }
 });
 
-test('installed account client keeps bearer credentials in memory and awards Harnessed only after apply', async () => {
+test('installed account client keeps bearer credentials in memory and records scoped client activity after apply', async () => {
   const requests = [];
   const fetchImpl = async (url, options = {}) => {
     requests.push({ url, options });
@@ -487,7 +488,7 @@ test('installed account client keeps bearer credentials in memory and awards Har
     if (url.endsWith('/deepseek-harness/session')) return { ok: true, status: 200, json: async () => ({ revoked: true }) };
     if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [], totalCopies: 0 }) };
     if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [{ action: 'use_deepseek_harness', themeId: 'deep-current', theme: null }] }) };
-    if (url.endsWith('/plugin/deepseek-harness/use')) return { ok: true, status: 200, json: async () => ({ achievement: { action: 'use_deepseek_harness', themeId: 'deep-current' } }) };
+    if (url.endsWith('/plugin/deepseek-harness/use')) return { ok: true, status: 200, json: async () => ({ recorded: true, evidence: 'client_reported' }) };
     throw new Error(`Unexpected request: ${url}`);
   };
   const account = createHarnessAccountClient({
@@ -503,8 +504,7 @@ test('installed account client keeps bearer credentials in memory and awards Har
   }
   assert.equal(account.getSnapshot().status, 'connected');
   assert.equal(JSON.stringify(account.getSnapshot()).includes('dxd_memory-only-token'), false);
-  const achievement = await account.recordHarnessUse();
-  assert.equal(achievement.themeId, 'deep-current');
+  assert.equal(await account.recordHarnessUse(), true);
   const protectedRequests = requests.filter((request) => /plugin\/(me|deepseek-harness\/use)/.test(request.url));
   assert.ok(protectedRequests.every((request) => request.options.headers.Authorization === 'Bearer dxd_memory-only-token'));
   assert.equal(requests.some((request) => String(request.options.body || '').includes('dxd_memory-only-token')), false);
@@ -514,12 +514,61 @@ test('installed account client keeps bearer credentials in memory and awards Har
     pluginVersion: PLUGIN_VERSION,
   });
   const recordedUse = requests.find((request) => request.url.endsWith('/plugin/deepseek-harness/use'));
-  assert.deepEqual(JSON.parse(recordedUse.options.body), { pluginVersion: PLUGIN_VERSION });
+  const recordedBody = JSON.parse(recordedUse.options.body);
+  assert.equal(recordedBody.pluginVersion, PLUGIN_VERSION);
+  assert.match(recordedBody.receiptId, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
   await account.disconnect();
   assert.equal(account.getSnapshot().status, 'idle');
   const revoke = requests.find((request) => request.url.endsWith('/deepseek-harness/session'));
   assert.equal(revoke.options.method, 'DELETE');
   assert.equal(revoke.options.headers.Authorization, 'Bearer dxd_memory-only-token');
+});
+
+test('Disconnect persists success only after acknowledged server revocation and remains retryable on failure', async () => {
+  let revokeMode = '503';
+  let disconnectedCallbacks = 0;
+  const fetchImpl = async (url) => {
+    if (url.endsWith('/auth/start')) return { ok: true, status: 200, json: async () => ({
+      deviceCode: 'device-code', userCode: 'JOIN-NOW',
+      verificationUri: 'https://github.com/login/device', expiresIn: 900, interval: 5,
+    }) };
+    if (url.endsWith('/auth/poll')) return { ok: true, status: 200, json: async () => ({
+      accessToken: 'dxd_retryable-token', tokenType: 'Bearer', expiresIn: 3600,
+    }) };
+    if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [] }) };
+    if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [] }) };
+    if (url.endsWith('/deepseek-harness/session')) {
+      if (revokeMode === '503') return { ok: false, status: 503, json: async () => ({ error: 'temporarily_unavailable' }) };
+      if (revokeMode === 'false') return { ok: true, status: 200, json: async () => ({ revoked: false }) };
+      return { ok: true, status: 200, json: async () => ({ revoked: true }) };
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const account = createHarnessAccountClient({
+    fetchImpl,
+    apiBaseUrl: 'https://api.example',
+    waitImpl: async () => {},
+    onDisconnected: () => { disconnectedCallbacks += 1; },
+  });
+  await account.connect();
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+
+  assert.equal(await account.disconnect(), false);
+  assert.equal(account.getSnapshot().status, 'connected');
+  assert.match(account.getSnapshot().error, /temporarily_unavailable/);
+  assert.equal(disconnectedCallbacks, 0);
+
+  revokeMode = 'false';
+  assert.equal(await account.disconnect(), false);
+  assert.equal(account.getSnapshot().status, 'connected');
+  assert.equal(disconnectedCallbacks, 0);
+
+  revokeMode = 'true';
+  assert.equal(await account.disconnect(), true);
+  assert.equal(account.getSnapshot().status, 'idle');
+  assert.equal(disconnectedCallbacks, 1);
 });
 
 test('restart authentication recovery is an explicit Device Flow reconnect and Disconnect clears intent', async () => {

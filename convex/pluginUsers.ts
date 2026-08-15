@@ -6,7 +6,10 @@ import {
   markConnectedApp,
   markConnectedAppDisconnected,
 } from "./connectedApps";
-import { CONNECTED_APP_IDS } from "../shared/connected-apps-contract.js";
+import {
+  CONNECTED_APP_IDS,
+  DEEPSEEK_HARNESS_USE_SCOPE,
+} from "../shared/connected-apps-contract.js";
 
 const INTERNAL_PLUGIN_SESSION_TTL_MS = 2 * 60 * 1000;
 const DEEPSEEK_SESSION_TTL_MS = 60 * 60 * 1000;
@@ -136,7 +139,7 @@ export const upsertDeepSeekDeviceUser = internalMutation({
     const user = await upsertUser(ctx, args);
     const session = await issuePluginSession(ctx, user._id, {
       prefix: "dxd_",
-      scopes: ["themes:read"],
+      scopes: ["themes:read", DEEPSEEK_HARNESS_USE_SCOPE],
       source: DEEPSEEK_SESSION_SOURCE,
       clientUsable: true,
       ttlMs: DEEPSEEK_SESSION_TTL_MS,
@@ -147,6 +150,7 @@ export const upsertDeepSeekDeviceUser = internalMutation({
       CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
       args.pluginVersion,
     );
+    await grantUnlockForUser(ctx, user._id, "use_deepseek_harness");
     return { ...session, userId: user._id };
   },
 });
