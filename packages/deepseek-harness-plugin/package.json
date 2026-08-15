@@ -1,6 +1,6 @@
 {
   "name": "@dexthemes/deepseek-harness-plugin",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Discover, preview, apply, restore, and revert themes in DeepSeek Harness",
   "type": "module",
   "main": "./lib/index.js",

@@ -201,7 +201,7 @@ DexThemes has one GitHub-backed user identity shared by the website and installe
 - DeepSeek Harness uses GitHub Device Flow and a one-hour `dxd_…` bearer held only in the running plugin;
 - Connected Apps stores no bearer, provider token, credential, prompt, workspace content, or Statsig identifier.
 
-The additive `connectedApps` table is durable account evidence, not a session table. Its first supported row is created only after a successful DeepSeek Device Flow connection. There is no existing-user backfill. The website account view reads a safe projection through `GET /me/connected-apps`; post-Apply activity is separately scoped and explicitly labeled client-reported, while disconnect marks the row inactive and revokes only client-usable sessions mapped to that integration.
+The additive `connectedApps` table is durable account evidence, not a session table. Its first supported row is created only after a successful DeepSeek Device Flow connection. There is no existing-user backfill. The website account view reads a safe projection through `GET /me/connected-apps`; post-Apply activity is separately scoped and explicitly labeled client-reported, while disconnect marks the row inactive and revokes only client-usable sessions mapped to that integration. The installed client retains only a pending random receipt in memory after an ambiguous failure and reuses that exact receipt on retry so replay deduplication prevents double counting.
 
 Cross-environment preference sync is not implemented. Its approved decision design is documented in [`docs/CROSS-ENVIRONMENT-THEME-SYNC.md`](CROSS-ENVIRONMENT-THEME-SYNC.md); preference, suggestion, and application remain separate states, and application stays explicit and reversible.
 

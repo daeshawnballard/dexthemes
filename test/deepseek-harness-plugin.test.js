@@ -36,6 +36,7 @@ import {
   pollDeviceAuthorization,
   requestDeviceAuthorization,
 } from '../packages/deepseek-harness-plugin/src/account.js';
+import { applyHarnessThemeWithConnectedActivity } from '../packages/deepseek-harness-plugin/src/apply-coordinator.js';
 
 const PACKAGE_ROOT = new URL('../packages/deepseek-harness-plugin/', import.meta.url);
 
@@ -369,24 +370,35 @@ test('replacement and revert failures remain bounded, observable, and retryable'
   assert.ok(events.some((event) => event.name === 'deepseek_theme_revert_succeeded'));
 });
 
-test('successful one-click apply reports authenticated Harness use without coupling account failure to the theme', async () => {
-  const applied = [];
+test('explicit Apply coordinator keeps anonymous and failed-runtime theme behavior account-free', async () => {
+  const anonymousRequests = [];
   const runtime = { overrideTokens: () => () => {} };
-  const controller = createHarnessThemeController(runtime, {
-    onApplied: ({ themeId }) => {
-      applied.push(themeId);
-      throw new Error('account reporting is unavailable');
+  const controller = createHarnessThemeController(runtime);
+  const anonymousAccount = createHarnessAccountClient({
+    fetchImpl: async (...args) => {
+      anonymousRequests.push(args);
+      throw new Error('Anonymous Apply must not request account activity');
     },
+    apiBaseUrl: 'https://api.example',
   });
-  assert.equal(controller.apply(BUNDLED_HARNESS_THEMES[0]), true);
+  assert.equal(applyHarnessThemeWithConnectedActivity(
+    controller,
+    anonymousAccount,
+    BUNDLED_HARNESS_THEMES[0],
+    { sourceSurface: 'settings_plugin_card' },
+  ), true);
   await Promise.resolve();
-  assert.deepEqual(applied, [BUNDLED_HARNESS_THEMES[0].id]);
+  assert.deepEqual(anonymousRequests, []);
 
-  const failed = createHarnessThemeController({ overrideTokens: () => { throw new Error('no'); } }, {
-    onApplied: ({ themeId }) => applied.push(themeId),
-  });
-  assert.equal(failed.apply(BUNDLED_HARNESS_THEMES[1]), false);
-  assert.deepEqual(applied, [BUNDLED_HARNESS_THEMES[0].id]);
+  const accountCalls = [];
+  const reportingAccount = { recordHarnessUse: () => { accountCalls.push('called'); } };
+  const failed = createHarnessThemeController({ overrideTokens: () => { throw new Error('no'); } });
+  assert.equal(applyHarnessThemeWithConnectedActivity(
+    failed,
+    reportingAccount,
+    BUNDLED_HARNESS_THEMES[1],
+  ), false);
+  assert.deepEqual(accountCalls, []);
 });
 
 test('device authorization uses bounded public codes and respects provider polling responses', async () => {
@@ -448,7 +460,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
   ]);
   const manifest = JSON.parse(manifestSource);
-  assert.equal(manifest.version, '0.6.2');
+  assert.equal(manifest.version, '0.6.3');
   assert.ok(manifest.files.includes('CHANGELOG.md'));
   assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
   assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);
@@ -461,6 +473,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     'GitHub releases',
     'support or bug issue',
   ]) assert.match(packageReadme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.match(changelog, /0\.6\.3 — Unreleased/);
   assert.match(changelog, /0\.6\.2 — 2026-08-14/);
   assert.match(changelog, /0\.6\.1 — 2026-08-14/);
   assert.match(changelog, /0\.6\.0 — 2026-08-14/);
@@ -474,7 +487,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
   }
 });
 
-test('installed account client keeps bearer credentials in memory and records scoped client activity after apply', async () => {
+test('installed one-click Apply sends the connected scoped activity receipt through the explicit coordinator', async () => {
   const requests = [];
   const fetchImpl = async (url, options = {}) => {
     requests.push({ url, options });
@@ -504,7 +517,18 @@ test('installed account client keeps bearer credentials in memory and records sc
   }
   assert.equal(account.getSnapshot().status, 'connected');
   assert.equal(JSON.stringify(account.getSnapshot()).includes('dxd_memory-only-token'), false);
-  assert.equal(await account.recordHarnessUse(), true);
+  const controller = createHarnessThemeController({ overrideTokens: () => () => {} });
+  assert.equal(applyHarnessThemeWithConnectedActivity(
+    controller,
+    account,
+    BUNDLED_HARNESS_THEMES[0],
+    { sourceSurface: 'settings_plugin_card' },
+  ), true);
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().activityStatus !== 'recorded'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  assert.equal(account.getSnapshot().activityStatus, 'recorded');
+  assert.equal(account.getSnapshot().activityError, null);
   const protectedRequests = requests.filter((request) => /plugin\/(me|deepseek-harness\/use)/.test(request.url));
   assert.ok(protectedRequests.every((request) => request.options.headers.Authorization === 'Bearer dxd_memory-only-token'));
   assert.equal(requests.some((request) => String(request.options.body || '').includes('dxd_memory-only-token')), false);
@@ -522,6 +546,61 @@ test('installed account client keeps bearer credentials in memory and records sc
   const revoke = requests.find((request) => request.url.endsWith('/deepseek-harness/session'));
   assert.equal(revoke.options.method, 'DELETE');
   assert.equal(revoke.options.headers.Authorization, 'Bearer dxd_memory-only-token');
+});
+
+test('failed connected activity remains visible and retries the same receipt without double counting', async () => {
+  const useBodies = [];
+  let useAttempts = 0;
+  const receiptId = '0194f5e2-0b8e-4c53-9a20-87e7ac48a889';
+  const fetchImpl = async (url, options = {}) => {
+    if (url.endsWith('/auth/start')) return { ok: true, status: 200, json: async () => ({
+      deviceCode: 'device-code', userCode: 'JOIN-NOW',
+      verificationUri: 'https://github.com/login/device', expiresIn: 900, interval: 5,
+    }) };
+    if (url.endsWith('/auth/poll')) return { ok: true, status: 200, json: async () => ({
+      accessToken: 'dxd_retry-token', tokenType: 'Bearer', expiresIn: 3600,
+    }) };
+    if (url.endsWith('/plugin/me/stats')) return { ok: true, status: 200, json: async () => ({ themes: [] }) };
+    if (url.endsWith('/plugin/me/unlocks')) return { ok: true, status: 200, json: async () => ({ unlocks: [] }) };
+    if (url.endsWith('/plugin/deepseek-harness/use')) {
+      useAttempts += 1;
+      useBodies.push(JSON.parse(options.body));
+      if (useAttempts === 1) throw new Error('response lost after dispatch');
+      return { ok: true, status: 200, json: async () => ({ recorded: false, evidence: 'client_reported' }) };
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const account = createHarnessAccountClient({
+    fetchImpl,
+    apiBaseUrl: 'https://api.example',
+    waitImpl: async () => {},
+    pluginVersion: PLUGIN_VERSION,
+    createUseReceipt: () => receiptId,
+  });
+  await account.connect();
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().status !== 'connected'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  const controller = createHarnessThemeController({ overrideTokens: () => () => {} });
+  assert.equal(applyHarnessThemeWithConnectedActivity(
+    controller,
+    account,
+    BUNDLED_HARNESS_THEMES[0],
+  ), true);
+  for (let attempt = 0; attempt < 10 && account.getSnapshot().activityStatus !== 'error'; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  assert.equal(account.getSnapshot().activityStatus, 'error');
+  assert.equal(account.getSnapshot().canRetryActivity, true);
+  assert.match(account.getSnapshot().activityError, /was not recorded/);
+
+  assert.equal(await account.retryHarnessUse(), false);
+  assert.equal(account.getSnapshot().activityStatus, 'recorded');
+  assert.equal(account.getSnapshot().canRetryActivity, false);
+  assert.deepEqual(useBodies, [
+    { receiptId, pluginVersion: PLUGIN_VERSION },
+    { receiptId, pluginVersion: PLUGIN_VERSION },
+  ]);
 });
 
 test('Disconnect persists success only after acknowledged server revocation and remains retryable on failure', async () => {
@@ -759,11 +838,16 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(built, /Choose Creator mode to apply and revert from chat/);
   assert.match(built, /Connect DexThemes/);
   assert.match(built, /Continue with GitHub/);
+  assert.match(built, /Connected Apps activity recorded/);
+  assert.match(built, /Retry activity/);
   assert.match(source, /export const inject = \['slots'\]/);
   assert.match(source, /ctx\.inject\(\['theme'\]/);
   assert.match(source, /defineStore/);
   assert.match(source, /Theme service unavailable/);
   assert.match(source, /Forget saved theme/);
+  assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_preview/);
+  assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_card/);
+  assert.doesNotMatch(source, /onApplied:[\s\S]*?recordHarnessUse/);
   assert.doesNotMatch(source, /clipboard|localStorage|querySelector\([^)]*Harness/i);
 });
 

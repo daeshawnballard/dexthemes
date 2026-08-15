@@ -10,6 +10,7 @@ import {
 import { createHarnessThemeController, PLUGIN_VERSION } from './theme-controller.js';
 import { createPluginAnalytics } from './analytics.js';
 import { createHarnessAccountClient } from './account.js';
+import { applyHarnessThemeWithConnectedActivity } from './apply-coordinator.js';
 import { createThemeStateStore, normalizeThemeState } from './theme-state.js';
 
 export const inject = ['slots'];
@@ -114,7 +115,7 @@ function PalettePreview({ theme, expanded = false, mode = 'both' }) {
   </div>;
 }
 
-function ThemeDialog({ theme, controller, active, capabilityAvailable, onClose }) {
+function ThemeDialog({ theme, controller, account, active, capabilityAvailable, onClose }) {
   const [previewMode, setPreviewMode] = useState('both');
   useEffect(() => {
     controller.preview(theme);
@@ -157,7 +158,14 @@ function ThemeDialog({ theme, controller, active, capabilityAvailable, onClose }
               type="button"
               style={{ ...ui.button, ...ui.primary }}
               disabled={!capabilityAvailable}
-              onClick={() => { if (controller.apply(theme, { sourceSurface: 'settings_plugin_preview' })) onClose(); }}
+              onClick={() => {
+                if (applyHarnessThemeWithConnectedActivity(
+                  controller,
+                  account,
+                  theme,
+                  { sourceSurface: 'settings_plugin_preview' },
+                )) onClose();
+              }}
             >{capabilityAvailable ? 'Apply to DeepSeek' : 'Theme service unavailable'}</button>}
       </div>
     </section>
@@ -184,13 +192,26 @@ function AccountPanel({ account }) {
             ? 'Reconnect after restart to recover creator stats, achievements, and account-only themes.'
             : 'Optional: connect for creator stats, achievements, and account-only themes.'}</span>
       {state.error ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{state.error}</span> : null}
+      {connected && state.activityStatus === 'recording'
+        ? <span role="status" style={ui.status}>Recording Connected Apps activity…</span>
+        : connected && state.activityStatus === 'recorded'
+          ? <span role="status" style={ui.status}>Connected Apps activity recorded.</span>
+          : null}
+      {connected && state.activityError
+        ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{state.activityError}</span>
+        : null}
     </div>
     <div style={ui.accountActions}>
       {waiting && state.verificationUrl
         ? <a style={ui.link} href={state.verificationUrl} target="_blank" rel="noreferrer">Continue with GitHub</a>
         : null}
       {connected || disconnecting
-        ? <button type="button" style={ui.button} disabled={disconnecting} onClick={() => account.disconnect()}>{disconnecting ? 'Disconnecting…' : 'Disconnect'}</button>
+        ? <>
+            {connected && state.canRetryActivity
+              ? <button type="button" style={ui.button} onClick={() => { void account.retryHarnessUse().catch(() => {}); }}>Retry activity</button>
+              : null}
+            <button type="button" style={ui.button} disabled={disconnecting} onClick={() => account.disconnect()}>{disconnecting ? 'Disconnecting…' : 'Disconnect'}</button>
+          </>
         : waiting
           ? <button type="button" style={ui.button} onClick={() => account.disconnect()}>Cancel</button>
           : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={busy} onClick={() => { void account.connect(); }}>{busy ? 'Connecting…' : state.reconnectRequired ? 'Reconnect DexThemes' : 'Connect DexThemes'}</button>}
@@ -277,14 +298,24 @@ export function DexThemesSettings({ controller, account }) {
               <button type="button" style={ui.button} onClick={() => setPreview(theme)}>Preview</button>
               {isActive
                 ? <button type="button" style={{ ...ui.button, ...ui.danger }} onClick={() => controller.revert()}>Revert</button>
-                : <button type="button" style={{ ...ui.button, ...ui.primary }} disabled={!capabilityAvailable} onClick={() => controller.apply(theme, { sourceSurface: 'settings_plugin_card' })}>{capabilityAvailable ? 'Apply' : 'Unavailable'}</button>}
+                : <button
+                    type="button"
+                    style={{ ...ui.button, ...ui.primary }}
+                    disabled={!capabilityAvailable}
+                    onClick={() => applyHarnessThemeWithConnectedActivity(
+                      controller,
+                      account,
+                      theme,
+                      { sourceSurface: 'settings_plugin_card' },
+                    )}
+                  >{capabilityAvailable ? 'Apply' : 'Unavailable'}</button>}
             </div>
           </div>
         </article>;
       })}
     </div>
     {visible.length === 0 ? <p style={ui.status}>No themes match this search.</p> : null}
-    {preview ? <ThemeDialog theme={preview} controller={controller} active={runtime.activeThemeId === preview.id} capabilityAvailable={capabilityAvailable} onClose={() => setPreview(null)} /> : null}
+    {preview ? <ThemeDialog theme={preview} controller={controller} account={account} active={runtime.activeThemeId === preview.id} capabilityAvailable={capabilityAvailable} onClose={() => setPreview(null)} /> : null}
   </div>;
 }
 
@@ -301,7 +332,6 @@ export function apply(ctx) {
   const controller = createHarnessThemeController(null, {
     preferences,
     onEvent: (event) => analytics.track(event),
-    onApplied: () => { void account.recordHarnessUse().catch(() => {}); },
   });
   void analytics.start();
   ctx.inject(['theme'], (themeCtx) => {
