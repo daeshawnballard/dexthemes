@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3 — Unreleased
+
+- Route card and preview Apply actions through one explicit coordinator that starts the separately scoped Connected Apps receipt only after Harness accepts the theme override.
+- Surface bounded receipt recording, success, and failure states in the account panel; a retry reuses the same in-memory UUID so a lost response cannot double count activity.
+- Keep anonymous Apply/Revert unchanged and exclude theme IDs, palettes, prompts, workspaces, credentials, and account identity from the activity request.
+
 ## 0.6.2 — 2026-08-14
 
 - Persist Disconnect only after Convex acknowledges server-side session revocation; failed revocation remains connected and retryable.

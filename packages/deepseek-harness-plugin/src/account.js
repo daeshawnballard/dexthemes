@@ -1,4 +1,7 @@
-import { normalizeConnectedAppPluginVersion } from '../../../shared/connected-apps-contract.js';
+import {
+  normalizeClientUseReceiptId,
+  normalizeConnectedAppPluginVersion,
+} from '../../../shared/connected-apps-contract.js';
 
 export const DEXTHEMES_ACCOUNT_API_URL = 'https://acrobatic-corgi-867.convex.site';
 
@@ -11,6 +14,9 @@ function emptyState(reconnectRequired = false) {
     stats: null,
     unlocks: Object.freeze([]),
     reconnectRequired: reconnectRequired === true,
+    activityStatus: 'idle',
+    activityError: null,
+    canRetryActivity: false,
   });
 }
 
@@ -136,12 +142,15 @@ export function createHarnessAccountClient({
   onConnected = () => {},
   onDisconnected = () => {},
   pluginVersion,
+  createUseReceipt = createClientUseReceipt,
 } = {}) {
   const reportedPluginVersion = normalizeConnectedAppPluginVersion(pluginVersion);
   let accessToken = '';
   let expiresAt = 0;
   let generation = 0;
   let controller = null;
+  let pendingUseReceipt = '';
+  let activityRequest = null;
   let state = emptyState(reconnectRequired);
   const listeners = new Set();
 
@@ -209,8 +218,62 @@ export function createHarnessAccountClient({
       stats: statsPayload,
       unlocks: Array.isArray(unlockPayload.unlocks) ? unlockPayload.unlocks : [],
       reconnectRequired: false,
+      activityStatus: state.activityStatus,
+      activityError: state.activityError,
+      canRetryActivity: state.canRetryActivity,
     });
     return true;
+  };
+
+  const publishActivity = (activityStatus, activityError = null, canRetryActivity = false) => {
+    if (state.status !== 'connected') return;
+    publish({
+      ...state,
+      activityStatus,
+      activityError,
+      canRetryActivity,
+    });
+  };
+
+  const dispatchPendingUse = () => {
+    if (!accessToken || !pendingUseReceipt) return Promise.resolve(null);
+    if (activityRequest) return activityRequest;
+    const expectedGeneration = generation;
+    const receiptId = pendingUseReceipt;
+    publishActivity('recording');
+    let request;
+    request = (async () => {
+      try {
+        const result = await authorizedFetch('/plugin/deepseek-harness/use', {
+          method: 'POST',
+          body: JSON.stringify({
+            receiptId,
+            ...(reportedPluginVersion ? { pluginVersion: reportedPluginVersion } : {}),
+          }),
+        });
+        if (typeof result.recorded !== 'boolean' || result.evidence !== 'client_reported') {
+          throw new Error('DexThemes connected activity returned an invalid response');
+        }
+        await refresh(expectedGeneration);
+        if (generation !== expectedGeneration || !accessToken) return null;
+        pendingUseReceipt = '';
+        publishActivity('recorded');
+        return result.recorded === true;
+      } catch (error) {
+        if (generation === expectedGeneration && accessToken) {
+          publishActivity(
+            'error',
+            'Theme applied, but Connected Apps activity was not recorded.',
+            pendingUseReceipt === receiptId,
+          );
+        }
+        throw error;
+      }
+    })().finally(() => {
+      if (activityRequest === request) activityRequest = null;
+    });
+    activityRequest = request;
+    return request;
   };
 
   return Object.freeze({
@@ -226,6 +289,8 @@ export function createHarnessAccountClient({
       controller = attemptController;
       accessToken = '';
       expiresAt = 0;
+      pendingUseReceipt = '';
+      activityRequest = null;
       publish({ ...emptyState(state.reconnectRequired), status: 'connecting' });
       try {
         const device = await requestDeviceAuthorization({ fetchImpl, apiBaseUrl, signal: attemptController.signal });
@@ -272,18 +337,26 @@ export function createHarnessAccountClient({
         return null;
       }
     },
-    async recordHarnessUse() {
-      if (!accessToken) return null;
-      const expectedGeneration = generation;
-      const result = await authorizedFetch('/plugin/deepseek-harness/use', {
-        method: 'POST',
-        body: JSON.stringify({
-          receiptId: createClientUseReceipt(),
-          ...(reportedPluginVersion ? { pluginVersion: reportedPluginVersion } : {}),
-        }),
-      });
-      await refresh(expectedGeneration);
-      return result.recorded === true;
+    recordHarnessUse() {
+      if (!accessToken) return Promise.resolve(null);
+      if (activityRequest) return activityRequest;
+      if (!pendingUseReceipt) {
+        try {
+          pendingUseReceipt = normalizeClientUseReceiptId(createUseReceipt()) || '';
+          if (!pendingUseReceipt) throw new TypeError('Invalid secure client activity receipt');
+        } catch (error) {
+          publishActivity(
+            'error',
+            'Theme applied, but secure Connected Apps activity reporting is unavailable.',
+            false,
+          );
+          return Promise.reject(error);
+        }
+      }
+      return dispatchPendingUse();
+    },
+    retryHarnessUse() {
+      return dispatchPendingUse();
     },
     async disconnect() {
       generation += 1;
@@ -293,6 +366,8 @@ export function createHarnessAccountClient({
       if (!token) {
         accessToken = '';
         expiresAt = 0;
+        pendingUseReceipt = '';
+        activityRequest = null;
         publish(emptyState(false));
         try { onDisconnected(); } catch { /* Persistence must not affect disconnect. */ }
         return true;
@@ -311,6 +386,8 @@ export function createHarnessAccountClient({
       }
       accessToken = '';
       expiresAt = 0;
+      pendingUseReceipt = '';
+      activityRequest = null;
       publish(emptyState(false));
       try { onDisconnected(); } catch { /* Persistence must not affect disconnect. */ }
       return true;
@@ -319,6 +396,8 @@ export function createHarnessAccountClient({
       generation += 1;
       controller?.abort();
       controller = null;
+      pendingUseReceipt = '';
+      activityRequest = null;
       const token = accessToken;
       accessToken = '';
       expiresAt = 0;

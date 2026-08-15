@@ -65,7 +65,9 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] Complete GitHub authorization and return to Harness
 - [ ] **Expected**: creator stats, `Harnessed`, and `Deep Current` appear after Convex verifies Device Flow identity and revokes GitHub's temporary token; neither that GitHub token nor the short-lived DexThemes session appears in browser storage, URL, Harness configuration, prompts, workspace, or analytics
 - [ ] Apply a theme while connected
-- [ ] **Expected**: the dedicated `harness:use` scope sends only a random receipt and bounded plugin version; Connected Apps labels the deduped activity client-reported, and the route cannot grant an entitlement
+- [ ] **Expected**: the account panel advances from recording to acknowledgement; the dedicated `harness:use` scope sends only a random receipt and bounded plugin version; Connected Apps labels the deduped activity client-reported, and the route cannot grant an entitlement
+- [ ] Repeat with the first activity response blocked after request dispatch, then choose **Retry activity**
+- [ ] **Expected**: the panel exposes a bounded failure, retry sends the same UUID rather than fabricating a second activity, and a replay acknowledgement clears the failure
 - [ ] Sign into `www.dexthemes.com` with the same GitHub identity and open the account profile
 - [ ] **Expected**: Connected Apps shows DexThemes Connect, DeepSeek Harness, the reported plugin version, last used, and the client-reported activity count; no token, prompt, workspace, theme payload, or Statsig identity is present
 - [ ] Choose **Disconnect** on the website, then retry an authenticated plugin account request
@@ -77,7 +79,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 ### 1.7.1 DeepSeek Harness full restart and unavailable capability
 
-The public-registry `0.6.2` receipt proves fresh exact-package installation, loaded bundle identity, Apply, full process restart with restoration on DexThemes-surface remount, Revert, 100-theme offline fallback, and retryable controlled Disconnect failure. It does not prove production Device Flow, the immediate production `Harnessed` grant, production connected-Apply reporting, or first-paint restoration. See [the runtime receipt](DEEPSEEK-HARNESS-062-RUNTIME-RECEIPT.md).
+The public-registry `0.6.2` receipt proves fresh exact-package installation, loaded bundle identity, Apply, full process restart with restoration on DexThemes-surface remount, Revert, 100-theme offline fallback, and retryable controlled Disconnect failure. A later production-auth receipt proves fresh Device Flow, account data loading, connected Apply/Revert, connection-preserving remount, and safe Disconnect. It does not prove a newly awarded `Harnessed` / `Deep Current` result because that reward was pre-existing, and two connected Applies produced no observable activity request. The unreleased `0.6.3` source must be rebuilt, installed from the reviewed artifact, and observed sending and acknowledging `/plugin/deepseek-harness/use` before connected activity is promoted to loaded proof. See [the original runtime receipt](DEEPSEEK-HARNESS-062-RUNTIME-RECEIPT.md) and [the production-auth receipt](DEEPSEEK-HARNESS-062-PRODUCTION-AUTH-RECEIPT.md).
 
 - [ ] Start from a fresh isolated Harness home/profile and install the current published npm package; record the resolved version and integrity separately from candidate proof
 - [ ] Upgrade that isolated profile to the candidate tarball/local package, open **Settings → Plugins → DexThemes**, connect through an approved test Device Flow, and Apply a paired theme

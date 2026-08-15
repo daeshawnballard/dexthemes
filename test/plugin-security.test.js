@@ -40,11 +40,13 @@ test('generic unlock endpoint excludes server-verifiable achievements', async ()
 });
 
 test('DeepSeek Harness activity is separately scoped, client-reported, and cannot grant protected rewards', async () => {
-  const [routes, unlocks, users, records] = await Promise.all([
+  const [routes, unlocks, users, records, account, coordinator] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/unlocks.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/pluginUsers.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/connectedApps.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../packages/deepseek-harness-plugin/src/account.js', import.meta.url), 'utf8'),
+    readFile(new URL('../packages/deepseek-harness-plugin/src/apply-coordinator.js', import.meta.url), 'utf8'),
   ]);
   const route = routes.match(/path: "\/plugin\/deepseek-harness\/use"[\s\S]*?\n  \}\);/)?.[0] || '';
   assert.match(route, /authorizePlugin\(ctx, request, DEEPSEEK_HARNESS_USE_SCOPE\)/);
@@ -62,6 +64,15 @@ test('DeepSeek Harness activity is separately scoped, client-reported, and canno
   assert.match(records, /advanceClientUseReceiptHashes\(existing\.clientReceiptHashes, receiptHash\)/);
   assert.match(records, /!receiptWindow\.accepted/);
   assert.match(records, /recorded: false, clientReported: true/);
+  assert.match(coordinator, /controller\.apply\(theme, options\)/);
+  assert.match(coordinator, /account\?\.recordHarnessUse\?\.\(\)/);
+  assert.doesNotMatch(coordinator, /recordHarnessUse\([^)]*(?:theme|palette|prompt|workspace)/);
+  const useRequest = account.match(/authorizedFetch\('\/plugin\/deepseek-harness\/use',[\s\S]*?\n        \}\);/)?.[0] || '';
+  assert.match(useRequest, /receiptId/);
+  assert.match(useRequest, /pluginVersion/);
+  assert.doesNotMatch(useRequest, /theme|palette|prompt|workspace|credential|token/i);
+  assert.match(account, /pendingUseReceipt === receiptId/);
+  assert.match(account, /retryHarnessUse\(\)/);
 });
 
 test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and origin-independent', async () => {

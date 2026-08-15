@@ -32,7 +32,7 @@ const checks = [
   {
     file: 'packages/deepseek-harness-plugin/CHANGELOG.md',
     forbidden: [],
-    required: ['0.6.2 — 2026-08-14', '0.6.1 — 2026-08-14', '0.6.0 — 2026-08-14'],
+    required: ['0.6.3 — Unreleased', '0.6.2 — 2026-08-14', '0.6.1 — 2026-08-14', '0.6.0 — 2026-08-14'],
   },
   {
     file: 'docs/DEEPSEEK-HARNESS.md',
