@@ -260,12 +260,21 @@ DexThemes applies IP and user-based rate limiting on sensitive routes. Public re
 The installed Harness settings package uses these bearer-only, wildcard-CORS routes; none accepts cookies or caller-supplied identity:
 
 - `POST /plugin/deepseek-harness/auth/start` requests a bounded code from GitHub Device Flow through Convex using the shared **DexThemes Connect** OAuth application for installed integrations and no requested OAuth scope.
-- `POST /plugin/deepseek-harness/auth/poll` accepts only the opaque device code. Convex exchanges it with GitHub, verifies `/user` server-side, revokes that exact GitHub token, and returns a one-hour, read-only `dxd_…` DexThemes session whose hash is stored at rest.
+- `POST /plugin/deepseek-harness/auth/poll` accepts the opaque device code and an optional normalized plugin version. Convex exchanges the code with GitHub, verifies `/user` server-side, revokes that exact GitHub token, and returns a one-hour, read-only `dxd_…` DexThemes session whose hash is stored at rest. The version is bounded integration evidence, not identity or authority.
 - `DELETE /plugin/deepseek-harness/session` revokes that client-usable DexThemes session on disconnect.
 - `GET /plugin/me/stats` and `GET /plugin/me/unlocks` return the verified account's sanitized creator data and reward themes.
-- `POST /plugin/deepseek-harness/use` accepts no action, user, platform, prompt, workspace, or theme payload and idempotently awards `use_deepseek_harness` (`Harnessed`, reward `Deep Current`) to the bearer identity.
+- `POST /plugin/deepseek-harness/use` accepts only an optional normalized plugin version—never an action, user, platform, prompt, workspace, credential, or theme payload—and idempotently awards `use_deepseek_harness` (`Harnessed`, reward `Deep Current`) to the bearer identity. For an exact DeepSeek Device Flow session, the same server-observed call also increments the durable recorded-apply count.
 
 The plugin keeps the device code and DexThemes session in memory only and accepts only GitHub's exact device verification origin. It never receives a GitHub access token, requests no refresh/offline scope, and clears local authority on disconnect or unload. The restricted Harness MCP profile stays anonymous; anonymous applies do not award the milestone. The standards-compliant Codex/ChatGPT MCP OAuth verifier remains a separate unchanged contract.
+
+## Connected Apps account routes
+
+Connected Apps is an account view over durable installed-integration evidence. It does not expose or extend bearer sessions, does not read Statsig, and does not infer historical installations.
+
+- `GET /me/connected-apps` requires the existing GitHub-authenticated website session; `dxt_…` API keys and plugin bearer sessions are rejected. It returns only active known integrations with integration/platform labels, optional plugin version, connection and last-use timestamps, a bounded recorded-apply count, and disconnect capability.
+- `DELETE /me/connected-apps` requires the same website session and an exact known `integrationId`. It marks that account connection disconnected and revokes client-usable sessions belonging to that integration source. It does not revoke website GitHub OAuth, Auth0/MCP OAuth, API keys, or unrelated plugin sessions.
+
+The initial integration ID is `deepseek_harness`. A durable row is created only after successful DeepSeek GitHub Device Flow identity verification or an authenticated apply from that exact Device Flow session. Existing users receive no fabricated or backfilled row. Disconnect preserves the bounded record as inactive history while omitting it from the active account response.
 
 ## License
 

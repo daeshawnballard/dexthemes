@@ -39,7 +39,7 @@ test('generic unlock endpoint excludes server-verifiable achievements', async ()
   }
 });
 
-test('DeepSeek Harness achievement uses only verified plugin identity and accepts no caller identity or action', async () => {
+test('DeepSeek Harness achievement uses only verified plugin identity and accepts only bounded version evidence', async () => {
   const [routes, unlocks] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/unlocks.ts', import.meta.url), 'utf8'),
@@ -48,17 +48,20 @@ test('DeepSeek Harness achievement uses only verified plugin identity and accept
   assert.match(route, /authorizePlugin\(ctx, request, "themes:read"\)/);
   assert.match(route, /recordDeepSeekHarnessUseForUser/);
   assert.match(route, /userId: session\.userId/);
-  assert.doesNotMatch(route, /request\.json|body\.|action:|platform:/);
+  assert.match(route, /request\.json\(\)\.catch/);
+  assert.match(route, /normalizeConnectedAppPluginVersion\(body\?\.pluginVersion\)/);
+  assert.doesNotMatch(route, /body\?\.(?:user|identity|token|action|platform|prompt|workspace|theme)/);
   assert.match(unlocks, /recordDeepSeekHarnessUseForUser = internalMutation/);
   assert.match(unlocks, /grantUnlockForUser\(ctx, args\.userId, "use_deepseek_harness"\)/);
 });
 
 test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and origin-independent', async () => {
-  const [routes, helpers, account, sessions, schema] = await Promise.all([
+  const [routes, helpers, account, sessions, connectedApps, schema] = await Promise.all([
     readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/http_helpers.ts', import.meta.url), 'utf8'),
     readFile(new URL('../packages/deepseek-harness-plugin/src/account.js', import.meta.url), 'utf8'),
     readFile(new URL('../convex/pluginUsers.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/connectedApps.ts', import.meta.url), 'utf8'),
     readFile(new URL('../convex/schema.ts', import.meta.url), 'utf8'),
   ]);
   assert.match(routes, /\/plugin\/deepseek-harness\/auth\/start/);
@@ -88,7 +91,8 @@ test('DeepSeek device OAuth is GitHub-backed, Convex-issued, bearer-only, and or
   assert.match(routes, /revokeClientPluginSession/);
   assert.match(sessions, /DEEPSEEK_SESSION_TTL_MS = 60 \* 60 \* 1000/);
   assert.match(sessions, /scopes: \["themes:read"\]/);
-  assert.match(sessions, /source: "deepseek_github_device"/);
+  assert.match(connectedApps, /DEEPSEEK_SESSION_SOURCE = "deepseek_github_device"/);
+  assert.match(sessions, /source: DEEPSEEK_SESSION_SOURCE/);
   assert.match(sessions, /clientUsable: true/);
   assert.match(sessions, /session\.clientUsable !== true/);
   assert.match(sessions, /!session\.scopes\?\.includes\(args\.requiredScope\)/);

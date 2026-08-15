@@ -1376,6 +1376,24 @@
     font-size: 20px;
   }
 
+  .connected-app-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .connected-app-disconnect-btn {
+    width: 100%;
+  }
+
+  .connected-app-meta {
+    display: grid;
+    gap: 4px;
+  }
+
+  .connected-app-meta span:not(:last-child)::after {
+    display: none;
+  }
+
   /* Achievements grid smaller */
   .achievements-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));

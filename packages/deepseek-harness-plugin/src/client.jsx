@@ -292,6 +292,7 @@ export function apply(ctx) {
   const preferences = createThemeStateStore(defineStore);
   const persisted = normalizeThemeState(preferences.getSnapshot());
   const account = createHarnessAccountClient({
+    pluginVersion: PLUGIN_VERSION,
     reconnectRequired: persisted.reconnectRequired,
     onConnected: () => preferences.actions.rememberAccount(),
     onDisconnected: () => preferences.actions.forgetAccount(),

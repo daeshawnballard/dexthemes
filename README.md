@@ -66,6 +66,7 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 - [Open source readiness plan](docs/OPEN_SOURCE_READINESS.md)
 - [API guide](docs/API.md)
 - [DeepSeek Harness integration](docs/DEEPSEEK-HARNESS.md)
+- [Cross-environment theme sync design](docs/CROSS-ENVIRONMENT-THEME-SYNC.md)
 - [Multi-harness architecture and compatibility](docs/MULTI-HARNESS.md)
 - [Harness effect evidence matrix](docs/HARNESS-EFFECTS.md)
 - [Codex plugin guide](docs/PLUGIN.md)

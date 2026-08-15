@@ -25,6 +25,15 @@ import {
   type DexHttpRouter,
 } from "./http_helpers";
 
+const CONNECTED_APPS_RESPONSE_HEADERS = {
+  "Cache-Control": "no-store",
+  Pragma: "no-cache",
+};
+
+function connectedAppsResponse(data: any, origin?: string | null, status = 200) {
+  return jsonResponse(data, origin, status, CONNECTED_APPS_RESPONSE_HEADERS);
+}
+
 export function registerAuthRoutes(http: DexHttpRouter) {
   registerOptionsRoutes(http, [
     "/auth/me",
@@ -33,6 +42,7 @@ export function registerAuthRoutes(http: DexHttpRouter) {
     "/auth/api-key",
     "/auth/agent",
     "/me/stats",
+    "/me/connected-apps",
   ]);
 
   http.route({
@@ -295,6 +305,103 @@ export function registerAuthRoutes(http: DexHttpRouter) {
       headers.append("Set-Cookie", clearSessionCookie());
       headers.append("Set-Cookie", clearSessionHintCookie());
       return new Response(JSON.stringify({ success: true }), { status: 200, headers });
+    }),
+  });
+
+  http.route({
+    path: "/me/connected-apps",
+    method: "GET",
+    handler: httpAction(async (ctx, request) => {
+      const origin = request.headers.get("Origin");
+      const token = getSessionToken(request);
+      if (!token || isApiKey(token)) {
+        return connectedAppsResponse({ error: "Website session required" }, origin, 401);
+      }
+
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `connected-apps:read:network:${ip}`,
+        ...RATE_LIMITS.connectedAppsReadNetwork,
+      });
+      if (!networkRate.allowed) {
+        return connectedAppsResponse({
+          error: "Too many connected-app requests. Try again later.",
+          retryAfter: networkRate.retryAfter,
+        }, origin, 429);
+      }
+
+      const user = await resolveUser(ctx, token);
+      if (!user) return connectedAppsResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `connected-apps:read:user:${String(user._id)}`,
+        ...RATE_LIMITS.connectedAppsReadIdentity,
+      });
+      if (!identityRate.allowed) {
+        return connectedAppsResponse({
+          error: "Too many connected-app requests. Try again later.",
+          retryAfter: identityRate.retryAfter,
+        }, origin, 429);
+      }
+
+      const apps = await ctx.runQuery(internal.connectedApps.getForUser, {
+        userId: user._id,
+      });
+      return connectedAppsResponse({ apps }, origin);
+    }),
+  });
+
+  http.route({
+    path: "/me/connected-apps",
+    method: "DELETE",
+    handler: httpAction(async (ctx, request) => {
+      const origin = request.headers.get("Origin");
+      const token = getSessionToken(request);
+      if (!token || isApiKey(token)) {
+        return connectedAppsResponse({ error: "Website session required" }, origin, 401);
+      }
+
+      const ip = await getClientIP(ctx, request);
+      const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `connected-apps:write:network:${ip}`,
+        ...RATE_LIMITS.connectedAppsWriteNetwork,
+      });
+      if (!networkRate.allowed) {
+        return connectedAppsResponse({
+          error: "Too many disconnect requests. Try again later.",
+          retryAfter: networkRate.retryAfter,
+        }, origin, 429);
+      }
+
+      const user = await resolveUser(ctx, token);
+      if (!user) return connectedAppsResponse({ error: "Unauthorized" }, origin, 401);
+      const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: `connected-apps:write:user:${String(user._id)}`,
+        ...RATE_LIMITS.connectedAppsWriteIdentity,
+      });
+      if (!identityRate.allowed) {
+        return connectedAppsResponse({
+          error: "Too many disconnect requests. Try again later.",
+          retryAfter: identityRate.retryAfter,
+        }, origin, 429);
+      }
+
+      const body: any = await request.json().catch(() => ({}));
+      const integrationId = typeof body?.integrationId === "string"
+        ? body.integrationId.trim()
+        : "";
+      if (!integrationId || integrationId.length > 80) {
+        return connectedAppsResponse({ error: "Connected app required" }, origin, 400);
+      }
+
+      try {
+        const result = await ctx.runMutation(internal.connectedApps.disconnectForUser, {
+          userId: user._id,
+          integrationId,
+        });
+        return connectedAppsResponse({ disconnected: result.disconnected }, origin);
+      } catch (error: any) {
+        return connectedAppsResponse({ error: error?.message || "Unable to disconnect app" }, origin, 400);
+      }
     }),
   });
 

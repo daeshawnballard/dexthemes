@@ -65,9 +65,15 @@ Use this checklist to verify all features are working correctly. Tests are group
 - [ ] Complete GitHub authorization and return to Harness
 - [ ] **Expected**: creator stats and verified unlock count appear; neither the GitHub token nor the short-lived DexThemes session appears in browser storage, URL, Harness configuration, prompts, workspace, or analytics
 - [ ] Apply a theme while connected
-- [ ] **Expected**: `Harnessed` is granted idempotently and `Deep Current` appears from the bearer unlock response
+- [ ] **Expected**: `Harnessed` is granted idempotently, `Deep Current` appears from the bearer unlock response, and only the bounded plugin version plus server-observed apply evidence update Connected Apps
+- [ ] Sign into `www.dexthemes.com` with the same GitHub identity and open the account profile
+- [ ] **Expected**: Connected Apps shows DexThemes Connect, DeepSeek Harness, the reported plugin version, last used, and the recorded apply count; no token, prompt, workspace, theme payload, or Statsig identity is present
+- [ ] Choose **Disconnect** on the website, then retry an authenticated plugin account request
+- [ ] **Expected**: only DeepSeek client sessions are revoked, the app leaves the active Connected Apps list, and website GitHub OAuth, API keys, MCP OAuth/Auth0, and Codex behavior remain unchanged
 - [ ] Disconnect and refresh
 - [ ] **Expected**: Convex revokes the session, the credential and account-only reward leave the running client, and anonymous browse/apply still work
+- [ ] Use an existing account that has never completed DexThemes Connect Device Flow
+- [ ] **Expected**: Connected Apps is empty; achievements, Statsig activity, and historical account age do not fabricate a row
 
 ### 1.7.1 DeepSeek Harness full restart and unavailable capability
 

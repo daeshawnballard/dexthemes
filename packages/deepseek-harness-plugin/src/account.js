@@ -1,3 +1,5 @@
+import { normalizeConnectedAppPluginVersion } from '../../../shared/connected-apps-contract.js';
+
 export const DEXTHEMES_ACCOUNT_API_URL = 'https://acrobatic-corgi-867.convex.site';
 
 function emptyState(reconnectRequired = false) {
@@ -74,6 +76,7 @@ export async function pollDeviceAuthorization(device, {
   fetchImpl = globalThis.fetch,
   apiBaseUrl = DEXTHEMES_ACCOUNT_API_URL,
   waitImpl = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
+  pluginVersion,
   signal,
 } = {}) {
   const deadline = Date.now() + (device.expiresIn * 1000);
@@ -84,7 +87,12 @@ export async function pollDeviceAuthorization(device, {
     const response = await fetchImpl(`${apiBaseUrl}/plugin/deepseek-harness/auth/poll`, {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceCode: device.deviceCode }),
+      body: JSON.stringify({
+        deviceCode: device.deviceCode,
+        ...(normalizeConnectedAppPluginVersion(pluginVersion) ? {
+          pluginVersion: normalizeConnectedAppPluginVersion(pluginVersion),
+        } : {}),
+      }),
       signal,
     });
     const payload = await parseJson(response);
@@ -113,7 +121,9 @@ export function createHarnessAccountClient({
   reconnectRequired = false,
   onConnected = () => {},
   onDisconnected = () => {},
+  pluginVersion,
 } = {}) {
+  const reportedPluginVersion = normalizeConnectedAppPluginVersion(pluginVersion);
   let accessToken = '';
   let expiresAt = 0;
   let generation = 0;
@@ -215,6 +225,7 @@ export function createHarnessAccountClient({
           fetchImpl,
           apiBaseUrl,
           waitImpl,
+          pluginVersion: reportedPluginVersion,
           signal: attemptController.signal,
         }).then(async (session) => {
           if (attempt !== generation || attemptController.signal.aborted) return;
@@ -249,7 +260,12 @@ export function createHarnessAccountClient({
     async recordHarnessUse() {
       if (!accessToken) return null;
       const expectedGeneration = generation;
-      const result = await authorizedFetch('/plugin/deepseek-harness/use', { method: 'POST' });
+      const result = await authorizedFetch('/plugin/deepseek-harness/use', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...(reportedPluginVersion ? { pluginVersion: reportedPluginVersion } : {}),
+        }),
+      });
       await refresh(expectedGeneration);
       return result.achievement || null;
     },

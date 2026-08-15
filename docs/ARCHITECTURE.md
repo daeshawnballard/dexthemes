@@ -103,6 +103,7 @@ These modules own HTTP calls, auth, write flows, and external handoffs.
 - [`src/theme-submission-api.js`](../src/theme-submission-api.js)
 - [`src/moderation-api.js`](../src/moderation-api.js)
 - [`src/unlock-api.js`](../src/unlock-api.js)
+- [`src/connected-apps.js`](../src/connected-apps.js)
 - [`src/auth.js`](../src/auth.js)
 - [`src/preview-actions.js`](../src/preview-actions.js)
 - [`src/locked-themes.js`](../src/locked-themes.js)
@@ -151,6 +152,7 @@ Plugin entry points:
 - `convex/http_plugin_routes.ts`: account-bound stats, unlocks, and confirmed publishing
 - `convex/pluginAuth.ts`: second JWT/scope verification boundary before Convex account access
 - `convex/pluginUsers.ts`: GitHub-identity linking and short-lived hashed plugin sessions
+- `convex/connectedApps.ts`: durable installed-integration evidence, safe account projection, and integration-scoped disconnect
 - `plugins/dexthemes/`: installable plugin manifest, MCP configuration, assets, and bundled skill
 
 The MCP server can perform public discovery and local computation without authentication. Personal stats/unlocks require `themes:read`; publishing requires `themes:write`. Identity always comes from the verified GitHub-backed bearer token, never a tool argument.
@@ -166,6 +168,7 @@ Route families now live in:
 Important backend domains:
 
 - `users.ts`: sessions, OAuth users, API-key users
+- `connectedApps.ts`: durable installed-integration connection and bounded usage evidence; never bearer material
 - `themes.ts`: community themes, protections, public list shaping
 - `unlocks.ts`: unlock state, leaderboard shaping, public supporters
 - `supporters.ts`: Buy Me a Coffee claim and revocation logic
@@ -188,6 +191,19 @@ The backend uses unlock records to drive:
 - leaderboard decorations
 
 Revoked supporter benefits are preserved as history but excluded from active UI.
+
+## Account identity and Connected Apps
+
+DexThemes has one GitHub-backed user identity shared by the website and installed integrations. The credentials remain intentionally separate:
+
+- the website uses its existing cookie or legacy website session;
+- Codex/ChatGPT MCP keeps the standards-compliant Auth0/JWT verifier and short-lived internal bridge session;
+- DeepSeek Harness uses GitHub Device Flow and a one-hour `dxd_…` bearer held only in the running plugin;
+- Connected Apps stores no bearer, provider token, credential, prompt, workspace content, or Statsig identifier.
+
+The additive `connectedApps` table is durable account evidence, not a session table. Its first supported row is created only after a successful DeepSeek Device Flow connection or a server-observed apply from that exact session source. There is no existing-user backfill. The website account view reads a safe projection through `GET /me/connected-apps`; disconnect marks the row inactive and revokes only client-usable sessions mapped to that integration.
+
+Cross-environment preference sync is not implemented. Its approved decision design is documented in [`docs/CROSS-ENVIRONMENT-THEME-SYNC.md`](CROSS-ENVIRONMENT-THEME-SYNC.md); preference, suggestion, and application remain separate states, and application stays explicit and reversible.
 
 ## Performance Shape
 

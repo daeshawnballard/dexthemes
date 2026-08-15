@@ -941,6 +941,122 @@
   font-size: 11px;
   text-align: center;
 }
+.profile-loading {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.connected-apps-section {
+  margin-bottom: 24px;
+}
+.connected-app-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.connected-app-section-header p {
+  margin: 5px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.connected-app-list {
+  display: grid;
+  gap: 10px;
+}
+.connected-app-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface-elevated) 86%, transparent);
+}
+.connected-app-copy {
+  min-width: 0;
+}
+.connected-app-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.connected-app-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+.connected-app-badge {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.connected-app-platform {
+  margin-top: 3px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.connected-app-meta {
+  display: flex;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+.connected-app-meta span:not(:last-child)::after {
+  content: '·';
+  margin-left: 14px;
+}
+.connected-app-disconnect-btn,
+.connected-app-error button {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-secondary);
+  min-height: 34px;
+  padding: 0 11px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.connected-app-disconnect-btn:hover,
+.connected-app-error button:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+.connected-app-disconnect-btn:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.connected-app-empty,
+.connected-app-status,
+.connected-app-error {
+  padding: 13px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 9px;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.connected-app-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-style: solid;
+  color: var(--text-secondary);
+}
 .achievements-section {
   margin-top: 8px;
 }

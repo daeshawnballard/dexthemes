@@ -10,6 +10,7 @@
 
 import type * as admin from "../admin.js";
 import type * as auth from "../auth.js";
+import type * as connectedApps from "../connectedApps.js";
 import type * as crons from "../crons.js";
 import type * as flags from "../flags.js";
 import type * as http from "../http.js";
@@ -44,6 +45,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   auth: typeof auth;
+  connectedApps: typeof connectedApps;
   crons: typeof crons;
   flags: typeof flags;
   http: typeof http;

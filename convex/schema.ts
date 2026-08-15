@@ -168,6 +168,19 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_expires", ["expiresAt"]),
 
+  connectedApps: defineTable({
+    userId: v.id("users"),
+    integrationId: v.string(),
+    pluginVersion: v.optional(v.string()),
+    connectedAt: v.number(),
+    lastUsedAt: v.number(),
+    usageCount: v.number(),
+    disconnectedAt: v.optional(v.number()),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_integration", ["userId", "integrationId"]),
+
   supporterClaims: defineTable({
     userId: v.id("users"),
     token: v.string(),

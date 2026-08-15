@@ -414,10 +414,14 @@ test('device authorization uses bounded public codes and respects provider polli
     fetchImpl,
     apiBaseUrl: 'https://api.example',
     waitImpl: async () => {},
+    pluginVersion: PLUGIN_VERSION,
   });
   assert.deepEqual(session, { accessToken: 'dxd_access-secret', expiresIn: 3600 });
   assert.equal(requests.filter((request) => request.url.endsWith('/auth/poll')).length, 3);
-  assert.ok(requests.slice(1).every((request) => JSON.parse(request.options.body).deviceCode === 'device-secret'));
+  assert.ok(requests.slice(1).every((request) => {
+    const body = JSON.parse(request.options.body);
+    return body.deviceCode === 'device-secret' && body.pluginVersion === PLUGIN_VERSION;
+  }));
 });
 
 test('install docs identify the published 0.6.0 registry package and local-development path', async () => {
@@ -490,6 +494,7 @@ test('installed account client keeps bearer credentials in memory and awards Har
     fetchImpl,
     apiBaseUrl: 'https://api.example',
     waitImpl: async () => {},
+    pluginVersion: PLUGIN_VERSION,
   });
   const handoff = await account.connect();
   assert.deepEqual(handoff, { userCode: 'JOIN-NOW', verificationUrl: 'https://github.com/login/device?user_code=JOIN-NOW' });
@@ -503,6 +508,13 @@ test('installed account client keeps bearer credentials in memory and awards Har
   const protectedRequests = requests.filter((request) => /plugin\/(me|deepseek-harness\/use)/.test(request.url));
   assert.ok(protectedRequests.every((request) => request.options.headers.Authorization === 'Bearer dxd_memory-only-token'));
   assert.equal(requests.some((request) => String(request.options.body || '').includes('dxd_memory-only-token')), false);
+  const poll = requests.find((request) => request.url.endsWith('/auth/poll'));
+  assert.deepEqual(JSON.parse(poll.options.body), {
+    deviceCode: 'device-code',
+    pluginVersion: PLUGIN_VERSION,
+  });
+  const recordedUse = requests.find((request) => request.url.endsWith('/plugin/deepseek-harness/use'));
+  assert.deepEqual(JSON.parse(recordedUse.options.body), { pluginVersion: PLUGIN_VERSION });
   await account.disconnect();
   assert.equal(account.getSnapshot().status, 'idle');
   const revoke = requests.find((request) => request.url.endsWith('/deepseek-harness/session'));

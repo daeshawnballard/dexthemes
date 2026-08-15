@@ -8,6 +8,11 @@ import {
 } from "../shared/plugin-public-policy.js";
 import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 import {
+  CONNECTED_APP_IDS,
+  normalizeConnectedAppPluginVersion,
+} from "../shared/connected-apps-contract.js";
+import { DEEPSEEK_SESSION_SOURCE } from "./connectedApps";
+import {
   RATE_LIMITS,
   getClientIP,
   pluginJsonResponse,
@@ -312,7 +317,10 @@ export function registerPluginRoutes(http: DexHttpRouter) {
             return pluginJsonResponse({ error: "github_identity_unavailable" }, 502);
           }
           const identity = boundedGitHubIdentity(profilePayload);
-          const session = await ctx.runMutation(internal.pluginUsers.upsertDeepSeekDeviceUser, identity);
+          const session = await ctx.runMutation(internal.pluginUsers.upsertDeepSeekDeviceUser, {
+            ...identity,
+            pluginVersion: normalizeConnectedAppPluginVersion(body?.pluginVersion),
+          });
           return pluginJsonResponse({
             accessToken: session.pluginAuthToken,
             tokenType: "Bearer",
@@ -352,8 +360,14 @@ export function registerPluginRoutes(http: DexHttpRouter) {
     handler: httpAction(async (ctx, request) => {
       try {
         const session = await authorizePlugin(ctx, request, "themes:read");
+        const body: any = await request.json().catch(() => ({}));
+        const isConnectedDeepSeekApp = session.source === DEEPSEEK_SESSION_SOURCE;
         const achievement = await ctx.runMutation(internal.unlocks.recordDeepSeekHarnessUseForUser, {
           userId: session.userId,
+          ...(isConnectedDeepSeekApp ? {
+            connectedAppId: CONNECTED_APP_IDS.DEEPSEEK_HARNESS,
+            pluginVersion: normalizeConnectedAppPluginVersion(body?.pluginVersion),
+          } : {}),
         });
         return pluginJsonResponse({ achievement });
       } catch (error) {
