@@ -53,7 +53,7 @@ pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-The npm package is the supported published distribution path. Version `0.6.4` is the reviewed publication candidate for the user-initiated Device Flow copy action; registry availability and loaded-runtime behavior remain separate release gates. See the [compatibility, restart, upgrade, and removal guide](packages/deepseek-harness-plugin/README.md), [0.6.2 loaded-runtime receipt](docs/DEEPSEEK-HARNESS-062-RUNTIME-RECEIPT.md), [0.6.2 production-auth receipt](docs/DEEPSEEK-HARNESS-062-PRODUCTION-AUTH-RECEIPT.md), [changelog](packages/deepseek-harness-plugin/CHANGELOG.md), [GitHub releases](https://github.com/daeshawnballard/dexthemes/releases), and [support path](https://www.dexthemes.com/support.html).
+The npm package is the supported published distribution path. Version `0.6.4` is published and has been exercised from its exact registry artifact in real DeepSeek Harness `0.1.0-rc.5`, including Apply/Revert, restart restoration, offline fallback, GitHub Device Flow, connected activity acknowledgement, bounded Statsig delivery, and Creator-mode chat Apply/Stop. See the [compatibility, restart, upgrade, and removal guide](packages/deepseek-harness-plugin/README.md), [0.6.4 release receipt](docs/DEEPSEEK-HARNESS-064-RUNTIME-RECEIPT.md), [changelog](packages/deepseek-harness-plugin/CHANGELOG.md), [GitHub releases](https://github.com/daeshawnballard/dexthemes/releases), and [support path](https://www.dexthemes.com/support.html).
 
 Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) and you're in.
 

@@ -15,7 +15,7 @@ pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-Version `0.6.4` is the reviewed publication candidate. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior are separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.2 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2) evidence.
+Version `0.6.4` is published. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.4 release receipt](../../docs/DEEPSEEK-HARNESS-064-RUNTIME-RECEIPT.md).
 
 For local development against a source checkout, use the source directory instead:
 
@@ -28,7 +28,7 @@ The package contributes a real Loader entry and a **DexThemes** tab under **Sett
 
 ## Compatibility
 
-The `0.6.4` publication candidate targets the same DeepSeek Harness CLI `0.1.0-rc.5` integration boundary verified for `0.6.1` at commit `47f943859bef60e4160492346772ded9b24f765a` and exercised by the published `0.6.2` receipts. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+The published `0.6.4` artifact targets DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. That exact registry package was exercised in the loaded Harness runtime for discovery, Apply/Revert, restart restoration, offline fallback, Device Flow, connected activity, Statsig delivery, and Creator-mode chat Apply/Stop. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
 
 DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
 
