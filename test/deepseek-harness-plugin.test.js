@@ -456,15 +456,15 @@ test('device code handoff copies the complete bounded code without unsafe fallba
   );
 });
 
-test('install docs identify the 0.6.3 registry candidate and local-development path', async () => {
+test('install docs identify the 0.6.4 registry candidate and local-development path', async () => {
   const [packageReadme, integrationDocs] = await Promise.all([
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
   ]);
 
   for (const source of [packageReadme, integrationDocs]) {
-    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.3/);
-    assert.doesNotMatch(source, /0\.6\.3[^\n]*(?:not published|unreleased)/i);
+    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.4/);
+    assert.doesNotMatch(source, /0\.6\.4[^\n]*(?:not published|unreleased)/i);
     assert.doesNotMatch(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
     assert.match(source, /local development/i);
   }
@@ -480,7 +480,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
   ]);
   const manifest = JSON.parse(manifestSource);
-  assert.equal(manifest.version, '0.6.3');
+  assert.equal(manifest.version, '0.6.4');
   assert.ok(manifest.files.includes('CHANGELOG.md'));
   assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
   assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);

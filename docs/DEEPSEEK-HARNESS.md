@@ -73,11 +73,11 @@ After signing into the website with the same GitHub identity, **Connected Apps**
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.3
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-Version `0.6.3` is the reviewed publication candidate for the receipt fix. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
+Version `0.6.4` is the reviewed publication candidate for the Device Flow copy action and includes the `0.6.3` Connected Apps receipt fix. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
 
 For local development against a source checkout, use the source directory instead:
 
