@@ -37,6 +37,10 @@ import {
   requestDeviceAuthorization,
 } from '../packages/deepseek-harness-plugin/src/account.js';
 import { applyHarnessThemeWithConnectedActivity } from '../packages/deepseek-harness-plugin/src/apply-coordinator.js';
+import {
+  copyDeviceUserCode,
+  normalizeDeviceUserCode,
+} from '../packages/deepseek-harness-plugin/src/device-code-handoff.js';
 
 const PACKAGE_ROOT = new URL('../packages/deepseek-harness-plugin/', import.meta.url);
 
@@ -436,15 +440,31 @@ test('device authorization uses bounded public codes and respects provider polli
   }));
 });
 
-test('install docs identify the 0.6.3 registry candidate and local-development path', async () => {
+test('device code handoff copies the complete bounded code without unsafe fallbacks', async () => {
+  const copied = [];
+  const clipboard = { writeText: async (value) => { copied.push(value); } };
+
+  assert.equal(normalizeDeviceUserCode(' 7AE9-0FF4 '), '7AE9-0FF4');
+  assert.equal(normalizeDeviceUserCode('missing space'), '');
+  assert.deepEqual(await copyDeviceUserCode(' 7AE9-0FF4 ', clipboard), { copied: true, reason: null });
+  assert.deepEqual(copied, ['7AE9-0FF4']);
+  assert.deepEqual(await copyDeviceUserCode('', clipboard), { copied: false, reason: 'invalid_code' });
+  assert.deepEqual(await copyDeviceUserCode('7AE9-0FF4', null), { copied: false, reason: 'clipboard_unavailable' });
+  assert.deepEqual(
+    await copyDeviceUserCode('7AE9-0FF4', { writeText: async () => { throw new Error('denied'); } }),
+    { copied: false, reason: 'copy_failed' },
+  );
+});
+
+test('install docs identify the 0.6.4 registry candidate and local-development path', async () => {
   const [packageReadme, integrationDocs] = await Promise.all([
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('../../docs/DEEPSEEK-HARNESS.md', PACKAGE_ROOT), 'utf8'),
   ]);
 
   for (const source of [packageReadme, integrationDocs]) {
-    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.3/);
-    assert.doesNotMatch(source, /0\.6\.3[^\n]*(?:not published|unreleased)/i);
+    assert.match(source, /plugin --profile web add @dexthemes\/deepseek-harness-plugin@0\.6\.4/);
+    assert.doesNotMatch(source, /0\.6\.4[^\n]*(?:not published|unreleased)/i);
     assert.doesNotMatch(source, /@dexthemes\/deepseek-harness-plugin@0\.4\.1/);
     assert.match(source, /local development/i);
   }
@@ -460,7 +480,7 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
   ]);
   const manifest = JSON.parse(manifestSource);
-  assert.equal(manifest.version, '0.6.3');
+  assert.equal(manifest.version, '0.6.4');
   assert.ok(manifest.files.includes('CHANGELOG.md'));
   assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
   assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);
@@ -837,6 +857,8 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(built, /Color me lucky/);
   assert.match(built, /Choose Creator mode to apply and revert from chat/);
   assert.match(built, /Connect DexThemes/);
+  assert.match(built, /Copy code/);
+  assert.match(built, /Code copied\. Paste it into GitHub\./);
   assert.match(built, /Continue with GitHub/);
   assert.match(built, /Connected Apps activity recorded/);
   assert.match(built, /Retry activity/);
@@ -848,7 +870,7 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_preview/);
   assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_card/);
   assert.doesNotMatch(source, /onApplied:[\s\S]*?recordHarnessUse/);
-  assert.doesNotMatch(source, /clipboard|localStorage|querySelector\([^)]*Harness/i);
+  assert.doesNotMatch(source, /execCommand|localStorage|querySelector\([^)]*Harness/i);
 });
 
 test('installed plugin analytics sends only allowlisted metadata and owns Statsig lifecycle', async () => {

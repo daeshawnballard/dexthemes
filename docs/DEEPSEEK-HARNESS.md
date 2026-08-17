@@ -56,7 +56,7 @@ The full `/api/mcp` endpoint is deliberately not connected. Harness's generic br
 Harness does not need to share its identity with DexThemes. The installed settings package owns an optional OAuth Device Authorization flow for account features:
 
 1. **Connect DexThemes** requests a short-lived device and user code from GitHub through the rate-limited Convex proxy.
-2. The plugin shows only the user code and GitHub's exact `https://github.com/login/device` verification link. The opaque device code remains in memory.
+2. The plugin shows the bounded user code, a **Copy code** action, and GitHub's exact `https://github.com/login/device` verification link. Copy uses the browser Clipboard API only after the user's click; paste transfers the complete code without storing it in a URL. The opaque device code remains in memory.
 3. Convex polls GitHub using the shared **DexThemes Connect** OAuth application for installed integrations and requests no OAuth scope. The GitHub access token is used only inside that server request to fetch `/user`, then revoked through the server-held app secret; it is neither stored nor returned to Harness.
 4. Convex links the verified GitHub identity to the existing DexThemes user, records explicit `DexThemes Connect` / `DeepSeek Harness` connection evidence with the bounded plugin version when available, grants the idempotent **Harnessed** / **Deep Current** reward from that server-verified condition, and returns a one-hour `dxd_…` session with separate `themes:read` and `harness:use` scopes. Only the session's SHA-256 hash is stored; the credential stays in the running plugin closure and is never persisted in browser storage, Harness configuration, prompts, URLs, analytics, or workspace files.
 5. Authenticated stats and unlocks use bearer-only wildcard CORS routes; cookie-backed website writes keep their existing origin allowlist.
@@ -73,11 +73,11 @@ After signing into the website with the same GitHub identity, **Connected Apps**
 The public package is `@dexthemes/deepseek-harness-plugin`. Install the verified release from the DeepSeek Harness checkout:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.3
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-Version `0.6.3` is the reviewed publication candidate for the receipt fix. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
+Version `0.6.4` is the reviewed publication candidate for the Device Flow copy action and includes the `0.6.3` Connected Apps receipt fix. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. Upgrade a published version with `plugin ... add @dexthemes/deepseek-harness-plugin@<published-version>`, inspect it with `plugin ... why`, and remove it with `plugin ... remove @dexthemes/deepseek-harness-plugin`. Revert/forget the saved theme and Disconnect before removal.
 
 For local development against a source checkout, use the source directory instead:
 

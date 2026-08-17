@@ -11,6 +11,7 @@ import { createHarnessThemeController, PLUGIN_VERSION } from './theme-controller
 import { createPluginAnalytics } from './analytics.js';
 import { createHarnessAccountClient } from './account.js';
 import { applyHarnessThemeWithConnectedActivity } from './apply-coordinator.js';
+import { copyDeviceUserCode } from './device-code-handoff.js';
 import { createThemeStateStore, normalizeThemeState } from './theme-state.js';
 
 export const inject = ['slots'];
@@ -174,12 +175,17 @@ function ThemeDialog({ theme, controller, account, active, capabilityAvailable, 
 
 function AccountPanel({ account }) {
   const state = useSyncExternalStore(account.subscribe, account.getSnapshot, account.getSnapshot);
+  const [codeCopyStatus, setCodeCopyStatus] = useState('idle');
   const busy = state.status === 'connecting';
   const connected = state.status === 'connected';
   const disconnecting = state.status === 'disconnecting';
   const waiting = state.status === 'awaiting_authorization';
   const publishedThemes = Array.isArray(state.stats?.themes) ? state.stats.themes.length : 0;
   const unlockCount = state.unlocks.length;
+
+  useEffect(() => {
+    setCodeCopyStatus('idle');
+  }, [state.userCode, waiting]);
 
   return <section style={ui.account} aria-label="DexThemes account">
     <div style={ui.accountCopy}>
@@ -192,6 +198,11 @@ function AccountPanel({ account }) {
             ? 'Reconnect after restart to recover creator stats, achievements, and account-only themes.'
             : 'Optional: connect for creator stats, achievements, and account-only themes.'}</span>
       {state.error ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>{state.error}</span> : null}
+      {waiting && codeCopyStatus === 'copied'
+        ? <span role="status" style={ui.status}>Code copied. Paste it into GitHub.</span>
+        : waiting && codeCopyStatus === 'failed'
+          ? <span role="alert" style={{ ...ui.status, color: 'var(--dsw-alias-state-error-primary)' }}>Copy unavailable. Select the code above.</span>
+          : null}
       {connected && state.activityStatus === 'recording'
         ? <span role="status" style={ui.status}>Recording Connected Apps activity…</span>
         : connected && state.activityStatus === 'recorded'
@@ -202,6 +213,17 @@ function AccountPanel({ account }) {
         : null}
     </div>
     <div style={ui.accountActions}>
+      {waiting && state.userCode
+        ? <button
+            type="button"
+            style={ui.button}
+            onClick={() => {
+              void copyDeviceUserCode(state.userCode).then((result) => {
+                setCodeCopyStatus(result.copied ? 'copied' : 'failed');
+              });
+            }}
+          >{codeCopyStatus === 'copied' ? 'Code copied' : 'Copy code'}</button>
+        : null}
       {waiting && state.verificationUrl
         ? <a style={ui.link} href={state.verificationUrl} target="_blank" rel="noreferrer">Continue with GitHub</a>
         : null}

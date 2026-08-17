@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4 — 2026-08-17
+
+- Add an explicit **Copy code** action for GitHub Device Flow so the complete validated code reaches GitHub without relying on segmented manual transcription.
+- Keep the device code out of URLs, storage, analytics, logs, and automatic clipboard writes; copying remains a user-initiated action with visible success or failure feedback.
+- Preserve the existing anonymous catalog, preview, Apply/Revert, chat creation, Connected Apps receipt, and explicit post-restart reconnect boundaries.
+
 ## 0.6.3 — 2026-08-15
 
 - Route card and preview Apply actions through one explicit coordinator that starts the separately scoped Connected Apps receipt only after Harness accepts the theme override.

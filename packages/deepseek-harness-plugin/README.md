@@ -8,14 +8,14 @@ Version 0.6 includes a palette matched to DeepSeek Harness's published semantic 
 
 From the DeepSeek Harness checkout:
 
-Install version `0.6.3` after confirming it is available from npm:
+Install version `0.6.4` after confirming it is available from npm:
 
 ```sh
-pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.3
+pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-Version `0.6.3` is the reviewed publication candidate. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior are separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.2 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2) evidence.
+Version `0.6.4` is the reviewed publication candidate. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior are separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.2 release](https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.2) evidence.
 
 For local development against a source checkout, use the source directory instead:
 
@@ -28,7 +28,7 @@ The package contributes a real Loader entry and a **DexThemes** tab under **Sett
 
 ## Compatibility
 
-The `0.6.3` publication candidate targets the same DeepSeek Harness CLI `0.1.0-rc.5` integration boundary verified for `0.6.1` at commit `47f943859bef60e4160492346772ded9b24f765a` and exercised by the published `0.6.2` receipts. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+The `0.6.4` publication candidate targets the same DeepSeek Harness CLI `0.1.0-rc.5` integration boundary verified for `0.6.1` at commit `47f943859bef60e4160492346772ded9b24f765a` and exercised by the published `0.6.2` receipts. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
 
 DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
 
@@ -64,7 +64,7 @@ After Harness starts, refresh its browser tab once so the new client package is 
 3. Choose **Preview**, then **Apply to DeepSeek**, or apply directly from a card.
 4. Apply another card to switch themes. Choose **Revert** to restore the Harness default.
 
-Browsing, chat creation, preview, apply, and revert never require an account. To add creator stats, achievements, and unlocked reward palettes, choose **Connect DexThemes**. Convex requests a short-lived code from GitHub's official Device Flow, and the plugin sends the user only to `https://github.com/login/device`. The opaque device code remains in memory while Convex polls GitHub. GitHub's token is used only inside that Convex request to verify `/user`; it is never returned to Harness or stored by DexThemes. Convex instead returns a one-hour DexThemes session with separate `themes:read` and `harness:use` scopes. Its hash is stored server-side and its credential stays only in the running plugin closure. It is never placed in a prompt, URL, browser storage, analytics event, workspace, or Harness configuration. Disconnect persists locally only after Convex acknowledges revocation; a failed revoke keeps the session connected and retryable. Unload clears it locally without claiming a successful disconnect, with server expiry as the fallback.
+Browsing, chat creation, preview, apply, and revert never require an account. To add creator stats, achievements, and unlocked reward palettes, choose **Connect DexThemes**, then **Copy code**, open the exact GitHub link, and paste the complete code. Convex requests that short-lived code from GitHub's official Device Flow, and the plugin sends the user only to `https://github.com/login/device`. The opaque device code remains in memory while Convex polls GitHub. GitHub's token is used only inside that Convex request to verify `/user`; it is never returned to Harness or stored by DexThemes. Convex instead returns a one-hour DexThemes session with separate `themes:read` and `harness:use` scopes. Its hash is stored server-side and its credential stays only in the running plugin closure. It is never placed in a prompt, URL, browser storage, analytics event, workspace, or Harness configuration. Disconnect persists locally only after Convex acknowledges revocation; a failed revoke keeps the session connected and retryable. Unload clears it locally without claiming a successful disconnect, with server expiry as the fallback.
 
 Successful Device Flow authorization creates explicit Connected Apps evidence and idempotently awards **Harnessed** with the paired **Deep Current** reward. That reward is based on the server-verified GitHub connection, not on a client claim. After Harness accepts a card or preview Apply, the plugin calls the separately scoped `/plugin/deepseek-harness/use` route with a random, replay-deduped receipt and bounded plugin version. The account panel shows recording, acknowledgement, or a bounded failure. A retry reuses the same in-memory receipt so a response lost after dispatch cannot double count activity. Connected Apps labels the resulting last-used time and count as client-reported activity; neither can grant an entitlement. No token, prompt, workspace, theme, or palette payload enters that record. The device flow uses the shared DexThemes-owned **DexThemes Connect** GitHub OAuth application for installed integrations, with **Enable Device Flow** turned on. It requests no GitHub OAuth scope, which GitHub defines as read-only public profile access. Convex verifies `/user`, revokes that exact GitHub token through the app's server-held secret, and only then issues the distinct `dxd_…` session. Normal website and publication routes do not recognize that credential family. Auth0, refresh tokens, and offline access are not part of the DeepSeek flow. The separate Codex/ChatGPT MCP OAuth 2.1 contract remains unchanged.
 

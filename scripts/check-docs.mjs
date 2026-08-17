@@ -20,7 +20,7 @@ const checks = [
     file: 'packages/deepseek-harness-plugin/README.md',
     forbidden: ['@dexthemes/deepseek-harness-plugin@0.4.1'],
     required: [
-      '@dexthemes/deepseek-harness-plugin@0.6.3',
+      '@dexthemes/deepseek-harness-plugin@0.6.4',
       '0.1.0-rc.5',
       'No broader Harness semver range is claimed',
       'Restart recovery',
@@ -32,7 +32,7 @@ const checks = [
   {
     file: 'packages/deepseek-harness-plugin/CHANGELOG.md',
     forbidden: [],
-    required: ['0.6.3 — 2026-08-15', '0.6.2 — 2026-08-14', '0.6.1 — 2026-08-14', '0.6.0 — 2026-08-14'],
+    required: ['0.6.4 — 2026-08-17', '0.6.3 — 2026-08-15', '0.6.2 — 2026-08-14', '0.6.1 — 2026-08-14', '0.6.0 — 2026-08-14'],
   },
   {
     file: 'docs/DEEPSEEK-HARNESS.md',
