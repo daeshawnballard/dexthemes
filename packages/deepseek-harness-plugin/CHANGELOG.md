@@ -6,6 +6,8 @@
 - Keep the device code out of URLs, storage, analytics, logs, and automatic clipboard writes; copying remains a user-initiated action with visible success or failure feedback.
 - Preserve the existing anonymous catalog, preview, Apply/Revert, chat creation, Connected Apps receipt, and explicit post-restart reconnect boundaries.
 
+Release: https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.4
+
 ## 0.6.3 — 2026-08-15
 
 - Route card and preview Apply actions through one explicit coordinator that starts the separately scoped Connected Apps receipt only after Harness accepts the theme override.
