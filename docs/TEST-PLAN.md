@@ -61,7 +61,7 @@ Use this checklist to verify all features are working correctly. Tests are group
 
 - [ ] Configure the shared **DexThemes Connect** GitHub OAuth application with **Enable Device Flow**, then set its `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_ID` and `DEXTHEMES_DEEPSEEK_GITHUB_CLIENT_SECRET` in Convex
 - [ ] In **Settings → Plugins → DexThemes**, choose **Connect DexThemes**
-- [ ] **Expected**: the plugin shows a bounded user code and the exact `https://github.com/login/device` link; no API key or token is requested or displayed
+- [ ] **Expected**: the plugin shows a bounded user code, **Copy code**, and the exact `https://github.com/login/device` link; copying transfers the complete code, reports success or a bounded failure, and does not put it in a URL, analytics, storage, or configuration
 - [ ] Complete GitHub authorization and return to Harness
 - [ ] **Expected**: creator stats, `Harnessed`, and `Deep Current` appear after Convex verifies Device Flow identity and revokes GitHub's temporary token; neither that GitHub token nor the short-lived DexThemes session appears in browser storage, URL, Harness configuration, prompts, workspace, or analytics
 - [ ] Apply a theme while connected

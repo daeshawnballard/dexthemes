@@ -37,6 +37,10 @@ import {
   requestDeviceAuthorization,
 } from '../packages/deepseek-harness-plugin/src/account.js';
 import { applyHarnessThemeWithConnectedActivity } from '../packages/deepseek-harness-plugin/src/apply-coordinator.js';
+import {
+  copyDeviceUserCode,
+  normalizeDeviceUserCode,
+} from '../packages/deepseek-harness-plugin/src/device-code-handoff.js';
 
 const PACKAGE_ROOT = new URL('../packages/deepseek-harness-plugin/', import.meta.url);
 
@@ -434,6 +438,22 @@ test('device authorization uses bounded public codes and respects provider polli
     const body = JSON.parse(request.options.body);
     return body.deviceCode === 'device-secret' && body.pluginVersion === PLUGIN_VERSION;
   }));
+});
+
+test('device code handoff copies the complete bounded code without unsafe fallbacks', async () => {
+  const copied = [];
+  const clipboard = { writeText: async (value) => { copied.push(value); } };
+
+  assert.equal(normalizeDeviceUserCode(' 7AE9-0FF4 '), '7AE9-0FF4');
+  assert.equal(normalizeDeviceUserCode('missing space'), '');
+  assert.deepEqual(await copyDeviceUserCode(' 7AE9-0FF4 ', clipboard), { copied: true, reason: null });
+  assert.deepEqual(copied, ['7AE9-0FF4']);
+  assert.deepEqual(await copyDeviceUserCode('', clipboard), { copied: false, reason: 'invalid_code' });
+  assert.deepEqual(await copyDeviceUserCode('7AE9-0FF4', null), { copied: false, reason: 'clipboard_unavailable' });
+  assert.deepEqual(
+    await copyDeviceUserCode('7AE9-0FF4', { writeText: async () => { throw new Error('denied'); } }),
+    { copied: false, reason: 'copy_failed' },
+  );
 });
 
 test('install docs identify the 0.6.3 registry candidate and local-development path', async () => {
@@ -837,6 +857,8 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(built, /Color me lucky/);
   assert.match(built, /Choose Creator mode to apply and revert from chat/);
   assert.match(built, /Connect DexThemes/);
+  assert.match(built, /Copy code/);
+  assert.match(built, /Code copied\. Paste it into GitHub\./);
   assert.match(built, /Continue with GitHub/);
   assert.match(built, /Connected Apps activity recorded/);
   assert.match(built, /Retry activity/);
@@ -848,7 +870,7 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_preview/);
   assert.match(source, /applyHarnessThemeWithConnectedActivity\([\s\S]*?settings_plugin_card/);
   assert.doesNotMatch(source, /onApplied:[\s\S]*?recordHarnessUse/);
-  assert.doesNotMatch(source, /clipboard|localStorage|querySelector\([^)]*Harness/i);
+  assert.doesNotMatch(source, /execCommand|localStorage|querySelector\([^)]*Harness/i);
 });
 
 test('installed plugin analytics sends only allowlisted metadata and owns Statsig lifecycle', async () => {
