@@ -1,5 +1,6 @@
 import "./index.css";
 import { BuildWeekComposition } from "./Composition";
+import { DeepSeek064LaunchComposition } from "./DeepSeek064Launch";
 import { DeepSeekReleaseCompositions } from "./DeepSeekRelease";
 
 export const RemotionRoot: React.FC = () => {
@@ -7,6 +8,7 @@ export const RemotionRoot: React.FC = () => {
     <>
       <BuildWeekComposition />
       <DeepSeekReleaseCompositions />
+      <DeepSeek064LaunchComposition />
     </>
   );
 };
