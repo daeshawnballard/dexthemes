@@ -61,3 +61,14 @@ npm run render:deepseek:all
 ```
 
 The admitted recordings and state-verification screenshots live under `public/deepseek-release/captures/`. Public DexThemes endpoints were blocked during capture; the chat segment used Harness's real MCP path against a local restricted DexThemes MCP server and deterministic local LLM transport. The registry integrity, installed bundle hashes, capture assertions, and rendered-output checksums are recorded in the production receipt alongside the final assets.
+
+## DeepSeek Harness 0.6.4 launch cut
+
+`DeepSeekHarness064Launch` is the current 22-second release cut. It uses only the exact 0.6.4 screenshots captured from the clean installed settings plugin and configured Creator-mode Harness runtimes. The earlier 0.6.2 motion cut remains in the project as a historical artifact and is not relabeled as 0.6.4 evidence.
+
+```console
+npm run render:deepseek:064:stills
+npm run render:deepseek:064
+```
+
+The 0.6.4 package provenance and loaded Apply/Revert receipts are recorded in `deepseek-release-064-receipt.json`.

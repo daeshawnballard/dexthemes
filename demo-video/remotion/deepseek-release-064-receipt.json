@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "artifact": "DexThemes for DeepSeek Harness 0.6.4 launch video",
+  "releaseDate": "2026-08-17",
+  "admission": {
+    "status": "PASS",
+    "packageProvenance": "PUBLIC_NPM_RUNTIME_PASS",
+    "notes": [
+      "Every admitted product screenshot was captured from a genuine running DeepSeek Harness UI.",
+      "The clean 0.6.4 settings-plugin runtime proved public npm install, GitHub connection recovery, Apply, Revert, and a 200 Connected Apps activity receipt.",
+      "The configured 0.6.4 Creator-mode runtime proved chat generation, validation, Cordis Apply, and Cordis Stop restoration.",
+      "No account credentials, tokens, email addresses, private identifiers, unrelated browser data, or private workspace contents are admitted."
+    ]
+  },
+  "release": {
+    "tag": "deepseek-harness-plugin-v0.6.4",
+    "publicMerge": "566526ada28b768284b24641f046157ff22b7baa",
+    "privateMerge": "1d355151b7bbf85644b9f15b5d00414292125d3c",
+    "url": "https://github.com/daeshawnballard/dexthemes/releases/tag/deepseek-harness-plugin-v0.6.4"
+  },
+  "runtime": {
+    "harness": {
+      "gitCommit": "47f943859bef60e4160492346772ded9b24f765a",
+      "cliVersion": "0.1.0-rc.5"
+    },
+    "plugin": {
+      "package": "@dexthemes/deepseek-harness-plugin",
+      "version": "0.6.4",
+      "registryShasum": "2adcd6d8c1a819f892fb25d06a9d82253acdba12",
+      "registryIntegrity": "sha512-k2ixkdySR9mIOnUsl/fT21vJV5fDGlZJXtEDhTxcQG7l5lzmYOB8y63jLp3sKYjDLVxQORABhiMJt9FqmeQRWg==",
+      "installedPackageJsonSha256": "174b6b425738229fd6316e40721c8855a81e9addf4dd419b237f08378c9f72be",
+      "loadedClientBundleSha256": "bf6ae700127d675504b97b8f31e82b6560edaa949448271f8876e6944509586c"
+    },
+    "proof": {
+      "settingsApplyAndRevert": "PASS",
+      "creatorApply": {
+        "status": "PASS",
+        "theme": "Lunar Orchard",
+        "darkSurface": "#160E0E",
+        "loadedBodyBackground": "rgb(22, 14, 14)"
+      },
+      "creatorStop": {
+        "status": "PASS",
+        "restoredBodyBackground": "rgb(21, 21, 23)",
+        "runningCordisPackages": 0
+      },
+      "connectedAppsActivity": {
+        "status": "PASS",
+        "httpStatus": 200,
+        "response": {"recorded": true, "evidence": "client_reported"}
+      }
+    }
+  },
+  "captures": [
+    {
+      "path": "public/deepseek-release/captures/dexthemes-064-connected-activity-recorded.png",
+      "dimensions": "1200x1223",
+      "sha256": "7d5622ce7acd4588d52a0fd3fb3ae7b569aa357e8b469f7c049a33dd56d1b320"
+    },
+    {
+      "path": "public/deepseek-release/captures/dexthemes-064-lunar-orchard-applied.png",
+      "dimensions": "1200x1279",
+      "sha256": "4038febd0f337485a7c13591c50378f74b40f4d1fbd4b5ec8609a751d0eaf7e4"
+    },
+    {
+      "path": "public/deepseek-release/captures/dexthemes-064-lunar-orchard-reverted.png",
+      "dimensions": "1200x1279",
+      "sha256": "f60e6857b915f31985aa11ef1258a02126a6af529596fe72f4d5aa970d911dc9"
+    }
+  ],
+  "composition": {
+    "id": "DeepSeekHarness064Launch",
+    "video": "H.264 1920x1080 30fps 22.016s",
+    "audio": "AAC 48kHz stereo",
+    "renderCommand": "npm run render:deepseek:064",
+    "output": {
+      "path": "out/deepseek-release/dexthemes-deepseek-harness-0.6.4-launch-1920x1080.mp4",
+      "bytes": 4354195,
+      "sha256": "5d796d534d8f5c6fd7a12d7295354cec1308981bbc1599145e97e0276969fe94",
+      "fullDecode": "PASS"
+    }
+  },
+  "truthBoundary": {
+    "productionUsageOrAdoption": "UNPROVEN",
+    "deepseekAffiliationOrEndorsement": "NONE_CLAIMED",
+    "historicalMotionCutRelabeled": false
+  }
+}
