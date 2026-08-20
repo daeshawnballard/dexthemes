@@ -258,7 +258,7 @@ try {
     await page.close();
   });
 
-  await runTest('desktop harness context changes preview copy without changing theme sources', async () => {
+  await runTest('desktop harness context scopes the catalog to the selected product', async () => {
     const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?platform=deepseek`);
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
     assert.equal(await page.locator('#preview-platform-current').textContent(), 'DeepSeek');
@@ -286,13 +286,18 @@ try {
     assert.match(await setup.textContent() || '', /Install for DeepSeek/);
     assert.match(await setup.getAttribute('href') || '', /npmjs\.com\/package\/@dexthemes\/deepseek-harness-plugin/);
     assert.equal(await setup.locator('.apply-icon-platform').count(), 1);
-    const themeCount = await page.locator('.thread-item').count();
-    const sourceHeadings = await page.locator('.category-header').allTextContents();
+    assert.deepEqual(await page.locator('.category-name').allTextContents(), ['DeepSeek', 'DexThemes', 'Community']);
+    assert.equal(await page.locator('#category-list [data-theme-id="codex"]').count(), 0);
+    assert.ok(await page.locator('#category-list [data-theme-id="deepseek-default"]').count() > 0);
 
     await selectPreviewPlatform(page, 'codex');
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'Codex');
+    assert.deepEqual(await page.locator('.category-name').allTextContents(), ['Codex', 'DexThemes', 'Community']);
+    assert.ok(await page.locator('#category-list [data-theme-id="codex"]').count() > 0);
+    assert.equal(await page.locator('#category-list [data-theme-id="deepseek-default"]').count(), 0);
     await selectPreviewPlatform(page, 'deepseek');
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
+    assert.deepEqual(await page.locator('.category-name').allTextContents(), ['DeepSeek', 'DexThemes', 'Community']);
 
     await page.evaluate(() => {
       Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
@@ -312,8 +317,11 @@ try {
     await page.waitForFunction(() => new URL(window.location.href).searchParams.get('platform') === 't3code');
     assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
     assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
-    assert.equal(await page.locator('.thread-item').count(), themeCount);
-    assert.deepEqual(await page.locator('.category-header').allTextContents(), sourceHeadings);
+    assert.deepEqual(await page.locator('.category-name').allTextContents(), ['T3 Code', 'DexThemes', 'Community']);
+    assert.match(await page.locator('.thread-empty').first().textContent() || '', /T3 Code collection coming soon/);
+    assert.equal(await page.locator('#category-list [data-theme-id="codex"]').count(), 0);
+    assert.equal(await page.locator('#category-list [data-theme-id="deepseek-default"]').count(), 0);
+    assert.ok(await page.locator('.thread-item.active').count() > 0);
 
     const actionOverflow = await page.locator('.panel-actions').evaluate((element) => element.scrollWidth - element.clientWidth);
     assert.ok(actionOverflow <= 0, `expected no right-panel helper overflow, got ${actionOverflow}px`);

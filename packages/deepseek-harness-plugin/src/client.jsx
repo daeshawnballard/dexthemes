@@ -22,7 +22,7 @@ const PLUGIN_CSS = `
       grid-template-columns: minmax(0, 1fr) !important;
       grid-template-areas: "copy" "account" "intro" !important;
     }
-    .dexthemes-account-shell { justify-self: stretch !important; width: 100% !important; }
+    .dexthemes-account-shell { justify-self: stretch !important; width: 100% !important; margin-top: 0 !important; }
     .dexthemes-account-trigger { width: 100% !important; }
     .dexthemes-plugin-intro { white-space: normal !important; }
   }
@@ -38,7 +38,7 @@ const PLUGIN_CSS = `
 
 const ui = Object.freeze({
   root: { width: '100%', maxWidth: 980, color: 'var(--dsw-alias-label-primary)', display: 'flex', flexDirection: 'column', gap: 12, container: 'dexthemes-settings / inline-size' },
-  header: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 220px', gridTemplateAreas: '"copy account" "intro intro"', alignItems: 'start', columnGap: 12, rowGap: 4 },
+  header: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 196px', gridTemplateAreas: '"copy account" "intro intro"', alignItems: 'start', columnGap: 12, rowGap: 4 },
   headerCopy: { gridArea: 'copy', minWidth: 0 },
   intro: { gridArea: 'intro', margin: '2px 0 0', whiteSpace: 'nowrap' },
   eyebrow: { margin: 0, color: 'var(--dsw-alias-brand-primary)', fontSize: 12, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase' },
@@ -61,14 +61,14 @@ const ui = Object.freeze({
   filter: { border: '1px solid var(--dsw-alias-border-l2)', background: 'var(--dsw-alias-bg-layer-1)', color: 'var(--dsw-alias-label-secondary)', borderRadius: 999, minHeight: 34, padding: '0 12px', font: 'inherit', fontSize: 12, cursor: 'pointer' },
   filterActive: { borderColor: 'var(--dsw-alias-brand-primary)', color: 'var(--dsw-alias-brand-primary)' },
   status: { margin: 0, color: 'var(--dsw-alias-label-secondary)', fontSize: 12 },
-  accountShell: { gridArea: 'account', position: 'relative', justifySelf: 'end', width: 220, maxWidth: '100%' },
-  accountTrigger: { width: '100%', minHeight: 44, border: '1px solid var(--dsw-alias-brand-primary)', background: 'color-mix(in srgb, var(--dsw-alias-brand-primary) 8%, var(--dsw-alias-bg-layer-1))', color: 'var(--dsw-alias-label-primary)', borderRadius: 9, padding: '5px 8px', display: 'grid', gridTemplateColumns: '28px minmax(0,1fr) auto', alignItems: 'center', gap: 8, textAlign: 'left', font: 'inherit', cursor: 'pointer', boxSizing: 'border-box' },
-  accountAvatar: { position: 'relative', width: 28, height: 28, borderRadius: 999, display: 'grid', placeItems: 'center', background: 'var(--dsw-alias-brand-primary)', color: 'var(--dsw-alias-bg-base)', fontSize: 14, fontWeight: 750 },
+  accountShell: { gridArea: 'account', position: 'relative', justifySelf: 'end', width: 196, maxWidth: '100%', marginTop: 17 },
+  accountTrigger: { width: '100%', minHeight: 38, border: '1px solid var(--dsw-alias-brand-primary)', background: 'color-mix(in srgb, var(--dsw-alias-brand-primary) 8%, var(--dsw-alias-bg-layer-1))', color: 'var(--dsw-alias-label-primary)', borderRadius: 8, padding: '4px 7px', display: 'grid', gridTemplateColumns: '24px minmax(0,1fr) auto', alignItems: 'center', gap: 7, textAlign: 'left', font: 'inherit', cursor: 'pointer', boxSizing: 'border-box' },
+  accountAvatar: { position: 'relative', width: 24, height: 24, borderRadius: 999, display: 'grid', placeItems: 'center', background: 'var(--dsw-alias-brand-primary)', color: 'var(--dsw-alias-bg-base)', fontSize: 12, fontWeight: 750 },
   accountOnline: { position: 'absolute', right: -2, bottom: -1, width: 8, height: 8, borderRadius: 999, background: 'var(--dsw-alias-state-success-primary)', border: '2px solid var(--dsw-alias-bg-layer-1)' },
   accountTriggerCopy: { minWidth: 0, display: 'grid', gap: 1 },
-  accountTitle: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, fontWeight: 700 },
-  accountMeta: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--dsw-alias-label-secondary)', fontSize: 10.5 },
-  accountChevron: { color: 'var(--dsw-alias-label-secondary)', fontSize: 18, lineHeight: 1, transformOrigin: 'center', transition: 'transform 140ms ease' },
+  accountTitle: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 11.5, fontWeight: 700 },
+  accountMeta: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--dsw-alias-label-secondary)', fontSize: 10 },
+  accountChevron: { color: 'var(--dsw-alias-label-secondary)', fontSize: 16, lineHeight: 1, transformOrigin: 'center', transition: 'transform 140ms ease' },
   accountPopover: { position: 'absolute', zIndex: 100, top: 'calc(100% + 8px)', right: 0, width: 340, maxWidth: 'min(340px,calc(100vw - 48px))', border: '1px solid var(--dsw-alias-border-l1)', background: 'var(--dsw-alias-bg-overlay)', borderRadius: 10, padding: 12, boxShadow: '0 16px 42px rgba(0,0,0,.22)', boxSizing: 'border-box' },
   accountCopy: { display: 'grid', gap: 5, minWidth: 0 },
   accountActions: { display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' },

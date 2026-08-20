@@ -871,6 +871,9 @@ test('built client is a Harness module factory and exposes the DexThemes setting
   assert.match(source, /WebkitLineClamp: 2/);
   assert.match(source, /@container dexthemes-settings/);
   assert.match(source, /dexthemes-account-trigger/);
+  assert.match(source, /gridTemplateColumns: 'minmax\(0,1fr\) 196px'/);
+  assert.match(source, /width: 196, maxWidth: '100%', marginTop: 17/);
+  assert.match(source, /minHeight: 38/);
   assert.match(source, /dexthemes-feature-strip/);
   assert.match(source, /theme\.id === 'deepseek-default'/);
   assert.match(source, /stopImmediatePropagation/);

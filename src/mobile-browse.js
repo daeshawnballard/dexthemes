@@ -7,8 +7,9 @@ import { escapeHtml, safeHexColor, safeImageSrc } from './utils.js';
 import { isMobile } from './mobile.js';
 import { isThemeVisibleInCatalog } from './theme-contracts.js';
 import { websiteThemeMatchesSearch } from '../shared/plugin-public-policy.js';
+import { getCatalogCategoriesForPlatform } from './platform-catalog.js';
 
-let activeMobileCategory = 'official'; // which pill is selected
+let activeMobileCategory = null; // which pill is selected
 let activeMobileSubgroup = 'all'; // subgroup filter for dexthemes
 
 // Variant icon helper — uses ink color so it's visible on the theme's background
@@ -83,6 +84,12 @@ export function renderMobileBrowse() {
   const categoryList = document.getElementById('category-list');
   if (!categoryList) return;
 
+  const categories = getCatalogCategoriesForPlatform(state.selectedPlatformId);
+  if (!categories.some((category) => category.id === activeMobileCategory)) {
+    activeMobileCategory = categories[0].id;
+    activeMobileSubgroup = 'all';
+  }
+
   // Get search query
   const searchInput = document.getElementById('sidebar-search');
   const query = (searchInput?.value || '').toLowerCase().trim();
@@ -100,7 +107,7 @@ export function renderMobileBrowse() {
   });
 
   // Build category pills
-  const pills = state.CATEGORIES.map(cat => {
+  const pills = categories.map(cat => {
     const count = state.THEMES.filter((t) => t.category === cat.id && isThemeVisibleInCatalog(t, state.userUnlocks)).length;
     const isActive = cat.id === activeMobileCategory;
     return `<button class="mobile-cat-pill ${isActive ? 'active' : ''}"
@@ -179,6 +186,8 @@ export function renderMobileBrowse() {
 }
 
 export function mobileSwitchCategory(catId) {
+  const categories = getCatalogCategoriesForPlatform(state.selectedPlatformId);
+  if (!categories.some((category) => category.id === catId)) return;
   activeMobileCategory = catId;
   activeMobileSubgroup = 'all'; // reset subgroup when switching categories
   renderMobileBrowse();

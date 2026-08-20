@@ -391,7 +391,9 @@ test('protected reward deep links wait for verified unlock state before renderin
     readFile(new URL('../src/auth.js', import.meta.url), 'utf8'),
   ]);
   assert.match(state, /_requestedThemeIsProtected/);
-  assert.match(state, /selectedTheme = \(_requestedTheme && !_requestedThemeIsProtected/);
+  assert.match(state, /_requestedTheme && !_requestedThemeIsProtected && _requestedThemeIsVisible/);
+  assert.match(state, /isThemeCategoryVisibleForPlatform\(_requestedTheme\.category, selectedPlatformId\)/);
+  assert.match(state, /_requestedThemeIsProtected && _requestedThemeIsVisible/);
   assert.match(state, /deferredProtectedThemeId/);
   assert.match(auth, /state\.userUnlocks\.has\(id\)/);
   assert.match(auth, /showLockedThemeShell\(theme, action\)/);
