@@ -4,6 +4,7 @@
 
 import { presentThemeForWebsite } from '../shared/plugin-public-policy.js';
 import { DEEPSEEK_HARNESS_THEMES } from '../packages/deepseek-harness-plugin/src/deepseek-themes.js';
+import { getCatalogCategoriesForPlatform } from './platform-catalog.js';
 
 // Default semantic colors used when a Codex theme doesn't define them
 export const DARK_DEFAULTS = { diffAdded: '#40c977', diffRemoved: '#fa423e', skill: '#ad7bf9' };
@@ -200,14 +201,6 @@ export const THEMES = [
   // ==============================
 ];
 
-export const CATEGORIES = [
-  { id: 'official', name: 'Codex', icon: 'shield' },
-  { id: 'deepseek', name: 'DeepSeek', icon: 'waves' },
-  {
-    id: 'dexthemes',
-    name: 'DexThemes',
-    icon: 'palette',
-    groups: ['anime', 'games', 'movies', 'comics', 'zodiacs', 'lunar', 'companies', 'originals', 'supporter']
-  },
-  { id: 'community', name: 'Community', icon: 'users' }
-];
+// Backward-compatible default projection. Interactive surfaces derive the
+// current three-category view from getCatalogCategoriesForPlatform().
+export const CATEGORIES = getCatalogCategoriesForPlatform('codex');

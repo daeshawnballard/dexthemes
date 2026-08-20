@@ -8,6 +8,10 @@ import { normalizeThemeVariant, readPlatformParam, readThemeRoute, syncThemeUrl 
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
 import { DEFAULT_PLATFORM_ID, getPlatform, normalizePlatformId } from '../shared/platform-registry.js';
 import { resolveSelectedPlatformId } from './platform-selection.js';
+import {
+  getCatalogCategoriesForPlatform,
+  isThemeCategoryVisibleForPlatform,
+} from './platform-catalog.js';
 
 // URL state takes priority over localStorage. Query deep links are canonicalized
 // to copyable paths such as /mancity/dark after their values are read.
@@ -55,11 +59,34 @@ const _savedThemeId = _urlThemeId || (
 const _requestedTheme = _savedThemeId && THEMES.find((theme) => theme.id === _savedThemeId);
 const _requestedThemeIsProtected = Boolean(_requestedTheme && getUnlockActionForThemeId(_requestedTheme.id));
 
+function findPlatformThemeFallback(platformId, defaultThemeId = null) {
+  const visibleCategoryIds = new Set(
+    getCatalogCategoriesForPlatform(platformId).map((category) => category.id),
+  );
+  const candidates = [
+    defaultThemeId ? THEMES.find((theme) => theme.id === defaultThemeId) : null,
+    THEMES.find((theme) => theme.category === [...visibleCategoryIds][0] && !getUnlockActionForThemeId(theme.id)),
+    THEMES.find((theme) => theme.category === 'dexthemes' && !getUnlockActionForThemeId(theme.id)),
+    THEMES.find((theme) => visibleCategoryIds.has(theme.category) && !getUnlockActionForThemeId(theme.id)),
+  ];
+  return candidates.find(Boolean) || THEMES[0];
+}
+
 // Protected reward palettes are never rendered from a URL or localStorage
 // before the current account's unlocks have been verified.
-export let selectedTheme = (_requestedTheme && !_requestedThemeIsProtected ? _requestedTheme : null) || THEMES[0];
+const _requestedThemeIsVisible = Boolean(
+  _requestedTheme
+  && isThemeCategoryVisibleForPlatform(_requestedTheme.category, selectedPlatformId),
+);
+export let selectedTheme = (
+  _requestedTheme && !_requestedThemeIsProtected && _requestedThemeIsVisible
+    ? _requestedTheme
+    : null
+) || findPlatformThemeFallback(selectedPlatformId, _platformDefaultThemeId);
 export let selectedVariant = _urlVariant || normalizeThemeVariant(localStorage.getItem('dexthemes-variant')) || 'dark';
-export let deferredProtectedThemeId = _requestedThemeIsProtected ? _requestedTheme.id : null;
+export let deferredProtectedThemeId = _requestedThemeIsProtected && _requestedThemeIsVisible
+  ? _requestedTheme.id
+  : null;
 
 // Track if we arrived via a share deep link (for mobile auto-preview)
 export const isDeepLink = !!_routeThemeId;
@@ -141,12 +168,16 @@ export function setSelectedPlatform(platformId) {
   selectedPlatformId = normalized;
   selectedPlatform = getPlatform(normalized);
   try { localStorage.setItem('dexthemes-platform', normalized); } catch {}
-  const defaultTheme = changed && selectedPlatform.defaultThemeId
-    ? THEMES.find((theme) => theme.id === selectedPlatform.defaultThemeId)
+  const currentThemeRemainsVisible = isThemeCategoryVisibleForPlatform(
+    selectedTheme.category,
+    normalized,
+  );
+  const nextTheme = changed && (!currentThemeRemainsVisible || selectedPlatform.defaultThemeId)
+    ? findPlatformThemeFallback(normalized, selectedPlatform.defaultThemeId)
     : null;
-  if (defaultTheme && selectedTheme.id !== defaultTheme.id) {
+  if (nextTheme && selectedTheme.id !== nextTheme.id) {
     selectedAccentIdx = 0;
-    setSelectedTheme(defaultTheme);
+    setSelectedTheme(nextTheme);
     return true;
   }
   syncSelectedThemeUrl();

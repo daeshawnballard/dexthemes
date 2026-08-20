@@ -3,7 +3,8 @@
 // ================================================
 
 import * as state from './state.js';
-import { THEMES, CATEGORIES, DEXTHEMES_GROUP_LABELS } from './theme-catalog.js';
+import { THEMES, DEXTHEMES_GROUP_LABELS } from './theme-catalog.js';
+import { getCatalogCategoriesForPlatform, getEmptyCategoryCopy } from './platform-catalog.js';
 import { SUPPORTER_THEME_IDS } from './unlocks.js';
 import { escapeHtml, safeHexColor } from './utils.js';
 import { hasVariant, getVariants } from './theme-engine.js';
@@ -22,6 +23,8 @@ function getCategoryIcon(icon) {
       return '<svg class="category-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7c3-3 6 3 9 0s6 3 9 0"/><path d="M3 12c3-3 6 3 9 0s6 3 9 0"/><path d="M3 17c3-3 6 3 9 0s6 3 9 0"/></svg>';
     case 'users':
       return '<svg class="category-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>';
+    case 'terminal':
+      return '<svg class="category-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>';
     default:
       return '';
   }
@@ -141,7 +144,8 @@ export function renderSidebar() {
   const searchInput = document.getElementById('sidebar-search');
   const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-  el.innerHTML = CATEGORIES.map(cat => {
+  const categories = getCatalogCategoriesForPlatform(state.selectedPlatformId);
+  el.innerHTML = categories.map(cat => {
     let themes = THEMES.filter((t) => t.category === cat.id && isThemeVisibleInCatalog(t, state.userUnlocks));
     if (q) themes = themes.filter((theme) => websiteThemeMatchesSearch(theme, q));
     // Apply variant filter — "has dark" / "has light" (includes themes with both)
@@ -164,7 +168,7 @@ export function renderSidebar() {
             <span class="category-count">0</span>
           </div>
           <div class="category-threads ${expanded ? 'expanded' : ''}">
-            <div class="thread-empty">No community themes yet</div>
+            <div class="thread-empty">${escapeHtml(getEmptyCategoryCopy(cat.id, state.selectedPlatformId))}</div>
           </div>
         </div>
       `;
