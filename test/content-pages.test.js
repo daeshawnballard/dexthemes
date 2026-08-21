@@ -95,7 +95,7 @@ test('revised Codex handoff content carries current source-review metadata', () 
     assert.equal(item.dateModified, '2026-08-14', item.path);
     assert.match(item.testedWith, /2026-08-14/, item.path);
   }
-  assert.equal(CONTENT_LAST_MODIFIED, '2026-08-14');
+  assert.equal(CONTENT_LAST_MODIFIED, '2026-08-21');
 });
 
 test('content hubs expose the full catalog with concise hero copy', async () => {
