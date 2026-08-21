@@ -50,7 +50,7 @@ A July 16 targeted source-to-sink review of the color pipeline found one additio
 
 ### Writes, achievements, and account isolation
 
-- `submit_theme` is the only public-write MCP tool. It is app-only and requires `themes:write`, server-side validation/moderation, identity-derived authorship, and a short-lived HMAC token bound to the exact reviewed payload and OAuth token. The token is delivered only in model-hidden app metadata and used after the user presses Publish.
+- `submit_theme` is the only public-write MCP tool. Its terminal authorization is `themes:write`; it also requires server-side validation/moderation, identity-derived authorship, and a short-lived HMAC token bound to the exact reviewed payload and OAuth token. In the first-party flow the token is delivered in model-hidden app metadata and used after the user presses Publish, but the token is not single-use and neither it nor app visibility independently proves a human click.
 - The tool creates a new public theme; it cannot edit or delete an existing theme or access another user's private account data.
 - Plugin reads and writes are rate-limited independently by verified identity and network. Theme submission is additionally protected by server-side moderation, exact color validation, and canonical static/database uniqueness checks.
 - Account, theme, like, API-use, leaderboard, plugin-use, plugin-creation, and employee achievements are granted from server-observed events rather than arbitrary client action names.
@@ -109,7 +109,7 @@ A July 16 targeted source-to-sink review of the color pipeline found one additio
 - Status: Verification blocker
 - This checkout does not have `CONVEX_DEPLOYMENT`, so Convex code generation/typechecking and the production function spec were not run in this pass.
 - The MCP endpoint, OAuth metadata discovery, authenticated challenge, scope denial, cross-account denial, submission confirmation, and employee claim/revocation cases must be exercised against the deployed stack.
-- Confirm the unified host preserves app-only tool visibility, model-hidden result metadata, and the app-triggered write path in the deployed connector. The payload/OAuth-bound token prevents a model-only call from bypassing review, while the host may add its own write confirmation UX.
+- Confirm the unified host preserves app visibility, model-hidden result metadata, and the app-triggered first-party write path in the deployed connector. OAuth `themes:write` remains terminal authorization; the payload/OAuth-bound token preserves review continuity and expiry but does not prevent another authorized client from calling the write or independently prove user activation. The host may add its own write-confirmation UX.
 - Domain verification must return only the portal-provided plain-text token from `/.well-known/openai-apps-challenge`, and reviewer authentication must not depend on MFA, SMS, email confirmation, or a private network.
 - Vercel reserves `/.well-known` from rewrites. The production build now emits literal metadata/challenge files; verify both from the live custom domain.
 

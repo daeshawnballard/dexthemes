@@ -71,6 +71,7 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.deepEqual(prepareSubmission._meta.securitySchemes, [{ type: 'oauth2', scopes: ['themes:write'] }]);
   assert.equal(prepareSubmission.annotations.readOnlyHint, true);
   assert.equal(prepareSubmission.annotations.openWorldHint, false);
+  assert.match(prepareSubmission.description, /does not prove user activation/i);
 
   const submit = tools.find((tool) => tool.name === 'submit_theme');
   assert.equal(submit.annotations.readOnlyHint, false);
@@ -80,6 +81,9 @@ test('MCP tools expose complete safety annotations and output schemas', async (t
   assert.equal(submit.inputSchema.properties.confirmation, undefined);
   assert.deepEqual(submit._meta.securitySchemes, [{ type: 'oauth2', scopes: ['themes:write'] }]);
   assert.deepEqual(submit._meta.ui.visibility, ['app']);
+  assert.match(submit.description, /requiring themes:write/i);
+  assert.match(submit.description, /do not prove user activation/i);
+  assert.doesNotMatch(submit.description, /app-only|only when the user presses publish/i);
   assert.equal(submit._meta.ui.resourceUri, undefined);
   assert.equal(submit._meta['ui/resourceUri'], undefined);
   assert.equal(submit._meta['openai/outputTemplate'], undefined);

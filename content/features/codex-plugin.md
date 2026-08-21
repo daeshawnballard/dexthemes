@@ -4,7 +4,7 @@ description: Discover, create, preview, import, collect, and publish Codex theme
 slug: codex-plugin
 kind: feature
 section: Features
-answer: DexThemes implements an MCP-backed interactive theme app with anonymous discovery and creation tools plus OAuth-protected personal stats, unlocks, and confirmed publication.
+answer: DexThemes implements an MCP-backed interactive theme app with anonymous discovery and creation tools plus OAuth-protected personal stats, unlocks, and public theme submission.
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-07-30
@@ -35,7 +35,7 @@ These tools read public data or compute a private draft. Preparing an import can
 Account tools use OAuth with GitHub as the upstream identity. The implemented scopes divide access by purpose:
 
 - `themes:read` allows personal creator stats and supported account unlocks.
-- `themes:write` allows public-submission review and confirmed publication.
+- `themes:write` allows public-submission review and publication.
 
 The stats view can show published theme totals, copies, likes, qualified adoptions, current ranks, repeat daily and weekly wins, finalized monthly Top 10 placements, and achievements. The unlock view can render supported reward themes for the signed-in account.
 
@@ -49,9 +49,9 @@ Theme publication is intentionally split into review and commit:
 2. Call the submission-preparation tool with `themes:write`.
 3. Inspect the exact public name, summary, variants, and mockups in the app.
 4. Press the app's Publish button.
-5. Let the app call the app-only `submit_theme` tool with a short-lived confirmation bound to the reviewed payload and current sign-in.
+5. Let the first-party app call `submit_theme` with a short-lived confirmation bound to the reviewed payload and current sign-in.
 
-The confirmation is not a value the model should invent or request. The server rechecks public wording, colors, protected palettes, identity, rate limits, and the exact payload before creating the community theme. The write creates a new theme under the verified identity; it cannot edit or delete another creator's theme.
+OAuth `themes:write` is the terminal publication authorization. The confirmation is not a value the model should invent or request: it preserves exact-payload continuity and expires after a short window, but it is not single-use and does not independently prove that a human pressed Publish. App visibility is presentation metadata rather than authorization. The server rechecks public wording, colors, protected palettes, identity, rate limits, and the exact payload before creating the community theme. The write creates a new theme under the verified identity; it cannot edit or delete another creator's theme.
 
 ## Safe Codex apply handoff
 

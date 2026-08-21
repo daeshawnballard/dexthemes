@@ -147,6 +147,52 @@ test('Codex MCP OAuth verifier remains separate from the DeepSeek GitHub device 
   assert.match(verifier, /algorithms: \["RS256"\]/);
 });
 
+test('publication treats themes:write as authorization and review metadata as payload continuity', async () => {
+  const [mcp, confirmation, routes] = await Promise.all([
+    readFile(new URL('../server/dexthemes-mcp.js', import.meta.url), 'utf8'),
+    readFile(new URL('../server/submission-confirmation.js', import.meta.url), 'utf8'),
+    readFile(new URL('../convex/http_plugin_routes.ts', import.meta.url), 'utf8'),
+  ]);
+  const mcpPublish = mcp.slice(
+    mcp.indexOf('registerMaybeAppTool("submit_theme"'),
+    mcp.indexOf('registerMaybeAppTool("prepare_github_issue"'),
+  );
+  const directPublish = routes.slice(routes.indexOf('path: "/plugin/themes"'));
+
+  assert.match(mcpPublish, /requireAccessToken\(extra, "themes:write"\)/);
+  assert.match(mcpPublish, /verifySubmissionConfirmation\(confirmationToken, theme, token\)/);
+  assert.match(mcpPublish, /do not prove user activation/i);
+  assert.doesNotMatch(mcpPublish, /App-only public write|only when the user presses Publish/i);
+  assert.match(confirmation, /payload-continuity evidence only/);
+  assert.match(confirmation, /themes:write remains the terminal publication authorization/);
+
+  const authorizeIndex = directPublish.indexOf('authorizePlugin(ctx, request, "themes:write")');
+  const parseIndex = directPublish.indexOf('await request.json()');
+  const submitIndex = directPublish.indexOf('internal.themes.submit');
+  assert.ok(authorizeIndex >= 0 && authorizeIndex < parseIndex && parseIndex < submitIndex);
+  assert.match(directPublish, /tokens do not provide server-verifiable[\s/]+proof that a human activated a Publish button/i);
+});
+
+test('publication documentation does not represent app visibility as authorization', async () => {
+  const [feature, apiFeature, skill, submission, report, llms] = await Promise.all([
+    readFile(new URL('../content/features/codex-plugin.md', import.meta.url), 'utf8'),
+    readFile(new URL('../content/features/theme-api.md', import.meta.url), 'utf8'),
+    readFile(new URL('../plugins/dexthemes/skills/dexthemes/SKILL.md', import.meta.url), 'utf8'),
+    readFile(new URL('../chatgpt-app-submission.json', import.meta.url), 'utf8'),
+    readFile(new URL('../security_best_practices_report.md', import.meta.url), 'utf8'),
+    readFile(new URL('../public/llms.txt', import.meta.url), 'utf8'),
+  ]);
+  const publishedContract = [feature, apiFeature, skill, submission, report, llms].join('\n');
+
+  assert.doesNotMatch(publishedContract, /app-only (?:public )?(?:tool|write)|only (?:after|when).{0,80}Publish/i);
+  assert.match(feature, /themes:write` is the terminal publication authorization/);
+  assert.match(apiFeature, /not independent proof of a human click/);
+  assert.match(skill, /public write authorized by `themes:write`/);
+  assert.match(submission, /themes:write-authorized publication tool/);
+  assert.match(report, /terminal authorization is `themes:write`/);
+  assert.match(llms, /themes:write` authorizes public submission/);
+});
+
 test('DeepSeek Harness uses a distinct fail-closed MCP route without adding a Vercel function', async () => {
   const [endpoint, config, vercelSource] = await Promise.all([
     readFile(new URL('../api/mcp.js', import.meta.url), 'utf8'),

@@ -92,15 +92,15 @@
       "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
       "justifications": {
         "read_only_justification": "Validates and displays the exact proposed public payload without creating community data.",
-        "open_world_justification": "The review remains inside the app; no theme is published until the user presses the separate Publish button.",
+        "open_world_justification": "Preparation remains inside the app and performs no publication write; it only renders the exact proposed payload for review.",
         "destructive_justification": "Cannot delete, overwrite, revoke, or publish any theme."
       }
     },
     "submit_theme": {
       "annotations": { "readOnlyHint": false, "openWorldHint": true, "destructiveHint": false },
       "justifications": {
-        "read_only_justification": "Creates one new public community theme after the app receives a valid payload/OAuth-bound review token and the user presses Publish, so it changes DexThemes data.",
-        "open_world_justification": "The app-only tool publishes the exact reviewed theme and verified creator attribution to the public DexThemes community.",
+        "read_only_justification": "Creates one new public community theme when an OAuth themes:write client supplies a valid payload/OAuth-bound review token, so it changes DexThemes data.",
+        "open_world_justification": "The OAuth-authorized tool publishes the exact reviewed theme and verified creator attribution to the public DexThemes community.",
         "destructive_justification": "Creates a new record and cannot delete, overwrite, or revoke an existing theme."
       }
     },
@@ -131,11 +131,11 @@
       "expected_output_url": null
     },
     {
-      "description": "Publish only through the exact app review and user-pressed write control.",
+      "description": "Review the exact public payload before publishing it through the first-party app.",
       "user_prompt": "I want to publish the Midnight Plum theme. Validate its public wording and show me the exact submission review first.",
       "file_attachment_urls": null,
       "tools_triggered": "validate_theme, prepare_theme_submission, submit_theme",
-      "expected_output": "Checks that the public name, ID, and summary use original wording, then shows the exact payload in the signed-in review app; only after the user presses Publish does the app-only tool publish under the verified GitHub identity and report achievements.",
+      "expected_output": "Checks that the public name, ID, and summary use original wording, then shows the exact payload in the signed-in review app. The first-party app calls the themes:write-authorized publication tool after the user presses Publish; the short-lived token preserves exact-payload continuity rather than independently proving the click.",
       "expected_output_url": null
     },
     {

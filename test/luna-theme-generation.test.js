@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
@@ -358,6 +359,46 @@ test("instance limiter is an explicit bounded backstop", () => {
   assert.equal(limiter.consume("a").allowed, false);
   timestamp += 1_000;
   assert.equal(limiter.consume("a").allowed, true);
+});
+
+test("network-denied instance attempts do not consume global capacity", () => {
+  const limiter = createInstanceRateLimiter({
+    networkMax: 1,
+    networkWindowMs: 10_000,
+    globalMax: 3,
+    globalWindowMs: 10_000,
+    maxKeys: 10,
+    now: () => 1_000,
+  });
+
+  assert.equal(limiter.consume("blocked-network").allowed, true);
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    const denied = limiter.consume("blocked-network");
+    assert.equal(denied.allowed, false);
+    assert.equal(denied.scope, "network");
+  }
+
+  assert.equal(limiter.consume("legitimate-a").allowed, true);
+  assert.equal(limiter.consume("legitimate-b").allowed, true);
+  const globallyDenied = limiter.consume("legitimate-c");
+  assert.equal(globallyDenied.allowed, false);
+  assert.equal(globallyDenied.scope, "instance");
+});
+
+test("durable Luna quota rejects the network bucket before its single global charge", async () => {
+  const source = await readFile(new URL("../convex/http_luna_rate_limit_routes.ts", import.meta.url), "utf8");
+  const flowStart = source.indexOf("const networkLimit = await ctx.runMutation");
+  const networkDenial = source.indexOf("if (!networkLimit.allowed)", flowStart);
+  const networkReturn = source.indexOf("return response(429", networkDenial);
+  const globalMutation = source.indexOf("const globalLimit = await ctx.runMutation", flowStart);
+  const flowEnd = source.indexOf("return response(200, { allowed: true })", globalMutation);
+  const quotaFlow = source.slice(flowStart, flowEnd);
+
+  assert.ok(flowStart >= 0);
+  assert.ok(networkDenial > flowStart);
+  assert.ok(networkReturn > networkDenial);
+  assert.ok(globalMutation > networkReturn);
+  assert.equal((quotaFlow.match(/key: "luna:global"/g) || []).length, 1);
 });
 
 test("browser Luna client returns the narrow contract and sanitizes server failures", async () => {

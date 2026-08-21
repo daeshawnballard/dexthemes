@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.5 — 2026-08-20 (local-only, unpublished)
+
+- Prepare one reproducible local package byte set: package manifest, generated catalog input, checked-in `lib` bundles, and npm pack manifest are verified together.
+- Add a deterministic two-build and `npm pack --dry-run --json --ignore-scripts` verifier that rejects lifecycle scripts and non-allowlisted pack contents.
+- This entry does not publish, tag, or claim registry, loaded Harness runtime, marketplace, authorization, or production evidence.
+
 ## 0.6.4 — 2026-08-17
 
 - Add an explicit **Copy code** action for GitHub Device Flow so the complete validated code reaches GitHub without relying on segmented manual transcription.

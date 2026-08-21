@@ -251,9 +251,9 @@ DexThemes applies IP and user-based rate limiting on sensitive routes. Public re
 - Protected-resource metadata: `https://www.dexthemes.com/.well-known/oauth-protected-resource`
 - Public tools: theme search/fetch, drafting, validation, full Codex-style previews, apply preparation, daily/weekly/monthly/all-time leaderboards, and GitHub Issue preparation
 - OAuth `themes:read`: personal creator stats, current ranks, daily/weekly win history, achievements, and unlocked reward-theme previews
-- OAuth `themes:write`: confirmed public theme submission
+- OAuth `themes:write`: public theme submission
 
-`submit_theme` is the only plugin tool that creates public state. It is app-only and accepts a short-lived confirmation token bound to the exact reviewed payload and current OAuth token; only the review app receives that token in model-hidden metadata. It re-validates server-side, publishes under the GitHub identity derived from the signed token, and cannot edit or delete another theme.
+`submit_theme` is the only MCP tool that creates public state. Its terminal authorization is OAuth `themes:write`. The first-party review app receives a short-lived token in model-hidden metadata and calls the tool after its Publish button is pressed. That token binds the exact reviewed payload to the current OAuth token, but it is not single-use and does not prove user activation; `ui.visibility` is host presentation metadata, not authorization. The downstream bearer publication route therefore enforces `themes:write`, derives the GitHub identity from the signed token, re-validates the theme server-side, and cannot edit or delete another theme.
 
 ## DeepSeek Harness account milestone
 

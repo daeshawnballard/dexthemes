@@ -4,18 +4,24 @@ Installed DeepSeek Harness plugin for browsing, previewing, applying, and revert
 
 Version 0.6 includes a palette matched to DeepSeek Harness's published semantic defaults, twelve unofficial DeepSeek ecosystem color tributes, a privacy-bounded Statsig event sink, a supported Harness MCP connection for public DexThemes agent tools, and an optional GitHub-backed DexThemes account connection through the existing Convex backend. Tribute inclusion is based on linked public documentation for a DeepSeek integration, deployment, or inference path. The package does not bundle logos, fonts, or other company assets and does not claim partnership, authorization, or endorsement.
 
+## Release status
+
+This source checkout prepares `0.6.5` locally. It is **unpublished**: there is no npm tarball, registry integrity, registry shasum, or loaded-Harness-runtime receipt for `0.6.5`. Do not install `@dexthemes/deepseek-harness-plugin@0.6.5` from npm until a future publication has its own registry and runtime evidence.
+
+The historical `0.6.4` release remains published and separately evidenced; its receipt is not evidence for this local `0.6.5` preparation.
+
 ## Install
 
 From the DeepSeek Harness checkout:
 
-Install version `0.6.4` after confirming it is available from npm:
+For the historically published release, install version `0.6.4` after confirming it is available from npm:
 
 ```sh
 pnpm dsh plugin --profile web add @dexthemes/deepseek-harness-plugin@0.6.4
 pnpm dsh web
 ```
 
-Version `0.6.4` is published. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. See the [changelog](CHANGELOG.md) and the bounded [0.6.4 release receipt](../../docs/DEEPSEEK-HARNESS-064-RUNTIME-RECEIPT.md).
+Version `0.6.4` is published. Confirm the registry version and integrity before installation; source review, npm publication, and loaded-runtime behavior remain separate evidence gates. The local `0.6.5` preparation adds no registry or runtime claim. See the [changelog](CHANGELOG.md), the bounded [0.6.4 release receipt](../../docs/DEEPSEEK-HARNESS-064-RUNTIME-RECEIPT.md), and the local-only [0.6.5 preparation receipt](../../docs/DEEPSEEK-HARNESS-065-LOCAL-PREPARATION-RECEIPT.md).
 
 For local development against a source checkout, use the source directory instead:
 
@@ -28,7 +34,7 @@ The package contributes a real Loader entry and a **DexThemes** tab under **Sett
 
 ## Compatibility
 
-The published `0.6.4` artifact targets DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. That exact registry package was exercised in the loaded Harness runtime for discovery, Apply/Revert, restart restoration, offline fallback, Device Flow, connected activity, Statsig delivery, and Creator-mode chat Apply/Stop. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
+The historical published `0.6.4` artifact targets DeepSeek Harness CLI `0.1.0-rc.5` at commit `47f943859bef60e4160492346772ded9b24f765a`. That exact registry package was exercised in the loaded Harness runtime for discovery, Apply/Revert, restart restoration, offline fallback, Device Flow, connected activity, Statsig delivery, and Creator-mode chat Apply/Stop. The local-only `0.6.5` preparation has build and pack-manifest evidence only. It requires the web profile's client Module Loader, `settings.plugins.tab`, `@deepseek-ai/dsh-client-runtime/client` with persisted `defineStore`, and the optional `theme.overrideTokens(source, pairedTokens)` service returning a disposer. No broader Harness semver range is claimed.
 
 DexThemes no longer hard-loads the theme provider. If a Harness build omits or changes that capability, **Settings → Plugins → DexThemes** remains visible, Preview and account controls remain usable, Apply is disabled, and a visible alert explains the boundary. **Forget saved theme** clears restoration intent without requiring the missing service.
 

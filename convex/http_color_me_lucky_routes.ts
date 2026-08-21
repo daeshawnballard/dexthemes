@@ -1,6 +1,65 @@
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
-import { getSessionToken, type DexHttpRouter } from "./http_helpers";
+import {
+  getClientIP,
+  getSessionToken,
+  RATE_LIMITS,
+  resolveUser,
+  type DexHttpRouter,
+} from "./http_helpers";
+
+export const COLOR_ME_LUCKY_SUBMISSION_MAX_BODY_BYTES = 8 * 1024;
+
+function submissionResponse(body: Record<string, unknown>, status: number) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+  });
+}
+
+function requestTooLargeError() {
+  return Object.assign(new Error("Request body too large"), { code: "request_too_large" });
+}
+
+async function readSubmissionJson(request: Request): Promise<any> {
+  const declaredLength = Number(request.headers.get("Content-Length"));
+  if (Number.isFinite(declaredLength) && declaredLength > COLOR_ME_LUCKY_SUBMISSION_MAX_BODY_BYTES) {
+    throw requestTooLargeError();
+  }
+
+  const reader = request.body?.getReader();
+  if (!reader) return JSON.parse("");
+
+  const chunks: Uint8Array[] = [];
+  let received = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+      received += value.byteLength;
+      if (received > COLOR_ME_LUCKY_SUBMISSION_MAX_BODY_BYTES) {
+        try {
+          await reader.cancel();
+        } catch {
+          // The size decision is authoritative even if the client stream is already broken.
+        }
+        throw requestTooLargeError();
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const bytes = new Uint8Array(received);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
 
 function apiRandomHue() { return Math.floor(Math.random() * 360); }
 function apiRandomInRange(min: number, max: number) { return min + Math.random() * (max - min); }
@@ -179,72 +238,93 @@ export function registerColorMeLuckyRoutes(http: DexHttpRouter) {
   http.route({
     path: "/api/color-me-lucky/submit",
     method: "POST",
-    handler: httpAction(async (ctx, request) => {
-      const token = getSessionToken(request);
-      if (!token) {
-        return new Response(JSON.stringify({ error: "Sign in to DexThemes first to submit themes. Visit https://dexthemes.com" }), {
-          status: 401,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-        });
-      }
-
-      try {
-        const body = await request.json();
-        const name = body.name;
-        const variant = body.variant === "light" ? "light" : "dark";
-        if (!name || typeof name !== "string" || name.trim().length < 1) {
-          return new Response(JSON.stringify({ error: "A theme name is required" }), {
-            status: 400,
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-          });
-        }
-
-        const themeId = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
-
-        let dark, light;
-        if (body.colors) {
-          const c = body.colors;
-          const variantObj = {
-            surface: c.surface, ink: c.ink, accent: c.accent,
-            contrast: c.contrast ?? (variant === "dark" ? 64 : 46),
-            diffAdded: c.diffAdded, diffRemoved: c.diffRemoved, skill: c.skill,
-            sidebar: c.sidebar, codeBg: c.codeBg,
-          };
-          if (variant === "dark") dark = variantObj;
-          else light = variantObj;
-        } else {
-          const { colors } = generateApiThemeColors(variant as "dark" | "light");
-          const variantObj = { ...colors };
-          if (variant === "dark") dark = variantObj;
-          else light = variantObj;
-        }
-
-        const result = await ctx.runMutation(internal.themes.submit, {
-          authToken: token,
-          themeId,
-          name: name.trim(),
-          summary: body.summary || `Generated with Color Me Lucky`,
-          dark: dark || undefined,
-          light: light || undefined,
-          accents: [(dark || light)!.accent].filter(Boolean),
-          codeThemeId: { dark: "codex", light: "codex" },
-        });
-
-        return new Response(JSON.stringify({
-          success: true,
-          theme: result,
-          message: "Theme submitted to DexThemes! View it at https://dexthemes.com",
-        }), {
-          status: 201,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-        });
-      } catch (e: any) {
-        const status = e.message === "Unauthorized" ? 401 : 400;
-        return new Response(JSON.stringify({ error: e.message }), {
-          status,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-        });
-      }
-    }),
+    handler: httpAction(handleColorMeLuckySubmission),
   });
+}
+
+export async function handleColorMeLuckySubmission(ctx: any, request: Request) {
+  const token = getSessionToken(request);
+  if (!token) {
+    return submissionResponse(
+      { error: "Sign in to DexThemes first to submit themes. Visit https://dexthemes.com" },
+      401,
+    );
+  }
+
+  const ip = await getClientIP(ctx, request);
+  const networkRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+    key: `submit:network:${ip}`,
+    ...RATE_LIMITS.themeSubmitNetwork,
+  });
+  if (!networkRate.allowed) {
+    return submissionResponse({
+      error: "Too many submission attempts. Try again later.",
+      retryAfter: networkRate.retryAfter,
+    }, 429);
+  }
+
+  const user = await resolveUser(ctx, token);
+  if (!user) return submissionResponse({ error: "Unauthorized" }, 401);
+  const identityRate = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+    key: `submit:user:${String(user._id)}`,
+    ...RATE_LIMITS.themeSubmit,
+  });
+  if (!identityRate.allowed) {
+    return submissionResponse({
+      error: "Too many submissions. Try again later.",
+      retryAfter: identityRate.retryAfter,
+    }, 429);
+  }
+
+  try {
+    const body = await readSubmissionJson(request);
+    const name = body.name;
+    const variant = body.variant === "light" ? "light" : "dark";
+    if (!name || typeof name !== "string" || name.trim().length < 1) {
+      return submissionResponse({ error: "A theme name is required" }, 400);
+    }
+
+    const themeId = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+
+    let dark, light;
+    if (body.colors) {
+      const c = body.colors;
+      const variantObj = {
+        surface: c.surface, ink: c.ink, accent: c.accent,
+        contrast: c.contrast ?? (variant === "dark" ? 64 : 46),
+        diffAdded: c.diffAdded, diffRemoved: c.diffRemoved, skill: c.skill,
+        sidebar: c.sidebar, codeBg: c.codeBg,
+      };
+      if (variant === "dark") dark = variantObj;
+      else light = variantObj;
+    } else {
+      const { colors } = generateApiThemeColors(variant as "dark" | "light");
+      const variantObj = { ...colors };
+      if (variant === "dark") dark = variantObj;
+      else light = variantObj;
+    }
+
+    const result = await ctx.runMutation(internal.themes.submit, {
+      authToken: token,
+      themeId,
+      name: name.trim(),
+      summary: body.summary || `Generated with Color Me Lucky`,
+      dark: dark || undefined,
+      light: light || undefined,
+      accents: [(dark || light)!.accent].filter(Boolean),
+      codeThemeId: { dark: "codex", light: "codex" },
+    });
+
+    return submissionResponse({
+      success: true,
+      theme: result,
+      message: "Theme submitted to DexThemes! View it at https://dexthemes.com",
+    }, 201);
+  } catch (e: any) {
+    if (e?.code === "request_too_large") {
+      return submissionResponse({ error: "Request body too large" }, 413);
+    }
+    const status = e.message === "Unauthorized" ? 401 : 400;
+    return submissionResponse({ error: e.message }, status);
+  }
 }

@@ -67,7 +67,7 @@ Reading the website catalog does not require authentication. Account-specific re
 
 Identity is derived at the server. Integrations should not send arbitrary author or owner IDs as a substitute for authentication, and credentials should never be placed in URLs, logs, example payloads, or public issue reports.
 
-Publishing a theme is a public state change. It must pass current identity, rate-limit, moderation, color, code-theme, protected-palette, and uniqueness checks. The plugin adds an app-only reviewed confirmation before its publication write.
+Publishing a theme is a public state change authorized by the caller's write credential. It must pass current identity, rate-limit, moderation, color, code-theme, protected-palette, and uniqueness checks. In the MCP review flow, a short-lived confirmation preserves the exact reviewed payload and sign-in context, but app visibility and that token are not independent proof of a human click.
 
 ## What the API does not do
 

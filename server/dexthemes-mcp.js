@@ -530,7 +530,7 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
 
   registerMaybeAppTool("prepare_theme_submission", {
     title: "Review a public DexTheme submission",
-    description: "Validate and show the exact theme that would become public. Requires DexThemes sign-in. This creates no public data; publication is available only from the review app's explicit Publish button.",
+    description: "Validate and show the exact theme that would become public. Requires themes:write and creates no public data. The first-party review app presents an explicit Publish button; its short-lived token preserves exact-payload continuity but does not prove user activation.",
     inputSchema: { theme: themeInputSchema },
     outputSchema: z.object({
       kind: z.literal("theme-submission-review"),
@@ -568,10 +568,10 @@ export function createDexThemesMcpServer({ profile = "full" } = {}) {
 
   registerMaybeAppTool("submit_theme", {
     title: "Publish a community DexTheme",
-    description: "App-only public write. Publish the exact reviewed theme only when the user presses Publish in the DexThemes review app. Identity is derived only from the verified OAuth token; never request or accept a user ID.",
+    description: "Public write requiring themes:write. Publish the exact payload bound to the short-lived review token. The first-party app calls this after Publish, but app visibility and the token do not prove user activation. Identity is derived only from the verified OAuth token; never request or accept a user ID.",
     inputSchema: {
       theme: themeInputSchema,
-      confirmationToken: z.string().min(40).max(1000).describe("Short-lived payload and sign-in bound token supplied only by the review app."),
+      confirmationToken: z.string().min(40).max(1000).describe("Short-lived payload and sign-in bound review-continuity token; it is not proof of user activation."),
     },
     outputSchema: z.object({ kind: z.literal("theme-submitted"), theme: genericRecord, achievements: z.array(genericRecord) }),
     annotations: annotations(false, true, false, false),
