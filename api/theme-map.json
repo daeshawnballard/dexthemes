@@ -4,6 +4,8 @@
     "sourceId": "codex",
     "name": "Codex",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -52,6 +54,8 @@
     "sourceId": "codex-disco-cloud",
     "name": "Codex / Disco Cloud",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -102,6 +106,8 @@
     "sourceId": "absolutely",
     "name": "Absolutely",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "absolutely",
@@ -150,6 +156,8 @@
     "sourceId": "ayu",
     "name": "Ayu",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "ayu",
@@ -188,6 +196,8 @@
     "sourceId": "catppuccin",
     "name": "Catppuccin",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "catppuccin",
@@ -237,6 +247,8 @@
     "sourceId": "dracula",
     "name": "Dracula",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "dracula",
@@ -275,6 +287,8 @@
     "sourceId": "everforest",
     "name": "Everforest",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "everforest",
@@ -321,6 +335,8 @@
     "sourceId": "github-dark",
     "name": "GitHub Dark",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "github",
@@ -359,6 +375,8 @@
     "sourceId": "github-light",
     "name": "GitHub Light",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "github",
@@ -397,6 +415,8 @@
     "sourceId": "gruvbox",
     "name": "Gruvbox",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "gruvbox",
@@ -435,6 +455,8 @@
     "sourceId": "linear",
     "name": "Linear",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "linear",
@@ -489,6 +511,8 @@
     "sourceId": "lobster",
     "name": "Lobster",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "lobster",
@@ -528,6 +552,8 @@
     "sourceId": "material",
     "name": "Material",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "material",
@@ -564,6 +590,8 @@
     "sourceId": "matrix",
     "name": "Matrix",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "matrix",
@@ -605,6 +633,8 @@
     "sourceId": "monokai",
     "name": "Monokai",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "monokai",
@@ -645,6 +675,8 @@
     "sourceId": "night-owl",
     "name": "Night Owl",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "night-owl",
@@ -681,6 +713,8 @@
     "sourceId": "nord",
     "name": "Nord",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "nord",
@@ -719,6 +753,8 @@
     "sourceId": "notion",
     "name": "Notion",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "notion",
@@ -767,6 +803,8 @@
     "sourceId": "oscurange",
     "name": "Oscurange",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "oscurange",
@@ -803,6 +841,8 @@
     "sourceId": "one-dark",
     "name": "One Dark",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "one",
@@ -841,6 +881,8 @@
     "sourceId": "proof",
     "name": "Proof",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "proof",
@@ -882,6 +924,8 @@
     "sourceId": "raycast",
     "name": "Raycast",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "raycast",
@@ -932,6 +976,8 @@
     "sourceId": "rose-pine",
     "name": "Rosé Pine",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "rose-pine",
@@ -971,6 +1017,8 @@
     "sourceId": "sentry",
     "name": "Sentry",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "sentry",
@@ -1011,6 +1059,8 @@
     "sourceId": "solarized",
     "name": "Solarized",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "solarized",
@@ -1059,6 +1109,8 @@
     "sourceId": "temple",
     "name": "Temple",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "temple",
@@ -1095,6 +1147,8 @@
     "sourceId": "tokyo-night",
     "name": "Tokyo Night",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "tokyo-night",
@@ -1133,6 +1187,8 @@
     "sourceId": "vercel",
     "name": "Vercel",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "vercel",
@@ -1187,6 +1243,8 @@
     "sourceId": "vscode-plus",
     "name": "VS Code+",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "vscode-plus",
@@ -1235,6 +1293,8 @@
     "sourceId": "xcode",
     "name": "Xcode",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "codex",
     "subgroup": null,
     "codeThemeId": "xcode",
@@ -1286,7 +1346,9 @@
     "id": "deepseek-default",
     "sourceId": "deepseek-default",
     "name": "DeepSeek",
-    "summary": null,
+    "summary": "DeepSeek Harness’s published light and dark semantic palette.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1335,7 +1397,9 @@
     "id": "deepseek-huawei",
     "sourceId": "deepseek-huawei",
     "name": "Huawei",
-    "summary": null,
+    "summary": "Unofficial crimson tribute to Huawei Ascend’s DeepSeek support.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1384,7 +1448,9 @@
     "id": "deepseek-tencent",
     "sourceId": "deepseek-tencent",
     "name": "Tencent",
-    "summary": null,
+    "summary": "Unofficial blue-cyan tribute to Tencent Cloud’s DeepSeek integration.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1433,7 +1499,9 @@
     "id": "deepseek-alibaba",
     "sourceId": "deepseek-alibaba",
     "name": "Alibaba",
-    "summary": null,
+    "summary": "Unofficial warm-orange tribute to Alibaba Cloud’s DeepSeek service.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1482,7 +1550,9 @@
     "id": "deepseek-ant-group",
     "sourceId": "deepseek-ant-group",
     "name": "Ant Group",
-    "summary": null,
+    "summary": "Unofficial electric-blue tribute to Ant Group’s DeepSeek tooling.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1531,7 +1601,9 @@
     "id": "deepseek-bytedance",
     "sourceId": "deepseek-bytedance",
     "name": "ByteDance",
-    "summary": null,
+    "summary": "Unofficial cyan-red tribute to Volcano Engine’s DeepSeek service.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1580,7 +1652,9 @@
     "id": "deepseek-baidu",
     "sourceId": "deepseek-baidu",
     "name": "Baidu",
-    "summary": null,
+    "summary": "Unofficial indigo tribute to Baidu AI Gateway’s DeepSeek routing.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1629,7 +1703,9 @@
     "id": "deepseek-siliconflow",
     "sourceId": "deepseek-siliconflow",
     "name": "SiliconFlow",
-    "summary": null,
+    "summary": "Unofficial neon-mint tribute to SiliconFlow’s DeepSeek inference.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1678,7 +1754,9 @@
     "id": "deepseek-jd-cloud",
     "sourceId": "deepseek-jd-cloud",
     "name": "JD Cloud",
-    "summary": null,
+    "summary": "Unofficial red-and-ink tribute to JD Cloud’s DeepSeek deployment.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1727,7 +1805,9 @@
     "id": "deepseek-china-telecom",
     "sourceId": "deepseek-china-telecom",
     "name": "China Telecom",
-    "summary": null,
+    "summary": "Unofficial sky-blue tribute to China Telecom’s DeepSeek deployments.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1776,7 +1856,9 @@
     "id": "deepseek-china-mobile",
     "sourceId": "deepseek-china-mobile",
     "name": "China Mobile",
-    "summary": null,
+    "summary": "Unofficial blue-green tribute to China Mobile’s DeepSeek ecosystem.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1825,7 +1907,9 @@
     "id": "deepseek-honor",
     "sourceId": "deepseek-honor",
     "name": "HONOR",
-    "summary": null,
+    "summary": "Unofficial violet-cyan tribute to HONOR’s DeepSeek integration.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1874,7 +1958,9 @@
     "id": "deepseek-lenovo",
     "sourceId": "deepseek-lenovo",
     "name": "Lenovo",
-    "summary": null,
+    "summary": "Unofficial red-and-carbon tribute to Lenovo’s DeepSeek deployments.",
+    "provenance": null,
+    "collectionSupport": null,
     "category": "deepseek",
     "subgroup": null,
     "codeThemeId": "codex",
@@ -1919,11 +2005,1046 @@
       }
     }
   },
+  "quiet-anthracite": {
+    "id": "quiet-anthracite",
+    "sourceId": "quiet-anthracite",
+    "name": "Quiet Anthracite",
+    "summary": "Warm charcoal, parchment white, and terracotta signal tones for deliberate long-form work.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "claude",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#171512",
+      "ink": "#F5EFE5",
+      "accent": "#D97757",
+      "sidebar": "#100F0D",
+      "codeBg": "#0B0A09",
+      "skill": "#E4B860"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FBF6EC",
+      "ink": "#2B241E",
+      "accent": "#A94F35",
+      "sidebar": "#F1E7D8",
+      "codeBg": "#FFFDF8",
+      "skill": "#7C5A2B"
+    },
+    "accents": [
+      "#D97757",
+      "#A94F35"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=quiet-anthracite",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=quiet-anthracite",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "parchment-signal": {
+    "id": "parchment-signal",
+    "sourceId": "parchment-signal",
+    "name": "Parchment Signal",
+    "summary": "Cream paper, ember orange, and cool editorial blue for thoughtful terminal conversations.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "claude",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#201A16",
+      "ink": "#FFEBD1",
+      "accent": "#E6A15C",
+      "sidebar": "#17120F",
+      "codeBg": "#100D0B",
+      "skill": "#9FC5E8"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF9EC",
+      "ink": "#33271D",
+      "accent": "#B86A22",
+      "sidebar": "#F4E8D2",
+      "codeBg": "#FFFCF4",
+      "skill": "#4F78A6"
+    },
+    "accents": [
+      "#E6A15C",
+      "#B86A22"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=parchment-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=parchment-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "orbital-ink": {
+    "id": "orbital-ink",
+    "sourceId": "orbital-ink",
+    "name": "Orbital Ink",
+    "summary": "Electric blue, spectral violet, and crisp white arranged like ink moving through a weightless workspace.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "antigravity",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B1020",
+      "ink": "#ECF4FF",
+      "accent": "#5C8DFF",
+      "sidebar": "#070B16",
+      "codeBg": "#040711",
+      "skill": "#C875FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F7F9FF",
+      "ink": "#18213A",
+      "accent": "#315DD4",
+      "sidebar": "#EAF0FF",
+      "codeBg": "#FFFFFF",
+      "skill": "#8B4EC4"
+    },
+    "accents": [
+      "#5C8DFF",
+      "#315DD4"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orbital-ink",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orbital-ink",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "sunward-grid": {
+    "id": "sunward-grid",
+    "sourceId": "sunward-grid",
+    "name": "Sunward Grid",
+    "summary": "Sunlit gold, clean cyan, and deep navy for exploratory work held to a precise visual grid.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "antigravity",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#101827",
+      "ink": "#F7F7EB",
+      "accent": "#F2B84B",
+      "sidebar": "#0A101A",
+      "codeBg": "#060B12",
+      "skill": "#40D7C5"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF9E8",
+      "ink": "#282314",
+      "accent": "#B87912",
+      "sidebar": "#F6ECCF",
+      "codeBg": "#FFFCF4",
+      "skill": "#087F75"
+    },
+    "accents": [
+      "#F2B84B",
+      "#B87912"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunward-grid",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunward-grid",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "jade-relay": {
+    "id": "jade-relay",
+    "sourceId": "jade-relay",
+    "name": "Jade Relay",
+    "summary": "Luminous jade, cool cyan, and ink-dark surfaces for fast handoffs across a focused workflow.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "qwen",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071813",
+      "ink": "#E5FFF7",
+      "accent": "#21C98E",
+      "sidebar": "#04100D",
+      "codeBg": "#020B08",
+      "skill": "#7BDFF2"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F0FFF8",
+      "ink": "#143129",
+      "accent": "#0B8F62",
+      "sidebar": "#E1F6EB",
+      "codeBg": "#F9FFFC",
+      "skill": "#197C94"
+    },
+    "accents": [
+      "#21C98E",
+      "#0B8F62"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=jade-relay",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=jade-relay",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "saffron-vector": {
+    "id": "saffron-vector",
+    "sourceId": "saffron-vector",
+    "name": "Saffron Vector",
+    "summary": "Saffron gold, evergreen signal tones, and graphite depth for clear directional work.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "qwen",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#1A1208",
+      "ink": "#FFF1D6",
+      "accent": "#F59E0B",
+      "sidebar": "#120C05",
+      "codeBg": "#0D0903",
+      "skill": "#6EE7B7"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF8E7",
+      "ink": "#35220C",
+      "accent": "#B66A00",
+      "sidebar": "#F4E8CC",
+      "codeBg": "#FFFCF5",
+      "skill": "#14765A"
+    },
+    "accents": [
+      "#F59E0B",
+      "#B66A00"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=saffron-vector",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=saffron-vector",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "carbon-current": {
+    "id": "carbon-current",
+    "sourceId": "carbon-current",
+    "name": "Carbon Current",
+    "summary": "Carbon black, tidal teal, and cool blue for an open, low-friction coding rhythm.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "opencode",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071417",
+      "ink": "#DDF8F5",
+      "accent": "#20C7B7",
+      "sidebar": "#041012",
+      "codeBg": "#020A0C",
+      "skill": "#63A9FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F2FCFA",
+      "ink": "#16302F",
+      "accent": "#0B8C80",
+      "sidebar": "#E5F4F1",
+      "codeBg": "#FBFFFE",
+      "skill": "#2F63B8"
+    },
+    "accents": [
+      "#20C7B7",
+      "#0B8C80"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=carbon-current",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=carbon-current",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "paper-terminal": {
+    "id": "paper-terminal",
+    "sourceId": "paper-terminal",
+    "name": "Paper Terminal",
+    "summary": "Soft paper, moss green, and brass accents for a terminal palette with tactile restraint.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "opencode",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#181817",
+      "ink": "#F0EEE4",
+      "accent": "#A4C27A",
+      "sidebar": "#111110",
+      "codeBg": "#0C0C0B",
+      "skill": "#D1A85A"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FBFAF4",
+      "ink": "#272821",
+      "accent": "#66863C",
+      "sidebar": "#F1F0E7",
+      "codeBg": "#FFFFFF",
+      "skill": "#9A6A16"
+    },
+    "accents": [
+      "#A4C27A",
+      "#66863C"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=paper-terminal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=paper-terminal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "copper-loop": {
+    "id": "copper-loop",
+    "sourceId": "copper-loop",
+    "name": "Copper Loop",
+    "summary": "Burnished copper, quiet teal, and kiln-dark surfaces for iterative work with a warm pulse.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "pi",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#1B110D",
+      "ink": "#FFE9DC",
+      "accent": "#D77A45",
+      "sidebar": "#130B08",
+      "codeBg": "#0D0705",
+      "skill": "#67C6C2"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF6F0",
+      "ink": "#382118",
+      "accent": "#A64F24",
+      "sidebar": "#F3E5DC",
+      "codeBg": "#FFFCFA",
+      "skill": "#26807D"
+    },
+    "accents": [
+      "#D77A45",
+      "#A64F24"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=copper-loop",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=copper-loop",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "orchid-runtime": {
+    "id": "orchid-runtime",
+    "sourceId": "orchid-runtime",
+    "name": "Orchid Runtime",
+    "summary": "Deep orchid, fresh mint, and pale lilac for compact tools with a vivid runtime glow.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "pi",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#170D20",
+      "ink": "#F6E9FF",
+      "accent": "#B46DE0",
+      "sidebar": "#100716",
+      "codeBg": "#0B0410",
+      "skill": "#55D6BE"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FAF3FF",
+      "ink": "#2F1B39",
+      "accent": "#8241AC",
+      "sidebar": "#F0E4F7",
+      "codeBg": "#FFFBFF",
+      "skill": "#178879"
+    },
+    "accents": [
+      "#B46DE0",
+      "#8241AC"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orchid-runtime",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orchid-runtime",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "razor-mint": {
+    "id": "razor-mint",
+    "sourceId": "razor-mint",
+    "name": "Razor Mint",
+    "summary": "Sharp mint, cool blue, and near-black panels for fast editing with clean visual edges.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "zed",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071512",
+      "ink": "#E7FFF7",
+      "accent": "#54E1B1",
+      "sidebar": "#03100C",
+      "codeBg": "#020A07",
+      "skill": "#68A7FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F1FFF9",
+      "ink": "#15352B",
+      "accent": "#14865E",
+      "sidebar": "#E3F6EC",
+      "codeBg": "#FBFFFD",
+      "skill": "#315FB1"
+    },
+    "accents": [
+      "#54E1B1",
+      "#14865E"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=razor-mint",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=razor-mint",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "vector-noir": {
+    "id": "vector-noir",
+    "sourceId": "vector-noir",
+    "name": "Vector Noir",
+    "summary": "Noir surfaces, signal red, and ultraviolet function tones for decisive high-speed edits.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "zed",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#100D12",
+      "ink": "#F8F2F7",
+      "accent": "#F05266",
+      "sidebar": "#0A080C",
+      "codeBg": "#060507",
+      "skill": "#A984FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF6F7",
+      "ink": "#321C21",
+      "accent": "#BB2F45",
+      "sidebar": "#F7E7E9",
+      "codeBg": "#FFFCFC",
+      "skill": "#724BC0"
+    },
+    "accents": [
+      "#F05266",
+      "#BB2F45"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vector-noir",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vector-noir",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "kinetic-violet": {
+    "id": "kinetic-violet",
+    "sourceId": "kinetic-violet",
+    "name": "Kinetic Violet",
+    "summary": "Kinetic violet, cool mint, and midnight plum for fluid movement through dense code.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "cursor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#100B1D",
+      "ink": "#F4EFFF",
+      "accent": "#8B5CF6",
+      "sidebar": "#0B0714",
+      "codeBg": "#07040E",
+      "skill": "#46D4C6"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F8F5FF",
+      "ink": "#261B3A",
+      "accent": "#6742C6",
+      "sidebar": "#EDE7FA",
+      "codeBg": "#FEFCFF",
+      "skill": "#137D76"
+    },
+    "accents": [
+      "#8B5CF6",
+      "#6742C6"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=kinetic-violet",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=kinetic-violet",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "ghost-pointer": {
+    "id": "ghost-pointer",
+    "sourceId": "ghost-pointer",
+    "name": "Ghost Pointer",
+    "summary": "Icy blue, spectral lavender, and deep slate for quiet navigation across a living workspace.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "cursor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B1420",
+      "ink": "#ECF7FF",
+      "accent": "#59B8FF",
+      "sidebar": "#07101A",
+      "codeBg": "#040A10",
+      "skill": "#B089FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F4FAFF",
+      "ink": "#183044",
+      "accent": "#247BB8",
+      "sidebar": "#E6F3FC",
+      "codeBg": "#FFFFFF",
+      "skill": "#7651B6"
+    },
+    "accents": [
+      "#59B8FF",
+      "#247BB8"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ghost-pointer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ghost-pointer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "magenta-stack": {
+    "id": "magenta-stack",
+    "sourceId": "magenta-stack",
+    "name": "Magenta Stack",
+    "summary": "Saturated magenta, bright cyan, and plum-black layers for a confident typed stack.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "t3code",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#190A16",
+      "ink": "#FFEAF8",
+      "accent": "#E94CBB",
+      "sidebar": "#11070F",
+      "codeBg": "#0B0409",
+      "skill": "#69D7FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF5FB",
+      "ink": "#35152D",
+      "accent": "#B52B87",
+      "sidebar": "#F7E5F1",
+      "codeBg": "#FFFCFE",
+      "skill": "#277EAA"
+    },
+    "accents": [
+      "#E94CBB",
+      "#B52B87"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=magenta-stack",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=magenta-stack",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "typecraft-dusk": {
+    "id": "typecraft-dusk",
+    "sourceId": "typecraft-dusk",
+    "name": "Typecraft Dusk",
+    "summary": "Dusk indigo, rose syntax, and cool white for exacting work with a softer edge.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "t3code",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0D1020",
+      "ink": "#EEF0FF",
+      "accent": "#6E7BFF",
+      "sidebar": "#080A16",
+      "codeBg": "#050610",
+      "skill": "#F29BD0"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F6F7FF",
+      "ink": "#20254A",
+      "accent": "#4655CF",
+      "sidebar": "#E9EBFA",
+      "codeBg": "#FDFDFF",
+      "skill": "#AD477F"
+    },
+    "accents": [
+      "#6E7BFF",
+      "#4655CF"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=typecraft-dusk",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=typecraft-dusk",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "midnight-switchyard": {
+    "id": "midnight-switchyard",
+    "sourceId": "midnight-switchyard",
+    "name": "Midnight Switchyard",
+    "summary": "Midnight blue, signal gold, and rail-light cyan for coordinating parallel work clearly.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "conductor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#08111B",
+      "ink": "#EAF4FF",
+      "accent": "#4D9EFF",
+      "sidebar": "#050B12",
+      "codeBg": "#03070B",
+      "skill": "#F2B84B"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F4F8FC",
+      "ink": "#1C2B3A",
+      "accent": "#2A6FB3",
+      "sidebar": "#E7EEF5",
+      "codeBg": "#FFFFFF",
+      "skill": "#A66A12"
+    },
+    "accents": [
+      "#4D9EFF",
+      "#2A6FB3"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=midnight-switchyard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=midnight-switchyard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "copper-schedule": {
+    "id": "copper-schedule",
+    "sourceId": "copper-schedule",
+    "name": "Copper Schedule",
+    "summary": "Copper markers, softened stone, and measured green for an orderly multi-track cadence.",
+    "provenance": null,
+    "collectionSupport": null,
+    "category": "conductor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#18100C",
+      "ink": "#F7EBE3",
+      "accent": "#C27645",
+      "sidebar": "#100A07",
+      "codeBg": "#0B0604",
+      "skill": "#7AB6A1"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FCF7F2",
+      "ink": "#33231B",
+      "accent": "#96512B",
+      "sidebar": "#F1E7DE",
+      "codeBg": "#FFFDFA",
+      "skill": "#3B7B67"
+    },
+    "accents": [
+      "#C27645",
+      "#96512B"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=copper-schedule",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=copper-schedule",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "signal-horizon": {
+    "id": "signal-horizon",
+    "sourceId": "signal-horizon",
+    "name": "Signal Horizon",
+    "summary": "Near-black depth, horizon orange, and cool signal blue for a compact limited-color workspace.",
+    "provenance": null,
+    "collectionSupport": {
+      "platformId": "grok",
+      "level": "limited",
+      "label": "Limited theme support",
+      "disclosure": "The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime."
+    },
+    "category": "grok",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B0C0F",
+      "ink": "#F4F5F7",
+      "accent": "#F0703C",
+      "sidebar": "#060709",
+      "codeBg": "#030405",
+      "skill": "#58A6FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F7F8FA",
+      "ink": "#202329",
+      "accent": "#B94C22",
+      "sidebar": "#ECEEF1",
+      "codeBg": "#FFFFFF",
+      "skill": "#276FA8"
+    },
+    "accents": [
+      "#F0703C",
+      "#B94C22"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=signal-horizon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=signal-horizon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  "ember-query": {
+    "id": "ember-query",
+    "sourceId": "ember-query",
+    "name": "Ember Query",
+    "summary": "Ember red, mineral gray, and pale cyan for direct questions in a deliberately reduced palette.",
+    "provenance": null,
+    "collectionSupport": {
+      "platformId": "grok",
+      "level": "limited",
+      "label": "Limited theme support",
+      "disclosure": "The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime."
+    },
+    "category": "grok",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#111214",
+      "ink": "#F2F0ED",
+      "accent": "#DC5A4A",
+      "sidebar": "#0A0B0D",
+      "codeBg": "#060708",
+      "skill": "#77C8D5"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FAF8F5",
+      "ink": "#292624",
+      "accent": "#A93B31",
+      "sidebar": "#F0ECE8",
+      "codeBg": "#FFFFFF",
+      "skill": "#2D7B87"
+    },
+    "accents": [
+      "#DC5A4A",
+      "#A93B31"
+    ],
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ember-query",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ember-query",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
   "crimson-soulblade": {
     "id": "crimson-soulblade",
     "sourceId": "ichigo-bankai",
     "name": "Crimson Soulblade",
     "summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ichigo / Bankai"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -1973,6 +3094,11 @@
     "sourceId": "ichigo-hollow",
     "name": "Ivory Mask Soulblade",
     "summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ichigo / Hollow Mask"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2022,6 +3148,11 @@
     "sourceId": "naruto-hidden-leaf",
     "name": "Seventh Fire Shadow",
     "summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Naruto / Hidden Leaf"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2071,6 +3202,11 @@
     "sourceId": "gachiakuta-rudo",
     "name": "Groundbound Scavenger",
     "summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gachiakuta / Rudo"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2120,6 +3256,11 @@
     "sourceId": "eren-titan-fall",
     "name": "Fallen Colossus",
     "summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Eren / Titan Fall"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2169,6 +3310,11 @@
     "sourceId": "goku-ultra-instinct",
     "name": "Silver Instinct",
     "summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Goku / Ultra Instinct"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2218,6 +3364,11 @@
     "sourceId": "goku-ssj4",
     "name": "Primal Crimson Ascent",
     "summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Goku / Super Saiyan 4"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2267,6 +3418,11 @@
     "sourceId": "yuji-sukuna",
     "name": "Cursed Twin Vessel",
     "summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Yuji / Sukuna"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2316,6 +3472,11 @@
     "sourceId": "gojo-limitless",
     "name": "Infinite Azure",
     "summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gojo / Limitless"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2365,6 +3526,11 @@
     "sourceId": "jojo-dio",
     "name": "Golden Timebreaker",
     "summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "JoJo / Dio"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2414,6 +3580,11 @@
     "sourceId": "solo-leveling",
     "name": "Solo Shadow Ascent",
     "summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Sung Jinwoo / Igris"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2463,6 +3634,11 @@
     "sourceId": "trigun-gunsmoke",
     "name": "Scarlet Gunsmoke",
     "summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Trigun / Gunsmoke"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2512,6 +3688,11 @@
     "sourceId": "cowboy-bebop",
     "name": "Blue Space Jazz",
     "summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Cowboy Bebop / Blue Jazz"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2561,6 +3742,11 @@
     "sourceId": "ghost-in-the-shell",
     "name": "Cybernetic Major",
     "summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ghost in the Shell / Major"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2610,6 +3796,11 @@
     "sourceId": "gundam-rx-78-2",
     "name": "White Orbital Prototype",
     "summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam / RX-78-2"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2660,6 +3851,11 @@
     "sourceId": "gundam-seed-strike",
     "name": "Cosmic Strikeframe",
     "summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam SEED / Strike"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2710,6 +3906,11 @@
     "sourceId": "gundam-00-exia-trans-am",
     "name": "Azure Translight",
     "summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam 00 / Exia Trans-Am"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2760,6 +3961,11 @@
     "sourceId": "luffy-gear-five",
     "name": "Sunlit Rubber Myth",
     "summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Luffy / Gear Five"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2809,6 +4015,8 @@
     "sourceId": "shonen-sunset",
     "name": "Shonen Sunset",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2858,6 +4066,11 @@
     "sourceId": "liger-zero-base",
     "name": "Zero Mechcat",
     "summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2907,6 +4120,11 @@
     "sourceId": "liger-zero-schneider",
     "name": "Zero Bladecat",
     "summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -2956,6 +4174,11 @@
     "sourceId": "liger-zero-jager",
     "name": "Zero Swiftcat",
     "summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -3005,6 +4228,11 @@
     "sourceId": "liger-zero-panzer",
     "name": "Zero Siegecat",
     "summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "anime",
     "codeThemeId": "codex",
@@ -3054,6 +4282,11 @@
     "sourceId": "master-chief",
     "name": "Emerald Spartan",
     "summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Master Chief / Mjolnir"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3103,6 +4336,11 @@
     "sourceId": "aloy-horizon",
     "name": "Sunset Machine Huntress",
     "summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Aloy / Horizon"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3152,6 +4390,11 @@
     "sourceId": "kratos-olympus",
     "name": "Ashen Godslayer",
     "summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Kratos / Olympus"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3201,6 +4444,11 @@
     "sourceId": "xbox-neon",
     "name": "Neon Console Green",
     "summary": "Electric green on carbon black for a fast, high-contrast console glow.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Xbox / Neon"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3250,6 +4498,11 @@
     "sourceId": "playstation-cosmos",
     "name": "Cosmic Controller",
     "summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "PlayStation / Cosmos"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3299,6 +4552,11 @@
     "sourceId": "nintendo-switch",
     "name": "Split-Screen Neon",
     "summary": "Split cyan and coral over graphite for playful motion and handheld energy.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Nintendo / Switch Split"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3348,6 +4606,11 @@
     "sourceId": "mario-mushroom",
     "name": "Scarlet Mushroom Run",
     "summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Mario / Mushroom Kingdom"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3397,6 +4660,11 @@
     "sourceId": "sonic-boost",
     "name": "Cobalt Speedline",
     "summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Sonic / Boost"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3446,6 +4714,11 @@
     "sourceId": "jet-set-radio",
     "name": "Future Graffiti Radio",
     "summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Jet Set Radio Future"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3495,6 +4768,11 @@
     "sourceId": "samus-metroid",
     "name": "Orange Star Bounty",
     "summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Samus / Metroid"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3544,6 +4822,11 @@
     "sourceId": "pikachu-voltage",
     "name": "Pocket Voltage",
     "summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Pikachu / Voltage"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3593,6 +4876,11 @@
     "sourceId": "ash-indigo",
     "name": "Indigo Field Trainer",
     "summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ash / Indigo"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3642,6 +4930,11 @@
     "sourceId": "zelda-hyrule",
     "name": "Emerald Kingdom Legend",
     "summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Zelda / Hyrule"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3691,6 +4984,11 @@
     "sourceId": "doom-slayer",
     "name": "Infernal Slayer",
     "summary": "Hellfire orange, scorched black, and warning red for relentless forward motion.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Doom / Slayer"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3740,6 +5038,11 @@
     "sourceId": "mega-man-cobalt",
     "name": "Cobalt Arm Cannon",
     "summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Mega Man / Cobalt"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "video-games",
     "codeThemeId": "codex",
@@ -3789,6 +5092,11 @@
     "sourceId": "terminator-future-war",
     "name": "Chrome Future Hunter",
     "summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Terminator"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -3838,6 +5146,11 @@
     "sourceId": "avatar-pandora",
     "name": "Bioluminescent Moon",
     "summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Avatar / Pandora"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -3887,6 +5200,11 @@
     "sourceId": "kill-bill-bride",
     "name": "Golden Bride",
     "summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Kill Bill / Bride"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "movies",
     "codeThemeId": "codex",
@@ -3936,6 +5254,11 @@
     "sourceId": "batman-knight",
     "name": "Nocturnal Vigil",
     "summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Batman / Knight"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -3985,6 +5308,11 @@
     "sourceId": "superman-krypton",
     "name": "Solar Sentinel",
     "summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Superman / Krypton"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4034,6 +5362,11 @@
     "sourceId": "wonder-woman",
     "name": "Amazonian Truth",
     "summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Wonder Woman / Amazon"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4083,6 +5416,11 @@
     "sourceId": "spider-man",
     "name": "Scarlet Webline",
     "summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Spider-Man / Webline"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4132,6 +5470,11 @@
     "sourceId": "black-panther",
     "name": "Violet Panther Guard",
     "summary": "Royal violet, polished silver, and deep black for quiet precision and protected power.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Black Panther / Vibranium"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4181,6 +5524,11 @@
     "sourceId": "iron-man",
     "name": "Crimson Arc Armor",
     "summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Iron Man / Arc Reactor"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4230,6 +5578,11 @@
     "sourceId": "daredevil-elektra",
     "name": "Scarlet Rooftop Duel",
     "summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Daredevil / Elektra"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4279,6 +5632,11 @@
     "sourceId": "avengers-assemble",
     "name": "United Hero Signal",
     "summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Avengers / Assemble"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4328,6 +5686,11 @@
     "sourceId": "justice-league",
     "name": "Worldwatch Alliance",
     "summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Justice League / Watchtower"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "comics",
     "codeThemeId": "codex",
@@ -4377,6 +5740,8 @@
     "sourceId": "aquarius-waterbearer",
     "name": "Aquarius / Waterbearer",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4426,6 +5791,8 @@
     "sourceId": "pisces-dreamtide",
     "name": "Pisces / Dreamtide",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4475,6 +5842,8 @@
     "sourceId": "aries-ember-horn",
     "name": "Aries / Ember Horn",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4524,6 +5893,8 @@
     "sourceId": "taurus-verdant-bronze",
     "name": "Taurus / Verdant Bronze",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4573,6 +5944,8 @@
     "sourceId": "gemini-split-signal",
     "name": "Gemini / Split Signal",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4622,6 +5995,8 @@
     "sourceId": "cancer-moontide",
     "name": "Cancer / Moontide",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4671,6 +6046,8 @@
     "sourceId": "leo-goldflare",
     "name": "Leo / Goldflare",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4720,6 +6097,8 @@
     "sourceId": "virgo-garden-script",
     "name": "Virgo / Garden Script",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4769,6 +6148,8 @@
     "sourceId": "libra-rose-scale",
     "name": "Libra / Rose Scale",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4818,6 +6199,8 @@
     "sourceId": "scorpio-midnight-venom",
     "name": "Scorpio / Midnight Venom",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4867,6 +6250,8 @@
     "sourceId": "sagittarius-stararrow",
     "name": "Sagittarius / Stararrow",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4916,6 +6301,8 @@
     "sourceId": "capricorn-stone-summit",
     "name": "Capricorn / Stone Summit",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "zodiacs",
     "codeThemeId": "codex",
@@ -4965,6 +6352,8 @@
     "sourceId": "rat-streetwire",
     "name": "Rat / Streetwire",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5014,6 +6403,8 @@
     "sourceId": "ox-iron-field",
     "name": "Ox / Iron Field",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5063,6 +6454,8 @@
     "sourceId": "tiger-ember-claw",
     "name": "Tiger / Ember Claw",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5112,6 +6505,8 @@
     "sourceId": "rabbit-moonburrow",
     "name": "Rabbit / Moonburrow",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5161,6 +6556,8 @@
     "sourceId": "dragon-celestial-forge",
     "name": "Dragon / Celestial Forge",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5210,6 +6607,8 @@
     "sourceId": "snake-jade-venom",
     "name": "Snake / Jade Venom",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5259,6 +6658,8 @@
     "sourceId": "horse-sunrunner",
     "name": "Horse / Sunrunner",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5308,6 +6709,8 @@
     "sourceId": "goat-cloud-fleece",
     "name": "Goat / Cloud Fleece",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5357,6 +6760,8 @@
     "sourceId": "monkey-neon-trickster",
     "name": "Monkey / Neon Trickster",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5406,6 +6811,8 @@
     "sourceId": "rooster-dawn-brass",
     "name": "Rooster / Dawn Brass",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5455,6 +6862,8 @@
     "sourceId": "dog-hearthguard",
     "name": "Dog / Hearthguard",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5504,6 +6913,8 @@
     "sourceId": "pig-velvet-orchard",
     "name": "Pig / Velvet Orchard",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "lunar-animals",
     "codeThemeId": "codex",
@@ -5553,6 +6964,11 @@
     "sourceId": "liquid-glass",
     "name": "Orchard Glass",
     "summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liquid Glass / Apple"
+    },
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "companies",
     "codeThemeId": "codex",
@@ -5602,6 +7018,8 @@
     "sourceId": "current-valentine",
     "name": "Meridian Bloom",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5651,6 +7069,8 @@
     "sourceId": "second-tide",
     "name": "Tideglass",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5700,6 +7120,8 @@
     "sourceId": "keepsake-gold",
     "name": "Keepsake Halo",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5749,6 +7171,8 @@
     "sourceId": "north-current",
     "name": "North Current",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5798,6 +7222,8 @@
     "sourceId": "quiet-orbit",
     "name": "Quiet Orbit",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5847,6 +7273,8 @@
     "sourceId": "lantern-echo",
     "name": "Lantern Echo",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5896,6 +7324,8 @@
     "sourceId": "harvest-theory",
     "name": "Harvest Relay",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5945,6 +7375,8 @@
     "sourceId": "blue-halo",
     "name": "Blue Halo",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -5994,6 +7426,8 @@
     "sourceId": "may-mosaic",
     "name": "Vernal Mosaic",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -6043,6 +7477,8 @@
     "sourceId": "solar-frequency",
     "name": "Solar Frequency",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -6092,6 +7528,8 @@
     "sourceId": "harbor-lace",
     "name": "Harbor Lace",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",
@@ -6141,6 +7579,8 @@
     "sourceId": "late-summer-steel",
     "name": "August Alloy",
     "summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "category": "dexthemes",
     "subgroup": "originals",
     "codeThemeId": "codex",

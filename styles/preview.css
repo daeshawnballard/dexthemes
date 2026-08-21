@@ -234,6 +234,13 @@
   display: none;
 }
 
+.platform-setup-message[data-support-level="limited"] {
+  border-color: color-mix(in srgb, var(--accent) 36%, transparent);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 11%, transparent), transparent 72%),
+    color-mix(in srgb, currentColor 5%, transparent);
+}
+
 .platform-setup-message-icon {
   color: var(--accent);
 }
@@ -368,6 +375,41 @@
 
 .assistant-inline-card--muted {
   box-shadow: none;
+}
+
+.assistant-inline-card--provenance {
+  width: fit-content;
+  max-width: min(100%, 520px);
+  gap: 5px;
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 58%),
+    color-mix(in srgb, var(--surface-elevated) 92%, var(--surface));
+  box-shadow: none;
+}
+
+.provenance-card-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.provenance-card strong {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.provenance-disclosure {
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1.45;
 }
 
 .assistant-inline-badge {

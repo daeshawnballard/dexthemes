@@ -2,9 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { getPlatformEasterEggs } from '../shared/platform-easter-eggs.js';
+import { PLATFORM_IDS } from '../shared/platform-registry.js';
 
 test('universal Easter eggs appear in every platform context', () => {
-  for (const platformId of ['codex', 'deepseek', 'gemini', 'conductor']) {
+  for (const platformId of PLATFORM_IDS) {
     assert.deepEqual(getPlatformEasterEggs(platformId).slice(0, 2).map((egg) => egg.id), [
       'color-me-lucky',
       'paired-preview',

@@ -8,6 +8,8 @@ import { CANONICAL_ORIGIN, buildSitemapXml } from "../shared/seo.js";
 import { CONTENT_ITEMS } from "../shared/generated-content.js";
 import { buildDeepSeekIntegrationMetadata } from "../shared/deepseek-theme-contract.js";
 import { DEEPSEEK_HARNESS_THEMES } from "../packages/deepseek-harness-plugin/src/deepseek-themes.js";
+import { normalizeThemeProvenance } from "../shared/theme-provenance.js";
+import { PLATFORM_REGISTRY } from "../shared/platform-registry.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -52,6 +54,15 @@ const subgroupAliases = Object.freeze({
 
 function normalizeStaticTheme(theme) {
   const category = theme.category === "official" ? "codex" : theme.category;
+  const collectionPlatform = PLATFORM_REGISTRY[category];
+  const collectionSupport = collectionPlatform?.themeSupport
+    ? {
+        platformId: collectionPlatform.id,
+        level: collectionPlatform.themeSupport.level,
+        label: collectionPlatform.themeSupport.label,
+        disclosure: collectionPlatform.themeSupport.disclosure,
+      }
+    : null;
   const subgroup =
     category === "dexthemes" && theme.subgroup
       ? subgroupSlugByKey[theme.subgroup] || theme.subgroup
@@ -79,7 +90,9 @@ function normalizeStaticTheme(theme) {
     _company: theme._company ?? null,
     _hiddenUntilUnlocked: theme._hiddenUntilUnlocked ?? null,
     _locked: theme._locked ?? null,
-    _summary: theme._summary ?? null,
+    _summary: theme._summary ?? theme.summary ?? null,
+    provenance: normalizeThemeProvenance(theme.provenance),
+    collectionSupport,
     integrations: {
       deepseek: buildDeepSeekIntegrationMetadata(theme, publicThemeId),
     },
@@ -123,6 +136,12 @@ function buildLlmsFullCatalog(themes) {
       ? `- DeepSeek Harness apply preparation: ${CANONICAL_ORIGIN}${theme.integrations.deepseek.packageUrl}`
       : `- DeepSeek Harness: unavailable (theme does not include both variants)`,
     theme._summary ? `- Summary: ${theme._summary}` : null,
+    theme.provenance
+      ? `- Inspiration: ${theme.provenance.inspiredBy} (unofficial; no affiliation or endorsement)`
+      : null,
+    theme.collectionSupport
+      ? `- Host theme support: ${theme.collectionSupport.label} — ${theme.collectionSupport.disclosure}`
+      : null,
     formatVariant("Dark", theme.dark),
     formatVariant("Light", theme.light),
     ].filter(Boolean).join("\n");
@@ -226,6 +245,8 @@ export function normalizeDexThemesSubgroup(segment) {
           sourceId: theme.id,
           name: theme.name,
           summary: theme._summary,
+          provenance: theme.provenance,
+          collectionSupport: theme.collectionSupport,
           category: theme.category,
           subgroup: theme.subgroup,
           codeThemeId: theme.codeThemeId,

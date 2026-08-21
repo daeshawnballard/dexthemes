@@ -52,21 +52,17 @@ function blurIntent(overrides = {}) {
 }
 
 test('documented restricted effects resolve to safe preview view models only', () => {
-  const gemini = resolvePlatformEffectIntent('gemini', gradientIntent());
-  assert.equal(gemini.decision, PLATFORM_EFFECT_DECISIONS.PREVIEW_INTENT);
-  assert.equal(gemini.capability, 'supported_with_restrictions');
-  assert.deepEqual(gemini.preview, {
+  const zedAlpha = resolvePlatformEffectIntent('zed', alphaIntent());
+  assert.equal(zedAlpha.decision, PLATFORM_EFFECT_DECISIONS.PREVIEW_INTENT);
+  assert.equal(zedAlpha.capability, 'supported_with_restrictions');
+  assert.deepEqual(zedAlpha.preview, {
     version: 'dexthemes-effect-preview-v1',
-    kind: 'gradient',
-    direction: 'horizontal',
-    stops: [
-      { offset: 0, colorSlot: 'surface' },
-      { offset: 1, colorSlot: 'accent' },
-    ],
+    kind: 'alpha',
+    colorSlot: 'surface',
+    opacity: 0.72,
   });
-  assert.equal(JSON.stringify(gemini).includes('linear-gradient'), false);
+  assert.equal(JSON.stringify(zedAlpha).includes('rgba('), false);
 
-  assert.equal(resolvePlatformEffectIntent('zed', alphaIntent()).decision, 'preview_intent');
   assert.equal(resolvePlatformEffectIntent('zed', blurIntent()).decision, 'preview_intent');
   assert.equal(resolvePlatformEffectIntent('cursor', alphaIntent()).decision, 'preview_intent');
 });
@@ -101,7 +97,7 @@ test('required accessibility fallbacks are enforced and preferences choose them'
     /reducedMotionFallback is required/,
   );
 
-  const reduced = resolvePlatformEffectIntent('gemini', gradientIntent(), {
+  const reduced = resolvePlatformEffectIntent('zed', alphaIntent(), {
     highContrast: false,
     prefersReducedMotion: true,
   });
@@ -110,7 +106,7 @@ test('required accessibility fallbacks are enforced and preferences choose them'
   assert.deepEqual(reduced.preview, {
     version: 'dexthemes-effect-preview-v1',
     kind: 'solid',
-    colorSlot: 'accent',
+    colorSlot: 'surface',
   });
 
   const contrast = resolvePlatformEffectIntent('zed', blurIntent(), {
@@ -174,7 +170,7 @@ test('oversized or non-serializable intents are rejected before resolution', () 
   assert.equal(validation.valid, false);
   assert.match(validation.errors[0], /exceeds 2048 bytes/);
   assert.throws(
-    () => resolvePlatformEffectIntent('gemini', oversized),
+    () => resolvePlatformEffectIntent('antigravity', oversized),
     (error) => error instanceof PlatformEffectIntentValidationError
       && error.code === 'platform_effect_intent_invalid',
   );

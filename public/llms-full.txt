@@ -3,7 +3,7 @@
 > Generated from the checked-in theme catalog for LLM and agent consumption.
 > For product, authentication, and plugin guidance, see /llms.txt.
 
-Total public static themes: 130
+Total public static themes: 150
 
 ## API Endpoints
 
@@ -307,6 +307,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-default/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-default
+- Summary: DeepSeek Harness’s published light and dark semantic palette.
 - Dark: surface=#151517 ink=#F9FAFB accent=#5686FE
 - Light: surface=#FFFFFF ink=#0F1115 accent=#4176E6
 
@@ -315,6 +316,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-huawei/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-huawei
+- Summary: Unofficial crimson tribute to Huawei Ascend’s DeepSeek support.
 - Dark: surface=#130C10 ink=#FFF3F5 accent=#E51A3C
 - Light: surface=#FFF7F8 ink=#261317 accent=#CF0A2C
 
@@ -323,6 +325,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-tencent/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-tencent
+- Summary: Unofficial blue-cyan tribute to Tencent Cloud’s DeepSeek integration.
 - Dark: surface=#07131F ink=#EAF7FF accent=#00A4FF
 - Light: surface=#F3FAFF ink=#102538 accent=#006EFF
 
@@ -331,6 +334,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-alibaba/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-alibaba
+- Summary: Unofficial warm-orange tribute to Alibaba Cloud’s DeepSeek service.
 - Dark: surface=#17100B ink=#FFF6ED accent=#FF6A00
 - Light: surface=#FFF9F4 ink=#2B1A10 accent=#D95300
 
@@ -339,6 +343,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-ant-group/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-ant-group
+- Summary: Unofficial electric-blue tribute to Ant Group’s DeepSeek tooling.
 - Dark: surface=#091321 ink=#EEF6FF accent=#1677FF
 - Light: surface=#F4F8FF ink=#13243A accent=#0958D9
 
@@ -347,6 +352,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-bytedance/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-bytedance
+- Summary: Unofficial cyan-red tribute to Volcano Engine’s DeepSeek service.
 - Dark: surface=#0A1018 ink=#F2F7FC accent=#2F88FF
 - Light: surface=#F7FAFD ink=#162331 accent=#1769E0
 
@@ -355,6 +361,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-baidu/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-baidu
+- Summary: Unofficial indigo tribute to Baidu AI Gateway’s DeepSeek routing.
 - Dark: surface=#0E0E21 ink=#F2F1FF accent=#6262FF
 - Light: surface=#F7F7FF ink=#1E1E3A accent=#2932E1
 
@@ -363,6 +370,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-siliconflow/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-siliconflow
+- Summary: Unofficial neon-mint tribute to SiliconFlow’s DeepSeek inference.
 - Dark: surface=#071410 ink=#ECFFF8 accent=#21D99A
 - Light: surface=#F2FCF8 ink=#123027 accent=#087C59
 
@@ -371,6 +379,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-jd-cloud/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-jd-cloud
+- Summary: Unofficial red-and-ink tribute to JD Cloud’s DeepSeek deployment.
 - Dark: surface=#151011 ink=#FFF4F4 accent=#E1251B
 - Light: surface=#FFF8F7 ink=#291718 accent=#C81623
 
@@ -379,6 +388,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-china-telecom/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-china-telecom
+- Summary: Unofficial sky-blue tribute to China Telecom’s DeepSeek deployments.
 - Dark: surface=#09131C ink=#EDF8FF accent=#1B8DCE
 - Light: surface=#F4FAFD ink=#163044 accent=#0066A6
 
@@ -387,6 +397,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-china-mobile/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-china-mobile
+- Summary: Unofficial blue-green tribute to China Mobile’s DeepSeek ecosystem.
 - Dark: surface=#071719 ink=#ECFCFD accent=#00A8A8
 - Light: surface=#F2FBFB ink=#143336 accent=#008B86
 
@@ -395,6 +406,7 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-honor/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-honor
+- Summary: Unofficial violet-cyan tribute to HONOR’s DeepSeek integration.
 - Dark: surface=#0D1020 ink=#F4F4FF accent=#7A6CFF
 - Light: surface=#F7F7FF ink=#20223C accent=#5146C8
 
@@ -403,8 +415,191 @@ Total public static themes: 130
 - Category: deepseek
 - Public page: https://www.dexthemes.com/deepseek-lenovo/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=deepseek-lenovo
+- Summary: Unofficial red-and-carbon tribute to Lenovo’s DeepSeek deployments.
 - Dark: surface=#121212 ink=#F6F6F6 accent=#E2231A
 - Light: surface=#FAFAFA ink=#242424 accent=#C51D16
+
+### Quiet Anthracite
+- ID: `quiet-anthracite`
+- Category: claude
+- Public page: https://www.dexthemes.com/quiet-anthracite/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=quiet-anthracite
+- Summary: Warm charcoal, parchment white, and terracotta signal tones for deliberate long-form work.
+- Dark: surface=#171512 ink=#F5EFE5 accent=#D97757
+- Light: surface=#FBF6EC ink=#2B241E accent=#A94F35
+
+### Parchment Signal
+- ID: `parchment-signal`
+- Category: claude
+- Public page: https://www.dexthemes.com/parchment-signal/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=parchment-signal
+- Summary: Cream paper, ember orange, and cool editorial blue for thoughtful terminal conversations.
+- Dark: surface=#201A16 ink=#FFEBD1 accent=#E6A15C
+- Light: surface=#FFF9EC ink=#33271D accent=#B86A22
+
+### Orbital Ink
+- ID: `orbital-ink`
+- Category: antigravity
+- Public page: https://www.dexthemes.com/orbital-ink/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=orbital-ink
+- Summary: Electric blue, spectral violet, and crisp white arranged like ink moving through a weightless workspace.
+- Dark: surface=#0B1020 ink=#ECF4FF accent=#5C8DFF
+- Light: surface=#F7F9FF ink=#18213A accent=#315DD4
+
+### Sunward Grid
+- ID: `sunward-grid`
+- Category: antigravity
+- Public page: https://www.dexthemes.com/sunward-grid/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=sunward-grid
+- Summary: Sunlit gold, clean cyan, and deep navy for exploratory work held to a precise visual grid.
+- Dark: surface=#101827 ink=#F7F7EB accent=#F2B84B
+- Light: surface=#FFF9E8 ink=#282314 accent=#B87912
+
+### Jade Relay
+- ID: `jade-relay`
+- Category: qwen
+- Public page: https://www.dexthemes.com/jade-relay/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=jade-relay
+- Summary: Luminous jade, cool cyan, and ink-dark surfaces for fast handoffs across a focused workflow.
+- Dark: surface=#071813 ink=#E5FFF7 accent=#21C98E
+- Light: surface=#F0FFF8 ink=#143129 accent=#0B8F62
+
+### Saffron Vector
+- ID: `saffron-vector`
+- Category: qwen
+- Public page: https://www.dexthemes.com/saffron-vector/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=saffron-vector
+- Summary: Saffron gold, evergreen signal tones, and graphite depth for clear directional work.
+- Dark: surface=#1A1208 ink=#FFF1D6 accent=#F59E0B
+- Light: surface=#FFF8E7 ink=#35220C accent=#B66A00
+
+### Carbon Current
+- ID: `carbon-current`
+- Category: opencode
+- Public page: https://www.dexthemes.com/carbon-current/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=carbon-current
+- Summary: Carbon black, tidal teal, and cool blue for an open, low-friction coding rhythm.
+- Dark: surface=#071417 ink=#DDF8F5 accent=#20C7B7
+- Light: surface=#F2FCFA ink=#16302F accent=#0B8C80
+
+### Paper Terminal
+- ID: `paper-terminal`
+- Category: opencode
+- Public page: https://www.dexthemes.com/paper-terminal/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=paper-terminal
+- Summary: Soft paper, moss green, and brass accents for a terminal palette with tactile restraint.
+- Dark: surface=#181817 ink=#F0EEE4 accent=#A4C27A
+- Light: surface=#FBFAF4 ink=#272821 accent=#66863C
+
+### Copper Loop
+- ID: `copper-loop`
+- Category: pi
+- Public page: https://www.dexthemes.com/copper-loop/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=copper-loop
+- Summary: Burnished copper, quiet teal, and kiln-dark surfaces for iterative work with a warm pulse.
+- Dark: surface=#1B110D ink=#FFE9DC accent=#D77A45
+- Light: surface=#FFF6F0 ink=#382118 accent=#A64F24
+
+### Orchid Runtime
+- ID: `orchid-runtime`
+- Category: pi
+- Public page: https://www.dexthemes.com/orchid-runtime/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=orchid-runtime
+- Summary: Deep orchid, fresh mint, and pale lilac for compact tools with a vivid runtime glow.
+- Dark: surface=#170D20 ink=#F6E9FF accent=#B46DE0
+- Light: surface=#FAF3FF ink=#2F1B39 accent=#8241AC
+
+### Razor Mint
+- ID: `razor-mint`
+- Category: zed
+- Public page: https://www.dexthemes.com/razor-mint/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=razor-mint
+- Summary: Sharp mint, cool blue, and near-black panels for fast editing with clean visual edges.
+- Dark: surface=#071512 ink=#E7FFF7 accent=#54E1B1
+- Light: surface=#F1FFF9 ink=#15352B accent=#14865E
+
+### Vector Noir
+- ID: `vector-noir`
+- Category: zed
+- Public page: https://www.dexthemes.com/vector-noir/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=vector-noir
+- Summary: Noir surfaces, signal red, and ultraviolet function tones for decisive high-speed edits.
+- Dark: surface=#100D12 ink=#F8F2F7 accent=#F05266
+- Light: surface=#FFF6F7 ink=#321C21 accent=#BB2F45
+
+### Kinetic Violet
+- ID: `kinetic-violet`
+- Category: cursor
+- Public page: https://www.dexthemes.com/kinetic-violet/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=kinetic-violet
+- Summary: Kinetic violet, cool mint, and midnight plum for fluid movement through dense code.
+- Dark: surface=#100B1D ink=#F4EFFF accent=#8B5CF6
+- Light: surface=#F8F5FF ink=#261B3A accent=#6742C6
+
+### Ghost Pointer
+- ID: `ghost-pointer`
+- Category: cursor
+- Public page: https://www.dexthemes.com/ghost-pointer/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=ghost-pointer
+- Summary: Icy blue, spectral lavender, and deep slate for quiet navigation across a living workspace.
+- Dark: surface=#0B1420 ink=#ECF7FF accent=#59B8FF
+- Light: surface=#F4FAFF ink=#183044 accent=#247BB8
+
+### Magenta Stack
+- ID: `magenta-stack`
+- Category: t3code
+- Public page: https://www.dexthemes.com/magenta-stack/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=magenta-stack
+- Summary: Saturated magenta, bright cyan, and plum-black layers for a confident typed stack.
+- Dark: surface=#190A16 ink=#FFEAF8 accent=#E94CBB
+- Light: surface=#FFF5FB ink=#35152D accent=#B52B87
+
+### Typecraft Dusk
+- ID: `typecraft-dusk`
+- Category: t3code
+- Public page: https://www.dexthemes.com/typecraft-dusk/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=typecraft-dusk
+- Summary: Dusk indigo, rose syntax, and cool white for exacting work with a softer edge.
+- Dark: surface=#0D1020 ink=#EEF0FF accent=#6E7BFF
+- Light: surface=#F6F7FF ink=#20254A accent=#4655CF
+
+### Midnight Switchyard
+- ID: `midnight-switchyard`
+- Category: conductor
+- Public page: https://www.dexthemes.com/midnight-switchyard/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=midnight-switchyard
+- Summary: Midnight blue, signal gold, and rail-light cyan for coordinating parallel work clearly.
+- Dark: surface=#08111B ink=#EAF4FF accent=#4D9EFF
+- Light: surface=#F4F8FC ink=#1C2B3A accent=#2A6FB3
+
+### Copper Schedule
+- ID: `copper-schedule`
+- Category: conductor
+- Public page: https://www.dexthemes.com/copper-schedule/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=copper-schedule
+- Summary: Copper markers, softened stone, and measured green for an orderly multi-track cadence.
+- Dark: surface=#18100C ink=#F7EBE3 accent=#C27645
+- Light: surface=#FCF7F2 ink=#33231B accent=#96512B
+
+### Signal Horizon
+- ID: `signal-horizon`
+- Category: grok
+- Public page: https://www.dexthemes.com/signal-horizon/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=signal-horizon
+- Summary: Near-black depth, horizon orange, and cool signal blue for a compact limited-color workspace.
+- Host theme support: Limited theme support — The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.
+- Dark: surface=#0B0C0F ink=#F4F5F7 accent=#F0703C
+- Light: surface=#F7F8FA ink=#202329 accent=#B94C22
+
+### Ember Query
+- ID: `ember-query`
+- Category: grok
+- Public page: https://www.dexthemes.com/ember-query/dark
+- DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=ember-query
+- Summary: Ember red, mineral gray, and pale cyan for direct questions in a deliberately reduced palette.
+- Host theme support: Limited theme support — The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.
+- Dark: surface=#111214 ink=#F2F0ED accent=#DC5A4A
+- Light: surface=#FAF8F5 ink=#292624 accent=#A93B31
 
 ### Crimson Soulblade
 - ID: `crimson-soulblade`
@@ -412,6 +607,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/crimson-soulblade/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=crimson-soulblade
 - Summary: Blackened steel, ember orange, and disciplined crimson for focused work under pressure.
+- Inspiration: Ichigo / Bankai (unofficial; no affiliation or endorsement)
 - Dark: surface=#121111 ink=#FFF4EC accent=#FF7A1A
 - Light: surface=#FFF7F2 ink=#121212 accent=#F97316
 
@@ -421,6 +617,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/ivory-mask-soulblade/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=ivory-mask-soulblade
 - Summary: Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.
+- Inspiration: Ichigo / Hollow Mask (unofficial; no affiliation or endorsement)
 - Dark: surface=#0E0C10 ink=#F7F1F8 accent=#E11D48
 - Light: surface=#F6F2F7 ink=#1A141C accent=#111827
 
@@ -430,6 +627,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/seventh-fire-shadow/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=seventh-fire-shadow
 - Summary: Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.
+- Inspiration: Naruto / Hidden Leaf (unofficial; no affiliation or endorsement)
 - Dark: surface=#101418 ink=#F7F3EA accent=#FF9F1C
 - Light: surface=#FFF8ED ink=#1A1A1A accent=#F59E0B
 
@@ -439,6 +637,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/groundbound-scavenger/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=groundbound-scavenger
 - Summary: Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.
+- Inspiration: Gachiakuta / Rudo (unofficial; no affiliation or endorsement)
 - Dark: surface=#111417 ink=#E8EDF1 accent=#78C6A3
 - Light: surface=#EEE7D8 ink=#2E2A25 accent=#4B5563
 
@@ -448,6 +647,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/fallen-colossus/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=fallen-colossus
 - Summary: Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.
+- Inspiration: Eren / Titan Fall (unofficial; no affiliation or endorsement)
 - Dark: surface=#0E1113 ink=#F3E9D7 accent=#8B1E1E
 - Light: surface=#F7F2EA ink=#23211E accent=#3B5C74
 
@@ -457,6 +657,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/silver-instinct/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=silver-instinct
 - Summary: Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.
+- Inspiration: Goku / Ultra Instinct (unofficial; no affiliation or endorsement)
 - Dark: surface=#161218 ink=#F9F7FB accent=#7C3AED
 - Light: surface=#F5F9FF ink=#18212D accent=#A5B4FC
 
@@ -466,6 +667,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/primal-crimson-ascent/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=primal-crimson-ascent
 - Summary: Wild crimson, midnight black, and electric gold for untamed power climbing higher.
+- Inspiration: Goku / Super Saiyan 4 (unofficial; no affiliation or endorsement)
 - Dark: surface=#180D11 ink=#FFF1F2 accent=#D9465F
 - Light: surface=#F8F2ED ink=#2C1A1D accent=#E76F51
 
@@ -475,6 +677,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cursed-twin-vessel/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cursed-twin-vessel
 - Summary: Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.
+- Inspiration: Yuji / Sukuna (unofficial; no affiliation or endorsement)
 - Dark: surface=#110E12 ink=#FAF5F5 accent=#D62839
 - Light: surface=#FFF7F5 ink=#251C20 accent=#F97316
 
@@ -484,6 +687,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/infinite-azure/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=infinite-azure
 - Summary: Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.
+- Inspiration: Gojo / Limitless (unofficial; no affiliation or endorsement)
 - Dark: surface=#0D1220 ink=#EEF6FF accent=#60A5FA
 - Light: surface=#F5FAFF ink=#102132 accent=#BFDBFE
 
@@ -493,6 +697,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/golden-timebreaker/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=golden-timebreaker
 - Summary: Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.
+- Inspiration: JoJo / Dio (unofficial; no affiliation or endorsement)
 - Dark: surface=#161019 ink=#F7F3FB accent=#D4AF37
 - Light: surface=#FFF7D6 ink=#241A24 accent=#7C3AED
 
@@ -502,6 +707,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/solo-shadow-ascent/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=solo-shadow-ascent
 - Summary: Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.
+- Inspiration: Sung Jinwoo / Igris (unofficial; no affiliation or endorsement)
 - Dark: surface=#0C1020 ink=#E6ECFF accent=#4C6FFF
 - Light: surface=#F4F7FF ink=#1A2238 accent=#94A3FF
 
@@ -511,6 +717,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/scarlet-gunsmoke/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=scarlet-gunsmoke
 - Summary: Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.
+- Inspiration: Trigun / Gunsmoke (unofficial; no affiliation or endorsement)
 - Dark: surface=#16110E ink=#F8EFE6 accent=#D97706
 - Light: surface=#F5E6C8 ink=#2C221B accent=#B45309
 
@@ -520,6 +727,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/blue-space-jazz/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=blue-space-jazz
 - Summary: Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.
+- Inspiration: Cowboy Bebop / Blue Jazz (unofficial; no affiliation or endorsement)
 - Dark: surface=#111827 ink=#EAF2FF accent=#38BDF8
 - Light: surface=#F6E8C7 ink=#1F2937 accent=#0EA5E9
 
@@ -529,6 +737,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cybernetic-major/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cybernetic-major
 - Summary: Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.
+- Inspiration: Ghost in the Shell / Major (unofficial; no affiliation or endorsement)
 - Dark: surface=#0B1220 ink=#E5F4FF accent=#00B8D9
 - Light: surface=#F2FCFF ink=#0F1E2E accent=#38BDF8
 
@@ -538,6 +747,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/white-orbital-prototype/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=white-orbital-prototype
 - Summary: Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.
+- Inspiration: Gundam / RX-78-2 (unofficial; no affiliation or endorsement)
 - Dark: surface=#0B1020 ink=#F4F7FB accent=#2F6FE4
 - Light: surface=#F6F8FC ink=#182132 accent=#2457C5
 
@@ -547,6 +757,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cosmic-strikeframe/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cosmic-strikeframe
 - Summary: Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.
+- Inspiration: Gundam SEED / Strike (unofficial; no affiliation or endorsement)
 - Dark: surface=#080D17 ink=#F8FAFC accent=#1D4ED8
 - Light: surface=#FBFCFF ink=#172033 accent=#1E40AF
 
@@ -556,6 +767,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/azure-translight/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=azure-translight
 - Summary: Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.
+- Inspiration: Gundam 00 / Exia Trans-Am (unofficial; no affiliation or endorsement)
 - Dark: surface=#130913 ink=#FFEAF2 accent=#F43F5E
 - Light: surface=#FFF3F7 ink=#231522 accent=#E11D48
 
@@ -565,6 +777,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/sunlit-rubber-myth/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=sunlit-rubber-myth
 - Summary: Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.
+- Inspiration: Luffy / Gear Five (unofficial; no affiliation or endorsement)
 - Dark: surface=#0F172A ink=#F8F1DC accent=#F87171
 - Light: surface=#F7F9FF ink=#20293A accent=#F3F4F6
 
@@ -582,6 +795,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/zero-mechcat/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=zero-mechcat
 - Summary: Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.
+- Inspiration: Liger Zero (unofficial; no affiliation or endorsement)
 - Dark: surface=#1A1A22 ink=#E8E8F0 accent=#00E060
 - Light: surface=#F2F2F6 ink=#1E1E28 accent=#00945A
 
@@ -591,6 +805,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/zero-bladecat/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=zero-bladecat
 - Summary: Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.
+- Inspiration: Liger Zero (unofficial; no affiliation or endorsement)
 - Dark: surface=#1E1410 ink=#F0DCD0 accent=#E06828
 - Light: surface=#FDF4EE ink=#2A1410 accent=#C04A10
 
@@ -600,6 +815,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/zero-swiftcat/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=zero-swiftcat
 - Summary: Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.
+- Inspiration: Liger Zero (unofficial; no affiliation or endorsement)
 - Dark: surface=#0C1020 ink=#D0DCF0 accent=#00C8FF
 - Light: surface=#EEF2FA ink=#0C1030 accent=#1840A0
 
@@ -609,6 +825,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/zero-siegecat/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=zero-siegecat
 - Summary: Forest green, heavy graphite, and artillery gold for patient power built to hold the line.
+- Inspiration: Liger Zero (unofficial; no affiliation or endorsement)
 - Dark: surface=#141810 ink=#D0D8C0 accent=#A0E030
 - Light: surface=#F0F2EA ink=#1A2010 accent=#4A5A30
 
@@ -618,6 +835,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/emerald-spartan/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=emerald-spartan
 - Summary: Armored olive, amber optics, and deep-space black for calm focus against impossible odds.
+- Inspiration: Master Chief / Mjolnir (unofficial; no affiliation or endorsement)
 - Dark: surface=#0F1410 ink=#E8F3DD accent=#7FB069
 - Light: surface=#EAF0DE ink=#1F2A20 accent=#5E8C31
 
@@ -627,6 +845,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/sunset-machine-huntress/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=sunset-machine-huntress
 - Summary: Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.
+- Inspiration: Aloy / Horizon (unofficial; no affiliation or endorsement)
 - Dark: surface=#111926 ink=#E9F1F8 accent=#F97316
 - Light: surface=#F5E7D2 ink=#2A2A2A accent=#EA580C
 
@@ -636,6 +855,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/ashen-godslayer/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=ashen-godslayer
 - Summary: Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.
+- Inspiration: Kratos / Olympus (unofficial; no affiliation or endorsement)
 - Dark: surface=#121010 ink=#F7F2EE accent=#B91C1C
 - Light: surface=#F6F1EB ink=#2B2321 accent=#9A3412
 
@@ -645,6 +865,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/neon-console-green/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=neon-console-green
 - Summary: Electric green on carbon black for a fast, high-contrast console glow.
+- Inspiration: Xbox / Neon (unofficial; no affiliation or endorsement)
 - Dark: surface=#0A0F0A ink=#E9FFE9 accent=#22C55E
 - Light: surface=#F4FFF5 ink=#12301A accent=#16A34A
 
@@ -654,6 +875,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cosmic-controller/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cosmic-controller
 - Summary: Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.
+- Inspiration: PlayStation / Cosmos (unofficial; no affiliation or endorsement)
 - Dark: surface=#0C1124 ink=#EAF0FF accent=#2563EB
 - Light: surface=#F4F7FF ink=#1B2A4A accent=#1D4ED8
 
@@ -663,6 +885,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/split-screen-neon/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=split-screen-neon
 - Summary: Split cyan and coral over graphite for playful motion and handheld energy.
+- Inspiration: Nintendo / Switch Split (unofficial; no affiliation or endorsement)
 - Dark: surface=#11131A ink=#F8FAFC accent=#22D3EE
 - Light: surface=#FFF4F5 ink=#141414 accent=#E11D48
 
@@ -672,6 +895,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/scarlet-mushroom-run/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=scarlet-mushroom-run
 - Summary: Scarlet red, sky blue, and bright gold for buoyant momentum through every level.
+- Inspiration: Mario / Mushroom Kingdom (unofficial; no affiliation or endorsement)
 - Dark: surface=#15151A ink=#FFF8F4 accent=#EF4444
 - Light: surface=#FFF5E8 ink=#2A1810 accent=#F59E0B
 
@@ -681,6 +905,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cobalt-speedline/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cobalt-speedline
 - Summary: Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.
+- Inspiration: Sonic / Boost (unofficial; no affiliation or endorsement)
 - Dark: surface=#0A1326 ink=#ECF4FF accent=#3B82F6
 - Light: surface=#F5FBFF ink=#17304F accent=#0EA5E9
 
@@ -690,6 +915,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/future-graffiti-radio/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=future-graffiti-radio
 - Summary: Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.
+- Inspiration: Jet Set Radio Future (unofficial; no affiliation or endorsement)
 - Dark: surface=#12121A ink=#F7FFFB accent=#22C55E
 - Light: surface=#F9FFE8 ink=#18231A accent=#84CC16
 
@@ -699,6 +925,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/orange-star-bounty/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=orange-star-bounty
 - Summary: Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.
+- Inspiration: Samus / Metroid (unofficial; no affiliation or endorsement)
 - Dark: surface=#120E19 ink=#FFF2D8 accent=#F59E0B
 - Light: surface=#F7EEE1 ink=#2A1F1A accent=#EA580C
 
@@ -708,6 +935,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/pocket-voltage/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=pocket-voltage
 - Summary: Bright yellow, coal black, and spark-red accents for compact energy that never sits still.
+- Inspiration: Pikachu / Voltage (unofficial; no affiliation or endorsement)
 - Dark: surface=#171412 ink=#FFF7D6 accent=#FACC15
 - Light: surface=#FFFBE8 ink=#2A2412 accent=#EAB308
 
@@ -717,6 +945,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/indigo-field-trainer/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=indigo-field-trainer
 - Summary: Indigo, field green, and warm cap-red for curious exploration and steady growth.
+- Inspiration: Ash / Indigo (unofficial; no affiliation or endorsement)
 - Dark: surface=#111827 ink=#EFF6FF accent=#EF4444
 - Light: surface=#F5F7FF ink=#1E293B accent=#2563EB
 
@@ -726,6 +955,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/emerald-kingdom-legend/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=emerald-kingdom-legend
 - Summary: Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.
+- Inspiration: Zelda / Hyrule (unofficial; no affiliation or endorsement)
 - Dark: surface=#0F1712 ink=#ECF9F0 accent=#10B981
 - Light: surface=#F4F0D7 ink=#223127 accent=#0F766E
 
@@ -735,6 +965,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/infernal-slayer/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=infernal-slayer
 - Summary: Hellfire orange, scorched black, and warning red for relentless forward motion.
+- Inspiration: Doom / Slayer (unofficial; no affiliation or endorsement)
 - Dark: surface=#0B0D0B ink=#E8F5E9 accent=#22C55E
 - Light: surface=#E9EFE6 ink=#1A261A accent=#15803D
 
@@ -744,6 +975,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/cobalt-arm-cannon/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=cobalt-arm-cannon
 - Summary: Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.
+- Inspiration: Mega Man / Cobalt (unofficial; no affiliation or endorsement)
 - Dark: surface=#0C1326 ink=#EAF2FF accent=#2563EB
 - Light: surface=#F5FAFF ink=#1B2A4A accent=#3B82F6
 
@@ -753,6 +985,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/chrome-future-hunter/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=chrome-future-hunter
 - Summary: Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.
+- Inspiration: Terminator (unofficial; no affiliation or endorsement)
 - Dark: surface=#111111 ink=#F5F5F5 accent=#DC2626
 - Light: surface=#E7E5E4 ink=#1C1917 accent=#78716C
 
@@ -762,6 +995,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/bioluminescent-moon/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=bioluminescent-moon
 - Summary: Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.
+- Inspiration: Avatar / Pandora (unofficial; no affiliation or endorsement)
 - Dark: surface=#0B1224 ink=#E0F2FE accent=#0EA5E9
 - Light: surface=#ECFEFF ink=#123047 accent=#14B8A6
 
@@ -771,6 +1005,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/golden-bride/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=golden-bride
 - Summary: Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.
+- Inspiration: Kill Bill / Bride (unofficial; no affiliation or endorsement)
 - Dark: surface=#121212 ink=#FFF8CC accent=#FACC15
 - Light: surface=#FFFBEA ink=#1F1A10 accent=#EAB308
 
@@ -780,6 +1015,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/nocturnal-vigil/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=nocturnal-vigil
 - Summary: Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.
+- Inspiration: Batman / Knight (unofficial; no affiliation or endorsement)
 - Dark: surface=#0D1117 ink=#E5E7EB accent=#FACC15
 - Light: surface=#F4F1E6 ink=#1F2937 accent=#111827
 
@@ -789,6 +1025,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/solar-sentinel/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=solar-sentinel
 - Summary: Primary blue, solar red, and warm gold for optimistic strength under an open sky.
+- Inspiration: Superman / Krypton (unofficial; no affiliation or endorsement)
 - Dark: surface=#111827 ink=#F8FAFC accent=#DC2626
 - Light: surface=#F5F9FF ink=#14213D accent=#2563EB
 
@@ -798,6 +1035,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/amazonian-truth/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=amazonian-truth
 - Summary: Crimson, antique gold, and midnight blue for principled strength carried with grace.
+- Inspiration: Wonder Woman / Amazon (unofficial; no affiliation or endorsement)
 - Dark: surface=#16111A ink=#FFF7ED accent=#E11D48
 - Light: surface=#FFF7E8 ink=#2D1B24 accent=#CA8A04
 
@@ -807,6 +1045,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/scarlet-webline/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=scarlet-webline
 - Summary: Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.
+- Inspiration: Spider-Man / Webline (unofficial; no affiliation or endorsement)
 - Dark: surface=#111827 ink=#EFF6FF accent=#DC2626
 - Light: surface=#F8FBFF ink=#1E293B accent=#2563EB
 
@@ -816,6 +1055,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/violet-panther-guard/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=violet-panther-guard
 - Summary: Royal violet, polished silver, and deep black for quiet precision and protected power.
+- Inspiration: Black Panther / Vibranium (unofficial; no affiliation or endorsement)
 - Dark: surface=#0E0B12 ink=#F7F3FB accent=#7C3AED
 - Light: surface=#F5F3FF ink=#251B2F accent=#6D28D9
 
@@ -825,6 +1065,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/crimson-arc-armor/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=crimson-arc-armor
 - Summary: Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.
+- Inspiration: Iron Man / Arc Reactor (unofficial; no affiliation or endorsement)
 - Dark: surface=#18100F ink=#FFF7ED accent=#0EA5E9
 - Light: surface=#FFF6EE ink=#2A1915 accent=#EA580C
 
@@ -834,6 +1075,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/scarlet-rooftop-duel/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=scarlet-rooftop-duel
 - Summary: Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.
+- Inspiration: Daredevil / Elektra (unofficial; no affiliation or endorsement)
 - Dark: surface=#120C10 ink=#F8F4F5 accent=#B91C1C
 - Light: surface=#FFF4F4 ink=#2B1A1C accent=#E11D48
 
@@ -843,6 +1085,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/united-hero-signal/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=united-hero-signal
 - Summary: Signal blue, heroic red, and bright gold for coordinated momentum across a full team.
+- Inspiration: Avengers / Assemble (unofficial; no affiliation or endorsement)
 - Dark: surface=#111827 ink=#F8FAFC accent=#3B82F6
 - Light: surface=#F5F7FF ink=#1E293B accent=#2563EB
 
@@ -852,6 +1095,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/worldwatch-alliance/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=worldwatch-alliance
 - Summary: Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.
+- Inspiration: Justice League / Watchtower (unofficial; no affiliation or endorsement)
 - Dark: surface=#0F172A ink=#EAF2FF accent=#60A5FA
 - Light: surface=#F7FBFF ink=#1B2A4A accent=#2563EB
 
@@ -1053,6 +1297,7 @@ Total public static themes: 130
 - Public page: https://www.dexthemes.com/orchard-glass/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=orchard-glass
 - Summary: Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.
+- Inspiration: Liquid Glass / Apple (unofficial; no affiliation or endorsement)
 - Dark: surface=#1a1d24 ink=#e4e8ef accent=#5ac8fa
 - Light: surface=#f2f4f8 ink=#1c1e24 accent=#007aff
 

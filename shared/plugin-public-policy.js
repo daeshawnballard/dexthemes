@@ -1,5 +1,9 @@
 import { normalizeThemeCodeThemeId } from "./codex-theme-contract.js";
 import { buildDeepSeekIntegrationMetadata } from "./deepseek-theme-contract.js";
+import {
+  buildUnofficialInspirationProvenance,
+  normalizeThemeProvenance,
+} from "./theme-provenance.js";
 
 const PLUGIN_HIDDEN_UNLOCK_ACTIONS = new Set(["buy_coffee"]);
 
@@ -262,6 +266,64 @@ export const PLUGIN_THEME_ALIASES = Object.freeze({
   },
 });
 
+/**
+ * Exact secondary references for the curated public-name migration above.
+ * These values never become a theme's primary identity. Website UI presents
+ * them only with the fixed unofficial/non-endorsement disclosure.
+ */
+export const DEXTHEMES_THEME_INSPIRATION_REFERENCES = Object.freeze({
+  "ichigo-bankai": "Ichigo / Bankai",
+  "ichigo-hollow": "Ichigo / Hollow Mask",
+  "naruto-hidden-leaf": "Naruto / Hidden Leaf",
+  "gachiakuta-rudo": "Gachiakuta / Rudo",
+  "eren-titan-fall": "Eren / Titan Fall",
+  "goku-ultra-instinct": "Goku / Ultra Instinct",
+  "goku-ssj4": "Goku / Super Saiyan 4",
+  "yuji-sukuna": "Yuji / Sukuna",
+  "gojo-limitless": "Gojo / Limitless",
+  "jojo-dio": "JoJo / Dio",
+  "solo-leveling": "Sung Jinwoo / Igris",
+  "trigun-gunsmoke": "Trigun / Gunsmoke",
+  "cowboy-bebop": "Cowboy Bebop / Blue Jazz",
+  "ghost-in-the-shell": "Ghost in the Shell / Major",
+  "gundam-rx-78-2": "Gundam / RX-78-2",
+  "gundam-seed-strike": "Gundam SEED / Strike",
+  "gundam-00-exia-trans-am": "Gundam 00 / Exia Trans-Am",
+  "luffy-gear-five": "Luffy / Gear Five",
+  "liger-zero-base": "Liger Zero",
+  "liger-zero-schneider": "Liger Zero",
+  "liger-zero-jager": "Liger Zero",
+  "liger-zero-panzer": "Liger Zero",
+  "master-chief": "Master Chief / Mjolnir",
+  "aloy-horizon": "Aloy / Horizon",
+  "kratos-olympus": "Kratos / Olympus",
+  "xbox-neon": "Xbox / Neon",
+  "playstation-cosmos": "PlayStation / Cosmos",
+  "nintendo-switch": "Nintendo / Switch Split",
+  "mario-mushroom": "Mario / Mushroom Kingdom",
+  "sonic-boost": "Sonic / Boost",
+  "jet-set-radio": "Jet Set Radio Future",
+  "samus-metroid": "Samus / Metroid",
+  "pikachu-voltage": "Pikachu / Voltage",
+  "ash-indigo": "Ash / Indigo",
+  "zelda-hyrule": "Zelda / Hyrule",
+  "doom-slayer": "Doom / Slayer",
+  "mega-man-cobalt": "Mega Man / Cobalt",
+  "terminator-future-war": "Terminator",
+  "avatar-pandora": "Avatar / Pandora",
+  "kill-bill-bride": "Kill Bill / Bride",
+  "batman-knight": "Batman / Knight",
+  "superman-krypton": "Superman / Krypton",
+  "wonder-woman": "Wonder Woman / Amazon",
+  "spider-man": "Spider-Man / Webline",
+  "black-panther": "Black Panther / Vibranium",
+  "iron-man": "Iron Man / Arc Reactor",
+  "daredevil-elektra": "Daredevil / Elektra",
+  "avengers-assemble": "Avengers / Assemble",
+  "justice-league": "Justice League / Watchtower",
+  "liquid-glass": "Liquid Glass / Apple",
+});
+
 const ALIAS_SOURCE_BY_ID = new Map(
   Object.entries(PLUGIN_THEME_ALIASES).map(([sourceId, alias]) => [alias.id, sourceId]),
 );
@@ -466,6 +528,15 @@ export function getWebsiteThemeId(themeOrId) {
   return getPluginThemeAlias(sourceId)?.id || sourceId;
 }
 
+function resolveWebsiteProvenance(theme, alias, sourceId) {
+  const explicit = normalizeThemeProvenance(theme?.provenance);
+  if (explicit) return explicit;
+  if (!alias) return null;
+  return buildUnofficialInspirationProvenance(
+    DEXTHEMES_THEME_INSPIRATION_REFERENCES[sourceId],
+  );
+}
+
 /**
  * Website presentation keeps the source ID stable for saved links, likes, and
  * copy counts while sharing the same public-facing identity as the plugin.
@@ -477,15 +548,23 @@ export function presentThemeForWebsite(theme) {
   const alias = getPluginThemeAlias(sourceId);
   const builtInCodex = theme.category === "official" || theme.category === "codex";
   if (!alias && !builtInCodex && !evaluatePublicThemeIdentity(theme).allowed) return null;
-  if (!alias) return theme;
-
-  const summary = alias.summary || suggestOriginalPublicSummary(theme);
-  return {
-    ...theme,
-    name: alias.name,
-    summary,
-    _summary: summary,
-  };
+  const aliasSummary = alias?.summary || (alias ? suggestOriginalPublicSummary(theme) : null);
+  const provenance = resolveWebsiteProvenance(theme, alias, sourceId);
+  const { provenance: _unvalidatedProvenance, ...themeWithoutProvenance } = theme;
+  const presented = alias
+    ? {
+      ...themeWithoutProvenance,
+      name: alias.name,
+      summary: aliasSummary,
+      _summary: aliasSummary,
+      ...(provenance ? { provenance } : {}),
+    }
+    : {
+      ...themeWithoutProvenance,
+      ...(provenance ? { provenance } : {}),
+    };
+  const codeThemeId = normalizeThemeCodeThemeId(presented);
+  return codeThemeId ? { ...presented, codeThemeId } : null;
 }
 
 export function isThemePubliclyDiscoverable(theme) {
@@ -531,24 +610,19 @@ export function resolvePluginThemeSourceId(id) {
 }
 
 export function sanitizeThemeForPlugin(theme) {
-  if (!theme || typeof theme !== "object") return null;
-  const sourceId = String(theme.id || theme.themeId || "").toLowerCase();
-  const alias = getPluginThemeAlias(sourceId);
-  const builtInCodex = theme.category === "codex";
-  if (!alias && !builtInCodex && !evaluatePublicThemeIdentity(theme).allowed) return null;
-  const codeThemeId = normalizeThemeCodeThemeId(theme);
-  if (!codeThemeId) return null;
-
-  const sanitized = { ...theme, codeThemeId };
+  const sanitized = presentThemeForWebsite(theme);
+  if (!sanitized) return null;
   delete sanitized.authorIsSupporter;
   delete sanitized.supporter;
   delete sanitized.supporterStatus;
   delete sanitized.donation;
+  // Plugin discovery keeps its original-name-only contract. The website can
+  // show exact inspiration in a separately disclosed provenance surface.
+  delete sanitized.provenance;
+  const alias = getPluginThemeAlias(theme.id || theme.themeId);
   if (alias) {
     sanitized.id = alias.id;
     sanitized.themeId = alias.id;
-    sanitized.name = alias.name;
-    sanitized.summary = alias.summary || null;
     delete sanitized._summary;
   }
   return sanitized;

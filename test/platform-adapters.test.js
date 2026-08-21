@@ -39,8 +39,8 @@ test('DeepSeek preparation produces paired semantic tokens and a reversible payl
 });
 
 test('future setup surfaces never fabricate an apply payload', () => {
-  assert.equal(getPlatformAdapter('gemini'), null);
-  const prepared = preparePlatformTheme(theme, 'gemini');
+  assert.equal(getPlatformAdapter('claude'), null);
+  const prepared = preparePlatformTheme(theme, 'claude');
   assert.equal(prepared.kind, 'setup_required');
   assert.equal(prepared.payload, null);
 });

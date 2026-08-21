@@ -40,7 +40,7 @@ Codex keeps its existing `codex-theme-v1` clipboard/import handoff and `codex://
 | Codex | Copy for Codex | Copy/import; no direct runtime | Yes / Yes | Yes / Yes | Solid only; one imported variant at a time | Existing website and Codex plugin stay unchanged |
 | DeepSeek Harness | Set up plugin | Direct Apply/Revert in installed plugin | Yes / Yes | Restricted MCP / API | Solid paired colors; no fonts or arbitrary effects | Real npm package; website-to-local control is unsupported |
 | Claude Code | Prepare setup | Custom theme file selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid colors; fixed host token effects are not general motion | External theme/plugin setup remains user-controlled |
-| Gemini CLI | Prepare setup | Custom JSON selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid; ordered `ui.gradient` only with restrictions and solid fallback | External CLI setup |
+| Google Antigravity | Coming soon | Appearance/custom-theme settings exist, but no public stable schema, import/write path, extension contribution point, or exact reversal contract | Preview collection only | Not proven / DexThemes API | Unknown and disabled; accessible solid preview fallback only | `antigravity` stays preview-only; no exporter, plugin, setup CTA, or article |
 | Qwen Code | Prepare setup | Custom JSON selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid; gradient remains experimental and disabled | External CLI setup |
 | OpenCode | Prepare setup | Local/project JSON selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid or documented terminal default; no arbitrary effects | External local/project setup |
 | Pi | Coming soon | Host exposes `setTheme`, but no DexThemes package is delivered | Preview drafts only | Not proven / DexThemes API | Solid only | Direct capability is not delivery proof |
@@ -48,6 +48,7 @@ Codex keeps its existing `codex-theme-v1` clipboard/import handoff and `codex://
 | Cursor | Prepare setup | VS Code-compatible theme extension; no website Apply | Yes / Yes | Yes / DexThemes API | Solid/alpha; named shadow-color tokens only | Agents-window coverage is unproven |
 | T3 Code | Coming soon | No supported custom-theme contract | Not presented as T3 theme creation | Not proven / DexThemes API | Unknown and disabled | No Apply or fabricated setup destination |
 | Conductor | Coming soon | Built-in light/dark only; no custom-theme contract | Not presented as Conductor theme creation | Not proven / DexThemes API | Unknown and disabled | No Apply or fabricated setup destination |
+| Grok Build | Limited support | Only limited host color coverage is represented; no full-palette runtime payload | Preview collection only | Not proven / DexThemes API | Limited solid support; every other effect and light/dark-pair coverage stays unknown | Full DexThemes palette is explicitly preview-only |
 
 Unknown, experimental, or undelivered capabilities remain disabled. Every richer treatment has a solid fallback; no adapter emits DOM injection, arbitrary CSS, external images, selectors, executable expressions, or model-generated code.
 
@@ -79,6 +80,6 @@ Never collect prompts, chat contents, workspace contents, source code, credentia
 
 ## Effects evidence boundary
 
-`string` color fields do not imply CSS support. DeepSeek token pairs remain six-digit colors. Gemini's documented ordered gradient colors are the only arbitrary multi-color treatment classified as currently supported with restrictions; Zed's alpha/window appearance support is separately bounded by its schema. Qwen gradient examples remain experimental, and every unknown capability is disabled.
+`string` color fields do not imply CSS support. DeepSeek token pairs remain six-digit colors. Zed's alpha/window appearance support is bounded by its schema, Cursor's alpha support remains scoped to VS Code-compatible color tokens, and Qwen gradient examples remain experimental. Antigravity capabilities are unknown and disabled. Grok Build keeps only limited solid support and never treats the complete DexThemes preview as a runtime payload.
 
 The optional `dexthemes-effect-intent-v1` layer is typed preview/preparation data, not CSS and not a promise of delivery. It permits only bounded gradient, alpha, and blur intents over known palette slots, requires solid, high-contrast, and reduced-motion fallbacks, rejects unknown keys and payloads over 2 KB, and resolves through the selected platform registry. Unsupported, unknown, and experimental capabilities deterministically return a solid fallback with an omission reason. Only a future delivered adapter may translate an allowed intent into a host payload.

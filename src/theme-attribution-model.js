@@ -1,3 +1,5 @@
+import { getThemeProvenancePresentation } from '../shared/theme-provenance.js';
+
 export function getThemeAttribution(theme) {
   if (!theme) return null;
 
@@ -29,4 +31,8 @@ export function getThemeAttribution(theme) {
   }
 
   return null;
+}
+
+export function getThemeProvenance(theme) {
+  return getThemeProvenancePresentation(theme);
 }

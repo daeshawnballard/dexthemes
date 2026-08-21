@@ -94,7 +94,7 @@ const DEXTHEMES: ProtectedTheme[] = [
   // Zodiacs
   { id: 'aries', dark: { surface: '#100808', ink: '#f5e8e8', accent: '#ef4444' } },
   { id: 'taurus', dark: { surface: '#0a0e0a', ink: '#e8f2e8', accent: '#22c55e' } },
-  { id: 'gemini', dark: { surface: '#0a0a0e', ink: '#ececf5', accent: '#eab308' } },
+  { id: 'gemini-split-signal', dark: { surface: '#0a0a0e', ink: '#ececf5', accent: '#eab308' } },
   { id: 'cancer', dark: { surface: '#08080e', ink: '#e8e8f5', accent: '#e2e8f0' } },
   { id: 'leo', dark: { surface: '#100c08', ink: '#f5f0e4', accent: '#f97316' } },
   { id: 'virgo', dark: { surface: '#0a0e0a', ink: '#e8f2e8', accent: '#4ade80' } },

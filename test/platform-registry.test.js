@@ -6,6 +6,7 @@ import {
   EFFECT_CAPABILITY_STATES,
   PLATFORM_ACTION_SURFACES,
   PLATFORM_APPLY_MODES,
+  PLATFORM_IDS,
   PLATFORM_REGISTRY,
   getPlatform,
   getPlatformAction,
@@ -18,9 +19,47 @@ test('platform registry is internally valid and defaults to Codex', () => {
   assert.equal(DEFAULT_PLATFORM_ID, 'codex');
   assert.equal(PLATFORM_REGISTRY.codex.defaultThemeId, 'codex');
   assert.equal(PLATFORM_REGISTRY.deepseek.defaultThemeId, 'deepseek-default');
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(PLATFORM_REGISTRY).map(([id, platform]) => [id, platform.defaultThemeId])),
+    {
+      codex: 'codex',
+      deepseek: 'deepseek-default',
+      claude: 'quiet-anthracite',
+      antigravity: 'orbital-ink',
+      qwen: 'jade-relay',
+      opencode: 'carbon-current',
+      pi: 'copper-loop',
+      zed: 'razor-mint',
+      cursor: 'kinetic-violet',
+      t3code: 'magenta-stack',
+      conductor: 'midnight-switchyard',
+      grok: 'signal-horizon',
+    },
+  );
+  assert.deepEqual(PLATFORM_IDS, [
+    'codex',
+    'deepseek',
+    'claude',
+    'antigravity',
+    'qwen',
+    'opencode',
+    'pi',
+    'zed',
+    'cursor',
+    't3code',
+    'conductor',
+    'grok',
+  ]);
   assert.equal(getPlatform().applyMode, PLATFORM_APPLY_MODES.COPY_IMPORT);
+  assert.equal(PLATFORM_REGISTRY.antigravity.displayName, 'Google Antigravity');
+  assert.equal(PLATFORM_REGISTRY.antigravity.shortName, 'Antigravity');
+  assert.equal(PLATFORM_REGISTRY.antigravity.status, 'coming_soon');
+  assert.equal(PLATFORM_REGISTRY.antigravity.adapterVersion, 'unavailable-v1');
+  assert.equal(PLATFORM_REGISTRY.antigravity.contract.directApply, false);
   assert.equal(normalizePlatformId('DeepSeek'), 'deepseek');
   assert.equal(normalizePlatformId('DeepSeek Harness'), 'deepseek');
+  assert.equal(normalizePlatformId('Google Antigravity'), 'antigravity');
+  assert.equal(normalizePlatformId('Grok Build'), 'grok');
   assert.equal(normalizePlatformId('t3-code'), 't3code');
   assert.equal(normalizePlatformId('../deepseek'), null);
   assert.equal(normalizePlatformId('deepseek?surface=installed'), null);
@@ -44,6 +83,13 @@ test('host contracts are distinct from delivered surface actions', () => {
 
   assert.equal(PLATFORM_REGISTRY.t3code.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
   assert.equal(PLATFORM_REGISTRY.conductor.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
+  assert.equal(PLATFORM_REGISTRY.antigravity.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
+  assert.equal(PLATFORM_REGISTRY.grok.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
+  assert.deepEqual(PLATFORM_REGISTRY.grok.themeSupport, {
+    level: 'limited',
+    label: 'Limited theme support',
+    disclosure: 'The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.',
+  });
 });
 
 test('website action resolver never fabricates direct application', () => {
@@ -76,8 +122,8 @@ test('only setup actions expose real destinations', () => {
     PLATFORM_REGISTRY.deepseek.actions.website.destination.value,
     /@dexthemes\/deepseek-harness-plugin/,
   );
-  assert.equal(PLATFORM_REGISTRY.gemini.actions.website.delivered, true);
-  assert.equal(PLATFORM_REGISTRY.gemini.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
+  assert.equal(PLATFORM_REGISTRY.claude.actions.website.delivered, true);
+  assert.equal(PLATFORM_REGISTRY.claude.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
 });
 
 test('effects are explicit, typed, and always retain a solid fallback', () => {
@@ -90,11 +136,13 @@ test('effects are explicit, typed, and always retain a solid fallback', () => {
   }
 
   assert.equal(PLATFORM_REGISTRY.deepseek.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.EXPERIMENTAL);
-  assert.equal(PLATFORM_REGISTRY.gemini.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.RESTRICTED);
+  assert.equal(PLATFORM_REGISTRY.antigravity.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.UNKNOWN);
   assert.equal(PLATFORM_REGISTRY.qwen.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.EXPERIMENTAL);
   assert.equal(PLATFORM_REGISTRY.cursor.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.SUPPORTED);
   assert.equal(PLATFORM_REGISTRY.t3code.effectCapabilities.solid, EFFECT_CAPABILITY_STATES.UNKNOWN);
   assert.equal(PLATFORM_REGISTRY.conductor.effectCapabilities.animation, EFFECT_CAPABILITY_STATES.UNKNOWN);
+  assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.solid, EFFECT_CAPABILITY_STATES.RESTRICTED);
+  assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.lightDarkPairs, EFFECT_CAPABILITY_STATES.UNKNOWN);
 });
 
 test('validation rejects direct website actions and speculative setup destinations', () => {

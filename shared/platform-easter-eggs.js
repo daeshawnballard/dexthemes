@@ -13,7 +13,7 @@ export const PLATFORM_EASTER_EGG_PACKS = Object.freeze({
     Object.freeze({ id: 'deep-current', label: 'Take the deep current', action: 'show_plugin_setup' }),
   ]),
   claude: Object.freeze([]),
-  gemini: Object.freeze([]),
+  antigravity: Object.freeze([]),
   qwen: Object.freeze([]),
   opencode: Object.freeze([]),
   pi: Object.freeze([]),
@@ -21,6 +21,7 @@ export const PLATFORM_EASTER_EGG_PACKS = Object.freeze({
   cursor: Object.freeze([]),
   t3code: Object.freeze([]),
   conductor: Object.freeze([]),
+  grok: Object.freeze([]),
 });
 
 export function getPlatformEasterEggs(platformId) {

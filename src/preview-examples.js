@@ -2,7 +2,11 @@
 // DexThemes — Preview Conversation Examples
 // ================================================
 
-import { getPlatform } from '../shared/platform-registry.js';
+import {
+  PLATFORM_APPLY_MODES,
+  getPlatform,
+  getPlatformAction,
+} from '../shared/platform-registry.js';
 
 export const EXAMPLES = [
   {
@@ -282,11 +286,41 @@ const DEEPSEEK_EXAMPLES = Object.freeze([
 
 function getGenericExamples(platformId) {
   const platform = getPlatform(platformId);
+  const websiteAction = getPlatformAction(platform.id, 'website');
+  const hasDocumentedSetup = websiteAction?.mode === PLATFORM_APPLY_MODES.SETUP;
+  const hasLimitedSupport = Boolean(platform.themeSupport);
+  const previewIntro = hasDocumentedSetup
+    ? `DexThemes can preview the palette here. Open ${platform.shortName}’s documented setup guidance when you are ready to complete the user-controlled handoff.`
+    : hasLimitedSupport
+      ? `DexThemes previews the complete palette concept here. ${platform.themeSupport.disclosure}`
+      : `DexThemes can preview the original palette here. No supported ${platform.displayName} theme handoff is currently available.`;
+  const previewComment = hasDocumentedSetup
+    ? '// Preview before documented setup'
+    : hasLimitedSupport
+      ? '// Preview concept, not a full runtime palette'
+      : '// Preview only; no setup or Apply path';
+  const catalogContext = hasDocumentedSetup
+    ? 'preview and documented handoff'
+    : hasLimitedSupport
+      ? 'preview and limited-support notice'
+      : 'preview and capability notice';
+  const creatorIntro = hasDocumentedSetup
+    ? 'The DexThemes creator keeps one portable color model and validates each documented handoff separately.'
+    : 'The DexThemes creator keeps one portable color model; a preview does not establish platform runtime support.';
+  const usageIntro = hasDocumentedSetup
+    ? platform.capabilityMessage
+    : websiteAction?.helperText || platform.capabilityMessage;
+  const usageComment = hasDocumentedSetup
+    ? '// Documented, user-controlled handoff'
+    : hasLimitedSupport
+      ? '// Limited support; preview is not a full runtime payload'
+      : '// No supported website handoff';
+
   return Object.freeze([
     {
       user: `Preview this palette for ${platform.displayName}`,
-      intro: `DexThemes can preview the palette here. Use ${platform.shortName}’s supported setup to finish the handoff.`,
-      comment: '// Preview before setup',
+      intro: previewIntro,
+      comment: previewComment,
       code: [
         { type: 'kw', text: 'const' }, ' preview = {\n',
         '  platform: ', { type: 'str', text: `'${platform.id}'` }, ',\n',
@@ -298,7 +332,7 @@ function getGenericExamples(platformId) {
     },
     {
       user: 'Find a high-contrast community theme',
-      intro: `Search is shared across every source collection; choosing ${platform.shortName} changes the preview and handoff, not the catalog.`,
+      intro: `Search is shared across every source collection; choosing ${platform.shortName} changes the ${catalogContext}, not the theme’s canonical identity.`,
       comment: '// Theme source stays independent',
       code: [
         { type: 'kw', text: 'const' }, ' filters = {\n',
@@ -311,7 +345,7 @@ function getGenericExamples(platformId) {
     },
     {
       user: 'Create a paired palette',
-      intro: 'The DexThemes creator keeps one portable color model and validates each supported handoff separately.',
+      intro: creatorIntro,
       comment: '// Portable DexThemes palette',
       code: [
         { type: 'kw', text: 'const' }, ' draft = {\n',
@@ -324,8 +358,8 @@ function getGenericExamples(platformId) {
     },
     {
       user: `How do I use this with ${platform.shortName}?`,
-      intro: platform.capabilityMessage,
-      comment: '// Supported handoff only',
+      intro: usageIntro,
+      comment: usageComment,
       code: [
         { type: 'kw', text: 'const' }, ' nextStep = {\n',
         '  action: ', { type: 'str', text: `'${platform.actions.website.ctaLabel}'` }, ',\n',

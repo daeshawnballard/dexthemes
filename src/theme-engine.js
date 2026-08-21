@@ -171,6 +171,7 @@ export function renderMiniPreview(containerId, theme, variant) {
   const summary = getThemeSummary(theme);
   const summaryHtml = summary ? `<div class="mini-theme-summary">${escapeHtml(summary)}</div>` : '';
   const platformName = state.selectedPlatform.shortName;
+  const platformArticle = /^[aeiou]/i.test(platformName) ? 'an' : 'a';
   const examples = getPreviewExamples(state.selectedPlatformId);
   const example = examples[state.currentExampleIdx % examples.length];
 
@@ -181,7 +182,7 @@ export function renderMiniPreview(containerId, theme, variant) {
     <div class="mini-user" style="background:${acc}22;color:${v.ink};">${escapeHtml(example.user)}</div>
     <div class="mini-assistant" style="color:${v.ink};">
       ${summaryHtml}
-      ${escapeHtml(`A ${platformName} conversation in this palette:`)}
+      ${escapeHtml(`${platformArticle[0].toUpperCase()}${platformArticle.slice(1)} ${platformName} conversation in this palette:`)}
       <div class="mini-code" style="background:${v.codeBg};border:1px solid ${borderColor};">
         <div class="semantic-legend semantic-legend--mini">
           <span class="semantic-chip" style="color:${v.diffAdded};border-color:${borderColor};">+ Added</span>

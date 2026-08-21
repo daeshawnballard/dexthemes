@@ -16,6 +16,10 @@ export const PLATFORM_STATUSES = Object.freeze({
   COMING_SOON: 'coming_soon',
 });
 
+export const PLATFORM_THEME_SUPPORT_LEVELS = Object.freeze({
+  LIMITED: 'limited',
+});
+
 export const EFFECT_CAPABILITY_STATES = Object.freeze({
   SUPPORTED: 'supported',
   RESTRICTED: 'supported_with_restrictions',
@@ -93,6 +97,7 @@ function platform(definition) {
     actions: actionDefinitions,
     effectCapabilities: effectOverrides = {},
     effectNotes = {},
+    themeSupport: themeSupportDefinition = null,
     ...metadata
   } = definition;
   const contract = Object.freeze({ ...HOST_CONTRACT_DEFAULTS, ...contractOverrides });
@@ -116,6 +121,9 @@ function platform(definition) {
     delivered,
     effectCapabilities: effectCapabilities(effectOverrides),
     effectNotes: Object.freeze({ ...effectNotes }),
+    themeSupport: themeSupportDefinition
+      ? Object.freeze({ ...themeSupportDefinition })
+      : null,
 
     // Backward-compatible website projections. New consumers should use
     // contract and getPlatformAction() so host support is never mistaken for
@@ -207,6 +215,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'Claude Code',
     shortName: 'Claude',
     organizationName: 'Anthropic',
+    defaultThemeId: 'quiet-anthracite',
     descriptorCopy: 'Claude themes.',
     footerAffiliationCopy: 'Not affiliated with Anthropic.',
     capabilityMessage: 'Claude Code accepts custom theme files selected with /theme.',
@@ -233,41 +242,41 @@ export const PLATFORM_REGISTRY = Object.freeze({
       animation: 'Only Claude Code’s fixed built-in shimmer and rainbow token colors are documented; arbitrary animation stays disabled.',
     },
   }),
-  gemini: platform({
-    id: 'gemini',
-    displayName: 'Gemini CLI',
-    shortName: 'Gemini',
+  antigravity: platform({
+    id: 'antigravity',
+    displayName: 'Google Antigravity',
+    shortName: 'Antigravity',
     organizationName: 'Google',
-    descriptorCopy: 'Gemini themes.',
+    defaultThemeId: 'orbital-ink',
+    descriptorCopy: 'Google Antigravity themes.',
     footerAffiliationCopy: 'Not affiliated with Google.',
-    capabilityMessage: 'Gemini CLI accepts custom JSON themes and extension-provided themes selected with /theme.',
-    status: PLATFORM_STATUSES.EXPERIMENTAL,
-    adapterVersion: 'gemini-theme-v1',
-    easterEggNamespace: 'gemini',
+    capabilityMessage: 'Google Antigravity exposes appearance and custom-theme settings, but no public stable schema, import or write path, extension theme contribution point, or exact reversal contract is verified.',
+    status: PLATFORM_STATUSES.COMING_SOON,
+    adapterVersion: 'unavailable-v1',
+    easterEggNamespace: 'antigravity',
+    contract: {
+      preview: false,
+      create: false,
+      prompt: false,
+      mcp: false,
+      api: false,
+    },
     actions: {
       website: {
-        mode: PLATFORM_APPLY_MODES.SETUP,
-        delivered: true,
-        ctaLabel: 'View Gemini setup',
-        helperText: 'DexThemes prepares a theme payload; you choose it in Gemini CLI.',
-        destination: {
-          kind: 'url',
-          value: 'https://geminicli.com/docs/cli/themes/',
-        },
+        mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
+        delivered: false,
+        ctaLabel: 'Coming soon',
+        helperText: 'No supported Google Antigravity theme handoff is available.',
       },
     },
-    effectCapabilities: {
-      gradients: EFFECT_CAPABILITY_STATES.RESTRICTED,
-    },
-    effectNotes: {
-      gradients: 'Gemini documents ui.gradient configuration, not arbitrary gradient-bearing theme tokens.',
-    },
+    effectCapabilities: Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
   }),
   qwen: platform({
     id: 'qwen',
     displayName: 'Qwen Code',
     shortName: 'Qwen',
     organizationName: 'Alibaba Cloud',
+    defaultThemeId: 'jade-relay',
     descriptorCopy: 'Qwen themes.',
     footerAffiliationCopy: 'Not affiliated with Alibaba Cloud.',
     capabilityMessage: 'Qwen Code accepts custom theme JSON selected with /theme. Rich effects remain experimental.',
@@ -298,6 +307,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'OpenCode',
     shortName: 'OpenCode',
     organizationName: 'SST',
+    defaultThemeId: 'carbon-current',
     descriptorCopy: 'OpenCode themes.',
     footerAffiliationCopy: 'Not affiliated with OpenCode.',
     capabilityMessage: 'OpenCode accepts JSON themes with solid, ANSI, referenced, and light/dark color values.',
@@ -328,6 +338,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'Pi',
     shortName: 'Pi',
     organizationName: 'Pi',
+    defaultThemeId: 'copper-loop',
     descriptorCopy: 'Pi themes.',
     footerAffiliationCopy: 'Not affiliated with Pi.',
     capabilityMessage: 'Pi exposes ctx.ui.setTheme(), but DexThemes has not delivered an installed adapter.',
@@ -359,9 +370,10 @@ export const PLATFORM_REGISTRY = Object.freeze({
     id: 'zed',
     displayName: 'Zed',
     shortName: 'Zed',
-    organizationName: 'Zed Industries',
+    organizationName: 'Zed',
+    defaultThemeId: 'razor-mint',
     descriptorCopy: 'Zed themes.',
-    footerAffiliationCopy: 'Not affiliated with Zed Industries.',
+    footerAffiliationCopy: 'Not affiliated with Zed.',
     capabilityMessage: 'Zed accepts JSON theme extensions and local light/dark theme families.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
     adapterVersion: 'zed-theme-v1',
@@ -392,6 +404,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'Cursor',
     shortName: 'Cursor',
     organizationName: 'Anysphere',
+    defaultThemeId: 'kinetic-violet',
     descriptorCopy: 'Cursor themes.',
     footerAffiliationCopy: 'Not affiliated with Anysphere.',
     capabilityMessage: 'Cursor uses VS Code-compatible themes, but a complete DexThemes runtime bridge is not proven.',
@@ -423,6 +436,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'T3 Code',
     shortName: 'T3 Code',
     organizationName: 'T3 Tools',
+    defaultThemeId: 'magenta-stack',
     descriptorCopy: 'T3 Code themes.',
     footerAffiliationCopy: 'Not affiliated with T3 Tools.',
     capabilityMessage: 'No supported custom theme application contract is currently documented.',
@@ -451,6 +465,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     displayName: 'Conductor',
     shortName: 'Conductor',
     organizationName: 'Melty Labs',
+    defaultThemeId: 'midnight-switchyard',
     descriptorCopy: 'Conductor themes.',
     footerAffiliationCopy: 'Not affiliated with Melty Labs.',
     capabilityMessage: 'Conductor documents its built-in light/dark toggle, not custom theme application.',
@@ -474,6 +489,47 @@ export const PLATFORM_REGISTRY = Object.freeze({
     },
     effectCapabilities: Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
   }),
+  grok: platform({
+    id: 'grok',
+    displayName: 'Grok Build',
+    shortName: 'Grok Build',
+    organizationName: 'xAI',
+    defaultThemeId: 'signal-horizon',
+    descriptorCopy: 'Grok Build themes · Limited theme support.',
+    footerAffiliationCopy: 'Not affiliated with xAI.',
+    capabilityMessage: 'DexThemes previews the complete palette concept, but Grok Build may use only a limited subset of these colors at runtime.',
+    status: PLATFORM_STATUSES.EXPERIMENTAL,
+    adapterVersion: 'grok-build-limited-preview-v1',
+    easterEggNamespace: 'grok',
+    themeSupport: {
+      level: PLATFORM_THEME_SUPPORT_LEVELS.LIMITED,
+      label: 'Limited theme support',
+      disclosure: 'The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.',
+    },
+    contract: {
+      create: false,
+      prompt: false,
+      mcp: false,
+      api: false,
+      directApply: false,
+      revert: false,
+    },
+    actions: {
+      website: {
+        mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
+        delivered: false,
+        ctaLabel: 'Limited support',
+        helperText: 'Preview only; Grok Build does not receive the full DexThemes palette.',
+      },
+    },
+    effectCapabilities: {
+      ...Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
+      solid: EFFECT_CAPABILITY_STATES.RESTRICTED,
+    },
+    effectNotes: {
+      solid: 'Only limited host color coverage is represented; the complete DexThemes preview is not a runtime payload.',
+    },
+  }),
 });
 
 export const DEFAULT_PLATFORM_ID = 'codex';
@@ -482,11 +538,12 @@ export const PLATFORM_IDS = Object.freeze(Object.keys(PLATFORM_REGISTRY));
 export const PLATFORM_ID_ALIASES = Object.freeze({
   deepseek_harness: 'deepseek',
   claude_code: 'claude',
-  gemini_cli: 'gemini',
+  google_antigravity: 'antigravity',
   qwen_code: 'qwen',
   open_code: 'opencode',
   t3: 't3code',
   t3_code: 't3code',
+  grok_build: 'grok',
 });
 
 export function normalizePlatformId(value) {
@@ -550,6 +607,16 @@ export function validatePlatformRegistry(registry = PLATFORM_REGISTRY) {
     }
     if (entry?.defaultThemeId !== undefined && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.defaultThemeId)) {
       errors.push(`${key}: defaultThemeId must be a safe theme id.`);
+    }
+    if (entry?.themeSupport !== null) {
+      if (!Object.values(PLATFORM_THEME_SUPPORT_LEVELS).includes(entry?.themeSupport?.level)) {
+        errors.push(`${key}: invalid theme support level.`);
+      }
+      for (const field of ['label', 'disclosure']) {
+        if (typeof entry?.themeSupport?.[field] !== 'string' || !entry.themeSupport[field].trim()) {
+          errors.push(`${key}: themeSupport is missing ${field}.`);
+        }
+      }
     }
 
     for (const field of contractFields) {

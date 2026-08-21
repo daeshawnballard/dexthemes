@@ -12,8 +12,13 @@ test('shared URL platform wins over the persisted preference', () => {
 });
 
 test('stored platform wins over the backward-compatible Codex default', () => {
-  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'gemini' }), 'gemini');
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'antigravity' }), 'antigravity');
   assert.equal(resolveSelectedPlatformId(), 'codex');
+});
+
+test('corrected multiword platform aliases resolve', () => {
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'google-antigravity' }), 'antigravity');
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'grok-build' }), 'grok');
 });
 
 test('an explicit invalid shared platform fails safely to Codex', () => {

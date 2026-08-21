@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
+import { getPreviewExamples } from '../src/preview-examples.js';
 
 const storage = new Map();
 globalThis.localStorage = {
@@ -38,6 +39,26 @@ test('platform preview copy is derived from the shared registry', () => {
   assert.equal(deepseek.descriptor, 'DeepSeek themes.');
   assert.equal(deepseek.affiliation, 'Not affiliated with DeepSeek.');
   assert.match(deepseek.capability, /Apply and Revert inside Harness/);
+});
+
+test('preview-only platform copy never invents setup or a supported handoff', () => {
+  const antigravity = getPlatformPreviewCopy('antigravity');
+  const grok = getPlatformPreviewCopy('grok');
+
+  assert.match(antigravity.metaDescription, /does not claim a supported Antigravity handoff/i);
+  assert.doesNotMatch(antigravity.metaDescription, /before using the supported/i);
+  assert.equal(antigravity.inputAriaLabel, 'Preview an Antigravity prompt');
+  assert.match(grok.metaDescription, /limited theme support/i);
+  assert.doesNotMatch(grok.metaDescription, /before using the supported/i);
+
+  for (const platformId of ['antigravity', 'grok']) {
+    const examples = JSON.stringify(getPreviewExamples(platformId));
+    assert.doesNotMatch(examples, /supported setup|finish the handoff|preview before setup|supported handoff only/i);
+    assert.match(examples, /preview/i);
+  }
+
+  assert.match(JSON.stringify(getPreviewExamples('antigravity')), /No supported Google Antigravity theme handoff/i);
+  assert.match(JSON.stringify(getPreviewExamples('grok')), /not a full runtime palette|not a full runtime payload/i);
 });
 
 test('contextual theme paths preserve Codex defaults and carry non-default platforms', () => {

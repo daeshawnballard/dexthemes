@@ -21,7 +21,14 @@ test('public theme API returns original IDs and names for legacy and canonical l
     assert.equal(payload.themes[0].themeId, 'seventh-fire-shadow');
     assert.equal(payload.themes[0].name, 'Seventh Fire Shadow');
     assert.match(payload.themes[0].summary, /village guardian carrying a legacy forward/i);
-    assert.doesNotMatch(JSON.stringify(payload), /Naruto|Hidden Leaf/i);
+    assert.deepEqual(payload.themes[0].provenance, {
+      kind: 'unofficial_inspiration',
+      inspiredBy: 'Naruto / Hidden Leaf',
+    });
+    assert.doesNotMatch(
+      `${payload.themes[0].name}\n${payload.themes[0].summary}`,
+      /Naruto|Hidden Leaf/i,
+    );
   }
 });
 
@@ -33,7 +40,8 @@ test('familiar search intent remains discoverable without leaking it into API re
   const match = payload.themes.find((theme) => theme.id === 'seventh-fire-shadow');
   assert.ok(match);
   assert.equal(match.name, 'Seventh Fire Shadow');
-  assert.doesNotMatch(JSON.stringify(payload), /Naruto|Hidden Leaf/i);
+  assert.equal(match.provenance.inspiredBy, 'Naruto / Hidden Leaf');
+  assert.doesNotMatch(`${match.name}\n${match.summary}`, /Naruto|Hidden Leaf/i);
 });
 
 test('public subgroup API uses the same original presentation', async (t) => {
@@ -43,7 +51,8 @@ test('public subgroup API uses the same original presentation', async (t) => {
   const match = themes.find((theme) => theme.id === 'seventh-fire-shadow');
   assert.ok(match);
   assert.equal(match.name, 'Seventh Fire Shadow');
-  assert.doesNotMatch(JSON.stringify(match), /Naruto|Hidden Leaf/i);
+  assert.equal(match.provenance.inspiredBy, 'Naruto / Hidden Leaf');
+  assert.doesNotMatch(`${match.name}\n${match.summary}`, /Naruto|Hidden Leaf/i);
 });
 test('public API keeps website IDs while exposing canonical Codex code theme IDs', async (t) => {
   installEmptyCommunityCatalog(t);
@@ -93,6 +102,23 @@ test('public API adds derived DeepSeek compatibility without changing stored the
   assert.equal(single.integrations.deepseek.eligible, false);
   assert.equal(single.integrations.deepseek.packageUrl, null);
   assert.equal(single.integrations.deepseek.oneClickScope, 'installed-plugin');
+});
+
+test('limited-support collection themes retain an explicit runtime boundary', async (t) => {
+  installEmptyCommunityCatalog(t);
+
+  const response = await themesHandler(
+    new Request('https://www.dexthemes.com/api/themes?id=signal-horizon'),
+  );
+  const payload = await response.json();
+  assert.equal(payload.count, 1);
+  assert.equal(payload.themes[0].category, 'grok');
+  assert.deepEqual(payload.themes[0].collectionSupport, {
+    platformId: 'grok',
+    level: 'limited',
+    label: 'Limited theme support',
+    disclosure: 'The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.',
+  });
 });
 
 test('public theme API excludes every account-only reward palette', async (t) => {

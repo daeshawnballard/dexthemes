@@ -6,6 +6,9 @@ import path from 'node:path';
 import { chromium, webkit } from 'playwright';
 import shareHandler from '../api/share.js';
 import contentPageHandler from '../api/content-page.js';
+import { PLATFORM_IDS, getPlatform } from '../shared/platform-registry.js';
+import { PLATFORM_THEME_PACKS } from '../shared/platform-theme-packs.js';
+import { getPlatformThemeCategoryId } from '../src/platform-catalog.js';
 
 const root = process.cwd();
 const host = '127.0.0.1';
@@ -47,7 +50,15 @@ async function selectPreviewPlatform(page, platformId) {
   if ((await picker.getAttribute('open')) === null) {
     await page.locator('#preview-platform-trigger').click();
   }
-  await picker.locator(`[data-platform-id="${platformId}"]`).click();
+  await picker.locator(`#preview-platform-menu [data-platform-id="${platformId}"]`).click();
+  const categoryId = getPlatformThemeCategoryId(platformId);
+  await page.waitForFunction(
+    ({ expectedPlatformId, expectedCategoryId }) => (
+      document.getElementById('preview-platform-trigger')?.dataset.platformId === expectedPlatformId
+      && document.querySelector('#category-list .category-header')?.dataset.categoryId === expectedCategoryId
+    ),
+    { expectedPlatformId: platformId, expectedCategoryId: categoryId },
+  );
 }
 
 function contentTypeFor(filePath) {
@@ -263,7 +274,11 @@ try {
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
     assert.equal(await page.locator('#preview-platform-current').textContent(), 'DeepSeek');
     await page.locator('#preview-platform-trigger').click();
-    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), 11);
+    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), PLATFORM_IDS.length);
+    assert.deepEqual(
+      await page.locator('#preview-platform-menu [role="menuitemradio"] > span:first-child').allTextContents(),
+      PLATFORM_IDS.map((platformId) => getPlatform(platformId).shortName),
+    );
     assert.equal(await page.locator('#preview-platform-menu [aria-checked="true"]').textContent(), 'DeepSeek✓');
     assert.equal(
       await page.locator('#preview-platform-menu').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length),
@@ -299,6 +314,65 @@ try {
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['DeepSeek', 'DexThemes', 'Community']);
 
+    for (const platformId of PLATFORM_IDS.filter((id) => !['codex', 'deepseek'].includes(id))) {
+      await selectPreviewPlatform(page, platformId);
+      await page.waitForFunction(
+        (expectedPlatformId) => document.getElementById('preview-platform-trigger')?.dataset.platformId === expectedPlatformId,
+        platformId,
+      );
+      const platform = getPlatform(platformId);
+      const categoryId = getPlatformThemeCategoryId(platformId);
+      assert.deepEqual(
+        await page.locator('.category-name').allTextContents(),
+        [platform.shortName, 'DexThemes', 'Community'],
+      );
+      assert.equal(
+        Number(await page.locator('.category-count').first().textContent()),
+        PLATFORM_THEME_PACKS[platformId].length,
+        `${platformId} category count`,
+      );
+      assert.equal(await page.locator('.category').first().locator('.thread-empty').count(), 0);
+      for (const theme of PLATFORM_THEME_PACKS[platformId]) {
+        assert.equal(
+          await page.locator(`.category:first-child [data-theme-id="${theme.id}"]`).count(),
+          1,
+          `${theme.id} should stay inside ${categoryId}`,
+        );
+      }
+      assert.equal(
+        await page.locator('.thread-item.active').first().getAttribute('data-theme-id'),
+        platform.defaultThemeId,
+      );
+      if (platformId === 'antigravity' || platformId === 'grok') {
+        const previewCopy = await page.locator('#preview-chat').innerText();
+        assert.doesNotMatch(previewCopy, /supported setup|finish the handoff/i);
+        const metaDescription = await page.locator('meta[name="description"]').getAttribute('content') || '';
+        assert.doesNotMatch(metaDescription, /before using the supported/i);
+      }
+    }
+
+    await selectPreviewPlatform(page, 'antigravity');
+    assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
+    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
+    assert.match(await page.locator('#import-hint').textContent() || '', /No supported Google Antigravity theme handoff/i);
+    assert.equal(await page.locator('#preview-input-text').getAttribute('aria-label'), 'Preview an Antigravity prompt');
+    assert.match(await page.locator('#card-dark').textContent() || '', /An Antigravity conversation in this palette/);
+
+    await selectPreviewPlatform(page, 'grok');
+    assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
+    assert.equal(await page.locator('#platform-setup-message').getAttribute('data-support-level'), 'limited');
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
+    assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /full DexThemes palette is a preview/i);
+    assert.equal(await page.locator('#platform-setup-message-link').isHidden(), true);
+    assert.match(await page.locator('#import-hint').textContent() || '', /does not receive the full DexThemes palette/i);
+    await page.click('[data-action="show-theme-details"]');
+    assert.match(await page.locator('.theme-details-facts').textContent() || '', /Limited theme support/);
+    assert.match(await page.locator('.theme-details-facts').textContent() || '', /limited subset/);
+    await page.click('[data-action="show-theme-preview"]');
+
+    await selectPreviewPlatform(page, 'deepseek');
+    await page.waitForFunction(() => document.getElementById('preview-platform-trigger')?.dataset.platformId === 'deepseek');
+
     await page.evaluate(() => {
       Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
       Object.defineProperty(navigator, 'clipboard', {
@@ -318,10 +392,11 @@ try {
     assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
     assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['T3 Code', 'DexThemes', 'Community']);
-    assert.match(await page.locator('.thread-empty').first().textContent() || '', /T3 Code collection coming soon/);
+    assert.equal(Number(await page.locator('.category-count').first().textContent()), 2);
+    assert.equal(await page.locator('.category').first().locator('.thread-empty').count(), 0);
     assert.equal(await page.locator('#category-list [data-theme-id="codex"]').count(), 0);
     assert.equal(await page.locator('#category-list [data-theme-id="deepseek-default"]').count(), 0);
-    assert.ok(await page.locator('.thread-item.active').count() > 0);
+    assert.equal(await page.locator('.thread-item.active').first().getAttribute('data-theme-id'), 'magenta-stack');
 
     const actionOverflow = await page.locator('.panel-actions').evaluate((element) => element.scrollWidth - element.clientWidth);
     assert.ok(actionOverflow <= 0, `expected no right-panel helper overflow, got ${actionOverflow}px`);
@@ -339,11 +414,27 @@ try {
     assert.equal(await page.locator('.preview-theme-summary').textContent(), `Palette direction${expectedSummary}`);
     assert.equal(await page.locator('.mini-theme-summary').count(), 2);
     assert.equal(new URL(page.url()).pathname, '/seventh-fire-shadow/dark');
+    assert.equal(await page.locator('.attribution-msg').count(), 1);
+    assert.equal(await page.locator('.attribution-msg').getAttribute('data-author'), 'DexThemes');
+    assert.match(await page.locator('.provenance-msg').textContent() || '', /Inspired by Naruto \/ Hidden Leaf/);
+    assert.match(await page.locator('.provenance-msg').textContent() || '', /No affiliation or endorsement/);
+    assert.equal(await page.locator('.attribution-msg .provenance-card').count(), 0);
+
+    await page.click('[data-action="show-theme-details"]');
+    await page.waitForSelector('.theme-details-provenance');
+    assert.match(await page.locator('.theme-details-provenance').textContent() || '', /Inspired by Naruto \/ Hidden Leaf/);
+    await page.click('[data-action="show-theme-preview"]');
 
     await page.fill('#sidebar-search', 'Naruto');
     const searchResult = page.locator('[data-theme-id="naruto-hidden-leaf"] .thread-title');
     await searchResult.waitFor();
     assert.equal(await searchResult.textContent(), 'Seventh Fire Shadow');
+
+    await page.fill('#sidebar-search', 'Shonen Sunset');
+    await page.locator('[data-theme-id="shonen-sunset"]').click();
+    await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'Shonen Sunset');
+    assert.equal(await page.locator('.provenance-msg').count(), 0);
+    assert.equal(await page.locator('.attribution-msg').count(), 1);
     await page.close();
   });
 
@@ -661,6 +752,35 @@ try {
       );
     }
     assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /OpenAI/);
+    await page.close();
+  });
+
+  await runTest('compact viewport exposes a non-empty selected-platform collection', async () => {
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=cursor`);
+    const firstPill = page.locator('.mobile-cat-pill').first();
+    assert.match(await firstPill.textContent() || '', /Cursor\s+2/);
+    assert.equal(await firstPill.getAttribute('data-category-id'), 'cursor');
+    assert.equal(await page.locator('.mobile-card-grid .theme-card').count(), 2);
+    assert.deepEqual(
+      await page.locator('.mobile-card-grid .theme-card-name').allTextContents(),
+      ['Kinetic Violet', 'Ghost Pointer'],
+    );
+    await page.close();
+  });
+
+  await runTest('compact Grok Build preview keeps limited runtime support explicit', async () => {
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=grok`);
+    const firstPill = page.locator('.mobile-cat-pill').first();
+    assert.match(await firstPill.textContent() || '', /Grok Build\s+2/);
+    assert.equal(await firstPill.getAttribute('data-category-id'), 'grok');
+    assert.deepEqual(
+      await page.locator('.mobile-card-grid .theme-card-name').allTextContents(),
+      ['Signal Horizon', 'Ember Query'],
+    );
+    await page.locator('.mobile-card-grid .theme-card').first().click();
+    await page.waitForSelector('#preview-window');
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
+    assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /limited subset/i);
     await page.close();
   });
 

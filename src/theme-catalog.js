@@ -4,6 +4,7 @@
 
 import { presentThemeForWebsite } from '../shared/plugin-public-policy.js';
 import { DEEPSEEK_HARNESS_THEMES } from '../packages/deepseek-harness-plugin/src/deepseek-themes.js';
+import { PLATFORM_THEMES } from '../shared/platform-theme-packs.js';
 import { getCatalogCategoriesForPlatform } from './platform-catalog.js';
 
 // Default semantic colors used when a Codex theme doesn't define them
@@ -187,6 +188,13 @@ export const THEMES = [
     copies: 0,
     dateAdded: '2026-08-13',
   })),
+
+  // ==============================
+  // PLATFORM COLLECTIONS
+  // Original, unofficial palettes grouped for each preview target. Theme
+  // identity stays independent from the selected platform and its handoff.
+  // ==============================
+  ...PLATFORM_THEMES,
 
   // ==============================
   // DEXTHEMES (loaded from theme-data/dexthemes/*)
