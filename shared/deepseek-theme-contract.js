@@ -189,7 +189,10 @@ function buildCordisClientCode(tokens) {
 }
 
 function safeMetadata(value, fallback, maxLength) {
-  const normalized = String(value || fallback).replace(/[\r\n\t]+/g, ' ').trim();
+  const normalized = String(value || fallback).trim();
+  if (/[\p{Cc}\p{Cf}\p{Cs}]/u.test(normalized)) {
+    throw new TypeError('DeepSeek Cordis theme metadata must not contain Unicode control or format characters');
+  }
   return (normalized || fallback).slice(0, maxLength);
 }
 
@@ -231,6 +234,8 @@ export function validateDeepSeekCordisPayload(payload) {
     || typeof theme.name !== 'string' || !theme.name.trim() || theme.name.length > 80) {
     throw new TypeError('DeepSeek Cordis theme metadata must contain bounded id and name strings');
   }
+  safeMetadata(theme.id, 'theme', 80);
+  safeMetadata(theme.name, 'DexThemes theme', 80);
   const tokens = validateDeepSeekThemeTokens(input.tokens);
   const define = assertRecord(input.cordisDefine, 'DeepSeek Cordis define request');
   assertExactKeys(define, ['plugin', 'name', 'purpose', 'code'], 'DeepSeek Cordis define request');
@@ -246,6 +251,12 @@ export function validateDeepSeekCordisPayload(payload) {
   if (typeof define.purpose !== 'string' || !define.purpose.trim() || define.purpose.length > 240) {
     throw new TypeError('DeepSeek Cordis payload requires a bounded package purpose');
   }
+  if (define.name !== `DexThemes · ${theme.name}`
+    || define.purpose !== `Apply the user-selected ${theme.name} palette to DeepSeek Harness through the guarded theme service.`) {
+    throw new TypeError('DeepSeek Cordis metadata must retain the fixed DexThemes attribution');
+  }
+  safeMetadata(define.name, 'DeepSeek Cordis package name', 100);
+  safeMetadata(define.purpose, 'DeepSeek Cordis package purpose', 240);
   if (Object.keys(code).length !== 1 || code.client !== buildCordisClientCode(tokens)) {
     throw new TypeError('DeepSeek Cordis client code does not match the validated token payload');
   }

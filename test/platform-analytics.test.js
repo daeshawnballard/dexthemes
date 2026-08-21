@@ -42,7 +42,7 @@ test('platform metadata uses only normalized coarse identifiers', () => {
   }), {
     platform_id: 'deepseek',
     adapter_version: 'deepseek-semantic-v1',
-    plugin_version: '0.6.0',
+    plugin_version: '0.6.4',
     variant: 'dark',
     creation_mode: 'luna',
   });
@@ -59,7 +59,7 @@ test('every platform lifecycle receives authoritative action and outcome attribu
       prompt: 'never collect this',
     }, eventName);
     assert.equal(metadata.platform_id, 'deepseek', eventName);
-    assert.equal(metadata.plugin_version, '0.6.0', eventName);
+    assert.equal(metadata.plugin_version, '0.6.4', eventName);
     assert.equal(metadata.source_surface, 'preview_message', eventName);
     assert.equal(metadata.theme_id, 'deepseek-huawei', eventName);
     assert.equal(metadata.variant, 'paired', eventName);

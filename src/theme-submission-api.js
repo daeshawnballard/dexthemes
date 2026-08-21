@@ -7,7 +7,6 @@ import { THEMES } from './theme-catalog.js';
 import { CONVEX_SITE_URL } from './config.js';
 import { slugify } from './utils.js';
 import { renderSidebar } from './sidebar.js';
-import { checkThemeProtection } from '../convex/protectedThemes.ts';
 import { showSubmitDelighter } from './preview-chat.js';
 import { activateModalFocusTrap, deactivateModalFocusTrap } from './modal-a11y.js';
 import { showToast } from './toasts.js';
@@ -32,11 +31,6 @@ function getVariantDataFromDraft(draft, variant) {
 
 function hasReadySecondaryVariant(builder, variant) {
   return !!builder?._variantTouched?.[variant] && !!builder?._variantDrafts?.[variant];
-}
-
-function checkColorCopying(newDark, newLight) {
-  const protection = checkThemeProtection(newDark, newLight);
-  return protection.reason || null;
 }
 
 function persistBuilderState() {
@@ -131,15 +125,6 @@ export async function submitFromBuilder() {
     : null;
   const darkVariantData = variant === 'dark' ? variantData : oppositeVariantData;
   const lightVariantData = variant === 'light' ? variantData : oppositeVariantData;
-
-  const copySource = checkColorCopying(
-    darkVariantData,
-    lightVariantData,
-  );
-  if (copySource) {
-    showToast(copySource, 'error');
-    return;
-  }
 
   if (b._addVariantFor) {
     try {
@@ -292,12 +277,6 @@ export async function submitJsonFromModal() {
   }
   if (!parsed.dark && !parsed.light) {
     errorEl.textContent = 'At least one variant (dark or light) is required';
-    return;
-  }
-
-  const copySource = checkColorCopying(parsed.dark || null, parsed.light || null);
-  if (copySource) {
-    errorEl.textContent = copySource;
     return;
   }
 

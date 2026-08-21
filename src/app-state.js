@@ -133,6 +133,19 @@ export let currentUser = null;
 export let flaggedThemes = new Set();
 
 export function setUserUnlocks(unlocks) { userUnlocks = unlocks; }
+export function registerUnlockedThemes(themes) {
+  for (const theme of Array.isArray(themes) ? themes : []) {
+    if (!theme?.id || !userUnlocks.has(theme.id) || THEMES.some((candidate) => candidate.id === theme.id)) continue;
+    THEMES.push(theme);
+  }
+  if (deferredProtectedThemeId && userUnlocks.has(deferredProtectedThemeId)) {
+    const deferredTheme = THEMES.find((theme) => theme.id === deferredProtectedThemeId);
+    if (deferredTheme) {
+      deferredProtectedThemeId = null;
+      setSelectedTheme(deferredTheme);
+    }
+  }
+}
 export function clearDeferredProtectedThemeId() { deferredProtectedThemeId = null; }
 export function isCurrentUserSupporter() { return userUnlocks.has(SUPPORTER_THEME_ID); }
 export function setSupporterPromptShown(value) { supporterPromptShown = value; }

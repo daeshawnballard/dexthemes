@@ -179,7 +179,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     capabilityMessage: 'Install the DexThemes plugin once, then Apply and Revert inside Harness.',
     status: PLATFORM_STATUSES.SUPPORTED,
     adapterVersion: 'deepseek-semantic-v1',
-    pluginVersion: '0.6.0',
+    pluginVersion: '0.6.4',
     easterEggNamespace: 'deepseek',
     contract: {
       directApply: true,

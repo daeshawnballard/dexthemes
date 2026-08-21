@@ -1,5 +1,6 @@
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { STATIC_THEME_CATALOG } from "../shared/theme-api-catalog.js";
 import {
   RATE_LIMITS,
   getClientIP,
@@ -221,7 +222,17 @@ export function registerUnlockRoutes(http: DexHttpRouter) {
         const unlocks = await ctx.runQuery(internal.unlocks.getMyUnlocks, {
           authToken: token,
         });
-        return jsonResponse({ unlocks }, origin);
+        const protectedThemes = new Map(
+          STATIC_THEME_CATALOG
+            .filter((theme: any) => theme.subgroup === "unlockables")
+            .map((theme: any) => [theme.id, theme]),
+        );
+        return jsonResponse({
+          unlocks: unlocks.map((unlock: any) => ({
+            ...unlock,
+            theme: protectedThemes.get(unlock.themeId) || null,
+          })),
+        }, origin);
       } catch (e: any) {
         const status = e.message === "Unauthorized" ? 401 : 400;
         return jsonResponse({ error: e.message }, origin, status);

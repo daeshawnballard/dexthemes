@@ -214,6 +214,9 @@ export async function generateThemeApiCatalog() {
   global.createDexTheme = window.createDexTheme;
   global.registerDexThemesPack = window.registerDexThemesPack;
   await import(pathToFileURL(path.join(root, "theme-data", "dexthemes", "bundle.js")).href);
+  // Reward palettes are server-only. The browser bundle intentionally omits
+  // this pack; authenticated routes can still derive protected records here.
+  await import(pathToFileURL(path.join(root, "theme-data", "dexthemes", "supporter.js")).href);
 
   const catalogModule = await import(pathToFileURL(path.join(root, "src", "theme-catalog.js")).href);
   const staticThemes = catalogModule.THEMES

@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
-import { lstat, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
+import { constants } from 'node:fs';
+import { lstat, mkdir, open, readFile, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -99,23 +101,40 @@ async function ensureSafeDirectory(target) {
 
 async function writeRegularFile(target, content) {
   await ensureSafeDirectory(path.dirname(target));
-  const existing = await inspectPath(target);
-  if (existing?.isSymbolicLink() || (existing && (!existing.isFile() || existing.nlink > 1))) {
-    throw new TypeError(`Refusing non-regular export target: ${target}`);
+  const stagedTarget = path.join(path.dirname(target), `.${path.basename(target)}.${randomUUID()}.tmp`);
+  const handle = await open(
+    stagedTarget,
+    constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW,
+    0o600,
+  );
+  try {
+    await handle.writeFile(content, { encoding: 'utf8' });
+    await handle.sync();
+  } finally {
+    await handle.close();
   }
-  await writeFile(target, content, { encoding: 'utf8', mode: 0o644 });
+  const stagedInfo = await inspectPath(stagedTarget);
+  if (!stagedInfo?.isFile() || stagedInfo.isSymbolicLink() || stagedInfo.nlink !== 1) {
+    throw new TypeError(`Refusing non-regular staged export target: ${stagedTarget}`);
+  }
+  // Publishing only renames a private, fully-written regular file. Re-check
+  // every destination ancestor immediately before the atomic replacement so a
+  // renamed/symlinked parent can never become a write-through sink.
+  await ensureSafeDirectory(path.dirname(target));
+  await rename(stagedTarget, target);
 }
 
-export async function buildHostExports() {
+export async function buildHostExports({ beforePublish, outputRoot: requestedOutputRoot = outputRoot } = {}) {
   const fixtureSource = await readFile(fixturePath, 'utf8');
   const theme = JSON.parse(fixtureSource);
   const bundle = createHostExportBundle(theme);
-  await ensureSafeDirectory(outputRoot);
+  await ensureSafeDirectory(requestedOutputRoot);
+  if (beforePublish) await beforePublish({ outputRoot: requestedOutputRoot, bundle });
   for (const file of bundle.files) {
-    await writeRegularFile(path.join(outputRoot, ...file.path.split('/')), file.content);
+    await writeRegularFile(path.join(requestedOutputRoot, ...file.path.split('/')), file.content);
   }
   await writeRegularFile(
-    path.join(outputRoot, 'MANIFEST.json'),
+    path.join(requestedOutputRoot, 'MANIFEST.json'),
     `${JSON.stringify(bundle.manifest, null, 2)}\n`,
   );
   return bundle;

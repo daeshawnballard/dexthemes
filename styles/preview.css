@@ -501,9 +501,9 @@
   margin-left: 4px;
   font-size: 10px;
   font-weight: 700;
-  color: #1f1606;
-  background: linear-gradient(135deg, #f8df87, #d4a54a);
-  box-shadow: 0 0 0 1px rgba(212, 165, 74, 0.32);
+  color: var(--surface);
+  background: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 32%, transparent);
   vertical-align: text-top;
 }
 
@@ -514,8 +514,8 @@
 }
 
 .supporter-avatar {
-  border: 2px solid rgba(212, 165, 74, 0.88);
-  box-shadow: 0 0 0 2px rgba(248, 223, 135, 0.16);
+  border: 2px solid color-mix(in srgb, var(--accent) 88%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 .supporters-delighter {
@@ -525,7 +525,7 @@
 
 .supporters-card {
   background:
-    linear-gradient(180deg, rgba(212, 165, 74, 0.1), rgba(212, 165, 74, 0.02)),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), color-mix(in srgb, var(--accent) 2%, transparent)),
     var(--surface);
   border-radius: 16px;
   padding: 14px;
@@ -548,9 +548,9 @@
   min-width: 28px;
   padding: 3px 8px;
   border-radius: 999px;
-  background: rgba(212, 165, 74, 0.16);
-  border: 1px solid rgba(212, 165, 74, 0.3);
-  color: #f8df87;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--accent);
   text-align: center;
   font-size: 11px;
   font-weight: 600;
@@ -609,9 +609,9 @@
   padding: 14px;
   margin-bottom: 14px;
   border-radius: 14px;
-  border: 1px solid color-mix(in srgb, #D4A54A 38%, var(--border));
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--border));
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, #D4A54A 18%, transparent), transparent 48%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 18%, transparent), transparent 48%),
     linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 72%),
     color-mix(in srgb, var(--surface-elevated) 90%, var(--surface));
 }
@@ -624,8 +624,8 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #D4A54A;
-  background: color-mix(in srgb, #D4A54A 16%, transparent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 .supporters-wall-welcome-title {
@@ -698,16 +698,16 @@
 }
 
 .unlock-delighter--supporter {
-  border-color: color-mix(in srgb, #D4A54A 42%, var(--border));
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, #D4A54A 20%, transparent), transparent 42%),
-    linear-gradient(180deg, color-mix(in srgb, #D4A54A 10%, transparent), transparent 70%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 20%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
     color-mix(in srgb, var(--surface-elevated) 92%, var(--surface));
 }
 
 .unlock-delighter--supporter .unlock-delighter-badge {
-  color: #D4A54A;
-  background: color-mix(in srgb, #D4A54A 16%, transparent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 .unlock-delighter--summit {

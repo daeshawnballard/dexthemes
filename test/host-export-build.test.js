@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { lstat, readFile } from 'node:fs/promises';
+import { lstat, mkdir, readFile, symlink } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
 import {
@@ -78,4 +80,21 @@ test('build writes only regular repository export files matching its manifest', 
   }
   const manifest = JSON.parse(await readFile(new URL('MANIFEST.json', outputRoot), 'utf8'));
   assert.deepEqual(manifest, bundle.manifest);
+});
+
+test('host export publication rejects a symlinked parent introduced after staging', async () => {
+  const targetRoot = new URL(`../dist/host-exports-race-${Date.now()}/`, import.meta.url);
+  const redirectDir = new URL(`../dist/host-export-redirect-${Date.now()}/`, import.meta.url);
+  await mkdir(redirectDir, { recursive: true });
+  await assert.rejects(
+    buildHostExports({
+      outputRoot: fileURLToPath(targetRoot),
+      beforePublish: async ({ outputRoot }) => {
+        // The existing directory is deliberately replaced after bundle creation
+        // and before any destination rename; a pathname writer would follow it.
+        await symlink(fileURLToPath(redirectDir), path.join(outputRoot, 'claude'));
+      },
+    }),
+    /symlinked export directory/i,
+  );
 });

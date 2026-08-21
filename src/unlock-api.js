@@ -30,6 +30,7 @@ export async function grantUnlockAction(action) {
       const data = await res.json();
       if (data.unlocked) {
         state.userUnlocks.add(unlock.themeId);
+        await fetchMyUnlocks();
         void trackEvent('unlock_granted', null, {
           action,
           theme_id: data.themeId || unlock.themeId,
@@ -58,6 +59,7 @@ export async function fetchMyUnlocks(isRetry = false) {
       const previousUnlocks = new Set(state.userUnlocks);
       const ids = new Set((data.unlocks || []).map((unlock) => unlock.themeId));
       state.setUserUnlocks(ids);
+      state.registerUnlockedThemes((data.unlocks || []).map((unlock) => unlock.theme).filter(Boolean));
       await maybeShowPendingUnlockDelighter(previousUnlocks, ids, fetchLeaderboard);
     } else if (!isRetry) {
       setTimeout(() => fetchMyUnlocks(true), 3000);

@@ -9,6 +9,7 @@ import contentPageHandler from '../api/content-page.js';
 import { PLATFORM_IDS, getPlatform } from '../shared/platform-registry.js';
 import { PLATFORM_THEME_PACKS } from '../shared/platform-theme-packs.js';
 import { getPlatformThemeCategoryId } from '../src/platform-catalog.js';
+import { resolveLocalStaticPath } from './local-static-path.mjs';
 
 const root = process.cwd();
 const host = '127.0.0.1';
@@ -66,9 +67,8 @@ function contentTypeFor(filePath) {
 }
 
 async function resolveRequestPath(urlPath) {
-  const cleanPath = decodeURIComponent(urlPath.split('?')[0]);
-  if (cleanPath === '/' || cleanPath === '') return path.join(root, 'index.html');
-  const absolute = path.join(root, cleanPath.replace(/^\/+/, ''));
+  const absolute = resolveLocalStaticPath(root, urlPath);
+  if (!absolute) return null;
   const fileInfo = await stat(absolute).catch(() => null);
   if (fileInfo?.isFile()) return absolute;
   return null;
@@ -654,16 +654,12 @@ try {
     await page.close();
   });
 
-  await runTest('desktop locked theme selection shows the locked shell', async () => {
+  await runTest('desktop signed-out browse omits locked palette records', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
     await page.fill('#sidebar-search', 'Patron');
-    await page.waitForSelector('[data-theme-id="patron"]');
-    await page.click('[data-theme-id="patron"]');
-    await page.waitForSelector('.locked-theme-shell-card');
-    const lockedTitle = await page.locator('.locked-theme-shell-title').textContent();
-    assert.match(lockedTitle || '', /Patron/i);
-    assert.equal(await page.locator('[data-action="show-theme-details"]').isDisabled(), true);
-    assert.equal(await page.locator('#theme-details-view').isHidden(), true);
+    await page.waitForTimeout(50);
+    assert.equal(await page.locator('[data-theme-id="patron"]').count(), 0);
+    assert.equal(await page.locator('.theme-details-swatch').count(), 0);
     await page.close();
   });
 
