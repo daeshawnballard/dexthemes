@@ -431,6 +431,9 @@ export function registerPluginRoutes(http: DexHttpRouter) {
     method: "POST",
     handler: httpAction(async (ctx, request) => {
       try {
+        // This bearer route's terminal authorization is themes:write. MCP app
+        // visibility and review-continuity tokens do not provide server-verifiable
+        // proof that a human activated a Publish button.
         const session = await authorizePlugin(ctx, request, "themes:write");
         const body = await request.json();
         const theme = body?.theme || {};

@@ -470,7 +470,7 @@ test('install docs identify the 0.6.4 registry candidate and local-development p
   }
 });
 
-test('package discovery metadata and lifecycle docs expose compatibility, releases, removal, and support', async () => {
+test('package discovery metadata distinguishes local 0.6.5 preparation from published 0.6.4 evidence', async () => {
   const [manifestSource, packageReadme, changelog, rootReadme, support, issueTemplate] = await Promise.all([
     readFile(new URL('package.json', PACKAGE_ROOT), 'utf8'),
     readFile(new URL('README.md', PACKAGE_ROOT), 'utf8'),
@@ -480,7 +480,9 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     readFile(new URL('../../.github/ISSUE_TEMPLATE/bug_report.md', PACKAGE_ROOT), 'utf8'),
   ]);
   const manifest = JSON.parse(manifestSource);
-  assert.equal(manifest.version, '0.6.4');
+  assert.equal(manifest.version, '0.6.5');
+  assert.equal(manifest.scripts['verify:release'], 'node scripts/verify-release.mjs');
+  assert.equal(['prepublish', 'prepare', 'prepublishOnly', 'prepack', 'postpack', 'postpublish'].some((name) => name in manifest.scripts), false);
   assert.ok(manifest.files.includes('CHANGELOG.md'));
   assert.ok(manifest.keywords.includes('deepseek-harness-plugin'));
   assert.match(manifest.homepage, /deepseek-harness-plugin#readme/);
@@ -493,6 +495,8 @@ test('package discovery metadata and lifecycle docs expose compatibility, releas
     'GitHub releases',
     'support or bug issue',
   ]) assert.match(packageReadme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.match(packageReadme, /0\.6\.5[\s\S]{0,80}unpublished/i);
+  assert.match(changelog, /0\.6\.5 — 2026-08-20 \(local-only, unpublished\)/);
   assert.match(changelog, /0\.6\.3 — 2026-08-15/);
   assert.match(changelog, /0\.6\.2 — 2026-08-14/);
   assert.match(changelog, /0\.6\.1 — 2026-08-14/);

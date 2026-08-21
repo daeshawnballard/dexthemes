@@ -35,6 +35,7 @@
     "render:deepseek:all": "npm run render:deepseek:master && npm run render:deepseek:vertical && npm run render:deepseek:square",
     "render:deepseek:stills": "remotion still DeepSeekHarnessReleaseMaster out/deepseek-release/review-master.png --frame=510 && remotion still DeepSeekHarnessReleaseVertical out/deepseek-release/review-vertical.png --frame=930 && remotion still DeepSeekHarnessReleaseSquare out/deepseek-release/review-square.png --frame=930",
     "render:deepseek:064": "remotion render DeepSeekHarness064Launch out/deepseek-release/dexthemes-deepseek-harness-0.6.4-launch-1920x1080.mp4 --codec=h264 --crf=18 --audio-codec=aac --audio-bitrate=192k",
+    "render:deepseek:product-film": "remotion render DeepSeekHarnessProductFilm out/deepseek-release/dexthemes-deepseek-product-film-1920x1080.mp4 --codec=h264 --crf=18 --audio-codec=aac --audio-bitrate=192k",
     "render:deepseek:064:stills": "remotion still DeepSeekHarness064Launch out/deepseek-release/064-catalog.png --frame=150 --scale=0.5 && remotion still DeepSeekHarness064Launch out/deepseek-release/064-applied.png --frame=330 --scale=0.5 && remotion still DeepSeekHarness064Launch out/deepseek-release/064-reverted.png --frame=470 --scale=0.5",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

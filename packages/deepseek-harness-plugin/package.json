@@ -1,6 +1,6 @@
 {
   "name": "@dexthemes/deepseek-harness-plugin",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Discover, preview, apply, restore, and revert themes in DeepSeek Harness",
   "type": "module",
   "main": "./lib/index.js",
@@ -17,7 +17,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "verify:release": "node scripts/verify-release.mjs"
   },
   "dsh": {
     "bundle": {

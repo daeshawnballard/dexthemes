@@ -32,6 +32,12 @@ function signature(payload, secret) {
   return createHmac("sha256", secret).update(payload).digest("base64url");
 }
 
+/**
+ * Bind the MCP review result to the exact theme and OAuth token for a short
+ * handoff window. This token is payload-continuity evidence only: it is not
+ * single-use and cannot prove that a human pressed the review app's button.
+ * themes:write remains the terminal publication authorization.
+ */
 export function createSubmissionConfirmation(theme, accessToken, options = {}) {
   const now = options.now ?? Date.now();
   const claims = {

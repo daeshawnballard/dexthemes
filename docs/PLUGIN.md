@@ -87,18 +87,18 @@ The current Codex desktop build supports `codex-theme-v1` imports and the generi
 
 DeepSeek Harness is a separate channel. `prepare_deepseek_apply` returns an exact `cordis_define` client Package for a paired theme. Inside a running Harness integration, the supported guarded theme service applies the tokens immediately and its retained disposer or `cordis_stop` removes them. Payload preparation is not installation proof, and the standalone website cannot contact an unrelated local Harness instance. See [DeepSeek Harness integration](DEEPSEEK-HARNESS.md) for the compatibility, analytics, privacy, and distribution boundaries.
 
-## Publication safety
+## Publication authorization and review continuity
 
-`submit_theme` is the only public write tool. It is app-only and:
+`submit_theme` is the only MCP public write tool. Its terminal authorization is OAuth `themes:write`:
 
 1. requires `themes:write`;
-2. is callable only from the review app and is not linked to its own output template;
+2. is marked app-visible and is not linked to its own output template, but that visibility is host presentation metadata rather than authorization;
 3. derives identity only from the verified bearer token;
-4. requires a five-minute token bound to the exact reviewed payload and current OAuth token; the token is returned only in app metadata hidden from the model;
+4. requires a five-minute token bound to the exact reviewed payload and current OAuth token in the MCP review flow; the token is returned in app metadata hidden from the model, but is not single-use and does not prove user activation;
 5. re-runs server-side moderation and protected-palette checks;
 6. requires original wording in every public name, ID, and summary while leaving private drafts flexible;
 7. independently rate-limits writes per verified identity and per network;
-8. is called only by the review app after the user presses Publish;
+8. is called by the first-party review app after the user presses Publish, while authorized OAuth clients and the downstream bearer publication route rely on `themes:write` rather than a cryptographic button-click claim;
 9. creates a new theme and cannot edit or delete existing themes.
 
 ## Live authentication configuration

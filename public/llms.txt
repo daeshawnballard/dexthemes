@@ -207,7 +207,7 @@ GitHub OAuth callback. Exchanges code for token, creates/updates user, redirects
 - Protected-resource metadata: `https://www.dexthemes.com/.well-known/oauth-protected-resource`
 - Public tools cover discovery, personalized named theme drafting, validation, previews, separate Codex and DeepSeek Harness apply preparation, public leaderboards, and sanitized GitHub Issue preparation.
 - `themes:read` returns the signed-in creator's stats, personal monthly/all-time ranks, and achievements.
-- `themes:write` first renders an exact review; the app-only write accepts only a short-lived token bound to that payload and OAuth session after the user presses Publish.
+- `themes:write` authorizes public submission. The first-party app renders an exact review and calls the write after its Publish button is pressed. Its short-lived token binds the exact payload and OAuth session and expires, but app visibility and the token do not independently prove a human click.
 
 Plugin identity is derived only from the verified OAuth token. Tools never accept user IDs, owner IDs, author identity, tokens, API keys, or email addresses as arguments. A verified exact `@openai.com` identity may receive the optional “OpenAI is nothing without its people” achievement and Human Spark reward; DexThemes stores only an eligibility boolean, and the original unlock theme does not imply OpenAI endorsement.
 

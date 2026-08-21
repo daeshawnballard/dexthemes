@@ -97,23 +97,23 @@ export function registerLunaRateLimitRoutes(http: DexHttpRouter) {
       const body = parseRequestBody(await request.text());
       if (!body) return response(400, { error: "invalid_request" });
 
-      const globalLimit = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
-        key: "luna:global",
-        ...RATE_LIMITS.lunaGenerateGlobal,
-      });
-      if (!globalLimit.allowed) {
-        const retryAfterMs = Math.max(1, Math.min(globalLimit.retryAfter || 1, RATE_LIMITS.lunaGenerateGlobal.windowMs));
-        return response(429, { allowed: false, retryAfterMs }, {
-          "Retry-After": String(Math.ceil(retryAfterMs / 1000)),
-        });
-      }
-
       const networkLimit = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
         key: `luna:network:${body.networkKey}`,
         ...RATE_LIMITS.lunaGenerateNetwork,
       });
       if (!networkLimit.allowed) {
         const retryAfterMs = Math.max(1, Math.min(networkLimit.retryAfter || 1, RATE_LIMITS.lunaGenerateNetwork.windowMs));
+        return response(429, { allowed: false, retryAfterMs }, {
+          "Retry-After": String(Math.ceil(retryAfterMs / 1000)),
+        });
+      }
+
+      const globalLimit = await ctx.runMutation(internal.rateLimit.checkRateLimit, {
+        key: "luna:global",
+        ...RATE_LIMITS.lunaGenerateGlobal,
+      });
+      if (!globalLimit.allowed) {
+        const retryAfterMs = Math.max(1, Math.min(globalLimit.retryAfter || 1, RATE_LIMITS.lunaGenerateGlobal.windowMs));
         return response(429, { allowed: false, retryAfterMs }, {
           "Retry-After": String(Math.ceil(retryAfterMs / 1000)),
         });

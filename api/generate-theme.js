@@ -104,7 +104,7 @@ export function createInstanceRateLimiter({
   const networks = new Map();
   let global = { count: 0, windowStart: now() };
 
-  function consumeBucket(bucket, limit, windowMs, timestamp) {
+  function checkBucket(bucket, limit, windowMs, timestamp) {
     if (timestamp >= bucket.windowStart + windowMs) {
       bucket.count = 0;
       bucket.windowStart = timestamp;
@@ -112,16 +112,12 @@ export function createInstanceRateLimiter({
     if (bucket.count >= limit) {
       return { allowed: false, retryAfterMs: Math.max(1, bucket.windowStart + windowMs - timestamp) };
     }
-    bucket.count += 1;
     return { allowed: true };
   }
 
   return Object.freeze({
     consume(networkKey) {
       const timestamp = now();
-      const globalResult = consumeBucket(global, globalMax, globalWindowMs, timestamp);
-      if (!globalResult.allowed) return { ...globalResult, scope: "instance" };
-
       for (const [key, bucket] of networks) {
         if (timestamp >= bucket.windowStart + networkWindowMs) networks.delete(key);
       }
@@ -129,8 +125,16 @@ export function createInstanceRateLimiter({
         return { allowed: false, retryAfterMs: networkWindowMs, scope: "capacity" };
       }
       const bucket = networks.get(networkKey) || { count: 0, windowStart: timestamp };
+      const networkResult = checkBucket(bucket, networkMax, networkWindowMs, timestamp);
+      if (!networkResult.allowed) return { ...networkResult, scope: "network" };
+
+      const globalResult = checkBucket(global, globalMax, globalWindowMs, timestamp);
+      if (!globalResult.allowed) return { ...globalResult, scope: "instance" };
+
+      bucket.count += 1;
+      global.count += 1;
       networks.set(networkKey, bucket);
-      return { ...consumeBucket(bucket, networkMax, networkWindowMs, timestamp), scope: "network" };
+      return { allowed: true, scope: "network" };
     },
   });
 }
