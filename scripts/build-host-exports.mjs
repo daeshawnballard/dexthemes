@@ -121,7 +121,7 @@ export async function buildHostExports() {
   return bundle;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const bundle = await buildHostExports();
   console.log(`built ${bundle.files.length} host export files for ${HOST_EXPORT_PLATFORM_IDS.length} platforms`);
 }

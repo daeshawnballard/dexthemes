@@ -354,7 +354,10 @@ try {
     await selectPreviewPlatform(page, 'antigravity');
     assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
     assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
-    assert.match(await page.locator('#import-hint').textContent() || '', /No supported Google Antigravity theme handoff/i);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /Preview collection only; no exporter, setup path, or plugin is exposed/i,
+    );
     assert.equal(await page.locator('#preview-input-text').getAttribute('aria-label'), 'Preview an Antigravity prompt');
     assert.match(await page.locator('#card-dark').textContent() || '', /An Antigravity conversation in this palette/);
 
@@ -362,12 +365,27 @@ try {
     assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
     assert.equal(await page.locator('#platform-setup-message').getAttribute('data-support-level'), 'limited');
     assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
-    assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /full DexThemes palette is a preview/i);
-    assert.equal(await page.locator('#platform-setup-message-link').isHidden(), true);
-    assert.match(await page.locator('#import-hint').textContent() || '', /does not receive the full DexThemes palette/i);
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
+    assert.equal(await page.locator('#platform-setup-message-link').isVisible(), true);
+    assert.match(
+      await page.locator('#platform-setup-message-link').getAttribute('href') || '',
+      /xai-org\/grok-build\/blob\/19d42e35c07a9c9244f03f6df0c4c353f970d4f9\//,
+    );
+    const grokSetup = page.locator('.panel-actions .platform-setup-btn');
+    assert.match(await grokSetup.textContent() || '', /View Grok limited color setup/i);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /merge one exactly five-key pager\.toml snippet manually, then restart Grok Build/i,
+    );
     await page.click('[data-action="show-theme-details"]');
     assert.match(await page.locator('.theme-details-facts').textContent() || '', /Limited theme support/);
-    assert.match(await page.locator('.theme-details-facts').textContent() || '', /limited subset/);
+    assert.match(
+      await page.locator('.theme-details-facts').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
     await page.click('[data-action="show-theme-preview"]');
 
     await selectPreviewPlatform(page, 'deepseek');
@@ -389,8 +407,18 @@ try {
 
     await selectPreviewPlatform(page, 't3code');
     await page.waitForFunction(() => new URL(window.location.href).searchParams.get('platform') === 't3code');
-    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
-    assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
+    assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'View T3 export setup');
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /exports stable v1 JSON.*Settings.*Appearance.*Themes.*Add theme/i,
+    );
+    const t3Setup = page.locator('.panel-actions .platform-setup-btn');
+    assert.match(await t3Setup.textContent() || '', /View T3 export setup/i);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /Download or copy the JSON, then import it with T3 Code.*Add theme control/i,
+    );
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['T3 Code', 'DexThemes', 'Community']);
     assert.equal(Number(await page.locator('.category-count').first().textContent()), 2);
     assert.equal(await page.locator('.category').first().locator('.thread-empty').count(), 0);
@@ -436,6 +464,34 @@ try {
     assert.equal(await page.locator('.provenance-msg').count(), 0);
     assert.equal(await page.locator('.attribution-msg').count(), 1);
     await page.close();
+  });
+
+  await runTest('curated migrated identities keep author and inspiration as separate UI facts', async () => {
+    const fixtures = [
+      { id: 'liger-zero-base', name: 'Zero Mechcat', inspiredBy: 'Liger Zero' },
+      { id: 'terminator-future-war', name: 'Chrome Future Hunter', inspiredBy: 'Terminator' },
+    ];
+
+    for (const fixture of fixtures) {
+      const page = await bootDesktopPageAt(
+        browser,
+        `${server.baseUrl}/?theme=${fixture.id}&variant=dark`,
+      );
+      assert.equal(await page.locator('#preview-theme-name').textContent(), fixture.name);
+      assert.equal(await page.locator('.attribution-msg').getAttribute('data-author'), 'DexThemes');
+      assert.match(await page.locator('.attribution-msg').textContent() || '', /Theme by DexThemes/);
+      assert.equal(await page.locator('.provenance-msg').getAttribute('data-inspired-by'), fixture.inspiredBy);
+      assert.match(await page.locator('.provenance-msg').textContent() || '', new RegExp(`Inspired by ${fixture.inspiredBy}`));
+      assert.match(await page.locator('.provenance-msg').textContent() || '', /No affiliation or endorsement/);
+      assert.equal(await page.locator('.attribution-msg .provenance-card').count(), 0);
+
+      await page.click('[data-action="show-theme-details"]');
+      assert.match(
+        await page.locator('.theme-details-provenance').textContent() || '',
+        new RegExp(`Inspired by ${fixture.inspiredBy}`),
+      );
+      await page.close();
+    }
   });
 
   await runTest('desktop variant switching updates the selected card', async () => {
@@ -780,7 +836,14 @@ try {
     await page.locator('.mobile-card-grid .theme-card').first().click();
     await page.waitForSelector('#preview-window');
     assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
-    assert.match(await page.locator('#platform-setup-message-text').textContent() || '', /limited subset/i);
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /merge one exactly five-key pager\.toml snippet manually/i,
+    );
     await page.close();
   });
 
