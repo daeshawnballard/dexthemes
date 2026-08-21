@@ -38,16 +38,34 @@ test('DeepSeek preparation produces paired semantic tokens and a reversible payl
   assert.deepEqual(prepared.unsupportedFields, ['fonts', 'effects']);
 });
 
-test('future setup surfaces never fabricate an apply payload', () => {
-  assert.equal(getPlatformAdapter('claude'), null);
-  const prepared = preparePlatformTheme(theme, 'claude');
-  assert.equal(prepared.kind, 'setup_required');
-  assert.equal(prepared.payload, null);
+test('proven export seams produce reviewable files without an Apply payload', () => {
+  const expectedKinds = {
+    claude: 'file_export',
+    qwen: 'file_export',
+    opencode: 'file_export',
+    pi: 'package_export',
+    zed: 'file_export',
+    cursor: 'package_source',
+    t3code: 'file_export',
+    grok: 'file_export',
+  };
+  for (const [platformId, kind] of Object.entries(expectedKinds)) {
+    assert.equal(getPlatformAdapter(platformId)?.platformId, platformId);
+    const prepared = preparePlatformTheme(theme, platformId);
+    assert.equal(prepared.kind, kind, platformId);
+    assert.equal(prepared.payload, null, platformId);
+    assert.ok(prepared.files.length > 0, platformId);
+    assert.equal(prepared.setup.writesHostConfig, false, platformId);
+  }
 });
 
-test('unsupported platforms fail with a typed unavailable result', () => {
-  assert.throws(
-    () => preparePlatformTheme(theme, 'conductor'),
-    (error) => error instanceof PlatformAdapterUnavailableError && error.code === 'platform_adapter_unavailable',
-  );
+test('Unknown or unsupported platforms fail with a typed unavailable result', () => {
+  for (const platformId of ['antigravity', 'conductor']) {
+    assert.equal(getPlatformAdapter(platformId), null);
+    assert.throws(
+      () => preparePlatformTheme(theme, platformId),
+      (error) => error instanceof PlatformAdapterUnavailableError && error.code === 'platform_adapter_unavailable',
+      platformId,
+    );
+  }
 });

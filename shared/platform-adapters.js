@@ -4,11 +4,46 @@ import {
   buildDeepSeekThemeTokens,
   isDeepSeekThemeEligible,
 } from './deepseek-theme-contract.js';
-import { getPlatform } from './platform-registry.js';
+import {
+  buildClaudeThemeExport,
+  validateClaudeThemeExport,
+} from './claude-theme-contract.js';
+import {
+  buildQwenThemeExport,
+  validateQwenThemeExport,
+} from './qwen-theme-contract.js';
+import {
+  buildOpenCodeThemeExport,
+  validateOpenCodeThemeExport,
+} from './opencode-theme-contract.js';
+import {
+  buildPiThemeExport,
+  validatePiThemeExport,
+} from './pi-theme-contract.js';
+import {
+  buildZedThemeExport,
+  validateZedThemeExport,
+} from './zed-theme-contract.js';
+import {
+  buildCursorThemeSource,
+  validateCursorThemeExport,
+} from './cursor-theme-contract.js';
+import {
+  buildT3CodeThemeExport,
+  validateT3CodeThemeExport,
+} from './t3code-theme-contract.js';
+import {
+  buildGrokPagerThemeExport,
+  validateGrokPagerThemeExport,
+} from './grok-pager-theme-contract.js';
+import { getPlatform, normalizePlatformId } from './platform-registry.js';
 
 export const PLATFORM_ADAPTER_RESULT_KINDS = Object.freeze({
   COPY_IMPORT: 'copy_import',
   DIRECT_PAYLOAD: 'direct_payload',
+  FILE_EXPORT: 'file_export',
+  PACKAGE_EXPORT: 'package_export',
+  PACKAGE_SOURCE: 'package_source',
   SETUP_REQUIRED: 'setup_required',
   UNAVAILABLE: 'unavailable',
 });
@@ -61,6 +96,14 @@ function prepareDeepSeek(theme, { accent } = {}) {
   });
 }
 
+function prepareExport(builder, kind, theme, options) {
+  return freezeResult({
+    kind,
+    payload: null,
+    ...builder(theme, options),
+  });
+}
+
 const IMPLEMENTED_ADAPTERS = Object.freeze({
   codex: Object.freeze({
     platformId: 'codex',
@@ -82,15 +125,78 @@ const IMPLEMENTED_ADAPTERS = Object.freeze({
     },
     prepare: prepareDeepSeek,
   }),
+  claude: Object.freeze({
+    platformId: 'claude',
+    validate: validateClaudeThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildClaudeThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
+  qwen: Object.freeze({
+    platformId: 'qwen',
+    validate: validateQwenThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildQwenThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
+  opencode: Object.freeze({
+    platformId: 'opencode',
+    validate: validateOpenCodeThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildOpenCodeThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
+  pi: Object.freeze({
+    platformId: 'pi',
+    validate: validatePiThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildPiThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.PACKAGE_EXPORT, theme, options);
+    },
+  }),
+  zed: Object.freeze({
+    platformId: 'zed',
+    validate: validateZedThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildZedThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
+  cursor: Object.freeze({
+    platformId: 'cursor',
+    validate: validateCursorThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildCursorThemeSource, PLATFORM_ADAPTER_RESULT_KINDS.PACKAGE_SOURCE, theme, options);
+    },
+  }),
+  t3code: Object.freeze({
+    platformId: 't3code',
+    validate: validateT3CodeThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildT3CodeThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
+  grok: Object.freeze({
+    platformId: 'grok',
+    validate: validateGrokPagerThemeExport,
+    prepare(theme, options) {
+      return prepareExport(buildGrokPagerThemeExport, PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT, theme, options);
+    },
+  }),
 });
 
 export function getPlatformAdapter(platformId) {
-  const platform = getPlatform(platformId);
-  return IMPLEMENTED_ADAPTERS[platform.id] || null;
+  const normalizedPlatformId = normalizePlatformId(platformId);
+  return normalizedPlatformId ? IMPLEMENTED_ADAPTERS[normalizedPlatformId] || null : null;
 }
 
-export function preparePlatformTheme(theme, platformId, options = {}) {
-  const platform = getPlatform(platformId);
+export function preparePlatformTheme(theme, platformId = 'codex', options = {}) {
+  const normalizedPlatformId = normalizePlatformId(platformId);
+  if (!normalizedPlatformId) {
+    throw new PlatformAdapterUnavailableError(
+      String(platformId ?? ''),
+      'The requested platform id is not recognized.',
+    );
+  }
+  const platform = getPlatform(normalizedPlatformId);
   const adapter = getPlatformAdapter(platform.id);
   if (adapter) return adapter.prepare(theme, options);
 

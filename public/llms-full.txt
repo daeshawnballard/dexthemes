@@ -587,7 +587,7 @@ Total public static themes: 150
 - Public page: https://www.dexthemes.com/signal-horizon/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=signal-horizon
 - Summary: Near-black depth, horizon orange, and cool signal blue for a compact limited-color workspace.
-- Host theme support: Limited theme support — The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.
+- Host theme support: Limited theme support — The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys.
 - Dark: surface=#0B0C0F ink=#F4F5F7 accent=#F0703C
 - Light: surface=#F7F8FA ink=#202329 accent=#B94C22
 
@@ -597,7 +597,7 @@ Total public static themes: 150
 - Public page: https://www.dexthemes.com/ember-query/dark
 - DeepSeek Harness apply preparation: https://www.dexthemes.com/api/deepseek-theme?theme=ember-query
 - Summary: Ember red, mineral gray, and pale cyan for direct questions in a deliberately reduced palette.
-- Host theme support: Limited theme support — The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.
+- Host theme support: Limited theme support — The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys.
 - Dark: surface=#111214 ink=#F2F0ED accent=#DC5A4A
 - Light: surface=#FAF8F5 ink=#292624 accent=#A93B31
 

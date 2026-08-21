@@ -41,7 +41,7 @@ test('platform preview copy is derived from the shared registry', () => {
   assert.match(deepseek.capability, /Apply and Revert inside Harness/);
 });
 
-test('preview-only platform copy never invents setup or a supported handoff', () => {
+test('preview-only and limited platform copy keep their distinct handoff boundaries', () => {
   const antigravity = getPlatformPreviewCopy('antigravity');
   const grok = getPlatformPreviewCopy('grok');
 
@@ -58,7 +58,10 @@ test('preview-only platform copy never invents setup or a supported handoff', ()
   }
 
   assert.match(JSON.stringify(getPreviewExamples('antigravity')), /No supported Google Antigravity theme handoff/i);
-  assert.match(JSON.stringify(getPreviewExamples('grok')), /not a full runtime palette|not a full runtime payload/i);
+  assert.match(
+    JSON.stringify(getPreviewExamples('grok')),
+    /exports only the five documented pager\.toml color overrides/i,
+  );
 });
 
 test('contextual theme paths preserve Codex defaults and carry non-default platforms', () => {
@@ -69,14 +72,15 @@ test('contextual theme paths preserve Codex defaults and carry non-default platf
   );
 });
 
-test('website actions keep DeepSeek on setup and unsupported platforms disabled', () => {
+test('website actions keep DeepSeek on setup and Unknown platforms disabled', () => {
   const deepseek = getWebsitePlatformAction('deepseek');
-  const t3code = getWebsitePlatformAction('t3code');
+  const antigravity = getWebsitePlatformAction('antigravity');
 
   assert.equal(deepseek.mode, 'setup');
   assert.match(deepseek.destination.value, /npmjs\.com/);
-  assert.equal(t3code.mode, 'unavailable');
-  assert.equal(t3code.delivered, false);
+  assert.equal(antigravity.mode, 'unavailable');
+  assert.equal(antigravity.delivered, false);
+  assert.equal(antigravity.destination, undefined);
 });
 
 test('opening platform setup is attributed as setup, never as an Apply attempt', async () => {

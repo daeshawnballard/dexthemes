@@ -59,10 +59,20 @@ test('platform registry is internally valid and defaults to Codex', () => {
   assert.equal(normalizePlatformId('DeepSeek'), 'deepseek');
   assert.equal(normalizePlatformId('DeepSeek Harness'), 'deepseek');
   assert.equal(normalizePlatformId('Google Antigravity'), 'antigravity');
-  assert.equal(normalizePlatformId('Grok Build'), 'grok');
   assert.equal(normalizePlatformId('t3-code'), 't3code');
+  assert.equal(normalizePlatformId('Grok Build'), 'grok');
   assert.equal(normalizePlatformId('../deepseek'), null);
   assert.equal(normalizePlatformId('deepseek?surface=installed'), null);
+});
+
+test('platform registry exposes the authoritative 12-harness roster in order', () => {
+  assert.deepEqual(PLATFORM_IDS, [
+    'codex', 'deepseek', 'claude', 'antigravity', 'qwen', 'opencode', 'pi', 'zed',
+    'cursor', 't3code', 'conductor', 'grok',
+  ]);
+  assert.equal(PLATFORM_REGISTRY.antigravity.displayName, 'Google Antigravity');
+  assert.equal(PLATFORM_REGISTRY.zed.displayName, 'Zed');
+  assert.equal(PLATFORM_REGISTRY.grok.displayName, 'Grok Build');
 });
 
 test('host contracts are distinct from delivered surface actions', () => {
@@ -72,23 +82,27 @@ test('host contracts are distinct from delivered surface actions', () => {
   assert.equal(PLATFORM_REGISTRY.deepseek.actions.installed.mode, PLATFORM_APPLY_MODES.DIRECT);
   assert.equal(PLATFORM_REGISTRY.deepseek.actions.installed.supportsRevert, true);
 
-  assert.equal(PLATFORM_REGISTRY.pi.contract.directApply, true);
-  assert.equal(PLATFORM_REGISTRY.pi.contract.revert, true);
-  assert.equal(PLATFORM_REGISTRY.pi.delivered, false);
-  assert.equal(PLATFORM_REGISTRY.pi.status, 'coming_soon');
+  assert.equal(PLATFORM_REGISTRY.pi.contract.directApply, false);
+  assert.equal(PLATFORM_REGISTRY.pi.contract.revert, false);
+  assert.equal(PLATFORM_REGISTRY.pi.delivered, true);
+  assert.equal(PLATFORM_REGISTRY.pi.status, 'experimental');
   assert.equal(PLATFORM_REGISTRY.pi.descriptorCopy, 'Pi themes.');
-  assert.equal(PLATFORM_REGISTRY.pi.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
-  assert.equal(PLATFORM_REGISTRY.pi.actions.website.ctaLabel, 'Coming soon');
+  assert.equal(PLATFORM_REGISTRY.pi.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
   assert.equal(PLATFORM_REGISTRY.pi.actions.installed, undefined);
 
-  assert.equal(PLATFORM_REGISTRY.t3code.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
-  assert.equal(PLATFORM_REGISTRY.conductor.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
   assert.equal(PLATFORM_REGISTRY.antigravity.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
-  assert.equal(PLATFORM_REGISTRY.grok.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
+  assert.equal(PLATFORM_REGISTRY.antigravity.actions.website.delivered, false);
+  assert.equal(PLATFORM_REGISTRY.antigravity.contract.preview, true);
+  assert.equal(PLATFORM_REGISTRY.antigravity.contract.create, false);
+  assert.equal(PLATFORM_REGISTRY.t3code.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
+  assert.equal(PLATFORM_REGISTRY.conductor.actions.website.mode, PLATFORM_APPLY_MODES.UNAVAILABLE);
+  assert.equal(PLATFORM_REGISTRY.grok.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
+  assert.equal(PLATFORM_REGISTRY.grok.status, 'limited');
+  assert.equal(PLATFORM_REGISTRY.grok.contract.mcp, false);
   assert.deepEqual(PLATFORM_REGISTRY.grok.themeSupport, {
     level: 'limited',
     label: 'Limited theme support',
-    disclosure: 'The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.',
+    disclosure: 'The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys.',
   });
 });
 
@@ -124,6 +138,8 @@ test('only setup actions expose real destinations', () => {
   );
   assert.equal(PLATFORM_REGISTRY.claude.actions.website.delivered, true);
   assert.equal(PLATFORM_REGISTRY.claude.actions.website.mode, PLATFORM_APPLY_MODES.SETUP);
+  assert.match(PLATFORM_REGISTRY.zed.actions.website.destination.value, /^https:\/\/zed\.dev\//);
+  assert.equal(PLATFORM_REGISTRY.antigravity.actions.website.destination, undefined);
 });
 
 test('effects are explicit, typed, and always retain a solid fallback', () => {
@@ -137,12 +153,27 @@ test('effects are explicit, typed, and always retain a solid fallback', () => {
 
   assert.equal(PLATFORM_REGISTRY.deepseek.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.EXPERIMENTAL);
   assert.equal(PLATFORM_REGISTRY.antigravity.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.UNKNOWN);
-  assert.equal(PLATFORM_REGISTRY.qwen.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.EXPERIMENTAL);
-  assert.equal(PLATFORM_REGISTRY.cursor.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.SUPPORTED);
-  assert.equal(PLATFORM_REGISTRY.t3code.effectCapabilities.solid, EFFECT_CAPABILITY_STATES.UNKNOWN);
+  assert.equal(PLATFORM_REGISTRY.qwen.effectCapabilities.gradients, EFFECT_CAPABILITY_STATES.RESTRICTED);
+  assert.equal(PLATFORM_REGISTRY.cursor.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.UNKNOWN);
+  assert.equal(PLATFORM_REGISTRY.t3code.effectCapabilities.lightDarkPairs, EFFECT_CAPABILITY_STATES.SUPPORTED);
   assert.equal(PLATFORM_REGISTRY.conductor.effectCapabilities.animation, EFFECT_CAPABILITY_STATES.UNKNOWN);
   assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.solid, EFFECT_CAPABILITY_STATES.RESTRICTED);
-  assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.lightDarkPairs, EFFECT_CAPABILITY_STATES.UNKNOWN);
+  assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.alpha, EFFECT_CAPABILITY_STATES.UNSUPPORTED);
+  assert.equal(PLATFORM_REGISTRY.grok.effectCapabilities.lightDarkPairs, EFFECT_CAPABILITY_STATES.RESTRICTED);
+});
+
+test('only the proven DeepSeek surface uses user-visible Apply or Revert wording', () => {
+  for (const platform of Object.values(PLATFORM_REGISTRY)) {
+    const userVisibleCopy = [
+      platform.capabilityMessage,
+      ...Object.values(platform.actions).flatMap((candidate) => [candidate.ctaLabel, candidate.helperText]),
+    ].join('\n');
+    if (platform.id === 'deepseek') {
+      assert.match(userVisibleCopy, /\bApply\b/);
+    } else {
+      assert.doesNotMatch(userVisibleCopy, /\b(?:Apply|Revert)\b/i, platform.id);
+    }
+  }
 });
 
 test('validation rejects direct website actions and speculative setup destinations', () => {

@@ -12,6 +12,7 @@ export const PLATFORM_ACTION_SURFACES = Object.freeze({
 
 export const PLATFORM_STATUSES = Object.freeze({
   SUPPORTED: 'supported',
+  LIMITED: 'limited',
   EXPERIMENTAL: 'experimental',
   COMING_SOON: 'coming_soon',
 });
@@ -218,7 +219,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'quiet-anthracite',
     descriptorCopy: 'Claude themes.',
     footerAffiliationCopy: 'Not affiliated with Anthropic.',
-    capabilityMessage: 'Claude Code accepts custom theme files selected with /theme.',
+    capabilityMessage: 'DexThemes exports separate Claude Code custom theme files; you copy and select one with /theme.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
     adapterVersion: 'claude-theme-v1',
     easterEggNamespace: 'claude',
@@ -226,8 +227,8 @@ export const PLATFORM_REGISTRY = Object.freeze({
       website: {
         mode: PLATFORM_APPLY_MODES.SETUP,
         delivered: true,
-        ctaLabel: 'View Claude setup',
-        helperText: 'Theme selection stays user-controlled in Claude Code.',
+        ctaLabel: 'View Claude export setup',
+        helperText: 'Dark and light are separate files; selection stays user-controlled.',
         destination: {
           kind: 'url',
           value: 'https://code.claude.com/docs/en/terminal-config#create-a-custom-theme',
@@ -235,11 +236,13 @@ export const PLATFORM_REGISTRY = Object.freeze({
       },
     },
     effectCapabilities: {
-      alpha: EFFECT_CAPABILITY_STATES.UNKNOWN,
+      alpha: EFFECT_CAPABILITY_STATES.UNSUPPORTED,
       animation: EFFECT_CAPABILITY_STATES.RESTRICTED,
+      lightDarkPairs: EFFECT_CAPABILITY_STATES.RESTRICTED,
     },
     effectNotes: {
       animation: 'Only Claude Code’s fixed built-in shimmer and rainbow token colors are documented; arbitrary animation stays disabled.',
+      lightDarkPairs: 'Custom light and dark themes are separate selections; automatic pairing is not documented.',
     },
   }),
   antigravity: platform({
@@ -250,12 +253,12 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'orbital-ink',
     descriptorCopy: 'Google Antigravity themes.',
     footerAffiliationCopy: 'Not affiliated with Google.',
-    capabilityMessage: 'Google Antigravity exposes appearance and custom-theme settings, but no public stable schema, import or write path, extension theme contribution point, or exact reversal contract is verified.',
+    capabilityMessage: 'Google Antigravity is preview-only because its stable theme payload, import path, write path, extension contribution point, and reversal contract are Unknown.',
     status: PLATFORM_STATUSES.COMING_SOON,
     adapterVersion: 'unavailable-v1',
     easterEggNamespace: 'antigravity',
     contract: {
-      preview: false,
+      preview: true,
       create: false,
       prompt: false,
       mcp: false,
@@ -266,7 +269,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
         mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
         delivered: false,
         ctaLabel: 'Coming soon',
-        helperText: 'No supported Google Antigravity theme handoff is available.',
+        helperText: 'Preview collection only; no exporter, setup path, or plugin is exposed.',
       },
     },
     effectCapabilities: Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
@@ -279,7 +282,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'jade-relay',
     descriptorCopy: 'Qwen themes.',
     footerAffiliationCopy: 'Not affiliated with Alibaba Cloud.',
-    capabilityMessage: 'Qwen Code accepts custom theme JSON selected with /theme. Rich effects remain experimental.',
+    capabilityMessage: 'DexThemes exports separate Qwen Code custom-theme JSON files; Qwen has no theme-extension manifest seam.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
     adapterVersion: 'qwen-theme-v1',
     easterEggNamespace: 'qwen',
@@ -287,8 +290,8 @@ export const PLATFORM_REGISTRY = Object.freeze({
       website: {
         mode: PLATFORM_APPLY_MODES.SETUP,
         delivered: true,
-        ctaLabel: 'View Qwen setup',
-        helperText: 'DexThemes will use accessible solid colors unless an effect is proven.',
+        ctaLabel: 'View Qwen export setup',
+        helperText: 'Review a file inside your home directory, then set ui.theme to its path.',
         destination: {
           kind: 'url',
           value: 'https://qwenlm.github.io/qwen-code-docs/en/users/configuration/themes/',
@@ -296,10 +299,12 @@ export const PLATFORM_REGISTRY = Object.freeze({
       },
     },
     effectCapabilities: {
-      gradients: EFFECT_CAPABILITY_STATES.EXPERIMENTAL,
+      gradients: EFFECT_CAPABILITY_STATES.RESTRICTED,
+      lightDarkPairs: EFFECT_CAPABILITY_STATES.RESTRICTED,
     },
     effectNotes: {
-      gradients: 'GradientColors exists in the theme contract, but remains experimental and disabled by default.',
+      gradients: 'GradientColors is documented, but rendering remains bounded to that color array and lacks local runtime proof.',
+      lightDarkPairs: 'Custom dark and light files are separate; Qwen auto mode does not bind a custom pair.',
     },
   }),
   opencode: platform({
@@ -310,7 +315,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'carbon-current',
     descriptorCopy: 'OpenCode themes.',
     footerAffiliationCopy: 'Not affiliated with OpenCode.',
-    capabilityMessage: 'OpenCode accepts JSON themes with solid, ANSI, referenced, and light/dark color values.',
+    capabilityMessage: 'DexThemes exports one OpenCode JSON theme with paired light and dark color values.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
     adapterVersion: 'opencode-theme-v1',
     easterEggNamespace: 'opencode',
@@ -318,8 +323,8 @@ export const PLATFORM_REGISTRY = Object.freeze({
       website: {
         mode: PLATFORM_APPLY_MODES.SETUP,
         delivered: true,
-        ctaLabel: 'View OpenCode setup',
-        helperText: 'Choose the generated theme with OpenCode’s /theme command.',
+        ctaLabel: 'View OpenCode export setup',
+        helperText: 'Place the reviewed JSON in a supported themes folder, then choose it with /theme.',
         destination: {
           kind: 'url',
           value: 'https://opencode.ai/docs/themes/',
@@ -341,9 +346,9 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'copper-loop',
     descriptorCopy: 'Pi themes.',
     footerAffiliationCopy: 'Not affiliated with Pi.',
-    capabilityMessage: 'Pi exposes ctx.ui.setTheme(), but DexThemes has not delivered an installed adapter.',
-    status: PLATFORM_STATUSES.COMING_SOON,
-    adapterVersion: 'pi-theme-candidate-v1',
+    capabilityMessage: 'DexThemes exports a code-free Pi theme package with separate light and dark themes.',
+    status: PLATFORM_STATUSES.EXPERIMENTAL,
+    adapterVersion: 'pi-theme-package-v1',
     easterEggNamespace: 'pi',
     contract: {
       preview: false,
@@ -351,19 +356,23 @@ export const PLATFORM_REGISTRY = Object.freeze({
       prompt: false,
       mcp: false,
       api: false,
-      directApply: true,
-      revert: true,
+      directApply: false,
+      revert: false,
     },
     actions: {
       website: {
-        mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
-        delivered: false,
-        ctaLabel: 'Coming soon',
-        helperText: 'The host contract is proven; the DexThemes package is not delivered.',
+        mode: PLATFORM_APPLY_MODES.SETUP,
+        delivered: true,
+        ctaLabel: 'View Pi package setup',
+        helperText: 'Review or install the code-free package, then select a theme in Pi.',
+        destination: {
+          kind: 'url',
+          value: 'https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/themes.md',
+        },
       },
     },
     effectCapabilities: {
-      alpha: EFFECT_CAPABILITY_STATES.UNKNOWN,
+      alpha: EFFECT_CAPABILITY_STATES.UNSUPPORTED,
     },
   }),
   zed: platform({
@@ -374,7 +383,7 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'razor-mint',
     descriptorCopy: 'Zed themes.',
     footerAffiliationCopy: 'Not affiliated with Zed.',
-    capabilityMessage: 'Zed accepts JSON theme extensions and local light/dark theme families.',
+    capabilityMessage: 'DexThemes exports a local Zed JSON theme family with light and dark entries.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
     adapterVersion: 'zed-theme-v1',
     easterEggNamespace: 'zed',
@@ -382,8 +391,8 @@ export const PLATFORM_REGISTRY = Object.freeze({
       website: {
         mode: PLATFORM_APPLY_MODES.SETUP,
         delivered: true,
-        ctaLabel: 'View Zed setup',
-        helperText: 'Install or load the theme, then select it in Zed.',
+        ctaLabel: 'View Zed export setup',
+        helperText: 'Place the reviewed family JSON in Zed’s local themes folder, then select it.',
         destination: {
           kind: 'url',
           value: 'https://zed.dev/docs/extensions/themes',
@@ -407,28 +416,31 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'kinetic-violet',
     descriptorCopy: 'Cursor themes.',
     footerAffiliationCopy: 'Not affiliated with Anysphere.',
-    capabilityMessage: 'Cursor uses VS Code-compatible themes, but a complete DexThemes runtime bridge is not proven.',
+    capabilityMessage: 'DexThemes can export review-only VS Code color-theme source; Cursor installation and surface coverage remain unproven.',
     status: PLATFORM_STATUSES.EXPERIMENTAL,
-    adapterVersion: 'cursor-vscode-theme-v1',
+    adapterVersion: 'cursor-theme-source-v1',
     easterEggNamespace: 'cursor',
     actions: {
       website: {
         mode: PLATFORM_APPLY_MODES.SETUP,
         delivered: true,
         ctaLabel: 'View Cursor theme docs',
-        helperText: 'Theme coverage may differ across Cursor surfaces.',
+        helperText: 'Published marketplace installation and Cursor runtime coverage are not yet proven.',
         destination: {
           kind: 'url',
-          value: 'https://docs.cursor.com/en/configuration/themes',
+          value: 'https://cursor.com/help/customization/themes',
         },
       },
     },
     effectCapabilities: {
-      alpha: EFFECT_CAPABILITY_STATES.SUPPORTED,
-      shadows: EFFECT_CAPABILITY_STATES.RESTRICTED,
+      alpha: EFFECT_CAPABILITY_STATES.UNKNOWN,
+      shadows: EFFECT_CAPABILITY_STATES.UNKNOWN,
+      lightDarkPairs: EFFECT_CAPABILITY_STATES.RESTRICTED,
     },
     effectNotes: {
-      shadows: 'VS Code-compatible shadow color tokens are supported; arbitrary shadow geometry is not.',
+      alpha: 'Upstream VS Code formats accept alpha, but Cursor-specific rendering is not proven.',
+      shadows: 'Cursor does not document theme shadow tokens or geometry; both remain disabled.',
+      lightDarkPairs: 'Cursor documents independent light/dark selection and OS following, not custom pair binding.',
     },
   }),
   t3code: platform({
@@ -439,26 +451,30 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'magenta-stack',
     descriptorCopy: 'T3 Code themes.',
     footerAffiliationCopy: 'Not affiliated with T3 Tools.',
-    capabilityMessage: 'No supported custom theme application contract is currently documented.',
-    status: PLATFORM_STATUSES.COMING_SOON,
-    adapterVersion: 'unavailable-v1',
+    capabilityMessage: 'DexThemes exports stable v1 JSON; you import it in Settings → Appearance → Themes → Add theme.',
+    status: PLATFORM_STATUSES.EXPERIMENTAL,
+    adapterVersion: 't3-theme-v1',
     easterEggNamespace: 't3code',
-    contract: {
-      preview: false,
-      create: false,
-      prompt: false,
-      mcp: false,
-      api: false,
-    },
     actions: {
       website: {
-        mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
-        delivered: false,
-        ctaLabel: 'Coming soon',
-        helperText: 'No custom theme action is available.',
+        mode: PLATFORM_APPLY_MODES.SETUP,
+        delivered: true,
+        ctaLabel: 'View T3 export setup',
+        helperText: 'Download or copy the JSON, then import it with T3 Code’s Add theme control.',
+        destination: {
+          kind: 'url',
+          value: 'https://github.com/pingdotgg/t3code/blob/c3e37094e04de71accf497c6110c5305223e0090/apps/web/src/components/settings/ThemeSettings.tsx#L849-L927',
+        },
       },
     },
-    effectCapabilities: Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
+    effectCapabilities: {
+      alpha: EFFECT_CAPABILITY_STATES.UNKNOWN,
+      lightDarkPairs: EFFECT_CAPABILITY_STATES.SUPPORTED,
+    },
+    effectNotes: {
+      alpha: 'T3 Code accepts literal CSS colors, but DexThemes emits six-digit solid colors only.',
+      lightDarkPairs: 'The stable v1 variants object can carry the opposite appearance in one user-imported file.',
+    },
   }),
   conductor: platform({
     id: 'conductor',
@@ -497,14 +513,14 @@ export const PLATFORM_REGISTRY = Object.freeze({
     defaultThemeId: 'signal-horizon',
     descriptorCopy: 'Grok Build themes · Limited theme support.',
     footerAffiliationCopy: 'Not affiliated with xAI.',
-    capabilityMessage: 'DexThemes previews the complete palette concept, but Grok Build may use only a limited subset of these colors at runtime.',
-    status: PLATFORM_STATUSES.EXPERIMENTAL,
-    adapterVersion: 'grok-build-limited-preview-v1',
+    capabilityMessage: 'Limited support: DexThemes previews the complete palette and exports only the five documented pager.toml color overrides.',
+    status: PLATFORM_STATUSES.LIMITED,
+    adapterVersion: 'grok-pager-colors-v1',
     easterEggNamespace: 'grok',
     themeSupport: {
       level: PLATFORM_THEME_SUPPORT_LEVELS.LIMITED,
       label: 'Limited theme support',
-      disclosure: 'The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime.',
+      disclosure: 'The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys.',
     },
     contract: {
       create: false,
@@ -516,18 +532,25 @@ export const PLATFORM_REGISTRY = Object.freeze({
     },
     actions: {
       website: {
-        mode: PLATFORM_APPLY_MODES.UNAVAILABLE,
-        delivered: false,
-        ctaLabel: 'Limited support',
-        helperText: 'Preview only; Grok Build does not receive the full DexThemes palette.',
+        mode: PLATFORM_APPLY_MODES.SETUP,
+        delivered: true,
+        ctaLabel: 'View Grok limited color setup',
+        helperText: 'Review and merge one exactly five-key pager.toml snippet manually, then restart Grok Build.',
+        destination: {
+          kind: 'url',
+          value: 'https://github.com/xai-org/grok-build/blob/19d42e35c07a9c9244f03f6df0c4c353f970d4f9/crates/codegen/xai-grok-pager/docs/user-guide/05-configuration.md#appearance',
+        },
       },
     },
     effectCapabilities: {
       ...Object.fromEntries(EFFECT_KEYS.map((key) => [key, EFFECT_CAPABILITY_STATES.UNKNOWN])),
       solid: EFFECT_CAPABILITY_STATES.RESTRICTED,
+      alpha: EFFECT_CAPABILITY_STATES.UNSUPPORTED,
+      lightDarkPairs: EFFECT_CAPABILITY_STATES.RESTRICTED,
     },
     effectNotes: {
-      solid: 'Only limited host color coverage is represented; the complete DexThemes preview is not a runtime payload.',
+      solid: 'Only five documented pager colors are emitted; the complete DexThemes preview is not a runtime payload.',
+      lightDarkPairs: 'Grok Build accepts one active five-color override set; DexThemes exports separate light and dark alternatives.',
     },
   }),
 });

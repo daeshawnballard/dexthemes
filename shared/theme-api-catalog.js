@@ -3337,7 +3337,7 @@ export const STATIC_THEME_CATALOG = [
       "platformId": "grok",
       "level": "limited",
       "label": "Limited theme support",
-      "disclosure": "The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime."
+      "disclosure": "The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys."
     },
     "integrations": {
       "deepseek": {
@@ -3398,7 +3398,7 @@ export const STATIC_THEME_CATALOG = [
       "platformId": "grok",
       "level": "limited",
       "label": "Limited theme support",
-      "disclosure": "The full DexThemes palette is a preview. Grok Build may use only a limited subset of these colors at runtime."
+      "disclosure": "The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys."
     },
     "integrations": {
       "deepseek": {

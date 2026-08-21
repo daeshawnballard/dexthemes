@@ -13,10 +13,12 @@ canonical DexThemes theme
                   |                              |
                   |                              +--> copy/import (Codex)
                   |                              +--> guarded Apply/Revert (installed DeepSeek plugin)
+                  |                              +--> deterministic file/package export
+                  |                              +--> review-only extension source (Cursor)
                   |
                   +--> setup guidance (documented external theme contract)
                   |
-                  +--> disabled Coming soon (no delivered adapter)
+                  +--> disabled Unknown/Coming soon (no stable theme contract)
 ```
 
 The website stores the non-default platform in `?platform=` while keeping canonical theme paths such as `/mancity/dark`. Precedence is explicit URL, then the local `dexthemes-platform` preference, then Codex. An invalid explicit URL value fails safely to Codex rather than silently using a recipient's local preference.
@@ -35,22 +37,24 @@ Codex keeps its existing `codex-theme-v1` clipboard/import handoff and `codex://
 
 ## Compatibility matrix
 
-| Harness | Website action | Native/delivered runtime | Manual + prompt draft | MCP / API | Effect status | Distribution boundary |
-| --- | --- | --- | --- | --- | --- | --- |
-| Codex | Copy for Codex | Copy/import; no direct runtime | Yes / Yes | Yes / Yes | Solid only; one imported variant at a time | Existing website and Codex plugin stay unchanged |
-| DeepSeek Harness | Set up plugin | Direct Apply/Revert in installed plugin | Yes / Yes | Restricted MCP / API | Solid paired colors; no fonts or arbitrary effects | Real npm package; website-to-local control is unsupported |
-| Claude Code | Prepare setup | Custom theme file selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid colors; fixed host token effects are not general motion | External theme/plugin setup remains user-controlled |
-| Google Antigravity | Coming soon | Appearance/custom-theme settings exist, but no public stable schema, import/write path, extension contribution point, or exact reversal contract | Preview collection only | Not proven / DexThemes API | Unknown and disabled; accessible solid preview fallback only | `antigravity` stays preview-only; no exporter, plugin, setup CTA, or article |
-| Qwen Code | Prepare setup | Custom JSON selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid; gradient remains experimental and disabled | External CLI setup |
-| OpenCode | Prepare setup | Local/project JSON selected with `/theme`; no website Apply | Yes / Yes | Yes / DexThemes API | Solid or documented terminal default; no arbitrary effects | External local/project setup |
-| Pi | Coming soon | Host exposes `setTheme`, but no DexThemes package is delivered | Preview drafts only | Not proven / DexThemes API | Solid only | Direct capability is not delivery proof |
-| Zed | Prepare setup | Theme family file/extension; no website Apply | Yes / Yes | Yes / DexThemes API | Solid; bounded alpha and documented window appearance restrictions | External theme/extension setup |
-| Cursor | Prepare setup | VS Code-compatible theme extension; no website Apply | Yes / Yes | Yes / DexThemes API | Solid/alpha; named shadow-color tokens only | Agents-window coverage is unproven |
-| T3 Code | Coming soon | No supported custom-theme contract | Not presented as T3 theme creation | Not proven / DexThemes API | Unknown and disabled | No Apply or fabricated setup destination |
-| Conductor | Coming soon | Built-in light/dark only; no custom-theme contract | Not presented as Conductor theme creation | Not proven / DexThemes API | Unknown and disabled | No Apply or fabricated setup destination |
-| Grok Build | Limited support | Only limited host color coverage is represented; no full-palette runtime payload | Preview collection only | Not proven / DexThemes API | Limited solid support; every other effect and light/dark-pair coverage stays unknown | Full DexThemes palette is explicitly preview-only |
+| Harness | Website action | Delivered DexThemes artifact | Host-owned next step | Effect status | Evidence boundary |
+| --- | --- | --- | --- | --- | --- |
+| Codex | Copy for Codex | Existing `codex-theme-v1` import string | User reviews and imports one variant in Settings → Appearance | Solid only | Existing explicit copy/import contract; no website-host bridge |
+| DeepSeek Harness | Install plugin | Installed Cordis plugin with guarded Apply/Revert | User approves inside Harness | Solid paired colors | Existing loaded-host Apply/Revert proof; website remains setup-only |
+| Claude Code | View export setup | Separate dark/light JSON files | User copies to `~/.claude/themes` and selects with `/theme` | Solid; fixed host token effects are not general motion | Official file contract; loaded runtime not performed |
+| Google Antigravity | Coming soon | Preview-only platform collection; no exporter | None until Google publishes a stable payload/import/restore contract | Unknown and disabled | No setup path, plugin claim, runtime action, or integration article eligibility |
+| Qwen Code | View export setup | Separate dark/light JSON files | User keeps the file under home and selects it by setting `ui.theme` to its path | Solid; documented `GradientColors` remains bounded | Official source/docs; loaded runtime not performed |
+| OpenCode | View export setup | One paired JSON file | User places it in a supported themes folder and selects with `/theme` | Solid; no arbitrary effects | Official source/docs; loaded runtime not performed |
+| Pi | View package setup | Code-free package containing JSON themes only | User reviews/loads or installs the package, then selects a theme | Solid only | Package source/build proof; loaded runtime not performed |
+| Zed | View export setup | Local Theme Family JSON | User places it in Zed’s local themes folder and selects it | Opaque solid output; broader alpha/appearance fields omitted | Official `zed.dev` schema/source; loaded runtime not performed |
+| Cursor | View theme docs | Review-only VS Code extension source | Authorized publisher review and marketplace availability are still required | Cursor-specific effects Unknown and disabled | Docs/source only; installed proof invalid |
+| T3 Code | View export setup | Stable v1 paired JSON without nightly-only fields | User imports via Settings → Appearance → Themes → Add theme | Solid paired variants | First-party source proof; loaded runtime not performed |
+| Conductor | Coming soon | None | None without a supported custom-theme contract | Unknown and disabled | Official docs show no proven custom-theme seam; no integration article eligibility |
+| Grok Build | View limited color setup | Preview pack plus separate light/dark `pager.toml` snippets with exactly five keys | User reviews and manually merges one variant, then restarts | Five solid pager colors only; complete palette stays preview-only | Limited source contract; no mutator or loaded runtime proof |
 
 Unknown, experimental, or undelivered capabilities remain disabled. Every richer treatment has a solid fallback; no adapter emits DOM injection, arbitrary CSS, external images, selectors, executable expressions, or model-generated code.
+
+For new host-export integration articles, eligibility is limited to the eight deterministic export hosts: Claude Code, Qwen Code, OpenCode, Pi, Zed, Cursor source-only, T3 Code, and Grok Build limited snippets. Eligibility does not upgrade source/build proof to installed or loaded-runtime proof.
 
 ## DexThemes AI prompt creation
 
@@ -80,6 +84,6 @@ Never collect prompts, chat contents, workspace contents, source code, credentia
 
 ## Effects evidence boundary
 
-`string` color fields do not imply CSS support. DeepSeek token pairs remain six-digit colors. Zed's alpha/window appearance support is bounded by its schema, Cursor's alpha support remains scoped to VS Code-compatible color tokens, and Qwen gradient examples remain experimental. Antigravity capabilities are unknown and disabled. Grok Build keeps only limited solid support and never treats the complete DexThemes preview as a runtime payload.
+`string` color fields do not imply CSS support. DeepSeek token pairs remain six-digit colors. Qwen's documented `GradientColors` array is bounded to that host field; it is not arbitrary CSS. Zed's wider alpha/window-appearance schema is intentionally reduced to opaque six-digit output here. Cursor-specific effects and every Antigravity capability remain Unknown and disabled. Grok Build emits exactly five solid pager color keys and never treats the complete preview palette as a runtime payload.
 
 The optional `dexthemes-effect-intent-v1` layer is typed preview/preparation data, not CSS and not a promise of delivery. It permits only bounded gradient, alpha, and blur intents over known palette slots, requires solid, high-contrast, and reduced-motion fallbacks, rejects unknown keys and payloads over 2 KB, and resolves through the selected platform registry. Unsupported, unknown, and experimental capabilities deterministically return a solid fallback with an omission reason. Only a future delivered adapter may translate an allowed intent into a host payload.
