@@ -10,7 +10,10 @@ import {
 import { createHarnessThemeController, PLUGIN_VERSION } from './theme-controller.js';
 import { createPluginAnalytics } from './analytics.js';
 import { createHarnessAccountClient } from './account.js';
-import { applyHarnessThemeWithConnectedActivity } from './apply-coordinator.js';
+import {
+  EXPLICIT_USER_THEME_CONFIRMATION,
+  applyHarnessThemeWithConnectedActivity,
+} from './apply-coordinator.js';
 import { copyDeviceUserCode } from './device-code-handoff.js';
 import { createThemeStateStore, normalizeThemeState } from './theme-state.js';
 
@@ -209,7 +212,10 @@ function ThemeDialog({ theme, controller, account, active, capabilityAvailable, 
                   controller,
                   account,
                   theme,
-                  { sourceSurface: 'settings_plugin_preview' },
+                  {
+                    sourceSurface: 'settings_plugin_preview',
+                    confirmation: EXPLICIT_USER_THEME_CONFIRMATION,
+                  },
                 )) onClose();
               }}
             >{capabilityAvailable ? 'Apply to DeepSeek' : 'Theme service unavailable'}</button>}
@@ -474,7 +480,10 @@ export function DexThemesSettings({ controller, account }) {
                       controller,
                       account,
                       theme,
-                      { sourceSurface: 'settings_plugin_card' },
+                      {
+                        sourceSurface: 'settings_plugin_card',
+                        confirmation: EXPLICIT_USER_THEME_CONFIRMATION,
+                      },
                     )}
                   >{capabilityAvailable ? 'Apply' : 'Unavailable'}</button>}
             </div>

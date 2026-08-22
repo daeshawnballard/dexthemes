@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  COMMUNITY_CATALOG_LIMITS,
   colorMeLucky,
   draftTheme,
   getUnlockedThemeDetails,
+  loadThemeCatalog,
   prepareGitHubIssue,
   prepareDeepSeekThemeApply,
   prepareThemeApply,
+  resetThemeCatalogCacheForTests,
   validateTheme,
 } from '../server/theme-tools.js';
 
@@ -204,4 +207,61 @@ test('validateTheme rejects every reserved static theme ID', () => {
   const result = validateTheme(theme);
   assert.equal(result.valid, false);
   assert.match(result.errors.join(' '), /reserved/i);
+});
+
+test('remote community catalog enforces response, entry, pagination, and timeout bounds', async (t) => {
+  const originalFetch = globalThis.fetch;
+  t.after(() => {
+    globalThis.fetch = originalFetch;
+    resetThemeCatalogCacheForTests();
+  });
+
+  let observedSignal;
+  globalThis.fetch = async (_url, init) => {
+    observedSignal = init.signal;
+    return Response.json([{
+      id: 'oversize-entry',
+      name: 'Oversize entry',
+      summary: 'x'.repeat(COMMUNITY_CATALOG_LIMITS.maxEntryBytes),
+    }]);
+  };
+  resetThemeCatalogCacheForTests();
+  const entryBounded = await loadThemeCatalog();
+  assert.ok(observedSignal instanceof AbortSignal);
+  assert.equal(entryBounded.some((theme) => theme.id === 'oversize-entry'), false);
+
+  globalThis.fetch = async () => new Response(
+    JSON.stringify([{ id: 'oversize-response', blob: 'x'.repeat(COMMUNITY_CATALOG_LIMITS.maxResponseBytes) }]),
+    { headers: { 'content-type': 'application/json' } },
+  );
+  resetThemeCatalogCacheForTests();
+  const responseBounded = await loadThemeCatalog();
+  assert.equal(responseBounded.some((theme) => theme.id === 'oversize-response'), false);
+
+  globalThis.fetch = async () => Response.json(Array.from(
+    { length: COMMUNITY_CATALOG_LIMITS.maxEntries + 25 },
+    (_, index) => ({ id: `bounded-entry-${index}`, name: `Bounded entry ${index}` }),
+  ));
+  resetThemeCatalogCacheForTests();
+  const entryCountBounded = await loadThemeCatalog();
+  assert.equal(
+    entryCountBounded.filter((theme) => String(theme.id || '').startsWith('bounded-entry-')).length,
+    COMMUNITY_CATALOG_LIMITS.maxEntries,
+  );
+
+  let pageCalls = 0;
+  globalThis.fetch = async () => {
+    pageCalls += 1;
+    return Response.json({
+      themes: [{ id: `bounded-page-${pageCalls}`, name: `Bounded page ${pageCalls}` }],
+      nextCursor: `cursor-${pageCalls}`,
+    });
+  };
+  resetThemeCatalogCacheForTests();
+  const paginated = await loadThemeCatalog();
+  assert.equal(pageCalls, COMMUNITY_CATALOG_LIMITS.maxPages);
+  assert.equal(
+    paginated.filter((theme) => String(theme.id || '').startsWith('bounded-page-')).length,
+    COMMUNITY_CATALOG_LIMITS.maxPages,
+  );
 });

@@ -4,7 +4,7 @@
     <loc>https://www.dexthemes.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/privacy.html</loc>
@@ -28,7 +28,7 @@
     <loc>https://www.dexthemes.com/guides</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/guides/change-codex-font-size</loc>
@@ -148,7 +148,7 @@
     <loc>https://www.dexthemes.com/features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/features/codex-theme-import</loc>
@@ -232,7 +232,7 @@
     <loc>https://www.dexthemes.com/articles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/best-codex-cli-themes</loc>
@@ -262,7 +262,7 @@
     <loc>https://www.dexthemes.com/articles/claude-code-custom-theme-export</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/codex-native-themes-vs-third-party-skins</loc>
@@ -274,7 +274,7 @@
     <loc>https://www.dexthemes.com/articles/cursor-review-only-theme-source</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/designing-colors-for-code-review-and-diffs</loc>
@@ -287,6 +287,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2026-08-21</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dexthemes.com/articles/dexthemes-harness-integration-status</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/github-dark-vs-one-dark-vs-dracula-for-codex</loc>
@@ -310,25 +316,25 @@
     <loc>https://www.dexthemes.com/articles/opencode-paired-theme-export</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/pi-code-free-theme-package</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/qwen-code-custom-theme-export</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/t3-code-v1-theme-import</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/articles/what-makes-a-good-codex-theme</loc>
@@ -346,7 +352,7 @@
     <loc>https://www.dexthemes.com/reference</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/reference/codex-theme-format</loc>
@@ -358,31 +364,31 @@
     <loc>https://www.dexthemes.com/collections</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/dark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/light</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/editor-classics</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/collections/community</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.dexthemes.com/codex/dark</loc>

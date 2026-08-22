@@ -1,0 +1,96 @@
+{
+  "$schema": "vscode://schemas/color-theme",
+  "name": "DexThemes Nocturnal Vigil Dark",
+  "type": "dark",
+  "colors": {
+    "activityBar.background": "#060A10",
+    "activityBar.foreground": "#E5E7EB",
+    "activityBar.inactiveForeground": "#6B7280",
+    "activityBarBadge.background": "#FACC15",
+    "activityBarBadge.foreground": "#111827",
+    "button.background": "#FACC15",
+    "button.foreground": "#111827",
+    "button.hoverBackground": "#EAB308",
+    "diffEditor.insertedTextBackground": "#34D39933",
+    "diffEditor.removedTextBackground": "#F8717133",
+    "editor.background": "#01050B",
+    "editor.foreground": "#E5E7EB",
+    "editor.selectionBackground": "#FACC154D",
+    "editorCursor.foreground": "#FACC15",
+    "editorGroupHeader.tabsBackground": "#060A10",
+    "editorLineNumber.activeForeground": "#E5E7EB",
+    "editorLineNumber.foreground": "#6B7280",
+    "focusBorder": "#FACC15",
+    "input.background": "#0D1117",
+    "input.border": "#6B7280",
+    "input.foreground": "#E5E7EB",
+    "list.activeSelectionBackground": "#FACC154D",
+    "list.activeSelectionForeground": "#E5E7EB",
+    "panel.background": "#0D1117",
+    "panel.border": "#6B7280",
+    "sideBar.background": "#060A10",
+    "sideBar.foreground": "#E5E7EB",
+    "statusBar.background": "#FACC15",
+    "statusBar.foreground": "#111827",
+    "tab.activeBackground": "#01050B",
+    "tab.activeForeground": "#E5E7EB",
+    "tab.inactiveBackground": "#060A10",
+    "tab.inactiveForeground": "#6B7280",
+    "titleBar.activeBackground": "#0D1117",
+    "titleBar.activeForeground": "#E5E7EB"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#6B7280"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage.type"
+      ],
+      "settings": {
+        "foreground": "#FACC15"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function"
+      ],
+      "settings": {
+        "foreground": "#9CA3AF"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#34D399"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric"
+      ],
+      "settings": {
+        "foreground": "#F87171"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "identifier"
+      ],
+      "settings": {
+        "foreground": "#E5E7EB"
+      }
+    }
+  ]
+}

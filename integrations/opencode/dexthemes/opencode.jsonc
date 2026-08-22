@@ -1,0 +1,9 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "dexthemes": {
+      "type": "remote",
+      "url": "https://www.dexthemes.com/api/mcp?profile=cursor_discovery"
+    }
+  }
+}

@@ -10,11 +10,12 @@ import {
   PLATFORM_ADAPTER_RESULT_KINDS,
   preparePlatformTheme,
 } from '../shared/platform-adapters.js';
+import { getPlatformIdsForAdapterDerivation } from '../shared/platform-registry.js';
 import { isSafeExportPath } from '../shared/host-theme-utils.js';
 
-export const HOST_EXPORT_PLATFORM_IDS = Object.freeze([
-  'claude', 'qwen', 'opencode', 'pi', 'zed', 'cursor', 't3code', 'grok',
-]);
+// The export roster is a registry projection, never a second hand-maintained
+// list. The registry also records why non-exporting hosts remain excluded.
+export const HOST_EXPORT_PLATFORM_IDS = getPlatformIdsForAdapterDerivation('hostExport');
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(moduleDirectory, '..');

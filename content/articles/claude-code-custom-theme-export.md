@@ -8,8 +8,8 @@ answer: DexThemes exports a paired set of Claude Code custom-theme JSON files. C
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
-dateModified: 2026-08-21
-testedWith: Deterministic Claude export and schema checks reviewed 2026-08-21; no installed Claude Code session was exercised
+dateModified: 2026-08-22
+testedWith: Loaded Claude Code theme mutation and exact restoration plus deterministic export checks reviewed 2026-08-22; MCP inventory and real call remain unproved
 related: /articles/how-we-test-codex-themes, /guides/how-to-install-a-codex-theme, /reference/codex-theme-format
 ---
 
@@ -29,8 +29,10 @@ If you switch appearances later, choose the other exported file through the same
 
 ## What this proves and what it does not
 
-The current evidence is deterministic source/build proof: paired JSON files are generated and checked against the reviewed contract. It is useful proof that the export is shaped as expected. It is not proof that a particular installed Claude Code release discovers the files, renders every token, or preserves the choice after an update.
+The current evidence now includes a loaded Claude Code theme mutation and exact restoration of the prior appearance. That earns the mutation half of the strict harness rubric. Deterministic source and schema checks still establish that the paired JSON files have the reviewed shape, but those checks do not add runtime points.
 
-No installed Claude Code interaction was performed for this release candidate. There is also no claim of automatic installation, automatic light/dark pairing, marketplace delivery, or direct application from the DexThemes website. Treat the export as a reviewable starting point, then verify the result in your own Claude Code environment.
+Claude Code remains outside the normal DexThemes selector because its MCP half is incomplete: the exact intended DexThemes inventory and a real tool call were not proved in the loaded host. Reaching 100/100 requires Claude Code's supported MCP authentication followed by a retained loaded inventory and completed call receipt. This article does not invent a particular OAuth failure where none was observed.
+
+There is still no claim of automatic installation, automatic light/dark pairing, marketplace delivery, or direct application from the DexThemes website. Treat the export as a reviewable, host-controlled artifact and keep Claude Code's own selection and restoration controls authoritative.
 
 For the general distinction between a copied artifact and a loaded theme, see [How We Test Codex Themes](/articles/how-we-test-codex-themes). DexThemes is independent and not affiliated with Anthropic.

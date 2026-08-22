@@ -70,9 +70,9 @@ const STATIC_PAGE_CARDS = Object.freeze({
     accent: '#f4b942',
   },
   support: {
-    label: 'Support',
-    title: 'Get help with DexThemes',
-    description: 'Report a bug, request a feature, or find the right path for product and account support.',
+    label: 'Integration status',
+    title: 'DexThemes Integration Status',
+    description: 'See the loaded MCP, theme-change, and exact-restore evidence behind every tracked harness.',
     accent: '#47adff',
   },
 });

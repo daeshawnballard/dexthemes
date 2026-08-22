@@ -1,0 +1,16 @@
+{
+  "name": "dexthemes-pi-connector",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-review Pi extension for the fail-closed DexThemes discovery MCP profile.",
+  "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "pi": {
+    "extensions": [
+      "./extensions/dexthemes-mcp.js"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { DEFAULT_PLATFORM_ID, normalizePlatformId } from '../shared/platform-registry.js';
+import { DEFAULT_PLATFORM_ID, normalizeWebsitePlatformId } from '../shared/platform-registry.js';
 
 export function resolveSelectedPlatformId({
   urlPlatformId,
@@ -6,7 +6,7 @@ export function resolveSelectedPlatformId({
   storedPlatformId,
 } = {}) {
   if (hasUrlPlatform) {
-    return normalizePlatformId(urlPlatformId) || DEFAULT_PLATFORM_ID;
+    return normalizeWebsitePlatformId(urlPlatformId);
   }
-  return normalizePlatformId(storedPlatformId) || DEFAULT_PLATFORM_ID;
+  return normalizeWebsitePlatformId(storedPlatformId);
 }

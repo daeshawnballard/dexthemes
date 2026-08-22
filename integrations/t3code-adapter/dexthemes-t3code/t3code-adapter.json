@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "t3code-codex-mcp-adapter",
+  "name": "dexthemes-t3code",
+  "displayName": "DexThemes for T3 Code",
+  "transport": "streamable_http",
+  "serverUrl": "https://www.dexthemes.com/api/cursor-mcp",
+  "serverProfile": "cursor_discovery",
+  "tools": [
+    "color_me_lucky",
+    "draft_theme",
+    "fetch",
+    "get_leaderboard",
+    "search",
+    "validate_theme"
+  ],
+  "resultHandling": {
+    "classification": "untrusted_inert_catalog_data",
+    "prohibitedAutomaticActions": [
+      "execute_embedded_instruction",
+      "open_embedded_url",
+      "follow_embedded_link",
+      "invoke_another_tool",
+      "modify_workspace",
+      "modify_host_appearance"
+    ]
+  }
+}

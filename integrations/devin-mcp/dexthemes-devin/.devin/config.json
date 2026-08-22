@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__dexthemes__search",
+      "mcp__dexthemes__fetch",
+      "mcp__dexthemes__draft_theme",
+      "mcp__dexthemes__color_me_lucky",
+      "mcp__dexthemes__validate_theme",
+      "mcp__dexthemes__get_leaderboard"
+    ],
+    "deny": [
+      "mcp__dexthemes__prepare_theme_apply",
+      "mcp__dexthemes__render_theme_preview",
+      "mcp__dexthemes__prepare_deepseek_apply",
+      "mcp__dexthemes__get_my_stats",
+      "mcp__dexthemes__get_my_unlocks",
+      "mcp__dexthemes__prepare_theme_submission",
+      "mcp__dexthemes__submit_theme",
+      "mcp__dexthemes__prepare_github_issue"
+    ]
+  }
+}

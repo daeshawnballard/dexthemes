@@ -8,8 +8,8 @@ answer: DexThemes exports a private Pi package containing only its manifest and 
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
-dateModified: 2026-08-21
-testedWith: Deterministic Pi package and JSON schema checks reviewed 2026-08-21; no installed Pi session was exercised
+dateModified: 2026-08-22
+testedWith: Pi 0.73.1 exact six-tool call, sanitized error path, visible adapter-test-dark selection, and built-in dark restoration reviewed 2026-08-22
 related: /articles/opencode-paired-theme-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
 ---
 
@@ -27,10 +27,12 @@ After reviewing the export directory, you can load it temporarily with `pi -e PA
 
 Keep a known-good Pi setup before changing anything. If the package is not a fit, use Pi’s own package and theme controls to remove or stop selecting it. No DexThemes automatic revert is provided.
 
-## Evidence, without a runtime overclaim
+## Loaded evidence, without a delivery overclaim
 
-The current proof is deterministic build and contract validation: the package manifest is limited to the code-free shape, both JSON files validate, and unsafe or unsupported package fields are rejected. It does not prove package discovery, installed behavior, or a loaded appearance in Pi.
+Pi 0.73.1 loaded the code-free theme package and the separate remediated MCP extension in an isolated profile. It registered the exact six-tool inventory, sanitized a real server error, and then completed a real search whose model-visible result retained only bounded identifiers. In that same profile, `adapter-test-dark` visibly applied and Pi's built-in `dark` theme was visibly restored.
 
-No Pi runtime was opened for this release candidate. The export should therefore be read as a reviewable artifact, not an installed integration. Verify the package against your own Pi version before relying on it.
+The connector requires `openWorldHint: true` exactly for `search`, `fetch`, and `get_leaderboard`, and `false` exactly for `draft_theme`, `color_me_lucky`, and `validate_theme`. Missing, wrong, added, or drifting metadata fails closed. The package manifest and theme schemas also remain deterministically checked.
+
+This loaded evidence supports Pi's 100/100 selector status. It is not npm publication, gallery submission, deployment, or permission to change a user's normal Pi profile. Setup and removal remain explicit user actions through Pi's supported package and theme controls.
 
 The same source-versus-runtime distinction is explained in [How We Test Codex Themes](/articles/how-we-test-codex-themes). DexThemes is independent and not affiliated with Pi.

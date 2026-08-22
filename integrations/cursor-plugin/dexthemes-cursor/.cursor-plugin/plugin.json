@@ -1,0 +1,15 @@
+{
+  "name": "dexthemes-cursor",
+  "version": "1.0.0",
+  "description": "Browse, draft, validate, and compare DexThemes through the remote DexThemes MCP server.",
+  "author": {
+    "name": "Daeshawn Ballard",
+    "url": "https://github.com/daeshawnballard"
+  },
+  "homepage": "https://www.dexthemes.com/",
+  "repository": "https://github.com/daeshawnballard/dexthemes",
+  "license": "MIT",
+  "keywords": ["themes", "mcp", "design", "cursor"],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}

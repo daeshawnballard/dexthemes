@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "dexthemes-devin-connector-v1",
+  "status": "experimental",
+  "host": "devin-cli",
+  "officialSurface": "project-mcp-config",
+  "mcpConfig": ".devin/mcp_config.json",
+  "skill": ".devin/skills/dexthemes-connector/SKILL.md",
+  "endpoint": "https://www.dexthemes.com/api/cursor-mcp",
+  "tools": [
+    "search",
+    "fetch",
+    "draft_theme",
+    "color_me_lucky",
+    "validate_theme",
+    "get_leaderboard"
+  ],
+  "rubric": {
+    "mcp": {
+      "points": 50,
+      "status": "implemented"
+    },
+    "mutationRestore": {
+      "points": 50,
+      "status": "unavailable"
+    },
+    "ceiling": 50
+  },
+  "evidence": {
+    "packageSource": "available",
+    "loadedDevinRuntime": "unproven",
+    "hostAppearanceMutation": "unavailable"
+  }
+}

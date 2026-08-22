@@ -14,6 +14,14 @@
       "destination": "/api/mcp?profile=deepseek_harness"
     },
     {
+      "source": "/api/cursor-mcp",
+      "destination": "/api/mcp?profile=cursor_discovery"
+    },
+    {
+      "source": "/api/antigravity-mcp",
+      "destination": "/api/mcp?profile=antigravity_preview"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
     },

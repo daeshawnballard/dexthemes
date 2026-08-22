@@ -36,7 +36,13 @@ import {
   buildGrokPagerThemeExport,
   validateGrokPagerThemeExport,
 } from './grok-pager-theme-contract.js';
-import { getPlatform, normalizePlatformId } from './platform-registry.js';
+import {
+  PLATFORM_ADAPTER_CAPABILITIES,
+  PLATFORM_ADAPTER_DISPOSITIONS,
+  PLATFORM_REGISTRY,
+  getPlatform,
+  normalizePlatformId,
+} from './platform-registry.js';
 
 export const PLATFORM_ADAPTER_RESULT_KINDS = Object.freeze({
   COPY_IMPORT: 'copy_import',
@@ -49,10 +55,29 @@ export const PLATFORM_ADAPTER_RESULT_KINDS = Object.freeze({
 });
 
 export class PlatformAdapterUnavailableError extends Error {
-  constructor(platformId, message) {
+  constructor(platformId, message, { reason = 'unrecognized_platform' } = {}) {
     super(message);
     this.name = 'PlatformAdapterUnavailableError';
     this.code = 'platform_adapter_unavailable';
+    this.platformId = platformId;
+    this.reason = reason;
+  }
+}
+
+export class PlatformAdapterImplementationMissingError extends Error {
+  constructor(platformId) {
+    super(`The ${platformId} adapter is declared implemented but has no callable implementation.`);
+    this.name = 'PlatformAdapterImplementationMissingError';
+    this.code = 'platform_adapter_implementation_missing';
+    this.platformId = platformId;
+  }
+}
+
+export class PlatformAdapterContractViolationError extends Error {
+  constructor(platformId, message) {
+    super(message);
+    this.name = 'PlatformAdapterContractViolationError';
+    this.code = 'platform_adapter_contract_violation';
     this.platformId = platformId;
   }
 }
@@ -183,38 +208,125 @@ const IMPLEMENTED_ADAPTERS = Object.freeze({
   }),
 });
 
-export function getPlatformAdapter(platformId) {
+function getDeclaredPlatform(platformId, registry) {
   const normalizedPlatformId = normalizePlatformId(platformId);
-  return normalizedPlatformId ? IMPLEMENTED_ADAPTERS[normalizedPlatformId] || null : null;
+  return normalizedPlatformId ? registry[normalizedPlatformId] || null : null;
 }
 
-export function preparePlatformTheme(theme, platformId = 'codex', options = {}) {
+function implementationState(contract, implementation) {
+  if (contract.disposition === PLATFORM_ADAPTER_DISPOSITIONS.UNAVAILABLE) return 'not_required';
+  return implementation ? 'present' : 'missing';
+}
+
+export function getPlatformAdapter(platformId, {
+  registry = PLATFORM_REGISTRY,
+  implementations = IMPLEMENTED_ADAPTERS,
+} = {}) {
+  const platform = getDeclaredPlatform(platformId, registry);
+  if (!platform) return null;
+  const implementation = implementations[platform.id] || null;
+  return Object.freeze({
+    platformId: platform.id,
+    adapterVersion: platform.adapterVersion,
+    ...platform.adapter,
+    implementationState: implementationState(platform.adapter, implementation),
+    ...(implementation || {}),
+  });
+}
+
+const RESULT_KINDS_BY_CAPABILITY = Object.freeze({
+  [PLATFORM_ADAPTER_CAPABILITIES.COPY_IMPORT]: Object.freeze([PLATFORM_ADAPTER_RESULT_KINDS.COPY_IMPORT]),
+  [PLATFORM_ADAPTER_CAPABILITIES.NATIVE_DIRECT_APPLY]: Object.freeze([PLATFORM_ADAPTER_RESULT_KINDS.DIRECT_PAYLOAD]),
+  [PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT]: Object.freeze([
+    PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT,
+    PLATFORM_ADAPTER_RESULT_KINDS.PACKAGE_EXPORT,
+  ]),
+  [PLATFORM_ADAPTER_CAPABILITIES.REVIEW_ONLY_SOURCE]: Object.freeze([PLATFORM_ADAPTER_RESULT_KINDS.PACKAGE_SOURCE]),
+  [PLATFORM_ADAPTER_CAPABILITIES.LIMITED_EXPORT]: Object.freeze([PLATFORM_ADAPTER_RESULT_KINDS.FILE_EXPORT]),
+});
+
+function assertPreparedResultMatchesContract(platform, adapter, prepared) {
+  const expectedKinds = RESULT_KINDS_BY_CAPABILITY[adapter.capability] || [];
+  if (!expectedKinds.includes(prepared?.kind)) {
+    throw new PlatformAdapterContractViolationError(
+      platform.id,
+      `${platform.displayName} produced ${prepared?.kind || 'no result'}, which contradicts its ${adapter.capability} adapter contract.`,
+    );
+  }
+  if (adapter.verification.writesHostConfig === false && prepared?.setup?.writesHostConfig === true) {
+    throw new PlatformAdapterContractViolationError(
+      platform.id,
+      `${platform.displayName} adapter contract forbids host config writes.`,
+    );
+  }
+  if (adapter.capability === PLATFORM_ADAPTER_CAPABILITIES.NATIVE_DIRECT_APPLY) {
+    if (!platform.contract.directApply || !platform.contract.revert || prepared.reversible !== true) {
+      throw new PlatformAdapterContractViolationError(
+        platform.id,
+        `${platform.displayName} direct adapter requires the declared native Apply/Revert contract.`,
+      );
+    }
+  }
+  if (adapter.capability === PLATFORM_ADAPTER_CAPABILITIES.REVIEW_ONLY_SOURCE
+    && prepared.deliveryState !== 'review_only_source') {
+    throw new PlatformAdapterContractViolationError(platform.id, 'Cursor must remain review-only source.');
+  }
+  if (adapter.capability === PLATFORM_ADAPTER_CAPABILITIES.LIMITED_EXPORT
+    && prepared.deliveryState !== 'limited_export') {
+    throw new PlatformAdapterContractViolationError(platform.id, 'Grok Build must remain a limited export.');
+  }
+  return prepared;
+}
+
+export function validatePlatformAdapterImplementations(
+  registry = PLATFORM_REGISTRY,
+  implementations = IMPLEMENTED_ADAPTERS,
+) {
+  const errors = [];
+  for (const [platformId, platform] of Object.entries(registry)) {
+    const implementation = implementations[platformId];
+    if (platform.adapter?.disposition === PLATFORM_ADAPTER_DISPOSITIONS.IMPLEMENTED && !implementation) {
+      errors.push(`${platformId}: declared implemented adapter is missing its callable implementation.`);
+    }
+    if (platform.adapter?.disposition === PLATFORM_ADAPTER_DISPOSITIONS.UNAVAILABLE && implementation) {
+      errors.push(`${platformId}: declared unavailable adapter must not expose a callable implementation.`);
+    }
+    if (implementation && implementation.platformId !== platformId) {
+      errors.push(`${platformId}: callable adapter platform id mismatch.`);
+    }
+  }
+  return freezeResult({ valid: errors.length === 0, errors: Object.freeze(errors) });
+}
+
+export function preparePlatformTheme(theme, platformId = 'codex', options = {}, dependencies = {}) {
   const normalizedPlatformId = normalizePlatformId(platformId);
   if (!normalizedPlatformId) {
     throw new PlatformAdapterUnavailableError(
       String(platformId ?? ''),
       'The requested platform id is not recognized.',
+      { reason: 'unrecognized_platform' },
     );
   }
-  const platform = getPlatform(normalizedPlatformId);
-  const adapter = getPlatformAdapter(platform.id);
-  if (adapter) return adapter.prepare(theme, options);
-
-  const action = platform.actions?.website;
-  if (action?.mode === 'setup' && action.delivered) {
-    return freezeResult({
-      kind: PLATFORM_ADAPTER_RESULT_KINDS.SETUP_REQUIRED,
-      platformId: platform.id,
-      adapterVersion: platform.adapterVersion,
-      payload: null,
-      destination: action.destination || null,
-      reversible: false,
-      unsupportedFields: Object.freeze(['directApply', 'effects']),
-    });
+  const registry = dependencies.registry || PLATFORM_REGISTRY;
+  const implementations = dependencies.implementations || IMPLEMENTED_ADAPTERS;
+  const platform = getDeclaredPlatform(normalizedPlatformId, registry);
+  if (!platform) {
+    throw new PlatformAdapterUnavailableError(
+      normalizedPlatformId,
+      'The requested platform is not declared in this adapter registry.',
+      { reason: 'undeclared_platform' },
+    );
   }
-
-  throw new PlatformAdapterUnavailableError(
-    platform.id,
-    `${platform.displayName} does not have a delivered DexThemes adapter on this surface.`,
-  );
+  const adapter = getPlatformAdapter(platform.id, { registry, implementations });
+  if (adapter.disposition === PLATFORM_ADAPTER_DISPOSITIONS.UNAVAILABLE) {
+    throw new PlatformAdapterUnavailableError(
+      platform.id,
+      `${platform.displayName} is intentionally unavailable; no DexThemes adapter is declared for this host.`,
+      { reason: 'declared_unavailable' },
+    );
+  }
+  if (adapter.implementationState !== 'present' || typeof adapter.prepare !== 'function') {
+    throw new PlatformAdapterImplementationMissingError(platform.id);
+  }
+  return assertPreparedResultMatchesContract(platform, adapter, adapter.prepare(theme, options));
 }
