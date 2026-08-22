@@ -1,0 +1,31 @@
+{
+  "id": "adapter-test",
+  "name": "Adapter Test",
+  "summary": "A paired fixture used to verify deterministic host theme exports.",
+  "codeThemeId": "codex",
+  "accents": [
+    "#7C5CFC"
+  ],
+  "dark": {
+    "surface": "#11131A",
+    "ink": "#F3F5FA",
+    "accent": "#7C5CFC",
+    "contrast": 60,
+    "sidebar": "#0D0F15",
+    "codeBg": "#090B10",
+    "diffAdded": "#49C97A",
+    "diffRemoved": "#FF5B65",
+    "skill": "#F3B65A"
+  },
+  "light": {
+    "surface": "#F8F9FC",
+    "ink": "#171922",
+    "accent": "#6545E8",
+    "contrast": 45,
+    "sidebar": "#EEF0F6",
+    "codeBg": "#E8EAF1",
+    "diffAdded": "#177A43",
+    "diffRemoved": "#C4293A",
+    "skill": "#8A5800"
+  }
+}

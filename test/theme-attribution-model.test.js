@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { getThemeAttribution } from '../src/theme-attribution-model.js';
+import { getThemeAttribution, getThemeProvenance } from '../src/theme-attribution-model.js';
 
 test('community themes expose reportable author attribution', () => {
   assert.deepEqual(getThemeAttribution({
@@ -52,4 +52,19 @@ test('official themes resolve to Codex attribution', () => {
 
 test('themes without supported attribution return null', () => {
   assert.equal(getThemeAttribution({ category: 'misc' }), null);
+});
+
+test('inspiration is a separate secondary model and does not replace author attribution', () => {
+  const theme = {
+    category: 'dexthemes',
+    provenance: { kind: 'unofficial_inspiration', inspiredBy: 'Liger Zero' },
+  };
+  assert.equal(getThemeAttribution(theme).label, 'DexThemes');
+  assert.deepEqual(getThemeProvenance(theme), {
+    kind: 'unofficial_inspiration',
+    inspiredBy: 'Liger Zero',
+    label: 'Inspired by Liger Zero',
+    disclosure: 'Unofficial inspiration · No affiliation or endorsement.',
+  });
+  assert.equal(getThemeProvenance({ category: 'dexthemes' }), null);
 });

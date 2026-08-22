@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
+import { getPreviewExamples } from '../src/preview-examples.js';
 
 const storage = new Map();
 globalThis.localStorage = {
@@ -40,6 +41,29 @@ test('platform preview copy is derived from the shared registry', () => {
   assert.match(deepseek.capability, /Apply and Revert inside Harness/);
 });
 
+test('preview-only and limited platform copy keep their distinct handoff boundaries', () => {
+  const antigravity = getPlatformPreviewCopy('antigravity');
+  const grok = getPlatformPreviewCopy('grok');
+
+  assert.match(antigravity.metaDescription, /does not claim a supported Antigravity handoff/i);
+  assert.doesNotMatch(antigravity.metaDescription, /before using the supported/i);
+  assert.equal(antigravity.inputAriaLabel, 'Preview an Antigravity prompt');
+  assert.match(grok.metaDescription, /limited theme support/i);
+  assert.doesNotMatch(grok.metaDescription, /before using the supported/i);
+
+  for (const platformId of ['antigravity', 'grok']) {
+    const examples = JSON.stringify(getPreviewExamples(platformId));
+    assert.doesNotMatch(examples, /supported setup|finish the handoff|preview before setup|supported handoff only/i);
+    assert.match(examples, /preview/i);
+  }
+
+  assert.match(JSON.stringify(getPreviewExamples('antigravity')), /No supported Google Antigravity theme handoff/i);
+  assert.match(
+    JSON.stringify(getPreviewExamples('grok')),
+    /exports only the five documented pager\.toml color overrides/i,
+  );
+});
+
 test('contextual theme paths preserve Codex defaults and carry non-default platforms', () => {
   assert.equal(buildContextualThemePath('mancity', 'light', 'codex'), '/mancity/light');
   assert.equal(
@@ -48,14 +72,15 @@ test('contextual theme paths preserve Codex defaults and carry non-default platf
   );
 });
 
-test('website actions keep DeepSeek on setup and unsupported platforms disabled', () => {
+test('website actions keep DeepSeek on setup and Unknown platforms disabled', () => {
   const deepseek = getWebsitePlatformAction('deepseek');
-  const t3code = getWebsitePlatformAction('t3code');
+  const antigravity = getWebsitePlatformAction('antigravity');
 
   assert.equal(deepseek.mode, 'setup');
   assert.match(deepseek.destination.value, /npmjs\.com/);
-  assert.equal(t3code.mode, 'unavailable');
-  assert.equal(t3code.delivered, false);
+  assert.equal(antigravity.mode, 'unavailable');
+  assert.equal(antigravity.delivered, false);
+  assert.equal(antigravity.destination, undefined);
 });
 
 test('opening platform setup is attributed as setup, never as an Apply attempt', async () => {

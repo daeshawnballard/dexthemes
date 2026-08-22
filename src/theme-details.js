@@ -2,10 +2,13 @@ import * as state from './state.js';
 import { escapeHtml, safeHexColor } from './utils.js';
 import { isThemeLockedForUser } from './unlocks.js';
 import { getWebsiteThemeId } from '../shared/plugin-public-policy.js';
+import { getThemeProvenancePresentation } from '../shared/theme-provenance.js';
 import { buildThemePath } from './theme-url.js';
 import { trackEvent } from './analytics-client.js';
 import { PLATFORM_APPLY_MODES } from '../shared/platform-registry.js';
 import { getWebsitePlatformAction } from './platform-context.js';
+import { getPlatformIdForThemeCategory } from './platform-catalog.js';
+import { getPlatform } from '../shared/platform-registry.js';
 import { trackPlatformEvent } from './platform-analytics.js';
 
 const COLOR_ROWS = [
@@ -51,6 +54,17 @@ function getSourceCopy(theme) {
       label: 'DeepSeek collection',
       detail: 'Unofficial DeepSeek-inspired palette',
       answer: 'An unofficial color tribute in the DeepSeek collection. No partnership or endorsement is implied.',
+    };
+  }
+  const collectionPlatformId = getPlatformIdForThemeCategory(theme.category);
+  if (collectionPlatformId && collectionPlatformId !== 'codex') {
+    const collectionPlatform = getPlatform(collectionPlatformId);
+    return {
+      label: `${collectionPlatform.shortName} collection`,
+      detail: 'Curated by DexThemes',
+      answer: `An original, unofficial DexThemes palette grouped for ${collectionPlatform.displayName}. No partnership or endorsement is implied.${collectionPlatform.themeSupport ? ` ${collectionPlatform.themeSupport.disclosure}` : ''}`,
+      supportLabel: collectionPlatform.themeSupport?.label || null,
+      supportDisclosure: collectionPlatform.themeSupport?.disclosure || null,
     };
   }
   return {
@@ -150,6 +164,7 @@ export function renderThemeDetails() {
     || theme._summary
     || `${theme.name} pairs ${variant.surface} surfaces with ${accent} accents for a focused ${platform.shortName} preview.`,
   ).trim();
+  const provenance = getThemeProvenancePresentation(theme);
   const normalizedPalette = { ...variant, accent };
 
   container.innerHTML = `
@@ -158,6 +173,13 @@ export function renderThemeDetails() {
         <div>
           <p class="theme-details-eyebrow">${escapeHtml(source.label)} · ${escapeHtml(state.selectedVariant)} variant</p>
           <h2>${escapeHtml(theme.name)}</h2>
+          ${provenance ? `
+            <aside class="theme-details-provenance" aria-label="Creative provenance">
+              <span>Creative provenance</span>
+              <strong>${escapeHtml(provenance.label)}</strong>
+              <small>${escapeHtml(provenance.disclosure)}</small>
+            </aside>
+          ` : ''}
           <p class="theme-details-summary">${escapeHtml(summary)}</p>
         </div>
         <div class="theme-details-actions">
@@ -198,6 +220,7 @@ export function renderThemeDetails() {
           <div><dt>Available</dt><dd>${escapeHtml(availableVariants.join(' + '))}</dd></div>
           <div><dt>Preview for</dt><dd>${escapeHtml(platform.displayName)}</dd></div>
           <div><dt>Handoff</dt><dd>${escapeHtml(handoff.fact)}</dd></div>
+          ${source.supportLabel ? `<div><dt>Theme support</dt><dd>${escapeHtml(source.supportLabel)} · ${escapeHtml(source.supportDisclosure)}</dd></div>` : ''}
           <div><dt>Affiliation</dt><dd>${escapeHtml(platform.footerAffiliationCopy)}</dd></div>
         </dl>
         <div class="theme-details-answer-grid">

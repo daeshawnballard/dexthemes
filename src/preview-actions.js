@@ -180,7 +180,7 @@ export function onSupporterDonate() {
       <div class="supporter-modal-title">Thank You!</div>
       <div class="supporter-modal-text">Your support means the world. You've unlocked Patron.</div>
       <div class="supporter-modal-unlocked">
-        <div class="supporter-unlocked-item"><span class="supporter-unlocked-swatch" style="background:#D4A54A"></span>Patron</div>
+        <div class="supporter-unlocked-item"><span class="supporter-unlocked-swatch" aria-hidden="true"></span>Patron</div>
       </div>
       <button class="supporter-modal-dismiss" data-action="dismiss-supporter-prompt" style="margin-top:8px;">Close</button>
     `;

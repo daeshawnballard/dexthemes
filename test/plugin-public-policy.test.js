@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  DEXTHEMES_THEME_INSPIRATION_REFERENCES,
   PLUGIN_THEME_ALIASES,
   evaluatePublicThemeIdentity,
   getWebsiteThemeId,
@@ -59,6 +60,12 @@ test('curated plugin aliases are original, deterministic, and recognizable by at
     summary: 'Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.',
   });
   assert.equal(PLUGIN_THEME_ALIASES['master-chief'].name, 'Emerald Spartan');
+  assert.deepEqual(
+    Object.keys(DEXTHEMES_THEME_INSPIRATION_REFERENCES).sort(),
+    Object.keys(PLUGIN_THEME_ALIASES).sort(),
+  );
+  assert.equal(DEXTHEMES_THEME_INSPIRATION_REFERENCES['liger-zero-base'], 'Liger Zero');
+  assert.equal(DEXTHEMES_THEME_INSPIRATION_REFERENCES['terminator-future-war'], 'Terminator');
   for (const alias of Object.values(PLUGIN_THEME_ALIASES)) {
     assert.equal(evaluatePublicThemeIdentity(alias).allowed, true, alias.name);
     assert.ok(alias.summary?.length > 20, `Missing useful summary for ${alias.name}`);
@@ -73,6 +80,8 @@ test('curated plugin aliases are original, deterministic, and recognizable by at
     assert.ok(alias, `Missing plugin alias for ${theme.id}`);
     assert.equal(theme.name, alias.name, `Public catalog name drifted for ${theme.id}`);
     assert.equal(theme._summary, alias.summary, `Public catalog summary drifted for ${theme.id}`);
+    assert.equal(theme.provenance?.kind, 'unofficial_inspiration', `Missing provenance for ${theme.id}`);
+    assert.ok(theme.provenance?.inspiredBy, `Missing inspiration reference for ${theme.id}`);
   }
 });
 
@@ -88,6 +97,10 @@ test('website aliases preserve source links while keeping familiar intent search
   assert.equal(presented.id, source.id);
   assert.equal(getWebsiteThemeId(presented), 'seventh-fire-shadow');
   assert.equal(presented.name, 'Seventh Fire Shadow');
+  assert.deepEqual(presented.provenance, {
+    kind: 'unofficial_inspiration',
+    inspiredBy: 'Naruto / Hidden Leaf',
+  });
   assert.equal(
     presented._summary,
     'Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.',
@@ -100,6 +113,7 @@ test('website aliases preserve source links while keeping familiar intent search
   assert.equal(apiTheme.id, 'seventh-fire-shadow');
   assert.equal(apiTheme.themeId, 'seventh-fire-shadow');
   assert.equal(apiTheme.name, 'Seventh Fire Shadow');
+  assert.equal(apiTheme.provenance.inspiredBy, 'Naruto / Hidden Leaf');
 });
 
 test('website presentation omits unsafe unaliased community identities', () => {
@@ -159,4 +173,5 @@ test('Patron and supporter status are absent from plugin account payloads', () =
   });
   assert.equal(aliased.id, 'emerald-spartan');
   assert.equal(aliased.name, 'Emerald Spartan');
+  assert.equal('provenance' in aliased, false);
 });

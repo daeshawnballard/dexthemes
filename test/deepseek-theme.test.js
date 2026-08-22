@@ -155,6 +155,22 @@ test('Cordis payload is client-only, lifecycle-bounded, and tamper-evident', () 
   assert.throws(() => validateDeepSeekCordisPayload(extraField), /must contain exactly/i);
 });
 
+test('Cordis metadata rejects Unicode presentation controls but preserves ordinary human Unicode', () => {
+  const valid = buildDeepSeekCordisPayload({ ...PAIRED_THEME, name: '晴れ ☀️' });
+  assert.equal(valid.theme.name, '晴れ ☀️');
+  for (const control of ['\u202e', '\u2066', '\u200f', '\u0008']) {
+    assert.throws(
+      () => buildDeepSeekCordisPayload({ ...PAIRED_THEME, name: `Trusted ${control}spoof` }),
+      /Unicode control or format/i,
+    );
+    const forged = structuredClone(buildDeepSeekCordisPayload(PAIRED_THEME));
+    forged.theme.name = `Trusted ${control}spoof`;
+    forged.cordisDefine.name = `DexThemes · ${forged.theme.name}`;
+    forged.cordisDefine.purpose = `Apply the user-selected ${forged.theme.name} palette to DeepSeek Harness through the guarded theme service.`;
+    assert.throws(() => validateDeepSeekCordisPayload(forged), /Unicode control or format/i);
+  }
+});
+
 test('one click applies through the connected Harness theme service and retains reversal', async (t) => {
   const calls = [];
   let disposed = 0;
@@ -270,7 +286,7 @@ test('DeepSeek analytics uses a separate allowlisted taxonomy without sensitive 
     platform_id: 'deepseek',
     mechanism: 'cordis_theme_override',
     source_surface: 'unknown',
-    plugin_version: '0.6.0',
+    plugin_version: '0.6.4',
   });
   assert.deepEqual(buildDeepSeekAnalyticsMetadata({
     sourceSurface: 'website_preview',

@@ -17,8 +17,10 @@ test('catalog shows only the selected harness collection plus shared collections
   assert.deepEqual(categoryIds('codex'), ['official', 'dexthemes', 'community']);
   assert.deepEqual(categoryIds('deepseek'), ['deepseek', 'dexthemes', 'community']);
   assert.deepEqual(categoryIds('claude'), ['claude', 'dexthemes', 'community']);
+  assert.deepEqual(categoryIds('antigravity'), ['antigravity', 'dexthemes', 'community']);
   assert.deepEqual(categoryIds('cursor'), ['cursor', 'dexthemes', 'community']);
   assert.deepEqual(categoryIds('opencode'), ['opencode', 'dexthemes', 'community']);
+  assert.deepEqual(categoryIds('grok'), ['grok', 'dexthemes', 'community']);
 });
 
 test('every preview target has a stable dedicated collection slot', () => {
@@ -40,7 +42,7 @@ test('platform-specific colors never cross harness catalog boundaries', () => {
   assert.equal(isThemeCategoryVisibleForPlatform('community', 'cursor'), true);
 });
 
-test('empty platform collections use honest coming-soon copy', () => {
-  assert.equal(getEmptyCategoryCopy('claude', 'claude'), 'Claude collection coming soon');
+test('empty filtered platform collections do not imply missing catalog data', () => {
+  assert.equal(getEmptyCategoryCopy('claude', 'claude'), 'No Claude themes match');
   assert.equal(getEmptyCategoryCopy('community', 'claude'), 'No community themes yet');
 });

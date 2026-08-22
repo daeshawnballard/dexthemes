@@ -52,10 +52,10 @@ function blurIntent(overrides = {}) {
 }
 
 test('documented restricted effects resolve to safe preview view models only', () => {
-  const gemini = resolvePlatformEffectIntent('gemini', gradientIntent());
-  assert.equal(gemini.decision, PLATFORM_EFFECT_DECISIONS.PREVIEW_INTENT);
-  assert.equal(gemini.capability, 'supported_with_restrictions');
-  assert.deepEqual(gemini.preview, {
+  const qwen = resolvePlatformEffectIntent('qwen', gradientIntent());
+  assert.equal(qwen.decision, PLATFORM_EFFECT_DECISIONS.PREVIEW_INTENT);
+  assert.equal(qwen.capability, 'supported_with_restrictions');
+  assert.deepEqual(qwen.preview, {
     version: 'dexthemes-effect-preview-v1',
     kind: 'gradient',
     direction: 'horizontal',
@@ -64,11 +64,21 @@ test('documented restricted effects resolve to safe preview view models only', (
       { offset: 1, colorSlot: 'accent' },
     ],
   });
-  assert.equal(JSON.stringify(gemini).includes('linear-gradient'), false);
+  assert.equal(JSON.stringify(qwen).includes('linear-gradient'), false);
 
-  assert.equal(resolvePlatformEffectIntent('zed', alphaIntent()).decision, 'preview_intent');
+  const zedAlpha = resolvePlatformEffectIntent('zed', alphaIntent());
+  assert.equal(zedAlpha.decision, PLATFORM_EFFECT_DECISIONS.PREVIEW_INTENT);
+  assert.equal(zedAlpha.capability, 'supported_with_restrictions');
+  assert.deepEqual(zedAlpha.preview, {
+    version: 'dexthemes-effect-preview-v1',
+    kind: 'alpha',
+    colorSlot: 'surface',
+    opacity: 0.72,
+  });
+  assert.equal(JSON.stringify(zedAlpha).includes('rgba('), false);
+
   assert.equal(resolvePlatformEffectIntent('zed', blurIntent()).decision, 'preview_intent');
-  assert.equal(resolvePlatformEffectIntent('cursor', alphaIntent()).decision, 'preview_intent');
+  assert.equal(resolvePlatformEffectIntent('cursor', alphaIntent()).decision, 'solid_fallback');
 });
 
 test('unknown, experimental, and unsupported capabilities omit the effect deterministically', () => {
@@ -84,13 +94,13 @@ test('unknown, experimental, and unsupported capabilities omit the effect determ
     reason: 'unsupported',
   });
 
-  const experimental = resolvePlatformEffectIntent('qwen', gradientIntent());
-  assert.equal(experimental.decision, PLATFORM_EFFECT_DECISIONS.SOLID_FALLBACK);
-  assert.equal(experimental.omittedEffect.reason, 'experimental_disabled');
-
-  const unknown = resolvePlatformEffectIntent('t3code', gradientIntent());
+  const unknown = resolvePlatformEffectIntent('antigravity', gradientIntent());
   assert.equal(unknown.decision, PLATFORM_EFFECT_DECISIONS.SOLID_FALLBACK);
   assert.equal(unknown.omittedEffect.reason, 'unknown_disabled');
+
+  const limited = resolvePlatformEffectIntent('grok', alphaIntent());
+  assert.equal(limited.decision, PLATFORM_EFFECT_DECISIONS.SOLID_FALLBACK);
+  assert.equal(limited.omittedEffect.reason, 'unsupported');
 });
 
 test('required accessibility fallbacks are enforced and preferences choose them', () => {
@@ -101,7 +111,7 @@ test('required accessibility fallbacks are enforced and preferences choose them'
     /reducedMotionFallback is required/,
   );
 
-  const reduced = resolvePlatformEffectIntent('gemini', gradientIntent(), {
+  const reduced = resolvePlatformEffectIntent('qwen', gradientIntent(), {
     highContrast: false,
     prefersReducedMotion: true,
   });
@@ -174,7 +184,7 @@ test('oversized or non-serializable intents are rejected before resolution', () 
   assert.equal(validation.valid, false);
   assert.match(validation.errors[0], /exceeds 2048 bytes/);
   assert.throws(
-    () => resolvePlatformEffectIntent('gemini', oversized),
+    () => resolvePlatformEffectIntent('qwen', oversized),
     (error) => error instanceof PlatformEffectIntentValidationError
       && error.code === 'platform_effect_intent_invalid',
   );

@@ -14,7 +14,7 @@ const PLATFORM_CATEGORY_IDS = Object.freeze({
   codex: 'official',
   deepseek: 'deepseek',
   claude: 'claude',
-  gemini: 'gemini',
+  antigravity: 'antigravity',
   qwen: 'qwen',
   opencode: 'opencode',
   pi: 'pi',
@@ -22,6 +22,7 @@ const PLATFORM_CATEGORY_IDS = Object.freeze({
   cursor: 'cursor',
   t3code: 't3code',
   conductor: 'conductor',
+  grok: 'grok',
 });
 
 const PLATFORM_CATEGORY_ICONS = Object.freeze({
@@ -36,6 +37,12 @@ export const PLATFORM_THEME_CATEGORY_IDS = Object.freeze(
 export function getPlatformThemeCategoryId(platformId = DEFAULT_PLATFORM_ID) {
   const normalized = normalizePlatformId(platformId) || DEFAULT_PLATFORM_ID;
   return PLATFORM_CATEGORY_IDS[normalized] || normalized;
+}
+
+export function getPlatformIdForThemeCategory(categoryId) {
+  const match = Object.entries(PLATFORM_CATEGORY_IDS)
+    .find(([, candidateCategoryId]) => candidateCategoryId === categoryId);
+  return match?.[0] || null;
 }
 
 export function getCatalogCategoriesForPlatform(platformId = DEFAULT_PLATFORM_ID) {
@@ -57,5 +64,5 @@ export function getEmptyCategoryCopy(categoryId, platformId = DEFAULT_PLATFORM_I
   if (categoryId === 'community') return 'No community themes yet';
   if (categoryId === 'dexthemes') return 'No DexThemes palettes match';
   const platform = getPlatform(platformId);
-  return `${platform.shortName} collection coming soon`;
+  return `No ${platform.shortName} themes match`;
 }

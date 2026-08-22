@@ -66,6 +66,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -121,6 +123,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -174,6 +178,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -219,6 +225,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -273,6 +281,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -318,6 +328,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -369,6 +381,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -414,6 +428,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -459,6 +475,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -504,6 +522,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -563,6 +583,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -609,6 +631,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -652,6 +676,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -700,6 +726,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -747,6 +775,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -790,6 +820,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -835,6 +867,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -888,6 +922,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -931,6 +967,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -976,6 +1014,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1024,6 +1064,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1079,6 +1121,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1125,6 +1169,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1172,6 +1218,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1225,6 +1273,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1268,6 +1318,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1313,6 +1365,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": false,
@@ -1372,6 +1426,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1425,6 +1481,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1482,6 +1540,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1535,7 +1595,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "DeepSeek Harness’s published light and dark semantic palette.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1589,7 +1651,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial crimson tribute to Huawei Ascend’s DeepSeek support.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1643,7 +1707,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial blue-cyan tribute to Tencent Cloud’s DeepSeek integration.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1697,7 +1763,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial warm-orange tribute to Alibaba Cloud’s DeepSeek service.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1751,7 +1819,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial electric-blue tribute to Ant Group’s DeepSeek tooling.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1805,7 +1875,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial cyan-red tribute to Volcano Engine’s DeepSeek service.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1859,7 +1931,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial indigo tribute to Baidu AI Gateway’s DeepSeek routing.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1913,7 +1987,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial neon-mint tribute to SiliconFlow’s DeepSeek inference.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -1967,7 +2043,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial red-and-ink tribute to JD Cloud’s DeepSeek deployment.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2021,7 +2099,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial sky-blue tribute to China Telecom’s DeepSeek deployments.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2075,7 +2155,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial blue-green tribute to China Mobile’s DeepSeek ecosystem.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2129,7 +2211,9 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial violet-cyan tribute to HONOR’s DeepSeek integration.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2183,13 +2267,1145 @@ export const STATIC_THEME_CATALOG = [
     "_company": null,
     "_hiddenUntilUnlocked": null,
     "_locked": null,
-    "_summary": null,
+    "_summary": "Unofficial red-and-carbon tribute to Lenovo’s DeepSeek deployments.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
         "mechanism": "cordis-theme-override",
         "packageUrl": "/api/deepseek-theme?theme=deepseek-lenovo",
         "applyPreparationUrl": "/api/deepseek-theme?theme=deepseek-lenovo",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "quiet-anthracite",
+    "themeId": "quiet-anthracite",
+    "name": "Quiet Anthracite",
+    "category": "claude",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#171512",
+      "ink": "#F5EFE5",
+      "accent": "#D97757",
+      "sidebar": "#100F0D",
+      "codeBg": "#0B0A09",
+      "skill": "#E4B860"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FBF6EC",
+      "ink": "#2B241E",
+      "accent": "#A94F35",
+      "sidebar": "#F1E7D8",
+      "codeBg": "#FFFDF8",
+      "skill": "#7C5A2B"
+    },
+    "accents": [
+      "#D97757",
+      "#A94F35"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Warm charcoal, parchment white, and terracotta signal tones for deliberate long-form work.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=quiet-anthracite",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=quiet-anthracite",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "parchment-signal",
+    "themeId": "parchment-signal",
+    "name": "Parchment Signal",
+    "category": "claude",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#201A16",
+      "ink": "#FFEBD1",
+      "accent": "#E6A15C",
+      "sidebar": "#17120F",
+      "codeBg": "#100D0B",
+      "skill": "#9FC5E8"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF9EC",
+      "ink": "#33271D",
+      "accent": "#B86A22",
+      "sidebar": "#F4E8D2",
+      "codeBg": "#FFFCF4",
+      "skill": "#4F78A6"
+    },
+    "accents": [
+      "#E6A15C",
+      "#B86A22"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Cream paper, ember orange, and cool editorial blue for thoughtful terminal conversations.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=parchment-signal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=parchment-signal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "orbital-ink",
+    "themeId": "orbital-ink",
+    "name": "Orbital Ink",
+    "category": "antigravity",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B1020",
+      "ink": "#ECF4FF",
+      "accent": "#5C8DFF",
+      "sidebar": "#070B16",
+      "codeBg": "#040711",
+      "skill": "#C875FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F7F9FF",
+      "ink": "#18213A",
+      "accent": "#315DD4",
+      "sidebar": "#EAF0FF",
+      "codeBg": "#FFFFFF",
+      "skill": "#8B4EC4"
+    },
+    "accents": [
+      "#5C8DFF",
+      "#315DD4"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Electric blue, spectral violet, and crisp white arranged like ink moving through a weightless workspace.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orbital-ink",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orbital-ink",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "sunward-grid",
+    "themeId": "sunward-grid",
+    "name": "Sunward Grid",
+    "category": "antigravity",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#101827",
+      "ink": "#F7F7EB",
+      "accent": "#F2B84B",
+      "sidebar": "#0A101A",
+      "codeBg": "#060B12",
+      "skill": "#40D7C5"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF9E8",
+      "ink": "#282314",
+      "accent": "#B87912",
+      "sidebar": "#F6ECCF",
+      "codeBg": "#FFFCF4",
+      "skill": "#087F75"
+    },
+    "accents": [
+      "#F2B84B",
+      "#B87912"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Sunlit gold, clean cyan, and deep navy for exploratory work held to a precise visual grid.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=sunward-grid",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=sunward-grid",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "jade-relay",
+    "themeId": "jade-relay",
+    "name": "Jade Relay",
+    "category": "qwen",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071813",
+      "ink": "#E5FFF7",
+      "accent": "#21C98E",
+      "sidebar": "#04100D",
+      "codeBg": "#020B08",
+      "skill": "#7BDFF2"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F0FFF8",
+      "ink": "#143129",
+      "accent": "#0B8F62",
+      "sidebar": "#E1F6EB",
+      "codeBg": "#F9FFFC",
+      "skill": "#197C94"
+    },
+    "accents": [
+      "#21C98E",
+      "#0B8F62"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Luminous jade, cool cyan, and ink-dark surfaces for fast handoffs across a focused workflow.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=jade-relay",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=jade-relay",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "saffron-vector",
+    "themeId": "saffron-vector",
+    "name": "Saffron Vector",
+    "category": "qwen",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#1A1208",
+      "ink": "#FFF1D6",
+      "accent": "#F59E0B",
+      "sidebar": "#120C05",
+      "codeBg": "#0D0903",
+      "skill": "#6EE7B7"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF8E7",
+      "ink": "#35220C",
+      "accent": "#B66A00",
+      "sidebar": "#F4E8CC",
+      "codeBg": "#FFFCF5",
+      "skill": "#14765A"
+    },
+    "accents": [
+      "#F59E0B",
+      "#B66A00"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Saffron gold, evergreen signal tones, and graphite depth for clear directional work.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=saffron-vector",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=saffron-vector",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "carbon-current",
+    "themeId": "carbon-current",
+    "name": "Carbon Current",
+    "category": "opencode",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071417",
+      "ink": "#DDF8F5",
+      "accent": "#20C7B7",
+      "sidebar": "#041012",
+      "codeBg": "#020A0C",
+      "skill": "#63A9FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F2FCFA",
+      "ink": "#16302F",
+      "accent": "#0B8C80",
+      "sidebar": "#E5F4F1",
+      "codeBg": "#FBFFFE",
+      "skill": "#2F63B8"
+    },
+    "accents": [
+      "#20C7B7",
+      "#0B8C80"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Carbon black, tidal teal, and cool blue for an open, low-friction coding rhythm.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=carbon-current",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=carbon-current",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "paper-terminal",
+    "themeId": "paper-terminal",
+    "name": "Paper Terminal",
+    "category": "opencode",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#181817",
+      "ink": "#F0EEE4",
+      "accent": "#A4C27A",
+      "sidebar": "#111110",
+      "codeBg": "#0C0C0B",
+      "skill": "#D1A85A"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FBFAF4",
+      "ink": "#272821",
+      "accent": "#66863C",
+      "sidebar": "#F1F0E7",
+      "codeBg": "#FFFFFF",
+      "skill": "#9A6A16"
+    },
+    "accents": [
+      "#A4C27A",
+      "#66863C"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Soft paper, moss green, and brass accents for a terminal palette with tactile restraint.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=paper-terminal",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=paper-terminal",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "copper-loop",
+    "themeId": "copper-loop",
+    "name": "Copper Loop",
+    "category": "pi",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#1B110D",
+      "ink": "#FFE9DC",
+      "accent": "#D77A45",
+      "sidebar": "#130B08",
+      "codeBg": "#0D0705",
+      "skill": "#67C6C2"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF6F0",
+      "ink": "#382118",
+      "accent": "#A64F24",
+      "sidebar": "#F3E5DC",
+      "codeBg": "#FFFCFA",
+      "skill": "#26807D"
+    },
+    "accents": [
+      "#D77A45",
+      "#A64F24"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Burnished copper, quiet teal, and kiln-dark surfaces for iterative work with a warm pulse.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=copper-loop",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=copper-loop",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "orchid-runtime",
+    "themeId": "orchid-runtime",
+    "name": "Orchid Runtime",
+    "category": "pi",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#170D20",
+      "ink": "#F6E9FF",
+      "accent": "#B46DE0",
+      "sidebar": "#100716",
+      "codeBg": "#0B0410",
+      "skill": "#55D6BE"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FAF3FF",
+      "ink": "#2F1B39",
+      "accent": "#8241AC",
+      "sidebar": "#F0E4F7",
+      "codeBg": "#FFFBFF",
+      "skill": "#178879"
+    },
+    "accents": [
+      "#B46DE0",
+      "#8241AC"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Deep orchid, fresh mint, and pale lilac for compact tools with a vivid runtime glow.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=orchid-runtime",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=orchid-runtime",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "razor-mint",
+    "themeId": "razor-mint",
+    "name": "Razor Mint",
+    "category": "zed",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#071512",
+      "ink": "#E7FFF7",
+      "accent": "#54E1B1",
+      "sidebar": "#03100C",
+      "codeBg": "#020A07",
+      "skill": "#68A7FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F1FFF9",
+      "ink": "#15352B",
+      "accent": "#14865E",
+      "sidebar": "#E3F6EC",
+      "codeBg": "#FBFFFD",
+      "skill": "#315FB1"
+    },
+    "accents": [
+      "#54E1B1",
+      "#14865E"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Sharp mint, cool blue, and near-black panels for fast editing with clean visual edges.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=razor-mint",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=razor-mint",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "vector-noir",
+    "themeId": "vector-noir",
+    "name": "Vector Noir",
+    "category": "zed",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#100D12",
+      "ink": "#F8F2F7",
+      "accent": "#F05266",
+      "sidebar": "#0A080C",
+      "codeBg": "#060507",
+      "skill": "#A984FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF6F7",
+      "ink": "#321C21",
+      "accent": "#BB2F45",
+      "sidebar": "#F7E7E9",
+      "codeBg": "#FFFCFC",
+      "skill": "#724BC0"
+    },
+    "accents": [
+      "#F05266",
+      "#BB2F45"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Noir surfaces, signal red, and ultraviolet function tones for decisive high-speed edits.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=vector-noir",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=vector-noir",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "kinetic-violet",
+    "themeId": "kinetic-violet",
+    "name": "Kinetic Violet",
+    "category": "cursor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#100B1D",
+      "ink": "#F4EFFF",
+      "accent": "#8B5CF6",
+      "sidebar": "#0B0714",
+      "codeBg": "#07040E",
+      "skill": "#46D4C6"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F8F5FF",
+      "ink": "#261B3A",
+      "accent": "#6742C6",
+      "sidebar": "#EDE7FA",
+      "codeBg": "#FEFCFF",
+      "skill": "#137D76"
+    },
+    "accents": [
+      "#8B5CF6",
+      "#6742C6"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Kinetic violet, cool mint, and midnight plum for fluid movement through dense code.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=kinetic-violet",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=kinetic-violet",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "ghost-pointer",
+    "themeId": "ghost-pointer",
+    "name": "Ghost Pointer",
+    "category": "cursor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B1420",
+      "ink": "#ECF7FF",
+      "accent": "#59B8FF",
+      "sidebar": "#07101A",
+      "codeBg": "#040A10",
+      "skill": "#B089FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F4FAFF",
+      "ink": "#183044",
+      "accent": "#247BB8",
+      "sidebar": "#E6F3FC",
+      "codeBg": "#FFFFFF",
+      "skill": "#7651B6"
+    },
+    "accents": [
+      "#59B8FF",
+      "#247BB8"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Icy blue, spectral lavender, and deep slate for quiet navigation across a living workspace.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ghost-pointer",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ghost-pointer",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "magenta-stack",
+    "themeId": "magenta-stack",
+    "name": "Magenta Stack",
+    "category": "t3code",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#190A16",
+      "ink": "#FFEAF8",
+      "accent": "#E94CBB",
+      "sidebar": "#11070F",
+      "codeBg": "#0B0409",
+      "skill": "#69D7FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FFF5FB",
+      "ink": "#35152D",
+      "accent": "#B52B87",
+      "sidebar": "#F7E5F1",
+      "codeBg": "#FFFCFE",
+      "skill": "#277EAA"
+    },
+    "accents": [
+      "#E94CBB",
+      "#B52B87"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Saturated magenta, bright cyan, and plum-black layers for a confident typed stack.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=magenta-stack",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=magenta-stack",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "typecraft-dusk",
+    "themeId": "typecraft-dusk",
+    "name": "Typecraft Dusk",
+    "category": "t3code",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0D1020",
+      "ink": "#EEF0FF",
+      "accent": "#6E7BFF",
+      "sidebar": "#080A16",
+      "codeBg": "#050610",
+      "skill": "#F29BD0"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F6F7FF",
+      "ink": "#20254A",
+      "accent": "#4655CF",
+      "sidebar": "#E9EBFA",
+      "codeBg": "#FDFDFF",
+      "skill": "#AD477F"
+    },
+    "accents": [
+      "#6E7BFF",
+      "#4655CF"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Dusk indigo, rose syntax, and cool white for exacting work with a softer edge.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=typecraft-dusk",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=typecraft-dusk",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "midnight-switchyard",
+    "themeId": "midnight-switchyard",
+    "name": "Midnight Switchyard",
+    "category": "conductor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#08111B",
+      "ink": "#EAF4FF",
+      "accent": "#4D9EFF",
+      "sidebar": "#050B12",
+      "codeBg": "#03070B",
+      "skill": "#F2B84B"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F4F8FC",
+      "ink": "#1C2B3A",
+      "accent": "#2A6FB3",
+      "sidebar": "#E7EEF5",
+      "codeBg": "#FFFFFF",
+      "skill": "#A66A12"
+    },
+    "accents": [
+      "#4D9EFF",
+      "#2A6FB3"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Midnight blue, signal gold, and rail-light cyan for coordinating parallel work clearly.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=midnight-switchyard",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=midnight-switchyard",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "copper-schedule",
+    "themeId": "copper-schedule",
+    "name": "Copper Schedule",
+    "category": "conductor",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#18100C",
+      "ink": "#F7EBE3",
+      "accent": "#C27645",
+      "sidebar": "#100A07",
+      "codeBg": "#0B0604",
+      "skill": "#7AB6A1"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FCF7F2",
+      "ink": "#33231B",
+      "accent": "#96512B",
+      "sidebar": "#F1E7DE",
+      "codeBg": "#FFFDFA",
+      "skill": "#3B7B67"
+    },
+    "accents": [
+      "#C27645",
+      "#96512B"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Copper markers, softened stone, and measured green for an orderly multi-track cadence.",
+    "provenance": null,
+    "collectionSupport": null,
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=copper-schedule",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=copper-schedule",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "signal-horizon",
+    "themeId": "signal-horizon",
+    "name": "Signal Horizon",
+    "category": "grok",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#0B0C0F",
+      "ink": "#F4F5F7",
+      "accent": "#F0703C",
+      "sidebar": "#060709",
+      "codeBg": "#030405",
+      "skill": "#58A6FF"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#F7F8FA",
+      "ink": "#202329",
+      "accent": "#B94C22",
+      "sidebar": "#ECEEF1",
+      "codeBg": "#FFFFFF",
+      "skill": "#276FA8"
+    },
+    "accents": [
+      "#F0703C",
+      "#B94C22"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Near-black depth, horizon orange, and cool signal blue for a compact limited-color workspace.",
+    "provenance": null,
+    "collectionSupport": {
+      "platformId": "grok",
+      "level": "limited",
+      "label": "Limited theme support",
+      "disclosure": "The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys."
+    },
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=signal-horizon",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=signal-horizon",
+        "requiresInstalledCordisSurface": true,
+        "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
+        "installedPluginSurface": "settings.plugins.dexthemes",
+        "oneClickScope": "installed-plugin",
+        "fontsSupported": false
+      }
+    }
+  },
+  {
+    "id": "ember-query",
+    "themeId": "ember-query",
+    "name": "Ember Query",
+    "category": "grok",
+    "subgroup": null,
+    "codeThemeId": "codex",
+    "copies": 0,
+    "dateAdded": "2026-08-21",
+    "dark": {
+      "contrast": 64,
+      "diffAdded": "#43C983",
+      "diffRemoved": "#F06A6A",
+      "surface": "#111214",
+      "ink": "#F2F0ED",
+      "accent": "#DC5A4A",
+      "sidebar": "#0A0B0D",
+      "codeBg": "#060708",
+      "skill": "#77C8D5"
+    },
+    "light": {
+      "contrast": 48,
+      "diffAdded": "#16844A",
+      "diffRemoved": "#C73535",
+      "surface": "#FAF8F5",
+      "ink": "#292624",
+      "accent": "#A93B31",
+      "sidebar": "#F0ECE8",
+      "codeBg": "#FFFFFF",
+      "skill": "#2D7B87"
+    },
+    "accents": [
+      "#DC5A4A",
+      "#A93B31"
+    ],
+    "variants": null,
+    "_company": null,
+    "_hiddenUntilUnlocked": null,
+    "_locked": null,
+    "_summary": "Ember red, mineral gray, and pale cyan for direct questions in a deliberately reduced palette.",
+    "provenance": null,
+    "collectionSupport": {
+      "platformId": "grok",
+      "level": "limited",
+      "label": "Limited theme support",
+      "disclosure": "The full DexThemes palette is preview-only. The export contains exactly five pager.toml color keys."
+    },
+    "integrations": {
+      "deepseek": {
+        "eligible": true,
+        "mechanism": "cordis-theme-override",
+        "packageUrl": "/api/deepseek-theme?theme=ember-query",
+        "applyPreparationUrl": "/api/deepseek-theme?theme=ember-query",
         "requiresInstalledCordisSurface": true,
         "installedPluginPackage": "@dexthemes/deepseek-harness-plugin",
         "installedPluginSurface": "settings.plugins.dexthemes",
@@ -2238,6 +3454,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Blackened steel, ember orange, and disciplined crimson for focused work under pressure.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ichigo / Bankai"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2292,6 +3513,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Porcelain white, shadow black, and sharp crimson for calm focus with a dangerous edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ichigo / Hollow Mask"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2346,6 +3572,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Leaf-green, ember-orange, and midnight blue for a determined village guardian carrying a legacy forward.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Naruto / Hidden Leaf"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2400,6 +3631,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Salvaged charcoal, oxidized green, and dust-worn neutrals for resourceful work built from scraps.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gachiakuta / Rudo"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2454,6 +3690,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Storm-gray stone, weathered earth, and blood-red resolve on an immense, tragic scale.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Eren / Titan Fall"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2508,6 +3749,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Silver light, cool violet, and deep cosmic shadow for effortless precision at full focus.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Goku / Ultra Instinct"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2562,6 +3808,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Wild crimson, midnight black, and electric gold for untamed power climbing higher.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Goku / Super Saiyan 4"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2616,6 +3867,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Inked crimson, bruised violet, and pale neutrals for two forces sharing one dangerous frame.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Yuji / Sukuna"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2670,6 +3926,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Clean white, electric azure, and violet energy for clarity that makes every task feel within reach.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gojo / Limitless"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2724,6 +3985,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Royal gold, midnight violet, and sharp green for theatrical confidence that seems to stop the clock.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "JoJo / Dio"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2778,6 +4044,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Deep indigo, spectral violet, and cold steel for a solitary climb through gathering shadows.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Sung Jinwoo / Igris"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2832,6 +4103,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Desert amber, scarlet cloth, and weathered steel for compassionate focus in a restless frontier.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Trigun / Gunsmoke"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2886,6 +4162,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Midnight navy, brass gold, and electric blue for late-night focus with improvisational rhythm.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Cowboy Bebop / Blue Jazz"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2940,6 +4221,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cyan circuitry, shell-white highlights, and deep navy for precise work at the edge of self and machine.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ghost in the Shell / Major"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -2995,6 +4281,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Orbital white, signal blue, and warning red for a clean, high-mobility prototype workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam / RX-78-2"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3050,6 +4341,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cosmic blue, hot crimson, and sunlit yellow for a fast, balanced frame built for decisive work.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam SEED / Strike"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3105,6 +4401,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Azure energy, rose acceleration, and neon cyan for a workspace that shifts into overdrive.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Gundam 00 / Exia Trans-Am"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3159,6 +4460,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cloud white, sunrise red, and ocean blue for playful freedom with mythic momentum.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Luffy / Gear Five"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3213,6 +4519,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3267,6 +4575,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Pearl armor, cobalt mechanics, and bright gold for an agile machine with a fiercely independent spirit.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3321,6 +4634,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Burnished orange, blade silver, and deep navy for close-range focus with a decisive edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3375,6 +4693,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cobalt blue, jet white, and cool cyan for high-speed work with aerodynamic clarity.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3429,6 +4752,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Forest green, heavy graphite, and artillery gold for patient power built to hold the line.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liger Zero"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3483,6 +4811,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Armored olive, amber optics, and deep-space black for calm focus against impossible odds.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Master Chief / Mjolnir"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3537,6 +4870,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Desert orange, machine blue, and woven earth tones for patient tracking across a recovering world.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Aloy / Horizon"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3591,6 +4929,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Ash-white, blood-red, and weathered bronze for deliberate strength shaped by old consequences.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Kratos / Olympus"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3645,6 +4988,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Electric green on carbon black for a fast, high-contrast console glow.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Xbox / Neon"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3699,6 +5047,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Deep-space blue, pearlescent white, and electric violet for a polished controller-inspired workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "PlayStation / Cosmos"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3753,6 +5106,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Split cyan and coral over graphite for playful motion and handheld energy.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Nintendo / Switch Split"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3807,6 +5165,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Scarlet red, sky blue, and bright gold for buoyant momentum through every level.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Mario / Mushroom Kingdom"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3861,6 +5224,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cobalt blue, ring gold, and clean white for a workspace built to move before hesitation catches up.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Sonic / Boost"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3915,6 +5283,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Spray-paint lime, street orange, and asphalt black for rebellious creative momentum.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Jet Set Radio Future"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -3969,6 +5342,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Armored orange, nebula violet, and cold blue for solitary exploration through hostile worlds.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Samus / Metroid"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4023,6 +5401,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Bright yellow, coal black, and spark-red accents for compact energy that never sits still.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Pikachu / Voltage"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4077,6 +5460,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Indigo, field green, and warm cap-red for curious exploration and steady growth.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Ash / Indigo"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4131,6 +5519,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Forest green, ancient gold, and moonlit blue for quiet courage across a storied kingdom.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Zelda / Hyrule"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4185,6 +5578,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Hellfire orange, scorched black, and warning red for relentless forward motion.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Doom / Slayer"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4239,6 +5637,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Cobalt armor, sky-blue energy, and clean white for precise, modular problem solving.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Mega Man / Cobalt"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4293,6 +5696,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Chrome steel, infrared red, and terminal black for cold, methodical focus from tomorrow.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Terminator"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4347,6 +5755,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Bioluminescent cyan, rainforest green, and midnight indigo for an immersive alien wilderness.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Avatar / Pandora"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4401,6 +5814,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Saturated yellow, lacquer black, and blood-red accents for stylish focus with a sharp edge.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Kill Bill / Bride"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4455,6 +5873,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Carbon black, signal gold, and rain-soaked gray for disciplined focus after dark.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Batman / Knight"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4509,6 +5932,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Primary blue, solar red, and warm gold for optimistic strength under an open sky.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Superman / Krypton"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4563,6 +5991,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Crimson, antique gold, and midnight blue for principled strength carried with grace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Wonder Woman / Amazon"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4617,6 +6050,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Scarlet red, electric blue, and city-night charcoal for agile focus across a living skyline.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Spider-Man / Webline"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4671,6 +6109,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Royal violet, polished silver, and deep black for quiet precision and protected power.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Black Panther / Vibranium"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4725,6 +6168,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Crimson metal, reactor blue, and molten gold for inventive confidence inside a polished shell.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Iron Man / Arc Reactor"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4779,6 +6227,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Scarlet, shadow black, and neon rose for heightened focus above a sleepless city.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Daredevil / Elektra"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4833,6 +6286,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Signal blue, heroic red, and bright gold for coordinated momentum across a full team.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Avengers / Assemble"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4887,6 +6345,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Sky blue, watchtower silver, and midnight navy for calm coordination at global scale.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Justice League / Watchtower"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4941,6 +6404,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -4995,6 +6460,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5049,6 +6516,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5103,6 +6572,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5157,6 +6628,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5211,6 +6684,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5265,6 +6740,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5319,6 +6796,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5373,6 +6852,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5427,6 +6908,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5481,6 +6964,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5535,6 +7020,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5589,6 +7076,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5643,6 +7132,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5697,6 +7188,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5751,6 +7244,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5805,6 +7300,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5859,6 +7356,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5913,6 +7412,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -5967,6 +7468,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6021,6 +7524,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6075,6 +7580,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6129,6 +7636,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6183,6 +7692,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6237,6 +7748,11 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": true,
     "_summary": "Translucent graphite, refracted color, and cool glass highlights for a layered modern workspace.",
+    "provenance": {
+      "kind": "unofficial_inspiration",
+      "inspiredBy": "Liquid Glass / Apple"
+    },
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6291,6 +7807,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6345,6 +7863,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6399,6 +7919,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6453,6 +7975,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6507,6 +8031,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6561,6 +8087,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6615,6 +8143,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6669,6 +8199,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6723,6 +8255,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6777,6 +8311,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6831,6 +8367,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6885,6 +8423,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": null,
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6939,6 +8479,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Opulent gold and warm marble for a quiet, supporter-only lounge.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -6993,6 +8535,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Celestial blue light and cathedral calm with a soft, angelic glow.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7047,6 +8591,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Vault greens and crisp paper whites with polished prosperity energy.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7101,6 +8647,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Romantic rose warmth and velvet reds written like a love letter.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7155,6 +8703,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "A pulsing cherry red palette with bright warmth and steady momentum.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7209,6 +8759,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Alpine slate and gold peak accents for a sharp, high-altitude focus.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7263,6 +8815,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Dark steel and workshop orange with the energy of making something real.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7319,6 +8873,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "A prismatic burst of neon color that turns every pane into confetti.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7373,6 +8929,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Circuit-board greens and luminous traces for a tool-built, agentic feel.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7427,6 +8985,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Warm amber wood, soft evening light, and the comfort of being back home.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7481,6 +9041,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Pure black and white duality balanced into a calm, minimal pair.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7536,6 +9098,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Electric indigo and bright cyan for creators working directly through the DexThemes plugin.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7591,6 +9155,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "A vivid waveform palette for turning a spoken or written idea into a personal theme.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7646,6 +9212,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Abyssal cobalt and clear cyan for creators shaping their workspace through DeepSeek Harness.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7701,6 +9269,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "People are the spark behind intelligence. Graphite, white, and signal green for verified OpenAI builders.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7756,6 +9326,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Sunrise gold and vivid coral for a theme that owned the day.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7811,6 +9383,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": null,
     "_locked": null,
     "_summary": "Electric blue and spotlight gold for a theme that topped the week.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,
@@ -7867,6 +9441,8 @@ export const STATIC_THEME_CATALOG = [
     "_hiddenUntilUnlocked": true,
     "_locked": null,
     "_summary": "Smoked glass chrome and candy-button accents for people who click everything.",
+    "provenance": null,
+    "collectionSupport": null,
     "integrations": {
       "deepseek": {
         "eligible": true,

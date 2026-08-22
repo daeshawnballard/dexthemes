@@ -11,7 +11,7 @@ import {
 const EXPECTED_COUNTS = Object.freeze({
   guides: 19,
   features: 13,
-  articles: 10,
+  articles: 18,
   reference: 1,
 });
 

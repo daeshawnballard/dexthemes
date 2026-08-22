@@ -1,6 +1,7 @@
 import * as state from './state.js';
 import {
   DEFAULT_PLATFORM_ID,
+  PLATFORM_APPLY_MODES,
   PLATFORM_IDS,
   getPlatform,
   getPlatformAction,
@@ -20,6 +21,15 @@ function setMeta(selector, content) {
 
 export function getPlatformPreviewCopy(platformId = DEFAULT_PLATFORM_ID) {
   const platform = getPlatform(platformId);
+  const websiteAction = getPlatformAction(platform.id, 'website');
+  const article = /^[aeiou]/i.test(platform.shortName) ? 'an' : 'a';
+  const metaDescription = websiteAction?.mode === PLATFORM_APPLY_MODES.SETUP
+    ? `${platform.descriptorCopy} Preview light and dark palettes before opening documented, user-controlled ${platform.shortName} setup guidance.`
+    : websiteAction?.mode === PLATFORM_APPLY_MODES.COPY_IMPORT
+      ? `${platform.descriptorCopy} Preview light and dark palettes before using the explicit ${platform.shortName} copy-and-import handoff.`
+      : platform.themeSupport
+        ? `${platform.descriptorCopy} Preview light and dark palette concepts with ${platform.themeSupport.label.toLowerCase()} clearly separated from runtime support.`
+        : `${platform.descriptorCopy} Preview light and dark palettes; DexThemes does not claim a supported ${platform.shortName} handoff.`;
   return Object.freeze({
     brandDescriptor: `Create & Discover\nThemes for ${platform.shortName}`,
     descriptor: platform.descriptorCopy,
@@ -27,9 +37,9 @@ export function getPlatformPreviewCopy(platformId = DEFAULT_PLATFORM_ID) {
     capability: platform.capabilityMessage,
     inputLabel: `${platform.shortName} prompt`,
     inputPlaceholder: `Ask ${platform.shortName} anything...`,
-    inputAriaLabel: `Preview a ${platform.shortName} prompt`,
+    inputAriaLabel: `Preview ${article} ${platform.shortName} prompt`,
     documentTitle: `DexThemes — Themes for ${platform.displayName}`,
-    metaDescription: `${platform.descriptorCopy} Preview light and dark palettes before using the supported ${platform.shortName} handoff.`,
+    metaDescription,
   });
 }
 
@@ -140,13 +150,21 @@ function syncPlatformSetupMessage() {
   const destination = action?.mode === 'setup' && action.destination?.kind === 'url'
     ? action.destination.value
     : null;
-  message.hidden = !destination;
-  if (!destination) return;
+  const supportNotice = platform.themeSupport;
+  message.hidden = !destination && !supportNotice;
+  if (message.hidden) return;
 
-  setText('platform-setup-message-title', action.ctaLabel);
-  setText('platform-setup-message-text', platform.capabilityMessage);
+  if (supportNotice) message.dataset.supportLevel = supportNotice.level;
+  else delete message.dataset.supportLevel;
+  setText('platform-setup-message-title', supportNotice?.label || action.ctaLabel);
+  setText('platform-setup-message-text', supportNotice?.disclosure || platform.capabilityMessage);
   const link = document.getElementById('platform-setup-message-link');
   if (link) {
+    link.hidden = !destination;
+    if (!destination) {
+      link.removeAttribute('href');
+      return;
+    }
     link.href = destination;
     link.innerHTML = `${platform.id === 'deepseek' ? 'View plugin' : 'Open setup'} <span aria-hidden="true">↗</span>`;
     link.dataset.platformId = platform.id;

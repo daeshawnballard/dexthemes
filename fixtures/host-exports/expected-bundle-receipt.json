@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "fixtureSha256": "5e7e83111a3e147bd3f9a9d1d32113d6b642b3f07e47ca91ad89a18e17ac05fc",
+  "platforms": {
+    "claude": {
+      "adapterVersion": "claude-theme-v1",
+      "deliveryState": "export",
+      "files": {
+        "themes/adapter-test-dark.json": "2d85c71c3927bece53d86a077ec5fe4ffc708cc60e12bfd54ad3bf835da9a4d5",
+        "themes/adapter-test-light.json": "ba327da93c15033e0a80ac6ab1148cb558081d4fa45383b2f3b6b332fe29741b"
+      }
+    },
+    "qwen": {
+      "adapterVersion": "qwen-theme-v1",
+      "deliveryState": "export",
+      "files": {
+        "themes/adapter-test-dark.json": "798fa4a92475b90e2bc9aa17a715f575d23d6f52cd8bff1ab8faf4a98af424d0",
+        "themes/adapter-test-light.json": "9dcdeb8281b55e7d5c52373f19f67c85c0d66ae092f3d3169587f0ece2c9f805"
+      }
+    },
+    "opencode": {
+      "adapterVersion": "opencode-theme-v1",
+      "deliveryState": "export",
+      "files": {
+        "themes/adapter-test.json": "3fb974c09877b5b58932450c8c286400aa1b9e276634fd9bbcd78dd00ed4c0cd"
+      }
+    },
+    "pi": {
+      "adapterVersion": "pi-theme-package-v1",
+      "deliveryState": "package_export",
+      "files": {
+        "package.json": "6214b4632d7051f944e35d55d0d0ce1a5df2758fd4cf5d36fc4dfdcb71420a54",
+        "themes/adapter-test-dark.json": "16373fbffa0505b67f076ee46c231b4041c2203161551e800bb0060d3e5287e3",
+        "themes/adapter-test-light.json": "71caa875ec9deb6c56c523533fcb091c0af69af856500e5a79dd9adcf096070b"
+      }
+    },
+    "zed": {
+      "adapterVersion": "zed-theme-v1",
+      "deliveryState": "export",
+      "files": {
+        "themes/adapter-test.json": "2bfe62b8b4539f962bb9aef9d4cc92051ff9b7990fc000e5f21c5d5ef33feb57"
+      }
+    },
+    "cursor": {
+      "adapterVersion": "cursor-theme-source-v1",
+      "deliveryState": "review_only_source",
+      "files": {
+        "package.json": "2befbaee69df24b05ab01bf63e0c341d7922ca06b693e9bbc70403521ecfaa9a",
+        "README.md": "076d4f1c35982216cce63d5592ba57f7040b1a18ec3abf64f923d726f02a76a6",
+        "themes/adapter-test-dark-color-theme.json": "b8a7211eab4ad829827a19df64d07773b4d86eae56c4a03328c6a93845d2eaa9",
+        "themes/adapter-test-light-color-theme.json": "8f50d7c6b1311af6339d8b3644de3d34b99be1bc65620f33f4debfaa9c9125d4"
+      }
+    },
+    "t3code": {
+      "adapterVersion": "t3-theme-v1",
+      "deliveryState": "export",
+      "files": {
+        "adapter-test.t3-theme.json": "be5e61e2749c7f92d23ff86bd1adb9e907da592fbb6e474892c8044d0c8f36ed"
+      }
+    },
+    "grok": {
+      "adapterVersion": "grok-pager-colors-v1",
+      "deliveryState": "limited_export",
+      "files": {
+        "adapter-test-dark.pager.toml": "073b544ee25211f3b320f4e47378e02efb3f3b929e4437bf85979c08326d53ee",
+        "adapter-test-light.pager.toml": "d7e47225ef31787a3e18c374f3fda7099cc9fd1cc3c0c1a307716eb0d3fb7824"
+      }
+    }
+  }
+}

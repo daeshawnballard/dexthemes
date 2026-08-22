@@ -15,7 +15,6 @@ const sourceFiles = [
   "lunar.js",
   "companies.js",
   "originals.js",
-  "supporter.js",
 ];
 
 export async function buildThemeBundle() {

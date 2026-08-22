@@ -52,6 +52,40 @@ const checks = [
     forbidden: [],
     required: ['Harness CLI version', 'DexThemes plugin version', 'install source', 'CHANGELOG.md'],
   },
+  {
+    file: 'docs/MULTI-HARNESS.md',
+    forbidden: [],
+    required: [
+      'Codex', 'DeepSeek Harness', 'Claude Code', 'Google Antigravity', 'Qwen Code',
+      'OpenCode', 'Pi', 'Zed', 'Cursor', 'T3 Code', 'Conductor', 'Grok Build',
+    ],
+  },
+  {
+    file: 'docs/HARNESS-EFFECTS.md',
+    forbidden: [],
+    required: ['Google Antigravity', 'T3 Code', 'Grok Build', 'Cursor runtime proof invalid'],
+  },
+  {
+    file: 'docs/HOST-CUSTOMIZATION-SETUP.md',
+    forbidden: [],
+    required: [
+      'Settings → Appearance → Themes → Add theme',
+      'exactly five documented paths',
+      'ships no local mutator',
+      'generates no Antigravity exporter',
+    ],
+  },
+  {
+    file: 'docs/HOST-CUSTOMIZATION-EVIDENCE.md',
+    forbidden: [],
+    required: [
+      'Source / build / test proof',
+      'Installed / local runtime proof',
+      'Update completion: Unknown',
+      'Profile mutation: Unknown',
+      'Cursor runtime proof invalid',
+    ],
+  },
 ];
 
 let failed = false;

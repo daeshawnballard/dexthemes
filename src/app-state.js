@@ -11,6 +11,7 @@ import { resolveSelectedPlatformId } from './platform-selection.js';
 import {
   getCatalogCategoriesForPlatform,
   isThemeCategoryVisibleForPlatform,
+  PLATFORM_THEME_CATEGORY_IDS,
 } from './platform-catalog.js';
 
 // URL state takes priority over localStorage. Query deep links are canonicalized
@@ -100,10 +101,11 @@ if (_routeThemeId) {
 }
 
 export let selectedAccentIdx = 0;
-export let expandedCategories = { official: false, deepseek: false, dexthemes: false, community: false };
+export let expandedCategories = Object.fromEntries(
+  [...PLATFORM_THEME_CATEGORY_IDS, 'dexthemes', 'community'].map((categoryId) => [categoryId, false]),
+);
 export let expandedSubgroups = {
-  official: {},
-  deepseek: {},
+  ...Object.fromEntries(PLATFORM_THEME_CATEGORY_IDS.map((categoryId) => [categoryId, {}])),
   dexthemes: {
     anime: false, games: false, movies: false,
     comics: false, zodiacs: false, lunar: false, companies: false, originals: false, supporter: false,
@@ -111,8 +113,7 @@ export let expandedSubgroups = {
   community: {},
 };
 export let pinnedSubgroups = {
-  official: {},
-  deepseek: {},
+  ...Object.fromEntries(PLATFORM_THEME_CATEGORY_IDS.map((categoryId) => [categoryId, {}])),
   dexthemes: {},
   community: {},
 };
@@ -132,6 +133,19 @@ export let currentUser = null;
 export let flaggedThemes = new Set();
 
 export function setUserUnlocks(unlocks) { userUnlocks = unlocks; }
+export function registerUnlockedThemes(themes) {
+  for (const theme of Array.isArray(themes) ? themes : []) {
+    if (!theme?.id || !userUnlocks.has(theme.id) || THEMES.some((candidate) => candidate.id === theme.id)) continue;
+    THEMES.push(theme);
+  }
+  if (deferredProtectedThemeId && userUnlocks.has(deferredProtectedThemeId)) {
+    const deferredTheme = THEMES.find((theme) => theme.id === deferredProtectedThemeId);
+    if (deferredTheme) {
+      deferredProtectedThemeId = null;
+      setSelectedTheme(deferredTheme);
+    }
+  }
+}
 export function clearDeferredProtectedThemeId() { deferredProtectedThemeId = null; }
 export function isCurrentUserSupporter() { return userUnlocks.has(SUPPORTER_THEME_ID); }
 export function setSupporterPromptShown(value) { supporterPromptShown = value; }

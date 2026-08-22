@@ -6,6 +6,10 @@ import path from 'node:path';
 import { chromium, webkit } from 'playwright';
 import shareHandler from '../api/share.js';
 import contentPageHandler from '../api/content-page.js';
+import { PLATFORM_IDS, getPlatform } from '../shared/platform-registry.js';
+import { PLATFORM_THEME_PACKS } from '../shared/platform-theme-packs.js';
+import { getPlatformThemeCategoryId } from '../src/platform-catalog.js';
+import { resolveLocalStaticPath } from './local-static-path.mjs';
 
 const root = process.cwd();
 const host = '127.0.0.1';
@@ -47,7 +51,15 @@ async function selectPreviewPlatform(page, platformId) {
   if ((await picker.getAttribute('open')) === null) {
     await page.locator('#preview-platform-trigger').click();
   }
-  await picker.locator(`[data-platform-id="${platformId}"]`).click();
+  await picker.locator(`#preview-platform-menu [data-platform-id="${platformId}"]`).click();
+  const categoryId = getPlatformThemeCategoryId(platformId);
+  await page.waitForFunction(
+    ({ expectedPlatformId, expectedCategoryId }) => (
+      document.getElementById('preview-platform-trigger')?.dataset.platformId === expectedPlatformId
+      && document.querySelector('#category-list .category-header')?.dataset.categoryId === expectedCategoryId
+    ),
+    { expectedPlatformId: platformId, expectedCategoryId: categoryId },
+  );
 }
 
 function contentTypeFor(filePath) {
@@ -55,9 +67,8 @@ function contentTypeFor(filePath) {
 }
 
 async function resolveRequestPath(urlPath) {
-  const cleanPath = decodeURIComponent(urlPath.split('?')[0]);
-  if (cleanPath === '/' || cleanPath === '') return path.join(root, 'index.html');
-  const absolute = path.join(root, cleanPath.replace(/^\/+/, ''));
+  const absolute = resolveLocalStaticPath(root, urlPath);
+  if (!absolute) return null;
   const fileInfo = await stat(absolute).catch(() => null);
   if (fileInfo?.isFile()) return absolute;
   return null;
@@ -263,7 +274,11 @@ try {
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
     assert.equal(await page.locator('#preview-platform-current').textContent(), 'DeepSeek');
     await page.locator('#preview-platform-trigger').click();
-    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), 11);
+    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), PLATFORM_IDS.length);
+    assert.deepEqual(
+      await page.locator('#preview-platform-menu [role="menuitemradio"] > span:first-child').allTextContents(),
+      PLATFORM_IDS.map((platformId) => getPlatform(platformId).shortName),
+    );
     assert.equal(await page.locator('#preview-platform-menu [aria-checked="true"]').textContent(), 'DeepSeek✓');
     assert.equal(
       await page.locator('#preview-platform-menu').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length),
@@ -299,6 +314,83 @@ try {
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['DeepSeek', 'DexThemes', 'Community']);
 
+    for (const platformId of PLATFORM_IDS.filter((id) => !['codex', 'deepseek'].includes(id))) {
+      await selectPreviewPlatform(page, platformId);
+      await page.waitForFunction(
+        (expectedPlatformId) => document.getElementById('preview-platform-trigger')?.dataset.platformId === expectedPlatformId,
+        platformId,
+      );
+      const platform = getPlatform(platformId);
+      const categoryId = getPlatformThemeCategoryId(platformId);
+      assert.deepEqual(
+        await page.locator('.category-name').allTextContents(),
+        [platform.shortName, 'DexThemes', 'Community'],
+      );
+      assert.equal(
+        Number(await page.locator('.category-count').first().textContent()),
+        PLATFORM_THEME_PACKS[platformId].length,
+        `${platformId} category count`,
+      );
+      assert.equal(await page.locator('.category').first().locator('.thread-empty').count(), 0);
+      for (const theme of PLATFORM_THEME_PACKS[platformId]) {
+        assert.equal(
+          await page.locator(`.category:first-child [data-theme-id="${theme.id}"]`).count(),
+          1,
+          `${theme.id} should stay inside ${categoryId}`,
+        );
+      }
+      assert.equal(
+        await page.locator('.thread-item.active').first().getAttribute('data-theme-id'),
+        platform.defaultThemeId,
+      );
+      if (platformId === 'antigravity' || platformId === 'grok') {
+        const previewCopy = await page.locator('#preview-chat').innerText();
+        assert.doesNotMatch(previewCopy, /supported setup|finish the handoff/i);
+        const metaDescription = await page.locator('meta[name="description"]').getAttribute('content') || '';
+        assert.doesNotMatch(metaDescription, /before using the supported/i);
+      }
+    }
+
+    await selectPreviewPlatform(page, 'antigravity');
+    assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
+    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /Preview collection only; no exporter, setup path, or plugin is exposed/i,
+    );
+    assert.equal(await page.locator('#preview-input-text').getAttribute('aria-label'), 'Preview an Antigravity prompt');
+    assert.match(await page.locator('#card-dark').textContent() || '', /An Antigravity conversation in this palette/);
+
+    await selectPreviewPlatform(page, 'grok');
+    assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
+    assert.equal(await page.locator('#platform-setup-message').getAttribute('data-support-level'), 'limited');
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
+    assert.equal(await page.locator('#platform-setup-message-link').isVisible(), true);
+    assert.match(
+      await page.locator('#platform-setup-message-link').getAttribute('href') || '',
+      /xai-org\/grok-build\/blob\/19d42e35c07a9c9244f03f6df0c4c353f970d4f9\//,
+    );
+    const grokSetup = page.locator('.panel-actions .platform-setup-btn');
+    assert.match(await grokSetup.textContent() || '', /View Grok limited color setup/i);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /merge one exactly five-key pager\.toml snippet manually, then restart Grok Build/i,
+    );
+    await page.click('[data-action="show-theme-details"]');
+    assert.match(await page.locator('.theme-details-facts').textContent() || '', /Limited theme support/);
+    assert.match(
+      await page.locator('.theme-details-facts').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
+    await page.click('[data-action="show-theme-preview"]');
+
+    await selectPreviewPlatform(page, 'deepseek');
+    await page.waitForFunction(() => document.getElementById('preview-platform-trigger')?.dataset.platformId === 'deepseek');
+
     await page.evaluate(() => {
       Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
       Object.defineProperty(navigator, 'clipboard', {
@@ -315,13 +407,24 @@ try {
 
     await selectPreviewPlatform(page, 't3code');
     await page.waitForFunction(() => new URL(window.location.href).searchParams.get('platform') === 't3code');
-    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
-    assert.match(await page.locator('#import-hint').textContent() || '', /No custom theme action/);
+    assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'View T3 export setup');
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /exports stable v1 JSON.*Settings.*Appearance.*Themes.*Add theme/i,
+    );
+    const t3Setup = page.locator('.panel-actions .platform-setup-btn');
+    assert.match(await t3Setup.textContent() || '', /View T3 export setup/i);
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /Download or copy the JSON, then import it with T3 Code.*Add theme control/i,
+    );
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['T3 Code', 'DexThemes', 'Community']);
-    assert.match(await page.locator('.thread-empty').first().textContent() || '', /T3 Code collection coming soon/);
+    assert.equal(Number(await page.locator('.category-count').first().textContent()), 2);
+    assert.equal(await page.locator('.category').first().locator('.thread-empty').count(), 0);
     assert.equal(await page.locator('#category-list [data-theme-id="codex"]').count(), 0);
     assert.equal(await page.locator('#category-list [data-theme-id="deepseek-default"]').count(), 0);
-    assert.ok(await page.locator('.thread-item.active').count() > 0);
+    assert.equal(await page.locator('.thread-item.active').first().getAttribute('data-theme-id'), 'magenta-stack');
 
     const actionOverflow = await page.locator('.panel-actions').evaluate((element) => element.scrollWidth - element.clientWidth);
     assert.ok(actionOverflow <= 0, `expected no right-panel helper overflow, got ${actionOverflow}px`);
@@ -339,12 +442,56 @@ try {
     assert.equal(await page.locator('.preview-theme-summary').textContent(), `Palette direction${expectedSummary}`);
     assert.equal(await page.locator('.mini-theme-summary').count(), 2);
     assert.equal(new URL(page.url()).pathname, '/seventh-fire-shadow/dark');
+    assert.equal(await page.locator('.attribution-msg').count(), 1);
+    assert.equal(await page.locator('.attribution-msg').getAttribute('data-author'), 'DexThemes');
+    assert.match(await page.locator('.provenance-msg').textContent() || '', /Inspired by Naruto \/ Hidden Leaf/);
+    assert.match(await page.locator('.provenance-msg').textContent() || '', /No affiliation or endorsement/);
+    assert.equal(await page.locator('.attribution-msg .provenance-card').count(), 0);
+
+    await page.click('[data-action="show-theme-details"]');
+    await page.waitForSelector('.theme-details-provenance');
+    assert.match(await page.locator('.theme-details-provenance').textContent() || '', /Inspired by Naruto \/ Hidden Leaf/);
+    await page.click('[data-action="show-theme-preview"]');
 
     await page.fill('#sidebar-search', 'Naruto');
     const searchResult = page.locator('[data-theme-id="naruto-hidden-leaf"] .thread-title');
     await searchResult.waitFor();
     assert.equal(await searchResult.textContent(), 'Seventh Fire Shadow');
+
+    await page.fill('#sidebar-search', 'Shonen Sunset');
+    await page.locator('[data-theme-id="shonen-sunset"]').click();
+    await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'Shonen Sunset');
+    assert.equal(await page.locator('.provenance-msg').count(), 0);
+    assert.equal(await page.locator('.attribution-msg').count(), 1);
     await page.close();
+  });
+
+  await runTest('curated migrated identities keep author and inspiration as separate UI facts', async () => {
+    const fixtures = [
+      { id: 'liger-zero-base', name: 'Zero Mechcat', inspiredBy: 'Liger Zero' },
+      { id: 'terminator-future-war', name: 'Chrome Future Hunter', inspiredBy: 'Terminator' },
+    ];
+
+    for (const fixture of fixtures) {
+      const page = await bootDesktopPageAt(
+        browser,
+        `${server.baseUrl}/?theme=${fixture.id}&variant=dark`,
+      );
+      assert.equal(await page.locator('#preview-theme-name').textContent(), fixture.name);
+      assert.equal(await page.locator('.attribution-msg').getAttribute('data-author'), 'DexThemes');
+      assert.match(await page.locator('.attribution-msg').textContent() || '', /Theme by DexThemes/);
+      assert.equal(await page.locator('.provenance-msg').getAttribute('data-inspired-by'), fixture.inspiredBy);
+      assert.match(await page.locator('.provenance-msg').textContent() || '', new RegExp(`Inspired by ${fixture.inspiredBy}`));
+      assert.match(await page.locator('.provenance-msg').textContent() || '', /No affiliation or endorsement/);
+      assert.equal(await page.locator('.attribution-msg .provenance-card').count(), 0);
+
+      await page.click('[data-action="show-theme-details"]');
+      assert.match(
+        await page.locator('.theme-details-provenance').textContent() || '',
+        new RegExp(`Inspired by ${fixture.inspiredBy}`),
+      );
+      await page.close();
+    }
   });
 
   await runTest('desktop variant switching updates the selected card', async () => {
@@ -507,16 +654,12 @@ try {
     await page.close();
   });
 
-  await runTest('desktop locked theme selection shows the locked shell', async () => {
+  await runTest('desktop signed-out browse omits locked palette records', async () => {
     const page = await bootDesktopPage(browser, server.baseUrl);
     await page.fill('#sidebar-search', 'Patron');
-    await page.waitForSelector('[data-theme-id="patron"]');
-    await page.click('[data-theme-id="patron"]');
-    await page.waitForSelector('.locked-theme-shell-card');
-    const lockedTitle = await page.locator('.locked-theme-shell-title').textContent();
-    assert.match(lockedTitle || '', /Patron/i);
-    assert.equal(await page.locator('[data-action="show-theme-details"]').isDisabled(), true);
-    assert.equal(await page.locator('#theme-details-view').isHidden(), true);
+    await page.waitForTimeout(50);
+    assert.equal(await page.locator('[data-theme-id="patron"]').count(), 0);
+    assert.equal(await page.locator('.theme-details-swatch').count(), 0);
     await page.close();
   });
 
@@ -661,6 +804,42 @@ try {
       );
     }
     assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /OpenAI/);
+    await page.close();
+  });
+
+  await runTest('compact viewport exposes a non-empty selected-platform collection', async () => {
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=cursor`);
+    const firstPill = page.locator('.mobile-cat-pill').first();
+    assert.match(await firstPill.textContent() || '', /Cursor\s+2/);
+    assert.equal(await firstPill.getAttribute('data-category-id'), 'cursor');
+    assert.equal(await page.locator('.mobile-card-grid .theme-card').count(), 2);
+    assert.deepEqual(
+      await page.locator('.mobile-card-grid .theme-card-name').allTextContents(),
+      ['Kinetic Violet', 'Ghost Pointer'],
+    );
+    await page.close();
+  });
+
+  await runTest('compact Grok Build preview keeps limited runtime support explicit', async () => {
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=grok`);
+    const firstPill = page.locator('.mobile-cat-pill').first();
+    assert.match(await firstPill.textContent() || '', /Grok Build\s+2/);
+    assert.equal(await firstPill.getAttribute('data-category-id'), 'grok');
+    assert.deepEqual(
+      await page.locator('.mobile-card-grid .theme-card-name').allTextContents(),
+      ['Signal Horizon', 'Ember Query'],
+    );
+    await page.locator('.mobile-card-grid .theme-card').first().click();
+    await page.waitForSelector('#preview-window');
+    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
+    assert.match(
+      await page.locator('#platform-setup-message-text').textContent() || '',
+      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
+    );
+    assert.match(
+      await page.locator('#import-hint').textContent() || '',
+      /merge one exactly five-key pager\.toml snippet manually/i,
+    );
     await page.close();
   });
 
