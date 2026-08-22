@@ -1,7 +1,9 @@
 import { createHash } from 'node:crypto';
+import { spawn } from 'node:child_process';
 import { constants } from 'node:fs';
-import { lstat, mkdir, open, readFile, readdir, rename } from 'node:fs/promises';
+import { lstat, mkdir, open, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import { createInterface } from 'node:readline';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
@@ -21,6 +23,7 @@ const outputRoot = path.join(repositoryRoot, 'dist', 'host-exports');
 // Staging is deliberately outside the served dist tree. It stays repository-
 // local, private, and on the same filesystem for atomic directory renames.
 const stageParent = path.join(repositoryRoot, '.artifacts', 'host-export-staging');
+const securePublisherPath = path.join(moduleDirectory, 'secure-host-export-publish.py');
 const stageRoots = [
   path.join(stageParent, '.host-exports-stage-a'),
   path.join(stageParent, '.host-exports-stage-b'),
@@ -218,38 +221,88 @@ async function selectPublicationRoots(target) {
   return { stageRoot: stageRoots[1], backupRoot: stageRoots[0] };
 }
 
-async function publishStagedDirectory(stageRoot, target, backupRoot, testHooks = {}) {
-  const parent = path.dirname(target);
-  let hasMovedOutput = false;
+async function publishStagedDirectory(stageRoot, target, backupRoot, testHooks = {}, bundle) {
+  const stageParentRelative = path.relative(repositoryRoot, path.dirname(stageRoot));
+  const targetParentRelative = path.relative(repositoryRoot, path.dirname(target));
+  if (!stageParentRelative || !targetParentRelative
+    || stageParentRelative.startsWith('..') || targetParentRelative.startsWith('..')
+    || path.isAbsolute(stageParentRelative) || path.isAbsolute(targetParentRelative)) {
+    throw new TypeError('Host export publication directories must stay inside the repository.');
+  }
+  const python = process.env.DEXTHEMES_PYTHON || 'python3';
+  const testFault = Boolean(testHooks.failAfterBackup);
+  const child = spawn(python, [securePublisherPath], {
+    cwd: repositoryRoot,
+    env: {
+      ...process.env,
+      DEXTHEMES_HOST_EXPORT_TEST_HOOKS: testFault ? '1' : '',
+    },
+    stdio: ['pipe', 'pipe', 'pipe'],
+  });
+  let stderr = '';
+  child.stderr.setEncoding('utf8');
+  child.stderr.on('data', (chunk) => { stderr += chunk; });
+  const lines = createInterface({ input: child.stdout, crlfDelay: Infinity });
+  const messages = [];
+  const waiters = [];
+  let terminalError = null;
+  function settle(error) {
+    if (terminalError) return;
+    terminalError = error;
+    while (waiters.length) waiters.shift().reject(error);
+  }
+  function deliver(message) {
+    if (waiters.length) waiters.shift().resolve(message);
+    else messages.push(message);
+  }
+  lines.on('line', (line) => {
+    try {
+      deliver(JSON.parse(line));
+    } catch {
+      settle(new Error('Secure host export publisher emitted invalid JSON.'));
+    }
+  });
+  child.on('error', (error) => settle(new Error(`Secure host export publisher could not start: ${error.message}`)));
+  const closed = new Promise((resolve) => {
+    child.on('close', (code) => {
+      if (!terminalError && code !== 0) {
+        settle(new Error(`Secure host export publisher exited ${code}: ${stderr.trim()}`));
+      }
+      resolve();
+    });
+  });
+  function nextMessage() {
+    if (messages.length) return Promise.resolve(messages.shift());
+    if (terminalError) return Promise.reject(terminalError);
+    return new Promise((resolve, reject) => waiters.push({ resolve, reject }));
+  }
+  function send(message) {
+    if (!child.stdin.writable) throw new Error('Secure host export publisher input is unavailable.');
+    child.stdin.write(`${JSON.stringify(message)}\n`);
+  }
   try {
-    if (await assertSafeOutputRoot(target)) {
-      if (!backupRoot || await inspectPath(backupRoot)) {
-        throw new TypeError(`Host export backup root is unavailable: ${backupRoot}`);
-      }
-      await assertSafeOutputRoot(target);
-      await rename(target, backupRoot);
-      hasMovedOutput = true;
+    send({
+      repositoryRoot,
+      stageParent: stageParentRelative,
+      stageName: path.basename(stageRoot),
+      targetParent: targetParentRelative,
+      targetName: path.basename(target),
+      backupName: backupRoot ? path.basename(backupRoot) : null,
+    });
+    const bound = await nextMessage();
+    if (bound?.state !== 'bound') {
+      throw new Error(`Secure host export publisher failed before binding: ${bound?.message || 'unknown error'}`);
     }
-    await testHooks.afterBackup?.({ stageRoot, outputRoot: target, backupRoot });
-    // Node does not expose descriptor-relative rename. Re-resolve immediately
-    // before the single activation rename and fail closed on any substituted
-    // ancestor; the staged tree has never written to the public output path.
-    await assertSafeOutputRoot(target);
-    await rename(stageRoot, target);
-  } catch (error) {
-    if (hasMovedOutput && backupRoot) {
-      try {
-        if (!await inspectPath(target)) {
-          await ensureSafeDirectory(parent);
-          await rename(backupRoot, target);
-          backupRoot = null;
-        }
-      } catch {
-        // Keep the previous output in its private stage location rather than
-        // risking a pathname write through an attacker-substituted ancestor.
-      }
+    await testHooks.afterDirectoryBound?.({ stageRoot, outputRoot: target, backupRoot, bundle });
+    send({ command: 'activate', testFailAfterBackup: testFault });
+    child.stdin.end();
+    const result = await nextMessage();
+    if (result?.state !== 'published') {
+      throw new Error(`Secure host export publication failed: ${result?.message || 'unknown error'}`);
     }
-    throw error;
+  } finally {
+    if (child.stdin.writable) child.stdin.end();
+    await closed;
   }
 }
 
@@ -267,7 +320,7 @@ export async function buildHostExports({ outputRoot: requestedOutputRoot = outpu
   await testHooks.afterStage?.({ stageRoot, outputRoot: requestedOutputRoot, bundle });
   // Failed stages remain private and reusable. This avoids pathname deletion
   // after detecting an attack while preserving an atomic rollback workspace.
-  await publishStagedDirectory(stageRoot, requestedOutputRoot, backupRoot, testHooks);
+  await publishStagedDirectory(stageRoot, requestedOutputRoot, backupRoot, testHooks, bundle);
   return bundle;
 }
 
