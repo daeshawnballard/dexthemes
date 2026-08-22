@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
-import { randomUUID } from 'node:crypto';
 import { constants } from 'node:fs';
-import { lstat, mkdir, open, readFile, rename } from 'node:fs/promises';
+import { lstat, mkdir, open, readFile, readdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -19,6 +18,13 @@ const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(moduleDirectory, '..');
 const fixturePath = path.join(repositoryRoot, 'fixtures', 'host-exports', 'canonical-paired-theme.json');
 const outputRoot = path.join(repositoryRoot, 'dist', 'host-exports');
+// Staging is deliberately outside the served dist tree. It stays repository-
+// local, private, and on the same filesystem for atomic directory renames.
+const stageParent = path.join(repositoryRoot, '.artifacts', 'host-export-staging');
+const stageRoots = [
+  path.join(stageParent, '.host-exports-stage-a'),
+  path.join(stageParent, '.host-exports-stage-b'),
+];
 
 function sha256(content) {
   return createHash('sha256').update(content).digest('hex');
@@ -99,12 +105,15 @@ async function ensureSafeDirectory(target) {
   }
 }
 
-async function writeRegularFile(target, content) {
+async function writeStagedFile(target, content) {
   await ensureSafeDirectory(path.dirname(target));
-  const stagedTarget = path.join(path.dirname(target), `.${path.basename(target)}.${randomUUID()}.tmp`);
+  const existing = await inspectPath(target);
+  if (existing && (!existing.isFile() || existing.isSymbolicLink() || existing.nlink !== 1)) {
+    throw new TypeError(`Refusing non-regular staged export target: ${target}`);
+  }
   const handle = await open(
-    stagedTarget,
-    constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW,
+    target,
+    constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW,
     0o600,
   );
   try {
@@ -113,30 +122,152 @@ async function writeRegularFile(target, content) {
   } finally {
     await handle.close();
   }
-  const stagedInfo = await inspectPath(stagedTarget);
+  const stagedInfo = await inspectPath(target);
   if (!stagedInfo?.isFile() || stagedInfo.isSymbolicLink() || stagedInfo.nlink !== 1) {
-    throw new TypeError(`Refusing non-regular staged export target: ${stagedTarget}`);
+    throw new TypeError(`Refusing non-regular staged export target: ${target}`);
   }
-  // Publishing only renames a private, fully-written regular file. Re-check
-  // every destination ancestor immediately before the atomic replacement so a
-  // renamed/symlinked parent can never become a write-through sink.
-  await ensureSafeDirectory(path.dirname(target));
-  await rename(stagedTarget, target);
 }
 
-export async function buildHostExports({ beforePublish, outputRoot: requestedOutputRoot = outputRoot } = {}) {
+function stageContents(bundle) {
+  const files = new Map(bundle.files.map((file) => [file.path, file.content]));
+  files.set('MANIFEST.json', `${JSON.stringify(bundle.manifest, null, 2)}\n`);
+  const directories = new Set();
+  for (const filePath of files.keys()) {
+    const segments = filePath.split('/');
+    segments.pop();
+    while (segments.length) {
+      directories.add(segments.join('/'));
+      segments.pop();
+    }
+  }
+  return { files, directories };
+}
+
+async function assertSafeStageTree(stageRoot, contents) {
+  async function visit(directory, relative = '') {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const childRelative = relative ? `${relative}/${entry.name}` : entry.name;
+      const childPath = path.join(directory, entry.name);
+      if (entry.isSymbolicLink()) throw new TypeError(`Refusing symlinked staged export path: ${childPath}`);
+      if (entry.isDirectory()) {
+        if (!contents.directories.has(childRelative)) {
+          throw new TypeError(`Refusing unexpected staged export directory: ${childPath}`);
+        }
+        await visit(childPath, childRelative);
+        continue;
+      }
+      if (!entry.isFile() || !contents.files.has(childRelative)) {
+        throw new TypeError(`Refusing unexpected staged export path: ${childPath}`);
+      }
+      const info = await inspectPath(childPath);
+      if (!info?.isFile() || info.isSymbolicLink() || info.nlink !== 1) {
+        throw new TypeError(`Refusing non-regular staged export path: ${childPath}`);
+      }
+    }
+  }
+  await visit(stageRoot);
+}
+
+async function assertCompleteStage(stageRoot, contents) {
+  await assertSafeStageTree(stageRoot, contents);
+  for (const [relativePath, content] of contents.files) {
+    const target = path.join(stageRoot, ...relativePath.split('/'));
+    const [info, actual] = await Promise.all([inspectPath(target), readFile(target, 'utf8')]);
+    if (!info?.isFile() || info.isSymbolicLink() || info.nlink !== 1 || actual !== content) {
+      throw new TypeError(`Staged host export did not match its deterministic source: ${target}`);
+    }
+  }
+}
+
+async function preparePrivateStage(stageRoot, contents) {
+  await ensureSafeDirectory(stageParent);
+  let info = await inspectPath(stageRoot);
+  if (!info) {
+    await mkdir(stageRoot, { mode: 0o700 });
+    info = await inspectPath(stageRoot);
+  }
+  if (!info?.isDirectory() || info.isSymbolicLink()) {
+    throw new TypeError(`Refusing unsafe host export staging directory: ${stageRoot}`);
+  }
+  await assertSafeStageTree(stageRoot, contents);
+}
+
+async function assertSafeOutputRoot(target) {
+  await ensureSafeDirectory(path.dirname(target));
+  const info = await inspectPath(target);
+  if (info?.isSymbolicLink()) throw new TypeError(`Refusing symlinked host export output: ${target}`);
+  if (info && !info.isDirectory()) throw new TypeError(`Host export output is not a directory: ${target}`);
+  return info;
+}
+
+async function selectPublicationRoots(target) {
+  const output = await assertSafeOutputRoot(target);
+  const stageInfo = await Promise.all(stageRoots.map(inspectPath));
+  for (let index = 0; index < stageRoots.length; index += 1) {
+    const info = stageInfo[index];
+    if (info && (!info.isDirectory() || info.isSymbolicLink())) {
+      throw new TypeError(`Refusing unsafe host export staging directory: ${stageRoots[index]}`);
+    }
+  }
+  if (!output) {
+    if (stageInfo[0] && stageInfo[1]) throw new TypeError('Host export staging recovery is ambiguous.');
+    return { stageRoot: stageInfo[0] ? stageRoots[0] : stageRoots[1], backupRoot: null };
+  }
+  if (stageInfo[0] && stageInfo[1]) throw new TypeError('Host export staging recovery is ambiguous.');
+  if (stageInfo[0]) return { stageRoot: stageRoots[0], backupRoot: stageRoots[1] };
+  return { stageRoot: stageRoots[1], backupRoot: stageRoots[0] };
+}
+
+async function publishStagedDirectory(stageRoot, target, backupRoot, testHooks = {}) {
+  const parent = path.dirname(target);
+  let hasMovedOutput = false;
+  try {
+    if (await assertSafeOutputRoot(target)) {
+      if (!backupRoot || await inspectPath(backupRoot)) {
+        throw new TypeError(`Host export backup root is unavailable: ${backupRoot}`);
+      }
+      await assertSafeOutputRoot(target);
+      await rename(target, backupRoot);
+      hasMovedOutput = true;
+    }
+    await testHooks.afterBackup?.({ stageRoot, outputRoot: target, backupRoot });
+    // Node does not expose descriptor-relative rename. Re-resolve immediately
+    // before the single activation rename and fail closed on any substituted
+    // ancestor; the staged tree has never written to the public output path.
+    await assertSafeOutputRoot(target);
+    await rename(stageRoot, target);
+  } catch (error) {
+    if (hasMovedOutput && backupRoot) {
+      try {
+        if (!await inspectPath(target)) {
+          await ensureSafeDirectory(parent);
+          await rename(backupRoot, target);
+          backupRoot = null;
+        }
+      } catch {
+        // Keep the previous output in its private stage location rather than
+        // risking a pathname write through an attacker-substituted ancestor.
+      }
+    }
+    throw error;
+  }
+}
+
+export async function buildHostExports({ outputRoot: requestedOutputRoot = outputRoot, testHooks = {} } = {}) {
   const fixtureSource = await readFile(fixturePath, 'utf8');
   const theme = JSON.parse(fixtureSource);
   const bundle = createHostExportBundle(theme);
-  await ensureSafeDirectory(requestedOutputRoot);
-  if (beforePublish) await beforePublish({ outputRoot: requestedOutputRoot, bundle });
-  for (const file of bundle.files) {
-    await writeRegularFile(path.join(requestedOutputRoot, ...file.path.split('/')), file.content);
+  const contents = stageContents(bundle);
+  const { stageRoot, backupRoot } = await selectPublicationRoots(requestedOutputRoot);
+  await preparePrivateStage(stageRoot, contents);
+  for (const [relativePath, content] of contents.files) {
+    await writeStagedFile(path.join(stageRoot, ...relativePath.split('/')), content);
   }
-  await writeRegularFile(
-    path.join(requestedOutputRoot, 'MANIFEST.json'),
-    `${JSON.stringify(bundle.manifest, null, 2)}\n`,
-  );
+  await assertCompleteStage(stageRoot, contents);
+  await testHooks.afterStage?.({ stageRoot, outputRoot: requestedOutputRoot, bundle });
+  // Failed stages remain private and reusable. This avoids pathname deletion
+  // after detecting an attack while preserving an atomic rollback workspace.
+  await publishStagedDirectory(stageRoot, requestedOutputRoot, backupRoot, testHooks);
   return bundle;
 }
 
