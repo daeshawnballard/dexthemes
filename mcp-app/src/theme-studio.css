@@ -195,7 +195,33 @@ html[data-host-theme="dark"] .notice { color: #f6dfa0; background: #382f17; }
 .handoff-status { margin: 0; color: var(--host-muted); font-size: 10px; line-height: 1.45; }
 .handoff-status--warning { color: #a45a00; }
 .clipboard-fallback { position: fixed; left: -10000px; top: 0; }
-.publish-button { justify-self: start; background: #b4233a; }
+.submission-review .publish-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  min-height: 44px;
+  padding: 11px 16px;
+  border: 1px solid #8f1c2f;
+  border-radius: 12px;
+  color: #fff;
+  background: #b4233a;
+  box-shadow: 0 2px 5px rgba(108, 20, 37, 0.24);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.submission-review .publish-button:hover:not(:disabled) { background: #941d31; }
+.submission-review .publish-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, #b4233a 52%, transparent);
+  outline-offset: 3px;
+}
+.submission-review .publish-button:disabled {
+  border-color: #777c87;
+  color: #fff;
+  background: #777c87;
+  box-shadow: none;
+}
+.submission-review .publish-button[aria-busy="true"] { cursor: progress; }
 .issue-review { display: grid; gap: 8px; margin: 14px 0; }
 .issue-copy { max-height: 220px; margin: 0 0 6px; padding: 12px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 12px; background: var(--host-subtle); font: 10px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .success-shell { text-align: center; }

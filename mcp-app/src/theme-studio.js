@@ -462,29 +462,44 @@ function renderSubmissionReview(data, meta) {
   review.append(element("p", "notice", "Nothing is public yet. Publish only if the exact name, summary, and both mockups are correct."));
   const confirmationToken = meta?.["dexthemes/confirmationToken"];
   const publish = makeButton("primary-button publish-button", "Publish to DexThemes community");
+  const setPublishBusy = (busy) => {
+    publish.disabled = busy;
+    publish.setAttribute("aria-busy", String(busy));
+    publish.classList.toggle("is-busy", busy);
+    publish.textContent = busy ? "Publishing…" : "Publish to DexThemes community";
+  };
+  const showPublishError = (message) => {
+    review.querySelector(".publish-error")?.remove();
+    const error = element("p", "notice publish-error", message);
+    error.setAttribute("role", "alert");
+    error.id = "publish-error";
+    review.insertBefore(error, publish);
+    publish.setAttribute("aria-describedby", error.id);
+  };
   if (!confirmationToken) {
     publish.disabled = true;
+    publish.setAttribute("aria-describedby", "review-token-unavailable");
     publish.textContent = "Review token unavailable";
+    const unavailable = element("p", "notice", "A current review token is required before this theme can be published.");
+    unavailable.id = "review-token-unavailable";
+    review.append(unavailable);
   } else {
     publish.addEventListener("click", async () => {
-      publish.disabled = true;
-      publish.textContent = "Publishing…";
+      setPublishBusy(true);
       try {
         const result = await app.callServerTool({
           name: "submit_theme",
           arguments: { theme: data.theme, confirmationToken },
         });
         if (result.isError) {
-          review.append(element("p", "notice", errorText(result, "Theme publication failed.")));
-          publish.disabled = false;
-          publish.textContent = "Publish to DexThemes community";
+          showPublishError(errorText(result, "Theme publication failed."));
+          setPublishBusy(false);
           return;
         }
         renderResult(result);
       } catch {
-        review.append(element("p", "notice", "The host could not publish the theme. Nothing was changed; review it again before retrying."));
-        publish.disabled = false;
-        publish.textContent = "Publish to DexThemes community";
+        showPublishError("The host could not publish the theme. Nothing was changed; review it again before retrying.");
+        setPublishBusy(false);
       }
     });
   }
