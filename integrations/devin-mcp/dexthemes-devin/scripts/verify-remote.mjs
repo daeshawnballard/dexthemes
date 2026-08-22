@@ -35,13 +35,15 @@ const initialized = await rpc('initialize', {
 const listed = await rpc('tools/list');
 const actualTools = listed.tools.map((tool) => tool.name).sort();
 const expectedTools = [...connector.tools].sort();
+const openWorldTools = new Set(connector.openWorldTools);
 
 if (JSON.stringify(actualTools) !== JSON.stringify(expectedTools)) {
   throw new Error(`Restricted MCP inventory mismatch: ${actualTools.join(', ')}`);
 }
 for (const tool of listed.tools) {
   const annotations = tool.annotations || {};
-  if (annotations.readOnlyHint !== true || annotations.openWorldHint !== false || annotations.destructiveHint !== false) {
+  const expectedOpenWorld = openWorldTools.has(tool.name);
+  if (annotations.readOnlyHint !== true || annotations.openWorldHint !== expectedOpenWorld || annotations.destructiveHint !== false) {
     throw new Error(`Unsafe annotations on ${tool.name}.`);
   }
   if (JSON.stringify(tool.securitySchemes) !== JSON.stringify([{ type: 'noauth' }])) {

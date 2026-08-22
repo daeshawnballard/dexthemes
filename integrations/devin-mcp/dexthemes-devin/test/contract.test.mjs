@@ -22,6 +22,11 @@ const forbiddenTools = [
   'submit_theme',
   'prepare_github_issue',
 ];
+const expectedOpenWorldTools = [
+  'search',
+  'fetch',
+  'get_leaderboard',
+];
 
 test('package uses Devin project MCP configuration with the restricted endpoint', async () => {
   const [connectorSource, mcpSource] = await Promise.all([
@@ -34,6 +39,7 @@ test('package uses Devin project MCP configuration with the restricted endpoint'
   assert.equal(connector.officialSurface, 'project-mcp-config');
   assert.equal(connector.endpoint, 'https://www.dexthemes.com/api/cursor-mcp');
   assert.deepEqual(connector.tools, expectedTools);
+  assert.deepEqual(connector.openWorldTools, expectedOpenWorldTools);
   assert.deepEqual(mcp, {
     mcpServers: {
       dexthemes: {
