@@ -22,6 +22,10 @@
       "destination": "/api/mcp?profile=antigravity_preview"
     },
     {
+      "source": "/.well-known/oauth-protected-resource/api/mcp",
+      "destination": "/api/config?profile=oauth-protected-resource"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
     },
@@ -213,6 +217,14 @@
     },
     {
       "source": "/.well-known/oauth-protected-resource",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/.well-known/oauth-protected-resource/api/mcp",
       "headers": [
         { "key": "Content-Type", "value": "application/json; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=300" },

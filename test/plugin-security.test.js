@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import configHandler from '../api/config.js';
 import { ANONYMOUS_MCP_ROUTE_PROFILES, resolveMcpProfile } from '../api/mcp.js';
 
 test('OpenAI submission artifacts remain Codex-only', async () => {
@@ -368,22 +369,59 @@ test('OAuth state is browser-bound and cleaned on a schedule', async () => {
   assert.match(cron, /cleanupExpiredOauthStates/);
 });
 
-test('Vercel config never rewrites its reserved well-known namespace', async () => {
+test('Vercel config only rewrites the exact RFC 9728 MCP metadata path', async () => {
   const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
-  for (const rewrite of config.rewrites || []) {
-    assert.equal(String(rewrite.source).startsWith('/.well-known'), false);
-  }
+  const wellKnownRewrites = (config.rewrites || []).filter((rewrite) =>
+    String(rewrite.source).startsWith('/.well-known'),
+  );
+  assert.deepEqual(wellKnownRewrites, [{
+    source: '/.well-known/oauth-protected-resource/api/mcp',
+    destination: '/api/config?profile=oauth-protected-resource',
+  }]);
 });
 
-test('well-known OAuth metadata is served as JSON for plugin discovery', async () => {
+test('root and RFC 9728 MCP OAuth metadata routes are served as JSON', async () => {
   const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
-  const oauthHeaders = config.headers.find(
-    (entry) => entry.source === '/.well-known/oauth-protected-resource',
-  )?.headers;
-  assert.equal(
-    oauthHeaders?.find((header) => header.key === 'Content-Type')?.value,
-    'application/json; charset=utf-8',
-  );
+  for (const source of [
+    '/.well-known/oauth-protected-resource',
+    '/.well-known/oauth-protected-resource/api/mcp',
+  ]) {
+    const oauthHeaders = config.headers.find((entry) => entry.source === source)?.headers;
+    assert.equal(
+      oauthHeaders?.find((header) => header.key === 'Content-Type')?.value,
+      'application/json; charset=utf-8',
+    );
+  }
+
+  const originalIssuer = process.env.DEXTHEMES_AUTH_ISSUER;
+  process.env.DEXTHEMES_AUTH_ISSUER = 'https://issuer.example.test';
+  try {
+    const response = {
+      statusCode: null,
+      body: null,
+      headers: new Map(),
+      setHeader(key, value) {
+        this.headers.set(key, value);
+      },
+      status(code) {
+        this.statusCode = code;
+        return this;
+      },
+      json(body) {
+        this.body = body;
+        return this;
+      },
+    };
+    configHandler({ method: 'GET', query: { profile: 'oauth-protected-resource' } }, response);
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.body.resource, 'https://www.dexthemes.com/api/mcp');
+    assert.deepEqual(response.body.authorization_servers, ['https://issuer.example.test/']);
+    assert.deepEqual(response.body.scopes_supported, ['themes:read', 'themes:write']);
+    assert.equal(response.headers.get('Cache-Control'), 'public, max-age=300');
+  } finally {
+    if (originalIssuer === undefined) delete process.env.DEXTHEMES_AUTH_ISSUER;
+    else process.env.DEXTHEMES_AUTH_ISSUER = originalIssuer;
+  }
 });
 
 test('protected unlock IDs include the hidden Easter egg', async () => {

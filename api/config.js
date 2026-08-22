@@ -1,4 +1,10 @@
+import oauthProtectedResourceHandler from '../server/oauth-protected-resource.js';
+
 export default function handler(req, res) {
+  if (req.query?.profile === 'oauth-protected-resource') {
+    return oauthProtectedResourceHandler(req, res);
+  }
+
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Cache-Control', 'public, max-age=3600');
