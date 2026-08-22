@@ -64,23 +64,24 @@ test('preview-only and limited platform copy keep their distinct handoff boundar
   );
 });
 
-test('contextual theme paths preserve Codex defaults and carry non-default platforms', () => {
-  assert.equal(buildContextualThemePath('mancity', 'light', 'codex'), '/mancity/light');
+test('contextual theme paths preserve the verified default and carry verified platforms', () => {
+  assert.equal(buildContextualThemePath('mancity', 'light', 'deepseek'), '/mancity/light');
   assert.equal(
-    buildContextualThemePath('mancity', 'light', 'deepseek'),
-    '/mancity/light?platform=deepseek',
+    buildContextualThemePath('mancity', 'light', 'cursor'),
+    '/mancity/light?platform=cursor',
   );
+  assert.equal(buildContextualThemePath('mancity', 'light', 'codex'), '/mancity/light');
 });
 
-test('website actions keep DeepSeek on setup and Unknown platforms disabled', () => {
+test('website actions expose only the verified selector roster', () => {
   const deepseek = getWebsitePlatformAction('deepseek');
-  const antigravity = getWebsitePlatformAction('antigravity');
+  const codex = getWebsitePlatformAction('codex');
+  const qwen = getWebsitePlatformAction('qwen');
 
   assert.equal(deepseek.mode, 'setup');
   assert.match(deepseek.destination.value, /npmjs\.com/);
-  assert.equal(antigravity.mode, 'unavailable');
-  assert.equal(antigravity.delivered, false);
-  assert.equal(antigravity.destination, undefined);
+  assert.equal(codex, null);
+  assert.equal(qwen, null);
 });
 
 test('opening platform setup is attributed as setup, never as an Apply attempt', async () => {

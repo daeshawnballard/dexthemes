@@ -3,20 +3,26 @@ import assert from 'node:assert/strict';
 
 import {
   DEFAULT_PLATFORM_ID,
+  PLATFORM_ADAPTER_CAPABILITIES,
+  PLATFORM_ADAPTER_DISPOSITIONS,
+  PLATFORM_ADAPTER_EVIDENCE,
+  PLATFORM_ADAPTER_VERIFICATION,
   EFFECT_CAPABILITY_STATES,
   PLATFORM_ACTION_SURFACES,
   PLATFORM_APPLY_MODES,
   PLATFORM_IDS,
   PLATFORM_REGISTRY,
+  WEBSITE_PLATFORM_IDS,
   getPlatform,
   getPlatformAction,
+  getPlatformIdsForAdapterDerivation,
   normalizePlatformId,
   validatePlatformRegistry,
 } from '../shared/platform-registry.js';
 
-test('platform registry is internally valid and defaults to Codex', () => {
+test('platform registry is internally valid and defaults to a decisively verified harness', () => {
   assert.deepEqual(validatePlatformRegistry(), { valid: true, errors: [] });
-  assert.equal(DEFAULT_PLATFORM_ID, 'codex');
+  assert.equal(DEFAULT_PLATFORM_ID, 'deepseek');
   assert.equal(PLATFORM_REGISTRY.codex.defaultThemeId, 'codex');
   assert.equal(PLATFORM_REGISTRY.deepseek.defaultThemeId, 'deepseek-default');
   assert.deepEqual(
@@ -50,7 +56,7 @@ test('platform registry is internally valid and defaults to Codex', () => {
     'conductor',
     'grok',
   ]);
-  assert.equal(getPlatform().applyMode, PLATFORM_APPLY_MODES.COPY_IMPORT);
+  assert.equal(getPlatform().applyMode, PLATFORM_APPLY_MODES.SETUP);
   assert.equal(PLATFORM_REGISTRY.antigravity.displayName, 'Google Antigravity');
   assert.equal(PLATFORM_REGISTRY.antigravity.shortName, 'Antigravity');
   assert.equal(PLATFORM_REGISTRY.antigravity.status, 'coming_soon');
@@ -65,6 +71,42 @@ test('platform registry is internally valid and defaults to Codex', () => {
   assert.equal(normalizePlatformId('deepseek?surface=installed'), null);
 });
 
+test('normal website selection contains only integrations with all three loaded proofs', () => {
+  assert.deepEqual(WEBSITE_PLATFORM_IDS, ['deepseek', 'opencode', 'pi', 'cursor', 't3code']);
+  for (const platformId of WEBSITE_PLATFORM_IDS) {
+    assert.deepEqual(PLATFORM_REGISTRY[platformId].integrationProof, {
+      state: 'verified', mcp: true, mutation: true, restore: true,
+      statusCopy: PLATFORM_REGISTRY[platformId].integrationProof.statusCopy,
+      userAction: PLATFORM_REGISTRY[platformId].integrationProof.userAction,
+    });
+  }
+  assert.deepEqual(
+    Object.fromEntries(PLATFORM_IDS.map((id) => [id, {
+      state: PLATFORM_REGISTRY[id].integrationProof.state,
+      mcp: PLATFORM_REGISTRY[id].integrationProof.mcp,
+      mutation: PLATFORM_REGISTRY[id].integrationProof.mutation,
+      restore: PLATFORM_REGISTRY[id].integrationProof.restore,
+    }])),
+    {
+      codex: { state: 'incomplete', mcp: false, mutation: false, restore: false },
+      deepseek: { state: 'verified', mcp: true, mutation: true, restore: true },
+      claude: { state: 'limited', mcp: false, mutation: true, restore: true },
+      antigravity: { state: 'limited', mcp: true, mutation: false, restore: false },
+      qwen: { state: 'limited', mcp: false, mutation: true, restore: true },
+      opencode: { state: 'verified', mcp: true, mutation: true, restore: true },
+      pi: { state: 'verified', mcp: true, mutation: true, restore: true },
+      zed: { state: 'incomplete', mcp: false, mutation: false, restore: false },
+      cursor: { state: 'verified', mcp: true, mutation: true, restore: true },
+      t3code: { state: 'verified', mcp: true, mutation: true, restore: true },
+      conductor: { state: 'incomplete', mcp: false, mutation: false, restore: false },
+      grok: { state: 'limited', mcp: false, mutation: false, restore: false },
+    },
+  );
+  assert.match(PLATFORM_REGISTRY.codex.integrationProof.statusCopy, /oauth_refresh_token_missing/);
+  assert.match(PLATFORM_REGISTRY.qwen.integrationProof.statusCopy, /no current model made a real DexThemes search invocation/);
+  assert.match(PLATFORM_REGISTRY.conductor.integrationProof.statusCopy, /green discovery status, but no real DexThemes call completed/i);
+});
+
 test('platform registry exposes the authoritative 12-harness roster in order', () => {
   assert.deepEqual(PLATFORM_IDS, [
     'codex', 'deepseek', 'claude', 'antigravity', 'qwen', 'opencode', 'pi', 'zed',
@@ -73,6 +115,53 @@ test('platform registry exposes the authoritative 12-harness roster in order', (
   assert.equal(PLATFORM_REGISTRY.antigravity.displayName, 'Google Antigravity');
   assert.equal(PLATFORM_REGISTRY.zed.displayName, 'Zed');
   assert.equal(PLATFORM_REGISTRY.grok.displayName, 'Grok Build');
+});
+
+test('every harness declares a normalized adapter contract and registry-owned derivations', () => {
+  const expectedCapabilities = {
+    codex: PLATFORM_ADAPTER_CAPABILITIES.COPY_IMPORT,
+    deepseek: PLATFORM_ADAPTER_CAPABILITIES.NATIVE_DIRECT_APPLY,
+    claude: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    antigravity: PLATFORM_ADAPTER_CAPABILITIES.UNAVAILABLE,
+    qwen: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    opencode: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    pi: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    zed: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    cursor: PLATFORM_ADAPTER_CAPABILITIES.REVIEW_ONLY_SOURCE,
+    t3code: PLATFORM_ADAPTER_CAPABILITIES.MANUAL_EXPORT,
+    conductor: PLATFORM_ADAPTER_CAPABILITIES.UNAVAILABLE,
+    grok: PLATFORM_ADAPTER_CAPABILITIES.LIMITED_EXPORT,
+  };
+  for (const platformId of PLATFORM_IDS) {
+    const adapter = PLATFORM_REGISTRY[platformId].adapter;
+    assert.equal(adapter.capability, expectedCapabilities[platformId], platformId);
+    assert.ok(Object.values(PLATFORM_ADAPTER_DISPOSITIONS).includes(adapter.disposition), platformId);
+    assert.ok(Object.values(PLATFORM_ADAPTER_EVIDENCE).includes(adapter.evidence.level), platformId);
+    assert.ok(Object.values(PLATFORM_ADAPTER_VERIFICATION).includes(adapter.verification.mode), platformId);
+    assert.equal(adapter.verification.writesHostConfig, false, platformId);
+    assert.equal(typeof adapter.derivation.catalog, 'boolean', platformId);
+    assert.equal(typeof adapter.derivation.themePack, 'boolean', platformId);
+    assert.equal(typeof adapter.derivation.hostExport, 'boolean', platformId);
+  }
+  assert.deepEqual(getPlatformIdsForAdapterDerivation('hostExport'), [
+    'claude', 'qwen', 'opencode', 'pi', 'zed', 'cursor', 't3code', 'grok',
+  ]);
+  assert.deepEqual(getPlatformIdsForAdapterDerivation('missing'), []);
+});
+
+test('DeepSeek native Apply/Revert and explicit unavailable adapter boundaries are declared', () => {
+  const deepseek = PLATFORM_REGISTRY.deepseek.adapter;
+  assert.equal(deepseek.evidence.level, PLATFORM_ADAPTER_EVIDENCE.NATIVE_RUNTIME);
+  assert.deepEqual(deepseek.evidence.prerequisites, [
+    'installed_harness_plugin', 'supported_theme_service', 'paired_theme_payload',
+  ]);
+  assert.equal(deepseek.verification.mode, PLATFORM_ADAPTER_VERIFICATION.NATIVE_APPLY_REVERT);
+  for (const platformId of ['antigravity', 'conductor']) {
+    const adapter = PLATFORM_REGISTRY[platformId].adapter;
+    assert.equal(adapter.disposition, PLATFORM_ADAPTER_DISPOSITIONS.UNAVAILABLE, platformId);
+    assert.equal(adapter.capability, PLATFORM_ADAPTER_CAPABILITIES.UNAVAILABLE, platformId);
+    assert.equal(adapter.derivation.hostExport, false, platformId);
+  }
 });
 
 test('host contracts are distinct from delivered surface actions', () => {

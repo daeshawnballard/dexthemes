@@ -1,0 +1,61 @@
+{
+  "name": "dexthemes-cursor-theme",
+  "displayName": "DexThemes Cursor Theme",
+  "description": "Apply and revert the Nocturnal Vigil DexThemes palette through Cursor's supported color-theme setting.",
+  "version": "0.1.0",
+  "publisher": "dexthemes-local",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daeshawnballard/dexthemes.git",
+    "directory": "integrations/cursor-theme-extension/dexthemes-cursor-theme"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onCommand:dexthemes.applyNocturnalVigil",
+    "onCommand:dexthemes.revertTheme"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "dexthemes.applyNocturnalVigil",
+        "title": "DexThemes: Apply Nocturnal Vigil"
+      },
+      {
+        "command": "dexthemes.revertTheme",
+        "title": "DexThemes: Revert Previous Theme"
+      }
+    ],
+    "themes": [
+      {
+        "label": "DexThemes Nocturnal Vigil Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/nocturnal-vigil-dark-color-theme.json"
+      }
+    ]
+  },
+  "files": [
+    "extension.js",
+    "src/theme-controller.js",
+    "themes/nocturnal-vigil-dark-color-theme.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "package": "./node_modules/.bin/vsce package --out dexthemes-cursor-theme-0.1.0.vsix"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2"
+  }
+}

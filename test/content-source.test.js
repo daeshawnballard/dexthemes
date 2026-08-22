@@ -11,7 +11,7 @@ import {
 const EXPECTED_COUNTS = Object.freeze({
   guides: 19,
   features: 13,
-  articles: 18,
+  articles: 19,
   reference: 1,
 });
 
@@ -63,6 +63,7 @@ test("every root-relative content link resolves to a content, collection, or the
     "/collections/light",
     "/collections/editor-classics",
     "/collections/community",
+    "/support.html",
     ...CONTENT_ROUTE_PATHS,
   ]);
 

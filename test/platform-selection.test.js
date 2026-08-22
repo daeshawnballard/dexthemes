@@ -5,26 +5,32 @@ import { resolveSelectedPlatformId } from '../src/platform-selection.js';
 
 test('shared URL platform wins over the persisted preference', () => {
   assert.equal(resolveSelectedPlatformId({
-    urlPlatformId: 'deepseek',
+    urlPlatformId: 'cursor',
     hasUrlPlatform: true,
-    storedPlatformId: 'claude',
-  }), 'deepseek');
+    storedPlatformId: 'opencode',
+  }), 'cursor');
 });
 
-test('stored platform wins over the backward-compatible Codex default', () => {
-  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'antigravity' }), 'antigravity');
-  assert.equal(resolveSelectedPlatformId(), 'codex');
+test('stored verified platform wins and incomplete values fail safely to the verified default', () => {
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'opencode' }), 'opencode');
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'antigravity' }), 'deepseek');
+  assert.equal(resolveSelectedPlatformId(), 'deepseek');
 });
 
-test('corrected multiword platform aliases resolve', () => {
-  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'google-antigravity' }), 'antigravity');
-  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'grok-build' }), 'grok');
+test('only aliases for verified platforms resolve in the website selector', () => {
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 't3-code' }), 't3code');
+  assert.equal(resolveSelectedPlatformId({ storedPlatformId: 'grok-build' }), 'deepseek');
 });
 
-test('an explicit invalid shared platform fails safely to Codex', () => {
+test('an explicit invalid or incomplete shared platform fails safely to DeepSeek', () => {
   assert.equal(resolveSelectedPlatformId({
     urlPlatformId: '../deepseek',
     hasUrlPlatform: true,
-    storedPlatformId: 'deepseek',
-  }), 'codex');
+    storedPlatformId: 'cursor',
+  }), 'deepseek');
+  assert.equal(resolveSelectedPlatformId({
+    urlPlatformId: 'qwen',
+    hasUrlPlatform: true,
+    storedPlatformId: 'cursor',
+  }), 'deepseek');
 });

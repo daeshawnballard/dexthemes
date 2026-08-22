@@ -8,8 +8,8 @@ answer: DexThemes exports one OpenCode JSON theme document containing paired dar
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
-dateModified: 2026-08-21
-testedWith: Deterministic OpenCode export and schema checks reviewed 2026-08-21; no installed OpenCode session was exercised
+dateModified: 2026-08-22
+testedWith: Loaded OpenCode exact six-tool call, visible theme selection, and exact restoration plus deterministic export checks reviewed 2026-08-22
 related: /articles/qwen-code-custom-theme-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
 ---
 
@@ -27,10 +27,10 @@ Paired means that color roles such as surface, text, accent, syntax, and diff st
 
 The generated JSON contains no executable extension code, no profile-writing helper, and no direct-apply payload. The selection remains an explicit user action inside OpenCode.
 
-## Evidence boundary
+## Loaded evidence and boundary
 
-The release candidate proves that the export is deterministic and that its generated structure passes the project’s OpenCode schema checks. That is source/build proof. It is not loaded-host proof: no installed OpenCode release was exercised, no local configuration was changed, and no visual output was captured.
+The current acceptance includes OpenCode loading the exact six-tool discovery inventory and completing a real DexThemes call. In that same real harness, the paired theme was visibly selected and the prior `opencode` theme was restored. That satisfies both halves of the strict runtime rubric and is why OpenCode appears in the normal DexThemes selector.
 
-Use the file as a reviewable customization artifact and verify it against the exact OpenCode version and environment you run. If you need to reverse the choice, use OpenCode’s own theme selection controls and your own file-management practices; DexThemes does not claim an automatic revert path.
+The deterministic export and schema checks remain useful source/build evidence, but they are not substitutes for that loaded proof. The website still does not write OpenCode configuration or perform a cross-process Direct Apply. Use the file and OpenCode's own selector as the user-controlled handoff. If you need to reverse the choice, use the same host-owned theme controls and keep your own file-management practices authoritative.
 
 For the broader test vocabulary behind this distinction, read [How We Test Codex Themes](/articles/how-we-test-codex-themes). DexThemes is independent and not affiliated with SST or OpenCode.

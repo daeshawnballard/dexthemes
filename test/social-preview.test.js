@@ -293,7 +293,7 @@ test('home and static information pages have content-specific cards', async () =
   for (const [page, alt] of [
     ['privacy', 'DexThemes Privacy Policy'],
     ['terms', 'DexThemes Terms of Service'],
-    ['support', 'DexThemes Support'],
+    ['support', 'DexThemes Integration Status and Support'],
   ]) {
     for (const prefix of ['../public/', '../']) {
       const html = await readFile(new URL(`${prefix}${page}.html`, import.meta.url), 'utf8');

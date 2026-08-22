@@ -2,10 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  PlatformAdapterContractViolationError,
+  PlatformAdapterImplementationMissingError,
   PlatformAdapterUnavailableError,
   getPlatformAdapter,
   preparePlatformTheme,
+  validatePlatformAdapterImplementations,
 } from '../shared/platform-adapters.js';
+import { PLATFORM_REGISTRY } from '../shared/platform-registry.js';
 
 const theme = Object.freeze({
   id: 'adapter-test',
@@ -59,13 +63,74 @@ test('proven export seams produce reviewable files without an Apply payload', ()
   }
 });
 
-test('Unknown or unsupported platforms fail with a typed unavailable result', () => {
+test('declared unavailable and unrecognized platforms remain distinguishable', () => {
   for (const platformId of ['antigravity', 'conductor']) {
-    assert.equal(getPlatformAdapter(platformId), null);
+    const adapter = getPlatformAdapter(platformId);
+    assert.equal(adapter.platformId, platformId);
+    assert.equal(adapter.disposition, 'unavailable');
+    assert.equal(adapter.implementationState, 'not_required');
     assert.throws(
       () => preparePlatformTheme(theme, platformId),
-      (error) => error instanceof PlatformAdapterUnavailableError && error.code === 'platform_adapter_unavailable',
+      (error) => error instanceof PlatformAdapterUnavailableError
+        && error.code === 'platform_adapter_unavailable'
+        && error.reason === 'declared_unavailable',
       platformId,
     );
   }
+  assert.equal(getPlatformAdapter('unknown-platform'), null);
+  assert.throws(
+    () => preparePlatformTheme(theme, 'unknown-platform'),
+    (error) => error instanceof PlatformAdapterUnavailableError && error.reason === 'unrecognized_platform',
+  );
+});
+
+test('implemented adapter declarations have callable implementations and fail loudly when omitted', () => {
+  assert.deepEqual(validatePlatformAdapterImplementations(), { valid: true, errors: [] });
+  assert.throws(
+    () => preparePlatformTheme(theme, 'codex', {}, { implementations: {} }),
+    (error) => error instanceof PlatformAdapterImplementationMissingError
+      && error.code === 'platform_adapter_implementation_missing',
+  );
+  assert.deepEqual(
+    validatePlatformAdapterImplementations(PLATFORM_REGISTRY, {}),
+    {
+      valid: false,
+      errors: [
+        'codex: declared implemented adapter is missing its callable implementation.',
+        'deepseek: declared implemented adapter is missing its callable implementation.',
+        'claude: declared implemented adapter is missing its callable implementation.',
+        'qwen: declared implemented adapter is missing its callable implementation.',
+        'opencode: declared implemented adapter is missing its callable implementation.',
+        'pi: declared implemented adapter is missing its callable implementation.',
+        'zed: declared implemented adapter is missing its callable implementation.',
+        'cursor: declared implemented adapter is missing its callable implementation.',
+        't3code: declared implemented adapter is missing its callable implementation.',
+        'grok: declared implemented adapter is missing its callable implementation.',
+      ],
+    },
+  );
+});
+
+test('callable adapter output cannot contradict its declared capability or host-write boundary', () => {
+  const badKind = {
+    codex: {
+      platformId: 'codex',
+      prepare() { return { kind: 'direct_payload', reversible: false }; },
+    },
+  };
+  assert.throws(
+    () => preparePlatformTheme(theme, 'codex', {}, { implementations: badKind }),
+    (error) => error instanceof PlatformAdapterContractViolationError
+      && error.code === 'platform_adapter_contract_violation',
+  );
+  const badWrite = {
+    codex: {
+      platformId: 'codex',
+      prepare() { return { kind: 'copy_import', setup: { writesHostConfig: true } }; },
+    },
+  };
+  assert.throws(
+    () => preparePlatformTheme(theme, 'codex', {}, { implementations: badWrite }),
+    /forbids host config writes/,
+  );
 });

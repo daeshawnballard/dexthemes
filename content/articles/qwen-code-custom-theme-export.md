@@ -8,8 +8,8 @@ answer: DexThemes exports distinct dark and light Qwen Code JSON theme files. Ke
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
-dateModified: 2026-08-21
-testedWith: Deterministic Qwen JSON export and schema checks reviewed 2026-08-21; no installed Qwen Code session was exercised
+dateModified: 2026-08-22
+testedWith: Loaded Qwen Code theme mutation and exact ui.theme restoration plus deterministic export checks reviewed 2026-08-22; real DexThemes MCP call remains unproved
 related: /articles/claude-code-custom-theme-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
 ---
 
@@ -29,8 +29,10 @@ The pairing is visual provenance only. It does not claim that Qwen's automatic a
 
 ## Evidence and limits
 
-The evidence for this release is source/build evidence: deterministic generation and schema checks of the reviewed JSON artifacts. It does not prove loaded runtime behavior in Qwen Code. No Qwen Code profile was opened, no `ui.theme` value was written, and no host rendering or reversal behavior was observed.
+The current loaded evidence proves visible Qwen Code theme mutation and restoration of the exact prior `ui.theme` value. That earns the mutation half of the strict harness rubric. Deterministic generation and schema checks continue to validate the reviewed JSON artifacts, but source and tests do not add runtime points.
 
-There is no DexThemes website Apply action, no plugin, and no theme-extension manifest behind this export. The safe handoff is a local file, an explicit configuration path chosen by you, and your own runtime check. That is the same boundary described in [How We Test Codex Themes](/articles/how-we-test-codex-themes): a valid artifact is not the same as a loaded host appearance.
+Qwen remains outside the normal selector at 50/100. The DexThemes server was discovered and connected, but no current model made a real `mcp__dexthemes__search` call. Completing that half requires a model/provider-authenticated Qwen session that actually invokes the tool and retains the loaded call receipt; discovery alone does not score.
+
+There is no DexThemes website Apply action, no plugin, and no theme-extension manifest behind this export. The safe handoff remains a local file, an explicit configuration path chosen by you, and Qwen Code's own restoration path.
 
 DexThemes is independent and not affiliated with Alibaba Cloud or Qwen Code.

@@ -2,9 +2,11 @@ import * as state from './state.js';
 import {
   DEFAULT_PLATFORM_ID,
   PLATFORM_APPLY_MODES,
-  PLATFORM_IDS,
+  WEBSITE_PLATFORM_IDS,
   getPlatform,
   getPlatformAction,
+  isWebsitePlatform,
+  normalizeWebsitePlatformId,
 } from '../shared/platform-registry.js';
 import { buildThemePath } from './theme-url.js';
 import { trackPlatformEvent } from './platform-analytics.js';
@@ -45,13 +47,14 @@ export function getPlatformPreviewCopy(platformId = DEFAULT_PLATFORM_ID) {
 
 export function buildContextualThemePath(themeId, variant, platformId = state.selectedPlatformId) {
   const path = buildThemePath(themeId, variant);
-  const platform = getPlatform(platformId);
+  const platform = getPlatform(normalizeWebsitePlatformId(platformId));
   return platform.id === DEFAULT_PLATFORM_ID
     ? path
     : `${path}?platform=${encodeURIComponent(platform.id)}`;
 }
 
 export function getWebsitePlatformAction(platformId = state.selectedPlatformId) {
+  if (!isWebsitePlatform(platformId)) return null;
   return getPlatformAction(platformId, 'website');
 }
 
@@ -109,9 +112,9 @@ function syncPlatformPicker() {
   const menu = document.getElementById('preview-platform-menu');
   if (!picker || !trigger || !current || !menu) return;
 
-  const expectedIds = PLATFORM_IDS.join(',');
+  const expectedIds = WEBSITE_PLATFORM_IDS.join(',');
   if (menu.dataset.platformIds !== expectedIds) {
-    menu.replaceChildren(...PLATFORM_IDS.map((id) => {
+    menu.replaceChildren(...WEBSITE_PLATFORM_IDS.map((id) => {
       const platform = getPlatform(id);
       const button = document.createElement('button');
       button.type = 'button';

@@ -8,6 +8,11 @@ const ALLOWED_HOSTS = new Set([
   ...(process.env.MCP_ALLOWED_HOSTS || "").split(",").map((host) => host.trim()).filter(Boolean),
 ]);
 const GITHUB_SUBJECT = /^github\|[A-Za-z0-9_-]{1,100}$/;
+export const ANONYMOUS_MCP_ROUTE_PROFILES = Object.freeze({
+  deepseek_harness: Object.freeze({ profile: "deepseek_harness", allowAuthorization: false }),
+  cursor_discovery: Object.freeze({ profile: "cursor_discovery", allowAuthorization: false }),
+  antigravity_preview: Object.freeze({ profile: "antigravity_preview", allowAuthorization: false }),
+});
 let jwks;
 
 function sendJson(res, status, body, headers = {}) {
@@ -19,6 +24,44 @@ function sendJson(res, status, body, headers = {}) {
 
 function normalizeIssuer(value) {
   return value && value.endsWith("/") ? value : value ? `${value}/` : "";
+}
+
+function acceptsMcpResponseType(header, type, { includeWildcard = true } = {}) {
+  if (typeof header !== "string") return false;
+  return header.split(",").some((entry) => {
+    const [mediaType, ...parameters] = entry.trim().toLowerCase().split(";");
+    if (mediaType !== type && (!includeWildcard || mediaType !== "*/*")) return false;
+    const quality = parameters.find((parameter) => parameter.trim().startsWith("q="));
+    return quality === undefined || Number(quality.trim().slice(2)) > 0;
+  });
+}
+
+function withStreamableMcpAccept(req) {
+  const accept = Array.isArray(req.headers?.accept) ? req.headers.accept.join(",") : req.headers?.accept;
+  if (
+    !acceptsMcpResponseType(accept, "application/json")
+    || acceptsMcpResponseType(accept, "text/event-stream", { includeWildcard: false })
+  ) {
+    return req;
+  }
+
+  const normalizedAccept = acceptsMcpResponseType(accept, "application/json", { includeWildcard: false })
+    ? `${accept}, text/event-stream`
+    : `${accept}, application/json, text/event-stream`;
+  const rawHeaders = Array.isArray(req.rawHeaders)
+    ? req.rawHeaders.flatMap((value, index, values) => {
+      if (index % 2 === 1) return [];
+      return [value, value.toLowerCase() === "accept" ? normalizedAccept : values[index + 1]];
+    })
+    : req.rawHeaders;
+
+  return Object.assign(Object.create(req), {
+    headers: {
+      ...req.headers,
+      accept: normalizedAccept,
+    },
+    rawHeaders,
+  });
 }
 
 function isAllowedPluginSubject(subject) {
@@ -89,7 +132,7 @@ export async function handleMcpRequest(req, res, {
   });
   try {
     await server.connect(transport);
-    await transport.handleRequest(req, res, req.body);
+    await transport.handleRequest(withStreamableMcpAccept(req), res, req.body);
   } catch (error) {
     console.error("DexThemes MCP request failed", error);
     if (!res.headersSent) sendJson(res, 500, { error: "MCP request failed" });
@@ -112,8 +155,8 @@ export function resolveMcpProfile(req) {
   if (requestedProfile === undefined || requestedProfile === null || requestedProfile === "") {
     return Object.freeze({ profile: "full", allowAuthorization: true });
   }
-  if (requestedProfile === "deepseek_harness") {
-    return Object.freeze({ profile: "deepseek_harness", allowAuthorization: false });
+  if (typeof requestedProfile === "string" && Object.hasOwn(ANONYMOUS_MCP_ROUTE_PROFILES, requestedProfile)) {
+    return ANONYMOUS_MCP_ROUTE_PROFILES[requestedProfile];
   }
   return null;
 }

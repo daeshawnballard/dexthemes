@@ -20,8 +20,18 @@ const LEADERBOARD_URL =
   process.env.DEXTHEMES_LEADERBOARD_URL ||
   "https://acrobatic-corgi-867.convex.site/leaderboard";
 const CATALOG_CACHE_TTL_MS = 30 * 1000;
+export const COMMUNITY_CATALOG_LIMITS = Object.freeze({
+  timeoutMs: 4500,
+  maxResponseBytes: 256 * 1024,
+  maxTotalBytes: 512 * 1024,
+  maxEntries: 192,
+  maxEntryBytes: 8 * 1024,
+  maxPages: 3,
+  maxCursorLength: 160,
+});
 const HEX = /^#[0-9A-Fa-f]{6}$/;
 const THEME_ID_MAX_LENGTH = 64;
+const CONTROL_AND_BIDI = /[\u0000-\u001F\u007F-\u009F\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g;
 const VARIANT_KEYS = [
   "surface",
   "ink",
@@ -35,22 +45,140 @@ let catalogCacheExpiresAt = 0;
 let catalogRequest = null;
 
 function timeoutSignal(milliseconds) {
-  return typeof AbortSignal !== "undefined" && typeof AbortSignal.timeout === "function"
-    ? AbortSignal.timeout(milliseconds)
-    : undefined;
+  if (typeof AbortSignal !== "undefined" && typeof AbortSignal.timeout === "function") {
+    return AbortSignal.timeout(milliseconds);
+  }
+  if (typeof AbortController === "undefined") return undefined;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), milliseconds);
+  timer.unref?.();
+  return controller.signal;
 }
 
-async function fetchJson(url, fallback) {
+function byteLength(value) {
+  return new TextEncoder().encode(String(value || "")).byteLength;
+}
+
+async function readBoundedJson(response, maxBytes) {
+  const declaredLength = Number(response.headers?.get?.("content-length"));
+  if (Number.isFinite(declaredLength) && declaredLength > maxBytes) return null;
+
+  if (typeof response.body?.getReader === "function") {
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let bytes = 0;
+    let text = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > maxBytes) {
+        await reader.cancel().catch(() => {});
+        return null;
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    text += decoder.decode();
+    return { data: JSON.parse(text), bytes };
+  }
+
+  if (typeof response.text === "function") {
+    const text = await response.text();
+    if (byteLength(text) > maxBytes) return null;
+    return { data: JSON.parse(text), bytes: byteLength(text) };
+  }
+
+  // Lightweight test doubles may expose json() without a Response text body.
+  const data = await response.json();
+  const serialized = JSON.stringify(data);
+  if (byteLength(serialized) > maxBytes) return null;
+  return { data, bytes: byteLength(serialized) };
+}
+
+async function fetchJson(url, fallback, {
+  timeoutMs = COMMUNITY_CATALOG_LIMITS.timeoutMs,
+  maxBytes = COMMUNITY_CATALOG_LIMITS.maxResponseBytes,
+} = {}) {
   try {
     const response = await fetch(url, {
       headers: { Accept: "application/json", Origin: "https://www.dexthemes.com" },
-      signal: timeoutSignal(4500),
+      signal: timeoutSignal(timeoutMs),
     });
     if (!response.ok) return fallback;
-    return await response.json();
+    const bounded = await readBoundedJson(response, maxBytes);
+    return bounded ? bounded.data : fallback;
   } catch {
     return fallback;
   }
+}
+
+function boundedCatalogEntry(entry) {
+  if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+  try {
+    return byteLength(JSON.stringify(entry)) <= COMMUNITY_CATALOG_LIMITS.maxEntryBytes
+      ? entry
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function parseCommunityPage(payload) {
+  if (Array.isArray(payload)) return { entries: payload, nextCursor: null };
+  if (!payload || typeof payload !== "object") return { entries: [], nextCursor: null };
+  const entries = [payload.themes, payload.items, payload.results].find(Array.isArray) || [];
+  const rawCursor = payload.nextCursor ?? payload.next_cursor ?? null;
+  if (rawCursor === null || rawCursor === undefined || rawCursor === "") {
+    return { entries, nextCursor: null };
+  }
+  const nextCursor = String(rawCursor).replace(CONTROL_AND_BIDI, "");
+  if (
+    nextCursor.length < 1
+    || nextCursor.length > COMMUNITY_CATALOG_LIMITS.maxCursorLength
+    || !/^[A-Za-z0-9._~-]+$/.test(nextCursor)
+  ) {
+    return { entries, nextCursor: null };
+  }
+  return { entries, nextCursor };
+}
+
+async function loadCommunityCatalog() {
+  const entries = [];
+  let totalBytes = 0;
+  let cursor = null;
+  for (let page = 0; page < COMMUNITY_CATALOG_LIMITS.maxPages; page += 1) {
+    const url = new URL(COMMUNITY_THEMES_URL);
+    if (cursor) url.searchParams.set("cursor", cursor);
+    let bounded;
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: "application/json", Origin: "https://www.dexthemes.com" },
+        signal: timeoutSignal(COMMUNITY_CATALOG_LIMITS.timeoutMs),
+      });
+      if (!response.ok) break;
+      bounded = await readBoundedJson(response, COMMUNITY_CATALOG_LIMITS.maxResponseBytes);
+    } catch {
+      break;
+    }
+    if (!bounded || totalBytes + bounded.bytes > COMMUNITY_CATALOG_LIMITS.maxTotalBytes) break;
+    totalBytes += bounded.bytes;
+
+    const parsed = parseCommunityPage(bounded.data);
+    for (const entry of parsed.entries) {
+      const boundedEntry = boundedCatalogEntry(entry);
+      if (boundedEntry) entries.push(boundedEntry);
+      if (entries.length >= COMMUNITY_CATALOG_LIMITS.maxEntries) return entries;
+    }
+    if (!parsed.nextCursor || parsed.nextCursor === cursor) break;
+    cursor = parsed.nextCursor;
+  }
+  return entries;
+}
+
+export function resetThemeCatalogCacheForTests() {
+  catalogCache = null;
+  catalogCacheExpiresAt = 0;
+  catalogRequest = null;
 }
 
 export async function loadThemeCatalog() {
@@ -58,7 +186,7 @@ export async function loadThemeCatalog() {
   if (catalogCache && now < catalogCacheExpiresAt) return catalogCache;
   if (catalogRequest) return catalogRequest;
   catalogRequest = (async () => {
-    const community = await fetchJson(COMMUNITY_THEMES_URL, []);
+    const community = await loadCommunityCatalog();
     const publicStatic = STATIC_THEME_CATALOG.filter((theme) =>
       !theme._hiddenUntilUnlocked && theme.subgroup !== "unlockables"
     );
@@ -145,10 +273,12 @@ export async function searchThemes(query, limit = 12) {
 export async function fetchThemeById(id) {
   const target = resolvePluginThemeSourceId(id);
   const catalog = await loadThemeCatalog();
-  const theme = catalog.find((entry) =>
-    String(entry.id || entry.themeId || "").toLowerCase() === target
-  );
-  return theme ? compactPluginTheme(theme) : null;
+  const matches = catalog.filter((entry) => {
+    const rawId = String(entry.id || entry.themeId || "").toLowerCase();
+    const strippedId = rawId.replace(CONTROL_AND_BIDI, "");
+    return rawId === target || strippedId === target;
+  });
+  return matches.length === 1 ? compactPluginTheme(matches[0]) : null;
 }
 
 function hash32(value) {
@@ -391,8 +521,11 @@ export async function getLeaderboard() {
 
 function sanitizeLeaderboardRows(rows) {
   return (Array.isArray(rows) ? rows : [])
+    .map((theme) => boundedCatalogEntry(theme))
+    .filter(Boolean)
     .map((theme) => sanitizeThemeForPlugin(theme))
-    .filter(Boolean);
+    .filter(Boolean)
+    .slice(0, 10);
 }
 
 function redactSensitiveText(value) {

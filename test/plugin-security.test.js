@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { resolveMcpProfile } from '../api/mcp.js';
+import { ANONYMOUS_MCP_ROUTE_PROFILES, resolveMcpProfile } from '../api/mcp.js';
 
 test('OpenAI submission artifacts remain Codex-only', async () => {
   const [submission, skill, manifest] = await Promise.all([
@@ -64,7 +64,9 @@ test('DeepSeek Harness activity is separately scoped, client-reported, and canno
   assert.match(records, /advanceClientUseReceiptHashes\(existing\.clientReceiptHashes, receiptHash\)/);
   assert.match(records, /!receiptWindow\.accepted/);
   assert.match(records, /recorded: false, clientReported: true/);
-  assert.match(coordinator, /controller\.apply\(theme, options\)/);
+  assert.match(coordinator, /options\?\.confirmation !== EXPLICIT_USER_THEME_CONFIRMATION/);
+  assert.match(coordinator, /const \{ confirmation: _confirmation, \.\.\.controllerOptions \} = options/);
+  assert.match(coordinator, /controller\.apply\(theme, controllerOptions\)/);
   assert.match(coordinator, /account\?\.recordHarnessUse\?\.\(\)/);
   assert.doesNotMatch(coordinator, /recordHarnessUse\([^)]*(?:theme|palette|prompt|workspace)/);
   const useRequest = account.match(/authorizedFetch\('\/plugin\/deepseek-harness\/use',[\s\S]*?\n        \}\);/)?.[0] || '';
@@ -205,13 +207,44 @@ test('DeepSeek Harness uses a distinct fail-closed MCP route without adding a Ve
     source: '/api/deepseek-mcp',
     destination: '/api/mcp?profile=deepseek_harness',
   });
-  assert.match(endpoint, /requestedProfile === "deepseek_harness"/);
-  assert.match(endpoint, /profile: "deepseek_harness", allowAuthorization: false/);
+  assert.deepEqual(ANONYMOUS_MCP_ROUTE_PROFILES.deepseek_harness, {
+    profile: 'deepseek_harness', allowAuthorization: false,
+  });
+  assert.match(endpoint, /Object\.hasOwn\(ANONYMOUS_MCP_ROUTE_PROFILES, requestedProfile\)/);
   assert.match(endpoint, /unsupported_mcp_profile/);
   assert.doesNotMatch(endpoint, /profile = requestedProfile|allowAuthorization = requestedProfile/);
   assert.match(config, /Access-Control-Allow-Origin', '\*'/);
   assert.match(config, /req\.method !== 'GET'/);
   assert.doesNotMatch(config, /secret|serverKey|authorization/i);
+});
+
+test('Cursor discovery uses a distinct anonymous fail-closed MCP route', async () => {
+  const [endpoint, configSource, manifestSource] = await Promise.all([
+    readFile(new URL('../api/mcp.js', import.meta.url), 'utf8'),
+    readFile(new URL('../vercel.json', import.meta.url), 'utf8'),
+    readFile(new URL('../integrations/cursor-plugin/dexthemes-cursor/mcp.json', import.meta.url), 'utf8'),
+  ]);
+  const vercel = JSON.parse(configSource);
+  const manifest = JSON.parse(manifestSource);
+  assert.deepEqual(vercel.rewrites.find((entry) => entry.source === '/api/cursor-mcp'), {
+    source: '/api/cursor-mcp',
+    destination: '/api/mcp?profile=cursor_discovery',
+  });
+  assert.equal(manifest.mcpServers.dexthemes.url, 'https://www.dexthemes.com/api/cursor-mcp');
+  assert.deepEqual(ANONYMOUS_MCP_ROUTE_PROFILES.cursor_discovery, {
+    profile: 'cursor_discovery', allowAuthorization: false,
+  });
+});
+
+test('Antigravity preview uses a distinct anonymous fail-closed MCP route', async () => {
+  const vercel = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+  assert.deepEqual(vercel.rewrites.find((entry) => entry.source === '/api/antigravity-mcp'), {
+    source: '/api/antigravity-mcp',
+    destination: '/api/mcp?profile=antigravity_preview',
+  });
+  assert.deepEqual(ANONYMOUS_MCP_ROUTE_PROFILES.antigravity_preview, {
+    profile: 'antigravity_preview', allowAuthorization: false,
+  });
 });
 
 test('MCP route selection preserves full OAuth behavior and fails closed for unknown profiles', () => {
@@ -225,6 +258,18 @@ test('MCP route selection preserves full OAuth behavior and fails closed for unk
   });
   assert.deepEqual(resolveMcpProfile({ query: { profile: 'deepseek_harness' } }), {
     profile: 'deepseek_harness',
+    allowAuthorization: false,
+  });
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp?profile=cursor_discovery' }), {
+    profile: 'cursor_discovery',
+    allowAuthorization: false,
+  });
+  assert.deepEqual(resolveMcpProfile({ query: { profile: 'cursor_discovery' } }), {
+    profile: 'cursor_discovery',
+    allowAuthorization: false,
+  });
+  assert.deepEqual(resolveMcpProfile({ url: '/api/mcp?profile=antigravity_preview' }), {
+    profile: 'antigravity_preview',
     allowAuthorization: false,
   });
   assert.equal(resolveMcpProfile({ url: '/api/mcp?profile=full' }), null);

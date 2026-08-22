@@ -6,7 +6,7 @@ import { THEMES } from './theme-catalog.js';
 import { SUPPORTER_THEME_ID, getUnlockActionForThemeId } from './unlocks.js';
 import { normalizeThemeVariant, readPlatformParam, readThemeRoute, syncThemeUrl } from './theme-url.js';
 import { getWebsiteThemeId, resolvePluginThemeSourceId } from '../shared/plugin-public-policy.js';
-import { DEFAULT_PLATFORM_ID, getPlatform, normalizePlatformId } from '../shared/platform-registry.js';
+import { DEFAULT_PLATFORM_ID, getPlatform, normalizePlatformId, normalizeWebsitePlatformId } from '../shared/platform-registry.js';
 import { resolveSelectedPlatformId } from './platform-selection.js';
 import {
   getCatalogCategoriesForPlatform,
@@ -176,8 +176,7 @@ export function syncSelectedThemeUrl() {
 }
 
 export function setSelectedPlatform(platformId) {
-  const normalized = normalizePlatformId(platformId);
-  if (!normalized) return false;
+  const normalized = normalizeWebsitePlatformId(platformId);
   const changed = normalized !== selectedPlatformId;
   selectedPlatformId = normalized;
   selectedPlatform = getPlatform(normalized);
