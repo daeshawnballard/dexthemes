@@ -38,6 +38,11 @@ const theme = {
   },
 };
 const fixture = { kind: "theme-draft", theme, needsNameConfirmation: false };
+const submissionFixture = {
+  kind: "theme-submission-review",
+  theme,
+  publicNotice: "Publishing creates a public community theme attributed to your verified DexThemes identity.",
+};
 const leaderboardFixture = {
   kind: "leaderboard",
   daily: [{ ...theme, authorName: "Community Builder", copies: 8, rawCopies: 8, qualifiedAdoptions: 3, likes: 5 }],
@@ -81,7 +86,7 @@ html,body{margin:0;background:#eceef3;font-family:system-ui,sans-serif}main{widt
 </style></head><body><main><iframe id="widget" src="/widget"></iframe></main><script>
 const fixture=${fixtureJson};
 function respond(target,id,result){target.postMessage({jsonrpc:"2.0",id,result},"*")}
-window.sendFixture=(payload)=>document.getElementById("widget").contentWindow.postMessage({jsonrpc:"2.0",method:"ui/notifications/tool-result",params:{content:[],structuredContent:payload}},"*");
+window.sendFixture=(payload,meta={})=>document.getElementById("widget").contentWindow.postMessage({jsonrpc:"2.0",method:"ui/notifications/tool-result",params:{content:[],structuredContent:payload,_meta:meta}},"*");
 window.addEventListener("message",(event)=>{
   const message=event.data;
   if(!message||message.jsonrpc!=="2.0")return;
@@ -95,6 +100,10 @@ window.addEventListener("message",(event)=>{
   }
   if(message.method==="tools/call"){
     const args=message.params.arguments;
+    if(message.params.name==="submit_theme"){
+      respond(event.source,message.id,{isError:true,content:[{type:"text",text:"Publication unavailable in QA."}]});
+      return;
+    }
     if(message.params.name==="fetch"){
       respond(event.source,message.id,{content:[{type:"text",text:"Fetched"}],structuredContent:{id:fixture.theme.id,title:fixture.theme.name,text:fixture.theme.summary,url:"https://www.dexthemes.com",metadata:fixture.theme}});
       return;
@@ -157,12 +166,48 @@ try {
   await frame.getByText("Theme of the Day").waitFor();
   await page.screenshot({ path: path.join(outputDir, "creator-dashboard.png"), fullPage: true });
 
+  await page.evaluate((payload) => window.sendFixture(payload), submissionFixture);
+  const missingTokenPublish = frame.getByRole("button", { name: "Review token unavailable" });
+  await missingTokenPublish.waitFor();
+  if (!await missingTokenPublish.isDisabled()) throw new Error("Publish must remain disabled without an app-provided confirmation token");
+
+  await page.evaluate((payload) => window.sendFixture(payload, { "dexthemes/confirmationToken": "qa-confirmation-token-with-sufficient-length-for-rendering" }), submissionFixture);
+  const publish = frame.getByRole("button", { name: "Publish to DexThemes community" });
+  await publish.waitFor();
+  if (await publish.isDisabled()) throw new Error("Publish should be enabled when the app provides a review token");
+  await publish.focus();
+  const publishStyle = await publish.evaluate((node) => {
+    const style = getComputedStyle(node);
+    return { background: style.backgroundColor, color: style.color, outline: style.outlineStyle };
+  });
+  if (publishStyle.background !== "rgb(180, 35, 58)" || publishStyle.color !== "rgb(255, 255, 255)") {
+    throw new Error(`Publish control did not retain its primary treatment: ${JSON.stringify(publishStyle)}`);
+  }
+  await page.screenshot({ path: path.join(outputDir, "submission-review.png"), fullPage: true });
+  await frame.evaluate(() => { document.documentElement.dataset.hostTheme = "dark"; });
+  const darkPublishStyle = await publish.evaluate((node) => {
+    const style = getComputedStyle(node);
+    return { background: style.backgroundColor, color: style.color };
+  });
+  if (darkPublishStyle.background !== "rgb(180, 35, 58)" || darkPublishStyle.color !== "rgb(255, 255, 255)") {
+    throw new Error(`Publish control lost its primary treatment in dark mode: ${JSON.stringify(darkPublishStyle)}`);
+  }
+  await page.screenshot({ path: path.join(outputDir, "submission-review-dark.png"), fullPage: true });
+  await publish.click();
+  await frame.getByRole("alert").waitFor();
+  await frame.getByText("Publication unavailable in QA.").waitFor();
+  if (await publish.isDisabled()) throw new Error("Publish should leave its busy state after a failed submission");
+  await page.screenshot({ path: path.join(outputDir, "submission-review-error.png"), fullPage: true });
+
   if (pageErrors.length) throw new Error(`Widget page errors: ${pageErrors.join(" | ")}`);
   console.log(JSON.stringify({
     preview: path.join(outputDir, "theme-preview.png"),
     apply: path.join(outputDir, "apply-handoff.png"),
     leaderboard: path.join(outputDir, "leaderboard.png"),
     dashboard: path.join(outputDir, "creator-dashboard.png"),
+    submissionReview: path.join(outputDir, "submission-review.png"),
+    submissionReviewDark: path.join(outputDir, "submission-review-dark.png"),
+    submissionError: path.join(outputDir, "submission-review-error.png"),
   }));
 } finally {
   await browser.close();

@@ -458,6 +458,21 @@ test('plugin visual studio uses full Codex mockups and an explicit copy-and-sett
   assert.doesNotMatch(source, /innerHTML/);
 });
 
+test('submission review keeps a primary publish control behind a token and an explicit click', async () => {
+  const [source, css] = await Promise.all([
+    readFile(new URL('../mcp-app/src/theme-studio.js', import.meta.url), 'utf8'),
+    readFile(new URL('../mcp-app/src/theme-studio.css', import.meta.url), 'utf8'),
+  ]);
+  assert.match(source, /makeButton\("primary-button publish-button", "Publish to DexThemes community"\)/);
+  assert.match(source, /if \(!confirmationToken\) \{[\s\S]*?publish\.disabled = true/);
+  assert.match(source, /publish\.addEventListener\("click", async \(\) => \{[\s\S]*?name: "submit_theme"/);
+  assert.match(source, /aria-busy/);
+  assert.match(source, /role", "alert"/);
+  assert.match(css, /\.submission-review \.publish-button \{[\s\S]*?display: inline-flex[\s\S]*?background: #b4233a/);
+  assert.match(css, /\.submission-review \.publish-button:focus-visible/);
+  assert.match(css, /\.submission-review \.publish-button:disabled/);
+});
+
 test('plugin visual studio keeps DeepSeek preparation separate from the Codex clipboard handoff', async () => {
   const source = await readFile(new URL('../mcp-app/src/theme-studio.js', import.meta.url), 'utf8');
   const deepSeekView = source.slice(
