@@ -284,6 +284,9 @@ test('home and static information pages have content-specific cards', async () =
   const homeFiles = ['../templates/index.template.html', '../index.html'];
   for (const relativePath of homeFiles) {
     const html = await readFile(new URL(relativePath, import.meta.url), 'utf8');
+    assert.match(html, /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg">/);
+    assert.match(html, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png">/);
+    assert.match(html, /<link rel="manifest" href="\/manifest\.json">/);
     assertLargeCardMetadata(html, {
       imageUrl: HOME_SOCIAL_IMAGE_URL,
       imageAlt: HOME_SOCIAL_IMAGE_ALT,
