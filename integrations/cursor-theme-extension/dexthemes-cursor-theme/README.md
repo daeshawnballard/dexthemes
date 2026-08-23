@@ -19,7 +19,15 @@ cursor --install-extension dexthemes-cursor-theme-0.1.0.vsix
 
 Reload Cursor, open the Command Palette, and run **DexThemes: Apply Nocturnal Vigil**. Use **DexThemes: Revert Previous Theme** to restore the exact prior color-theme selection.
 
-This repository package is for authorized local installation and verification. It is not a marketplace submission or publication claim.
+This repository package is prepared for authorized local VSIX installation and external marketplace review. It is not marketplace-submitted, accepted, or published.
+
+## Marketplace review boundary
+
+Cursor's documented extension workflow accepts a VSIX for local installation. The verified distribution artifact is the VSIX emitted by `npm run package`; it is not a Cursor marketplace submission.
+
+The same VS Code-compatible package can be reviewed for an external listing, but only after the publisher identity is confirmed. The current extension ID is `dexthemes-local.dexthemes-cursor-theme`. The `publisher` field is an externally owned identifier: do not rename it or submit the package until the intended Marketplace/Open VSX owner has confirmed that exact ID. The current package's submission status is **NOT_SUBMITTED**.
+
+See [MARKETPLACE-REVIEW.md](MARKETPLACE-REVIEW.md) for the checked artifact, current registry requirements, and the exact approval boundary.
 
 ## Uninstall and verify
 
