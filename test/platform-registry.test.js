@@ -72,7 +72,7 @@ test('platform registry is internally valid and defaults to a decisively verifie
 });
 
 test('normal website selection contains only integrations with all three loaded proofs', () => {
-  assert.deepEqual(WEBSITE_PLATFORM_IDS, ['deepseek', 'opencode', 'pi', 'cursor', 't3code']);
+  assert.deepEqual(WEBSITE_PLATFORM_IDS, ['codex', 'deepseek', 'opencode', 'pi', 'cursor', 't3code']);
   for (const platformId of WEBSITE_PLATFORM_IDS) {
     assert.deepEqual(PLATFORM_REGISTRY[platformId].integrationProof, {
       state: 'verified', mcp: true, mutation: true, restore: true,
@@ -88,7 +88,7 @@ test('normal website selection contains only integrations with all three loaded 
       restore: PLATFORM_REGISTRY[id].integrationProof.restore,
     }])),
     {
-      codex: { state: 'incomplete', mcp: false, mutation: false, restore: false },
+      codex: { state: 'verified', mcp: true, mutation: true, restore: true },
       deepseek: { state: 'verified', mcp: true, mutation: true, restore: true },
       claude: { state: 'limited', mcp: false, mutation: true, restore: true },
       antigravity: { state: 'limited', mcp: true, mutation: false, restore: false },
@@ -102,7 +102,7 @@ test('normal website selection contains only integrations with all three loaded 
       grok: { state: 'limited', mcp: false, mutation: false, restore: false },
     },
   );
-  assert.match(PLATFORM_REGISTRY.codex.integrationProof.statusCopy, /oauth_refresh_token_missing/);
+  assert.match(PLATFORM_REGISTRY.codex.integrationProof.statusCopy, /canonical DexThemes plugin/);
   assert.match(PLATFORM_REGISTRY.qwen.integrationProof.statusCopy, /no current model made a real DexThemes search invocation/);
   assert.match(PLATFORM_REGISTRY.conductor.integrationProof.statusCopy, /green discovery status, but no real DexThemes call completed/i);
 });

@@ -303,7 +303,9 @@ export function renderContentHub(section) {
     });
   }
 
-  const items = CONTENT_ITEMS.filter((item) => item.routeSection === section);
+  const items = CONTENT_ITEMS.filter((item) => (
+    item.routeSection === section && item.visibility !== "status-only"
+  ));
   const canonicalUrl = `${CANONICAL_ORIGIN}/${section}`;
   const cards = items.map((item, index) => `
     <a class="hub-card" href="${escapeHtml(item.path)}">
@@ -427,6 +429,7 @@ export function renderContentPage(section, slug) {
     ogImageUrl: buildContentSocialImageUrl(section, slug, item.dateModified),
     ogImageAlt: `${item.section}: ${item.title}`,
     accent: config.accent,
+    noindex: item.visibility === "status-only",
     body: `
       <main id="main-content">
         <article class="content-page">

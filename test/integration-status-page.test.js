@@ -4,6 +4,8 @@ import test from 'node:test';
 
 import { PLATFORM_IDS, PLATFORM_REGISTRY, WEBSITE_PLATFORM_IDS } from '../shared/platform-registry.js';
 import { CONTENT_ITEMS } from '../shared/generated-content.js';
+import { ARTICLE_ROUTES } from '../shared/seo.js';
+import { renderContentHub, renderContentPage } from '../shared/public-pages.js';
 
 test('integration status page separates verified selection from the complete tracked roster', async () => {
   const page = await readFile(new URL('../public/support.html', import.meta.url), 'utf8');
@@ -21,7 +23,7 @@ test('integration status page separates verified selection from the complete tra
     assert.match(page, new RegExp(`<h3>${PLATFORM_REGISTRY[platformId].displayName}</h3>`));
   }
 
-  assert.match(page, /oauth_refresh_token_missing/);
+  assert.match(page, /Authenticated canonical plugin call/);
   assert.match(page, /Claude Code’s supported MCP authentication/);
   assert.match(page, /Antigravity 2\.9\.1 loaded the exact five-tool preview inventory/);
   assert.match(page, /<strong>50<\/strong><span>mutation only<\/span>[\s\S]*?<h3>Qwen Code<\/h3>/);
@@ -36,13 +38,13 @@ test('integration status page separates verified selection from the complete tra
   const incompleteSection = page.match(/aria-label="Incomplete and limited integrations">([\s\S]*?)<\/section>/)?.[1] || '';
   assert.ok(incompleteSection);
   assert.doesNotMatch(incompleteSection, /class="button"/);
-  assert.equal((incompleteSection.match(/<h3>/g) || []).length, 8);
+  assert.equal((incompleteSection.match(/<h3>/g) || []).length, 7);
 });
 
 test('status article mirrors the verified-only roster and status-only boundaries', () => {
   const article = CONTENT_ITEMS.find((item) => item.slug === 'dexthemes-harness-integration-status');
   assert.ok(article);
-  assert.match(article.markdown, /DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code/);
+  assert.match(article.markdown, /Codex, DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code/);
   for (const platformId of PLATFORM_IDS) {
     assert.match(article.markdown, new RegExp(`\\*\\*${PLATFORM_REGISTRY[platformId].displayName} (?:—|\\*\\*)`));
   }
@@ -50,4 +52,22 @@ test('status article mirrors the verified-only roster and status-only boundaries
   assert.match(article.markdown, /50-point ceiling/);
   assert.match(article.markdown, /Authentication gates are not structural support/);
   assert.match(article.markdown, /were not performed/);
+});
+
+test('sub-100 integration articles are status-only and excluded from normal discovery', () => {
+  const statusOnlyPaths = [
+    '/articles/claude-code-custom-theme-export',
+    '/articles/qwen-code-custom-theme-export',
+    '/articles/zed-local-theme-family-export',
+    '/articles/grok-build-limited-pager-overrides',
+  ];
+  const hub = renderContentHub('articles');
+
+  for (const path of statusOnlyPaths) {
+    const item = CONTENT_ITEMS.find((candidate) => candidate.path === path);
+    assert.equal(item?.visibility, 'status-only', path);
+    assert.equal(ARTICLE_ROUTES.includes(path), false, path);
+    assert.equal(hub.includes(`href="${path}"`), false, path);
+    assert.match(renderContentPage('articles', item.slug), /<meta name="robots" content="noindex, nofollow">/);
+  }
 });

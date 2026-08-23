@@ -1,3 +1,5 @@
+import { DEFAULT_PLATFORM_ID } from '../shared/platform-registry.js';
+
 const THEME_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const THEME_VARIANTS = new Set(['dark', 'light']);
 
@@ -58,7 +60,7 @@ export function syncThemeUrl(
   themeId,
   variant,
   {
-    platformId = 'codex',
+    platformId = DEFAULT_PLATFORM_ID,
     historyImpl = globalThis.history,
     locationImpl = globalThis.location,
   } = {},
@@ -67,7 +69,7 @@ export function syncThemeUrl(
   if (!themePath || !historyImpl?.replaceState || !locationImpl) return false;
 
   const hash = locationImpl.hash || '';
-  const platformQuery = platformId && platformId !== 'codex'
+  const platformQuery = platformId && platformId !== DEFAULT_PLATFORM_ID
     ? `?platform=${encodeURIComponent(platformId)}`
     : '';
   const nextUrl = `${themePath}${platformQuery}${hash}`;

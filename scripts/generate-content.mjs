@@ -27,6 +27,8 @@ const REQUIRED_KEYS = Object.freeze([
   "testedWith",
   "related",
 ]);
+const OPTIONAL_KEYS = Object.freeze(["visibility"]);
+const CONTENT_VISIBILITIES = new Set(["public", "status-only"]);
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -81,7 +83,9 @@ function parseFrontmatter(source, sourcePath) {
     }
   }
 
-  const extraKeys = Object.keys(metadata).filter((key) => !REQUIRED_KEYS.includes(key));
+  const extraKeys = Object.keys(metadata).filter((key) => (
+    !REQUIRED_KEYS.includes(key) && !OPTIONAL_KEYS.includes(key)
+  ));
   if (extraKeys.length) {
     throw new Error(`${sourcePath}: unsupported frontmatter keys: ${extraKeys.join(", ")}`);
   }
@@ -259,6 +263,9 @@ function validateMetadata(metadata, sectionSlug, sourcePath, body) {
   if (metadata.answer.length < 80 || metadata.answer.length > 420) {
     throw new Error(`${sourcePath}: answer must be 80-420 characters`);
   }
+  if (metadata.visibility && !CONTENT_VISIBILITIES.has(metadata.visibility)) {
+    throw new Error(`${sourcePath}: visibility must be "public" or "status-only"`);
+  }
   if (wordCount(body) < 300) {
     throw new Error(`${sourcePath}: body must contain at least 300 words`);
   }
@@ -315,6 +322,7 @@ async function readSection(sectionSlug) {
       datePublished: metadata.datePublished,
       dateModified: metadata.dateModified,
       testedWith: metadata.testedWith,
+      visibility: metadata.visibility || "public",
       related,
       wordCount: wordCount(body),
       bodyHtml: renderMarkdown(body, relativePath),

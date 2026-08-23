@@ -30,6 +30,9 @@ export default async function handler(req, res) {
     if (format === "markdown") {
       return sendMarkdown(res, item.markdown, `${CANONICAL_ORIGIN}${item.path}`);
     }
+    if (item.visibility === "status-only") {
+      res.setHeader("X-Robots-Tag", "noindex, nofollow");
+    }
     return sendHtml(res, 200, renderContentPage(section, slug));
   }
 

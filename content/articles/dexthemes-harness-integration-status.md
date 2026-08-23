@@ -4,21 +4,22 @@ description: See which coding harnesses have current loaded DexThemes MCP, theme
 slug: dexthemes-harness-integration-status
 kind: article
 section: Articles
-answer: DexThemes currently advertises five fully verified harnesses: DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code. Every other tracked host stays on the support/status surface until the same loaded harness proves both an exact DexThemes MCP inventory plus real call and a visible theme mutation plus exact restore.
+answer: DexThemes currently advertises six fully verified harnesses: Codex, DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code. Every other tracked host stays on the support/status surface until the same loaded harness proves both an exact DexThemes MCP inventory plus real call and a visible theme mutation plus exact restore.
 author: Daeshawn Ballard
 authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-22
-dateModified: 2026-08-22
-testedWith: Current loaded-harness receipts and the integrated 12-harness registry reviewed 2026-08-22; release, deployment, publication, and marketplace submission not performed
+dateModified: 2026-08-23
+testedWith: Current loaded-harness receipts and the integrated 12-harness registry reviewed 2026-08-23; release, deployment, publication, and marketplace submission not performed
 related: /support.html, /articles/how-we-test-codex-themes, /articles/dexthemes-for-deepseek
 ---
 
 DexThemes uses a strict loaded-runtime rule for website integration claims. A harness earns 50 points only when that exact loaded host exposes the intended DexThemes MCP inventory and completes a real tool call. It earns the other 50 points only when the same real host visibly applies a DexThemes theme and restores the exact prior appearance. Source code, connector packages, documentation, fixtures, builds, and tests are useful engineering evidence, but they do not add points by themselves.
 
-That rule keeps the normal selector intentionally small. The currently verified 100/100 roster is exactly **DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code**. Those five can appear in platform selectors, theme-pack navigation, and integration handoffs because each has both scoring halves. No other host is silently treated as equivalent.
+That rule keeps the normal selector intentionally small. The currently verified 100/100 roster is exactly **Codex, DeepSeek Harness, OpenCode, Pi, Cursor, and T3 Code**. Those six can appear in platform selectors, theme-pack navigation, and integration handoffs because each has both scoring halves. No other host is silently treated as equivalent.
 
 ## Current 12-harness matrix
 
+- **Codex — 100/100:** the canonical plugin completed an authenticated call, and the owner verified the copy → Settings → Appearance → Import theme flow, visible change, and exact restoration.
 - **DeepSeek Harness — 100/100:** exact eight-tool inventory and a real call, followed by visible Apply and Revert in the same loaded Harness.
 - **OpenCode — 100/100:** exact six-tool discovery inventory and a real call, followed by visible selection and restoration of the prior `opencode` theme.
 - **Pi — 100/100:** Pi 0.73.1 registered the exact six tools, returned a sanitized real search result, visibly selected `adapter-test-dark`, and restored built-in `dark`.
@@ -27,7 +28,6 @@ That rule keeps the normal selector intentionally small. The currently verified 
 - **Claude Code — 50/100, mutation only:** visible mutation and exact restoration are proved. The exact loaded DexThemes MCP inventory plus a real call is not.
 - **Google Antigravity — 50/100, MCP only:** Antigravity 2.9.1 loaded the exact five-tool preview inventory and completed a real search. Its supported plugin model has no theme mutation or restoration seam.
 - **Qwen Code — 50/100, mutation only:** loaded theme mutation and exact `ui.theme` restoration are proved. Server discovery did not result in a real `mcp__dexthemes__search` invocation.
-- **Codex — 0/100 current:** eleven tools were discovered, but the call stopped at `oauth_refresh_token_missing`; current visible import and exact restore proof is also missing. Earlier Codex support is stale, not erased.
 - **Zed — 0/100:** its user-controlled installation and terms gate was not crossed, so no loaded MCP or mutation proof was performed.
 - **Conductor — 0/100:** green discovery status did not become a real call. Claude OAuth was expired and the Codex fallback model catalog lacked `supports_parallel_tool_calls`. Conductor documents built-in appearance choices, not custom themes.
 - **Grok Build — 0/100, limited:** its authentication/access gate was not crossed. The available export covers only five `pager.toml` colors, not a complete host theme.
@@ -38,7 +38,7 @@ Devin is not part of the authoritative 12-harness product roster and does not ap
 
 ## Authentication gates are not structural support
 
-Some missing evidence can be retried after a user-controlled authentication action. Codex needs the DexThemes connector reconnected, then a real search and current import/restore receipt. Claude Code needs its supported MCP authentication followed by exact loaded inventory and a real call. Qwen needs a model/provider-authenticated session that actually invokes `mcp__dexthemes__search`. Conductor can retry only the MCP half after Claude Code authentication is refreshed. Zed and Grok Build require the user to cross their own install, terms, or access gates before any loaded check. Devin requires an already available authenticated CLI; DexThemes does not ask users to install or enroll merely to close a score.
+Some missing evidence can be retried after a user-controlled authentication action. Claude Code needs its supported MCP authentication followed by exact loaded inventory and a real call. Qwen needs a model/provider-authenticated session that actually invokes `mcp__dexthemes__search`. Conductor can retry only the MCP half after Claude Code authentication is refreshed. Zed and Grok Build require the user to cross their own install, terms, or access gates before any loaded check. Devin requires an already available authenticated CLI; DexThemes does not ask users to install or enroll merely to close a score.
 
 Other limits cannot be fixed by signing in. Antigravity has no supported plugin theme-mutation API. Conductor exposes no custom-theme seam. Grok Build provides only five pager colors. Devin has no supported appearance mutation path. Those hosts cannot reach 100/100 unless the host itself adds a documented, reversible theme mechanism.
 

@@ -27,14 +27,21 @@ test('readThemeRoute reads canonical theme paths', () => {
   );
 });
 
-test('syncThemeUrl keeps Codex URLs unchanged and shares non-default platform context', () => {
+test('syncThemeUrl omits the default platform and preserves non-default platform context', () => {
   const calls = [];
   syncThemeUrl('mancity', 'dark', {
     platformId: 'deepseek',
     historyImpl: { replaceState(...args) { calls.push(args); } },
     locationImpl: { pathname: '/mancity/dark', search: '', hash: '#auth=token' },
   });
-  assert.deepEqual(calls, [[null, '', '/mancity/dark?platform=deepseek#auth=token']]);
+  assert.deepEqual(calls, []);
+
+  syncThemeUrl('mancity', 'dark', {
+    platformId: 'codex',
+    historyImpl: { replaceState(...args) { calls.push(args); } },
+    locationImpl: { pathname: '/mancity/dark', search: '', hash: '#auth=token' },
+  });
+  assert.deepEqual(calls[0], [null, '', '/mancity/dark?platform=codex#auth=token']);
 });
 
 test('buildThemePath rejects values outside the public theme route contract', () => {

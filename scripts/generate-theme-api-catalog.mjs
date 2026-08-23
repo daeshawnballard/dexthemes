@@ -111,7 +111,9 @@ function formatVariant(label, variant) {
 function buildContentIndex() {
   const sectionOrder = ["guides", "features", "articles", "reference"];
   return sectionOrder.map((section) => {
-    const items = CONTENT_ITEMS.filter((item) => item.routeSection === section);
+    const items = CONTENT_ITEMS.filter((item) => (
+      item.routeSection === section && item.visibility !== "status-only"
+    ));
     const heading = items[0]?.section || section;
     return [
       `### ${heading}`,

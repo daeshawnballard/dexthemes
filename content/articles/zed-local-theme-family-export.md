@@ -11,6 +11,7 @@ datePublished: 2026-08-21
 dateModified: 2026-08-21
 testedWith: Deterministic Zed Theme Family export and schema checks reviewed 2026-08-21; no installed Zed session was exercised
 related: /articles/pi-code-free-theme-package, /articles/how-we-test-codex-themes, /reference/codex-theme-format
+visibility: status-only
 ---
 
 DexThemes now exports a local Zed Theme Family JSON file. The one file contains both dark and light theme entries, following the reviewed Theme Family shape published on `zed.dev` at v0.2.0. It is intended for local inspection and host-controlled selection.
