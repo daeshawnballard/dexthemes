@@ -1,0 +1,12 @@
+{
+  "name": "dexthemes",
+  "version": "1.0.0",
+  "description": "Search and inspect DexThemes through the canonical remote MCP service.",
+  "author": {
+    "name": "Daeshawn Ballard"
+  },
+  "homepage": "https://www.dexthemes.com/",
+  "repository": "https://github.com/daeshawnballard/dexthemes",
+  "license": "MIT",
+  "keywords": ["themes", "mcp", "design"]
+}

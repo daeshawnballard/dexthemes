@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dexthemes",
+  "description": "DexThemes MCP discovery for Claude Code.",
+  "owner": {
+    "name": "Daeshawn Ballard"
+  },
+  "plugins": [
+    {
+      "name": "dexthemes",
+      "source": "./integrations/claude-code/dexthemes",
+      "description": "Search and inspect DexThemes through the canonical remote MCP service.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Daeshawn Ballard"
+      },
+      "homepage": "https://www.dexthemes.com/",
+      "repository": "https://github.com/daeshawnballard/dexthemes",
+      "license": "MIT",
+      "category": "productivity",
+      "tags": ["themes", "mcp", "design"]
+    }
+  ]
+}
