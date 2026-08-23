@@ -95,7 +95,7 @@ test('revised Codex handoff content carries current source-review metadata', () 
     assert.equal(item.dateModified, '2026-08-14', item.path);
     assert.match(item.testedWith, /2026-08-14/, item.path);
   }
-  assert.equal(CONTENT_LAST_MODIFIED, '2026-08-22');
+  assert.equal(CONTENT_LAST_MODIFIED, '2026-08-23');
 });
 
 test('content hubs expose the full catalog with concise hero copy', async () => {
@@ -139,6 +139,23 @@ test('canonical Markdown representations are agent-readable and non-indexable', 
   assert.match(res.body, /^---\n/);
   assert.match(res.body, /author: Daeshawn Ballard/);
   assert.match(res.body, /## /);
+});
+
+test('status-only integration articles remain directly readable but are not indexable', async () => {
+  const hub = createResponse();
+  await contentPageHandler({ url: '/api/content-page?section=articles' }, hub);
+  assert.doesNotMatch(hub.body, /claude-code-custom-theme-export/);
+  assert.doesNotMatch(hub.body, /qwen-code-custom-theme-export/);
+  assert.doesNotMatch(hub.body, /zed-local-theme-family-export/);
+  assert.doesNotMatch(hub.body, /grok-build-limited-pager-overrides/);
+
+  const article = createResponse();
+  await contentPageHandler({
+    url: '/api/content-page?section=articles&slug=grok-build-limited-pager-overrides',
+  }, article);
+  assert.equal(article.statusCode, 200);
+  assert.equal(article.headers['x-robots-tag'], 'noindex, nofollow');
+  assert.match(article.body, /<meta name="robots" content="noindex, nofollow">/);
 });
 
 test('collection pages combine static and live community themes', async (t) => {

@@ -10,7 +10,7 @@ authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
 dateModified: 2026-08-22
 testedWith: Loaded OpenCode exact six-tool call, visible theme selection, and exact restoration plus deterministic export checks reviewed 2026-08-22
-related: /articles/qwen-code-custom-theme-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
+related: /articles/how-we-test-codex-themes, /articles/dexthemes-harness-integration-status, /reference/codex-theme-format
 ---
 
 OpenCode gets a single DexThemes JSON export rather than two independent files. That document carries paired dark and light values for the supported color roles, keeping the palette relationship inspectable in one place. It is a file export, not a host installation and not a promise that the DexThemes site can change an OpenCode session.

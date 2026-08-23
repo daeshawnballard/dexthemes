@@ -70,7 +70,10 @@ test('contextual theme paths preserve the verified default and carry verified pl
     buildContextualThemePath('mancity', 'light', 'cursor'),
     '/mancity/light?platform=cursor',
   );
-  assert.equal(buildContextualThemePath('mancity', 'light', 'codex'), '/mancity/light');
+  assert.equal(
+    buildContextualThemePath('mancity', 'light', 'codex'),
+    '/mancity/light?platform=codex',
+  );
 });
 
 test('website actions expose only the verified selector roster', () => {
@@ -80,7 +83,8 @@ test('website actions expose only the verified selector roster', () => {
 
   assert.equal(deepseek.mode, 'setup');
   assert.match(deepseek.destination.value, /npmjs\.com/);
-  assert.equal(codex, null);
+  assert.equal(codex.mode, 'copy_import');
+  assert.equal(codex.destination, undefined);
   assert.equal(qwen, null);
 });
 

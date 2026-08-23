@@ -240,12 +240,12 @@ export const PLATFORM_REGISTRY = Object.freeze({
       derivation: { catalog: true, themePack: false, hostExport: false },
     },
     integrationProof: {
-      state: INTEGRATION_PROOF_STATES.INCOMPLETE,
-      mcp: false,
-      mutation: false,
-      restore: false,
-      statusCopy: 'Eleven tools were discovered, but the real call stopped at oauth_refresh_token_missing and no current visible import plus exact restore was proved. Previously proven Codex support is stale, not erased.',
-      userAction: 'Reconnect the DexThemes connector in Codex, then record a real search call and a current visible import plus exact restore. Website login is separate.',
+      state: INTEGRATION_PROOF_STATES.VERIFIED,
+      mcp: true,
+      mutation: true,
+      restore: true,
+      statusCopy: 'The canonical DexThemes plugin completed an authenticated call, and the owner verified the Codex copy, Appearance import, visible theme change, and exact restoration flow.',
+      userAction: 'Use the canonical DexThemes plugin, then copy a theme into Settings → Appearance → Import theme and approve the change.',
     },
     easterEggNamespace: 'codex',
     actions: {

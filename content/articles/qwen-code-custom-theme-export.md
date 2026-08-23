@@ -11,6 +11,7 @@ datePublished: 2026-08-21
 dateModified: 2026-08-22
 testedWith: Loaded Qwen Code theme mutation and exact ui.theme restoration plus deterministic export checks reviewed 2026-08-22; real DexThemes MCP call remains unproved
 related: /articles/claude-code-custom-theme-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
+visibility: status-only
 ---
 
 DexThemes now exports Qwen Code themes as two separate custom JSON files: one dark and one light. The files are a paired palette delivery, not a theme-extension package and not an automatic appearance pair. Each has its own explicit selection path.

@@ -10,7 +10,7 @@ authorUrl: https://x.com/daeshawn
 datePublished: 2026-08-21
 dateModified: 2026-08-22
 testedWith: Cursor 3.12.17 exact six-tool MCP call, local extension apply and exact restore, and source-package validation reviewed 2026-08-22
-related: /articles/zed-local-theme-family-export, /articles/how-we-test-codex-themes, /reference/codex-theme-format
+related: /articles/how-we-test-codex-themes, /articles/dexthemes-harness-integration-status, /reference/codex-theme-format
 ---
 
 DexThemes provides two inspectable Cursor-local components: a restricted MCP plugin and Cursor-oriented color-theme extension source. The extension package remains private, uses version `0.0.0`, and retains the publisher placeholder `replace-with-authorized-publisher`. Those details still mean it is not a marketplace distribution, even though controlled loaded-local acceptance now exists.

@@ -11,6 +11,7 @@ datePublished: 2026-08-21
 dateModified: 2026-08-22
 testedWith: Loaded Claude Code theme mutation and exact restoration plus deterministic export checks reviewed 2026-08-22; MCP inventory and real call remain unproved
 related: /articles/how-we-test-codex-themes, /guides/how-to-install-a-codex-theme, /reference/codex-theme-format
+visibility: status-only
 ---
 
 DexThemes now produces Claude Code custom-theme exports in a deliberately simple form: one JSON file for dark and one JSON file for light. They are paired as a design family, but they remain two separate host files and two separate user choices. That distinction matters. The export is not a remote control for a Claude Code session and it does not bind the two choices into an automatic system-light/system-dark switch.

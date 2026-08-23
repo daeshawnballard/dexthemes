@@ -11,6 +11,7 @@ datePublished: 2026-08-21
 dateModified: 2026-08-21
 testedWith: Deterministic five-key pager export and grammar checks reviewed 2026-08-21; no installed Grok Build runtime was exercised
 related: /articles/t3-code-v1-theme-import, /articles/how-we-test-codex-themes, /reference/codex-theme-format
+visibility: status-only
 ---
 
 DexThemes now exports a narrowly scoped Grok Build customization: a dark and a light `pager.toml` snippet, each containing exactly five reviewed pager color overrides. This is limited support for pager colors, not a full Grok Build theme.

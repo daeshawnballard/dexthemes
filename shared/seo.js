@@ -1,7 +1,6 @@
 import {
   CONTENT_ITEMS,
   CONTENT_LAST_MODIFIED as GENERATED_CONTENT_LAST_MODIFIED,
-  CONTENT_ROUTES_BY_SECTION,
 } from "./generated-content.js";
 
 export const CANONICAL_ORIGIN = "https://www.dexthemes.com";
@@ -60,10 +59,19 @@ export function buildCatalogSocialImageVersion(themes = []) {
 export const INDEXNOW_KEY = "3f8d2c5a9e7146b0ac29f45d81e7c663";
 export const INDEXNOW_KEY_PATH = `/${INDEXNOW_KEY}.txt`;
 
-export const GUIDE_ROUTES = CONTENT_ROUTES_BY_SECTION.guides;
-export const FEATURE_ROUTES = CONTENT_ROUTES_BY_SECTION.features;
-export const ARTICLE_ROUTES = CONTENT_ROUTES_BY_SECTION.articles;
-export const REFERENCE_ROUTES = CONTENT_ROUTES_BY_SECTION.reference;
+function discoverableRoutes(section) {
+  return Object.freeze([
+    `/${section}`,
+    ...CONTENT_ITEMS
+      .filter((item) => item.routeSection === section && item.visibility !== "status-only")
+      .map((item) => item.path),
+  ]);
+}
+
+export const GUIDE_ROUTES = discoverableRoutes("guides");
+export const FEATURE_ROUTES = discoverableRoutes("features");
+export const ARTICLE_ROUTES = discoverableRoutes("articles");
+export const REFERENCE_ROUTES = discoverableRoutes("reference");
 export const EDITORIAL_ROUTES = Object.freeze([
   ...GUIDE_ROUTES,
   ...FEATURE_ROUTES,
@@ -135,7 +143,7 @@ export function buildSitemapEntries(staticThemes = [], communityThemes = []) {
     { url: `${CANONICAL_ORIGIN}/`, changefreq: "daily", priority: "1.0", lastmod: CONTENT_LAST_MODIFIED },
     { url: `${CANONICAL_ORIGIN}/privacy.html`, changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
     { url: `${CANONICAL_ORIGIN}/terms.html`, changefreq: "monthly", priority: "0.3", lastmod: "2026-07-16" },
-    { url: `${CANONICAL_ORIGIN}/support.html`, changefreq: "monthly", priority: "0.4", lastmod: "2026-07-16" },
+    { url: `${CANONICAL_ORIGIN}/support.html`, changefreq: "monthly", priority: "0.4", lastmod: CONTENT_LAST_MODIFIED },
     ...EDITORIAL_ROUTES.map((path) => ({
       url: `${CANONICAL_ORIGIN}${path}`,
       changefreq: "monthly",

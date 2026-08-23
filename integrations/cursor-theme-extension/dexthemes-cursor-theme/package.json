@@ -4,8 +4,11 @@
   "description": "Apply and revert the Nocturnal Vigil DexThemes palette through Cursor's supported color-theme setting.",
   "version": "0.1.0",
   "publisher": "dexthemes-local",
-  "private": true,
   "license": "MIT",
+  "homepage": "https://github.com/daeshawnballard/dexthemes/tree/main/integrations/cursor-theme-extension/dexthemes-cursor-theme#readme",
+  "bugs": {
+    "url": "https://github.com/daeshawnballard/dexthemes/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/daeshawnballard/dexthemes.git",
@@ -17,6 +20,17 @@
   "categories": [
     "Themes"
   ],
+  "keywords": [
+    "cursor",
+    "vscode",
+    "theme",
+    "color-theme",
+    "dexthemes"
+  ],
+  "galleryBanner": {
+    "color": "#060A10",
+    "theme": "dark"
+  },
   "extensionKind": [
     "ui"
   ],

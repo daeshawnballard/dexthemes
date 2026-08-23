@@ -6,7 +6,7 @@ import path from 'node:path';
 import { chromium, webkit } from 'playwright';
 import shareHandler from '../api/share.js';
 import contentPageHandler from '../api/content-page.js';
-import { PLATFORM_IDS, getPlatform } from '../shared/platform-registry.js';
+import { WEBSITE_PLATFORM_IDS, getPlatform } from '../shared/platform-registry.js';
 import { PLATFORM_THEME_PACKS } from '../shared/platform-theme-packs.js';
 import { getPlatformThemeCategoryId } from '../src/platform-catalog.js';
 import { resolveLocalStaticPath } from './local-static-path.mjs';
@@ -211,7 +211,7 @@ try {
 
 try {
   await runTest('desktop browse renders the Codex shell', async () => {
-    const page = await bootDesktopPage(browser, server.baseUrl);
+    const page = await bootDesktopPage(browser, `${server.baseUrl}/?platform=codex`);
     const title = await page.locator('#preview-theme-name').textContent();
     assert.ok(title?.trim().length, 'expected a preview title');
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'codex');
@@ -274,10 +274,10 @@ try {
     assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
     assert.equal(await page.locator('#preview-platform-current').textContent(), 'DeepSeek');
     await page.locator('#preview-platform-trigger').click();
-    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), PLATFORM_IDS.length);
+    assert.equal(await page.locator('#preview-platform-menu [role="menuitemradio"]').count(), WEBSITE_PLATFORM_IDS.length);
     assert.deepEqual(
       await page.locator('#preview-platform-menu [role="menuitemradio"] > span:first-child').allTextContents(),
-      PLATFORM_IDS.map((platformId) => getPlatform(platformId).shortName),
+      WEBSITE_PLATFORM_IDS.map((platformId) => getPlatform(platformId).shortName),
     );
     assert.equal(await page.locator('#preview-platform-menu [aria-checked="true"]').textContent(), 'DeepSeek✓');
     assert.equal(
@@ -314,7 +314,7 @@ try {
     await page.waitForFunction(() => document.getElementById('preview-theme-name')?.textContent === 'DeepSeek');
     assert.deepEqual(await page.locator('.category-name').allTextContents(), ['DeepSeek', 'DexThemes', 'Community']);
 
-    for (const platformId of PLATFORM_IDS.filter((id) => !['codex', 'deepseek'].includes(id))) {
+    for (const platformId of WEBSITE_PLATFORM_IDS.filter((id) => !['codex', 'deepseek'].includes(id))) {
       await selectPreviewPlatform(page, platformId);
       await page.waitForFunction(
         (expectedPlatformId) => document.getElementById('preview-platform-trigger')?.dataset.platformId === expectedPlatformId,
@@ -351,42 +351,8 @@ try {
       }
     }
 
-    await selectPreviewPlatform(page, 'antigravity');
-    assert.equal(await page.locator('#platform-setup-message').isHidden(), true);
-    assert.equal(await page.locator('.panel-actions .platform-unavailable-btn').isDisabled(), true);
-    assert.match(
-      await page.locator('#import-hint').textContent() || '',
-      /Preview collection only; no exporter, setup path, or plugin is exposed/i,
-    );
-    assert.equal(await page.locator('#preview-input-text').getAttribute('aria-label'), 'Preview an Antigravity prompt');
-    assert.match(await page.locator('#card-dark').textContent() || '', /An Antigravity conversation in this palette/);
-
-    await selectPreviewPlatform(page, 'grok');
-    assert.equal(await page.locator('#platform-setup-message').isVisible(), true);
-    assert.equal(await page.locator('#platform-setup-message').getAttribute('data-support-level'), 'limited');
-    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
-    assert.match(
-      await page.locator('#platform-setup-message-text').textContent() || '',
-      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
-    );
-    assert.equal(await page.locator('#platform-setup-message-link').isVisible(), true);
-    assert.match(
-      await page.locator('#platform-setup-message-link').getAttribute('href') || '',
-      /xai-org\/grok-build\/blob\/19d42e35c07a9c9244f03f6df0c4c353f970d4f9\//,
-    );
-    const grokSetup = page.locator('.panel-actions .platform-setup-btn');
-    assert.match(await grokSetup.textContent() || '', /View Grok limited color setup/i);
-    assert.match(
-      await page.locator('#import-hint').textContent() || '',
-      /merge one exactly five-key pager\.toml snippet manually, then restart Grok Build/i,
-    );
-    await page.click('[data-action="show-theme-details"]');
-    assert.match(await page.locator('.theme-details-facts').textContent() || '', /Limited theme support/);
-    assert.match(
-      await page.locator('.theme-details-facts').textContent() || '',
-      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
-    );
-    await page.click('[data-action="show-theme-preview"]');
+    assert.equal(await page.locator('#preview-platform-menu [data-platform-id="antigravity"]').count(), 0);
+    assert.equal(await page.locator('#preview-platform-menu [data-platform-id="grok"]').count(), 0);
 
     await selectPreviewPlatform(page, 'deepseek');
     await page.waitForFunction(() => document.getElementById('preview-platform-trigger')?.dataset.platformId === 'deepseek');
@@ -402,7 +368,7 @@ try {
     await page.click('.theme-details-actions [data-action="share-theme"]');
     await page.waitForFunction(() => Boolean(window.__dexthemesSharedUrl));
     const sharedUrl = await page.evaluate(() => window.__dexthemesSharedUrl);
-    assert.equal(new URL(sharedUrl).searchParams.get('platform'), 'deepseek');
+    assert.equal(new URL(sharedUrl).searchParams.get('platform'), null);
     await page.click('[data-action="show-theme-preview"]');
 
     await selectPreviewPlatform(page, 't3code');
@@ -495,7 +461,7 @@ try {
   });
 
   await runTest('desktop variant switching updates the selected card', async () => {
-    const page = await bootDesktopPage(browser, server.baseUrl);
+    const page = await bootDesktopPage(browser, `${server.baseUrl}/?platform=codex`);
     const activeThemeId = await page.locator('.thread-item.active').first().getAttribute('data-theme-id');
     assert.ok(activeThemeId, 'expected an active theme id');
     await page.click('#card-light');
@@ -510,7 +476,7 @@ try {
   });
 
   await runTest('blocked clipboard falls back to selectable manual copy without success effects', async () => {
-    const page = await bootDesktopPage(browser, server.baseUrl);
+    const page = await bootDesktopPage(browser, `${server.baseUrl}/?platform=codex`);
     let recordedCopies = 0;
     await page.route('**/themes/copy', async (route) => {
       recordedCopies += 1;
@@ -562,7 +528,7 @@ try {
   });
 
   await runTest('desktop builder flow opens and edits a theme name', async () => {
-    const page = await bootDesktopPage(browser, server.baseUrl);
+    const page = await bootDesktopPage(browser, `${server.baseUrl}/?platform=codex`);
     await page.click('#submit-btn');
     await page.waitForSelector('.builder-panel');
     assert.equal(await page.locator('#preview-theme-name').textContent(), 'Your Theme Name');
@@ -673,16 +639,16 @@ try {
   });
 
   await runTest('desktop query boot honors the requested variant without breaking shell startup', async () => {
-    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?theme=solarized&variant=light`);
+    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?theme=solarized&variant=light&platform=codex`);
     await page.waitForFunction(() => document.getElementById('card-light')?.getAttribute('aria-pressed') === 'true');
     const url = page.url();
-    assert.equal(new URL(url).search, '');
+    assert.equal(new URL(url).search, '?platform=codex');
     assert.equal(new URL(url).pathname, '/solarized/light');
     await page.close();
   });
 
   await runTest('desktop accent control falls back to the active palette accent', async () => {
-    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?theme=xcode&variant=dark`);
+    const page = await bootDesktopPageAt(browser, `${server.baseUrl}/?theme=xcode&variant=dark&platform=codex`);
     const accentDot = page.locator('#accent-dots .accent-dot');
     await accentDot.waitFor();
     assert.equal(await accentDot.count(), 1);
@@ -707,7 +673,7 @@ try {
   });
 
   await runTest('desktop workspace switches between chat preview and theme details', async () => {
-    const page = await bootDesktopPage(browser, server.baseUrl);
+    const page = await bootDesktopPage(browser, `${server.baseUrl}/?platform=codex`);
     await page.click('[data-action="show-theme-details"]');
     await page.waitForSelector('#theme-details-view:not([hidden])');
     assert.equal(await page.locator('.theme-details-hero h2').textContent(), await page.locator('#preview-theme-name').textContent());
@@ -803,7 +769,7 @@ try {
         `expected mobile navigation Explore to link ${href}`,
       );
     }
-    assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /OpenAI/);
+    assert.match(await page.locator('#mobile-platform-affiliation').textContent() || '', /DeepSeek/);
     await page.close();
   });
 
@@ -820,26 +786,15 @@ try {
     await page.close();
   });
 
-  await runTest('compact Grok Build preview keeps limited runtime support explicit', async () => {
+  await runTest('compact incomplete-platform links fail closed to the verified default', async () => {
     const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=grok`);
     const firstPill = page.locator('.mobile-cat-pill').first();
-    assert.match(await firstPill.textContent() || '', /Grok Build\s+2/);
-    assert.equal(await firstPill.getAttribute('data-category-id'), 'grok');
-    assert.deepEqual(
-      await page.locator('.mobile-card-grid .theme-card-name').allTextContents(),
-      ['Signal Horizon', 'Ember Query'],
-    );
+    assert.match(await firstPill.textContent() || '', /DeepSeek\s+13/);
+    assert.equal(await firstPill.getAttribute('data-category-id'), 'deepseek');
+    assert.equal(await page.locator('.mobile-cat-pill[data-category-id="grok"]').count(), 0);
     await page.locator('.mobile-card-grid .theme-card').first().click();
     await page.waitForSelector('#preview-window');
-    assert.equal(await page.locator('#platform-setup-message-title').textContent(), 'Limited theme support');
-    assert.match(
-      await page.locator('#platform-setup-message-text').textContent() || '',
-      /full DexThemes palette is preview-only.*exactly five pager\.toml color keys/i,
-    );
-    assert.match(
-      await page.locator('#import-hint').textContent() || '',
-      /merge one exactly five-key pager\.toml snippet manually/i,
-    );
+    assert.equal(await page.locator('#preview-platform-trigger').getAttribute('data-platform-id'), 'deepseek');
     await page.close();
   });
 
@@ -875,7 +830,7 @@ try {
   });
 
   await runTest('compact viewport can open preview from a theme selection', async () => {
-    const page = await bootMobilePage(browser, server.baseUrl);
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=codex`);
     await page.locator('.theme-card').first().click();
     await page.waitForSelector('.panel.mobile-active');
     await page.locator('#preview-platform-trigger').click();
@@ -893,7 +848,7 @@ try {
   });
 
   await runTest('compact viewport can open the create flow from mobile nav', async () => {
-    const page = await bootMobilePage(browser, server.baseUrl);
+    const page = await bootMobilePage(browser, `${server.baseUrl}/?platform=codex`);
     await page.click('.mobile-nav-btn[data-view="create"]');
     await page.waitForSelector('.builder-panel');
     const applyText = await page.locator('.builder-apply-btn .builder-apply-btn-text').textContent();

@@ -91,8 +91,13 @@ test("agent documentation links all content hubs and Markdown representations", 
     assert.match(llmsFull, new RegExp(`https://www\\.dexthemes\\.com${hub}`));
   }
   for (const item of CONTENT_ITEMS) {
-    assert.match(llmsFull, new RegExp(
+    const pattern = new RegExp(
       `https://www\\.dexthemes\\.com${item.path.replaceAll("/", "\\/")}\\.md`,
-    ));
+    );
+    if (item.visibility === 'status-only') {
+      assert.doesNotMatch(llmsFull, pattern);
+    } else {
+      assert.match(llmsFull, pattern);
+    }
   }
 });
