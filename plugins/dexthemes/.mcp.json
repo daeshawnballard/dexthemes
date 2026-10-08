@@ -2,7 +2,15 @@
   "mcpServers": {
     "dexthemes": {
       "type": "http",
-      "url": "https://www.dexthemes.com/api/mcp"
+      "url": "https://www.dexthemes.com/api/mcp",
+      "scopes": [
+        "openid",
+        "profile",
+        "email",
+        "offline_access",
+        "themes:read",
+        "themes:write"
+      ]
     }
   }
 }
