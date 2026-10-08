@@ -1,7 +1,7 @@
 {
   "name": "dexthemes",
-  "version": "1.0.0",
-  "description": "Discover, create, preview, apply, collect, and publish Codex themes with DexThemes.",
+  "version": "1.0.1",
+  "description": "Discover, create, preview, import, collect, and publish themes for Codex and T3 Code with DexThemes.",
   "author": {
     "name": "Daeshawn Ballard",
     "url": "https://github.com/daeshawnballard"
@@ -13,8 +13,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "DexThemes",
-    "shortDescription": "Discover and create themes for Codex.",
-    "longDescription": "Browse official, DexThemes, and community palettes; turn an idea or voice request into a named theme; compare full Codex workspace mockups; use an explicit import handoff; publish with confirmation; and track all-period ranks, repeat wins, and achievement themes.",
+    "shortDescription": "Themes for Codex and T3 Code.",
+    "longDescription": "Browse official, DexThemes, and community palettes; turn an idea or voice request into a named theme; compare dark and light previews; import into Codex or T3 Code through explicit controls; publish with confirmation; and track all-period ranks, repeat wins, and achievement themes.",
     "developerName": "Daeshawn Ballard",
     "category": "Creativity",
     "capabilities": ["Interactive", "Read", "Write", "OAuth"],
