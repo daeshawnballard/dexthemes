@@ -202,15 +202,16 @@ DexThemes is built on top of Codex theme import and settings behavior that this 
 Use the contributor-safe validation path before opening a PR:
 
 ```sh
-npm run validate
+DEXTHEMES_SKIP_CLEAN=1 npm run validate
 ```
 
 That runs the lightweight contract tests, documentation checks, and production build.
 
-Plugin-specific preflight:
+For plugin installation, use the [Codex plugin guide](docs/PLUGIN.md).
+
+Dependency preflight for the repository's website and MCP source:
 
 ```sh
-python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/dexthemes
 npm audit
 ```
 
