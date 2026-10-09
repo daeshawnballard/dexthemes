@@ -12,7 +12,7 @@
     "build:host-exports": "node scripts/build-host-exports.mjs",
     "build:deepseek-plugin": "node packages/deepseek-harness-plugin/scripts/build.mjs",
     "content:generate": "node scripts/generate-content.mjs",
-    "test": "npm run content:generate && node --test test/*.test.js",
+    "test": "npm run content:generate && node --test test/*.test.js packages/t3-theme-bridge/test/*.test.mjs",
     "test:host-exports": "node --test test/host-theme-contracts.test.js test/host-export-build.test.js test/platform-adapters.test.js test/platform-registry.test.js test/platform-selection.test.js test/platform-catalog.test.js test/platform-easter-eggs.test.js test/platform-effect-intent.test.js test/website-platform-context.test.js",
     "smoke:browser": "node scripts/browser-smoke.mjs",
     "preview:site": "node scripts/preview-site.mjs",
